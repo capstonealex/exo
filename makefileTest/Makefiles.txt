@@ -1,0 +1,7 @@
+Makefiles.
+A. Practical makefiles
+1. Hacking way through current makefile to just work (30 min) 
+2. Break down the makefile components. -> write summary
+--- IF THAT DON'T work
+3. CS107
+4. Course
