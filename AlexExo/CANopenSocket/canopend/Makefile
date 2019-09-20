@@ -7,10 +7,9 @@ CANOPEN_SRC =   ../CANopenNode
 CANOPEND_SRC =  ./src
 OBJ_DICT_SRC =  ./objDict
 APP_SRC =       ./app
-ALEX_SRC = ./
 ROBOT_SRC = ./robot
 
-LINK_TARGET  =  $(APP_SRC)/canopend
+
 
 
 INCLUDE_DIRS = -I$(STACKDRV_SRC) \
@@ -58,7 +57,8 @@ CCSOURCES =     $(ROBOT_SRC)/Robot.cpp              \
 
 
 OBJS = $(SOURCES:%.c=%.o) $(CCSOURCES:%.cpp=%.o)
-CC?= g++
+CC = gcc
+CXX = g++
 CFLAGS = -Wall -g $(INCLUDE_DIRS)
 #To specify a directory to search for include files (different from libraries!) you use -#I:
 
@@ -74,13 +74,13 @@ clean:
 	rm -f $(OBJS) $(LINK_TARGET)
 
 # Compile only, C source
-%.o: %.c, %.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 #	$(CC) -c -o $@ $ < $(CFLAGS)
 
 # Compile only, C++ source
-#%.o: %.cpp
-#	$(CXX) $(CXXFLAGS) -c $< -o $@
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(LINK_TARGET): $(OBJS)
 	$(CXX) $(LDFLAGS) $^ -o $@

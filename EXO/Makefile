@@ -1,5 +1,5 @@
 # Makefile for CANopend.
-# This version of the Makefile compiles c code anc pp seperatly and links them with g++
+
 
 STACKDRV_SRC =  ../CANopenNode/stack/socketCAN
 STACK_SRC =     ../CANopenNode/stack
@@ -7,10 +7,9 @@ CANOPEN_SRC =   ../CANopenNode
 CANOPEND_SRC =  ./src
 OBJ_DICT_SRC =  ./objDict
 APP_SRC =       ./app
-ALEX_SRC = ./
-ROBOT_SRC = ./robot
 
-LINK_TARGET  =  $(APP_SRC)/canopend
+
+LINK_TARGET  =  $(EXO)/runexo
 
 
 INCLUDE_DIRS = -I$(STACKDRV_SRC) \
@@ -20,7 +19,6 @@ INCLUDE_DIRS = -I$(STACKDRV_SRC) \
                -I$(OBJ_DICT_SRC) \
                -I$(APP_SRC)
 
-CPP_INCLUDE_DIRS = -I$(ROBOT_SRC)
 
 SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
                 $(STACKDRV_SRC)/CO_OD_storage.c     \
@@ -43,9 +41,6 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
                 $(OBJ_DICT_SRC)/CO_OD.c             \
                 $(APP_SRC)/application.c
 
-CCSOURCES =     $(ROBOT_SRC)/Robot.cpp              \
-                $(ROBOT_SRC)/Joint.cpp
-
 
 # canopend is three-threaded application: nonblocking mainline, nonblocking
 # rt-thread and blocking command interface thread.
@@ -57,12 +52,9 @@ CCSOURCES =     $(ROBOT_SRC)/Robot.cpp              \
 # Flag -lrt in LDFLAGS is necessary only with older kernels.
 
 
-OBJS = $(SOURCES:%.c=%.o) $(CCSOURCES:%.cpp=%.o)
-CC?= g++
+OBJS = $(SOURCES:%.c=%.o)
+CC ?= gcc
 CFLAGS = -Wall -g $(INCLUDE_DIRS)
-#To specify a directory to search for include files (different from libraries!) you use -#I:
-
-CXXFLAGS = -Wall -g -std=c++14 $(CPP_INCLUDE_DIRS)
 LDFLAGS = -lrt -pthread
 
 
@@ -73,17 +65,8 @@ all: clean $(LINK_TARGET)
 clean:
 	rm -f $(OBJS) $(LINK_TARGET)
 
-# Compile only, C source
-%.o: %.c, %.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@
-#	$(CC) -c -o $@ $ < $(CFLAGS)
-
-# Compile only, C++ source
-#%.o: %.cpp
-#	$(CXX) $(CXXFLAGS) -c $< -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LINK_TARGET): $(OBJS)
-	$(CXX) $(LDFLAGS) $^ -o $@
-#$(LINK_TARGET): $(OBJS)
-#	$(CC) $(LDFLAGS) $^ -o $@
-
+	$(CC) $(LDFLAGS) $^ -o $@
