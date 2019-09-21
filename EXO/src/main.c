@@ -54,6 +54,13 @@
 #define TMR_TASK_OVERFLOW_US    (5000)          /* Overflow detect limit for taskTmr in microseconds */
 #define INCREMENT_1MS(var)      (var++)         /* Increment 1ms variable in taskTmr */
 
+/* Robot specific definitions */
+/*Joint defs*/
+#define LHIP 1
+#define LKNEE 2
+#define RHIP 3
+#define RKNEE 4
+
 
 /* Global variable increments each millisecond. */
 volatile uint16_t           CO_timer1ms = 0U;
@@ -72,6 +79,24 @@ static CO_OD_storage_t      odStorAuto;         /* Object Dictionary storage obj
 static char                *odStorFile_rom    = "od_storage";       /* Name of the file */
 static char                *odStorFile_eeprom = "od_storage_auto";  /* Name of the file */
 static CO_time_t            CO_time;            /* Object for current time */
+
+/* Robot objects */
+//Robot joint (general) object
+typedef struct{
+    char motorID[10];
+    int maxPos;
+    int minPos;
+    int q;
+    int qprevious;
+}robotJoint;
+/*Robot object*/
+// typedef struct{
+//     robotJoint lHip;
+//     robotJoint lKnee;
+//     robotJoint rHip;
+//     robotJoint rKnee;
+// }Robot;
+
 
 /* Realtime thread */
 #ifndef CO_SINGLE_THREAD
@@ -101,88 +126,40 @@ void CO_error(const uint32_t info) {
 }
 
 
-static void printUsage(char *progName) {
-    fprintf(stderr,
-            "Usage: %s <CAN device name> [options]\n", progName);
-    fprintf(stderr,
-            "\n"
-            "Options:\n"
-            "  -i <Node ID>        CANopen Node-id (1..127). If not specified, value from\n"
-            "                      Object dictionary (0x2101) is used.\n"
-            "  -p <RT priority>    Realtime priority of RT task (RT disabled by default).\n"
-            "  -r                  Enable reboot on CANopen NMT reset_node command. \n"
-            "  -s <ODstorage file> Set Filename for OD storage ('od_storage' is default).\n"
-            "  -a <ODstorageAuto>  Set Filename for automatic storage variables from\n"
-            "                      Object dictionary. ('od_storage_auto' is default).\n");
-#ifndef CO_SINGLE_THREAD
-    fprintf(stderr,
-            "  -c <Socket path>    Enable command interface for master functionality. \n"
-            "                      If socket path is specified as empty string \"\",\n"
-            "                      default '%s' will be used.\n"
-            "                      Note that location of socket path may affect security.\n"
-            "                      See 'canopencomm/canopencomm --help' for more info.\n"
-            , CO_command_socketPath);
-#endif
-    fprintf(stderr,
-            "\n"
-            "LICENSE\n"
-            "    This program is part of CANopenSocket and can be downloaded from:\n"
-            "    https://github.com/CANopenNode/CANopenSocket\n"
-            "    Permission is granted to copy, distribute and/or modify this document\n"
-            "    under the terms of the GNU General Public License, Version 2.\n"
-            "\n");
-}
-
-
 /******************************************************************************/
 /** Mainline and RT thread                                                   **/
 /******************************************************************************/
-void initNetwork (int nodeID, int argc, char *argv[]) {
+int main (int argc, char *argv[]) {
+    /*sim program arg entry w.o. parsing*/
+    int nodeID = 100;
     CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
     CO_ReturnError_t odStorStatus_rom, odStorStatus_eeprom;
     int CANdevice0Index = 0;
     int opt;
     bool_t firstRun = true;
 
-    char* CANdevice= NULL;         /* CAN device, configurable by arguments. */
+    // char CANdevice* = NULL;         /* CAN device, HARDCODED atm, must enable a virtual can on VCANo. */
+    char CANdevice[10] = "vcan0";
     bool_t nodeIdFromArgs = false;  /* True, if program arguments are used for CANopen Node Id */
     int nodeId = -1;                /* Use value from Object Dictionary or set to 1..127 by arguments */
     bool_t rebootEnable = false;    /* Configurable by arguments */
     nodeId = nodeID;
+    CANdevice0Index = if_nametoindex(CANdevice);
+/*TODO: Remove single thread functions*/
 
-    /* Get program options */
-    while((opt = getopt(argc, argv, "i:p:rc:s:a:")) != -1) {
-        switch (opt) {
-            case 'i':
-                nodeId = strtol(optarg, NULL, 0);
-                nodeIdFromArgs = true;
-                break;
-            case 'p': rtPriority = strtol(optarg, NULL, 0); break;
-            case 'r': rebootEnable = true;                  break;
+#ifndef CO_SINGLE_THREAD
+    bool_t commandEnable = false;   /* Configurable by arguments */
+#endif
+/*Safety check nodeID, canDevice and rtPriority*/
 
-            case 's': odStorFile_rom = optarg;              break;
-            case 'a': odStorFile_eeprom = optarg;           break;
-            default:
-                printUsage(argv[0]);
-                exit(EXIT_FAILURE);
-        }
-    }
-
-    if(optind < argc) {
-        CANdevice = argv[optind];
-        CANdevice0Index = if_nametoindex(CANdevice);
-    }
-
-    if(nodeIdFromArgs && (nodeId < 1 || nodeId > 127)) {
+    if((nodeId < 1 || nodeId > 127)) {
         fprintf(stderr, "Wrong node ID (%d)\n", nodeId);
-        printUsage(argv[0]);
         exit(EXIT_FAILURE);
     }
 
     if(rtPriority != -1 && (rtPriority < sched_get_priority_min(SCHED_FIFO)
                             || rtPriority > sched_get_priority_max(SCHED_FIFO))) {
         fprintf(stderr, "Wrong RT priority (%d)\n", rtPriority);
-        printUsage(argv[0]);
         exit(EXIT_FAILURE);
     }
 
@@ -348,6 +325,7 @@ void initNetwork (int nodeID, int argc, char *argv[]) {
 
             /* Execute optional additional application code */
             app_programStart();
+
         }
 
 
@@ -461,7 +439,10 @@ void initNetwork (int nodeID, int argc, char *argv[]) {
 #ifndef CO_SINGLE_THREAD
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void* rt_thread(void* arg) {
-
+    /*ALEX EXOSKELETON CODE*/
+    /*Create robot object*/
+    /*First test: Robot joint: LKNEE*/
+    robotJoint lKnee;
     /* Endless loop */
     while(CO_endProgram == 0) {
         int ready;
@@ -476,7 +457,6 @@ static void* rt_thread(void* arg) {
         }
 
         else if(CANrx_taskTmr_process(ev.data.fd)) {
-            int i;
 
             /* code was processed in the above function. Additional code process below */
             INCREMENT_1MS(CO_timer1ms);
@@ -490,8 +470,18 @@ static void* rt_thread(void* arg) {
 #endif
 
             /* Execute optional additional application code */
-            if(CO_timer1ms%10==0)
-                app_program1ms();
+            /*create OBJECT DICTIONARY ADRESS INDEX FOR A JOINT -> generic function after teat 1*/
+
+
+            app_program1ms();
+            if(CO_timer1ms%1000 == 0){
+
+                /*Get the current LKnee position*/
+                CO_OD_RAM.actualMotorPositions.motor2  = CO_OD_RAM.actualMotorPositions.motor2 +1;
+                lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
+                // itoa(CO_OD_RAM.actualMotorPositions.motor2, position, 10);
+                printf("%d\n",lKnee.q);
+            }
 
             /* Detect timer large overflow */
             if(OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal) {
