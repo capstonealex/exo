@@ -43,15 +43,15 @@
  * to do so, delete this exception statement from your version.
  */
 
-
 #ifndef CO_SYNC_H
 #define CO_SYNC_H
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-/**
+    /**
  * @defgroup CO_SYNC SYNC
  * @ingroup CO_CANopen
  * @{
@@ -80,51 +80,50 @@ extern "C" {
  * RPDO reception and which for RPDO processing.
  */
 
-
-/**
+    /**
  * SYNC producer and consumer object.
  */
-typedef struct{
-    CO_EM_t            *em;             /**< From CO_SYNC_init() */
-    uint8_t            *operatingState; /**< From CO_SYNC_init() */
-    /** True, if device is SYNC producer. Calculated from _COB ID SYNC Message_
+    typedef struct
+    {
+        CO_EM_t *em;                            /**< From CO_SYNC_init() */
+        CO_NMT_internalState_t *operatingState; /**< From CO_SYNC_init() */
+        /** True, if device is SYNC producer. Calculated from _COB ID SYNC Message_
     variable from Object dictionary (index 0x1005). */
-    bool_t              isProducer;
-    /** COB_ID of SYNC message. Calculated from _COB ID SYNC Message_
+        bool_t isProducer;
+        /** COB_ID of SYNC message. Calculated from _COB ID SYNC Message_
     variable from Object dictionary (index 0x1005). */
-    uint16_t            COB_ID;
-    /** Sync period time in [microseconds]. Calculated from _Communication cycle period_
+        uint16_t COB_ID;
+        /** Sync period time in [microseconds]. Calculated from _Communication cycle period_
     variable from Object dictionary (index 0x1006). */
-    uint32_t            periodTime;
-    /** Sync period timeout time in [microseconds].
+        uint32_t periodTime;
+        /** Sync period timeout time in [microseconds].
     (periodTimeoutTime = periodTime * 1,5) */
-    uint32_t            periodTimeoutTime;
-    /** Value from _Synchronous counter overflow value_ variable from Object
+        uint32_t periodTimeoutTime;
+        /** Value from _Synchronous counter overflow value_ variable from Object
     dictionary (index 0x1019) */
-    uint8_t             counterOverflowValue;
-    /** True, if current time is inside synchronous window.
+        uint8_t counterOverflowValue;
+        /** True, if current time is inside synchronous window.
     In this case synchronous PDO may be sent. */
-    bool_t              curentSyncTimeIsInsideWindow;
-    /** Variable indicates, if new SYNC message received from CAN bus */
-    bool_t              CANrxNew;
-    /** Variable toggles, if new SYNC message received from CAN bus */
-    bool_t              CANrxToggle;
-    /** Counter of the SYNC message if counterOverflowValue is different than zero */
-    uint8_t             counter;
-    /** Timer for the SYNC message in [microseconds].
+        bool_t curentSyncTimeIsInsideWindow;
+        /** Variable indicates, if new SYNC message received from CAN bus */
+        bool_t CANrxNew;
+        /** Variable toggles, if new SYNC message received from CAN bus */
+        bool_t CANrxToggle;
+        /** Counter of the SYNC message if counterOverflowValue is different than zero */
+        uint8_t counter;
+        /** Timer for the SYNC message in [microseconds].
     Set to zero after received or transmitted SYNC message */
-    uint32_t            timer;
-    /** Set to nonzero value, if SYNC with wrong data length is received from CAN */
-    uint16_t            receiveError;
-    CO_CANmodule_t     *CANdevRx;       /**< From CO_SYNC_init() */
-    uint16_t            CANdevRxIdx;    /**< From CO_SYNC_init() */
-    CO_CANmodule_t     *CANdevTx;       /**< From CO_SYNC_init() */
-    CO_CANtx_t         *CANtxBuff;      /**< CAN transmit buffer inside CANdevTx */
-    uint16_t            CANdevTxIdx;    /**< From CO_SYNC_init() */
-}CO_SYNC_t;
+        uint32_t timer;
+        /** Set to nonzero value, if SYNC with wrong data length is received from CAN */
+        uint16_t receiveError;
+        CO_CANmodule_t *CANdevRx; /**< From CO_SYNC_init() */
+        uint16_t CANdevRxIdx;     /**< From CO_SYNC_init() */
+        CO_CANmodule_t *CANdevTx; /**< From CO_SYNC_init() */
+        CO_CANtx_t *CANtxBuff;    /**< CAN transmit buffer inside CANdevTx */
+        uint16_t CANdevTxIdx;     /**< From CO_SYNC_init() */
+    } CO_SYNC_t;
 
-
-/**
+    /**
  * Initialize SYNC object.
  *
  * Function must be called in the communication reset section.
@@ -143,21 +142,20 @@ typedef struct{
  *
  * @return #CO_ReturnError_t: CO_ERROR_NO or CO_ERROR_ILLEGAL_ARGUMENT.
  */
-CO_ReturnError_t CO_SYNC_init(
-        CO_SYNC_t              *SYNC,
-        CO_EM_t                *em,
-        CO_SDO_t               *SDO,
-        uint8_t                *operatingState,
-        uint32_t                COB_ID_SYNCMessage,
-        uint32_t                communicationCyclePeriod,
-        uint8_t                 synchronousCounterOverflowValue,
-        CO_CANmodule_t         *CANdevRx,
-        uint16_t                CANdevRxIdx,
-        CO_CANmodule_t         *CANdevTx,
-        uint16_t                CANdevTxIdx);
+    CO_ReturnError_t CO_SYNC_init(
+        CO_SYNC_t *SYNC,
+        CO_EM_t *em,
+        CO_SDO_t *SDO,
+        CO_NMT_internalState_t *operatingState,
+        uint32_t COB_ID_SYNCMessage,
+        uint32_t communicationCyclePeriod,
+        uint8_t synchronousCounterOverflowValue,
+        CO_CANmodule_t *CANdevRx,
+        uint16_t CANdevRxIdx,
+        CO_CANmodule_t *CANdevTx,
+        uint16_t CANdevTxIdx);
 
-
-/**
+    /**
  * Process SYNC communication.
  *
  * Function must be called cyclically.
@@ -171,10 +169,10 @@ CO_ReturnError_t CO_SYNC_init(
  * @return 1: New SYNC message recently received or was just transmitted.
  * @return 2: SYNC time was just passed out of window.
  */
-uint8_t CO_SYNC_process(
-        CO_SYNC_t              *SYNC,
-        uint32_t                timeDifference_us,
-        uint32_t                ObjDict_synchronousWindowLength);
+    uint8_t CO_SYNC_process(
+        CO_SYNC_t *SYNC,
+        uint32_t timeDifference_us,
+        uint32_t ObjDict_synchronousWindowLength);
 
 #ifdef __cplusplus
 }

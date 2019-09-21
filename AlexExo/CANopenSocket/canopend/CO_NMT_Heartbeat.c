@@ -127,7 +127,7 @@ CO_ReturnError_t CO_NMT_init(
     NMT->LEDredError            = 1;
     NMT->nodeId                 = nodeId;
     NMT->firstHBTime            = firstHBTime;
-    NMT->resetCommand           = CO_RESET_NOT;
+    NMT->resetCommand           = 0;
     NMT->HBproducerTimer        = 0xFFFF;
     NMT->emPr                   = emPr;
     NMT->pFunctNMT              = NULL;

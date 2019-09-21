@@ -111,7 +111,7 @@ int CO_OD_storage_saveSecure(
     uint16_t CRC = 0;
 
     /* Generate new string with extension '.old' and rename current file to it. */
-    filename_old = malloc(strlen(filename)+10);
+    filename_old = (char*)malloc(strlen(filename)+10);
     if(filename_old != NULL) {
         strcpy(filename_old, filename);
         strcat(filename_old, ".old");
@@ -190,7 +190,7 @@ int CO_OD_storage_restoreSecure(char *filename) {
 
         fclose(fp);
 
-        filename_old = malloc(strlen(filename)+10);
+        filename_old = (char*)malloc(strlen(filename)+10);
         if(filename_old != NULL) {
             strcpy(filename_old, filename);
             strcat(filename_old, ".old");

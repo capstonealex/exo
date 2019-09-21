@@ -9,7 +9,7 @@ OBJ_DICT_SRC =  ./objDict
 APP_SRC =       ./app
 
 
-LINK_TARGET  =  $(EXO)/runexo
+LINK_TARGET  =  $(APP_SRC)/canopend
 
 
 INCLUDE_DIRS = -I$(STACKDRV_SRC) \
@@ -53,8 +53,8 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
 
 
 OBJS = $(SOURCES:%.c=%.o)
-CC ?= gcc
-CFLAGS = -Wall -g $(INCLUDE_DIRS)
+CC = g++
+CFLAGS =  -std=c++11  -g $(INCLUDE_DIRS)
 LDFLAGS = -lrt -pthread
 
 
