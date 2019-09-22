@@ -15,7 +15,8 @@
 
 using namespace std;
 
-class Joint {
+class Joint
+{
     //Private members
     int id;
     float q;
@@ -25,7 +26,7 @@ class Joint {
     // qd, qdd,T, mode. limts, Transformation, Reduction Ratio(CONST)
 
 public:
-//    CanDevice copley;// pointer to this joints candevice, the motor driver (COPLEY DRIVER)
+    //    CanDevice copley;// pointer to this joints candevice, the motor driver (COPLEY DRIVER)
     Joint();
     Joint(float q_init, int ID);
     void setId(int ID);
@@ -33,7 +34,7 @@ public:
     void applyPos(float qd);
     int getPos();
     void printInfo();
+    void updateJoint(int qread);
 };
-
 
 #endif //CAPSTONE_JOINT_H

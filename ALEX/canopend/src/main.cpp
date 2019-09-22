@@ -42,6 +42,7 @@
 #include <sys/reboot.h>
 #include "CO_command.h"
 #include <pthread.h>
+#include "Joint.h"
 
 #define NSEC_PER_SEC (1000000000)      /* The number of nanoseconds per second. */
 #define NSEC_PER_MSEC (1000000)        /* The number of nanoseconds per millisecond. */
@@ -57,13 +58,13 @@ volatile uint16_t CO_timer1ms = 0U;
 pthread_mutex_t CO_CAN_VALID_mtx = PTHREAD_MUTEX_INITIALIZER;
 
 /* Other variables and objects */
-static int rtPriority = -1;                         /* Real time priority, configurable by arguments. (-1=RT disabled) */
-static int mainline_epoll_fd;                       /* epoll file descriptor for mainline */
-static CO_OD_storage_t odStor;                      /* Object Dictionary storage object for CO_OD_ROM */
-static CO_OD_storage_t odStorAuto;                  /* Object Dictionary storage object for CO_OD_EEPROM */
+static int rtPriority = -1;                          /* Real time priority, configurable by arguments. (-1=RT disabled) */
+static int mainline_epoll_fd;                        /* epoll file descriptor for mainline */
+static CO_OD_storage_t odStor;                       /* Object Dictionary storage object for CO_OD_ROM */
+static CO_OD_storage_t odStorAuto;                   /* Object Dictionary storage object for CO_OD_EEPROM */
 static char *odStorFile_rom = "od4_storage";         /* Name of the file */
 static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
-static CO_time_t CO_time;                           /* Object for current time */
+static CO_time_t CO_time;                            /* Object for current time */
 /* Realtime thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
@@ -92,13 +93,14 @@ void CO_error(const uint32_t info)
 
 /* Robot objects */
 //Robot joint (general) object
-typedef struct{
+typedef struct
+{
     char motorID[10];
     int maxPos;
     int minPos;
     int q;
     int qprevious;
-}robotJoint;
+} robotJoint;
 /*Robot object*/
 // typedef struct{
 //     robotJoint lHip;
@@ -118,8 +120,8 @@ int main(int argc, char *argv[])
     int opt;
     bool_t firstRun = true;
     bool_t nodeIdFromArgs = true; /* True, if program arguments are used for CANopen Node Id */
-    int nodeId = -1;               /* Use value from Object Dictionary or set to 1..127 by arguments */
-    bool_t rebootEnable = false;   /* Configurable by arguments */
+    int nodeId = -1;              /* Use value from Object Dictionary or set to 1..127 by arguments */
+    bool_t rebootEnable = false;  /* Configurable by arguments */
     /*set up command line arguments as variables*/
     char CANdevice[10] = "can1"; /* change to can1 for bbb vcan0 for virtual can*/
     nodeId = NODEID;
@@ -130,18 +132,18 @@ int main(int argc, char *argv[])
     switch (opt)
     {
 
-        case 'p':
-            rtPriority = strtol(optarg, NULL, 0);
-            break;
+    case 'p':
+        rtPriority = strtol(optarg, NULL, 0);
+        break;
 
-        case 'c':
-            /* In case of empty string keep default name, just enable interface. */
-            if (strlen(optarg) != 0)
-            {
-                // CO_command_socketPath = "/tmp/CO_command_socket";
-            }
-            commandEnable = true;
-            break;
+    case 'c':
+        /* In case of empty string keep default name, just enable interface. */
+        if (strlen(optarg) != 0)
+        {
+            // CO_command_socketPath = "/tmp/CO_command_socket";
+        }
+        commandEnable = true;
+        break;
     }
 
     if (nodeId < 1 || nodeId > 127)
@@ -396,25 +398,32 @@ int main(int argc, char *argv[])
 }
 
 /* Realtime thread for CAN receive and taskTmr ********************************/
-static void* rt_thread(void* arg) {
+static void *rt_thread(void *arg)
+{
     /*ALEX EXOSKELETON CODE*/
     /*Create robot object*/
     /*First test: Robot joint: LKNEE*/
     robotJoint lKnee;
+    Joint testJoint;
+
     /* Endless loop */
-    while(CO_endProgram == 0) {
+    while (CO_endProgram == 0)
+    {
         int ready;
         struct epoll_event ev;
 
         ready = epoll_wait(rt_thread_epoll_fd, &ev, 1, -1);
 
-        if(ready != 1) {
-            if(errno != EINTR) {
+        if (ready != 1)
+        {
+            if (errno != EINTR)
+            {
                 CO_error(0x12100000L + errno);
             }
         }
 
-        else if(CANrx_taskTmr_process(ev.data.fd)) {
+        else if (CANrx_taskTmr_process(ev.data.fd))
+        {
 
             /* code was processed in the above function. Additional code process below */
             INCREMENT_1MS(CO_timer1ms);
@@ -422,27 +431,33 @@ static void* rt_thread(void* arg) {
             /* Monitor variables with trace objects */
             CO_time_process(&CO_time);
 #if CO_NO_TRACE > 0
-            for(i=0; i<OD_traceEnable && i<CO_NO_TRACE; i++) {
+            for (i = 0; i < OD_traceEnable && i < CO_NO_TRACE; i++)
+            {
                 CO_trace_process(CO->trace[i], *CO_time.epochTimeOffsetMs);
             }
 #endif
 
             /* Execute optional additional application code */
             /*create OBJECT DICTIONARY ADRESS INDEX FOR A JOINT -> generic function after teat 1*/
-                app_program1ms();
-                /*Get the current LKnee position*/
-                // CO_OD_RAM.actualMotorPositions.motor2  = CO_OD_RAM.actualMotorPositions.motor2 +1;
-                lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
-                // itoa(CO_OD_RAM.actualMotorPositions.motor2, position, 10);
-                printf("%d\n",lKnee.q);
+            app_program1ms();
+            /*Get the current LKnee position*/
+            // CO_OD_RAM.actualMotorPositions.motor2  = CO_OD_RAM.actualMotorPositions.motor2 +1;
+            // lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
+            if( CO_timer1ms % 1000 == 0){
+                CO_OD_RAM.actualMotorPositions.motor2 = CO_OD_RAM.actualMotorPositions.motor2 +1;
+                testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
+                testJoint.printInfo();
+            }
 
             /* Detect timer large overflow */
-            if(OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal) {
+            if (OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal)
+            {
                 CO_errorReport(CO->em, CO_EM_ISR_TIMER_OVERFLOW, CO_EMC_SOFTWARE_INTERNAL, 0x22400000L | OD_performance[ODA_performance_timerCycleMaxTime]);
             }
         }
 
-        else {
+        else
+        {
             /* No file descriptor was processed. */
             CO_error(0x12200000L);
         }

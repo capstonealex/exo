@@ -7,7 +7,7 @@ CANOPEN_SRC =   ../CANopenNode
 CANOPEND_SRC =  ./src
 OBJ_DICT_SRC =  ./objDict
 APP_SRC =       ./app
-
+ROBOT_SRC = 	../robot
 
 LINK_TARGET  =  $(APP_SRC)/canopend
 
@@ -17,6 +17,7 @@ INCLUDE_DIRS = -I$(STACKDRV_SRC) \
                -I$(CANOPEN_SRC)  \
                -I$(CANOPEND_SRC) \
                -I$(OBJ_DICT_SRC) \
+               -I$(ROBOT_SRC)    \
                -I$(APP_SRC)
 
 
@@ -40,7 +41,8 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
                 $(OBJ_DICT_SRC)/CO_OD.c             
 
 SOURCESCPP = 	$(CANOPEND_SRC)/main.cpp            \
-                $(APP_SRC)/application.cpp
+                $(APP_SRC)/application.cpp          \
+		$(ROBOT_SRC)/Joint.cpp
  
 
 # canopend is three-threaded application: nonblocking mainline, nonblocking
