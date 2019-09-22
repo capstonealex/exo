@@ -1,5 +1,5 @@
 # Makefile for CANopend.
-
+# Test Comment
 
 STACKDRV_SRC =  ../CANopenNode/stack/socketCAN
 STACK_SRC =     ../CANopenNode/stack
