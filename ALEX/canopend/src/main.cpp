@@ -457,7 +457,7 @@ static void *rt_thread(void *arg)
              if (commCount % 2 == 0)
              {
                  CO_OD_RAM.controlWords.motor4 = 47;
-                 CO_OD_RAM.targetMotorPositions.motor4 = testJoint.q;
+                 CO_OD_RAM.targetMotorPositions.motor4 = testJoint.getPos();
              }
              else if (commCount % 2 == 1)
              {
