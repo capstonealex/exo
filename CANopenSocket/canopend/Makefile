@@ -37,10 +37,11 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
                 $(CANOPEND_SRC)/CO_comm_helpers.c   \
                 $(CANOPEND_SRC)/CO_master.c         \
                 $(CANOPEND_SRC)/CO_time.c           \
-                $(CANOPEND_SRC)/main.c              \
-                $(OBJ_DICT_SRC)/CO_OD.c             \
-                $(APP_SRC)/application.c
+                $(OBJ_DICT_SRC)/CO_OD.c             
 
+SOURCESCPP = 	$(CANOPEND_SRC)/main.cpp            \
+                $(APP_SRC)/application.cpp
+ 
 
 # canopend is three-threaded application: nonblocking mainline, nonblocking
 # rt-thread and blocking command interface thread.
@@ -53,6 +54,8 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
 
 
 OBJS = $(SOURCES:%.c=%.o)
+OBJSCPP = $(SOURCESCPP:%.cpp=%.o)
+
 CC = g++
 CFLAGS =  -std=c++11  -g $(INCLUDE_DIRS)
 LDFLAGS = -lrt -pthread
@@ -63,10 +66,13 @@ LDFLAGS = -lrt -pthread
 all: clean $(LINK_TARGET)
 
 clean:
-	rm -f $(OBJS) $(LINK_TARGET)
+	rm -f $(OBJS) $(OBJSCPP) $(LINK_TARGET)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LINK_TARGET): $(OBJS)
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(LINK_TARGET): $(OBJS) $(OBJSCPP)
 	$(CC) $(LDFLAGS) $^ -o $@
