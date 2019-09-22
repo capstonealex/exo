@@ -69,7 +69,8 @@ static CO_time_t CO_time;                            /* Object for current time 
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
 static int rt_thread_epoll_fd;
-
+/*Ugly variable for motion bit flip*/
+int commCount = 0;
 /* Signal handler */
 volatile sig_atomic_t CO_endProgram = 0;
 static void sigHandler(int sig)
@@ -443,12 +444,26 @@ static void *rt_thread(void *arg)
             /*Get the current LKnee position*/
             // CO_OD_RAM.actualMotorPositions.motor2  = CO_OD_RAM.actualMotorPositions.motor2 +1;
             // lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
-            if (CO_timer1ms % 1000 == 0)
-            {
-                CO_OD_RAM.actualMotorPositions.motor2 = CO_OD_RAM.actualMotorPositions.motor2 + 1;
-                testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
-                testJoint.printInfo();
-            }
+            //ROBOT JOINT READING FROM OD TEST
+//            if (CO_timer1ms % 1000 == 0)
+//            {
+//                CO_OD_RAM.actualMotorPositions.motor2 = CO_OD_RAM.actualMotorPositions.motor2 + 1;
+//                testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
+//                testJoint.printInfo();
+//            }
+            testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
+            testJoint.printInfo();
+            // Motion test
+             if (commCount % 2 == 0)
+             {
+                 CO_OD_RAM.controlWords.motor4 = 47;
+                 CO_OD_RAM.targetMotorPositions.motor4 = testJoint.q;
+             }
+             else if (commCount % 2 == 1)
+             {
+                 CO_OD_RAM.controlWords.motor4 = 63;
+             }
+            commCount++;
 
             /* Detect timer large overflow */
             if (OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal)
