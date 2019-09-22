@@ -443,8 +443,9 @@ static void *rt_thread(void *arg)
             /*Get the current LKnee position*/
             // CO_OD_RAM.actualMotorPositions.motor2  = CO_OD_RAM.actualMotorPositions.motor2 +1;
             // lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
-            if( CO_timer1ms % 1000 == 0){
-                CO_OD_RAM.actualMotorPositions.motor2 = CO_OD_RAM.actualMotorPositions.motor2 +1;
+            if (CO_timer1ms % 1000 == 0)
+            {
+                CO_OD_RAM.actualMotorPositions.motor2 = CO_OD_RAM.actualMotorPositions.motor2 + 1;
                 testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
                 testJoint.printInfo();
             }

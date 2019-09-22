@@ -43,6 +43,15 @@ void Joint::setPos(float qd)
 
     cout << "Joint id: " << id << " Go to position: " << qd << "\n";
     //Send off to CANDEV or DIRECTLY Adress
+    // if (commCount % 2 == 0)
+    // {
+    //     CO_OD_RAM.controlWords.motor4 = 47;
+    //     CO_OD_RAM.targetMotorPositions.motor4 = lKnee.q;
+    // }
+    // else if (commCount % 2 == 1)
+    // {
+    //     CO_OD_RAM.controlWords.motor4 = 63;
+    // }
 }
 void Joint::setId(int ID)
 {
