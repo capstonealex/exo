@@ -453,7 +453,7 @@ static void *rt_thread(void *arg)
 //            }
             testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
             testJoint.printInfo();
-            // Motion test
+            // Motion test: right knee follows the left knee
              if (commCount % 2 == 0)
              {
                  CO_OD_RAM.controlWords.motor4 = 47;
