@@ -117,6 +117,17 @@ typedef struct
 //     robotJoint rHip;
 //     robotJoint rKnee;
 // }Robot;
+/*PDO and network com test functions*/
+void mirrorJoint(Joint *lKnee){
+    lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
+    if(commCount%2==0){
+        CO_OD_RAM.controlWords.motor4=47;
+        CO_OD_RAM.targetMotorPositions.motor4=lKnee.q;
+    }
+    else if(commCount%2==1){
+        CO_OD_RAM.controlWords.motor4=63;
+    }
+}
 
 /******************************************************************************/
 /** Mainline and RT thread                                                   **/
@@ -412,8 +423,7 @@ static void *rt_thread(void *arg)
     /*ALEX EXOSKELETON CODE*/
     /*Create robot object*/
     /*First test: Robot joint: LKNEE*/
-    robotJoint lKnee;
-    Joint testJoint;
+    Joint lKnee;
 
     /* Endless loop */
     while (CO_endProgram == 0)
@@ -450,13 +460,11 @@ static void *rt_thread(void *arg)
             /*create OBJECT DICTIONARY ADRESS INDEX FOR A JOINT -> generic function after teat 1*/
             app_program1ms();
             /*Get the current LKnee position*/
-            // CO_OD_RAM.actualMotorPositions.motor2  = CO_OD_RAM.actualMotorPositions.motor2 +1;
-            // lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
-            if (CO_timer1ms % 1500 == 0)
+           // Mirror Joint
+            mirrorJoint(lKnee);
+            if (CO_timer1ms % 100 == 0)
             {
-                // CO_OD_RAM.actualMotorPositions.motor2 = CO_OD_RAM.actualMotorPositions.motor2 + 1;
-                // testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
-                // testJoint.printInfo();
+                //// Testing cancomm_socketFree
                 strcpy(buf, message);
                 cancomm_socketFree(buf, ret);
                 printf("Return message: %s", ret);
