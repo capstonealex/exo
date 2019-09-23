@@ -24,22 +24,18 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef CO_COMMAND_H
 #define CO_COMMAND_H
 
-
 /* Functions from external */
-void CO_errExit(char* msg);
+void CO_errExit(char *msg);
 void CO_error(const uint32_t info);
-
 
 /**
  * Path for local type  socket. External process can access command interface
  * over this socket. By default its path is "/tmp/CO_command_socket".
  */
 extern char *CO_command_socketPath;
-
 
 /**
  * Initialize thread and create socket for command interface.
@@ -50,13 +46,19 @@ extern char *CO_command_socketPath;
  */
 int CO_command_init(void);
 
-
 /**
  * Terminate thread and remove socket.
  *
  * @return 0 on success.
  */
 int CO_command_clear(void);
+/**
+ * Allow main thread to send SDO messages to nodes
+ *
+ * @return message recieved on success 
+ * @return error on failure
+ */
 
+void cancomm_socketFree(char *command, char *ret);
 
 #endif

@@ -44,6 +44,10 @@
 #include <pthread.h>
 #include "Joint.h"
 
+/*For master-> code SDO direct messaging*/
+#define CO_COMMAND_SDO_BUFFER_SIZE 100000
+
+#define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
 #define NSEC_PER_SEC (1000000000)      /* The number of nanoseconds per second. */
 #define NSEC_PER_MSEC (1000000)        /* The number of nanoseconds per millisecond. */
 #define TMR_TASK_INTERVAL_NS (1000000) /* Interval of taskTmr in nanoseconds */
@@ -65,12 +69,16 @@ static CO_OD_storage_t odStorAuto;                   /* Object Dictionary storag
 static char *odStorFile_rom = "od4_storage";         /* Name of the file */
 static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
 static CO_time_t CO_time;                            /* Object for current time */
+/*For master-> node SDO message sending*/
+char buf[STRING_BUFFER_SIZE];
+char ret[STRING_BUFFER_SIZE];
+char message[STRING_BUFFER_SIZE] = "[1] 100 read 0x1017 0 i16";
+
 /* Realtime thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
 static int rt_thread_epoll_fd;
-/*Ugly variable for motion bit flip*/
-int commCount = 0;
+
 /* Signal handler */
 volatile sig_atomic_t CO_endProgram = 0;
 static void sigHandler(int sig)
@@ -444,26 +452,15 @@ static void *rt_thread(void *arg)
             /*Get the current LKnee position*/
             // CO_OD_RAM.actualMotorPositions.motor2  = CO_OD_RAM.actualMotorPositions.motor2 +1;
             // lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
-            //ROBOT JOINT READING FROM OD TEST
-//            if (CO_timer1ms % 1000 == 0)
-//            {
-//                CO_OD_RAM.actualMotorPositions.motor2 = CO_OD_RAM.actualMotorPositions.motor2 + 1;
-//                testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
-//                testJoint.printInfo();
-//            }
-            testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
-            testJoint.printInfo();
-            // Motion test: right knee follows the left knee
-             if (commCount % 2 == 0)
-             {
-                 CO_OD_RAM.controlWords.motor4 = 47;
-                 CO_OD_RAM.targetMotorPositions.motor4 = testJoint.getPos();
-             }
-             else if (commCount % 2 == 1)
-             {
-                 CO_OD_RAM.controlWords.motor4 = 63;
-             }
-            commCount++;
+            if (CO_timer1ms % 1500 == 0)
+            {
+                // CO_OD_RAM.actualMotorPositions.motor2 = CO_OD_RAM.actualMotorPositions.motor2 + 1;
+                // testJoint.updateJoint(CO_OD_RAM.actualMotorPositions.motor2);
+                // testJoint.printInfo();
+                strcpy(buf, message);
+                cancomm_socketFree(buf, ret);
+                printf("Return message: %s", ret);
+            }
 
             /* Detect timer large overflow */
             if (OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal)
