@@ -8,6 +8,7 @@ CANOPEND_SRC =  ./src
 OBJ_DICT_SRC =  ./objDict
 APP_SRC =       ./app
 ROBOT_SRC = 	../robot
+GPIO_SRC =      ..hw/GPIO
 
 LINK_TARGET  =  $(APP_SRC)/canopend
 
@@ -18,6 +19,7 @@ INCLUDE_DIRS = -I$(STACKDRV_SRC) \
                -I$(CANOPEND_SRC) \
                -I$(OBJ_DICT_SRC) \
                -I$(ROBOT_SRC)    \
+               -I$(GPIO_SRC)     \
                -I$(APP_SRC)
 
 
@@ -42,7 +44,9 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
 
 SOURCESCPP = 	$(CANOPEND_SRC)/main.cpp            \
                 $(APP_SRC)/application.cpp          \
-		$(ROBOT_SRC)/Joint.cpp
+		        $(ROBOT_SRC)/Joint.cpp              \
+		        $(GPIO_SRC)/GPIOConst.cpp           \
+		        (GPIO_SRC)/GPIOManager.cpp
  
 
 # canopend is three-threaded application: nonblocking mainline, nonblocking
