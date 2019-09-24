@@ -72,7 +72,6 @@ static CO_OD_storage_t odStorAuto;                   /* Object Dictionary storag
 static char *odStorFile_rom = "od4_storage";         /* Name of the file */
 static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
 static CO_time_t CO_time;                            /* Object for current time */
-static char *BUTTON1 = "P9_23";
 /*For master-> node SDO message sending*/
 // char buf[STRING_BUFFER_SIZE];
 // char ret[STRING_BUFFER_SIZE];
@@ -148,9 +147,9 @@ int main(int argc, char *argv[])
     int nodeId = -1;              /* Use value from Object Dictionary or set to 1..127 by arguments */
     bool_t rebootEnable = false;  /* Configurable by arguments */
     /*GPIO pin set up*/
-    // GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-    // int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-    // gp->setDirection(pin, GPIO::INPUT);
+    GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
+    int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
+    gp->setDirection(pin, GPIO::INPUT);
 
     /*set up command line arguments as variables*/
     char CANdevice[10] = "can1"; /* change to can1 for bbb vcan0 for virtual can*/
@@ -372,11 +371,8 @@ int main(int argc, char *argv[])
 
                 /* Execute optional additional application code */
                 app_programAsync(timer1msDiff);
-                GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-                int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-                gp->setDirection(pin, GPIO::INPUT);
                 printf("Pin 9.23 value: %d\n", gp->getValue(pin));
-                gp->~GPIOManager();
+
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
 

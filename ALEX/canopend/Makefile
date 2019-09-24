@@ -46,7 +46,7 @@ SOURCESCPP = 	$(CANOPEND_SRC)/main.cpp            \
                 $(APP_SRC)/application.cpp          \
 		        $(ROBOT_SRC)/Joint.cpp              \
 		        $(GPIO_SRC)/GPIOConst.cpp           \
-		        (GPIO_SRC)/GPIOManager.cpp
+		        $(GPIO_SRC)/GPIOManager.cpp
  
 
 # canopend is three-threaded application: nonblocking mainline, nonblocking
