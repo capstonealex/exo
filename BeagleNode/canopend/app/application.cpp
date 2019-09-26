@@ -31,7 +31,12 @@
 #include "GPIOConst.h"
 
 static char *BUTTON1 = "P9_23";
+static char *BUTTON1 = "P9_25";
+static int button1_add=1;//add 1 for button 1, 2 for 2, 4 for 3, 8 for 4 etc.
+static int button2_add=2;
 
+
+int buttonRead();
 void strreverse(char *begin, char *end);
 void itoa(int value, char *str, int base);
 /******************************************************************************/
@@ -45,13 +50,7 @@ void app_programEnd(void){
 }
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiff){
-
-    GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-    int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-    gp->setDirection(pin, GPIO::INPUT);
-    printf("Pin 9.23 value: %d\n", gp->getValue(pin));
-    gp->~GPIOManager();
-
+    printf("\n Button state: %d \n", buttonRead());
 }
 
 /******************************************************************************/
@@ -90,3 +89,20 @@ void strreverse(char *begin, char *end)
         aux = *end, *end-- = *begin, *begin++ = aux;
 }
 /******************************************************************************/
+
+int buttonRead(){
+    int buttonState =0;
+    GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
+    int pin1 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
+    int pin2 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON2);
+    gp->setDirection(pin1, GPIO::INPUT);
+    gp->setDirection(pin2, GPIO::INPUT);
+    printf("Pin 9.23 value: %d\n", gp->getValue(pin1));
+    printf("Pin 9.25 value: %d\n", gp->getValue(pin2));
+    if(gp->getValue(pin1)==1)
+        buttonState+=button1_add;
+    if(gp->getValue(pin2)==1)
+        buttonState+=button2_add;
+    gp->~GPIOManager();
+    return buttonState;
+}
