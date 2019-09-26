@@ -2,18 +2,23 @@
 // Created by William Campbell on 2019-09-24.
 //
 
-#ifndef EXO_ARCH_H
-#define EXO_ARCH_H
+#ifndef EXO_TRANSITION_H
+#define EXO_TRANSITION_H
 
 #include "StateMachine.h"
 #include "Event.h"
+#include "State.h"
 
-class Arc {
+/* Forward declarations*/
+class State;
+class Event;
+
+class Transition {
     friend class State;
     friend class StateMachine;
 public:
     /* Constructor: set state this arc targets (points towards) and the event which triggers it */
-    Arc ( State * targ, Event * e ) {
+    Transition ( State * targ, Event * e ) {
         target = targ;
         ev = e;
     };
@@ -23,4 +28,4 @@ private:
     State * target;
 
 };
-#endif //EXO_ARCH_H
+#endif //EXO_TRANSITION_H

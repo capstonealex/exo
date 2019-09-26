@@ -5,7 +5,7 @@
 #include "State.h"
 
 /* Cyclicly check the status of this states arc list, if any return true, return that arch object*/
-Arc * State::getActiveArc( void ) {
+Transition * State::getActiveArc( void ) {
     int i=0;
     while ( i<numarcs ) {
         if ( arclist[i]->ev->check() ) return arclist[i];
@@ -14,9 +14,9 @@ Arc * State::getActiveArc( void ) {
     return NULL;
 }
 /* Add an arc to the arc list -> done at initialization (specific for each statemachine)*/
-bool State::addArc ( Arc * a ) {
+bool State::addArc ( Transition * t ) {
     if ( numarcs < MAXARCS ) {
-        arclist[numarcs++] = a;
+        arclist[numarcs++] = t;
         return true;
     } else return false;
 };

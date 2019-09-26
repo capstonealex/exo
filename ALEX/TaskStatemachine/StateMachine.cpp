@@ -3,8 +3,26 @@
 //
 #include <stdio.h>
 #include "StateMachine.h"
+//State machine constructors
+StateMachine::StateMachine(void ){
+    initialState = NULL;
+};
+// Set initial state to input of constructor
+StateMachine::StateMachine( State *i ){
+    initialState = i;
+};
+// Set the pointer of the initial state
+void StateMachine::initialize ( State * i ) {
+    initialState = i;
+};
+State* StateMachine::getCurState( void ) {
+    return currentState;
+}
 
-
+// methods
+void StateMachine::init ( void ) {
+    currentState = initialState;
+}
 void StateMachine::activate ( void ) {
     currentState = initialState;
     currentState->entry();
@@ -12,12 +30,12 @@ void StateMachine::activate ( void ) {
 
 void StateMachine::update( void ) {
 
-    Arc * a = currentState->getActiveArc();
+    Transition * t = currentState->getActiveArc();
 
-    if ( a != NULL ) {
+    if ( t != NULL ) {
 
         currentState->exit();
-        currentState = a->target;
+        currentState = t->target;
         currentState->entry();
 
     }

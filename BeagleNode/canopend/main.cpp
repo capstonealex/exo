@@ -42,15 +42,12 @@
 #include <sys/reboot.h>
 #include "CO_command.h"
 #include <pthread.h>
-/*Non canopenNode + Socket libraries*/
 #include "Joint.h"
-#include "GPIOManager.h"
-#include "GPIOConst.h"
 
 /*For master-> code SDO direct messaging*/
-// #define CO_COMMAND_SDO_BUFFER_SIZE 100000
-// #define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
+#define CO_COMMAND_SDO_BUFFER_SIZE 100000
 
+#define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
 #define NSEC_PER_SEC (1000000000)      /* The number of nanoseconds per second. */
 #define NSEC_PER_MSEC (1000000)        /* The number of nanoseconds per millisecond. */
 #define TMR_TASK_INTERVAL_NS (1000000) /* Interval of taskTmr in nanoseconds */
@@ -73,10 +70,9 @@ static char *odStorFile_rom = "od4_storage";         /* Name of the file */
 static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
 static CO_time_t CO_time;                            /* Object for current time */
 /*For master-> node SDO message sending*/
-// char buf[STRING_BUFFER_SIZE];
-// char ret[STRING_BUFFER_SIZE];
-//char message[STRING_BUFFER_SIZE] = "[1] 2 read 0x6063 0 i32"; // Read J2 position
-//char message[STRING_BUFFER_SIZE] = "[1] 100 read 0x1017  0 i32"; // Read bbb HB//
+char buf[STRING_BUFFER_SIZE];
+char ret[STRING_BUFFER_SIZE];
+char message[STRING_BUFFER_SIZE] = "[1] 2 read 0x6063 0 i32";
 
 /* Realtime thread */
 static void *rt_thread(void *arg);
@@ -146,11 +142,6 @@ int main(int argc, char *argv[])
     bool_t nodeIdFromArgs = true; /* True, if program arguments are used for CANopen Node Id */
     int nodeId = -1;              /* Use value from Object Dictionary or set to 1..127 by arguments */
     bool_t rebootEnable = false;  /* Configurable by arguments */
-    /*GPIO pin set up*/
-    GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-    int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-    gp->setDirection(pin, GPIO::INPUT);
-
     /*set up command line arguments as variables*/
     char CANdevice[10] = "can1"; /* change to can1 for bbb vcan0 for virtual can*/
     nodeId = NODEID;
@@ -371,7 +362,6 @@ int main(int argc, char *argv[])
 
                 /* Execute optional additional application code */
                 app_programAsync(timer1msDiff);
-                printf("Pin 9.23 value: %d\n", gp->getValue(pin));
 
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
@@ -474,6 +464,11 @@ static void *rt_thread(void *arg)
             // mirrorJoint(lKnee);
             if (CO_timer1ms % 1000 == 0)
             {
+                //// Testing cancomm_socketFree
+                printf("MESSAGING!");
+                strcpy(buf, message);
+                cancomm_socketFree(buf, ret);
+                printf("Return message: %s", ret);
             }
 
             /* Detect timer large overflow */

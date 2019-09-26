@@ -2,8 +2,8 @@
 // Created by William Campbell on 2019-09-24.
 //
 
-#include "Arc.h"
+#include "Transition.h"
 
-State * getTarget ( void ) {
+State * Transition::getTarget ( void ) {
     return target;
 };

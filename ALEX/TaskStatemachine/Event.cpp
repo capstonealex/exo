@@ -5,6 +5,6 @@
 #include "Event.h"
 
 
-const char * getName( void ) {
+const char* Event::getName( void ) {
     return name;
 };

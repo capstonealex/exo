@@ -4,12 +4,16 @@
 
 #ifndef EXO_EVENT_H
 #define EXO_EVENT_H
+#include "StateMachine.h"
+/* Forward declarations*/
+class StateMachine;
 
 
 class Event {
 
 public:
     StateMachine * owner;  // Pointer to the owner state machine for this event
+    /* constructor */
     Event ( StateMachine * p, const char n[] = NULL ){
         owner = p;
         name = n;
