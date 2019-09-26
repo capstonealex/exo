@@ -9,6 +9,7 @@ OBJ_DICT_SRC =  ./objDict
 APP_SRC =       ./app
 ROBOT_SRC = 	../robot
 
+
 LINK_TARGET  =  $(APP_SRC)/canopend
 
 
