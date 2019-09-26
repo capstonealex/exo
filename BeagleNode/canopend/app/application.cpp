@@ -46,11 +46,11 @@ void app_programEnd(void){
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiff){
 
-GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-gp->setDirection(pin, GPIO::INPUT);
-printf("Pin 9.23 value: %d\n", gp->getValue(pin));
-gp->~GPIOManager();
+    GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
+    int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
+    gp->setDirection(pin, GPIO::INPUT);
+    printf("Pin 9.23 value: %d\n", gp->getValue(pin));
+    gp->~GPIOManager();
 
 }
 
