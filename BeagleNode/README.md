@@ -1,6 +1,6 @@
 # Canopend implementation for GPIO button read
 
-1. To compile this, copy entire folder to BBB.
+1. To compile this, copy entire `BeagleNode` folder to BBB.
 2. Change directory to canopend `cd BeagleNode/canopend`
 3. Compile using `make`
 
