@@ -313,7 +313,10 @@ int main(int argc, char *argv[])
         pthread_mutex_unlock(&CO_CAN_VALID_mtx);
 
         reset = CO_RESET_NOT;
+        /*State machine testing 123*/
 
+        Toy bear;
+        bear.init();
         printf("Canopend- running ...\n");
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
@@ -321,9 +324,9 @@ int main(int argc, char *argv[])
             int ready;
             int first = 0;
             struct epoll_event ev;
+
             ready = epoll_wait(mainline_epoll_fd, &ev, 1, -1);
-            Toy bear;
-            bear.init();
+
             if (ready != 1)
             {
                 if (errno != EINTR)
@@ -345,7 +348,7 @@ int main(int argc, char *argv[])
 
                 /* Execute optional additional application code */
                 bear.toyUpdate();
-
+                bear.update();
                 app_programAsync(timer1msDiff);
                 /*GPIO FUNCTIONALITY*/
                 //                GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
@@ -411,10 +414,6 @@ int main(int argc, char *argv[])
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
-    /*ALEX EXOSKELETON CODE*/
-    /*Create robot object*/
-    /*First test: Robot joint: LKNEE*/
-
     /* Endless loop */
     while (CO_endProgram == 0)
     {
