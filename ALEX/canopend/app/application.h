@@ -24,28 +24,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef CO_APPLICATION_H
 #define CO_APPLICATION_H
-
-
 /**
  * Function is called on program startup.
  */
 void app_programStart(void);
-
 
 /**
  * Function is called after CANopen communication reset.
  */
 void app_communicationReset(void);
 
-
 /**
  * Function is called just before program ends.
  */
 void app_programEnd(void);
-
 
 /**
  * Function is called cyclically from main.
@@ -54,13 +48,11 @@ void app_programEnd(void);
  */
 void app_programAsync(uint16_t timer1msDiff);
 
-
 /**
  * Function is called cyclically from realtime thread at constant intervals.
  *
  * Code inside this function must be executed fast. Take care on race conditions.
  */
 void app_program1ms(void);
-
 
 #endif
