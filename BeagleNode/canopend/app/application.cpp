@@ -31,11 +31,12 @@
 #include "GPIOConst.h"
 
 static char *BUTTON1 = "P9_23";
-static char *BUTTON1 = "P9_25";
+static char *BUTTON2 = "P9_15";
 static int button1_add=1;//add 1 for button 1, 2 for 2, 4 for 3, 8 for 4 etc.
 static int button2_add=2;
 
-
+//Reads button, agregates them into one int.
+//Button 1 is 1=0b1, button 1 and 3 is 1+4=5=0b101 and so on.
 int buttonRead();
 void strreverse(char *begin, char *end);
 void itoa(int value, char *str, int base);
@@ -98,7 +99,7 @@ int buttonRead(){
     gp->setDirection(pin1, GPIO::INPUT);
     gp->setDirection(pin2, GPIO::INPUT);
     printf("Pin 9.23 value: %d\n", gp->getValue(pin1));
-    printf("Pin 9.25 value: %d\n", gp->getValue(pin2));
+    printf("Pin 9.15 value: %d\n", gp->getValue(pin2));
     if(gp->getValue(pin1)==1)
         buttonState+=button1_add;
     if(gp->getValue(pin2)==1)
