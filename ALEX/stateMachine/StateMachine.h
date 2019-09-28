@@ -22,9 +22,9 @@ public:
     State *getCurState(void);
     // methods
     void init(void);
-    void uninit(void){};
+    void uninit(void);
     void activate(void);
-    void deactivate(void){};
+    void deactivate(void);
     void update(void);
 
 private:

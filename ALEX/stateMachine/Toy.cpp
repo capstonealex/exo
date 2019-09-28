@@ -1,5 +1,9 @@
 //
 // Created by William Campbell on 2019-09-26.
+// The Toy state machine demonstates the basic structure of creating an event based
+// state machine using the provided classes: statemachine, state, transition and events.
+// The state machine is designed to do as follows:
+// BEGIN -> STATE1 (STAY HERE FOR 10 seconds) -----> STATE2 (print: I'm in state 2)
 //
 
 #include "Toy.h"
@@ -24,7 +28,9 @@ void Toy::StateTwo::entry(void)
     //READ TIME OF MAIN
     printf("State Two Entered at Time %f\n", OWNER->mark);
 }
-void Toy::StateTwo::during(void) {}
+void Toy::StateTwo::during(void)
+{
+}
 void Toy::StateTwo::exit(void)
 {
 
@@ -33,9 +39,9 @@ void Toy::StateTwo::exit(void)
 // Events ------------------------------------------------------------
 bool Toy::EventOne::check(void)
 {
-    if (OWNER->mark > 100)
+    if (OWNER->mark > 10)
     {
-        return false;
+        return true;
     }
     return false;
 }
@@ -66,12 +72,13 @@ void Toy::init(void)
 }
 void Toy::activate(void)
 {
+    StateMachine::activate();
 }
 void Toy::deactivate(void)
 {
+    StateMachine::deactivate();
 }
 void Toy::toyUpdate(void)
 {
     mark = mark + 1;
-    std::cout << "State machine counter at: " << mark << "\n";
 };

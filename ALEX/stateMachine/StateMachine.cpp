@@ -30,12 +30,18 @@ void StateMachine::init(void)
 {
     currentState = initialState;
 }
+void StateMachine::uninit(void)
+{
+}
+
 void StateMachine::activate(void)
 {
     currentState = initialState;
     currentState->entry();
-};
-
+}
+void StateMachine::deactivate(void)
+{
+}
 void StateMachine::update(void)
 {
 

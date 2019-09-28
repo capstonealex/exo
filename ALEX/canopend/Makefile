@@ -10,7 +10,7 @@ APP_SRC =       ./app
 ROBOT_SRC = 	../robot
 STATEMCH_SRC = 	../stateMachine
 
-LINK_TARGET  =  $(APP_SRC)/canopend
+LINK_TARGET  =  $ ALEX
 
 
 INCLUDE_DIRS = -I$(STACKDRV_SRC) \

@@ -314,9 +314,10 @@ int main(int argc, char *argv[])
 
         reset = CO_RESET_NOT;
         /*State machine testing 123*/
-
+        // Create Statemachine Object -> will be loaded by taskmanager in end program.
         Toy bear;
         bear.init();
+        bear.activate();
         printf("Canopend- running ...\n");
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
@@ -347,6 +348,7 @@ int main(int argc, char *argv[])
                 /* code was processed in the above function. Additional code process below */
 
                 /* Execute optional additional application code */
+                // Update loop counter -> Can run in Async or RT thread for faster execution.
                 bear.toyUpdate();
                 bear.update();
                 app_programAsync(timer1msDiff);
