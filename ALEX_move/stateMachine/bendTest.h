@@ -7,6 +7,8 @@
 
 #include "StateMachine.h"
 #include "Robot.h"
+#include "GPIOManager.h"
+#include "GPIOConst.h"
 #include <vector> 
 
 class bendTest: public StateMachine{
@@ -32,7 +34,7 @@ private:
 
     // data
     double mark;
-    double button;
+    int button;
     int arrayIndex;
     
    std::vector<double> posTrajectories{

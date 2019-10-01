@@ -74,7 +74,7 @@ static CO_OD_storage_t odStorAuto;                   /* Object Dictionary storag
 static char *odStorFile_rom = "od4_storage";         /* Name of the file */
 static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
 static CO_time_t CO_time;                            /* Object for current time */
-static char *BUTTON1 = "P9_23";
+// static char *BUTTON1 = "P9_23";
 /*For master-> node SDO message sending*/
 // char buf[STRING_BUFFER_SIZE];
 // char ret[STRING_BUFFER_SIZE];
@@ -355,11 +355,11 @@ int main(int argc, char *argv[])
                 bendKnee.update();
                 app_programAsync(timer1msDiff);
                 /*GPIO FUNCTIONALITY*/
-                //                GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-                //                int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-                //                gp->setDirection(pin, GPIO::INPUT);
-                //                printf("Pin 9.23 value: %d\n", gp->getValue(pin));
-                //                gp->~GPIOManager();
+                // GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
+                // int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
+                // gp->setDirection(pin, GPIO::INPUT);
+                // printf("Pin 9.23 value: %d\n", gp->getValue(pin));
+                // gp->~GPIOManager();
 
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }

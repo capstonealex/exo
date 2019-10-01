@@ -31,7 +31,6 @@ bendTest::bendTest(void)
 void bendTest::init(void)
 {
     mark = 1;
-    button = 0;
     std::cout << "Welcome to The single joint bend STATE MACHINE"
               << "\n";
     StateMachine::init();
@@ -61,8 +60,9 @@ void bendTest::BendingP::during(void) {
     float desiredPos =OWNER->posTrajectories[OWNER->arrayIndex];
     // Make sure not to move array index past last member of array
     if (OWNER->arrayIndex != OWNER->posTrajectories.size()){
+        //BIT FLIP FUNCTION
         OWNER->robot->joints[1].applyPos(desiredPos);
-    //BIT FLIP FUNCTION
+        
         printf("Bending to pos %f\n", desiredPos);
         OWNER->arrayIndex ++;
     }
@@ -85,11 +85,16 @@ void bendTest::BendingN::entry(void)
     OWNER->arrayIndex = 0;
 }
 void bendTest::BendingN::during(void) {
-    float desiredPos = OWNER->negTrajectories[OWNER->arrayIndex];
-    OWNER->arrayIndex ++;
-    OWNER->robot->joints[1].applyPos(desiredPos);
-    //BIT FLIP FUNCTION
-    printf("Bending to pos %f\n", desiredPos);
+     if (OWNER->arrayIndex != OWNER->negTrajectories.size()){
+        float desiredPos = OWNER->negTrajectories[OWNER->arrayIndex];
+        //BIT FLIP FUNCTION
+        OWNER->robot->joints[1].applyPos(desiredPos);
+        printf("Bending to pos %f\n", desiredPos);
+        OWNER->arrayIndex ++;
+    }
+    else{
+        printf("Final position reached\n");
+    }
 }
 void bendTest::BendingN::exit(void)
 {
@@ -101,7 +106,6 @@ void bendTest::Bent::entry(void)
 {
     //READ TIME OF MAIN
     printf("Bent State Entered at Time %f\n", OWNER->mark);
-    OWNER->button = 1000;
 }
 void bendTest::Bent::during(void)
 {
@@ -119,7 +123,6 @@ void bendTest::Idle::entry(void)
 }
 void bendTest::Idle::during(void)
 {
-    OWNER->button = OWNER->button +50;
 }
 void bendTest::Idle::exit(void)
 {
@@ -131,7 +134,6 @@ bool bendTest::IsBentP::check(void)
 {
     if (OWNER->robot->joints[1].getPos()>=90)
     {
-        OWNER->button = 1000;
         return true;
     }
     return false;
@@ -146,7 +148,7 @@ bool bendTest::IsBentN::check(void)
 }
 bool bendTest::IsPressed::check(void)
 {
-    if (OWNER->button > 1020)
+    if (OWNER->button == 1)
     {
         return true;
     }
@@ -167,6 +169,17 @@ void bendTest::initRobot( Robot *rb ) {
 // Loop counter test method
 void bendTest::toyUpdate(void)
 {
+    // Once working Turn button into its own class and object: call button.getState() return 0 or 1, Statemachines have a button or an event could even
+    static char *BUTTON1 = "P9_23";
+    int holder;
+    GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
+    int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
+    gp->setDirection(pin, GPIO::INPUT);
+    holder = gp->getValue(pin);
+    this->button = holder;
+    // printf("Buttob value: %d\n", gp->getValue(pin));
+    gp->~GPIOManager();
+    // Update loop time counter
     mark = mark + 1;
-    button = button +1;
+
 }
