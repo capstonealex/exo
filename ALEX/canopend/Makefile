@@ -1,3 +1,4 @@
+
 # Makefile for CANopend.
 # Test Comment
 
@@ -48,7 +49,8 @@ SOURCESCPP = 	$(CANOPEND_SRC)/main.cpp            \
 		$(STATEMCH_SRC)/StateMachine.cpp    \
 		$(STATEMCH_SRC)/State.cpp	    \
 		$(STATEMCH_SRC)/Event.cpp      	    \
-		$(STATEMCH_SRC)/Toy.cpp      	    \
+		$(STATEMCH_SRC)/bendTest.cpp        \
+		$(ROBOT_SRC)/Robot.cpp              \
 		$(ROBOT_SRC)/Joint.cpp              \
 	        $(ROBOT_SRC)/GPIOConst.cpp          \
 	        $(ROBOT_SRC)/GPIOManager.cpp	    
