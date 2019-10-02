@@ -39,21 +39,11 @@ void Joint::applyPos(float qd)
     }
 }
 void Joint::setPos(float qd)
+// TODO: 1. generalize to create .motor<motorID> dynamically
 {
-    CO_OD_RAM.actualMotorPositions.motor4 = qd;
-
-    cout << "Joint address set to" << CO_OD_RAM.actualMotorPositions.motor4 << "\n";
-    //Send off to CANDEV or DIRECTLY Adress
-    // if (commCount % 2 == 0)
-    // {
-    // QUESTION: HOW TO PROPERLY CONSTRUCT dynamic variable names motor<id_goes_here>
-    //     CO_OD_RAM.controlWords.motor4 = 47;
-    //     CO_OD_RAM.targetMotorPositions.motor4 = qd;
-    // }
-    // else if (commCount % 2 == 1)
-    // {
-    //     CO_OD_RAM.controlWords.motor4 = 63;
-    // }
+    // Set target motor position
+    CO_OD_RAM.targetMotorPositions.motor2 = qd;
+    cout << "Joint address set to" << CO_OD_RAM.actualMotorPositions.motor2 << "\n";
 }
 void Joint::setId(int ID)
 {
@@ -72,19 +62,42 @@ void Joint::printInfo()
 {
     cout << "Joint id number " << id << " @ pos " << q << "\n";
 }
-//// For testing object dictionary
+//// Robot motion and state update functions
 void Joint::updateJoint()
 {
     /// Update current joint position from object dictionary
     /// This should be internally mapped from object dictionary
     // Construct obj dictionary entry message for this motor id
     //CO_OD_RAM.actualMotorPositions.motor<id_goes_here>
-    q = CO_OD_RAM.actualMotorPositions.motor4;
+    q = CO_OD_RAM.actualMotorPositions.motor2;
 }
+/*
+ * bitflip High changes the specified control Word for this joints motor to HIGH
+ * Returns true if successfull or false if not 
+*/  
+bool bitflipHigh(){
+    //TODO: 1. Set up caseses for position, velocity and Torque controlWorkds 
+    //      2. generalize to create .motor<motorID> dynamically
+    //      3. error check control word has been changed in the actual motor.
+    CO_OD_RAM.controlWords.motor2 = 63;
+    return true;
+}
+/*
+ * bitflip Low changes the specified control Word for this joints motor to HIGH
+ * Returns true if successfull or false if not 
+*/  
+bool bitflipLow(){
+    //TODO: 1. Set up caseses for position, velocity and Torque controlWorkds 
+    //      2. generalize to create .motor<motorID> dynamically
+    //      3. error check control word has been changed in the actual motor.
+    CO_OD_RAM.controlWords.motor2 = 47;
+    return true;
+}
+
 void Joint::testWrite()
 {
-    double pos = CO_OD_RAM.actualMotorPositions.motor4;
+    double pos = CO_OD_RAM.actualMotorPositions.motor2;
     std::cout << "that worked actualMotorPos is:" << pos << "\n";
-    CO_OD_RAM.actualMotorPositions.motor4 = pos +1;
+    CO_OD_RAM.actualMotorPositions.motor2 = pos +1;
     
 }

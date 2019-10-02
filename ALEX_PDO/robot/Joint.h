@@ -36,6 +36,8 @@ public:
     void printInfo();
     void updateJoint();
     void testWrite();
+    bool bitflipHigh();
+    bool bitflipLow();
 };
 
 #endif //CAPSTONE_JOINT_H

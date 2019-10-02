@@ -19,6 +19,7 @@ public:
     void deactivate(void);
     void toyUpdate(void);
     void initRobot( Robot *rb );
+    void bitFlip();
 private:
     // events
     EventObject(IsBentP) * isBentP;
@@ -36,6 +37,7 @@ private:
     double mark;
     int button;
     int arrayIndex;
+    int bitFlipState;
     
    std::vector<double> posTrajectories{
             0,

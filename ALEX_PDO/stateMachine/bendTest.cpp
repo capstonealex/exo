@@ -5,6 +5,9 @@
 
 #include "bendTest.h"
 #define OWNER ((bendTest *)owner)
+#define NOFLIP (100) 
+#define BITHIGH (1)
+#define BITLOW (0)
 
 // State Machine bendTest methods ----------------------------------------------------------
 bendTest::bendTest(void)
@@ -29,6 +32,7 @@ bendTest::bendTest(void)
     // Initialize the state machine with first state
     StateMachine::initialize(idle);
     robot = NULL;
+    bitFlipState = NOFLIP;
 }
 void bendTest::init(void)
 {
@@ -58,19 +62,26 @@ void bendTest::BendingP::entry(void)
 
 }
 void bendTest::BendingP::during(void) {
-    // Get position to send to joint based on current arrayIndex, send off and increment index
-    float desiredPos =OWNER->posTrajectories[OWNER->arrayIndex];
     // Make sure not to move array index past last member of array
     if (OWNER->arrayIndex != OWNER->posTrajectories.size()){
-        //BIT FLIP FUNCTION
-        OWNER->robot->joints[1].applyPos(desiredPos);
-        
-        printf("Bending to pos %f\n", desiredPos);
-        OWNER->arrayIndex ++;
+        // Get position to send to joint based on current arrayIndex, send off and increment index
+        float desiredPos =OWNER->posTrajectories[OWNER->arrayIndex];
+        // check if last last position reached -> go to next position
+        if(OWNER->robot->joints[1].getPos() == OWNER->posTrajectories[OWNER->arrayIndex-1]){
+            OWNER->robot->joints[1].applyPos(desiredPos);
+            // set state machine bitFlip to LOW state.
+            OWNER->bitFlipState = BITLOW;
+            printf("Bending to pos %f\n", desiredPos);
+            OWNER->arrayIndex ++;
+            // Do first bit flip
+            // change stateMachine bit flip value to first one
+        }
     }
     else{
         printf("Final position reached\n");
     }
+    // BITFLIP FUNCTION..
+    OWNER.bitflip();
     
 }
 void bendTest::BendingP::exit(void)
@@ -190,5 +201,46 @@ void bendTest::toyUpdate(void)
     float ya = robot->joints[1].getPos();
     printf("Robot joint is at: %f\n", ya);
 
+}
+/*
+ * bitFlip returns true if the second bit flip has occured, signalling a movement, else returns flase
+ * 
+ * 
+ * 
+*/
+bool bendTest::bitFlip(void){
+    // DO BIT FLIPS FOR EACH joiny
+    // for loop for all joints and bitFipState[0] to 3 for each joint
+    if(bitFlipState == BITLOW){
+        // Do first bit flip
+        // print error if bit not flipped
+        if(!robot->joints[1].bitflipLow;){
+            printf("Error in changing object dictionary entry");
+            return false;
+        }
+        else{
+            // success, change bit flip state to high
+            bitFlipState = BITHIGH;
+            return false;
+        }
+
+    }
+    else if(bitFlipState == BITHIGH){
+        // Do second bit flip
+        if(!robot->joints[1].bitflipHigh;){
+        printf("Error in changing object dictionary entry");
+        return false;
+        }
+        else{
+            // bitflipHigh successful, change bitFlip state to unengaged and retrun true
+            bitFlipState = NOFLIP;
+            printf("Last sent command to motor %d sent\n",robot->joints[1]->id);
+            return true;
+        }
+
+    }
+    else {
+        // Do nothing
+    }
 
 }
