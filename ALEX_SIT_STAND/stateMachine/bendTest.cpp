@@ -25,7 +25,7 @@
 #define HIP_MOTOR_POS2 (0)
 #define HIP_MOTOR_DEG2 (180)
 
-// State Machine bendTest methods ----------------------------------------------------------
+// State Machine Constructors ----------------------------------------------------------
 bendTest::bendTest(void)
 {
     // Create PRE-DESIGNED State Machine events, states and transitions
@@ -56,6 +56,7 @@ bendTest::bendTest(void)
     motorPosArrayConverter(negTrajectoriesDeg,negTrajectories, LKNEE);
 
 }
+
 /*Helper functions for motor deg to command conversion*/
 // TODO -> don't use this and only use trajectory function
 //Used to convert position array from degrees to motors counts as used in CANopen
@@ -84,6 +85,7 @@ void calcAB(long y1, long x1, long y2, long x2, double *A, double *B)
     *B = 1.0 * (y1 * x2 - y2 * x1) / (x2 - x1);
     //printf("B is %f\n", *B);
 }
+// State Machine bendTest methods ----------------------------------------------------------
 void bendTest::init(void)
 {
     mark = 1;

@@ -21,19 +21,18 @@ public:
     void initRobot( Robot *rb );
     void bitFlip();
 private:
-    // events
+    // Events
     EventObject(IsBentP) * isBentP;
     EventObject(IsBentN) * isBentN;
     EventObject(IsPressed) * isPressed;
 
-    //
-    //    // states
+    // States
     StateObject(BendingP) * bendingP;
     StateObject(BendingN) * bendingN;
     StateObject(Bent) * bent;
     StateObject(Idle) * idle;
 
-    // data
+    // Data
     double mark;
     int button;
     int arrayIndex;

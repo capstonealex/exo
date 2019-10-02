@@ -35,22 +35,6 @@ void Robot::jointIncrement() {
         joints[i].applyPos(current);
     }
 }
-/*
- * updateJoints
- *  Update all created joint objects state with their object dictionary mapped value
- *  Whom should be updated from PDO messaging over the network.
- *  and used to update the Robots joint q,qd and Torque (if needed)
- *  TODO: Add optional qd and Torque update code to Joints.updateJoint
- *
- *
-*/
-void Robot::updateJoints(){
-    for (int i : joints)
-    for (auto i=0; i<4 ;i++) {
-        joints[i].updateJoint();
-    }
-
-}
 // Creates a socket connection to canopend using a pointer to int socket
 // void Robot::canFeastUp(int *canSocket)
 // {

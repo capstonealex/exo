@@ -1,11 +1,28 @@
+/**
+ *
+ * Created for ALEX exoskeleton on 2019-10-02.
+ *
+ * State Machine: Sit Stand task
+ *
+ *              isPressed        isCal              isPressed
+ *  uncalibrated +--> calibrating  +--> idle(standing)  +--> sitingDown
+ *       ^---------------+                 ^                   +
+ *             calFail          isStanding |                   | isSitting
+ *                                         |                   |
+ *                                         standingUp<--+ sitting
+ *                                                     isPressed
+ * ALL states can also leave to error state as well, which holds the current pos
+ * unitl another button is pressed and then goes to uncalibrated (LIMP)
+ *
+ * TODO: Ask lenny what he wants
+ *
+ */
 
-//
-// Created by William Campbell on 2019-09-30.
-//
 
-#include "bendTest.h"
+#include "SitStand.h"
+
 #define OWNER ((bendTest *)owner)
-#define NOFLIP (100) 
+#define NOFLIP (100)
 #define BITHIGH (1)
 #define BITLOW (0)
 
@@ -24,85 +41,70 @@
 #define HIP_MOTOR_DEG1 (90)
 #define HIP_MOTOR_POS2 (0)
 #define HIP_MOTOR_DEG2 (180)
-
-// State Machine bendTest methods ----------------------------------------------------------
-bendTest::bendTest(void)
-{
+// State Machine Constructors ----------------------------------------------------------
+bendTest::SitStand(void) {
     // Create PRE-DESIGNED State Machine events, states and transitions
-    // StateMachine events
+    // StateMachine Events
     isPressed = new IsPressed(this);
-    isBentP = new IsBentP(this);
-    isBentN = new IsBentN(this);
-    // StateMache states
+    isCal = new IsCal(this);
+    calFail = new CalFail(this);
+    isStanding = new IsStanding(this);
+    isSitting = new IsSitting(this);
+    // error event
+//    isErrorPressed = new IsErrorPressed(this);
+
+    // State Machine States
+    uncalibrated = new Uncalibrated(this);
+    calibrating = new Calibrating(this);
     idle = new Idle(this);
-    bent = new Bent(this);
-    bendingN = new BendingN(this);
-    bendingP = new BendingP(this);
+    siting = new Siting(this);
+    standingUp = new StandingUp(this);
+    sittingDwn = new SittingDwn(this);
+
+    // Error state
+//    errorState = new ErrorState(this);
 
     // Create Trasitions between states and events which trigger them
-    NewTransition(idle, isPressed, bendingP);
-    NewTransition(bendingP, isBentP, bent);
-    NewTransition(bent, isPressed, bendingN);
-    NewTransition(bendingN, isBentN, idle);
+    NewTransition(uncalibrated, isPressed, calibrating);
+    NewTransition(calibrating, isCal, idle);
+    NewTransition(calibrating, calFail, uncalibrated);
+    NewTransition(idle, isPressed, sittingDwn);
+    NewTransition(sittingDwn, isSitting, sitting);
+    NewTransition(sitting, isPressed, standingUp);
+    NewTransition(standingUp, isStanding, idle);
 
+    // Safely transition to error state from idle, sitting, sit and standing states.
+    // state ->(isErrorPressed) -->error state (LOCK JOINTS WHERE THEY ARE) -> (isErrorPressed) -> uncalibrated
+    //    NewTransition(sittingDwn, isError, errorState);
     // Initialize the state machine with first state
-    StateMachine::initialize(idle);
+    StateMachine::initialize(uncalibrated);
     robot = NULL;
     bitFlipState = NOFLIP;
-
-    // Convert hardcoded trajectories to actual motor commands
-    // Test for LKNE
-    motorPosArrayConverter(posTrajectoriesDeg,posTrajectories, LKNEE);
-    motorPosArrayConverter(negTrajectoriesDeg,negTrajectories, LKNEE);
-
 }
-/*Helper functions for motor deg to command conversion*/
-// TODO -> don't use this and only use trajectory function
-//Used to convert position array from degrees to motors counts as used in CANopen
-void motorPosArrayConverter(std::vector<double>  origArr,std::vector<long> newArr, int nodeid)
+// State Machine: Sit Stand methods ----------------------------------------------------------
+void SitStand::init(void)
 {
-    double A = 0;
-    double B = 0;
-
-    if (nodeid == 1 || nodeid == 3)
-        calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
-
-    if (nodeid == 2 || nodeid == 4)
-        calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
-
-    for (int i : origArr)
-    {
-        newArr.push_back((long)(A * origArr[i] + B));
-    }
-}
-
-//calculate A and B in the formula y=Ax+B. Use by motorPosArrayConverter()
-void calcAB(long y1, long x1, long y2, long x2, double *A, double *B)
-{
-    *A = 1.0 * (y2 - y1) / (x2 - x1);
-    //printf("A is %f\n", *A);
-    *B = 1.0 * (y1 * x2 - y2 * x1) / (x2 - x1);
-    //printf("B is %f\n", *B);
-}
-void bendTest::init(void)
-{
-    mark = 1;
-    std::cout << "Welcome to The single joint bend STATE MACHINE"
+    /* Initialize timer mark of 0
+     * TODO: Change to real state Machine timer of RT loop
+     * */
+    mark = 0;
+    std::cout << "Starting sitStand State Machine"
               << "\n";
     StateMachine::init();
 }
-void bendTest::activate(void)
+void SitStand::activate(void)
 {
     StateMachine::activate();
 }
-void bendTest::deactivate(void)
+void SitStand::deactivate(void)
 {
     StateMachine::deactivate();
 }
+
 // State Methods ----------------------------------------------------------
 // Moving states
 // Positive bending control machine
-void bendTest::BendingP::entry(void)
+void SitStand::StandingUp::entry(void)
 {
     //READ TIME OF MAIN
     printf("Bending Positive State  Entered at Time %f\n", OWNER->mark);
@@ -111,7 +113,7 @@ void bendTest::BendingP::entry(void)
 
 
 }
-void bendTest::BendingP::during(void) {
+void SitStand::StandingUp::during(void) {
     //// DO FOR EACH JOINT
     ///for (auto i = 0; i < 4; i++) {
     // Make sure not to move array index past last member of array
@@ -155,91 +157,12 @@ void bendTest::BendingP::during(void) {
     }
     // BITFLIP FUNCTION to trigger low and high bit flip needed for motor motion
     OWNER.bitflip();
-    
+
 }
-void bendTest::BendingP::exit(void)
+void SitStand::StandingUp::exit(void)
 {
 
     printf("Bending Positive State Exited at Time %f\n", OWNER->mark);
-}
-// Negative bending control machine
-void bendTest::BendingN::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("Bending Positive State  Entered at Time %f\n", OWNER->mark);
-    // Set arrayIndex to zero
-    OWNER->arrayIndex = 0;
-}
-void bendTest::BendingN::during(void) {
-    printf("Current joint position %f\n", OWNER->robot->joints[1].getPos());
-    if (OWNER->arrayIndex != OWNER->negTrajectories.size()){
-        float desiredPos = OWNER->negTrajectories[OWNER->arrayIndex];
-        //BIT FLIP FUNCTION
-        OWNER->robot->joints[1].applyPos(desiredPos);
-        printf("Bending to pos %f\n", desiredPos);
-        OWNER->arrayIndex ++;
-    }
-    else{
-        printf("Final position reached\n");
-    }
-}
-void bendTest::BendingN::exit(void)
-{
-
-    printf("Bending Positive State Exited at Time %f\n", OWNER->mark);
-}
-// Bent(90deg)
-void bendTest::Bent::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("Bent State Entered at Time %f\n", OWNER->mark);
-}
-void bendTest::Bent::during(void)
-{
-}
-void bendTest::Bent::exit(void)
-{
-
-    printf("Bent State Exited at Time %f\n", OWNER->mark);
-}
-// Idle (0 deg) and ready to move
-void bendTest::Idle::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("Idle State Entered at Time %f\n", OWNER->mark);
-}
-void bendTest::Idle::during(void)
-{
-}
-void bendTest::Idle::exit(void)
-{
-
-    printf("Idle State Exited at Time %f\n", OWNER->mark);
-}
-// Events ------------------------------------------------------------
-bool bendTest::IsBentP::check(void)
-{
-    if (OWNER->robot->joints[1].getPos()>=90)
-    {
-        return true;
-    }
-    return false;
-}
-bool bendTest::IsBentN::check(void)
-{
-    if (OWNER->robot->joints[1].getPos()<=0)
-    {
-        return true;
-    }
-    return false;
-}
-bool bendTest::IsPressed::check(void)
-{
-    if (OWNER->button == 1)
-    {
-        return true;
-    }
-    return false;
 }
 
 // Robot interface methods ----------------------------------------------------------
@@ -278,9 +201,9 @@ void bendTest::hwStateUpdate(void)
 
 /*
  * bitFlip returns true if the second bit flip has occured, signalling a movement, else returns flase
- * 
- * 
- * 
+ *
+ *
+ *
 */
 bool bendTest::bitFlip(void){
     // DO BIT FLIPS FOR EACH joiny
@@ -302,8 +225,8 @@ bool bendTest::bitFlip(void){
     else if(bitFlipState == BITHIGH){
         // Do second bit flip
         if(!robot->joints[1].bitflipHigh;){
-        printf("Error in changing object dictionary entry");
-        return false;
+            printf("Error in changing object dictionary entry");
+            return false;
         }
         else{
             // bitflipHigh successful, change bitFlip state to unengaged and retrun true
