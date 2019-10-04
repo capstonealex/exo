@@ -9,17 +9,18 @@
 #include "Robot.h"
 #include "GPIOManager.h"
 #include "GPIOConst.h"
-#include <vector> 
 
-class bendTest: public StateMachine{
+class bendTest : public StateMachine
+{
 public:
     bendTest(void);
     void init(void);
     void activate(void);
     void deactivate(void);
     void hwStateUpdate(void);
-    void initRobot( Robot *rb );
-    void bitFlip();
+    void initRobot(Robot *rb);
+    bool bitFlip();
+
 private:
     // events
     EventObject(IsBentP) * isBentP;
@@ -38,36 +39,40 @@ private:
     int button;
     int arrayIndex;
     int bitFlipState;
-    
-   std::vector<double> posTrajectoriesDeg{
-            0,
-            10,
-            20,
-            30,
-            40,
-            50,
-            60,
-            70,
-            80,
-            90
-    };
-    std::vector<double>  negTrajectoriesDeg{
-            90,
-            80,
-            70,
-            60,
-            50,
-            40,
-            30,
-            20,
-            10,
-            0
-    };
-    std::vector<long> posTrajectories;
-    std::vector<long> negTrajectories;
-    // Robot interface to be used by states to interact with hardware
-    Robot * robot;
-};
+    // enum
+    // {
+    //     NUM_TRAJ_POINTS = 10
+    // };
 
+    // double posTrajectoriesDeg[] = {
+    //     0,
+    //     10,
+    //     20,
+    //     30,
+    //     40,
+    //     50,
+    //     60,
+    //     70,
+    //     80,
+    //     90};
+
+    // double negTrajectoriesDeg[] = {
+    //     90,
+    //     80,
+    //     70,
+    //     60,
+    //     50,
+    //     40,
+    //     30,
+    //     20,
+    //     10,
+    //     0};
+    // // Make two arrays for coresponding motor commands for trajectorues
+    // static int arrSize = sizeof(posTrajectoriesDeg) / sizeof(posTrajectoriesDeg[0]);
+    // long posTrajectories[arrSize];
+    // long negTrajectories[arrSize];
+    // Robot interface to be used by states to interact with hardware
+    Robot *robot;
+};
 
 #endif //EXO_BENDTEST_H

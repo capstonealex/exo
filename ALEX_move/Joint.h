@@ -23,9 +23,7 @@ class Joint
     float maxq, minq;
     void setPos(float qd);
     void motorPosArrayConverter(double origArr[], long newArr[], int arrSize, int nodeid);
-    void motorPosConverter(double origDeg, long newMotorCmnd,int nodeid);
     void calcAB(long y1, long x1, long y2, long x2, double *A, double *B);
-    int arrayIndex;
     // TODO: Add other vars after initial test implimentation up and running
     // qd, qdd,T, mode. limts, Transformation, Reduction Ratio(CONST)
 
@@ -46,9 +44,6 @@ public:
     void testWrite();
     bool bitflipHigh();
     bool bitflipLow();
-    void incrementIndex();
-    int getIndex();
-    void zeroIndex();
 
     // Make two arrays for coresponding motor commands for trajectorues
     long posTrajectories[NUM_TRAJ_POINTS];
