@@ -8,7 +8,7 @@
 #define NOFLIP (100)
 #define BITHIGH (1)
 #define BITLOW (0)
-// For testing 
+// For testing
 #define KNEE_MOTOR_POS1 (250880)
 
 // State Machine bendTest methods ----------------------------------------------------------
@@ -75,11 +75,11 @@ void bendTest::BendingP::during(void)
     ///for (auto i = 0; i < 4; i++) {
     int desiredIndex = OWNER->robot->joints[1].getIndex();
     // Make sure not to move array index past last member of array
-    if (desiredIndex != (OWNER->robot->joints[1].NUM_TRAJ_POINTS +1))
+    if (desiredIndex != (OWNER->robot->joints[1].NUM_TRAJ_POINTS))
     {
         // Get position to send to joint based on current arrayIndex, send off and increment index
         // desired Position in motor command units
-        float desiredPos = OWNER->robot->joints[1].posTrajectories[desiredIndex];
+        long desiredPos = OWNER->robot->joints[1].posTrajectories[desiredIndex];
         /*SINGLE JOINT FUNCTIONALITY TEST*/
         //first member of array
         if (desiredIndex == 0)
@@ -95,12 +95,12 @@ void bendTest::BendingP::during(void)
         // long current =OWNER->robot->joints[1].getPos()
         // More conservative: else if (current>(last-30) current>(last+30))
         /*THE BELLOW CONDITION MUST BOTH BE IN THE SAME UNITS, either deg or motorCOMMAND units*/
-        else if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].posTrajectories[desiredIndex-1])
+        else if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].posTrajectories[desiredIndex - 1])
         {
             OWNER->robot->joints[1].applyPos(desiredPos);
             // set state machine bitFlip to LOW state.
             OWNER->bitFlipState = BITLOW;
-            printf("Bending to pos %f\n", desiredPos);
+            printf("Bending to pos %ld\n", desiredPos);
             OWNER->robot->joints[1].incrementIndex();
         }
         /*ALL JOINT MOTION*/
@@ -121,7 +121,7 @@ void bendTest::BendingP::during(void)
     else
     {
         // change 1 to i after single joint works
-        if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].posTrajectories[desiredIndex-1])
+        if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].posTrajectories[desiredIndex - 1])
         {
             printf("Final position of joint %d reached\n,", OWNER->robot->joints[1].getId());
         }
@@ -150,11 +150,11 @@ void bendTest::BendingN::entry(void)
 }
 void bendTest::BendingN::during(void)
 {
-   //// DO FOR EACH JOINT
+    //// DO FOR EACH JOINT
     ///for (auto i = 0; i < 4; i++) {
     int desiredIndex = OWNER->robot->joints[1].getIndex();
     // Make sure not to move array index past last member of array
-    if (desiredIndex != (OWNER->robot->joints[1].NUM_TRAJ_POINTS +1))
+    if (desiredIndex != (OWNER->robot->joints[1].NUM_TRAJ_POINTS + 1))
     {
         // Get position to send to joint based on current arrayIndex, send off and increment index
         // desired Position in motor command units
@@ -174,7 +174,7 @@ void bendTest::BendingN::during(void)
         // long current =OWNER->robot->joints[1].getPos()
         // More conservative: else if (current>(last-30) current>(last+30))
         /*THE BELLOW CONDITION MUST BOTH BE IN THE SAME UNITS, either deg or motorCOMMAND units*/
-        else if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].negTrajectories[desiredIndex-1])
+        else if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].negTrajectories[desiredIndex - 1])
         {
             OWNER->robot->joints[1].applyPos(desiredPos);
             // set state machine bitFlip to LOW state.
@@ -200,7 +200,7 @@ void bendTest::BendingN::during(void)
     else
     {
         // change 1 to i after single joint works
-        if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].negTrajectories[desiredIndex-1])
+        if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].negTrajectories[desiredIndex - 1])
         {
             printf("Final position of joint %d reached\n,", OWNER->robot->joints[1].getId());
         }
@@ -290,14 +290,33 @@ void bendTest::hwStateUpdate(void)
 {
     /*BUTON CODE*/
     // Once working Turn button into its own class and object: call button.getState() return 0 or 1, Statemachines have a button or an event could even
-    static char *BUTTON1 = "P9_23";
-    int holder;
+    
+    //Read all 4 BUTTONs  and print to screen
+    static char *BUTTON1 = "P8_7";
+    static char *BUTTON2 = "P8_8";
+    static char *BUTTON3 = "P8_9";
+    static char *BUTTON4 = "P8_10";
+    int holder1;
+    int holder2;
+    int holder3;
+    int holder4;
     GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-    int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-    gp->setDirection(pin, GPIO::INPUT);
-    holder = gp->getValue(pin);
-    this->button = holder;
+    int pin1 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
+    int pin2 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON2);
+    int pin3 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON3);
+    int pin4 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON4);
+    gp->setDirection(pin1, GPIO::INPUT);
+    gp->setDirection(pin2, GPIO::INPUT);
+    gp->setDirection(pin3, GPIO::INPUT);
+    gp->setDirection(pin4, GPIO::INPUT);
+    holder1 = gp->getValue(pin1);
+    holder2 = gp->getValue(pin2);
+    holder3 = gp->getValue(pin3);
+    holder4 = gp->getValue(pin4);
+    // Send buttons to statemachine variables
+    // this->button = holder;
     gp->~GPIOManager();
+    printf("%d %d %d %d\n", holder1, holder2, holder3, holder4);
 
     // Update loop time counter
     mark = mark + 1;

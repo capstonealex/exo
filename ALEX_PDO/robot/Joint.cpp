@@ -29,7 +29,7 @@ Joint::Joint()
     q = 0;
     id = 0;
     // THESE MUST BE HARD SET AT OBJECT INITIALIZATION
-    maxq = KNEE_MOTOR_POS1*4;
+    maxq = KNEE_MOTOR_POS1 * 4;
     minq = 0;
     // set position arrayIndex to 0;
     arrayIndex = 0;
@@ -72,15 +72,18 @@ Joint::Joint(float q_init, int ID)
     q = q_init;
     id = ID;
 }
-void Joint::incrementIndex(){
+void Joint::incrementIndex()
+{
     arrayIndex++;
     printf("ARRAY INDEX NOW %d", arrayIndex);
 }
-void Joint::zeroIndex(){
+void Joint::zeroIndex()
+{
     arrayIndex = 0;
     printf("ARRAY INDEX zeroed and now: %d", arrayIndex);
 }
-int Joint::getIndex(){
+int Joint::getIndex()
+{
     return arrayIndex;
 }
 /*Helper functions for motor deg to command conversion*/
@@ -91,32 +94,35 @@ void Joint::motorPosArrayConverter(double origArr[], long newArr[], int arrSize,
     double A = 0;
     double B = 0;
 
-    if (nodeid == 1 || nodeid == 3){
+    if (nodeid == 1 || nodeid == 3)
+    {
         calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
     }
 
-    if (nodeid == 2 || nodeid == 4){
+    if (nodeid == 2 || nodeid == 4)
+    {
         calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
     }
-    printf("A is %f\n", A);
     for (int i = 0; i < arrSize; i++)
     {
-        long solution = lround(origArr[i]*A +B);
+        long solution = lround(origArr[i] * A + B);
         newArr[i] = solution;
     }
 }
-void Joint::motorPosConverter(double origDeg, long newMotorCmnd,int nodeid)
+void Joint::motorPosConverter(double origDeg, long newMotorCmnd, int nodeid)
 {
     double A = 0;
     double B = 0;
 
-    if (nodeid == 1 || nodeid == 3){
+    if (nodeid == 1 || nodeid == 3)
+    {
         calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
     }
-    if (nodeid == 2 || nodeid == 4){
+    if (nodeid == 2 || nodeid == 4)
+    {
         calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
     }
-    
+
     newMotorCmnd = (long)(A * origDeg + B);
 }
 
@@ -128,13 +134,13 @@ void Joint::calcAB(long y1, long x1, long y2, long x2, double *A, double *B)
     *B = 1.0 * (y1 * x2 - y2 * x1) / (x2 - x1);
     // printf("B is %f\n", *B);
 }
-void Joint::applyPos(float qd)
+void Joint::applyPos(long qd)
 {
     //Safety checks.
     // Is joint where we think it is? or within safe range of it?
     // are we trying to move to a pos within the joints limits?
     ///// Testing for PDOs
-    printf("apply pos of %d issued\n",qd);
+    printf("apply pos of %ld issued\n", qd);
     if (qd >= minq && qd <= maxq)
     {
         Joint::setPos(qd);
@@ -145,12 +151,12 @@ void Joint::applyPos(float qd)
              << "\n";
     }
 }
-void Joint::setPos(float qd)
+void Joint::setPos(long qd)
 // TODO: 1. generalize to create .motor<motorID> dynamically
 {
-    // Set target motor position
+    // Set target motor position -> will send out to motors
     CO_OD_RAM.targetMotorPositions.motor2 = qd;
-    // virtual joint motiom
+    // virtual joint motiom=n
     CO_OD_RAM.actualMotorPositions.motor2 = qd;
     cout << "Joint move to and set it's address to " << CO_OD_RAM.actualMotorPositions.motor2 << "\n";
 }

@@ -20,10 +20,10 @@ class Joint
     //Private members
     int id;
     float q;
-    float maxq, minq;
-    void setPos(float qd);
+    long maxq, minq;
+    void setPos(long qd);
     void motorPosArrayConverter(double origArr[], long newArr[], int arrSize, int nodeid);
-    void motorPosConverter(double origDeg, long newMotorCmnd,int nodeid);
+    void motorPosConverter(double origDeg, long newMotorCmnd, int nodeid);
     void calcAB(long y1, long x1, long y2, long x2, double *A, double *B);
     int arrayIndex;
     // TODO: Add other vars after initial test implimentation up and running
@@ -39,7 +39,7 @@ public:
     Joint(float q_init, int ID);
     void setId(int ID);
     int getId();
-    void applyPos(float qd);
+    void applyPos(long qd);
     int getPos();
     void printInfo();
     void updateJoint();

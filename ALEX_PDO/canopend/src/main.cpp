@@ -312,11 +312,11 @@ int main(int argc, char *argv[])
         reset = CO_RESET_NOT;
         /*State machine testing 123*/
         // Create Statemachine Object -> will be loaded by taskmanager in end program.
-        Robot exo;
-        bendTest bendKnee;
-        bendKnee.initRobot(&exo);
-        bendKnee.init();
-        bendKnee.activate();
+        // Robot exo;
+        // bendTest bendKnee;
+        // bendKnee.initRobot(&exo);
+        // bendKnee.init();
+        // bendKnee.activate();
         printf("Canopend- running ...\n");
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
@@ -348,9 +348,9 @@ int main(int argc, char *argv[])
 
                 /* Execute optional additional application code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
-                bendKnee.hwStateUpdate();
-                bendKnee.update();
-                app_programAsync(timer1msDiff);
+                // bendKnee.hwStateUpdate();
+                // bendKnee.update();
+                // app_programAsync(timer1msDiff);
                 // double pos = CO_OD_RAM.actualMotorPositions.motor4;
                 // std::cout << "that worked actualMotorPos is:" << pos << "\n";
                 // CO_OD_RAM.actualMotorPositions.motor4 = pos +1;
@@ -418,6 +418,11 @@ int main(int argc, char *argv[])
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
+    Robot exo;
+    bendTest bendKnee;
+    bendKnee.initRobot(&exo);
+    bendKnee.init();
+    bendKnee.activate();
     /* Endless loop */
     while (CO_endProgram == 0)
     {
@@ -455,9 +460,8 @@ static void *rt_thread(void *arg)
             /*Get the current LKnee position*/
             // Mirror Joint
             // mirrorJoint(lKnee);
-            if (CO_timer1ms % 1000 == 0)
-            {
-            }
+            bendKnee.hwStateUpdate();
+            // bendKnee.update();
 
             /* Detect timer large overflow */
             if (OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal)
