@@ -240,6 +240,7 @@ void bendTest::Idle::entry(void)
 }
 void bendTest::Idle::during(void)
 {
+    // printf("BUTTON IS: %d", OWNER->button);
 }
 void bendTest::Idle::exit(void)
 {
@@ -265,7 +266,7 @@ bool bendTest::IsBentN::check(void)
 }
 bool bendTest::IsPressed::check(void)
 {
-    if (OWNER->button == 1)
+    if (OWNER->button == 0)
     {
         return true;
     }
@@ -290,38 +291,38 @@ void bendTest::hwStateUpdate(void)
 {
     /*BUTON CODE*/
     // Once working Turn button into its own class and object: call button.getState() return 0 or 1, Statemachines have a button or an event could even
-    
+
     //Read all 4 BUTTONs  and print to screen
-    static char *BUTTON1 = "P8_7";
-    static char *BUTTON2 = "P8_8";
-    static char *BUTTON3 = "P8_9";
-    static char *BUTTON4 = "P8_10";
-    int holder1;
-    int holder2;
-    int holder3;
-    int holder4;
+    static char *BUTTONRED = "P8_7";
+    static char *BUTTONBLUE = "P8_8";
+    static char *BUTTONGREEN = "P8_9";
+    static char *BUTTONYELLOW = "P8_10";
+    int redbtn;
+    int bluebtn;
+    int greenbtn;
+    int yellowbtn;
     GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-    int pin1 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-    int pin2 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON2);
-    int pin3 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON3);
-    int pin4 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON4);
-    gp->setDirection(pin1, GPIO::INPUT);
-    gp->setDirection(pin2, GPIO::INPUT);
-    gp->setDirection(pin3, GPIO::INPUT);
-    gp->setDirection(pin4, GPIO::INPUT);
-    holder1 = gp->getValue(pin1);
-    holder2 = gp->getValue(pin2);
-    holder3 = gp->getValue(pin3);
-    holder4 = gp->getValue(pin4);
+    int red = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONRED);
+    int blue = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONBLUE);
+    int green = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONGREEN);
+    int yellow = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONYELLOW);
+    gp->setDirection(red, GPIO::INPUT);
+    gp->setDirection(blue, GPIO::INPUT);
+    gp->setDirection(green, GPIO::INPUT);
+    gp->setDirection(yellow, GPIO::INPUT);
+    redbtn = gp->getValue(red);
+    bluebtn = gp->getValue(blue);
+    greenbtn = gp->getValue(green);
+    yellowbtn = gp->getValue(yellow);
     // Send buttons to statemachine variables
-    // this->button = holder;
+    this->button = greenbtn;
     gp->~GPIOManager();
-    printf("%d %d %d %d\n", holder1, holder2, holder3, holder4);
+    // printf("%d %d %d %d\n", redbtn, bluebtn, yellowbtn, greenbtn);
 
     // Update loop time counter
     mark = mark + 1;
     // Update Joint angle from register
-    //    robot->joints[1].updateJoint();
+    robot->joints[1].updateJoint();
     // Update all the robots joint values.
     robot->updateJoints();
     // robot->printInfo();
