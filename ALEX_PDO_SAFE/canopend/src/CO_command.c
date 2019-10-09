@@ -660,9 +660,10 @@ void cancomm_socketFree(char* command, char* ret) {
             break;
         }
     }
-
+    printf("PARSING DONE\n");
     /* Execute command */
     if(err == 0) {
+        printf("Error is 0\n");
 
         /* Upload SDO command - 'r[ead] <index> <subindex> <datatype>' */
         if(strcmp(token, "r") == 0 || strcmp(token, "read") == 0) {
@@ -720,6 +721,7 @@ void cancomm_socketFree(char* command, char* ret) {
                     respErrorCode = respErrorInternalState;
                 }
             }
+            printf("SDO client upload happend\n");
 
             /* output result */
             if(err == 0){
@@ -742,6 +744,7 @@ void cancomm_socketFree(char* command, char* ret) {
 
         /* Download SDO command - w[rite] <index> <subindex> <datatype> <value> */
         else if(strcmp(token, "w") == 0 || strcmp(token, "write") == 0) {
+            printf("DOWNLOAD SDO COMMAND\n");
             uint16_t idx;
             uint8_t subidx;
             const dataType_t *datatype;
@@ -786,6 +789,7 @@ void cancomm_socketFree(char* command, char* ret) {
 
             /* Make CANopen SDO transfer */
             if(err == 0) {
+                printf("parsed and making sdoClientDownload\n");
                 err = sdoClientDownload(
                         CO->SDOclient,
                         comm_node,
@@ -963,8 +967,7 @@ void cancomm_socketFree(char* command, char* ret) {
     resp[respLen++] = '\r';
     resp[respLen++] = '\n';
     resp[respLen++] = '\0';
-    strcpy(ret,resp);
-    printf("Response is: %s\n",ret);
+    printf("GOT RESPONSE: %s\n", resp);
     // if(write(fd, resp, respLen) != respLen) {
     //     CO_error(0x15200000L);
     // }

@@ -56,6 +56,7 @@
 #define TMR_TASK_OVERFLOW_US (5000)    /* Overflow detect limit for taskTmr in microseconds */
 #define INCREMENT_1MS(var) (var++)     /* Increment 1ms variable in taskTmr */
 #define NODEID (100)
+#define CANMESSAGELENGTH (100)
 /* Global variable increments each millisecond. */
 volatile uint16_t CO_timer1ms = 0U;
 
@@ -87,6 +88,30 @@ typedef struct
     long q;
 
 } robotJoint;
+bool initPositionControl(void)
+{
+    char *returnMessage;
+    char SDO_MessageList[][CANMESSAGELENGTH] = {
+        "[1] 1 start",
+        "[1] 2 start",
+        "[1] 2 write 0x6060 0 i8 1",
+        "[1] 1 write 0x6060 0 i8 1",
+        "[1] 2 write 0x6081 0 i32 200000",
+        "[1] 1 write 0x6081 0 i32 200000",
+        "[1] 2 write 0x6083 0 i32 30000",
+        "[1] 1 write 0x6083 0 i32 30000",
+        "[1] 2 write 0x6084 0 i32 30000",
+        "[1] 1 write 0x6084 0 i32 30000"};
+
+    int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
+    for (int i = 0; i < num_of_Messages; ++i)
+    {
+        cancomm_socketFree(SDO_MessageList[i], returnMessage);
+    }
+    printf("initPosition Control complete!\n");
+    return true;
+}
+
 /* Realtime thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
@@ -327,6 +352,8 @@ int main(int argc, char *argv[])
         // bendKnee.init();
         // bendKnee.activate();
         printf("Canopend- running ...\n");
+        bool initialized = false;
+        robotJoint lKnee;
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
             /* loop for normal program execution ******************************************/
@@ -354,7 +381,10 @@ int main(int argc, char *argv[])
                 tmr1msPrev = CO_timer1ms;
 
                 /* code was processed in the above function. Additional code process below */
-
+                if (!initialized)
+                {
+                    initialized = initPositionControl();
+                }
                 /* Execute optional additional application code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
                 // bendKnee.hwStateUpdate();
@@ -369,7 +399,23 @@ int main(int argc, char *argv[])
                 // gp->setDirection(pin, GPIO::INPUT);
                 // printf("Pin 9.23 value: %d\n", gp->getValue(pin));
                 // gp->~GPIOManager();
-
+                if (initialized)
+                {
+                    lKnee.q = CO_OD_RAM.actualMotorPositions.motor1;
+                    printf("%ld\n", lKnee.q);
+                    printf("%ld\n", CO_OD_RAM.actualMotorPositions.motor3);
+                    if (commCount % 2 == 0)
+                    {
+                        CO_OD_RAM.targetMotorPositions.motor3 = lKnee.q;
+                        CO_OD_RAM.controlWords.motor3 = 47;
+                    }
+                    else if (commCount % 2 == 1)
+                    {
+                        CO_OD_RAM.controlWords.motor3 = 63;
+                        printf("BIT FLIP HIGH!\n");
+                    }
+                    commCount++;
+                }
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
 
@@ -432,7 +478,7 @@ static void *rt_thread(void *arg)
     // bendKnee.initRobot(&exo);
     // bendKnee.init();
     // bendKnee.activate();
-    robotJoint lKnee;
+    // robotJoint lKnee;
     /* Endless loop */
     while (CO_endProgram == 0)
     {
@@ -470,20 +516,24 @@ static void *rt_thread(void *arg)
             /*Get the current LKnee position*/
             // Mirror Joint
             // mirrorJoint(lKnee);
-            lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
-            printf("%ld\n", lKnee.q);
-            printf("%ld\n", CO_OD_RAM.actualMotorPositions.motor4);
-            if (commCount % 2 == 0)
-            {
-                CO_OD_RAM.controlWords.motor4 = 47;
-                CO_OD_RAM.targetMotorPositions.motor4 = lKnee.q;
-            }
-            else if (commCount % 2 == 1)
-            {
-                CO_OD_RAM.controlWords.motor4 = 63;
-                printf("BIT FLIP HIGH!\n");
-            }
-            commCount++;
+
+            // lKnee.q = CO_OD_RAM.actualMotorPositions.motor1;
+            // printf("%ld\n", lKnee.q);
+            // printf("%ld\n", CO_OD_RAM.actualMotorPositions.motor3);
+            // if (commCount % 2 == 0)
+            // {
+            //     CO_OD_RAM.targetMotorPositions.motor3 = lKnee.q;
+            //     CO_OD_RAM.controlWords.motor3 = 47;
+            // }
+            // else if (commCount % 2 == 1)
+            // {
+            //     CO_OD_RAM.controlWords.motor3 = 63;
+            //     printf("BIT FLIP HIGH!\n");
+            // }
+            // commCount++;
+            // else if (!initialized)
+            // {
+            // }
             // bendKnee.hwStateUpdate();
             // if (CO_timer1ms % 100 == 0)
             // {

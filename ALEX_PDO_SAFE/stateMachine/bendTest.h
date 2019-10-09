@@ -20,6 +20,7 @@ public:
     void hwStateUpdate(void);
     void initRobot(Robot *rb);
     bool bitFlip();
+    bool initPositionControl();
 
 private:
     // events
