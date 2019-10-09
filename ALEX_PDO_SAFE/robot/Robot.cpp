@@ -3,10 +3,12 @@
 //
 
 #include "Robot.h"
+#include "CO_command.h"
 #include <unistd.h>
 #include <sys/un.h>
 #include <sys/socket.h>
 #include <string.h>
+#define CANMESSAGELENGTH (100)
 
 Robot::Robot()
 {
@@ -48,93 +50,35 @@ void Robot::updateJoints()
         joints[i].updateJoint();
     }
 }
-// Creates a socket connection to canopend using a pointer to int socket
-// void Robot::canFeastUp(int *canSocket)
+bool Robot::sdoMSG(void)
+{
+    char *returnMessage;
+    char SDO_Message[CANMESSAGELENGTH];
+    strcpy(SDO_Message, "[1] 100 read 0x1017 0 i16");
+    cancomm_socketFree(SDO_Message, returnMessage);
+    printf("HEart beat read!\n");
+    return true;
+}
+// bool Robot::initPositionControl(void)
 // {
-//     char *socketPath = ((char *)"/tmp/CO_command_socket"); /* Name of the local domain socket, configurable by arguments. */
-//     struct sockaddr_un addr;
+//     char *returnMessage;
+//     char SDO_MessageList[][CANMESSAGELENGTH] = {
+//         "[1] 1 start",
+//         "[1] 2 start",
+//         "[1] 2 write 0x6060 0 i8 1",
+//         "[1] 1 write 0x6060 0 i8 1",
+//         "[1] 2 write 0x6081 0 i32 200000",
+//         "[1] 1 write 0x6081 0 i32 200000",
+//         "[1] 2 write 0x6083 0 i32 30000",
+//         "[1] 1 write 0x6083 0 i32 30000",
+//         "[1] 2 write 0x6084 0 i32 30000",
+//         "[1] 1 write 0x6084 0 i32 30000"};
 
-//     *canSocket = socket(AF_UNIX, SOCK_STREAM, 0);
-//     if (*canSocket == -1)
+//     int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
+//     for (int i = 0; i < num_of_Messages; ++i)
 //     {
-//         perror("Socket creation failed");
-//         exit(EXIT_FAILURE);
+//         cancomm_socketFree(SDO_MessageList[i], returnMessage);
 //     }
-//     memset(&addr, 0, sizeof(struct sockaddr_un));
-//     addr.sun_family = AF_UNIX;
-//     strncpy(addr.sun_path, socketPath, sizeof(addr.sun_path) - 1);
-//     // Try to make a connection to the local UNIT AF_UNIX SOCKET, quit if unavailable
-//     if (connect(*canSocket, (struct sockaddr *)&addr, sizeof(struct sockaddr_un)) == -1)
-//     {
-//         perror("Socket connection failed");
-//         exit(EXIT_FAILURE);
-//     }
+//     printf("initPosition Control complete!\n");
+//     return true;
 // }
-// void Robot::canFeastDown(int *canSocket)
-// {
-//     printf("closing socket...\n");
-//     //close socket
-//     close(*canSocket);
-//     printf("socket close\n");
-// }
-// void Robot::canFeast(int *canSocket, char *command, char *canReturnMessage)
-// {
-//     int commandLength = strlen(command);
-//     size_t n;
-//     char buf[BUF_SIZE];
-
-//     if (write(*canSocket, command, commandLength) != commandLength)
-//     {
-//         perror("Socket write failed");
-//         exit(EXIT_FAILURE);
-//     }
-
-//     n = read(*canSocket, buf, sizeof(buf));
-//     if (n == -1)
-//     {
-//         perror("Socket read failed");
-//         close(*canSocket);
-//         exit(EXIT_FAILURE);
-//     }
-//     //printf("%s", buf);
-//     strcpy(canReturnMessage, buf);
-// }
-// Error handling -> reset socket and try again when sockets fail.
-//void canFeastErrorHandler(int *canSocket, char *command, char *canReturnMessage)
-//{
-//    int commandLength = strlen(command);
-//    int recconects;
-//    size_t n;
-//    char buf[BUF_SIZE];
-//
-//    if (write(*canSocket, command, commandLength) != commandLength)
-//    {
-//        perror("Socket write failed, attempting again");
-//        canFeast(canSocket, command, canReturnMessage);
-//    }
-//    while ((write(*canSocket, command, commandLength) != commandLength) && recconects != MAX_RECONNECTS)
-//    {
-//        perror("Socket write failed, attempting again");
-//        //shut down socket
-//        canFeastDown(canSocket);
-//        //recreate socket
-//        canFeastUp(canSocket);
-//        recconects++;
-//        // try to send again
-//    }
-//
-//    n = read(*canSocket, buf, sizeof(buf));
-//    if (n == -1)
-//    {
-//        perror("Socket read failed, attempting to send command again");
-//        //shut down socket
-//        canFeastDown(canSocket);
-//        //recreate socket
-//        canFeastUp(canSocket);
-//        // try to send again
-//        canFeast(canSocket, command, canReturnMessage);
-//        exit(EXIT_FAILURE);
-//    }
-//    printf("%s", buf);
-//    strcpy(canReturnMessage, buf);
-//}

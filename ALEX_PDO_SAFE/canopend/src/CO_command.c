@@ -187,9 +187,7 @@ static void* homeCalibration(int nodeID) {
 }
 
 /******************************************************************************/
-static void command_process(int fd, char* command, size_t commandLength) {
-    printf("%s\n",command);
-        
+static void command_process(int fd, char* command, size_t commandLength) {        
     int err = 0; /* syntax or other error, true or false */
     int emptyLine = 0;
     char *token;
@@ -579,7 +577,6 @@ static void command_process(int fd, char* command, size_t commandLength) {
 }
 /******************************************************************************/
 void cancomm_socketFree(char* command, char* ret) {
-    printf("Input command: %s\n",command);
     int err = 0; /* syntax or other error, true or false */
     int emptyLine = 0;
     char *token;
@@ -660,7 +657,6 @@ void cancomm_socketFree(char* command, char* ret) {
             break;
         }
     }
-    printf("PARSING DONE\n");
     /* Execute command */
     if(err == 0) {
         printf("Error is 0\n");
@@ -704,7 +700,6 @@ void cancomm_socketFree(char* command, char* ret) {
 
             /* Make CANopen SDO transfer */
             if(err == 0) {
-                printf("making sdcoClientUpload\n");
                 err = sdoClientUpload(
                         CO->SDOclient,
                         comm_node,
@@ -721,7 +716,6 @@ void cancomm_socketFree(char* command, char* ret) {
                     respErrorCode = respErrorInternalState;
                 }
             }
-            printf("SDO client upload happend\n");
 
             /* output result */
             if(err == 0){
@@ -744,7 +738,6 @@ void cancomm_socketFree(char* command, char* ret) {
 
         /* Download SDO command - w[rite] <index> <subindex> <datatype> <value> */
         else if(strcmp(token, "w") == 0 || strcmp(token, "write") == 0) {
-            printf("DOWNLOAD SDO COMMAND\n");
             uint16_t idx;
             uint8_t subidx;
             const dataType_t *datatype;
@@ -789,7 +782,6 @@ void cancomm_socketFree(char* command, char* ret) {
 
             /* Make CANopen SDO transfer */
             if(err == 0) {
-                printf("parsed and making sdoClientDownload\n");
                 err = sdoClientDownload(
                         CO->SDOclient,
                         comm_node,
@@ -967,8 +959,6 @@ void cancomm_socketFree(char* command, char* ret) {
     resp[respLen++] = '\r';
     resp[respLen++] = '\n';
     resp[respLen++] = '\0';
-    printf("GOT RESPONSE: %s\n", resp);
-    // if(write(fd, resp, respLen) != respLen) {
-    //     CO_error(0x15200000L);
-    // }
+    // Bug testing
+    printf("RESPONSE: %s\n", resp);
 }

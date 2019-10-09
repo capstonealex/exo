@@ -381,10 +381,10 @@ int main(int argc, char *argv[])
                 tmr1msPrev = CO_timer1ms;
 
                 /* code was processed in the above function. Additional code process below */
-                if (!initialized)
-                {
-                    initialized = initPositionControl();
-                }
+                // if (!initialized)
+                // {
+                //     initialized = initPositionControl();
+                // }
                 /* Execute optional additional application code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
                 // bendKnee.hwStateUpdate();
@@ -399,23 +399,25 @@ int main(int argc, char *argv[])
                 // gp->setDirection(pin, GPIO::INPUT);
                 // printf("Pin 9.23 value: %d\n", gp->getValue(pin));
                 // gp->~GPIOManager();
-                if (initialized)
-                {
-                    lKnee.q = CO_OD_RAM.actualMotorPositions.motor1;
-                    printf("%ld\n", lKnee.q);
-                    printf("%ld\n", CO_OD_RAM.actualMotorPositions.motor3);
-                    if (commCount % 2 == 0)
-                    {
-                        CO_OD_RAM.targetMotorPositions.motor3 = lKnee.q;
-                        CO_OD_RAM.controlWords.motor3 = 47;
-                    }
-                    else if (commCount % 2 == 1)
-                    {
-                        CO_OD_RAM.controlWords.motor3 = 63;
-                        printf("BIT FLIP HIGH!\n");
-                    }
-                    commCount++;
-                }
+
+                /// FOR TESTING JOINT MOVE AFTER INITIALIZATION
+                // if (initialized)
+                // {
+                //     lKnee.q = CO_OD_RAM.actualMotorPositions.motor1;
+                //     printf("%ld\n", lKnee.q);
+                //     printf("%ld\n", CO_OD_RAM.actualMotorPositions.motor3);
+                //     if (commCount % 2 == 0)
+                //     {
+                //         CO_OD_RAM.targetMotorPositions.motor3 = lKnee.q;
+                //         CO_OD_RAM.controlWords.motor3 = 47;
+                //     }
+                //     else if (commCount % 2 == 1)
+                //     {
+                //         CO_OD_RAM.controlWords.motor3 = 63;
+                //         printf("BIT FLIP HIGH!\n");
+                //     }
+                //     commCount++;
+                // }
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
 
@@ -473,10 +475,9 @@ int main(int argc, char *argv[])
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
-    // Robot exo;
-    // bendTest bendKnee;
-    // bendKnee.initRobot(&exo);
-    // bendKnee.init();
+    Robot exo;
+    bendTest bendKnee;
+    bendKnee.initRobot(&exo);
     // bendKnee.activate();
     // robotJoint lKnee;
     /* Endless loop */
@@ -513,6 +514,10 @@ static void *rt_thread(void *arg)
             /* Execute optional additional application code */
             /*create OBJECT DICTIONARY ADRESS INDEX FOR A JOINT -> generic function after teat 1*/
             app_program1ms();
+            if (CO_timer1ms % 200 == 0)
+            {
+                bendKnee.init();
+            }
             /*Get the current LKnee position*/
             // Mirror Joint
             // mirrorJoint(lKnee);

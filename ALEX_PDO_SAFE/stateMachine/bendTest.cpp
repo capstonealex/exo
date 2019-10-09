@@ -1,4 +1,5 @@
 
+
 //
 // Created by William Campbell on 2019-09-30.
 //
@@ -10,7 +11,6 @@
 #define NOFLIP (100)
 #define BITHIGH (1)
 #define BITLOW (0)
-#define CANMESSAGELENGTH (100)
 // For testing
 #define KNEE_MOTOR_POS1 (250880)
 
@@ -45,12 +45,21 @@ bendTest::bendTest(void)
     // motorPosArrayConverter(negTrajectoriesDeg, negTrajectories, LKNEE);
 }
 
+// void bendTest::init(void)
+// {
+//     mark = 1;
+//     std::cout << "Welcome to The single joint bend STATE MACHINE"
+//               << "\n";
+//     StateMachine::init();
+// }
+//// FOR TESTING
 void bendTest::init(void)
 {
     mark = 1;
     std::cout << "Welcome to The single joint bend STATE MACHINE"
               << "\n";
     StateMachine::init();
+    robot->sdoMSG();
 }
 void bendTest::activate(void)
 {
@@ -383,37 +392,4 @@ bool bendTest::bitFlip(void)
         printf("No motion triggered\n");
         break;
     }
-}
-bool bendTest::initPositionControl(void)
-{
-    char *returnMessage;
-    char SDO_MessageList[][CANMESSAGELENGTH] = {
-        "[1] 1 start",
-        "[1] 2 start",
-        "[1] 3 start",
-        "[1] 4 start",
-        "[1] 4 write 0x6060 0 i8 1",
-        "[1] 4 write 0x6060 0 i8 1",
-        "[1] 3 write 0x6060 0 i8 1",
-        "[1] 2 write 0x6060 0 i8 1",
-        "[1] 1 write 0x6060 0 i8 1",
-        "[1] 4 write 0x6081 0 i32 200000",
-        "[1]3 write 0x6081 0 i32 200000",
-        "[1] 2 write 0x6081 0 i32 200000",
-        "[1] 1 write 0x6081 0 i32 200000",
-        "[1] 4 write 0x6083 0 i32 30000",
-        "[1] 3 write 0x6083 0 i32 30000",
-        "[1] 2 write 0x6083 0 i32 30000",
-        "[1] 1 write 0x6083 0 i32 30000",
-        "[1] 4 write 0x6084 0 i32 30000",
-        "[1] 3 write 0x6084 0 i32 30000",
-        "[1] 2 write 0x6084 0 i32 30000",
-        "[1] 1 write 0x6084 0 i32 30000"};
-    int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
-    for (int i = 0; i < num_of_Messages; ++i)
-    {
-        cancomm_socketFree(SDO_MessageList[i], returnMessage);
-    }
-    printf("%s", returnMessage);
-    return true;
 }

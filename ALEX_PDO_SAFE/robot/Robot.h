@@ -20,6 +20,8 @@ public:
     void printInfo();
     void jointIncrement();
     void updateJoints();
+    // bool initPositionControl(void);
+    bool sdoMSG(void);
     //For sending socket commands
     // void canFeastUp(int *canSocket);
     // void canFeastDown(int *canSocket);
