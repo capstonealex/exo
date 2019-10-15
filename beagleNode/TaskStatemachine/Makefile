@@ -8,7 +8,7 @@ CANOPEND_SRC =  ./src
 OBJ_DICT_SRC =  ./objDict
 APP_SRC =       ./app
 ROBOT_SRC = 	../robot
-
+STATEMCH_SRC = 	../stateMachine
 
 LINK_TARGET  =  $(APP_SRC)/canopend
 
@@ -19,6 +19,7 @@ INCLUDE_DIRS = -I$(STACKDRV_SRC) \
                -I$(CANOPEND_SRC) \
                -I$(OBJ_DICT_SRC) \
                -I$(ROBOT_SRC)    \
+	       -I$(STATEMCH_SRC) \
                -I$(APP_SRC)
 
 
@@ -43,6 +44,11 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
 
 SOURCESCPP = 	$(CANOPEND_SRC)/main.cpp            \
                 $(APP_SRC)/application.cpp          \
+		$(STATEMCH_SRC)/Transition.cpp      \
+		$(STATEMCH_SRC)/ToyMachine.cpp      \
+		$(STATEMCH_SRC)/StateMachine.cpp    \
+		$(STATEMCH_SRC)/State.cpp	    \
+		$(STATEMCH_SRC)/Event.cpp      	    \
 		$(ROBOT_SRC)/Joint.cpp              \
 	        $(ROBOT_SRC)/GPIOConst.cpp          \
 	        $(ROBOT_SRC)/GPIOManager.cpp	    

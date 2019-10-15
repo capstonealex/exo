@@ -27,15 +27,21 @@
 #include "stdio.h"
 #include <stdint.h>
 #include <sys/time.h>
+#include "GPIOManager.h"
+#include "GPIOConst.h"
 
-//// Data logger helper functions
-void fileLogHeader();
-void fileLogger();
+static char *BUTTON1 = "P9_23";
+static char *BUTTON2 = "P9_15";
+static int button1_add=1;//add 1 for button 1, 2 for 2, 4 for 3, 8 for 4 etc.
+static int button2_add=2;
+
+//Reads button, agregates them into one int.
+//Button 1 is 1=0b1, button 1 and 3 is 1+4=5=0b101 and so on.
+int buttonRead();
 void strreverse(char *begin, char *end);
 void itoa(int value, char *str, int base);
 /******************************************************************************/
 void app_programStart(void){
-    //void fileLogHeader();
 }
 /******************************************************************************/
 void app_communicationReset(void){
@@ -45,27 +51,11 @@ void app_programEnd(void){
 }
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiff){
-//Timing speed of reading from memory and file writing
-//struct timeval start;
-//struct timeval stop;
-//gettimeofday(&start, NULL);
-/*
-struct timeval tv;
-gettimeofday(&tv,NULL);
-printf("time before(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
-fileLogger(timer1msDiff);
-gettimeofday(&tv,NULL);
-printf("time after(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
-*/
-//gettimeofday(&stop, NULL);
-//double elapsed_ms = (stop.tv_sec - start.tv_sec) * 1000.0;
-//elapsed_ms += (stop.tv_usec - start.tv_usec) / 1000.0;
-//printf("TASK 1:  %.2f milliseconds\n", elapsed_ms);
+    printf("\n Button state: %d \n", buttonRead());
 }
 
 /******************************************************************************/
 void app_program1ms(void){
-    fileLogger();
 }
 /******************************************************************************/
 void itoa(int value, char *str, int base)
@@ -100,70 +90,20 @@ void strreverse(char *begin, char *end)
         aux = *end, *end-- = *begin, *begin++ = aux;
 }
 /******************************************************************************/
-void fileLogger(){
-    //printf("fileLogger beggining\n");
-    FILE* fp;
-    fp = fopen("X2_log.txt", "a");
-    // Generate whatever you want logged here, "data" is just an example
-    char position [50];
-    char timestamp [50];
-    char torque[50];
-    char comma[] = ", ";
-    
-    //Getting timestamp
-    //printf("time(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
-    //itoa(timer1msDiff, position, 10);
-    struct timeval tv;
-    gettimeofday(&tv,NULL);
-    itoa(tv.tv_sec, timestamp, 10);
-    fputs(timestamp, fp);
-    fputs(comma, fp);
-    itoa(tv.tv_usec, timestamp, 10);
-    fputs(timestamp, fp);
-    fputs(comma, fp);
-    
-    // Motor 1: Left Hip position and Torque
-    itoa(CO_OD_RAM.actualMotorPositions.motor1, position, 10);
-    itoa(((int16_t)CO_OD_RAM.statusWords.motor1), torque, 10);
-    fputs(position, fp);
-    fputs(comma, fp);
-    fputs(torque, fp);
-    fputs(comma, fp);
-    // Motor 2: Left Knee position and Torque
-    itoa(CO_OD_RAM.actualMotorPositions.motor2, position, 10);
-    itoa(((int16_t)CO_OD_RAM.statusWords.motor2), torque, 10);
-    fputs(position, fp);
-    fputs(comma, fp);
-    fputs(torque, fp);
-    fputs(comma, fp);
-    // Motor 3: Right Hip position and Torque
-    itoa(CO_OD_RAM.actualMotorPositions.motor3, position, 10);
-    itoa(((int16_t)CO_OD_RAM.statusWords.motor3), torque, 10);
-    fputs(position, fp);
-    fputs(comma, fp);
-    fputs(torque, fp);
-    fputs(comma, fp);
-    // Motor 4: Right Knee position and Torque
-    itoa(CO_OD_RAM.actualMotorPositions.motor4, position, 10);
-    itoa(((int16_t)CO_OD_RAM.statusWords.motor4), torque, 10);
-    fputs(position, fp);
-    fputs(comma, fp);
-    fputs(torque, fp);
-    fputs("\n", fp);
-    
-    fclose(fp);
-    
-}
-void fileLogHeader(){
-    FILE *fp;
-    fp = fopen("X2_log.txt", "a");
-    char header1[] = "======================================\n";
-    char header2[] = "X2 exoskeleton torque and position log\n";
-    char header3[] = "======================================\n";
-    char header4[]= "Time(s), time(ms) LHPos, LHT, LKPos, LKT, RHPos, RHT,RKPos, RKT\n";
-    fputs(header1, fp);
-    fputs(header2, fp);
-    fputs(header3, fp);
-    fputs(header4, fp);
-    fclose(fp);
+
+int buttonRead(){
+    int buttonState =0;
+    GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
+    int pin1 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
+    int pin2 = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON2);
+    gp->setDirection(pin1, GPIO::INPUT);
+    gp->setDirection(pin2, GPIO::INPUT);
+    printf("Pin 9.23 value: %d\n", gp->getValue(pin1));
+    printf("Pin 9.15 value: %d\n", gp->getValue(pin2));
+    if(gp->getValue(pin1)==1)
+        buttonState+=button1_add;
+    if(gp->getValue(pin2)==1)
+        buttonState+=button2_add;
+    gp->~GPIOManager();
+    return buttonState;
 }
