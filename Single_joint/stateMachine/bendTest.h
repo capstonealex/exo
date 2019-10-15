@@ -10,12 +10,8 @@
 #include "GPIOManager.h"
 #include "GPIOConst.h"
 #include <sys/time.h>
+#include <cmath>
 
-struct timeval timeMark;
-struct timeval loopTime;
-double markTime;
-double timeLoop;
-double velocityTime;
 
 class bendTest : public StateMachine
 {
@@ -30,6 +26,7 @@ public:
     bool initPositionControl();
     double getDesPos(double, double, double, double);
     double getDesVel(double, double, double);
+    
 
 private:
     // events
@@ -51,7 +48,7 @@ private:
     int greenButton;
     int arrayIndex;
     int bitFlipState;
-    float startPos;
+    int startPos;
     long ePos;
     long eVel;
     long qdotnew;

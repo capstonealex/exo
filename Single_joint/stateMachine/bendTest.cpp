@@ -14,6 +14,11 @@
 // For testing
 #define KNEE_MOTOR_POS1 (250880)
 #define KNEE_MOTOR_POS2 (0)
+struct timeval timeMark;
+struct timeval loopTime;
+double markTime;
+double timeLoop;
+double velocityTime;
 
 // State Machine bendTest methods ----------------------------------------------------------
 bendTest::bendTest(void)
@@ -95,11 +100,21 @@ void bendTest::BendingP::entry(void)
 
     }
     }
+    char SDO_MessageListB[][100] = {
+        "[1] 2 write 0x6040 0 i16 15",
+        "[1] 2 write 0x6040 0 i16 31"
+    };
+    char *returnMessage;
+    cancomm_socketFree(SDO_MessageListB[0], returnMessage);
+    cancomm_socketFree(SDO_MessageListB[1], returnMessage);
+
     gettimeofday(&timeMark, NULL);
     markTime = timeMark.tv_sec*1000 +timeMark.tv_usec/1000;
-    OWNER->startPos = OWNER->robot->joints[1].getPos;
-    OWNER->robot->joints[1].bitflipLow;
-    OWNER->robot->joints[1].bitflipHigh;
+    printf("mark time init: %lf\n",markTime);
+    OWNER->startPos = OWNER->robot->joints[1].getPos();
+    printf("joint 1 pos: %d\n",OWNER->startPos);
+    // OWNER->robot->joints[1].bitflipLow;
+    // OWNER->robot->joints[1].bitflipHigh;
     // Set arrayIndex to zero
     // OWNER->robot->joints[1].zeroIndex();
     // printf("array index set to zero\n");
@@ -108,20 +123,24 @@ void bendTest::BendingP::during(void)
 {
     long lastTarget = 0;
     // if the green button is pressed move. Or do nothing/
-    if (!OWNER->greenButton)
-    {
+    // if (!OWNER->greenButton)
+    // {
         gettimeofday(&loopTime, NULL);
         timeLoop = loopTime.tv_sec*1000 +loopTime.tv_usec/1000;
+        printf("time loop time init: %lf\n",timeLoop);
 
         velocityTime = timeLoop - markTime;
-        if(velocityTime<=100000){}
-        OWNER->ePos = OWNER->getDesPos(velocityTime, 100000, 10000, OWNER->startPos) - OWNER->robot->joints[1].getPos();
-        OWNER->eVel = OWNER->getDesVel(velocityTime, 100000, 10000) - OWNER->robot->joints[1].getVel(); 
-
-        OWNER->qdotnew = OWNER->getDesPos(velocityTime, 100000, 10000, OWNER->startPos) + 0.1*OWNER->ePos;
-
-        OWNER->robot->joints[1].setVel(OWNER->qdotnew);
-    }
+        printf("vel time init: %lf\n",velocityTime);
+        if(velocityTime<=10000){
+            OWNER->robot->joints[1].setVel(100000);
+            /*
+            OWNER->ePos = OWNER->getDesPos(velocityTime, 100000, 10000, OWNER->startPos) - OWNER->robot->joints[1].getPos();
+            OWNER->eVel = OWNER->getDesVel(velocityTime, 100000, 10000) - OWNER->robot->joints[1].getVel(); 
+            printf("pos is %d\n",OWNER->robot->joints[1].getPos());
+            OWNER->qdotnew = OWNER->getDesPos(velocityTime, 100000, 10000, OWNER->startPos) + 0.1*OWNER->ePos;
+            printf("new velocity is %ld\n", OWNER->qdotnew);
+            OWNER->robot->joints[1].setVel(OWNER->qdotnew);*/
+        }else{OWNER->robot->joints[1].setVel(0);}
         // printf("CURRENT JOINT position: %d \n,", OWNER->robot->joints[1].getPos());
         // //// DO FOR EACH JOINT
         // ///for (auto i = 0; i < 4; i++) {
@@ -204,6 +223,7 @@ void bendTest::BendingN::entry(void)
 }
 void bendTest::BendingN::during(void)
 {
+    printf("Entered during state\n");
     long lastTarget = 0;
     // if the green button is pressed move. Or do nothing/
     if (!OWNER->greenButton)
@@ -307,7 +327,7 @@ void bendTest::Idle::entry(void)
 }
 void bendTest::Idle::during(void)
 {
-    
+    printf("Entered idle state\n");
   // Press yellow button to leave state
 }
 void bendTest::Idle::exit(void)
@@ -448,5 +468,5 @@ double bendTest::getDesPos(double time, double posDelta, double endTime, double 
 }
 double bendTest::getDesVel(double time, double posDelta, double endTime){
     double vel = 3*pow(time,2)*(-2*posDelta/(pow(endTime,3))) + 2*time*(3*posDelta/(pow(endTime,2)));
-    return vel;
+    return vel*100;
 }
