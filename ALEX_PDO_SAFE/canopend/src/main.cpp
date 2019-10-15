@@ -346,14 +346,12 @@ int main(int argc, char *argv[])
         reset = CO_RESET_NOT;
         /*State machine testing 123*/
         // Create Statemachine Object -> will be loaded by taskmanager in end program.
-        // Robot exo;
-        // bendTest bendKnee;
-        // bendKnee.initRobot(&exo);
-        // bendKnee.init();
-        // bendKnee.activate();
+        Robot exo;
+        bendTest bendKnee;
+        bendKnee.initRobot(&exo);
+        bendKnee.init();
+        bendKnee.activate();
         printf("Canopend- running ...\n");
-        bool initialized = false;
-        robotJoint lKnee;
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
             /* loop for normal program execution ******************************************/
@@ -380,44 +378,12 @@ int main(int argc, char *argv[])
                 timer1msDiff = CO_timer1ms - tmr1msPrev;
                 tmr1msPrev = CO_timer1ms;
 
-                /* code was processed in the above function. Additional code process below */
-                // if (!initialized)
-                // {
-                //     initialized = initPositionControl();
-                // }
                 /* Execute optional additional application code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
-                // bendKnee.hwStateUpdate();
-                // bendKnee.update();
+                bendKnee.hwStateUpdate();
+                bendKnee.update();
                 // app_programAsync(timer1msDiff);
-                // double pos = CO_OD_RAM.actualMotorPositions.motor4;
-                // std::cout << "that worked actualMotorPos is:" << pos << "\n";
-                // CO_OD_RAM.actualMotorPositions.motor4 = pos +1;
-                /*GPIO FUNCTIONALITY*/
-                // GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-                // int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-                // gp->setDirection(pin, GPIO::INPUT);
-                // printf("Pin 9.23 value: %d\n", gp->getValue(pin));
-                // gp->~GPIOManager();
 
-                /// FOR TESTING JOINT MOVE AFTER INITIALIZATION
-                // if (initialized)
-                // {
-                //     lKnee.q = CO_OD_RAM.actualMotorPositions.motor1;
-                //     printf("%ld\n", lKnee.q);
-                //     printf("%ld\n", CO_OD_RAM.actualMotorPositions.motor3);
-                //     if (commCount % 2 == 0)
-                //     {
-                //         CO_OD_RAM.targetMotorPositions.motor3 = lKnee.q;
-                //         CO_OD_RAM.controlWords.motor3 = 47;
-                //     }
-                //     else if (commCount % 2 == 1)
-                //     {
-                //         CO_OD_RAM.controlWords.motor3 = 63;
-                //         printf("BIT FLIP HIGH!\n");
-                //     }
-                //     commCount++;
-                // }
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
 
@@ -475,9 +441,10 @@ int main(int argc, char *argv[])
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
-    Robot exo;
-    bendTest bendKnee;
-    bendKnee.initRobot(&exo);
+    // Robot exo;
+    // bendTest bendKnee;
+    // bendKnee.initRobot(&exo);
+    // bendKnee.init();
     // bendKnee.activate();
     // robotJoint lKnee;
     /* Endless loop */
@@ -516,7 +483,8 @@ static void *rt_thread(void *arg)
             app_program1ms();
             if (CO_timer1ms % 200 == 0)
             {
-                bendKnee.init();
+                // printf("Here we are ready to move!\n");
+                // bendKnee.init();
             }
             /*Get the current LKnee position*/
             // Mirror Joint

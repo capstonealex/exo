@@ -20,10 +20,15 @@ public:
     void printInfo();
     void jointIncrement();
     void updateJoints();
-    bool initPositionControl(void);
-    bool homeCalibration(void);
+    // bool initPositionControl(void);
     bool sdoMSG(void);
+    //For sending socket commands
+    // void canFeastUp(int *canSocket);
+    // void canFeastDown(int *canSocket);
+    // canFeast(int *canSocket, char *command, char *canReturnMessage);
+    //    void canFeastErrorHandler(int *canSocket, char *command, char *canReturnMessage);
 
+    // CanDevice** canDev[]l;
     //canFeasat constants
     unsigned int MAX_RECONNECTS = 10;
     unsigned int DECIMAL = 10;

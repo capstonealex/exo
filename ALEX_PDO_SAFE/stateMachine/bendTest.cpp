@@ -59,7 +59,17 @@ void bendTest::init(void)
     std::cout << "Welcome to The single joint bend STATE MACHINE"
               << "\n";
     StateMachine::init();
-    robot->sdoMSG();
+    // Do'nt start robot unless drives have been configured for position control.
+    if (robot->homeCalibration())
+    {
+        std::cout << "position control initialized"
+                  << "\n";
+    }
+    else
+    {
+        std::cout << "Error initializing position control, SDO message timeout"
+                  << "\n";
+    }
 }
 void bendTest::activate(void)
 {
@@ -76,6 +86,9 @@ void bendTest::BendingP::entry(void)
 {
     //READ TIME OF MAIN
     printf("Bending Positive State  Entered at Time %f\n", OWNER->mark);
+    if (OWNER->robot->initPositionControl()){
+        printf("drives finished position control configuration\n");
+    }
     // Set arrayIndex to zero
     OWNER->robot->joints[1].zeroIndex();
     printf("array index set to zero\n");
@@ -86,6 +99,7 @@ void bendTest::BendingP::during(void)
     // if the green button is pressed move. Or do nothing/
     if (!OWNER->greenButton)
     {
+        printf("CURRENT JOINT position: %d \n,", OWNER->robot->joints[1].getPos());
         //// DO FOR EACH JOINT
         ///for (auto i = 0; i < 4; i++) {
         int desiredIndex = OWNER->robot->joints[1].getIndex();
@@ -107,9 +121,6 @@ void bendTest::BendingP::during(void)
                 OWNER->bitFlipState = BITLOW;
             }
             // check if last last position reached -> go to next position
-            // long last = OWNER->posTrajectories[OWNER->arrayIndex - 1]
-            // long current =OWNER->robot->joints[1].getPos()
-            // More conservative: else if (current>(last-30) current>(last+30))
             /*THE BELLOW CONDITION MUST BOTH BE IN THE SAME UNITS, either deg or motorCOMMAND units*/
             else if ((desiredIndex > 0) && OWNER->robot->joints[1].getPos() > (lastTarget - POSCLEARANCE) && OWNER->robot->joints[1].getPos() < (lastTarget + POSCLEARANCE))
             {
@@ -187,7 +198,6 @@ void bendTest::BendingN::during(void)
             printf("Bending to motor command %f\n", desiredPos);
             OWNER->bitFlipState = BITLOW;
             OWNER->robot->joints[1].applyPos(desiredPos);
-            // set state machine bitFlip to LOW state.
             OWNER->robot->joints[1].incrementIndex();
         }
         // check if last last position reached -> go to next position
@@ -253,20 +263,17 @@ void bendTest::Bent::exit(void)
 
     printf("Bent State Exited at Time %f\n", OWNER->mark);
 }
-// Idle (0 deg) and ready to move
 void bendTest::Idle::entry(void)
 {
-    //READ TIME OF MAIN
-    printf("Idle State Entered at Time %f\n", OWNER->mark);
+    printf("Calibration State Entered at Time %f\n", OWNER->mark);
 }
 void bendTest::Idle::during(void)
 {
-    // printf("BUTTON IS: %d", OWNER->button);
+  // Press yellow button to leave state
 }
 void bendTest::Idle::exit(void)
 {
-
-    printf("Idle State Exited at Time %f\n", OWNER->mark);
+    printf("Calibration State Exited at Time %f\n", OWNER->mark);
 }
 // Events ------------------------------------------------------------
 bool bendTest::IsBentP::check(void)

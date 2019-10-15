@@ -36,11 +36,11 @@ Joint::Joint()
     // Populate posTrajectoriesDeg and negtrajectories
     double posTrajectoriesDeg[NUM_TRAJ_POINTS] = {
         0,
+        10,
+        20,
+        30,
+        40,
         50,
-        55,
-        58,
-        60,
-        60,
         60,
         70,
         80,
