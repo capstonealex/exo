@@ -20,6 +20,7 @@ class Joint
     //Private members
     int id;
     float q;
+    float qdot;
     long maxq, minq;
     void setPos(long qd);
     void motorPosArrayConverter(double origArr[], long newArr[], int arrSize, int nodeid);
@@ -37,10 +38,14 @@ public:
     };
     Joint();
     Joint(float q_init, int ID);
+    
+    void setVel(long);
+
     void setId(int ID);
     int getId();
     void applyPos(long qd);
     int getPos();
+    float getVel();
     void printInfo();
     void updateJoint();
     void testWrite();

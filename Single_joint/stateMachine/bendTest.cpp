@@ -88,15 +88,21 @@ void bendTest::BendingP::entry(void)
 {
     //READ TIME OF MAIN
     printf("Bending Positive State  Entered at Time %f\n", OWNER->mark);
-    if(OWNER->robot->positionControl == 0){
-    if (OWNER->robot->initPositionControl()){
-        printf("drives finished position control configuration\n");
-        OWNER->robot->positionControl = 1;
+    if(OWNER->robot->velocityControl == 0){
+    if (OWNER->robot->initVelocityControl()){
+        printf("drives finished velocity control configuration\n");
+        OWNER->robot->velocityControl = 1;
+
     }
     }
+    gettimeofday(&timeMark, NULL);
+    markTime = timeMark.tv_sec*1000 +timeMark.tv_usec/1000;
+    OWNER->startPos = OWNER->robot->joints[1].getPos;
+    OWNER->robot->joints[1].bitflipLow;
+    OWNER->robot->joints[1].bitflipHigh;
     // Set arrayIndex to zero
-    OWNER->robot->joints[1].zeroIndex();
-    printf("array index set to zero\n");
+    // OWNER->robot->joints[1].zeroIndex();
+    // printf("array index set to zero\n");
 }
 void bendTest::BendingP::during(void)
 {
@@ -104,37 +110,49 @@ void bendTest::BendingP::during(void)
     // if the green button is pressed move. Or do nothing/
     if (!OWNER->greenButton)
     {
-        printf("CURRENT JOINT position: %d \n,", OWNER->robot->joints[1].getPos());
-        //// DO FOR EACH JOINT
-        ///for (auto i = 0; i < 4; i++) {
-        int desiredIndex = OWNER->robot->joints[1].getIndex();
-        // Make sure not to move array index past last member of array
-        if (desiredIndex != (OWNER->robot->joints[1].NUM_TRAJ_POINTS))
-        {
-            // Get position to send to joint based on current arrayIndex, send off and increment index
-            // desired Position in motor command units
-            long desiredPos = OWNER->robot->joints[1].posTrajectories[desiredIndex];
-            lastTarget = OWNER->robot->joints[1].posTrajectories[desiredIndex - 1];
-            /*SINGLE JOINT FUNCTIONALITY TEST*/
-            //first member of array
-            if (desiredIndex == 0)
-            {
-                printf("Bending to motor command %f\n", desiredPos);
-                OWNER->robot->joints[1].applyPos(desiredPos);
-                // set state machine bitFlip to LOW state.
-                OWNER->robot->joints[1].incrementIndex();
-                OWNER->bitFlipState = BITLOW;
-            }
-            // check if last last position reached -> go to next position
-            /*THE BELLOW CONDITION MUST BOTH BE IN THE SAME UNITS, either deg or motorCOMMAND units*/
-            else if ((desiredIndex > 0) && OWNER->robot->joints[1].getPos() > (lastTarget - POSCLEARANCE) && OWNER->robot->joints[1].getPos() < (lastTarget + POSCLEARANCE))
-            {
-                OWNER->robot->joints[1].applyPos(desiredPos);
-                // set state machine bitFlip to LOW state.
-                OWNER->bitFlipState = BITLOW;
-                printf("Bending to pos %ld\n", desiredPos);
-                OWNER->robot->joints[1].incrementIndex();
-            }
+        gettimeofday(&loopTime, NULL);
+        timeLoop = loopTime.tv_sec*1000 +loopTime.tv_usec/1000;
+
+        velocityTime = timeLoop - markTime;
+        if(velocityTime<=100000){}
+        OWNER->ePos = OWNER->getDesPos(velocityTime, 100000, 10000, OWNER->startPos) - OWNER->robot->joints[1].getPos();
+        OWNER->eVel = OWNER->getDesVel(velocityTime, 100000, 10000) - OWNER->robot->joints[1].getVel(); 
+
+        OWNER->qdotnew = OWNER->getDesPos(velocityTime, 100000, 10000, OWNER->startPos) + 0.1*OWNER->ePos;
+
+        OWNER->robot->joints[1].setVel(OWNER->qdotnew);
+    }
+        // printf("CURRENT JOINT position: %d \n,", OWNER->robot->joints[1].getPos());
+        // //// DO FOR EACH JOINT
+        // ///for (auto i = 0; i < 4; i++) {
+        // int desiredIndex = OWNER->robot->joints[1].getIndex();
+        // // Make sure not to move array index past last member of array
+        // if (desiredIndex != (OWNER->robot->joints[1].NUM_TRAJ_POINTS))
+        // {
+        //     // Get position to send to joint based on current arrayIndex, send off and increment index
+        //     // desired Position in motor command units
+        //     long desiredPos = OWNER->robot->joints[1].posTrajectories[desiredIndex];
+        //     lastTarget = OWNER->robot->joints[1].posTrajectories[desiredIndex - 1];
+        //     /*SINGLE JOINT FUNCTIONALITY TEST*/
+        //     //first member of array
+        //     if (desiredIndex == 0)
+        //     {
+        //         printf("Bending to motor command %f\n", desiredPos);
+        //         OWNER->robot->joints[1].applyPos(desiredPos);
+        //         // set state machine bitFlip to LOW state.
+        //         OWNER->robot->joints[1].incrementIndex();
+        //         OWNER->bitFlipState = BITLOW;
+        //     }
+        //     // check if last last position reached -> go to next position
+        //     /*THE BELLOW CONDITION MUST BOTH BE IN THE SAME UNITS, either deg or motorCOMMAND units*/
+        //     else if ((desiredIndex > 0) && OWNER->robot->joints[1].getPos() > (lastTarget - POSCLEARANCE) && OWNER->robot->joints[1].getPos() < (lastTarget + POSCLEARANCE))
+        //     {
+        //         OWNER->robot->joints[1].applyPos(desiredPos);
+        //         // set state machine bitFlip to LOW state.
+        //         OWNER->bitFlipState = BITLOW;
+        //         printf("Bending to pos %ld\n", desiredPos);
+        //         OWNER->robot->joints[1].incrementIndex();
+        //     }
             /*ALL JOINT MOTION*/
             // check if last last position reached -> go to next position
             //        for (auto i = 0; i < 4; i++) {
@@ -149,25 +167,25 @@ void bendTest::BendingP::during(void)
             //                // change stateMachine bit flip value to first one
             //            }
             //        }
-        }
-        else
-        {
-            // change 1 to i after single joint works
-            if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].posTrajectories[desiredIndex - 1])
-            {
-                printf("Final position of joint %d reached\n,", OWNER->robot->joints[1].getId());
-            }
-            else
-            {
-                printf("Joint %d Still going to final position\n", OWNER->robot->joints[1].getId());
-            }
-        }
-        // BITFLIP FUNCTION to trigger low and high bit flip needed for motor motion
-        OWNER->bitFlip();
-    }
-    else
-    {
-    }
+        // }
+    //     else
+    //     {
+    //         // change 1 to i after single joint works
+    //         if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].posTrajectories[desiredIndex - 1])
+    //         {
+    //             printf("Final position of joint %d reached\n,", OWNER->robot->joints[1].getId());
+    //         }
+    //         else
+    //         {
+    //             printf("Joint %d Still going to final position\n", OWNER->robot->joints[1].getId());
+    //         }
+    //     }
+    //     // BITFLIP FUNCTION to trigger low and high bit flip needed for motor motion
+    //     OWNER->bitFlip();
+    // }
+    // else
+    // {
+    // }
 }
 
 void bendTest::BendingP::exit(void)
@@ -420,4 +438,15 @@ bool bendTest::bitFlip(void)
         printf("No motion triggered\n");
         break;
     }
+}
+
+double bendTest::getDesPos(double time, double posDelta, double endTime, double initPos) {
+    double pos =
+            pow(time, 3) * (-2 * posDelta / (pow(endTime, 3))) + pow(time, 2) * (3 * posDelta / (pow(endTime, 2))) +
+            initPos;
+    return pos;
+}
+double bendTest::getDesVel(double time, double posDelta, double endTime){
+    double vel = 3*pow(time,2)*(-2*posDelta/(pow(endTime,3))) + 2*time*(3*posDelta/(pow(endTime,2)));
+    return vel;
 }
