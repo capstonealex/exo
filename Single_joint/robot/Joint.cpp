@@ -156,8 +156,9 @@ void Joint::setPos(long qd)
 {
     // Set target motor position -> will send out to motors
     CO_OD_RAM.targetMotorPositions.motor2 = qd;
-    // virtual joint motiom=n
     cout << "Joint move to command sent and is @ " << CO_OD_RAM.actualMotorPositions.motor2 << "\n";
+    // // virtual joint motion
+    // CO_OD_RAM.actualMotorPositions.motor2 = qd;
 }
 void Joint::setId(int ID)
 {
