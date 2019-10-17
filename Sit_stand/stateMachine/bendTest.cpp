@@ -40,8 +40,20 @@ bendTest::bendTest(void)
     robot = NULL;
     bitFlipState = NOFLIP;
 
+    // Convert hardcoded trajectories to actual motor commands
+    // Test for LKNE
+    // motorPosArrayConverter(posTrajectoriesDeg, posTrajectories, LKNEE);
+    // motorPosArrayConverter(negTrajectoriesDeg, negTrajectories, LKNEE);
 }
 
+// void bendTest::init(void)
+// {
+//     mark = 1;
+//     std::cout << "Welcome to The single joint bend STATE MACHINE"
+//               << "\n";
+//     StateMachine::init();
+// }
+//// FOR TESTING
 void bendTest::init(void)
 {
     mark = 1;
@@ -76,11 +88,13 @@ void bendTest::BendingP::entry(void)
 {
     //READ TIME OF MAIN
     printf("Bending Positive State  Entered at Time %f\n", OWNER->mark);
-    if(OWNER->robot->positionControl == 0){
-    if (OWNER->robot->initPositionControl()){
-        printf("drives finished position control configuration\n");
-        OWNER->robot->positionControl = 1;
-    }
+    if (OWNER->robot->positionControl == 0)
+    {
+        if (OWNER->robot->initPositionControl())
+        {
+            printf("drives finished position control configuration\n");
+            OWNER->robot->positionControl = 1;
+        }
     }
     // Set arrayIndex to zero
     OWNER->robot->joints[1].zeroIndex();
@@ -89,10 +103,14 @@ void bendTest::BendingP::entry(void)
 void bendTest::BendingP::during(void)
 {
     long lastTarget = 0;
+    // if the green button is pressed move. Or do nothing/
     if (!OWNER->greenButton)
     {
         printf("CURRENT JOINT position: %d \n,", OWNER->robot->joints[1].getPos());
+        //// DO FOR EACH JOINT
+        ///for (auto i = 0; i < 4; i++) {
         int desiredIndex = OWNER->robot->joints[1].getIndex();
+        // Make sure not to move array index past last member of array
         if (desiredIndex != (OWNER->robot->joints[1].NUM_TRAJ_POINTS))
         {
             // Get position to send to joint based on current arrayIndex, send off and increment index
@@ -105,12 +123,13 @@ void bendTest::BendingP::during(void)
             {
                 printf("Bending to motor command %f\n", desiredPos);
                 OWNER->robot->joints[1].applyPos(desiredPos);
+                // set state machine bitFlip to LOW state.
                 OWNER->robot->joints[1].incrementIndex();
                 OWNER->bitFlipState = BITLOW;
             }
             // check if last last position reached -> go to next position
             /*THE BELLOW CONDITION MUST BOTH BE IN THE SAME UNITS, either deg or motorCOMMAND units*/
-            else if (OWNER->robot->joints[1].getPos() > (lastTarget - POSCLEARANCE) && OWNER->robot->joints[1].getPos() < (lastTarget + POSCLEARANCE))
+            else if ((desiredIndex > 0) && OWNER->robot->joints[1].getPos() > (lastTarget - POSCLEARANCE) && OWNER->robot->joints[1].getPos() < (lastTarget + POSCLEARANCE))
             {
                 OWNER->robot->joints[1].applyPos(desiredPos);
                 // set state machine bitFlip to LOW state.
@@ -118,11 +137,25 @@ void bendTest::BendingP::during(void)
                 printf("Bending to pos %ld\n", desiredPos);
                 OWNER->robot->joints[1].incrementIndex();
             }
+            /*ALL JOINT MOTION*/
+            // check if last last position reached -> go to next position
+            //        for (auto i = 0; i < 4; i++) {
+            //            //// TODO: CHANGE arrayIndex and Trajectories to be owned by each joint for easier, indexing and addressing
+            //            if (OWNER->robot->joints[i].getPos() == OWNER->posTrajectories[OWNER->arrayIndex - 1]) {
+            //                OWNER->robot->joints[i].applyPos(desiredPos);
+            //                // set state machine bitFlip to LOW state.
+            //                OWNER->bitFlipState = BITLOW;
+            //                printf("Bending to pos %f\n", desiredPos);
+            //                OWNER->arrayIndex++;
+            //                // Do first bit flip
+            //                // change stateMachine bit flip value to first one
+            //            }
+            //        }
         }
         else
         {
-            lastTarget = OWNER->robot->joints[1].negTrajectories[desiredIndex - 1];
-            if ((desiredIndex > 0) && OWNER->robot->joints[i].getPos() > (lastTarget - POSCLEARANCE) && OWNER->robot->joints[i].getPos() < (lastTarget + POSCLEARANCE))
+            // change 1 to i after single joint works
+            if (OWNER->robot->joints[1].getPos() == OWNER->robot->joints[1].posTrajectories[desiredIndex - 1])
             {
                 printf("Final position of joint %d reached\n,", OWNER->robot->joints[1].getId());
             }
@@ -131,6 +164,7 @@ void bendTest::BendingP::during(void)
                 printf("Joint %d Still going to final position\n", OWNER->robot->joints[1].getId());
             }
         }
+        // BITFLIP FUNCTION to trigger low and high bit flip needed for motor motion
         OWNER->bitFlip();
     }
     else
@@ -149,25 +183,33 @@ void bendTest::BendingN::entry(void)
 {
     //READ TIME OF MAIN
     printf("Bending Negative State  Entered at Time %f\n", OWNER->mark);
+    // Set arrayIndex to zero
     OWNER->robot->joints[1].zeroIndex();
 }
 void bendTest::BendingN::during(void)
 {
     long lastTarget = 0;
+    // if the green button is pressed move. Or do nothing/
     if (!OWNER->greenButton)
     {
         printf("CURRENT JOINT position: %d \n,", OWNER->robot->joints[1].getPos());
+        //// DO FOR EACH JOINT
+        ///for (auto i = 0; i < 4; i++) {
         int desiredIndex = OWNER->robot->joints[1].getIndex();
+        // Make sure not to move array index past last member of array
         if (desiredIndex != (OWNER->robot->joints[1].NUM_TRAJ_POINTS))
         {
             // Get position to send to joint based on current arrayIndex, send off and increment index
             // desired Position in motor command units
             long desiredPos = OWNER->robot->joints[1].negTrajectories[desiredIndex];
             lastTarget = OWNER->robot->joints[1].negTrajectories[desiredIndex - 1];
+            /*SINGLE JOINT FUNCTIONALITY TEST*/
+            //first member of array
             if (desiredIndex == 0)
             {
                 printf("Bending to motor command %ld\n", desiredPos);
                 OWNER->robot->joints[1].applyPos(desiredPos);
+                // set state machine bitFlip to LOW state.
                 OWNER->robot->joints[1].incrementIndex();
                 OWNER->bitFlipState = BITLOW;
             }
@@ -176,14 +218,30 @@ void bendTest::BendingN::during(void)
             else if ((desiredIndex > 0) && OWNER->robot->joints[1].getPos() > (lastTarget - POSCLEARANCE) && OWNER->robot->joints[1].getPos() < (lastTarget + POSCLEARANCE))
             {
                 OWNER->robot->joints[1].applyPos(desiredPos);
+                // set state machine bitFlip to LOW state.
                 OWNER->bitFlipState = BITLOW;
                 printf("Bending to motor command %ld\n", desiredPos);
                 OWNER->robot->joints[1].incrementIndex();
             }
+            /*ALL JOINT MOTION*/
+            // check if last last position reached -> go to next position
+            //        for (auto i = 0; i < 4; i++) {
+            //            //// TODO: CHANGE arrayIndex and Trajectories to be owned by each joint for easier, indexing and addressing
+            //            if (OWNER->robot->joints[i].getPos() == OWNER->posTrajectories[OWNER->arrayIndex - 1]) {
+            //                OWNER->robot->joints[i].applyPos(desiredPos);
+            //                // set state machine bitFlip to LOW state.
+            //                OWNER->bitFlipState = BITLOW;
+            //                printf("Bending to pos %f\n", desiredPos);
+            //                OWNER->arrayIndex++;
+            //                // Do first bit flip
+            //                // change stateMachine bit flip value to first one
+            //            }
+            //        }
         }
         else
         {
             lastTarget = OWNER->robot->joints[1].negTrajectories[desiredIndex - 1];
+            // change 1 to i after single joint works
             if (OWNER->robot->joints[1].getPos() > (lastTarget - POSCLEARANCE) && OWNER->robot->joints[1].getPos() < (lastTarget + POSCLEARANCE))
             {
                 printf("Final position of joint %d reached\n,", OWNER->robot->joints[1].getId());
@@ -193,6 +251,7 @@ void bendTest::BendingN::during(void)
                 printf("Joint %d Still going to final position\n", OWNER->robot->joints[1].getId());
             }
         }
+        // BITFLIP FUNCTION to trigger low and high bit flip needed for motor motion
         OWNER->bitFlip();
     }
     else
@@ -208,6 +267,7 @@ void bendTest::BendingN::exit(void)
 // Bent(90deg)
 void bendTest::Bent::entry(void)
 {
+    //READ TIME OF MAIN
     printf("Bent State Entered at Time %f\n", OWNER->mark);
 }
 void bendTest::Bent::during(void)
@@ -220,8 +280,10 @@ void bendTest::Bent::exit(void)
 }
 void bendTest::Idle::entry(void)
 {
-    if(OWNER->calibrated == 0){
-        if(OWNER->robot->remapPDO()){
+    if (OWNER->calibrated == 0)
+    {
+        if (OWNER->robot->remapPDO())
+        {
             printf("Motors PDO messages configured\n");
             OWNER->calibrated = 1;
         }
@@ -231,8 +293,8 @@ void bendTest::Idle::entry(void)
 }
 void bendTest::Idle::during(void)
 {
-    
-  // Press yellow button to leave state
+
+    // Press yellow button to leave state
 }
 void bendTest::Idle::exit(void)
 {
@@ -249,7 +311,7 @@ bool bendTest::IsBentP::check(void)
 }
 bool bendTest::IsBentN::check(void)
 {
-    if(OWNER->robot->joints[1].getPos() > (KNEE_MOTOR_POS2 - POSCLEARANCE) && OWNER->robot->joints[1].getPos() < (KNEE_MOTOR_POS2 + POSCLEARANCE))
+    if (OWNER->robot->joints[1].getPos() > (KNEE_MOTOR_POS2 - POSCLEARANCE) && OWNER->robot->joints[1].getPos() < (KNEE_MOTOR_POS2 + POSCLEARANCE))
     {
         return true;
     }
@@ -281,7 +343,8 @@ void bendTest::initRobot(Robot *rb)
 void bendTest::hwStateUpdate(void)
 {
     /*BUTON CODE*/
-    // TODO: Once working Turn button into its own class and object: call button.getState() return 0 or 1, Statemachines have a button or an event could even
+    // Once working Turn button into its own class and object: call button.getState() return 0 or 1, Statemachines have a button or an event could even
+
     //Read all 4 BUTTONs  and print to screen
     static char *BUTTONRED = "P8_7";
     static char *BUTTONBLUE = "P8_8";
@@ -317,6 +380,7 @@ void bendTest::hwStateUpdate(void)
     // Update all the robots joint values.
     robot->updateJoints();
     // robot->printInfo();
+    robot->printTrajectories();
 }
 
 /*
