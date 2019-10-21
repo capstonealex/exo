@@ -42,18 +42,21 @@
 #include <sys/reboot.h>
 #include "CO_command.h"
 #include <pthread.h>
-#include "Joint.h"
+/*Non canopenNode + Socket libraries*/
+#include "Robot.h"
+#include "sitStand.h"
 
 /*For master-> code SDO direct messaging*/
-#define CO_COMMAND_SDO_BUFFER_SIZE 100000
+// #define CO_COMMAND_SDO_BUFFER_SIZE 100000
+// #define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
 
-#define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
 #define NSEC_PER_SEC (1000000000)      /* The number of nanoseconds per second. */
 #define NSEC_PER_MSEC (1000000)        /* The number of nanoseconds per millisecond. */
 #define TMR_TASK_INTERVAL_NS (1000000) /* Interval of taskTmr in nanoseconds */
 #define TMR_TASK_OVERFLOW_US (5000)    /* Overflow detect limit for taskTmr in microseconds */
 #define INCREMENT_1MS(var) (var++)     /* Increment 1ms variable in taskTmr */
 #define NODEID (100)
+#define CANMESSAGELENGTH (100)
 /* Global variable increments each millisecond. */
 volatile uint16_t CO_timer1ms = 0U;
 
@@ -69,11 +72,7 @@ static CO_OD_storage_t odStorAuto;                   /* Object Dictionary storag
 static char *odStorFile_rom = "od4_storage";         /* Name of the file */
 static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
 static CO_time_t CO_time;                            /* Object for current time */
-/*For master-> node SDO message sending*/
-char buf[STRING_BUFFER_SIZE];
-char ret[STRING_BUFFER_SIZE];
-char message[STRING_BUFFER_SIZE] = "[1] 2 read 0x6063 0 i32";
-
+int commCount = 0;
 /* Realtime thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
@@ -100,35 +99,6 @@ void CO_error(const uint32_t info)
     fprintf(stderr, "canopend generic error: 0x%X\n", info);
 }
 
-/* Robot objects */
-//Robot joint (general) object
-typedef struct
-{
-    char motorID[10];
-    int maxPos;
-    int minPos;
-    int q;
-    int qprevious;
-} robotJoint;
-/*Robot object*/
-// typedef struct{
-//     robotJoint lHip;
-//     robotJoint lKnee;
-//     robotJoint rHip;
-//     robotJoint rKnee;
-// }Robot;
-/*PDO and network com test functions*/
-// void mirrorJoint(Joint *lKnee){
-//     lKnee.q = CO_OD_RAM.actualMotorPositions.motor2;
-//     if(commCount%2==0){
-//         CO_OD_RAM.controlWords.motor4=47;
-//         CO_OD_RAM.targetMotorPositions.motor4=lKnee.q;
-//     }
-//     else if(commCount%2==1){
-//         CO_OD_RAM.controlWords.motor4=63;
-//     }
-// }
-
 /******************************************************************************/
 /** Mainline and RT thread                                                   **/
 /******************************************************************************/
@@ -142,6 +112,11 @@ int main(int argc, char *argv[])
     bool_t nodeIdFromArgs = true; /* True, if program arguments are used for CANopen Node Id */
     int nodeId = -1;              /* Use value from Object Dictionary or set to 1..127 by arguments */
     bool_t rebootEnable = false;  /* Configurable by arguments */
+    /*GPIO pin set up*/
+    // GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
+    // int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
+    // gp->setDirection(pin, GPIO::INPUT);
+
     /*set up command line arguments as variables*/
     char CANdevice[10] = "can1"; /* change to can1 for bbb vcan0 for virtual can*/
     nodeId = NODEID;
@@ -330,13 +305,19 @@ int main(int argc, char *argv[])
         pthread_mutex_unlock(&CO_CAN_VALID_mtx);
 
         reset = CO_RESET_NOT;
-
+        /*State machine testing 123*/
+        // Create Statemachine Object -> will be loaded by taskmanager in end program.
+        Robot exo;
+        sitStand sitStandMachine;
+        sitStandMachine.initRobot(&exo);
+        sitStandMachine.init();
+        sitStandMachine.activate();
         printf("Canopend- running ...\n");
-
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
             /* loop for normal program execution ******************************************/
             int ready;
+            int first = 0;
             struct epoll_event ev;
 
             ready = epoll_wait(mainline_epoll_fd, &ev, 1, -1);
@@ -358,10 +339,11 @@ int main(int argc, char *argv[])
                 timer1msDiff = CO_timer1ms - tmr1msPrev;
                 tmr1msPrev = CO_timer1ms;
 
-                /* code was processed in the above function. Additional code process below */
-
                 /* Execute optional additional application code */
-                app_programAsync(timer1msDiff);
+                // Update loop counter -> Can run in Async or RT thread for faster execution.
+                sitStandMachine.hwStateUpdate();
+                sitStandMachine.update();
+                // app_programAsync(timer1msDiff);
 
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
@@ -370,6 +352,7 @@ int main(int argc, char *argv[])
             {
                 /* No file descriptor was processed. */
                 CO_error(0x11200000L);
+                /* CHANGE TO FILE!*/
             }
         }
     }
@@ -403,7 +386,6 @@ int main(int argc, char *argv[])
     CO_delete(CANdevice0Index);
 
     printf("Canopend on %s (nodeId=0x%02X) - finished.\n\n", CANdevice, nodeId);
-
     /* Flush all buffers (and reboot) */
     if (rebootEnable && reset == CO_RESET_APP)
     {
@@ -420,11 +402,6 @@ int main(int argc, char *argv[])
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
-    /*ALEX EXOSKELETON CODE*/
-    /*Create robot object*/
-    /*First test: Robot joint: LKNEE*/
-    Joint lKnee;
-
     /* Endless loop */
     while (CO_endProgram == 0)
     {
@@ -457,19 +434,7 @@ static void *rt_thread(void *arg)
 #endif
 
             /* Execute optional additional application code */
-            /*create OBJECT DICTIONARY ADRESS INDEX FOR A JOINT -> generic function after teat 1*/
             app_program1ms();
-            /*Get the current LKnee position*/
-            // Mirror Joint
-            // mirrorJoint(lKnee);
-            if (CO_timer1ms % 1000 == 0)
-            {
-                //// Testing cancomm_socketFree
-                printf("MESSAGING!");
-                strcpy(buf, message);
-                cancomm_socketFree(buf, ret);
-                printf("Return message: %s", ret);
-            }
 
             /* Detect timer large overflow */
             if (OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal)

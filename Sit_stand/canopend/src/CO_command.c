@@ -187,9 +187,7 @@ static void* homeCalibration(int nodeID) {
 }
 
 /******************************************************************************/
-static void command_process(int fd, char* command, size_t commandLength) {
-    printf("%s\n",command);
-        
+static void command_process(int fd, char* command, size_t commandLength) {        
     int err = 0; /* syntax or other error, true or false */
     int emptyLine = 0;
     char *token;
@@ -579,7 +577,6 @@ static void command_process(int fd, char* command, size_t commandLength) {
 }
 /******************************************************************************/
 void cancomm_socketFree(char* command, char* ret) {
-    printf("Input command: %s\n",command);
     int err = 0; /* syntax or other error, true or false */
     int emptyLine = 0;
     char *token;
@@ -660,9 +657,9 @@ void cancomm_socketFree(char* command, char* ret) {
             break;
         }
     }
-
     /* Execute command */
     if(err == 0) {
+        printf("Error is 0\n");
 
         /* Upload SDO command - 'r[ead] <index> <subindex> <datatype>' */
         if(strcmp(token, "r") == 0 || strcmp(token, "read") == 0) {
@@ -703,7 +700,6 @@ void cancomm_socketFree(char* command, char* ret) {
 
             /* Make CANopen SDO transfer */
             if(err == 0) {
-                printf("making sdcoClientUpload\n");
                 err = sdoClientUpload(
                         CO->SDOclient,
                         comm_node,
@@ -963,9 +959,6 @@ void cancomm_socketFree(char* command, char* ret) {
     resp[respLen++] = '\r';
     resp[respLen++] = '\n';
     resp[respLen++] = '\0';
-    strcpy(ret,resp);
-    printf("Response is: %s\n",ret);
-    // if(write(fd, resp, respLen) != respLen) {
-    //     CO_error(0x15200000L);
-    // }
+    // Bug testing
+    printf("RESPONSE: %s\n", resp);
 }

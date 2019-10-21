@@ -48,14 +48,15 @@
    to do so, delete this exception statement from your version.
  
    This file was automatically generated with libedssharp Object
-   Dictionary Editor v0.6-xdd-2-67-g6261921   DON'T EDIT THIS FILE MANUALLY !!!!
+   Dictionary Editor v0.6-xdd-alpha-81-gb562769
+   DON'T EDIT THIS FILE MANUALLY !!!!
 *******************************************************************************/
 
 
 #pragma once
 
 /*******************************************************************************
-   CANopen DATA TYPES
+   CANopen DATA DYPES
 *******************************************************************************/
    typedef bool_t       BOOLEAN;
    typedef uint8_t      UNSIGNED8;
@@ -70,36 +71,16 @@
    typedef float64_t    REAL64; 
    typedef char_t       VISIBLE_STRING;
    typedef oChar_t      OCTET_STRING;
-
-   #ifdef DOMAIN
-   #undef DOMAIN
-   #endif
-
    typedef domain_t     DOMAIN;
-
-#ifndef timeOfDay_t
-    typedef union {
-        unsigned long long ullValue;
-        struct {
-            unsigned long ms:28;
-            unsigned reserved:4;
-            unsigned days:16;
-            unsigned reserved2:16;
-        };
-    }timeOfDay_t;
-#endif
-
-    typedef timeOfDay_t TIME_OF_DAY;
-    typedef timeOfDay_t TIME_DIFFERENCE;
 
 
 /*******************************************************************************
    FILE INFO:
-      FileName:     CANopenSocket
+      FileName:     BBBMasterFinal.eds
       FileVersion:  0
-      CreationTime: 12:05:34
-      CreationDate: 2016-07-26
-      CreatedBy:    JP
+      CreationTime: 12:00AM
+      CreationDate: 01-01-2001
+      CreatedBy:    RG
 ******************************************************************************/
 
 
@@ -129,7 +110,7 @@
 /*******************************************************************************
    OBJECT DICTIONARY
 *******************************************************************************/
-   #define CO_OD_NoOfElements             170
+   #define CO_OD_NoOfElements             177
 
 
 /*******************************************************************************
@@ -208,7 +189,7 @@
                UNSIGNED32     size;
                UNSIGNED8      axisNo;
                VISIBLE_STRING name[6];
-               VISIBLE_STRING color[5];
+               VISIBLE_STRING color[3];
                UNSIGNED32     map;
                UNSIGNED8      format;
                UNSIGNED8      trigger;
@@ -223,6 +204,67 @@
                DOMAIN         plot;
                UNSIGNED32     triggerTime;
                }              OD_trace_t;
+/*6040    */ typedef struct {
+               UNSIGNED8      numberOfMotors;
+               UNSIGNED16     motor1;
+               UNSIGNED16     motor2;
+               UNSIGNED16     motor3;
+               UNSIGNED16     motor4;
+               UNSIGNED16     motor5;
+               UNSIGNED16     motor6;
+               }              OD_controlWords_t;
+/*6041    */ typedef struct {
+               UNSIGNED8      numberOfMotors;
+               UNSIGNED16     motor1;
+               UNSIGNED16     motor2;
+               UNSIGNED16     motor3;
+               UNSIGNED16     motor4;
+               UNSIGNED16     motor5;
+               UNSIGNED16     motor6;
+               }              OD_statusWords_t;
+/*6064    */ typedef struct {
+               UNSIGNED8      numberOfMotors;
+               INTEGER32      motor1;
+               INTEGER32      motor2;
+               INTEGER32      motor3;
+               INTEGER32      motor4;
+               INTEGER32      motor5;
+               INTEGER32      motor6;
+               }              OD_actualMotorPositions_t;
+/*606c    */ typedef struct {
+               UNSIGNED8      numberOfMotors;
+               INTEGER32      motor1;
+               INTEGER32      motor2;
+               INTEGER32      motor3;
+               INTEGER32      motor4;
+               INTEGER32      motor5;
+               INTEGER32      motor6;
+               }              OD_actualMotorVelocities_t;
+/*6077    */ typedef struct {
+               UNSIGNED8      numberOfMotors;
+               UNSIGNED16     motor1;
+               UNSIGNED16     motor2;
+               UNSIGNED16     motor3;
+               UNSIGNED16     motor4;
+               }              OD_actualMotorTorques_t;
+/*607a    */ typedef struct {
+               UNSIGNED8      numberOfMotors;
+               INTEGER32      motor1;
+               INTEGER32      motor2;
+               INTEGER32      motor3;
+               INTEGER32      motor4;
+               INTEGER32      motor5;
+               INTEGER32      motor6;
+               }              OD_targetMotorPositions_t;
+/*60ff    */ typedef struct {
+               UNSIGNED8      numberOfMotors;
+               INTEGER32      motor1;
+               INTEGER32      motor2;
+               INTEGER32      motor3;
+               INTEGER32      motor4;
+               INTEGER32      motor5;
+               INTEGER32      motor6;
+               }              OD_targetMotorVelocities_t;
 
 /*******************************************************************************
    TYPE DEFINITIONS FOR OBJECT DICTIONARY INDEXES
@@ -1969,6 +2011,81 @@
         #define OD_6000_7_readInput8Bit_input                       7
         #define OD_6000_8_readInput8Bit_input                       8
 
+/*6040 */
+        #define OD_6040_controlWords                                0x6040
+
+        #define OD_6040_0_controlWords_maxSubIndex                  0
+        #define OD_6040_1_controlWords_motor1                       1
+        #define OD_6040_2_controlWords_motor2                       2
+        #define OD_6040_3_controlWords_motor3                       3
+        #define OD_6040_4_controlWords_motor4                       4
+        #define OD_6040_5_controlWords_motor5                       5
+        #define OD_6040_6_controlWords_motor6                       6
+
+/*6041 */
+        #define OD_6041_statusWords                                 0x6041
+
+        #define OD_6041_0_statusWords_maxSubIndex                   0
+        #define OD_6041_1_statusWords_motor1                        1
+        #define OD_6041_2_statusWords_motor2                        2
+        #define OD_6041_3_statusWords_motor3                        3
+        #define OD_6041_4_statusWords_motor4                        4
+        #define OD_6041_5_statusWords_motor5                        5
+        #define OD_6041_6_statusWords_motor6                        6
+
+/*6064 */
+        #define OD_6064_actualMotorPositions                        0x6064
+
+        #define OD_6064_0_actualMotorPositions_maxSubIndex          0
+        #define OD_6064_1_actualMotorPositions_motor1               1
+        #define OD_6064_2_actualMotorPositions_motor2               2
+        #define OD_6064_3_actualMotorPositions_motor3               3
+        #define OD_6064_4_actualMotorPositions_motor4               4
+        #define OD_6064_5_actualMotorPositions_motor5               5
+        #define OD_6064_6_actualMotorPositions_motor6               6
+
+/*606c */
+        #define OD_606c_actualMotorVelocities                       0x606c
+
+        #define OD_606c_0_actualMotorVelocities_maxSubIndex         0
+        #define OD_606c_1_actualMotorVelocities_motor1              1
+        #define OD_606c_2_actualMotorVelocities_motor2              2
+        #define OD_606c_3_actualMotorVelocities_motor3              3
+        #define OD_606c_4_actualMotorVelocities_motor4              4
+        #define OD_606c_5_actualMotorVelocities_motor5              5
+        #define OD_606c_6_actualMotorVelocities_motor6              6
+
+/*6077 */
+        #define OD_6077_actualMotorTorques                          0x6077
+
+        #define OD_6077_0_actualMotorTorques_maxSubIndex            0
+        #define OD_6077_1_actualMotorTorques_motor1                 1
+        #define OD_6077_2_actualMotorTorques_motor2                 2
+        #define OD_6077_3_actualMotorTorques_motor3                 3
+        #define OD_6077_4_actualMotorTorques_motor4                 4
+
+/*607a */
+        #define OD_607a_targetMotorPositions                        0x607a
+
+        #define OD_607a_0_targetMotorPositions_maxSubIndex          0
+        #define OD_607a_1_targetMotorPositions_motor1               1
+        #define OD_607a_2_targetMotorPositions_motor2               2
+        #define OD_607a_3_targetMotorPositions_motor3               3
+        #define OD_607a_4_targetMotorPositions_motor4               4
+        #define OD_607a_5_targetMotorPositions_motor5               5
+        #define OD_607a_6_targetMotorPositions_motor6               6
+
+/*60ff */
+        #define OD_60ff_targetMotorVelocities                       0x60ff
+
+        #define OD_60ff_0_targetMotorVelocities_maxSubIndex         0
+        #define OD_60ff_1_targetMotorVelocities_motor1              1
+        #define OD_60ff_2_targetMotorVelocities_motor2              2
+        #define OD_60ff_3_targetMotorVelocities_motor3              3
+        #define OD_60ff_4_targetMotorVelocities_motor4              4
+        #define OD_60ff_5_targetMotorVelocities_motor5              5
+        #define OD_60ff_6_targetMotorVelocities_motor6              6
+
 /*6200 */
         #define OD_6200_writeOutput8Bit                             0x6200
 
@@ -2074,6 +2191,13 @@ struct sCO_OD_RAM{
 /*2400      */ UNSIGNED8       traceEnable;
 /*2401      */ OD_trace_t      trace[32];
 /*6000      */ UNSIGNED8       readInput8Bit[8];
+/*6040      */ OD_controlWords_t controlWords;
+/*6041      */ OD_statusWords_t statusWords;
+/*6064      */ OD_actualMotorPositions_t actualMotorPositions;
+/*606c      */ OD_actualMotorVelocities_t actualMotorVelocities;
+/*6077      */ OD_actualMotorTorques_t actualMotorTorques;
+/*607a      */ OD_targetMotorPositions_t targetMotorPositions;
+/*60ff      */ OD_targetMotorVelocities_t targetMotorVelocities;
 /*6200      */ UNSIGNED8       writeOutput8Bit[8];
 /*6401      */ INTEGER16       readAnalogueInput16Bit[12];
 /*6411      */ INTEGER16       writeAnalogueOutput16Bit[8];
@@ -2270,6 +2394,27 @@ extern struct sCO_OD_EEPROM CO_OD_EEPROM;
         #define OD_readInput8Bit                                    CO_OD_RAM.readInput8Bit
         #define ODL_readInput8Bit_arrayLength                       8
         #define ODA_readInput8Bit_input                             0
+
+/*6040, Data Type: controlWords_t */
+        #define OD_controlWords                                     CO_OD_RAM.controlWords
+
+/*6041, Data Type: statusWords_t */
+        #define OD_statusWords                                      CO_OD_RAM.statusWords
+
+/*6064, Data Type: actualMotorPositions_t */
+        #define OD_actualMotorPositions                             CO_OD_RAM.actualMotorPositions
+
+/*606c, Data Type: actualMotorVelocities_t */
+        #define OD_actualMotorVelocities                            CO_OD_RAM.actualMotorVelocities
+
+/*6077, Data Type: actualMotorTorques_t */
+        #define OD_actualMotorTorques                               CO_OD_RAM.actualMotorTorques
+
+/*607a, Data Type: targetMotorPositions_t */
+        #define OD_targetMotorPositions                             CO_OD_RAM.targetMotorPositions
+
+/*60ff, Data Type: targetMotorVelocities_t */
+        #define OD_targetMotorVelocities                            CO_OD_RAM.targetMotorVelocities
 
 /*6200, Data Type: UNSIGNED8, Array[8] */
         #define OD_writeOutput8Bit                                  CO_OD_RAM.writeOutput8Bit
