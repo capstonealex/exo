@@ -156,13 +156,9 @@ void Joint::setPos(long qd)
 {
     // Set target motor position -> will send out to motors
     CO_OD_RAM.targetMotorPositions.motor2 = qd;
-    // virtual joint motiom=n
     cout << "Joint move to command sent and is @ " << CO_OD_RAM.actualMotorPositions.motor2 << "\n";
-}
-
-void Joint::setVel(long qdotd)
-{
-    CO_OD_RAM.targetMotorVelocities.motor2 = qdotd;
+    // // virtual joint motion
+    // CO_OD_RAM.actualMotorPositions.motor2 = qd;
 }
 void Joint::setId(int ID)
 {
@@ -177,10 +173,6 @@ int Joint::getPos()
     return q;
 }
 
-float Joint::getVel(){
-    return qdot;
-}
-
 void Joint::printInfo()
 {
     cout << "Joint id number " << id << " @ pos " << q << "\n";
@@ -193,7 +185,6 @@ void Joint::updateJoint()
     // Construct obj dictionary entry message for this motor id
     //CO_OD_RAM.actualMotorPositions.motor<id_goes_here>
     q = CO_OD_RAM.actualMotorPositions.motor2;
-    qdot = CO_OD_RAM.actualMotorVelocities.motor2;
 }
 /*
  * bitflip High changes the specified control Word for this joints motor to HIGH
@@ -201,10 +192,10 @@ void Joint::updateJoint()
 */
 bool Joint::bitflipHigh()
 {
-    //TODO: 1. Set up cases for position, velocity and Torque controlWorkds
+    //TODO: 1. Set up caseses for position, velocity and Torque controlWorkds
     //      2. generalize to create .motor<motorID> dynamically
     //      3. error check control word has been changed in the actual motor.
-    CO_OD_RAM.controlWords.motor2 = 31;
+    CO_OD_RAM.controlWords.motor2 = 63;
     return true;
 }
 /*
@@ -216,7 +207,7 @@ bool Joint::bitflipLow()
     //TODO: 1. Set up caseses for position, velocity and Torque controlWorkds
     //      2. generalize to create .motor<motorID> dynamically
     //      3. error check control word has been changed in the actual motor.
-    CO_OD_RAM.controlWords.motor2 = 15;
+    CO_OD_RAM.controlWords.motor2 = 47;
     return true;
 }
 

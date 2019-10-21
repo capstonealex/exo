@@ -190,28 +190,6 @@ bool Robot::initPositionControl(void)
     printf("Motors configured for position control\n");
     return true;
 }
-bool Robot::initVelocityControl(void)
-{
-    char *returnMessage;
-    char SDO_MessageList[][CANMESSAGELENGTH] = {
-        "[1] 1 start",
-        "[1] 2 start",
-        "[1] 2 write 0x6060 0 i8 3",
-        "[1] 1 write 0x6060 0 i8 3",
-        "[1] 2 write 0x6083 0 i32 30000",
-        "[1] 1 write 0x6083 0 i32 30000",
-        "[1] 2 write 0x6084 0 i32 30000",
-        "[1] 1 write 0x6084 0 i32 30000"};
-
-    int num_of_Messages = sizeof(SDO_MessageList)/sizeof(SDO_MessageList[0]);
-    for(int i = 0; i < num_of_Messages; i++){
-        cancomm_socketFree(SDO_MessageList[i], returnMessage);
-    }
-    printf("initVelocity Control complete!\n");
-    return true;
-    
-
-}
 
 bool Robot::remapPDO(void){
     char *returnMessage;

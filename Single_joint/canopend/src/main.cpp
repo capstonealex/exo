@@ -112,7 +112,6 @@ bool initPositionControl(void)
     return true;
 }
 
-
 /* Realtime thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;

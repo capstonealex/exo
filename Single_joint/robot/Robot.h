@@ -21,7 +21,6 @@ public:
     void jointIncrement();
     void updateJoints();
     bool initPositionControl(void);
-    bool initVelocityControl(void);
     bool homeCalibration(void);
     bool sdoMSG(void);
     bool remapPDO(void);
@@ -40,7 +39,6 @@ public:
     unsigned int RHIP = 3;
     unsigned int RKNEE = 4;
     int positionControl;
-    int velocityControl;
 };
 
 #endif //CAPSTONE_ROBOT_H

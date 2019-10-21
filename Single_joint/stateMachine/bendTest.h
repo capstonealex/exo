@@ -9,9 +9,6 @@
 #include "Robot.h"
 #include "GPIOManager.h"
 #include "GPIOConst.h"
-#include <sys/time.h>
-#include <cmath>
-
 
 class bendTest : public StateMachine
 {
@@ -24,9 +21,6 @@ public:
     void initRobot(Robot *rb);
     bool bitFlip();
     bool initPositionControl();
-    double getDesPos(double, double, double, double);
-    double getDesVel(double, double, double);
-    
 
 private:
     // events
@@ -48,10 +42,6 @@ private:
     int greenButton;
     int arrayIndex;
     int bitFlipState;
-    int startPos;
-    long ePos;
-    long eVel;
-    long qdotnew;
     // enum
     // {
     //     NUM_TRAJ_POINTS = 10
