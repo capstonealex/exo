@@ -101,12 +101,15 @@ void bendTest::BendingP::entry(void)
     }
     }
     char SDO_MessageListB[][100] = {
+        "[1] 2 write 0x6060 0 i8 3",
         "[1] 2 write 0x6040 0 i16 15",
         "[1] 2 write 0x6040 0 i16 31"
     };
     char *returnMessage;
     cancomm_socketFree(SDO_MessageListB[0], returnMessage);
     cancomm_socketFree(SDO_MessageListB[1], returnMessage);
+    cancomm_socketFree(SDO_MessageListB[2], returnMessage);
+
 
     gettimeofday(&timeMark, NULL);
     markTime = timeMark.tv_sec*1000 +timeMark.tv_usec/1000;
