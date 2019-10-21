@@ -134,16 +134,28 @@ void bendTest::BendingP::during(void)
 
         velocityTime = timeLoop - markTime;
         printf("vel time init: %lf\n",velocityTime);
-        if(velocityTime<=10000){
+
+        //Hardcooded fixed velocity PDO test
+        /* if(velocityTime<=10000){
             OWNER->robot->joints[1].setVel(100000);
-            /*
-            OWNER->ePos = OWNER->getDesPos(velocityTime, 100000, 10000, OWNER->startPos) - OWNER->robot->joints[1].getPos();
-            OWNER->eVel = OWNER->getDesVel(velocityTime, 100000, 10000) - OWNER->robot->joints[1].getVel(); 
+        }else
+        {
+            OWNER->robot->joints[1].setVel(0);
+        } */
+
+        //Velocity control loop for lknee that goes moves 70 degrees in 3 seconds
+        if(velocityTime<=3000){
+            OWNER->ePos = OWNER->getDesPos(velocityTime, 200000, 3000, OWNER->startPos) - OWNER->robot->joints[1].getPos();
+            OWNER->eVel = OWNER->getDesVel(velocityTime, 200000, 3000) - OWNER->robot->joints[1].getVel(); 
             printf("pos is %d\n",OWNER->robot->joints[1].getPos());
-            OWNER->qdotnew = OWNER->getDesPos(velocityTime, 100000, 10000, OWNER->startPos) + 0.1*OWNER->ePos;
+            OWNER->qdotnew = OWNER->getDesVel(velocityTime, 200000, 3000) + 0.1*OWNER->ePos;
             printf("new velocity is %ld\n", OWNER->qdotnew);
-            OWNER->robot->joints[1].setVel(OWNER->qdotnew);*/
-        }else{OWNER->robot->joints[1].setVel(0);}
+            OWNER->robot->joints[1].setVel(OWNER->qdotnew);
+        }
+        else
+        {
+            OWNER->robot->joints[1].setVel(0);
+        }
         // printf("CURRENT JOINT position: %d \n,", OWNER->robot->joints[1].getPos());
         // //// DO FOR EACH JOINT
         // ///for (auto i = 0; i < 4; i++) {
@@ -471,5 +483,5 @@ double bendTest::getDesPos(double time, double posDelta, double endTime, double 
 }
 double bendTest::getDesVel(double time, double posDelta, double endTime){
     double vel = 3*pow(time,2)*(-2*posDelta/(pow(endTime,3))) + 2*time*(3*posDelta/(pow(endTime,2)));
-    return vel*100;
+    return vel*10000;
 }
