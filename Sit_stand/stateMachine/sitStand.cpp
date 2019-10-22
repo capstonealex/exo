@@ -1,9 +1,21 @@
 
-
-//
-// Created by William Campbell on 2019-09-30.
-//
-
+/**
+ *
+ * Created for ALEX exoskeleton on 2019-10-02.
+ *
+ * State Machine: Sit Stand task
+ *
+ *              isPressed        isCal              isPressed
+ *  uncalibrated +--> calibrating  +--> idle(standing)  +--> sitingDown
+ *       ^---------------+                 ^                   +
+ *             calFail          isStanding |                   | isSitting
+ *                                         |                   |
+ *                                         standingUp<--+ sitting
+ *                                                     isPressed
+ * ALL states can also leave to error state as well, which holds the current pos
+ * unitl another button is pressed and then goes to uncalibrated (LIMP)
+ *
+ */
 #include "sitStand.h"
 #include "CO_command.h"
 #define OWNER ((sitStand *)owner)
