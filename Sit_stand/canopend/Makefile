@@ -1,4 +1,8 @@
 
+#SSH parameters
+SSH_IP_ADDR=192.168.7.2
+SSH_USER=debian
+
 # Makefile for CANopend.
 # Test Comment
 
@@ -11,17 +15,18 @@ APP_SRC =       ./app
 ROBOT_SRC = 	../robot
 STATEMCH_SRC = 	../stateMachine
 
-LINK_TARGET  =  $ ALEX
+TARGET_FOLDER=bin/Debug/
+LINK_TARGET  =  $ ALEX_APP
 
 
-INCLUDE_DIRS = -I$(STACKDRV_SRC) \
-               -I$(STACK_SRC)    \
-               -I$(CANOPEN_SRC)  \
-               -I$(CANOPEND_SRC) \
-               -I$(OBJ_DICT_SRC) \
-               -I$(ROBOT_SRC)    \
-	       -I$(STATEMCH_SRC) \
-               -I$(APP_SRC)
+INCLUDE_DIRS = 	-I$(STACKDRV_SRC) \
+				-I$(STACK_SRC)    \
+				-I$(CANOPEN_SRC)  \
+				-I$(CANOPEND_SRC) \
+				-I$(OBJ_DICT_SRC) \
+				-I$(ROBOT_SRC)    \
+				-I$(STATEMCH_SRC) \
+				-I$(APP_SRC)
 
 
 SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
@@ -45,15 +50,15 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
 
 SOURCESCPP = 	$(CANOPEND_SRC)/main.cpp            \
                 $(APP_SRC)/application.cpp          \
-		$(STATEMCH_SRC)/Transition.cpp      \
-		$(STATEMCH_SRC)/StateMachine.cpp    \
-		$(STATEMCH_SRC)/State.cpp	    \
-		$(STATEMCH_SRC)/Event.cpp      	    \
-		$(STATEMCH_SRC)/sitStand.cpp        \
-		$(ROBOT_SRC)/Robot.cpp              \
-		$(ROBOT_SRC)/Joint.cpp              \
-	        $(ROBOT_SRC)/GPIOConst.cpp          \
-	        $(ROBOT_SRC)/GPIOManager.cpp	    
+				$(STATEMCH_SRC)/Transition.cpp      \
+				$(STATEMCH_SRC)/StateMachine.cpp    \
+				$(STATEMCH_SRC)/State.cpp	    \
+				$(STATEMCH_SRC)/Event.cpp      	    \
+				$(STATEMCH_SRC)/sitStand.cpp        \
+				$(ROBOT_SRC)/Robot.cpp              \
+				$(ROBOT_SRC)/Joint.cpp              \
+				$(ROBOT_SRC)/GPIOConst.cpp          \
+				$(ROBOT_SRC)/GPIOManager.cpp	    
  
 
 # canopend is three-threaded application: nonblocking mainline, nonblocking
@@ -66,12 +71,20 @@ SOURCESCPP = 	$(CANOPEND_SRC)/main.cpp            \
 # Flag -lrt in LDFLAGS is necessary only with older kernels.
 
 
-OBJS = $(SOURCES:%.c=%.o)
-OBJSCPP = $(SOURCESCPP:%.cpp=%.o)
+OBJS = $(SOURCES:%.c=%.o) $(SOURCESCPP:%.cpp=%.o)
 
-CC = g++
-CFLAGS =  -std=c++11  -g $(INCLUDE_DIRS)
-LDFLAGS = -lrt -pthread
+#CC = g++
+#CFLAGS =  -std=c++11  -g $(INCLUDE_DIRS)
+#LDFLAGS = -lrt -pthread
+
+CC = arm-linux-gnueabihf-gcc
+CXX = arm-linux-gnueabihf-g++
+CXXFLAGS = -Wall -std=c++11 -g $(INCLUDE_DIRS)
+LDFLAGS = -lpthread 
+
+#upload: $(LINK_TARGET)
+#	ssh $(SSH_USER)@$(SSH_IP_ADDR) "mkdir -p ~/$(TARGET_FOLDER)"
+#	scp $(LINK_TARGET) $(SSH_USER)@$(SSH_IP_ADDR):~/$(TARGET_FOLDER)$(TARGET)
 
 
 .PHONY: all clean
@@ -82,10 +95,10 @@ clean:
 	rm -f $(OBJS) $(OBJSCPP) $(LINK_TARGET)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(LINK_TARGET): $(OBJS) $(OBJSCPP)
-	$(CC) $(LDFLAGS) $^ -o $@
+$(LINK_TARGET): $(OBJS)
+	$(CXX) -o $@ $^ $(LDFLAGS)

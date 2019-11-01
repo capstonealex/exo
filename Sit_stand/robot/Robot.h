@@ -24,6 +24,7 @@ public:
     bool homeCalibration(void);
     bool sdoMSG(void);
     bool remapPDO(void);
+    bool preop(void);
     void printTrajectories();
 
     //canFeasat constants

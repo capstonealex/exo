@@ -15,26 +15,12 @@ Robot::Robot()
     positionControl = 0;
     cout << "Setting Robot joint initial conditions...\n";
     // Set joint Intial positions.
-    // joints[0].applyPos(0);
-    // joints[1].applyPos(0);
-    // joints[2].applyPos(0);
-    // joints[3].applyPos(0);
-    // // Set joint IDs
-    // joints[0].setId(1);
-    // joints[1].setId(2);
-    // joints[2].setId(3);
-    // joints[3].setId(4);
-    // // Populate joint Trajectories
-    // joints[0].setTrajectories();
-    // joints[1].setTrajectories();
-    // joints[2].setTrajectories();
-    // joints[3].setTrajectories();
+    
     // // Set joint Intial positions to 0, Set joint IDs, Populate joint Trajectories
     for (auto i = 0; i < 4; i++)
     {
         joints[i].applyPos(0);
         joints[i].setId(i + 1);
-        joints[i].setTrajectories();
     }
 };
 void Robot::printInfo()
@@ -189,10 +175,10 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6060 0 i8 1",
         "[1] 3 write 0x6060 0 i8 1",
         "[1] 4 write 0x6060 0 i8 1",
-        "[1] 2 write 0x6081 0 i32 800000",
-        "[1] 1 write 0x6081 0 i32 800000",
-        "[1] 3 write 0x6081 0 i32 800000",
-        "[1] 4 write 0x6081 0 i32 800000",
+        "[1] 2 write 0x6081 0 i32 1500000",
+        "[1] 1 write 0x6081 0 i32 1500000",
+        "[1] 3 write 0x6081 0 i32 1500000",
+        "[1] 4 write 0x6081 0 i32 1500000",
         "[1] 2 write 0x6083 0 i32 60000",
         "[1] 1 write 0x6083 0 i32 60000",
         "[1] 3 write 0x6083 0 i32 60000",
@@ -346,6 +332,24 @@ bool Robot::remapPDO(void)
         "[1] 2 write 0x6040 0 i16 0",
         "[1] 3 write 0x6040 0 i16 0",
         "[1] 4 write 0x6040 0 i16 0"};
+    int num_of_Messages = sizeof(PDO_MessageList) / sizeof(PDO_MessageList[0]);
+    //    printf("Num of messages: %d\n", num_of_Messages);
+    for (int i = 0; i < num_of_Messages; ++i)
+    {
+        cancomm_socketFree(PDO_MessageList[i], returnMessage);
+    }
+    return true;
+}
+
+
+bool Robot::preop(void)
+{
+    char *returnMessage;
+    char PDO_MessageList[][CANMESSAGELENGTH] = {
+        "[1] 1 preop",
+        "[1] 2 preop",
+        "[1] 3 preop",
+        "[1] 4 preop"};
     int num_of_Messages = sizeof(PDO_MessageList) / sizeof(PDO_MessageList[0]);
     //    printf("Num of messages: %d\n", num_of_Messages);
     for (int i = 0; i < num_of_Messages; ++i)

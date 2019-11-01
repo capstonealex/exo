@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="Sit_Stand_PDO" Version="10.0.0" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00010001N0005Debug000000000000]]>
+    </Plugin>
+  </Plugins>
+  <VirtualDirectory Name="stateMachine">
+    <File Name="../stateMachine/Transition.h"/>
+    <File Name="../stateMachine/Transition.cpp"/>
+    <File Name="../stateMachine/StateMachine.h"/>
+    <File Name="../stateMachine/StateMachine.cpp"/>
+    <File Name="../stateMachine/State.h"/>
+    <File Name="../stateMachine/State.cpp"/>
+    <File Name="../stateMachine/sitStand.h"/>
+    <File Name="../stateMachine/sitStand.cpp"/>
+    <File Name="../stateMachine/Event.cpp"/>
+    <File Name="../stateMachine/bendTest.h"/>
+    <File Name="../stateMachine/bendTest.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="robot">
+    <File Name="../stateMachine/Event.h"/>
+    <File Name="../robot/Robot.h"/>
+    <File Name="../robot/Robot.cpp"/>
+    <File Name="../robot/Joint.h"/>
+    <File Name="../robot/Joint.cpp"/>
+    <File Name="../robot/GPIOManager.h"/>
+    <File Name="../robot/GPIOManager.cpp"/>
+    <File Name="../robot/GPIOConst.h"/>
+    <File Name="../robot/GPIOConst.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="CANopenNode">
+    <File Name="../CANopenNode/CANopen.h"/>
+    <File Name="../CANopenNode/CANopen.c"/>
+    <VirtualDirectory Name="stack">
+      <File Name="../CANopenNode/stack/crc16-ccitt.h"/>
+      <File Name="../CANopenNode/stack/crc16-ccitt.c"/>
+      <File Name="../CANopenNode/stack/CO_trace.h"/>
+      <File Name="../CANopenNode/stack/CO_trace.c"/>
+      <File Name="../CANopenNode/stack/CO_SYNC.h"/>
+      <File Name="../CANopenNode/stack/CO_SYNC.c"/>
+      <File Name="../CANopenNode/stack/CO_SDOmaster.h"/>
+      <File Name="../CANopenNode/stack/CO_SDOmaster.c"/>
+      <File Name="../CANopenNode/stack/CO_SDO.h"/>
+      <File Name="../CANopenNode/stack/CO_SDO.c"/>
+      <File Name="../CANopenNode/stack/CO_PDO.h"/>
+      <File Name="../CANopenNode/stack/CO_PDO.c"/>
+      <File Name="../CANopenNode/stack/CO_NMT_Heartbeat.h"/>
+      <File Name="../CANopenNode/stack/CO_NMT_Heartbeat.c"/>
+      <File Name="../CANopenNode/stack/CO_HBconsumer.h"/>
+      <File Name="../CANopenNode/stack/CO_HBconsumer.c"/>
+      <File Name="../CANopenNode/stack/CO_Emergency.h"/>
+      <File Name="../CANopenNode/stack/CO_Emergency.c"/>
+      <VirtualDirectory Name="socketCAN">
+        <File Name="../CANopenNode/stack/socketCAN/CO_OD_storage.h"/>
+        <File Name="../CANopenNode/stack/socketCAN/CO_OD_storage.c"/>
+        <File Name="../CANopenNode/stack/socketCAN/CO_Linux_tasks.h"/>
+        <File Name="../CANopenNode/stack/socketCAN/CO_Linux_tasks.c"/>
+        <File Name="../CANopenNode/stack/socketCAN/CO_driver.h"/>
+        <File Name="../CANopenNode/stack/socketCAN/CO_driver.c"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="canopend">
+    <VirtualDirectory Name="src">
+      <File Name="../canopend/src/pinread.cpp"/>
+      <File Name="../canopend/src/main.cpp"/>
+      <File Name="../canopend/src/CO_time.h"/>
+      <File Name="../canopend/src/CO_time.c"/>
+      <File Name="../canopend/src/CO_master.h"/>
+      <File Name="../canopend/src/CO_master.c"/>
+      <File Name="../canopend/src/CO_comm_helpers.h"/>
+      <File Name="../canopend/src/CO_comm_helpers.c"/>
+      <File Name="../canopend/src/CO_command.h"/>
+      <File Name="../canopend/src/CO_command.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="objDict">
+      <File Name="../canopend/objDict/CO_ODtest.h"/>
+      <File Name="../canopend/objDict/CO_ODtest.c"/>
+      <File Name="../canopend/objDict/CO_ODorig.h"/>
+      <File Name="../canopend/objDict/CO_ODorig.c"/>
+      <File Name="../canopend/objDict/CO_OD.h"/>
+      <File Name="../canopend/objDict/CO_OD.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="app">
+      <File Name="../canopend/app/application.h"/>
+      <File Name="../canopend/app/application.cpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="canopencomm">
+    <File Name="../canopencomm/CANopenCommand.c"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="canopencgi">
+    <File Name="../canopencgi/CANopenCGI.c"/>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <Settings Type="Dynamic Library">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="Cross GCC ( arm-linux-gnueabihf )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Debug" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <RebuildCommand>C:/cygwin64/bin/make.exe -j8 upload</RebuildCommand>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>C:/cygwin64/bin/make.exe -j8</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>C:\Github\ALEX\exo\Sit_stand\canopend</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="Cross GCC ( arm-linux-gnueabihf )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="-O2" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Release" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <RebuildCommand/>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>make</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
+</CodeLite_Project>

@@ -21,12 +21,15 @@ public:
     void initRobot(Robot *rb);
     bool bitFlip(int i);
     bool initPositionControl();
+    void moveThroughTraj();
 
 private:
     // events
-    EventObject(IsSitting) * isSitting;
-    EventObject(IsStanding) * isStanding;
+  //  EventObject(IsSitting) * isSitting;
+    EventObject(EndTraj) * endTraj;
     EventObject(IsYPressed) * isYPressed;
+    EventObject(IsBPressed) * isBPressed;
+    EventObject(IsRPressed) * isRPressed;
 
     //
     //    // states
@@ -34,6 +37,14 @@ private:
     StateObject(StandingUp) * standingUp;
     StateObject(Sitting) * sitting;
     StateObject(Standing) * standing;
+    StateObject(SteppingFirstLeft) * steppingFirstLeft;
+    StateObject(LeftForward) * leftForward;
+    StateObject(SteppingRight) * steppingRight;
+    StateObject(RightForward) * rightForward;
+    StateObject(SteppingLeft) * steppingLeft;
+    StateObject(SteppingLastRight) * steppingLastRight;
+    
+    StateObject(ErrorState) * errorState;
 
     // data
     double mark;

@@ -22,6 +22,12 @@
 #define HIP_MOTOR_DEG1 (90)
 #define HIP_MOTOR_POS2 (0)
 #define HIP_MOTOR_DEG2 (180)
+
+#define LEFT_HIP (1)
+#define LEFT_KNEE (2)
+#define RIGHT_HIP (3)
+#define RIGHT_KNEE (4)
+
 const int STRING_LENGTH = 50;
 // For control word bitFlip functions
 #define NOFLIP (100)
@@ -36,6 +42,9 @@ Joint::Joint()
     // THESE MUST BE HARD SET AT OBJECT INITIALIZATION
     maxq = KNEE_MOTOR_POS1*2;
     minq = 0;
+    
+    maxdq = 2000000;
+    mindq = 0;
     // set position arrayIndex to 0;
     arrayIndex = 0;
     bitFlipState = NOFLIP;
@@ -47,75 +56,36 @@ Joint::Joint(float q_init, int ID)
     q = q_init;
     id = ID;
 }
-void Joint::setTrajectories(void)
+
+void Joint::setTrajectories(double leftHipTraj[], double rightHipTraj[], double leftKneeTraj[], double rightKneeTraj[], int numPoints)
 {
-    double posTrajectoriesDeg[NUM_TRAJ_POINTS] = {
-        18.19,
-        20.59,
-        32.71,
-        53.84,
-        76.85,
-        93.64,
-        100.35,
-        98.88,
-        93.91,
-        90.07,
-        89.20};
-    double negTrajectoriesDeg[NUM_TRAJ_POINTS] = {
-        89.20,
-        90.07,
-        93.91,
-        98.88,
-        100.35,
-        93.64,
-        76.85,
-        53.84,
-        32.71,
-        20.59,
-        18.19};
-    double hipposTrajectoriesDeg[NUM_TRAJ_POINTS] = {
-        171.59,
-        169.97,
-        147.06,
-        147.06,
-        130.51,
-        117.26,
-        109.84,
-        107.45,
-        107.89,
-        108.86,
-        109.13};
-    double hipnegTrajectoriesDeg[NUM_TRAJ_POINTS] = {
-        109.13,
-        108.86,
-        107.89,
-        107.45,
-        109.84,
-        117.26,
-        130.51,
-        147.06,
-        147.06,
-        169.97,
-        171.59};
-    if (this->id == 2 || this->id == 4)
+    if (this->id == LEFT_KNEE)
     {
-        motorPosArrayConverter(posTrajectoriesDeg, this->posTrajectories, NUM_TRAJ_POINTS, this->id);
-        motorPosArrayConverter(negTrajectoriesDeg, this->negTrajectories, NUM_TRAJ_POINTS, this->id);
+        motorPosArrayConverter(leftKneeTraj, this->trajectories, numPoints, this->id);
     }
-    else
+    else if(this->id == RIGHT_KNEE)
     {
-        motorPosArrayConverter(hipposTrajectoriesDeg, this->posTrajectories, NUM_TRAJ_POINTS, this->id);
-        motorPosArrayConverter(hipnegTrajectoriesDeg, this->negTrajectories, NUM_TRAJ_POINTS, this->id);
+        motorPosArrayConverter(rightKneeTraj, this->trajectories, numPoints, this->id);
+    }
+    else if (this->id == LEFT_HIP)
+    {
+        motorPosArrayConverter(leftHipTraj, this->trajectories, numPoints, this->id);
+    }
+    else if (this->id == RIGHT_HIP)
+    {
+        motorPosArrayConverter(rightHipTraj, this->trajectories, numPoints, this->id);
+
     }
 }
+
 void Joint::getTrajectorie()
 {
     printf("~~~~~~~~~~~~~~~~~\n");
-    printf("TRajectories for joint %d", this->id);
+    printf("Trajectories for joint %d", this->id);
 
-    for (int i = 0; i < NUM_TRAJ_POINTS; i++)
+    for (int i = 0; i < 4; i++)
     {
-        printf(" Trajectory %d: %lu", i, this->posTrajectories[i]);
+        printf(" Trajectory %d: %lu", i, this->trajectories[i]);
     }
 }
 void Joint::incrementIndex()
@@ -138,12 +108,12 @@ void Joint::motorPosArrayConverter(double origArr[], long newArr[], int arrSize,
     double A = 0;
     double B = 0;
 
-    if (nodeid == 1 || nodeid == 3)
+    if (nodeid == RIGHT_HIP || nodeid == LEFT_HIP)
     {
         calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
     }
 
-    if (nodeid == 2 || nodeid == 4)
+    if (nodeid == RIGHT_KNEE || nodeid == LEFT_KNEE)
     {
         calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
     }
@@ -153,7 +123,7 @@ void Joint::motorPosArrayConverter(double origArr[], long newArr[], int arrSize,
         newArr[i] = solution;
     }
 }
-void Joint::motorPosConverter(double origDeg, long newMotorCmnd, int nodeid)
+void Joint::motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid)
 {
     double A = 0;
     double B = 0;
@@ -167,7 +137,7 @@ void Joint::motorPosConverter(double origDeg, long newMotorCmnd, int nodeid)
         calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
     }
 
-    newMotorCmnd = (long)(A * origDeg + B);
+    (*newMotorCmnd) = (long)(A * origDeg + B);
 }
 
 //calculate A and B in the formula y=Ax+B. Use by motorPosArrayConverter()
@@ -178,6 +148,18 @@ void Joint::calcAB(long y1, long x1, long y2, long x2, double *A, double *B)
     *B = 1.0 * (y1 * x2 - y2 * x1) / (x2 - x1);
     // printf("B is %f\n", *B);
 }
+void Joint::applyPosDeg(double qd)
+{
+    //Safety checks.
+    // Is joint where we think it is? or within safe range of it?
+    // are we trying to move to a pos within the joints limits?
+    ///// Testing for PDOs
+    long qd_long = 0;
+    motorPosConverter(qd, &qd_long, this->id);
+    printf("Joint ID: %d, %3f, %ld \n", this->id, qd,  qd_long);
+    applyPos(qd_long);
+}
+
 void Joint::applyPos(long qd)
 {
     //Safety checks.
@@ -214,6 +196,43 @@ void Joint::setPos(long qd)
     else if (this->id == 4)
     {
         CO_OD_RAM.targetMotorPositions.motor4 = qd;
+    }
+}
+
+void Joint::applyVel(long dqd)
+{
+    printf("apply vel of %ld issued\n", dqd);
+    if (dqd >= mindq && dqd <= maxdq)
+    {
+        Joint::setVel(dqd);
+    }
+    else
+    {
+        cout << "Positions outside of joint limits"
+             << "\n";
+    }
+}
+
+
+void Joint::setVel(long dqd)
+// TODO: 1. generalize to create .motor<motorID> dynamically
+{
+    // Set target motor position -> will send out to motors
+    if (this->id == 1)
+    {
+        CO_OD_RAM.targetMotorVelocities.motor1 = dqd;
+    }
+    else if (this->id == 2)
+    {
+        CO_OD_RAM.targetMotorVelocities.motor2 = dqd;
+    }
+    else if (this->id == 3)
+    {
+        CO_OD_RAM.targetMotorVelocities.motor3 = dqd;
+    }
+    else if (this->id == 4)
+    {
+        CO_OD_RAM.targetMotorVelocities.motor4 = dqd;
     }
 }
 void Joint::setId(int ID)

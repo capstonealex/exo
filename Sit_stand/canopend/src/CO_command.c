@@ -659,7 +659,7 @@ void cancomm_socketFree(char* command, char* ret) {
     }
     /* Execute command */
     if(err == 0) {
-        printf("Error is 0\n");
+        //printf("Error is 0\n");
 
         /* Upload SDO command - 'r[ead] <index> <subindex> <datatype>' */
         if(strcmp(token, "r") == 0 || strcmp(token, "read") == 0) {
@@ -960,5 +960,5 @@ void cancomm_socketFree(char* command, char* ret) {
     resp[respLen++] = '\n';
     resp[respLen++] = '\0';
     // Bug testing
-    printf("RESPONSE: %s\n", resp);
+    //printf("RESPONSE: %s\n", resp);
 }

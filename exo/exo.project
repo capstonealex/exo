@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="exo" Version="10.0.0" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00010001N0005Debug000000000000]]>
+    </Plugin>
+  </Plugins>
+  <VirtualDirectory Name="Single_joint">
+    <VirtualDirectory Name="stateMachine">
+      <File Name="../Single_joint/stateMachine/Transition.h"/>
+      <File Name="../Single_joint/stateMachine/Transition.cpp"/>
+      <File Name="../Single_joint/stateMachine/StateMachine.h"/>
+      <File Name="../Single_joint/stateMachine/StateMachine.cpp"/>
+      <File Name="../Single_joint/stateMachine/State.h"/>
+      <File Name="../Single_joint/stateMachine/State.cpp"/>
+      <File Name="../Single_joint/stateMachine/sitStand.h"/>
+      <File Name="../Single_joint/stateMachine/Event.h"/>
+      <File Name="../Single_joint/stateMachine/Event.cpp"/>
+      <File Name="../Single_joint/stateMachine/bendTest.h"/>
+      <File Name="../Single_joint/stateMachine/bendTest.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="robot">
+      <File Name="../Single_joint/robot/Robot.h"/>
+      <File Name="../Single_joint/robot/Robot.cpp"/>
+      <File Name="../Single_joint/robot/Joint.h"/>
+      <File Name="../Single_joint/robot/Joint.cpp"/>
+      <File Name="../Single_joint/robot/GPIOManager.h"/>
+      <File Name="../Single_joint/robot/GPIOManager.cpp"/>
+      <File Name="../Single_joint/robot/GPIOConst.h"/>
+      <File Name="../Single_joint/robot/GPIOConst.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="CANopenNode">
+      <File Name="../Single_joint/CANopenNode/CANopen.h"/>
+      <File Name="../Single_joint/CANopenNode/CANopen.c"/>
+      <VirtualDirectory Name="stack">
+        <File Name="../Single_joint/CANopenNode/stack/crc16-ccitt.h"/>
+        <File Name="../Single_joint/CANopenNode/stack/crc16-ccitt.c"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_trace.h"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_trace.c"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_SYNC.h"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_SYNC.c"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_SDOmaster.h"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_SDOmaster.c"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_SDO.h"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_SDO.c"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_PDO.h"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_PDO.c"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_NMT_Heartbeat.h"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_NMT_Heartbeat.c"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_HBconsumer.h"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_HBconsumer.c"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_Emergency.h"/>
+        <File Name="../Single_joint/CANopenNode/stack/CO_Emergency.c"/>
+        <VirtualDirectory Name="socketCAN">
+          <File Name="../Single_joint/CANopenNode/stack/socketCAN/CO_OD_storage.h"/>
+          <File Name="../Single_joint/CANopenNode/stack/socketCAN/CO_OD_storage.c"/>
+          <File Name="../Single_joint/CANopenNode/stack/socketCAN/CO_Linux_tasks.h"/>
+          <File Name="../Single_joint/CANopenNode/stack/socketCAN/CO_Linux_tasks.c"/>
+          <File Name="../Single_joint/CANopenNode/stack/socketCAN/CO_driver.h"/>
+          <File Name="../Single_joint/CANopenNode/stack/socketCAN/CO_driver.c"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopend">
+      <VirtualDirectory Name="src">
+        <File Name="../Single_joint/canopend/src/pinread.cpp"/>
+        <File Name="../Single_joint/canopend/src/main.cpp"/>
+        <File Name="../Single_joint/canopend/src/CO_time.h"/>
+        <File Name="../Single_joint/canopend/src/CO_time.c"/>
+        <File Name="../Single_joint/canopend/src/CO_master.h"/>
+        <File Name="../Single_joint/canopend/src/CO_master.c"/>
+        <File Name="../Single_joint/canopend/src/CO_comm_helpers.h"/>
+        <File Name="../Single_joint/canopend/src/CO_comm_helpers.c"/>
+        <File Name="../Single_joint/canopend/src/CO_command.h"/>
+        <File Name="../Single_joint/canopend/src/CO_command.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="objDict">
+        <File Name="../Single_joint/canopend/objDict/CO_ODtest.h"/>
+        <File Name="../Single_joint/canopend/objDict/CO_ODtest.c"/>
+        <File Name="../Single_joint/canopend/objDict/CO_ODorig.h"/>
+        <File Name="../Single_joint/canopend/objDict/CO_ODorig.c"/>
+        <File Name="../Single_joint/canopend/objDict/CO_OD.h"/>
+        <File Name="../Single_joint/canopend/objDict/CO_OD.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="app">
+        <File Name="../Single_joint/canopend/app/Robot.h"/>
+        <File Name="../Single_joint/canopend/app/application.h"/>
+        <File Name="../Single_joint/canopend/app/application.cpp"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencomm">
+      <File Name="../Single_joint/canopencomm/CANopenCommand.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencgi">
+      <File Name="../Single_joint/canopencgi/CANopenCGI.c"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Benchmark">
+    <VirtualDirectory Name="stateMachine">
+      <File Name="../Benchmark/stateMachine/Transition.h"/>
+      <File Name="../Benchmark/stateMachine/Transition.cpp"/>
+      <File Name="../Benchmark/stateMachine/StateMachine.h"/>
+      <File Name="../Benchmark/stateMachine/StateMachine.cpp"/>
+      <File Name="../Benchmark/stateMachine/State.h"/>
+      <File Name="../Benchmark/stateMachine/State.cpp"/>
+      <File Name="../Benchmark/stateMachine/Event.h"/>
+      <File Name="../Benchmark/stateMachine/Event.cpp"/>
+      <File Name="../Benchmark/stateMachine/bendTest.h"/>
+      <File Name="../Benchmark/stateMachine/bendTest.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="robot">
+      <File Name="../Benchmark/robot/Robot.h"/>
+      <File Name="../Benchmark/robot/Robot.cpp"/>
+      <File Name="../Benchmark/robot/Joint.h"/>
+      <File Name="../Benchmark/robot/Joint.cpp"/>
+      <File Name="../Benchmark/robot/GPIOManager.h"/>
+      <File Name="../Benchmark/robot/GPIOManager.cpp"/>
+      <File Name="../Benchmark/robot/GPIOConst.h"/>
+      <File Name="../Benchmark/robot/GPIOConst.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="CANopenNode">
+      <File Name="../Benchmark/CANopenNode/CANopen.h"/>
+      <File Name="../Benchmark/CANopenNode/CANopen.c"/>
+      <VirtualDirectory Name="stack">
+        <File Name="../Benchmark/CANopenNode/stack/crc16-ccitt.h"/>
+        <File Name="../Benchmark/CANopenNode/stack/crc16-ccitt.c"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_trace.h"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_trace.c"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_SYNC.h"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_SYNC.c"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_SDOmaster.h"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_SDOmaster.c"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_SDO.h"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_SDO.c"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_PDO.h"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_PDO.c"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_NMT_Heartbeat.h"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_NMT_Heartbeat.c"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_HBconsumer.h"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_HBconsumer.c"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_Emergency.h"/>
+        <File Name="../Benchmark/CANopenNode/stack/CO_Emergency.c"/>
+        <VirtualDirectory Name="socketCAN">
+          <File Name="../Benchmark/CANopenNode/stack/socketCAN/CO_OD_storage.h"/>
+          <File Name="../Benchmark/CANopenNode/stack/socketCAN/CO_OD_storage.c"/>
+          <File Name="../Benchmark/CANopenNode/stack/socketCAN/CO_Linux_tasks.h"/>
+          <File Name="../Benchmark/CANopenNode/stack/socketCAN/CO_Linux_tasks.c"/>
+          <File Name="../Benchmark/CANopenNode/stack/socketCAN/CO_driver.h"/>
+          <File Name="../Benchmark/CANopenNode/stack/socketCAN/CO_driver.c"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopend">
+      <VirtualDirectory Name="src">
+        <File Name="../Benchmark/canopend/src/pinread.cpp"/>
+        <File Name="../Benchmark/canopend/src/main.cpp"/>
+        <File Name="../Benchmark/canopend/src/CO_time.h"/>
+        <File Name="../Benchmark/canopend/src/CO_time.c"/>
+        <File Name="../Benchmark/canopend/src/CO_master.h"/>
+        <File Name="../Benchmark/canopend/src/CO_master.c"/>
+        <File Name="../Benchmark/canopend/src/CO_comm_helpers.h"/>
+        <File Name="../Benchmark/canopend/src/CO_comm_helpers.c"/>
+        <File Name="../Benchmark/canopend/src/CO_command.h"/>
+        <File Name="../Benchmark/canopend/src/CO_command.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="objDict">
+        <File Name="../Benchmark/canopend/objDict/CO_ODtest.h"/>
+        <File Name="../Benchmark/canopend/objDict/CO_ODtest.c"/>
+        <File Name="../Benchmark/canopend/objDict/CO_ODorig.h"/>
+        <File Name="../Benchmark/canopend/objDict/CO_ODorig.c"/>
+        <File Name="../Benchmark/canopend/objDict/CO_OD.h"/>
+        <File Name="../Benchmark/canopend/objDict/CO_OD.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="app">
+        <File Name="../Benchmark/canopend/app/Robot.h"/>
+        <File Name="../Benchmark/canopend/app/application.h"/>
+        <File Name="../Benchmark/canopend/app/application.cpp"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencomm">
+      <File Name="../Benchmark/canopencomm/CANopenCommand.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencgi">
+      <File Name="../Benchmark/canopencgi/CANopenCGI.c"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Single_joint_Vel_Control">
+    <VirtualDirectory Name="stateMachine">
+      <File Name="../Single_joint_Vel_Control/stateMachine/Transition.h"/>
+      <File Name="../Single_joint_Vel_Control/stateMachine/Transition.cpp"/>
+      <File Name="../Single_joint_Vel_Control/stateMachine/StateMachine.h"/>
+      <File Name="../Single_joint_Vel_Control/stateMachine/StateMachine.cpp"/>
+      <File Name="../Single_joint_Vel_Control/stateMachine/State.h"/>
+      <File Name="../Single_joint_Vel_Control/stateMachine/State.cpp"/>
+      <File Name="../Single_joint_Vel_Control/stateMachine/Event.h"/>
+      <File Name="../Single_joint_Vel_Control/stateMachine/Event.cpp"/>
+      <File Name="../Single_joint_Vel_Control/stateMachine/bendTest.h"/>
+      <File Name="../Single_joint_Vel_Control/stateMachine/bendTest.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="robot">
+      <File Name="../Single_joint_Vel_Control/robot/Robot.h"/>
+      <File Name="../Single_joint_Vel_Control/robot/Robot.cpp"/>
+      <File Name="../Single_joint_Vel_Control/robot/Joint.h"/>
+      <File Name="../Single_joint_Vel_Control/robot/Joint.cpp"/>
+      <File Name="../Single_joint_Vel_Control/robot/GPIOManager.h"/>
+      <File Name="../Single_joint_Vel_Control/robot/GPIOManager.cpp"/>
+      <File Name="../Single_joint_Vel_Control/robot/GPIOConst.h"/>
+      <File Name="../Single_joint_Vel_Control/robot/GPIOConst.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="CANopenNode">
+      <File Name="../Single_joint_Vel_Control/CANopenNode/CANopen.h"/>
+      <File Name="../Single_joint_Vel_Control/CANopenNode/CANopen.c"/>
+      <VirtualDirectory Name="stack">
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/crc16-ccitt.h"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/crc16-ccitt.c"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_trace.h"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_trace.c"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_SYNC.h"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_SYNC.c"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_SDOmaster.h"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_SDOmaster.c"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_SDO.h"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_SDO.c"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_PDO.h"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_PDO.c"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_NMT_Heartbeat.h"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_NMT_Heartbeat.c"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_HBconsumer.h"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_HBconsumer.c"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_Emergency.h"/>
+        <File Name="../Single_joint_Vel_Control/CANopenNode/stack/CO_Emergency.c"/>
+        <VirtualDirectory Name="socketCAN">
+          <File Name="../Single_joint_Vel_Control/CANopenNode/stack/socketCAN/CO_OD_storage.h"/>
+          <File Name="../Single_joint_Vel_Control/CANopenNode/stack/socketCAN/CO_OD_storage.c"/>
+          <File Name="../Single_joint_Vel_Control/CANopenNode/stack/socketCAN/CO_Linux_tasks.h"/>
+          <File Name="../Single_joint_Vel_Control/CANopenNode/stack/socketCAN/CO_Linux_tasks.c"/>
+          <File Name="../Single_joint_Vel_Control/CANopenNode/stack/socketCAN/CO_driver.h"/>
+          <File Name="../Single_joint_Vel_Control/CANopenNode/stack/socketCAN/CO_driver.c"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopend">
+      <VirtualDirectory Name="src">
+        <File Name="../Single_joint_Vel_Control/canopend/src/pinread.cpp"/>
+        <File Name="../Single_joint_Vel_Control/canopend/src/main.cpp"/>
+        <File Name="../Single_joint_Vel_Control/canopend/src/CO_time.h"/>
+        <File Name="../Single_joint_Vel_Control/canopend/src/CO_time.c"/>
+        <File Name="../Single_joint_Vel_Control/canopend/src/CO_master.h"/>
+        <File Name="../Single_joint_Vel_Control/canopend/src/CO_master.c"/>
+        <File Name="../Single_joint_Vel_Control/canopend/src/CO_comm_helpers.h"/>
+        <File Name="../Single_joint_Vel_Control/canopend/src/CO_comm_helpers.c"/>
+        <File Name="../Single_joint_Vel_Control/canopend/src/CO_command.h"/>
+        <File Name="../Single_joint_Vel_Control/canopend/src/CO_command.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="objDict">
+        <File Name="../Single_joint_Vel_Control/canopend/objDict/CO_ODtest.h"/>
+        <File Name="../Single_joint_Vel_Control/canopend/objDict/CO_ODtest.c"/>
+        <File Name="../Single_joint_Vel_Control/canopend/objDict/CO_ODorig.h"/>
+        <File Name="../Single_joint_Vel_Control/canopend/objDict/CO_ODorig.c"/>
+        <File Name="../Single_joint_Vel_Control/canopend/objDict/CO_OD.h"/>
+        <File Name="../Single_joint_Vel_Control/canopend/objDict/CO_OD.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="app">
+        <File Name="../Single_joint_Vel_Control/canopend/app/Robot.h"/>
+        <File Name="../Single_joint_Vel_Control/canopend/app/application.h"/>
+        <File Name="../Single_joint_Vel_Control/canopend/app/application.cpp"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencomm">
+      <File Name="../Single_joint_Vel_Control/canopencomm/CANopenCommand.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencgi">
+      <File Name="../Single_joint_Vel_Control/canopencgi/CANopenCGI.c"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="BeagleNode">
+    <VirtualDirectory Name="TaskStatemachine">
+      <File Name="../BeagleNode/TaskStatemachine/Transition.h"/>
+      <File Name="../BeagleNode/TaskStatemachine/Transition.cpp"/>
+      <File Name="../BeagleNode/TaskStatemachine/toytest.cpp"/>
+      <File Name="../BeagleNode/TaskStatemachine/ToyMachine.h"/>
+      <File Name="../BeagleNode/TaskStatemachine/ToyMachine.cpp"/>
+      <File Name="../BeagleNode/TaskStatemachine/Supervisor.h"/>
+      <File Name="../BeagleNode/TaskStatemachine/Supervisor.cpp"/>
+      <File Name="../BeagleNode/TaskStatemachine/StateMachine.h"/>
+      <File Name="../BeagleNode/TaskStatemachine/StateMachine.cpp"/>
+      <File Name="../BeagleNode/TaskStatemachine/State.h"/>
+      <File Name="../BeagleNode/TaskStatemachine/State.cpp"/>
+      <File Name="../BeagleNode/TaskStatemachine/Event.h"/>
+      <File Name="../BeagleNode/TaskStatemachine/Event.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="robot">
+      <File Name="../BeagleNode/robot/TESTING.cpp"/>
+      <File Name="../BeagleNode/robot/Robot.h"/>
+      <File Name="../BeagleNode/robot/Robot.cpp"/>
+      <File Name="../BeagleNode/robot/Joint.h"/>
+      <File Name="../BeagleNode/robot/Joint.cpp"/>
+      <File Name="../BeagleNode/robot/GPIOManager.h"/>
+      <File Name="../BeagleNode/robot/GPIOManager.cpp"/>
+      <File Name="../BeagleNode/robot/GPIOConst.h"/>
+      <File Name="../BeagleNode/robot/GPIOConst.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="CANopenNode">
+      <File Name="../BeagleNode/CANopenNode/CANopen.h"/>
+      <File Name="../BeagleNode/CANopenNode/CANopen.c"/>
+      <VirtualDirectory Name="stack">
+        <File Name="../BeagleNode/CANopenNode/stack/crc16-ccitt.h"/>
+        <File Name="../BeagleNode/CANopenNode/stack/crc16-ccitt.c"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_trace.h"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_trace.c"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_SYNC.h"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_SYNC.c"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_SDOmaster.h"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_SDOmaster.c"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_SDO.h"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_SDO.c"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_PDO.h"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_PDO.c"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_NMT_Heartbeat.h"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_NMT_Heartbeat.c"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_HBconsumer.h"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_HBconsumer.c"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_Emergency.h"/>
+        <File Name="../BeagleNode/CANopenNode/stack/CO_Emergency.c"/>
+        <VirtualDirectory Name="socketCAN">
+          <File Name="../BeagleNode/CANopenNode/stack/socketCAN/CO_OD_storage.h"/>
+          <File Name="../BeagleNode/CANopenNode/stack/socketCAN/CO_OD_storage.c"/>
+          <File Name="../BeagleNode/CANopenNode/stack/socketCAN/CO_Linux_tasks.h"/>
+          <File Name="../BeagleNode/CANopenNode/stack/socketCAN/CO_Linux_tasks.c"/>
+          <File Name="../BeagleNode/CANopenNode/stack/socketCAN/CO_driver.h"/>
+          <File Name="../BeagleNode/CANopenNode/stack/socketCAN/CO_driver.c"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopend">
+      <VirtualDirectory Name="src">
+        <File Name="../BeagleNode/canopend/src/pinread.cpp"/>
+        <File Name="../BeagleNode/canopend/src/main.cpp"/>
+        <File Name="../BeagleNode/canopend/src/CO_time.h"/>
+        <File Name="../BeagleNode/canopend/src/CO_time.c"/>
+        <File Name="../BeagleNode/canopend/src/CO_master.h"/>
+        <File Name="../BeagleNode/canopend/src/CO_master.c"/>
+        <File Name="../BeagleNode/canopend/src/CO_comm_helpers.h"/>
+        <File Name="../BeagleNode/canopend/src/CO_comm_helpers.c"/>
+        <File Name="../BeagleNode/canopend/src/CO_command.h"/>
+        <File Name="../BeagleNode/canopend/src/CO_command.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="objDict">
+        <File Name="../BeagleNode/canopend/objDict/CO_ODtest.h"/>
+        <File Name="../BeagleNode/canopend/objDict/CO_ODtest.c"/>
+        <File Name="../BeagleNode/canopend/objDict/CO_ODorig.h"/>
+        <File Name="../BeagleNode/canopend/objDict/CO_ODorig.c"/>
+        <File Name="../BeagleNode/canopend/objDict/CO_OD.h"/>
+        <File Name="../BeagleNode/canopend/objDict/CO_OD.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="app">
+        <File Name="../BeagleNode/canopend/app/application.h"/>
+        <File Name="../BeagleNode/canopend/app/application.cpp"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencomm">
+      <File Name="../BeagleNode/canopencomm/CANopenCommand.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencgi">
+      <File Name="../BeagleNode/canopencgi/CANopenCGI.c"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="exo">
+    <File Name="../State.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Sit_stand">
+    <VirtualDirectory Name="stateMachine">
+      <File Name="../Sit_stand/stateMachine/Transition.h"/>
+      <File Name="../Sit_stand/stateMachine/Transition.cpp"/>
+      <File Name="../Sit_stand/stateMachine/StateMachine.h"/>
+      <File Name="../Sit_stand/stateMachine/StateMachine.cpp"/>
+      <File Name="../Sit_stand/stateMachine/State.h"/>
+      <File Name="../Sit_stand/stateMachine/State.cpp"/>
+      <File Name="../Sit_stand/stateMachine/sitStand.h"/>
+      <File Name="../Sit_stand/stateMachine/sitStand.cpp"/>
+      <File Name="../Sit_stand/stateMachine/Event.h"/>
+      <File Name="../Sit_stand/stateMachine/Event.cpp"/>
+      <File Name="../Sit_stand/stateMachine/bendTest.h"/>
+      <File Name="../Sit_stand/stateMachine/bendTest.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="robot">
+      <File Name="../Sit_stand/robot/Robot.h"/>
+      <File Name="../Sit_stand/robot/Robot.cpp"/>
+      <File Name="../Sit_stand/robot/Joint.h"/>
+      <File Name="../Sit_stand/robot/Joint.cpp"/>
+      <File Name="../Sit_stand/robot/GPIOManager.h"/>
+      <File Name="../Sit_stand/robot/GPIOManager.cpp"/>
+      <File Name="../Sit_stand/robot/GPIOConst.h"/>
+      <File Name="../Sit_stand/robot/GPIOConst.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="CANopenNode">
+      <File Name="../Sit_stand/CANopenNode/CANopen.h"/>
+      <File Name="../Sit_stand/CANopenNode/CANopen.c"/>
+      <VirtualDirectory Name="stack">
+        <File Name="../Sit_stand/CANopenNode/stack/crc16-ccitt.h"/>
+        <File Name="../Sit_stand/CANopenNode/stack/crc16-ccitt.c"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_trace.h"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_trace.c"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_SYNC.h"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_SYNC.c"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_SDOmaster.h"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_SDOmaster.c"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_SDO.h"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_SDO.c"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_PDO.h"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_PDO.c"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_NMT_Heartbeat.h"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_NMT_Heartbeat.c"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_HBconsumer.h"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_HBconsumer.c"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_Emergency.h"/>
+        <File Name="../Sit_stand/CANopenNode/stack/CO_Emergency.c"/>
+        <VirtualDirectory Name="socketCAN">
+          <File Name="../Sit_stand/CANopenNode/stack/socketCAN/CO_OD_storage.h"/>
+          <File Name="../Sit_stand/CANopenNode/stack/socketCAN/CO_OD_storage.c"/>
+          <File Name="../Sit_stand/CANopenNode/stack/socketCAN/CO_Linux_tasks.h"/>
+          <File Name="../Sit_stand/CANopenNode/stack/socketCAN/CO_Linux_tasks.c"/>
+          <File Name="../Sit_stand/CANopenNode/stack/socketCAN/CO_driver.h"/>
+          <File Name="../Sit_stand/CANopenNode/stack/socketCAN/CO_driver.c"/>
+        </VirtualDirectory>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopend">
+      <VirtualDirectory Name="src">
+        <File Name="../Sit_stand/canopend/src/pinread.cpp"/>
+        <File Name="../Sit_stand/canopend/src/main.cpp"/>
+        <File Name="../Sit_stand/canopend/src/CO_time.h"/>
+        <File Name="../Sit_stand/canopend/src/CO_time.c"/>
+        <File Name="../Sit_stand/canopend/src/CO_master.h"/>
+        <File Name="../Sit_stand/canopend/src/CO_master.c"/>
+        <File Name="../Sit_stand/canopend/src/CO_comm_helpers.h"/>
+        <File Name="../Sit_stand/canopend/src/CO_comm_helpers.c"/>
+        <File Name="../Sit_stand/canopend/src/CO_command.h"/>
+        <File Name="../Sit_stand/canopend/src/CO_command.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="objDict">
+        <File Name="../Sit_stand/canopend/objDict/CO_ODtest.h"/>
+        <File Name="../Sit_stand/canopend/objDict/CO_ODtest.c"/>
+        <File Name="../Sit_stand/canopend/objDict/CO_ODorig.h"/>
+        <File Name="../Sit_stand/canopend/objDict/CO_ODorig.c"/>
+        <File Name="../Sit_stand/canopend/objDict/CO_OD.h"/>
+        <File Name="../Sit_stand/canopend/objDict/CO_OD.c"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="app">
+        <File Name="../Sit_stand/canopend/app/application.h"/>
+        <File Name="../Sit_stand/canopend/app/application.cpp"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencomm">
+      <File Name="../Sit_stand/canopencomm/CANopenCommand.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="canopencgi">
+      <File Name="../Sit_stand/canopencgi/CANopenCGI.c"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="Cross GCC ( arm-linux-gnueabihf )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Debug" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <RebuildCommand/>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>C:/MinGW/mingw32/bin/mingw32-make.exe -j8 SHELL=cmd.exe</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>C:\Github\ALEX\exo\Sit_stand\canopend</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="MinGW ( mingw32 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="-O2" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="" IntermediateDirectory="./Release" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="yes">
+        <RebuildCommand/>
+        <CleanCommand>make clean</CleanCommand>
+        <BuildCommand>make</BuildCommand>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory>$(WorkspacePath)</WorkingDirectory>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>
