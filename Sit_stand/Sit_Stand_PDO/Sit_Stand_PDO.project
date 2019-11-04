@@ -95,6 +95,8 @@
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -125,7 +127,7 @@
       <PostBuild/>
       <CustomBuild Enabled="yes">
         <RebuildCommand>C:/cygwin64/bin/make.exe -j8 upload</RebuildCommand>
-        <CleanCommand>make clean</CleanCommand>
+        <CleanCommand>C:/cygwin64/bin/make.exe -j8 clean</CleanCommand>
         <BuildCommand>C:/cygwin64/bin/make.exe -j8</BuildCommand>
         <PreprocessFileCommand/>
         <SingleFileCommand/>
@@ -184,6 +186,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
 </CodeLite_Project>

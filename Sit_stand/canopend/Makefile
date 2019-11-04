@@ -18,7 +18,6 @@ STATEMCH_SRC = 	../stateMachine
 TARGET_FOLDER=bin/Debug/
 LINK_TARGET  =  $ ALEX_APP
 
-
 INCLUDE_DIRS = 	-I$(STACKDRV_SRC) \
 				-I$(STACK_SRC)    \
 				-I$(CANOPEN_SRC)  \
@@ -82,12 +81,10 @@ CXX = arm-linux-gnueabihf-g++
 CXXFLAGS = -Wall -std=c++11 -g $(INCLUDE_DIRS)
 LDFLAGS = -lpthread 
 
-#upload: $(LINK_TARGET)
-#	ssh $(SSH_USER)@$(SSH_IP_ADDR) "mkdir -p ~/$(TARGET_FOLDER)"
-#	scp $(LINK_TARGET) $(SSH_USER)@$(SSH_IP_ADDR):~/$(TARGET_FOLDER)$(TARGET)
+$(LINK_TARGET): $(OBJS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
-
-.PHONY: all clean
+.PHONY: clean all
 
 all: clean $(LINK_TARGET)
 
@@ -99,6 +96,8 @@ clean:
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+	
+upload: $(LINK_TARGET)
+	scp $(LINK_TARGET) $(SSH_USER)@$(SSH_IP_ADDR):~/$(LINK_TARGET)
 
-$(LINK_TARGET): $(OBJS)
-	$(CXX) -o $@ $^ $(LDFLAGS)
+	

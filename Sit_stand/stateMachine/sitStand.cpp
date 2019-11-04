@@ -35,13 +35,23 @@
 //#define KNEE_MOTOR_POS2 0
 
 static const int LENGTH_TRAJ  = 4;
+static char *BUTTONRED = "P8_7";
+static char *BUTTONBLUE = "P8_8";
+static char *BUTTONGREEN = "P8_9";
+static char *BUTTONYELLOW = "P8_10";
+
+GPIO::GPIOManager *gp;
+int redPin;
+int yellowPin;
+int greenPin;
+int bluePin;
 
 //Stationary Sitting Traj
 double stationarySittingKneeTraj[LENGTH_TRAJ] = {
-         73.36,
-         73.36,
-         73.36,
-        73.36};
+         73,
+         73,
+         73,
+        73};
 double stationarySittingHipTraj[LENGTH_TRAJ] = {
         104.69,
         104.69,
@@ -175,6 +185,7 @@ sitStand::sitStand(void)
     NewTransition(leftForward, isYPressed, steppingLastRight);
     NewTransition(steppingLastRight, endTraj, standing);
     
+    // Transitions to Error State
     NewTransition(sitting, isRPressed, errorState);
     NewTransition(standing, isRPressed, errorState);
     NewTransition(standingUp, isRPressed, errorState);
@@ -200,9 +211,19 @@ void sitStand::init(void)
     std::cout << "Welcome to The ALEX STATE MACHINE"
               << "\n";
     StateMachine::init();
-
     
-        
+    // Set up the buttons
+    gp = GPIO::GPIOManager::getInstance();
+    redPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONRED);
+    bluePin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONBLUE);
+    greenPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONGREEN);
+    yellowPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONYELLOW);
+    gp->setDirection(redPin, GPIO::INPUT);
+    gp->setDirection(bluePin, GPIO::INPUT);
+    gp->setDirection(greenPin, GPIO::INPUT);
+    gp->setDirection(yellowPin, GPIO::INPUT);
+
+    // Configure the drives
     if (robot->positionControl == 0)
     {
         if (robot->initPositionControl())
@@ -225,37 +246,6 @@ void sitStand::init(void)
     
     /// Move to an initial sitting state at the start 
     bitFlipState = NOFLIP;
-/*    for (auto i = 0; i< 4; i++)
-    {
-        robot->joints[i].zeroIndex();
-        robot->joints[i].setBitFlipState(NOFLIP);
-        robot->joints[i].setTrajectories(standingHipTraj, standingHipTraj, standingKneeTraj, standingKneeTraj, LENGTH_TRAJ);
-    }
-    
-    printf("Forcing to Sitting State");
-        
-    robot->joints[RIGHT_HIP-1].applyPosDeg(standingHipTraj[0]);
-    robot->joints[LEFT_HIP-1].applyPosDeg(standingHipTraj[0]);
-    robot->joints[RIGHT_KNEE-1].applyPosDeg(standingKneeTraj[0]);
-    robot->joints[LEFT_KNEE-1].applyPosDeg(standingKneeTraj[0]);
-    
-    for (auto i = 0; i < 4; i++)
-    {
-        // set state machine bitFlip to LOW state.
-        //robot->joints[i].incrementIndex();
-        robot->joints[i].bitflipLow();
-        robot->joints[i].setBitFlipState(BITHIGH);
-    }
-    printf("BIT FLIPPED LOW\n");
-
-    sleep(1);
-
-    
-    for (auto i=0; i< 4; i++)
-    {
-        robot->joints[i].bitflipHigh();
-    }
-    printf("BIT FLIPPED HIGH\n");*/
     printf("END INIT\n");
 }
 void sitStand::activate(void)
@@ -266,6 +256,8 @@ void sitStand::deactivate(void)
 {
     StateMachine::deactivate();
 }
+
+//////////////////////////////////////////////
 // State Methods ----------------------------------------------------------
 // Moving states
 // Positive bending control machine
@@ -281,7 +273,6 @@ void sitStand::SittingDwn::entry(void)
     }
     printf("SitStandTrjectories Loaded\n");
     
-
     OWNER->bitFlipState = NOFLIP;
     // Set arrayIndex to zero
     for (auto i = 0; i < 4; i++)
@@ -304,24 +295,24 @@ void sitStand::SittingDwn::during(void)
 }
 void sitStand::SittingDwn::exit(void)
 {
-
-    printf("Bending Positive State Exited at Time %f\n", OWNER->mark);
+    printf("Sitting Down State Exited at Time %f\n", OWNER->mark);
     for (auto i = 0; i < 4; i++)
     {
         OWNER->robot->joints[i].zeroIndex();
     }
 }
+
 // Negative bending control machine
 void sitStand::StandingUp::entry(void)
 {
-        //load the trajectories
+    //load the trajectories
     for (auto i = 0; i < 4; i++)
     {
         OWNER->robot->joints[i].setTrajectories(standingHipTraj, standingHipTraj, standingKneeTraj, standingKneeTraj, LENGTH_TRAJ);
     }
     printf("SitStandTrjectories Loaded\n");
     //READ TIME OF MAIN
-    printf("Bending Negative State  Entered at Time %f\n", OWNER->mark);
+    printf("Standing Up State Entered at Time %f\n", OWNER->mark);
     // Set arrayIndex to zero
     for (auto i = 0; i < 4; i++)
     {
@@ -329,6 +320,7 @@ void sitStand::StandingUp::entry(void)
         OWNER->robot->joints[i].setBitFlipState(NOFLIP);
     }
 }
+
 void sitStand::StandingUp::during(void)
 {
    // long lastTarget = 0;
@@ -399,8 +391,6 @@ void sitStand::Sitting::exit(void)
 ////////////////////////////////////
 void sitStand::Standing::entry(void)
 {
-    
-    
     printf("Standing State Entered at Time %f\n", OWNER->mark);
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -410,7 +400,6 @@ void sitStand::Standing::entry(void)
 }
 void sitStand::Standing::during(void)
 {
-
     // Press yellow button to leave state
 }
 void sitStand::Standing::exit(void)
@@ -478,7 +467,6 @@ void sitStand::LeftForward::during(void)
 }
 void sitStand::LeftForward::exit(void)
 {
-
     printf("LeftForward State Exited at Time %f\n", OWNER->mark);
 }
 
@@ -652,8 +640,6 @@ void sitStand::ErrorState::exit(void)
 }
 
 
-
-
 ////////////////////////////////////////////////////////////////
 // Events ------------------------------------------------------------
 ///////////////////////////////////////////////////////////////
@@ -731,85 +717,23 @@ void sitStand::initRobot(Robot *rb)
 void sitStand::hwStateUpdate(void)
 {
     /*BUTON CODE*/
-    // TODO: Once working Turn button into its own class and object: call button.getState() return 0 or 1, Statemachines have a button or an event could even
-
     //Read all 4 BUTTONs  and print to screen
-    static char *BUTTONRED = "P8_7";
-    static char *BUTTONBLUE = "P8_8";
-    static char *BUTTONGREEN = "P8_9";
-    static char *BUTTONYELLOW = "P8_10";
-    int redbtn;
-    int bluebtn;
-    int greenbtn;
-    int yellowbtn;
-    GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-    int red = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONRED);
-    int blue = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONBLUE);
-    int green = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONGREEN);
-    int yellow = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONYELLOW);
-    gp->setDirection(red, GPIO::INPUT);
-    gp->setDirection(blue, GPIO::INPUT);
-    gp->setDirection(green, GPIO::INPUT);
-    gp->setDirection(yellow, GPIO::INPUT);
-    redbtn = gp->getValue(red);
-    bluebtn = gp->getValue(blue);
-    greenbtn = gp->getValue(green);
-    yellowbtn = gp->getValue(yellow);
+    int redbtn = gp->getValue(redPin);
+    int bluebtn = gp->getValue(bluePin);
+    int greenbtn = gp->getValue(greenPin);
+    int yellowbtn = gp->getValue(yellowPin);
+    
     // Send buttons to statemachine variables
     this->yButton = yellowbtn;
     this->gButton = greenbtn;
     this->bButton = bluebtn;
     this->rButton = redbtn;
-    gp->~GPIOManager();
+    
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
-    // robot->printInfo();s
+    // robot->printInfo();
     // robot->printTrajectories();
-}
-
-/*
- * bitFlip returns true if the second bit flip has occured, signalling a movement, else returns flase
- * 
- * 
- * 
-*/
-bool sitStand::bitFlip(int i)
-{
-    int bit = bitFlipState;
-    /*switch statement replacement*/
-    switch (bit)
-    {
-    case (BITLOW):
-        //do first bit flip
-        if (!robot->joints[i].bitflipLow())
-        {
-            printf("Error in changing object dictionary entry");
-            return false;
-        }
-
-        // success, change bit flip state to high
-        bitFlipState = BITHIGH;
-        return false;
-        break;
-
-    case (BITHIGH):
-        //do second bit flip
-        if (!robot->joints[i].bitflipHigh())
-        {
-            printf("Error in changing object dictionary entry");
-            return false;
-        }
-        // bitflipHigh successful, change bitFlip state to unengaged and retrun true
-        bitFlipState = NOFLIP;
-        printf("Bit has been flipped for motor %d should move\n", robot->joints[i].getId());
-        return true;
-        break;
-    default:
-        //do nothing
-        // printf("No motion triggered\n");
-        break;
-    }
 }
 
 
@@ -833,7 +757,8 @@ void sitStand::moveThroughTraj()
                         // set state machine bitFlip to LOW state.
                         robot->joints[i].incrementIndex();
                         robot->joints[i].bitflipLow();
-                        robot->joints[i].setBitFlipState(BITHIGH);
+                        // THIS SHOULD OCCUR AUTOMATICALLY THROUGH THE LAST FUNCTION
+                        //robot->joints[i].setBitFlipState(BITHIGH);
                     }
                     // check if last last position reached -> go to next position
                     //THE BELOW CONDITION MUST BOTH BE IN THE SAME UNITS, either deg or motorCOMMAND units
@@ -841,7 +766,7 @@ void sitStand::moveThroughTraj()
                         robot->joints[i].applyPos(desiredPos);
                         // bring control word to low and setState to High for next round of program.
                         robot->joints[i].bitflipLow();
-                        robot->joints[i].setBitFlipState(BITHIGH);
+                        //robot->joints[i].setBitFlipState(BITHIGH);
                         printf("Joint %d Bending to pos %ld\n",  robot->joints[i].getId(), desiredPos);
                         robot->joints[i].incrementIndex();
                     }

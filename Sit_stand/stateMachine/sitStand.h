@@ -19,7 +19,7 @@ public:
     void deactivate(void);
     void hwStateUpdate(void);
     void initRobot(Robot *rb);
-    bool bitFlip(int i);
+    //bool bitFlip(int i);
     bool initPositionControl();
     void moveThroughTraj();
 
@@ -55,6 +55,7 @@ private:
     int rButton;
     int arrayIndex;
     int bitFlipState;
+    GPIO::GPIOManager *gp;
     // Robot interface to be used by states to interact with hardware
     Robot *robot;
 };
