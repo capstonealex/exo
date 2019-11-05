@@ -42,6 +42,8 @@
 #include <sys/reboot.h>
 #include "CO_command.h"
 #include <pthread.h>
+#include <sys/time.h>
+
 /*Non canopenNode + Socket libraries*/
 #include "Robot.h"
 #include "sitStand.h"
@@ -57,15 +59,16 @@
 #define INCREMENT_1MS(var) (var++)     /* Increment 1ms variable in taskTmr */
 #define NODEID (100)
 #define CANMESSAGELENGTH (100)
+
 /* Global variable increments each millisecond. */
-volatile uint16_t CO_timer1ms = 0U;
+volatile uint32_t CO_timer1ms = 0U;
 
 /* Mutex is locked, when CAN is not valid (configuration state). May be used
  *  from other threads. RT threads may use CO->CANmodule[0]->CANnormal instead. */
 pthread_mutex_t CO_CAN_VALID_mtx = PTHREAD_MUTEX_INITIALIZER;
 
 /* Other variables and objects */
-static int rtPriority = -1;                          /* Real time priority, configurable by arguments. (-1=RT disabled) */
+static int rtPriority = 10;                          /* Real time priority, configurable by arguments. (-1=RT disabled) */
 static int mainline_epoll_fd;                        /* epoll file descriptor for mainline */
 static CO_OD_storage_t odStor;                       /* Object Dictionary storage object for CO_OD_ROM */
 static CO_OD_storage_t odStorAuto;                   /* Object Dictionary storage object for CO_OD_EEPROM */
@@ -73,6 +76,11 @@ static char *odStorFile_rom = "od4_storage";         /* Name of the file */
 static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
 static CO_time_t CO_time;                            /* Object for current time */
 int commCount = 0;
+uint32_t tmr1msPrev = 0;
+
+//struct timeval last_tv;
+
+
 /* Realtime thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
@@ -313,6 +321,11 @@ int main(int argc, char *argv[])
         sitStandMachine.init();
         sitStandMachine.activate();
         printf("Canopend- running ...\n");
+        
+        // Initialise the last time variable
+        //gettimeofday(&last_tv,NULL);
+        //struct timeval first_tv = last_tv;
+
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
             /* loop for normal program execution ******************************************/
@@ -332,12 +345,29 @@ int main(int argc, char *argv[])
 
             else if (taskMain_process(ev.data.fd, &reset, CO_timer1ms))
             {
-                uint16_t timer1msDiff;
-                static uint16_t tmr1msPrev = 0;
+                uint32_t timer1msDiff;
+             /*   struct timeval tv;
+                struct timeval tv_diff;
+                struct timeval tv_rel;
 
+                gettimeofday(&tv,NULL);
+                
+                timersub(&tv, &first_tv, &tv_rel);
+                timersub(&tv, &last_tv, &tv_diff);
+                
+                uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
+                
+                //last_tv = tv;
+                if (difftime > 100000)
+                {
+                    printf("LongDifftime Abs Time: %lu, Diff Time: %lu\n", tv_rel.tv_sec*1000000+tv_rel.tv_usec, difftime);
+                }*/
                 /* Calculate time difference */
-                timer1msDiff = CO_timer1ms - tmr1msPrev;
-                tmr1msPrev = CO_timer1ms;
+              //  timer1msDiff = CO_timer1ms - tmr1msPrev;
+              //  tmr1msPrev = CO_timer1ms;
+                
+
+               // printf("Abs Time: %d, Diff Time: %d\n", CO_timer1ms, timer1msDiff);
 
                 /* Execute optional additional application code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
@@ -402,6 +432,7 @@ int main(int argc, char *argv[])
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
+
     /* Endless loop */
     while (CO_endProgram == 0)
     {
@@ -420,7 +451,7 @@ static void *rt_thread(void *arg)
 
         else if (CANrx_taskTmr_process(ev.data.fd))
         {
-
+            
             /* code was processed in the above function. Additional code process below */
             INCREMENT_1MS(CO_timer1ms);
 

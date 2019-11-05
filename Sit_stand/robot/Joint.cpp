@@ -140,6 +140,23 @@ void Joint::motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid)
     (*newMotorCmnd) = (long)(A * origDeg + B);
 }
 
+double Joint::motorPosToDegConverter(long motorCmdAngle, int nodeid)
+{
+    double A = 0;
+    double B = 0;
+
+    if (nodeid == 1 || nodeid == 3)
+    {
+        calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
+    }
+    if (nodeid == 2 || nodeid == 4)
+    {
+        calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
+    }
+
+    return (motorCmdAngle - B)/A;
+}
+
 //calculate A and B in the formula y=Ax+B. Use by motorPosArrayConverter()
 void Joint::calcAB(long y1, long x1, long y2, long x2, double *A, double *B)
 {
@@ -156,7 +173,7 @@ void Joint::applyPosDeg(double qd)
     ///// Testing for PDOs
     long qd_long = 0;
     motorPosConverter(qd, &qd_long, this->id);
-    printf("Joint ID: %d, %3f, %ld \n", this->id, qd,  qd_long);
+    //printf("Joint ID: %d, %3f, %ld \n", this->id, qd,  qd_long);
     applyPos(qd_long);
 }
 
@@ -166,7 +183,7 @@ void Joint::applyPos(long qd)
     // Is joint where we think it is? or within safe range of it?
     // are we trying to move to a pos within the joints limits?
     ///// Testing for PDOs
-    printf("apply pos of %ld issued\n", qd);
+    //printf("apply pos of %ld issued\n", qd);
     if (qd >= minq && qd <= maxq)
     {
         Joint::setPos(qd);
@@ -246,6 +263,13 @@ int Joint::getId()
 int Joint::getPos()
 {
     return q;
+}
+
+double Joint::getPosDeg()
+{
+    // Convert q to degrees
+    double qdeg = motorPosToDegConverter(q, this->id);
+    return qdeg;
 }
 
 void Joint::printInfo()

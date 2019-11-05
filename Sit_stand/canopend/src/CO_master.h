@@ -36,7 +36,7 @@
 
 
 extern pthread_mutex_t CO_CAN_VALID_mtx; /* from main */
-extern volatile uint16_t CO_timer1ms;    /* from main */
+extern volatile uint32_t CO_timer1ms;    /* from main */
 
 
 /**

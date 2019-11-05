@@ -10,6 +10,8 @@
 #include "GPIOManager.h"
 #include "GPIOConst.h"
 
+double getDegPos(int jointInd, int desiredIndex, Robot *rob);
+
 class sitStand : public StateMachine
 {
 public:
@@ -21,18 +23,17 @@ public:
     void initRobot(Robot *rb);
     //bool bitFlip(int i);
     bool initPositionControl();
-    void moveThroughTraj();
+    void startNewTraj();
+    void moveThroughTraj(double (*trajFunction)(int, double, Robot*), double trajTime);
 
 private:
     // events
-  //  EventObject(IsSitting) * isSitting;
     EventObject(EndTraj) * endTraj;
     EventObject(IsYPressed) * isYPressed;
     EventObject(IsBPressed) * isBPressed;
     EventObject(IsRPressed) * isRPressed;
 
-    //
-    //    // states
+    // states
     StateObject(SittingDwn) * sittingDwn;
     StateObject(StandingUp) * standingUp;
     StateObject(Sitting) * sitting;
