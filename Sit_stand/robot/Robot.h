@@ -25,6 +25,7 @@ public:
     bool sdoMSG(void);
     bool remapPDO(void);
     bool preop(void);
+    bool resetTrackingError(void);
     void printTrajectories();
 
     //canFeasat constants

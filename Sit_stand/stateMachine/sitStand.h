@@ -32,8 +32,11 @@ private:
     EventObject(IsYPressed) * isYPressed;
     EventObject(IsBPressed) * isBPressed;
     EventObject(IsRPressed) * isRPressed;
+    EventObject(StartButtonsPressed) * startButtonsPressed;
+    EventObject(ResetButtonsPressed) * resetButtonsPressed;
 
     // states
+    StateObject(InitState) * initState;
     StateObject(SittingDwn) * sittingDwn;
     StateObject(StandingUp) * standingUp;
     StateObject(Sitting) * sitting;

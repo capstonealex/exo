@@ -38,19 +38,22 @@ Joint::Joint()
 {
     //Default constructor - SHOULD THROW AN ERROR
     q = 0;
+    qd = 0;
     id = 0;
+    
     // THESE MUST BE HARD SET AT OBJECT INITIALIZATION
-    maxq = KNEE_MOTOR_POS1*2;
+    maxq = KNEE_MOTOR_POS1*1.5;
     minq = 0;
     
     maxdq = 2000000;
     mindq = 0;
+    
     // set position arrayIndex to 0;
     arrayIndex = 0;
     bitFlipState = NOFLIP;
 }
 
-Joint::Joint(float q_init, int ID)
+Joint::Joint(double q_init, int ID)
 {
     cout << "Initializing joint WITH INPUTS \n";
     q = q_init;
@@ -197,6 +200,7 @@ void Joint::applyPos(long qd)
 void Joint::setPos(long qd)
 // TODO: 1. generalize to create .motor<motorID> dynamically
 {
+    this->qd = qd;
     // Set target motor position -> will send out to motors
     if (this->id == 1)
     {
@@ -255,6 +259,12 @@ void Joint::setVel(long dqd)
 void Joint::setId(int ID)
 {
     id = ID;
+    
+    if (ID == LEFT_HIP || ID == RIGHT_HIP)
+    {
+        // TODO CHANGE THIS
+        minq = -27870;
+    }
 }
 int Joint::getId()
 {
@@ -270,6 +280,13 @@ double Joint::getPosDeg()
     // Convert q to degrees
     double qdeg = motorPosToDegConverter(q, this->id);
     return qdeg;
+}
+
+double Joint::getDesPosDeg()
+{
+    // Convert q to degrees
+    double qddeg = motorPosToDegConverter(qd, this->id);
+    return qddeg;
 }
 
 void Joint::printInfo()

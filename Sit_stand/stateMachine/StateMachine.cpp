@@ -45,7 +45,6 @@ void StateMachine::deactivate(void)
 void StateMachine::update(void)
 {
     Transition *t = currentState->getActiveArc();
-
     if (t != NULL)
     {
 
@@ -53,6 +52,5 @@ void StateMachine::update(void)
         currentState = t->target;
         currentState->entry();
     }
-
     currentState->during();
 }

@@ -22,6 +22,14 @@
 #include <cmath>
 #include <array>
 
+// For logging
+#include <iostream>
+#include <fstream>
+#include <time.h>       /* time_t, struct tm, time, localtime, strftime */
+#include <string>
+
+
+
 #define OWNER ((sitStand *)owner)
 #define POSCLEARANCE (8000)
 #define POSCLEARANCEDEG (2.0)
@@ -30,6 +38,7 @@
 #define BITHIGH (1)
 #define BITLOW (0)
 #define TRAJ_LENGTH 6
+#define NUM_JOINTS 4
 
 #define LEFT_HIP (1)
 #define LEFT_KNEE (2)
@@ -40,7 +49,6 @@
 //#define KNEE_MOTOR_POS1 250880
 //#define KNEE_MOTOR_POS2 0
 
-static const int LENGTH_TRAJ  = 4;
 static char *BUTTONRED = "P8_7";
 static char *BUTTONBLUE = "P8_8";
 static char *BUTTONGREEN = "P8_9";
@@ -52,6 +60,10 @@ int yellowPin;
 int greenPin;
 int bluePin;
 
+
+// Logging stuff
+char filename[80] = "DefaultFilename.csv";
+ofstream logfile;
 
 // Variable for moving through trajectories
 struct timeval moving_tv;
@@ -68,72 +80,72 @@ int desiredIndex = 0;
 
 
 
-#define SITSTANDTIME 0.7
-#define STEPTIME 0.7
+#define SITSTANDTIME 1.5
+#define STEPTIME 2
 
 //Stationary Sitting Traj
 std::array<double, TRAJ_LENGTH> stationarySittingKneeTraj = {
-         73, 
-         73,
-          73,
-           73,
-           73,
-           73};
+         80, 
+         80,
+         80,
+         80,
+        80,
+        80};
 std::array<double, TRAJ_LENGTH>  stationarySittingHipTraj = {
-        104.69,
-        104.69,
-        104.69,
+        105,
+        105,
+        105,
         105,
         105,
         105};
 
 // Trajectories for Sitting
 std::array<double, TRAJ_LENGTH>  sittingKneeTraj = {
-         8.08,
+         8,
          15,
          30,
-         50,
-         60,
-        73.36};
+         54,
+         72,
+        80};
 std::array<double, TRAJ_LENGTH>  sittingHipTraj = {
-        170.08,
-        160,
+        170,
+        165,
         150,
-        140,
-        130,
-        104.69};
+        125,
+        110,
+        105};
 
 // Trajectories for Standing
 std::array<double, TRAJ_LENGTH>  standingKneeTraj = {
-        73.36,
-        50,
-        40,
+        80,
+        72,
+        54,
         30,
-        20,
+        15,
         8};
 std::array<double, TRAJ_LENGTH>  standingHipTraj = {
         105,
-        130,
-        140,
+        110,
+        125,
         150,
-        160,
+        165,
         170};     
 
-//Trajectories for First Left Step        
+//Trajectories for First Step        
 std::array<double, TRAJ_LENGTH> firstSwingKneeTraj = {
-         8.08,
-         40,
-         70,
-         70,
-         70,
-         25};
+         8,
+        50,
+        80,
+        80,
+        41,
+        40};
 std::array<double, TRAJ_LENGTH>  firstSwingHipTraj = {
-        170.08,
-        150,
+        170,
+        140,
         130,
         120,
-        110,
-        130};
+        120,
+        140};
 std::array<double, TRAJ_LENGTH>  firstStanceKneeTraj = {
         8,
         8,
@@ -146,47 +158,108 @@ std::array<double, TRAJ_LENGTH>  firstStanceHipTraj = {
         170,
         170,
         170,
-        170,
-        170};  
+        175,
+        180};  
 
 //Trajectories for Step        
 std::array<double, TRAJ_LENGTH> stanceKneeTraj = {
-         25,
+         40,
          8,
          8,
          8,
          8,
-         8,};
+         20
+         };
 std::array<double, TRAJ_LENGTH> stanceHipTraj = {
-        130,
+        140,
         160,
-        160,
-        160,
-        160,
-        170};
+        170,
+        170,
+        180,
+        180};
 std::array<double, TRAJ_LENGTH> swingKneeTraj = {
         8,
-        8,
+        2,
         40,
-        70,
-        70,
-        25};
+        80,
+        90,
+        40};
 std::array<double, TRAJ_LENGTH> swingHipTraj = {
-        170, 
         180,
+        180,
+        180,
+        140,
+        120,
+        140};  
+        
+/*
+std::array<double, TRAJ_LENGTH> firstSwingKneeTraj = {
+         8,
+        20,
+        75,
+        75,
+        30,
+        20};
+std::array<double, TRAJ_LENGTH>  firstSwingHipTraj = {
+        170,
+        170,
         160,
         140,
-        110,
-        130};  
+        130,
+        160};
+std::array<double, TRAJ_LENGTH>  firstStanceKneeTraj = {
+        8,
+        8,
+        8,
+        8,
+        8,
+        8};
+std::array<double, TRAJ_LENGTH>  firstStanceHipTraj = {
+        170, 
+        170,
+        177,
+        170,
+        170,
+        175};  
 
+std::array<double, TRAJ_LENGTH> stanceKneeTraj = {
+         20,
+         8,
+         8,
+         8,
+         8,
+         8};
+std::array<double, TRAJ_LENGTH> stanceHipTraj = {
+        160,
+        165,
+        170,
+        170,
+        170,
+        175};
+std::array<double, TRAJ_LENGTH> swingKneeTraj = {
+        8,
+        2,
+        75,
+        75,
+        30,
+        20};
+std::array<double, TRAJ_LENGTH> swingHipTraj = {
+        175,
+        175,
+        170,
+        140,
+        130,
+        160};  */
 //Trajectories for Last Step        
 std::array<double, TRAJ_LENGTH> lastStanceKneeTraj = {
-         25,
+         40,
+         8,
+         8,
          8,
          8,
          8};
 std::array<double, TRAJ_LENGTH> lastStanceHipTraj = {
-        130,
+        140,
         170,
         170,
         170,
@@ -196,15 +269,15 @@ std::array<double, TRAJ_LENGTH> lastSwingKneeTraj = {
         8,
         8,
         40,
-        70,
+        80,
         40,
         8};
 std::array<double, TRAJ_LENGTH> lastSwingHipTraj = {
-        170, 
         180,
-        140,
-        120,
-        140,
+        185,
+        170,
+        130,
+        130,
         170};  
 
 double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime){
@@ -320,8 +393,11 @@ sitStand::sitStand(void)
     isBPressed = new IsBPressed(this);
     isRPressed = new IsRPressed(this);
     endTraj = new EndTraj(this);
-
+    startButtonsPressed = new StartButtonsPressed(this);
+    resetButtonsPressed = new ResetButtonsPressed(this);
+    
     // StateMache states
+    initState = new InitState(this);
     standing = new Standing(this);
     sitting = new Sitting(this);
     standingUp = new StandingUp(this);
@@ -335,6 +411,7 @@ sitStand::sitStand(void)
     errorState = new ErrorState(this);
 
     // Create Trasitions between states and events which trigger them
+    NewTransition(initState, startButtonsPressed, sitting);
     NewTransition(standing, isYPressed, sittingDwn);
     NewTransition(sittingDwn, endTraj, sitting);
     NewTransition(sitting, isYPressed, standingUp);
@@ -347,6 +424,7 @@ sitStand::sitStand(void)
     NewTransition(steppingLeft, endTraj, leftForward);
     NewTransition(leftForward, isYPressed, steppingLastRight);
     NewTransition(steppingLastRight, endTraj, standing);
+    NewTransition(errorState, resetButtonsPressed, initState);
     
     // Transitions to Error State
     NewTransition(sitting, isRPressed, errorState);
@@ -362,7 +440,7 @@ sitStand::sitStand(void)
 
 
     // Initialize the state machine with first state
-    StateMachine::initialize(sitting);
+    StateMachine::initialize(initState);
     robot = NULL;
     bitFlipState = NOFLIP;
 }
@@ -388,14 +466,6 @@ void sitStand::init(void)
     gp->setDirection(yellowPin, GPIO::INPUT);
 
     // Configure the drives
-    if (robot->positionControl == 0)
-    {
-        if (robot->initPositionControl())
-        {
-            printf("drives finished position control configuration\n");
-            robot->positionControl = 1;
-        }
-    }
     if (calibrated == 0)
     {
         if (robot->remapPDO())
@@ -408,6 +478,19 @@ void sitStand::init(void)
         printf("Motors already calibrated for motion\n");
     }
     
+    
+    // Set up the logging file
+      time_t rawtime;
+      struct tm * timeinfo;
+
+      time (&rawtime);
+      timeinfo = localtime (&rawtime);
+
+      strftime (filename,80,"ALEXLOG_%Y%m%e_%H%M.csv",timeinfo);
+      printf("File Created: %s\n", filename);
+      
+      //logfile.open (filename);
+
     /// Move to an initial sitting state at the start 
     bitFlipState = NOFLIP;
     printf("END INIT\n");
@@ -425,6 +508,38 @@ void sitStand::deactivate(void)
 // State Methods ----------------------------------------------------------
 // Moving states
 // Positive bending control machine
+////////////////////////////////////////////
+
+void sitStand::InitState::entry(void)
+{
+    printf("Initialise State Entered at Time %f\n", OWNER->mark);
+    
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    
+    
+    OWNER->robot->resetTrackingError();
+}
+void sitStand::InitState::during(void)
+{
+    // Do nothing in this state
+}
+void sitStand::InitState::exit(void)
+{
+    if (OWNER->robot->positionControl == 0)
+    {
+        if (OWNER->robot->initPositionControl())
+        {
+            printf("drives finished position control configuration\n");
+            OWNER->robot->positionControl = 1;
+        }
+    }
+    printf("Initialise State Exited at Time %f\n", OWNER->mark);
+}
+
+
+
 void sitStand::SittingDwn::entry(void)
 {
     //READ TIME OF MAIN
@@ -480,8 +595,7 @@ void sitStand::Sitting::entry(void)
     printf("PRESS YELLOW TO START STANDING UP\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     
-    printf("Forcing to Sitting State");
-
+    printf("Forcing to Sitting State\n");
     OWNER->startNewTraj();
 }
 void sitStand::Sitting::during(void)
@@ -584,10 +698,6 @@ void sitStand::SteppingRight::exit(void)
 {
     printf("SteppingRight State Exited at Time %f\n", OWNER->mark);
     // do nothing
-    for (auto i = 0; i < 4; i++)
-    {
-        OWNER->robot->joints[i].zeroIndex();
-    }
 }
 
 //////////////////////////////////////////
@@ -633,10 +743,6 @@ void sitStand::SteppingLeft::exit(void)
 {
     printf("SteppingLeft State Exited at Time %f\n", OWNER->mark);
     // do nothing
-    for (auto i = 0; i < 4; i++)
-    {
-        OWNER->robot->joints[i].zeroIndex();
-    }
 }
 
 
@@ -662,7 +768,7 @@ void sitStand::SteppingLastRight::exit(void)
 {
     printf("SteppingLastRight State Exited at Time %f\n", OWNER->mark);
     // do nothing
-    for (auto i = 0; i < 4; i++)
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
         OWNER->robot->joints[i].zeroIndex();
     }
@@ -673,14 +779,18 @@ void sitStand::ErrorState::entry(void)
 {
     //READ TIME OF MAIN
     printf("Error State Entered at Time %f\n", OWNER->mark);
+    //logfile.close();
+    //printf("File Closed \n");
+    
+    printf("Reset with Red + Green \n");
 
    // Load New Trajectory
     OWNER->robot->preop();
+    OWNER->robot->positionControl = 0;
 }
 
 void sitStand::ErrorState::during(void)
 {
-    printf("You should be here forever \n");
 }
 
 void sitStand::ErrorState::exit(void)
@@ -695,7 +805,7 @@ void sitStand::ErrorState::exit(void)
 bool sitStand::EndTraj::check(void)
 {
     //int reached = 0;
-    if (fracTrajProgress >1)
+    if (fracTrajProgress > 1.25)
     {
         return true;
     } else
@@ -723,10 +833,25 @@ bool sitStand::IsBPressed::check(void)
     return false;
 }
 
+
 bool sitStand::IsRPressed::check(void)
 {
     if (OWNER->rButton == 0)
     {
+        return true;
+    }
+    return false;
+}
+bool sitStand::StartButtonsPressed::check(void)
+{
+    if(OWNER->bButton == 0 && OWNER->rButton!=0 && OWNER->yButton==0 && OWNER->gButton!=0){
+        return true;
+    }
+    return false;
+}
+bool sitStand::ResetButtonsPressed::check(void)
+{
+    if(OWNER->bButton != 0 && OWNER->rButton==0 && OWNER->yButton!=0 && OWNER->gButton==0){
         return true;
     }
     return false;
@@ -768,6 +893,18 @@ void sitStand::hwStateUpdate(void)
     robot->updateJoints();
     // robot->printInfo();
     // robot->printTrajectories();
+    
+    // Log to file
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    double currtime =  tv.tv_sec+((double)tv.tv_usec)/1000000;
+ /*   logfile << std::to_string(currtime);
+    
+    for (auto i = 0; i< NUM_JOINTS; i++){
+        logfile << "," +std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg());
+    }
+    logfile << "\n";*/
+
 }
 
 void sitStand::startNewTraj()
@@ -779,7 +916,7 @@ void sitStand::startNewTraj()
     last_tv = start_traj;
     
     // Set the bit flip state to zero
-    for (auto i = 0; i < 4; i++)
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
         robot->joints[i].setBitFlipState(NOFLIP);
     }
@@ -787,6 +924,8 @@ void sitStand::startNewTraj()
     // Index Resetting
     desiredIndex = 0;
     fracTrajProgress = 0;
+    
+    printf("Start New Traj \n");
 }
 
 
@@ -803,8 +942,6 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
     
     //uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
     
-    //printf("%d\n", difftime);
-    
     long movingMicro = moving_tv.tv_sec*1000000+moving_tv.tv_usec;
 
     double trajTimeUS = trajTime*1000000;
@@ -816,7 +953,7 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
         moving_tv = tv_changed;
 
         printf("Time: %3f \n", fracTrajProgress);
-        for (auto i = 0; i < 4; i++){
+        for (auto i = 0; i < NUM_JOINTS; i++){
                 if(robot->joints[i].getBitFlipState() == NOFLIP){
                 // Send a new trajectory point
                 // Get Trajectory point for this joint based on current time
@@ -825,7 +962,6 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
                     //double desiredPos = getDegPos(i, desiredIndex);
                     double desiredPos = trajFunction(i, fracTrajProgress, robot);
                            
-                    //printf("Joint %d Bending to pos %3f, Index: %d \n",  robot->joints[i].getId(), desiredPos, desiredIndex);
                     robot->joints[i].applyPosDeg(desiredPos);
                     
                     // set state machine bitFlip to LOW state.

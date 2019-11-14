@@ -175,18 +175,18 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6060 0 i8 1",
         "[1] 3 write 0x6060 0 i8 1",
         "[1] 4 write 0x6060 0 i8 1",
-        "[1] 2 write 0x6081 0 i32 3000000",
-        "[1] 1 write 0x6081 0 i32 3000000",
-        "[1] 3 write 0x6081 0 i32 3000000",
-        "[1] 4 write 0x6081 0 i32 3000000",
-        "[1] 2 write 0x6083 0 i32 60000",
-        "[1] 1 write 0x6083 0 i32 60000",
-        "[1] 3 write 0x6083 0 i32 60000",
-        "[1] 4 write 0x6083 0 i32 60000",
-        "[1] 2 write 0x6084 0 i32 60000",
-        "[1] 1 write 0x6084 0 i32 60000",
-        "[1] 3 write 0x6084 0 i32 60000",
-        "[1] 4 write 0x6084 0 i32 60000"};
+        "[1] 2 write 0x6081 0 i32 4000000",
+        "[1] 1 write 0x6081 0 i32 4000000",
+        "[1] 3 write 0x6081 0 i32 4000000",
+        "[1] 4 write 0x6081 0 i32 4000000",
+        "[1] 2 write 0x6083 0 i32 100000",
+        "[1] 1 write 0x6083 0 i32 100000",
+        "[1] 3 write 0x6083 0 i32 100000",
+        "[1] 4 write 0x6083 0 i32 100000",
+        "[1] 2 write 0x6084 0 i32 100000",
+        "[1] 1 write 0x6084 0 i32 100000",
+        "[1] 3 write 0x6084 0 i32 100000",
+        "[1] 4 write 0x6084 0 i32 100000"};
     int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
     for (int i = 0; i < num_of_Messages; ++i)
     {
@@ -357,4 +357,22 @@ bool Robot::preop(void)
         cancomm_socketFree(PDO_MessageList[i], returnMessage);
     }
     return true;
+}
+
+bool Robot::resetTrackingError(void)
+{
+    char *returnMessage;
+    char PDO_MessageList[][CANMESSAGELENGTH] = {
+        "[1] 1 write 0x2183 0 i32 512",
+        "[1] 2 write 0x2183 0 i32 512",
+        "[1] 3 write 0x2183 0 i32 512",
+        "[1] 4 write 0x2183 0 i32 512"};
+    int num_of_Messages = sizeof(PDO_MessageList) / sizeof(PDO_MessageList[0]);
+    //    printf("Num of messages: %d\n", num_of_Messages);
+    for (int i = 0; i < num_of_Messages; ++i)
+    {
+        cancomm_socketFree(PDO_MessageList[i], returnMessage);
+    }
+    return true;
+
 }

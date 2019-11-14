@@ -19,7 +19,8 @@ class Joint
 {
     //Private members
     int id;
-    float q;
+    double q;
+    double qd;
     long maxq, minq;
     long maxdq, mindq;
 
@@ -39,7 +40,7 @@ public:
     //static const int NUM_TRAJ_POINTS = 11;
     //static const int NUM_TRAJ_POINTS_STEPPING = 4;
     Joint();
-    Joint(float q_init, int ID);
+    Joint(double q_init, int ID);
     void setId(int ID);
     int getId();
     void applyPos(long qd);
@@ -48,6 +49,7 @@ public:
 
     int getPos();
     double getPosDeg();
+    double getDesPosDeg();
     
     void printInfo();
     void updateJoint();
