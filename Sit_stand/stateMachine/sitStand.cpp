@@ -138,7 +138,7 @@ std::array<double, TRAJ_LENGTH> firstSwingKneeTraj = {
         80,
         80,
         41,
-        40};
+        25};
 std::array<double, TRAJ_LENGTH>  firstSwingHipTraj = {
         170,
         140,
@@ -163,12 +163,12 @@ std::array<double, TRAJ_LENGTH>  firstStanceHipTraj = {
 
 //Trajectories for Step        
 std::array<double, TRAJ_LENGTH> stanceKneeTraj = {
-         40,
+         25,
          8,
          8,
          8,
          8,
-         20
+         8
          };
 std::array<double, TRAJ_LENGTH> stanceHipTraj = {
         140,
@@ -183,7 +183,7 @@ std::array<double, TRAJ_LENGTH> swingKneeTraj = {
         40,
         80,
         90,
-        40};
+        25};
 std::array<double, TRAJ_LENGTH> swingHipTraj = {
         180,
         180,
@@ -252,7 +252,7 @@ std::array<double, TRAJ_LENGTH> swingHipTraj = {
         160};  */
 //Trajectories for Last Step        
 std::array<double, TRAJ_LENGTH> lastStanceKneeTraj = {
-         40,
+         25,
          8,
          8,
          8,
@@ -478,18 +478,7 @@ void sitStand::init(void)
         printf("Motors already calibrated for motion\n");
     }
     
-    
-    // Set up the logging file
-      time_t rawtime;
-      struct tm * timeinfo;
 
-      time (&rawtime);
-      timeinfo = localtime (&rawtime);
-
-      strftime (filename,80,"ALEXLOG_%Y%m%e_%H%M.csv",timeinfo);
-      printf("File Created: %s\n", filename);
-      
-      //logfile.open (filename);
 
     /// Move to an initial sitting state at the start 
     bitFlipState = NOFLIP;
@@ -518,6 +507,18 @@ void sitStand::InitState::entry(void)
     printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     
+    
+        // Set up the logging file
+      time_t rawtime;
+      struct tm * timeinfo;
+
+      time (&rawtime);
+      timeinfo = localtime (&rawtime);
+
+      strftime (filename,80,"ALEXLOG_%Y%m%e_%H%M.csv",timeinfo);
+      printf("File Created: %s\n", filename);
+      
+      logfile.open (filename);
     
     OWNER->robot->resetTrackingError();
 }
@@ -779,8 +780,8 @@ void sitStand::ErrorState::entry(void)
 {
     //READ TIME OF MAIN
     printf("Error State Entered at Time %f\n", OWNER->mark);
-    //logfile.close();
-    //printf("File Closed \n");
+    logfile.close();
+    printf("File Closed \n");
     
     printf("Reset with Red + Green \n");
 
@@ -898,12 +899,12 @@ void sitStand::hwStateUpdate(void)
     struct timeval tv;
     gettimeofday(&tv,NULL);
     double currtime =  tv.tv_sec+((double)tv.tv_usec)/1000000;
- /*   logfile << std::to_string(currtime);
+    logfile << std::to_string(currtime);
     
     for (auto i = 0; i< NUM_JOINTS; i++){
         logfile << "," +std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg());
     }
-    logfile << "\n";*/
+    logfile << "\n";
 
 }
 
