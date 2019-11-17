@@ -7,11 +7,6 @@
 #include <string>
 #include <math.h>
 
-//Node ID for the 4 joints
-#define LHIP (1)
-#define LKNEE (2)
-#define RHIP (3)
-#define RKNEE (4)
 //Knee motor reading and corresponding angle. Used for mapping between degree and motor values.
 #define KNEE_MOTOR_POS1 (250880)
 #define KNEE_MOTOR_DEG1 (90)
@@ -23,10 +18,6 @@
 #define HIP_MOTOR_POS2 (0)
 #define HIP_MOTOR_DEG2 (180)
 
-#define LEFT_HIP (1)
-#define LEFT_KNEE (2)
-#define RIGHT_HIP (3)
-#define RIGHT_KNEE (4)
 
 const int STRING_LENGTH = 50;
 // For control word bitFlip functions
@@ -59,7 +50,7 @@ Joint::Joint(double q_init, int ID)
     q = q_init;
     id = ID;
 }
-
+/*
 void Joint::setTrajectories(double leftHipTraj[], double rightHipTraj[], double leftKneeTraj[], double rightKneeTraj[], int numPoints)
 {
     if (this->id == LEFT_KNEE)
@@ -77,7 +68,6 @@ void Joint::setTrajectories(double leftHipTraj[], double rightHipTraj[], double 
     else if (this->id == RIGHT_HIP)
     {
         motorPosArrayConverter(rightHipTraj, this->trajectories, numPoints, this->id);
-
     }
 }
 
@@ -91,6 +81,7 @@ void Joint::getTrajectorie()
         printf(" Trajectory %d: %lu", i, this->trajectories[i]);
     }
 }
+ * */
 void Joint::incrementIndex()
 {
     arrayIndex++;
@@ -131,11 +122,11 @@ void Joint::motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid)
     double A = 0;
     double B = 0;
 
-    if (nodeid == 1 || nodeid == 3)
+    if (nodeid == RIGHT_HIP || nodeid == LEFT_HIP)
     {
         calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
     }
-    if (nodeid == 2 || nodeid == 4)
+    if (nodeid == RIGHT_KNEE || nodeid == LEFT_KNEE)
     {
         calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
     }
@@ -148,11 +139,11 @@ double Joint::motorPosToDegConverter(long motorCmdAngle, int nodeid)
     double A = 0;
     double B = 0;
 
-    if (nodeid == 1 || nodeid == 3)
+    if (nodeid == RIGHT_HIP || nodeid == LEFT_HIP)
     {
         calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
     }
-    if (nodeid == 2 || nodeid == 4)
+    if (nodeid == RIGHT_KNEE || nodeid == LEFT_KNEE)
     {
         calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
     }
@@ -218,6 +209,14 @@ void Joint::setPos(long qd)
     {
         CO_OD_RAM.targetMotorPositions.motor4 = qd;
     }
+    else if (this->id == 5)
+    {
+        CO_OD_RAM.targetMotorPositions.motor5 = qd;
+    }
+    else if (this->id == 6)
+    {
+        CO_OD_RAM.targetMotorPositions.motor6 = qd;
+    }
 }
 
 void Joint::applyVel(long dqd)
@@ -254,6 +253,14 @@ void Joint::setVel(long dqd)
     else if (this->id == 4)
     {
         CO_OD_RAM.targetMotorVelocities.motor4 = dqd;
+    }
+    else if (this->id == 5)
+    {
+        CO_OD_RAM.targetMotorVelocities.motor5 = dqd;
+    }
+    else if (this->id == 6)
+    {
+        CO_OD_RAM.targetMotorVelocities.motor6 = dqd;
     }
 }
 void Joint::setId(int ID)
@@ -316,6 +323,14 @@ void Joint::updateJoint()
     {
         q = CO_OD_RAM.actualMotorPositions.motor4;
     }
+    else if (this->id == 5)
+    {
+        q = CO_OD_RAM.actualMotorPositions.motor5;
+    }
+    else if (this->id == 6)
+    {
+        q = CO_OD_RAM.actualMotorPositions.motor6;
+    }
 }
 /*
  * bitflip High changes the specified control Word for this joints motor to HIGH
@@ -342,6 +357,14 @@ bool Joint::bitflipHigh()
         else if (this->id == 4)
         {
             CO_OD_RAM.controlWords.motor4 = 63;
+        }
+        else if (this->id == 5)
+        {
+            CO_OD_RAM.controlWords.motor5 = 63;
+        }
+        else if (this->id == 6)
+        {
+            CO_OD_RAM.controlWords.motor6 = 63;
         }
         bitFlipState = NOFLIP;
         return true;
@@ -377,6 +400,15 @@ bool Joint::bitflipLow()
         {
             CO_OD_RAM.controlWords.motor4 = 47;
         }
+        else if (this->id == 5)
+        {
+            CO_OD_RAM.controlWords.motor4 = 47;
+        }
+        else if (this->id == 6)
+        {
+            CO_OD_RAM.controlWords.motor4 = 47;
+        }
+        
         bitFlipState = BITHIGH;
         return true;
     }
@@ -384,13 +416,6 @@ bool Joint::bitflipLow()
         printf("FALTY DIRECTION TO BITFLIPLOW\n");
         return false;
     }
-}
-
-void Joint::testWrite()
-{
-    double pos = CO_OD_RAM.actualMotorPositions.motor2;
-    std::cout << "that worked actualMotorPos is:" << pos << "\n";
-    CO_OD_RAM.actualMotorPositions.motor2 = pos + 1;
 }
 
 int Joint::getBitFlipState(){

@@ -28,6 +28,16 @@
 #include <time.h>       /* time_t, struct tm, time, localtime, strftime */
 #include <string>
 
+#include "Joint.h"
+
+//////////////// For testing  ///////////////////////////
+#define _TESTMODE
+#define _NOANKLES
+
+/**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
+
+/////////////////////////////////////////////////////////
+
 
 
 #define OWNER ((sitStand *)owner)
@@ -38,16 +48,12 @@
 #define BITHIGH (1)
 #define BITLOW (0)
 #define TRAJ_LENGTH 6
-#define NUM_JOINTS 4
 
-#define LEFT_HIP (1)
-#define LEFT_KNEE (2)
-#define RIGHT_HIP (3)
-#define RIGHT_KNEE (4)
-
-// For testing
-//#define KNEE_MOTOR_POS1 250880
-//#define KNEE_MOTOR_POS2 0
+#ifndef _NOANKLES
+    #define NUM_JOINTS 4
+#else
+    #define NUM_JOINTS 6
+#endif 
 
 static char *BUTTONRED = "P8_7";
 static char *BUTTONBLUE = "P8_8";
@@ -74,206 +80,208 @@ struct timeval last_tv;
 double fracTrajProgress = 0;
 int desiredIndex = 0;
 
-
 #define SITSTANDTIME 1.5
 #define STEPTIME 2
 
+#define STANCE_END_KNEE 8
+#define SWING_END_KNEE 25
+
+#define STANCE_END_HIP 180
+#define SWING_END_HIP 150
+
+#define STANCE_END_ANKLE 80
+#define SWING_END_ANKLE 100
+
+#define SIT_KNEE_ANGLE 80
+#define SIT_HIP_ANGLE 105
+#define SIT_ANKLE_ANGLE 100
+
+#define STAND_KNEE_ANGLE 8
+#define STAND_HIP_ANGLE 170
+#define STAND_ANKLE_ANGLE 85
+
 //Stationary Sitting Traj
 std::array<double, TRAJ_LENGTH> stationarySittingKneeTraj = {
-         80, 
-         80,
-         80,
-         80,
-        80,
-        80};
+        SIT_KNEE_ANGLE, SIT_KNEE_ANGLE,SIT_KNEE_ANGLE,SIT_KNEE_ANGLE,SIT_KNEE_ANGLE,SIT_KNEE_ANGLE};
 std::array<double, TRAJ_LENGTH>  stationarySittingHipTraj = {
-        105,
-        105,
-        105,
-        105,
-        105,
-        105};
+        SIT_HIP_ANGLE,SIT_HIP_ANGLE,SIT_HIP_ANGLE,SIT_HIP_ANGLE,SIT_HIP_ANGLE,SIT_HIP_ANGLE};
+std::array<double, TRAJ_LENGTH>  stationarySittingAnkleTraj = {
+        SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,SIT_ANKLE_ANGLE,SIT_ANKLE_ANGLE,SIT_ANKLE_ANGLE,SIT_ANKLE_ANGLE};
 
 // Trajectories for Sitting
 std::array<double, TRAJ_LENGTH>  sittingKneeTraj = {
-         8,
+         STAND_KNEE_ANGLE,
          15,
          30,
          54,
          72,
-        80};
+        SIT_KNEE_ANGLE};
 std::array<double, TRAJ_LENGTH>  sittingHipTraj = {
-        170,
+        STAND_HIP_ANGLE,
         165,
         150,
         125,
         110,
-        105};
+        SIT_HIP_ANGLE};
+std::array<double, TRAJ_LENGTH>  sittingAnkleTraj = {
+        STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE,
+        SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
+
 
 // Trajectories for Standing
 std::array<double, TRAJ_LENGTH>  standingKneeTraj = {
-        80,
+        SIT_KNEE_ANGLE,
         72,
         54,
         30,
         15,
-        8};
+        STAND_KNEE_ANGLE};
 std::array<double, TRAJ_LENGTH>  standingHipTraj = {
-        105,
+        SIT_HIP_ANGLE,
         110,
         125,
         150,
         165,
-        170};     
+        STAND_HIP_ANGLE};    
+std::array<double, TRAJ_LENGTH>  standingAnkleTraj = {
+        SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
+        STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE};
 
 //Trajectories for First Step        
 std::array<double, TRAJ_LENGTH> firstSwingKneeTraj = {
-         8,
+        STAND_KNEE_ANGLE,
         50,
         80,
         80,
         41,
-        40};
+        SWING_END_KNEE};
 std::array<double, TRAJ_LENGTH>  firstSwingHipTraj = {
-        170,
+        STAND_HIP_ANGLE,
         140,
         130,
         120,
         120,
-        140};
+        SWING_END_HIP};
+std::array<double, TRAJ_LENGTH>  firstSwingAnkleTraj = {
+        STAND_ANKLE_ANGLE,
+        90,
+        90,
+        90,
+        90,
+        SWING_END_ANKLE};
+        
 std::array<double, TRAJ_LENGTH>  firstStanceKneeTraj = {
+        STAND_KNEE_ANGLE,
         8,
         8,
         8,
         8,
-        8,
-        8};
+        STANCE_END_KNEE};
 std::array<double, TRAJ_LENGTH>  firstStanceHipTraj = {
-        170, 
+        STAND_HIP_ANGLE, 
         170,
         170,
         170,
         175,
-        180};  
+        STANCE_END_HIP}; 
+std::array<double, TRAJ_LENGTH>  firstStanceAnkleTraj = {
+        STAND_ANKLE_ANGLE, 
+        90,
+        90,
+        90,
+        STANCE_END_ANKLE,
+        STANCE_END_ANKLE};   
 
 //Trajectories for Step        
 std::array<double, TRAJ_LENGTH> stanceKneeTraj = {
-         40,
+         SWING_END_KNEE,
          8,
          8,
          8,
          8,
-         20
+         STANCE_END_KNEE
          };
 std::array<double, TRAJ_LENGTH> stanceHipTraj = {
-        140,
+        SWING_END_HIP,
         160,
         170,
         170,
         180,
-        180};
+        STANCE_END_HIP};
+std::array<double, TRAJ_LENGTH> stanceAnkleTraj = {
+        SWING_END_ANKLE,
+        90,
+        90,
+        90,
+        STANCE_END_ANKLE,
+        STANCE_END_ANKLE};        
+        
+        
 std::array<double, TRAJ_LENGTH> swingKneeTraj = {
-        8,
+        STANCE_END_KNEE,
         2,
         40,
         80,
         90,
-        40};
+        SWING_END_KNEE};
 std::array<double, TRAJ_LENGTH> swingHipTraj = {
-        180,
+        STANCE_END_HIP,
         180,
         180,
         140,
         120,
-        140};  
+        SWING_END_HIP};  
+std::array<double, TRAJ_LENGTH> swingAnkleTraj = {
+        STANCE_END_ANKLE,
+        110,
+        100,
+        90,
+        90,
+        SWING_END_ANKLE};  
         
-/*
-std::array<double, TRAJ_LENGTH> firstSwingKneeTraj = {
-         8,
-        20,
-        75,
-        75,
-        30,
-        20};
-std::array<double, TRAJ_LENGTH>  firstSwingHipTraj = {
-        170,
-        170,
-        160,
-        140,
-        130,
-        160};
-std::array<double, TRAJ_LENGTH>  firstStanceKneeTraj = {
-        8,
-        8,
-        8,
-        8,
-        8,
-        8};
-std::array<double, TRAJ_LENGTH>  firstStanceHipTraj = {
-        170, 
-        170,
-        177,
-        170,
-        170,
-        175};  
-
-std::array<double, TRAJ_LENGTH> stanceKneeTraj = {
-         20,
-         8,
-         8,
-         8,
-         8,
-         8};
-std::array<double, TRAJ_LENGTH> stanceHipTraj = {
-        160,
-        165,
-        170,
-        170,
-        170,
-        175};
-std::array<double, TRAJ_LENGTH> swingKneeTraj = {
-        8,
-        2,
-        75,
-        75,
-        30,
-        20};
-std::array<double, TRAJ_LENGTH> swingHipTraj = {
-        175,
-        175,
-        170,
-        140,
-        130,
-        160};  */
 //Trajectories for Last Step        
 std::array<double, TRAJ_LENGTH> lastStanceKneeTraj = {
-         40,
+         SWING_END_KNEE,
          8,
          8,
          8,
          8,
-         8};
+         STAND_KNEE_ANGLE};
 std::array<double, TRAJ_LENGTH> lastStanceHipTraj = {
-        140,
+        SWING_END_HIP,
         170,
         170,
         170,
         170,
-        170};
+        STAND_HIP_ANGLE};
+std::array<double, TRAJ_LENGTH> lastStanceAnkleTraj = {
+        SWING_END_ANKLE,
+        90,
+        90,
+        90,
+        90,
+        STAND_ANKLE_ANGLE};
 std::array<double, TRAJ_LENGTH> lastSwingKneeTraj = {
-        8,
+        STANCE_END_KNEE,
         8,
         40,
         80,
         40,
-        8};
+        STAND_KNEE_ANGLE};
 std::array<double, TRAJ_LENGTH> lastSwingHipTraj = {
-        180,
+        STANCE_END_HIP,
         185,
         170,
         130,
         130,
-        170};  
+        STAND_HIP_ANGLE};  
+std::array<double, TRAJ_LENGTH> lastSwingAnkleTraj = {
+        STANCE_END_ANKLE,
+        90,
+        90,
+        90,
+        90,
+        STAND_ANKLE_ANGLE};
 
 double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime){
     int length = points.size();
@@ -299,6 +307,9 @@ double sittingTrajFunc(int jointInd, double scaledTime, Robot *rob)
     else if (jointID == RIGHT_KNEE) {desPos= getInterpolatedPoint(stationarySittingKneeTraj, scaledTime);}
     else if (jointID == LEFT_HIP) {desPos= getInterpolatedPoint(stationarySittingHipTraj, scaledTime);}
     else if (jointID == RIGHT_HIP) {desPos= getInterpolatedPoint(stationarySittingHipTraj, scaledTime); }
+    else if (jointID == LEFT_ANKLE) {desPos= getInterpolatedPoint(stationarySittingAnkleTraj, scaledTime); }
+    else if (jointID == RIGHT_ANKLE) {desPos= getInterpolatedPoint(stationarySittingAnkleTraj, scaledTime); }
+
     return desPos;
 }
 
@@ -311,6 +322,8 @@ double standUpTrajFunc(int jointInd, double scaledTime, Robot *rob)
     else if(jointID == RIGHT_KNEE) {desPos= getInterpolatedPoint(standingKneeTraj, scaledTime);}
     else if (jointID == LEFT_HIP) {desPos= getInterpolatedPoint(standingHipTraj, scaledTime);}
     else if (jointID == RIGHT_HIP) {desPos= getInterpolatedPoint(standingHipTraj, scaledTime);}
+    else if (jointID == LEFT_ANKLE) {desPos= getInterpolatedPoint(standingAnkleTraj, scaledTime);}
+    else if (jointID == RIGHT_ANKLE) {desPos= getInterpolatedPoint(standingAnkleTraj, scaledTime);}
     return desPos;
 }
 
@@ -323,6 +336,8 @@ double sitDownTrajFunc(int jointInd, double scaledTime, Robot *rob)
     else if(jointID == RIGHT_KNEE) {desPos= getInterpolatedPoint(sittingKneeTraj, scaledTime);}
     else if (jointID == LEFT_HIP) {desPos= getInterpolatedPoint(sittingHipTraj, scaledTime);}
     else if (jointID == RIGHT_HIP) {desPos= getInterpolatedPoint(sittingHipTraj, scaledTime);}
+    else if (jointID == LEFT_ANKLE) {desPos= getInterpolatedPoint(sittingAnkleTraj, scaledTime);}
+    else if (jointID == RIGHT_ANKLE) {desPos= getInterpolatedPoint(sittingAnkleTraj, scaledTime);}
     return desPos;
 }
 
@@ -335,6 +350,8 @@ double steppingFirstLeftTrajFunc(int jointInd, double scaledTime, Robot *rob)
     else if(jointID == RIGHT_KNEE) {desPos= getInterpolatedPoint(firstStanceKneeTraj, scaledTime);}
     else if (jointID == LEFT_HIP) {desPos= getInterpolatedPoint(firstSwingHipTraj, scaledTime);}
     else if (jointID == RIGHT_HIP) {desPos= getInterpolatedPoint(firstStanceHipTraj, scaledTime);}
+    else if (jointID == LEFT_ANKLE) {desPos= getInterpolatedPoint(firstSwingAnkleTraj, scaledTime);}
+    else if (jointID == RIGHT_ANKLE) {desPos= getInterpolatedPoint(firstStanceAnkleTraj, scaledTime);}
     return desPos;
 }
 
@@ -347,6 +364,8 @@ double steppingRightTrajFunc(int jointInd, double scaledTime, Robot *rob)
     else if(jointID == RIGHT_KNEE) {desPos= getInterpolatedPoint(swingKneeTraj, scaledTime);}
     else if (jointID == LEFT_HIP) {desPos= getInterpolatedPoint(stanceHipTraj, scaledTime);}
     else if (jointID == RIGHT_HIP) {desPos= getInterpolatedPoint(swingHipTraj, scaledTime);}
+    else if (jointID == LEFT_ANKLE) {desPos= getInterpolatedPoint(stanceAnkleTraj, scaledTime);}
+    else if (jointID == RIGHT_ANKLE) {desPos= getInterpolatedPoint(swingAnkleTraj, scaledTime);}
     return desPos;
 }
  
@@ -359,6 +378,8 @@ double steppingLeftTrajFunc(int jointInd, double scaledTime, Robot *rob)
     else if(jointID == LEFT_KNEE) {desPos= getInterpolatedPoint(swingKneeTraj, scaledTime);}
     else if (jointID == RIGHT_HIP) {desPos= getInterpolatedPoint(stanceHipTraj, scaledTime);}
     else if (jointID == LEFT_HIP) {desPos= getInterpolatedPoint(swingHipTraj, scaledTime);}
+    else if (jointID == RIGHT_ANKLE) {desPos= getInterpolatedPoint(stanceAnkleTraj, scaledTime);}
+    else if (jointID == LEFT_ANKLE) {desPos= getInterpolatedPoint(swingAnkleTraj, scaledTime);}
     return desPos;
 } 
 
@@ -371,6 +392,22 @@ double steppingLastRightTrajFunc(int jointInd, double scaledTime, Robot *rob)
     else if(jointID == LEFT_KNEE) {desPos= getInterpolatedPoint(lastStanceKneeTraj, scaledTime);}
     else if (jointID == RIGHT_HIP) {desPos= getInterpolatedPoint(lastSwingHipTraj, scaledTime);}
     else if (jointID == LEFT_HIP) {desPos= getInterpolatedPoint(lastStanceHipTraj, scaledTime);}
+    else if (jointID == RIGHT_ANKLE) {desPos= getInterpolatedPoint(lastSwingAnkleTraj, scaledTime);}
+    else if (jointID == LEFT_ANKLE) {desPos= getInterpolatedPoint(lastStanceAnkleTraj, scaledTime);}
+    return desPos;
+} 
+
+double steppingLastLeftTrajFunc(int jointInd, double scaledTime, Robot *rob)
+{ 
+    int jointID = rob->joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == LEFT_KNEE) {desPos= getInterpolatedPoint(lastSwingKneeTraj, scaledTime);}
+    else if(jointID == RIGHT_KNEE) {desPos= getInterpolatedPoint(lastStanceKneeTraj, scaledTime);}
+    else if (jointID == LEFT_HIP) {desPos= getInterpolatedPoint(lastSwingHipTraj, scaledTime);}
+    else if (jointID == RIGHT_HIP) {desPos= getInterpolatedPoint(lastStanceHipTraj, scaledTime);}
+    else if (jointID == LEFT_ANKLE) {desPos= getInterpolatedPoint(lastSwingAnkleTraj, scaledTime);}
+    else if (jointID == RIGHT_ANKLE) {desPos= getInterpolatedPoint(lastStanceAnkleTraj, scaledTime);}
     return desPos;
 } 
  
@@ -390,6 +427,8 @@ sitStand::sitStand(void)
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     resetButtonsPressed = new ResetButtonsPressed(this);
+  
+    // TRANSITION FOR TESTING
     dummyTrue = new DummyTrue(this);
     
     // StateMachine states
@@ -404,7 +443,7 @@ sitStand::sitStand(void)
     rightForward = new RightForward(this);
     steppingLeft = new SteppingLeft(this);
     steppingLastRight = new SteppingLastRight(this);
-    
+    steppingLastLeft = new SteppingLastLeft(this);
     
     // DUMMY TRANSITION FOR TESTING ONLY
     errorState = new ErrorState(this);
@@ -422,7 +461,9 @@ sitStand::sitStand(void)
     NewTransition(rightForward, isBPressed, steppingLeft);
     NewTransition(steppingLeft, endTraj, leftForward);
     NewTransition(leftForward, isYPressed, steppingLastRight);
+    NewTransition(rightForward, isYPressed, steppingLastLeft);
     NewTransition(steppingLastRight, endTraj, standing);
+    NewTransition(steppingLastLeft, endTraj, standing);
     NewTransition(errorState, resetButtonsPressed, initState);
 
     
@@ -437,6 +478,7 @@ sitStand::sitStand(void)
     NewTransition(rightForward, isRPressed, errorState);
     NewTransition(steppingLeft, isRPressed, errorState);
     NewTransition(steppingLastRight, isRPressed, errorState);
+    NewTransition(steppingLastLeft, isRPressed, errorState);
 
 
     // Initialize the state machine with first state
@@ -468,11 +510,13 @@ void sitStand::init(void)
     // Configure the drives
     if (calibrated == 0)
     {
-        /*if (robot->remapPDO())
+#ifndef _TESTMODE
+        if (robot->remapPDO())
         {
             printf("Motors PDO messages configured\n");
             calibrated = 1;
-        }*/
+        }
+#endif
     }
     else{
         printf("Motors already calibrated for motion\n");
@@ -517,8 +561,9 @@ void sitStand::InitState::entry(void)
     printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     
-    
-    //OWNER->robot->resetTrackingError();
+#ifndef _TESTMODE
+    OWNER->robot->resetTrackingError();
+#endif
 }
 void sitStand::InitState::during(void)
 {
@@ -528,11 +573,13 @@ void sitStand::InitState::exit(void)
 {
     if (OWNER->robot->positionControl == 0)
     {
-      /*  if (OWNER->robot->initPositionControl())
+#ifndef _TESTMODE
+        if (OWNER->robot->initPositionControl())
         {
             printf("drives finished position control configuration\n");
             OWNER->robot->positionControl = 1;
-        }*/
+        }
+#endif
     }
     printf("Initialise State Exited at Time %f\n", OWNER->mark);
 }
@@ -549,8 +596,6 @@ void sitStand::SittingDwn::entry(void)
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     
     OWNER->startNewTraj();
-    
-    
 }
 void sitStand::SittingDwn::during(void)
 {
@@ -709,7 +754,7 @@ void sitStand::RightForward::entry(void)
     //READ TIME OF MAIN
     printf("RightForward State Entered at Time %f\n", OWNER->mark);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS BLUE TO KEEP STEPPING\n");
+    printf("PRESS BLUE TO KEEP STEPPING OR YELLOW TO BRING FEET TOGETHER\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 }
 void sitStand::RightForward::during(void)
@@ -774,6 +819,35 @@ void sitStand::SteppingLastRight::exit(void)
         OWNER->robot->joints[i].zeroIndex();
     }
 }
+
+////////// STATE ////////////////////
+// Stepping Last Left
+///////////////////////////////////////////////
+void sitStand::SteppingLastLeft::entry(void)
+{
+    //READ TIME OF MAIN
+    printf("SteppingLastLeft State Entered at Time %f\n", OWNER->mark);
+
+    OWNER->startNewTraj();
+}
+
+void sitStand::SteppingLastLeft::during(void)
+{
+    //long lastTarget = 0;
+    // if the green button is pressed move. Or do nothing/
+    OWNER->moveThroughTraj(steppingLastLeftTrajFunc, STEPTIME); 
+}
+
+void sitStand::SteppingLastLeft::exit(void)
+{
+    printf("SteppingLastLeft State Exited at Time %f\n", OWNER->mark);
+    // do nothing
+    for (auto i = 0; i < NUM_JOINTS; i++)
+    {
+        OWNER->robot->joints[i].zeroIndex();
+    }
+}
+
 
 
 void sitStand::ErrorState::entry(void)
@@ -947,15 +1021,13 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
     last_tv = tv;
     
     //uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
-    
     long movingMicro = moving_tv.tv_sec*1000000+moving_tv.tv_usec;
 
     double trajTimeUS = trajTime*1000000;
     fracTrajProgress = movingMicro/trajTimeUS;
     
     // if Green Button is pressed, move through trajetory. Otherwise stay where you are 
-   // if (!gButton){
-       if(true){
+    if (!gButton){
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
 
@@ -964,9 +1036,6 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
                 if(robot->joints[i].getBitFlipState() == NOFLIP){
                 // Send a new trajectory point
                 // Get Trajectory point for this joint based on current time
-                    // Get position to send to joint based on current arrayIndex, send off and increment index
-                    // desired Position in motor command units
-                    //double desiredPos = getDegPos(i, desiredIndex);
                     double desiredPos = trajFunction(i, fracTrajProgress, robot);
                            
                     robot->joints[i].applyPosDeg(desiredPos);
@@ -982,8 +1051,6 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
         timeradd(&stationary_tv, &tv_diff, &tv_changed);
         stationary_tv = tv_changed;
     }
-    
-    //printf("Stationary Time: %d, Moving Time: %d \n", stationary_tv.tv_sec*1000000+stationary_tv.tv_usec, moving_tv.tv_sec*1000000+moving_tv.tv_usec);
 }
 
 

@@ -35,6 +35,7 @@ private:
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
     EventObject(DummyTrue) * dummyTrue;
+    
     // states
     StateObject(InitState) * initState;
     StateObject(SittingDwn) * sittingDwn;
@@ -47,6 +48,7 @@ private:
     StateObject(RightForward) * rightForward;
     StateObject(SteppingLeft) * steppingLeft;
     StateObject(SteppingLastRight) * steppingLastRight;
+    StateObject(SteppingLastLeft) * steppingLastLeft;
     
     StateObject(ErrorState) * errorState;
 

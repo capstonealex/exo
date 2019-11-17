@@ -31,7 +31,7 @@ void Robot::printInfo()
         joints[i].printInfo();
     }
 }
-void Robot::printTrajectories()
+/*void Robot::printTrajectories()
 {
     for (auto i = 0; i < 4; i++)
     {
@@ -47,7 +47,7 @@ void Robot::jointIncrement()
         current = current + 1;
         joints[i].applyPos(current);
     }
-}
+}*/
 // Update all of this robots software joint positions from object dictionary
 void Robot::updateJoints()
 {
