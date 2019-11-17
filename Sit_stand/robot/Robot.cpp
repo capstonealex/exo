@@ -62,7 +62,7 @@ bool Robot::sdoMSG(void)
     char SDO_Message[CANMESSAGELENGTH];
     strcpy(SDO_Message, "[1] 100 read 0x1017 0 i16");
     cancomm_socketFree(SDO_Message, returnMessage);
-    printf("HEart beat read!\n");
+    printf("Heart beat read!\n");
     return true;
 }
 bool Robot::homeCalibration(void)

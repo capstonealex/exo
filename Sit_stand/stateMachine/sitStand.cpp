@@ -74,11 +74,6 @@ struct timeval last_tv;
 double fracTrajProgress = 0;
 int desiredIndex = 0;
 
-/*double trajFunction(int jointInd, int desInd, double (*f)(double, double)) {
-    return (*f)(jointInd, desInd);
-}*/
-
-
 
 #define SITSTANDTIME 1.5
 #define STEPTIME 2
@@ -395,8 +390,9 @@ sitStand::sitStand(void)
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     resetButtonsPressed = new ResetButtonsPressed(this);
+    dummyTrue = new DummyTrue(this);
     
-    // StateMache states
+    // StateMachine states
     initState = new InitState(this);
     standing = new Standing(this);
     sitting = new Sitting(this);
@@ -408,6 +404,9 @@ sitStand::sitStand(void)
     rightForward = new RightForward(this);
     steppingLeft = new SteppingLeft(this);
     steppingLastRight = new SteppingLastRight(this);
+    
+    
+    // DUMMY TRANSITION FOR TESTING ONLY
     errorState = new ErrorState(this);
 
     // Create Trasitions between states and events which trigger them
@@ -425,6 +424,7 @@ sitStand::sitStand(void)
     NewTransition(leftForward, isYPressed, steppingLastRight);
     NewTransition(steppingLastRight, endTraj, standing);
     NewTransition(errorState, resetButtonsPressed, initState);
+
     
     // Transitions to Error State
     NewTransition(sitting, isRPressed, errorState);
@@ -453,7 +453,7 @@ void sitStand::init(void)
     std::cout << "Welcome to The ALEX STATE MACHINE"
               << "\n";
     StateMachine::init();
-    
+
     // Set up the buttons
     gp = GPIO::GPIOManager::getInstance();
     redPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONRED);
@@ -464,21 +464,20 @@ void sitStand::init(void)
     gp->setDirection(bluePin, GPIO::INPUT);
     gp->setDirection(greenPin, GPIO::INPUT);
     gp->setDirection(yellowPin, GPIO::INPUT);
-
+    
     // Configure the drives
     if (calibrated == 0)
     {
-        if (robot->remapPDO())
+        /*if (robot->remapPDO())
         {
             printf("Motors PDO messages configured\n");
             calibrated = 1;
-        }
+        }*/
     }
     else{
         printf("Motors already calibrated for motion\n");
     }
-    
-    
+        
     // Set up the logging file
       time_t rawtime;
       struct tm * timeinfo;
@@ -489,7 +488,7 @@ void sitStand::init(void)
       strftime (filename,80,"ALEXLOG_%Y%m%e_%H%M.csv",timeinfo);
       printf("File Created: %s\n", filename);
       
-      //logfile.open (filename);
+      logfile.open (filename);
 
     /// Move to an initial sitting state at the start 
     bitFlipState = NOFLIP;
@@ -519,7 +518,7 @@ void sitStand::InitState::entry(void)
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     
     
-    OWNER->robot->resetTrackingError();
+    //OWNER->robot->resetTrackingError();
 }
 void sitStand::InitState::during(void)
 {
@@ -529,11 +528,11 @@ void sitStand::InitState::exit(void)
 {
     if (OWNER->robot->positionControl == 0)
     {
-        if (OWNER->robot->initPositionControl())
+      /*  if (OWNER->robot->initPositionControl())
         {
             printf("drives finished position control configuration\n");
             OWNER->robot->positionControl = 1;
-        }
+        }*/
     }
     printf("Initialise State Exited at Time %f\n", OWNER->mark);
 }
@@ -550,6 +549,8 @@ void sitStand::SittingDwn::entry(void)
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     
     OWNER->startNewTraj();
+    
+    
 }
 void sitStand::SittingDwn::during(void)
 {
@@ -779,8 +780,8 @@ void sitStand::ErrorState::entry(void)
 {
     //READ TIME OF MAIN
     printf("Error State Entered at Time %f\n", OWNER->mark);
-    //logfile.close();
-    //printf("File Closed \n");
+    logfile.close();
+    printf("File Closed \n");
     
     printf("Reset with Red + Green \n");
 
@@ -795,7 +796,7 @@ void sitStand::ErrorState::during(void)
 
 void sitStand::ErrorState::exit(void)
 {
-    printf("This should never happen");
+    printf("Error State Exited");
 }
 
 
@@ -857,6 +858,11 @@ bool sitStand::ResetButtonsPressed::check(void)
     return false;
 }
 
+bool sitStand::DummyTrue::check(void)
+{
+    return true;
+}
+
 //////////////////////////////////////////////////////////////////////
 // Robot interface methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
@@ -898,12 +904,12 @@ void sitStand::hwStateUpdate(void)
     struct timeval tv;
     gettimeofday(&tv,NULL);
     double currtime =  tv.tv_sec+((double)tv.tv_usec)/1000000;
- /*   logfile << std::to_string(currtime);
+    logfile << std::to_string(currtime);
     
     for (auto i = 0; i< NUM_JOINTS; i++){
         logfile << "," +std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg());
     }
-    logfile << "\n";*/
+    logfile << "\n";
 
 }
 
@@ -948,11 +954,12 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
     fracTrajProgress = movingMicro/trajTimeUS;
     
     // if Green Button is pressed, move through trajetory. Otherwise stay where you are 
-    if (!gButton){
+   // if (!gButton){
+       if(true){
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
 
-        printf("Time: %3f \n", fracTrajProgress);
+        //printf("Time: %3f \n", fracTrajProgress);
         for (auto i = 0; i < NUM_JOINTS; i++){
                 if(robot->joints[i].getBitFlipState() == NOFLIP){
                 // Send a new trajectory point

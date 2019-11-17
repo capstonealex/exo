@@ -54,7 +54,7 @@
 
 #define NSEC_PER_SEC (1000000000)      /* The number of nanoseconds per second. */
 #define NSEC_PER_MSEC (1000000)        /* The number of nanoseconds per millisecond. */
-#define TMR_TASK_INTERVAL_NS (1000000) /* Interval of taskTmr in nanoseconds */
+#define TMR_TASK_INTERVAL_NS (5000000) /* Interval of taskTmr in nanoseconds */
 #define TMR_TASK_OVERFLOW_US (5000)    /* Overflow detect limit for taskTmr in microseconds */
 #define INCREMENT_1MS(var) (var++)     /* Increment 1ms variable in taskTmr */
 #define NODEID (100)
@@ -76,6 +76,7 @@ static char *odStorFile_rom = "od4_storage";         /* Name of the file */
 static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
 static CO_time_t CO_time;                            /* Object for current time */
 int commCount = 0;
+
 uint32_t tmr1msPrev = 0;
 
 //struct timeval last_tv;
@@ -120,10 +121,6 @@ int main(int argc, char *argv[])
     bool_t nodeIdFromArgs = true; /* True, if program arguments are used for CANopen Node Id */
     int nodeId = -1;              /* Use value from Object Dictionary or set to 1..127 by arguments */
     bool_t rebootEnable = false;  /* Configurable by arguments */
-    /*GPIO pin set up*/
-    // GPIO::GPIOManager *gp = GPIO::GPIOManager::getInstance();
-    // int pin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTON1);
-    // gp->setDirection(pin, GPIO::INPUT);
 
     /*set up command line arguments as variables*/
     char CANdevice[10] = "can1"; /* change to can1 for bbb vcan0 for virtual can*/
@@ -258,6 +255,9 @@ int main(int argc, char *argv[])
         /* First time only initialization. */
         if (firstRun)
         {
+            /* Execute optional additional application code */
+            app_programStart();
+            
             firstRun = false;
 
             /* Configure epoll for mainline */
@@ -277,10 +277,11 @@ int main(int argc, char *argv[])
 
             OD_performance[ODA_performance_timerCycleTime] = TMR_TASK_INTERVAL_NS / 1000; /* informative */
 
+            printf("Create RT Thread\n");
             /* Create rt_thread */
             if (pthread_create(&rt_thread_id, NULL, rt_thread, NULL) != 0)
                 CO_errExit("Program init - rt_thread creation failed");
-
+            printf("Set Priority \n");
             /* Set priority for rt_thread */
             if (rtPriority > 0)
             {
@@ -290,7 +291,7 @@ int main(int argc, char *argv[])
                 if (pthread_setschedparam(rt_thread_id, SCHED_FIFO, &param) != 0)
                     CO_errExit("Program init - rt_thread set scheduler failed");
             }
-
+            printf("Initialise socket command interface \n");
             /* Initialize socket command interface */
             if (commandEnable)
             {
@@ -300,9 +301,6 @@ int main(int argc, char *argv[])
                 }
                 printf("Canopend - Command interface on socket '%s' started ...\n", CO_command_socketPath);
             }
-
-            /* Execute optional additional application code */
-            app_programStart();
         }
 
         /* Execute optional additional application code */
@@ -313,13 +311,8 @@ int main(int argc, char *argv[])
         pthread_mutex_unlock(&CO_CAN_VALID_mtx);
 
         reset = CO_RESET_NOT;
-        /*State machine testing 123*/
         // Create Statemachine Object -> will be loaded by taskmanager in end program.
-        Robot exo;
-        sitStand sitStandMachine;
-        sitStandMachine.initRobot(&exo);
-        sitStandMachine.init();
-        sitStandMachine.activate();
+
         printf("Canopend- running ...\n");
         
         // Initialise the last time variable
@@ -346,34 +339,19 @@ int main(int argc, char *argv[])
             else if (taskMain_process(ev.data.fd, &reset, CO_timer1ms))
             {
                 uint32_t timer1msDiff;
-             /*   struct timeval tv;
-                struct timeval tv_diff;
-                struct timeval tv_rel;
-
-                gettimeofday(&tv,NULL);
-                
-                timersub(&tv, &first_tv, &tv_rel);
-                timersub(&tv, &last_tv, &tv_diff);
-                
-                uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
-                
-                //last_tv = tv;
-                if (difftime > 100000)
-                {
-                    printf("LongDifftime Abs Time: %lu, Diff Time: %lu\n", tv_rel.tv_sec*1000000+tv_rel.tv_usec, difftime);
-                }*/
-                /* Calculate time difference */
-              //  timer1msDiff = CO_timer1ms - tmr1msPrev;
-              //  tmr1msPrev = CO_timer1ms;
+                timer1msDiff = CO_timer1ms - tmr1msPrev;
+                tmr1msPrev = CO_timer1ms;
                 
 
                // printf("Abs Time: %d, Diff Time: %d\n", CO_timer1ms, timer1msDiff);
 
                 /* Execute optional additional application code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
-                sitStandMachine.hwStateUpdate();
-                sitStandMachine.update();
-                // app_programAsync(timer1msDiff);
+               
+               
+               // sitStandMachine.hwStateUpdate();
+               // sitStandMachine.update();
+                app_programAsync(timer1msDiff);
 
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
@@ -432,7 +410,7 @@ int main(int argc, char *argv[])
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
-
+    printf("RT Thread \n");
     /* Endless loop */
     while (CO_endProgram == 0)
     {

@@ -34,7 +34,7 @@ private:
     EventObject(IsRPressed) * isRPressed;
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
-
+    EventObject(DummyTrue) * dummyTrue;
     // states
     StateObject(InitState) * initState;
     StateObject(SittingDwn) * sittingDwn;

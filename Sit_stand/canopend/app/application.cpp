@@ -29,22 +29,29 @@
 #include <stdint.h>
 #include <sys/time.h>
 
+/*Non canopenNode + Socket libraries*/
+#include "Robot.h"
+#include "sitStand.h"
+
+
 /*For master-> node SDO message sending*/
 #define CO_COMMAND_SDO_BUFFER_SIZE 100000
 #define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
 #include <string.h>
 char buf[STRING_BUFFER_SIZE];
 char ret[STRING_BUFFER_SIZE];
-char message[STRING_BUFFER_SIZE] = "[1] 2 read 0x6063 0 i32"; // Read J2 position
-//char message[STRING_BUFFER_SIZE] = "[1] 100 read 0x1017  0 i32"; // Read bbb HB
-//// Data logger helper functions
-void fileLogHeader();
-void fileLogger();
-void strreverse(char *begin, char *end);
-void itoa(int value, char *str, int base);
+
+
+Robot exo;
+sitStand sitStandMachine;
+
 /******************************************************************************/
 void app_programStart(void)
 {
+    printf("app_Program Start \n");
+    sitStandMachine.initRobot(&exo);
+    sitStandMachine.init();
+    sitStandMachine.activate();
 }
 /******************************************************************************/
 void app_communicationReset(void)
@@ -53,137 +60,26 @@ void app_communicationReset(void)
 /******************************************************************************/
 void app_programEnd(void)
 {
+    printf("app_programEnd \n");
 }
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiffy)
 {
-    //Timing speed of reading from memory and file writing
-    //struct timeval start;
-    //struct timeval stop;
-    //gettimeofday(&start, NULL);
-    /*
-struct timeval tv;
-gettimeofday(&tv,NULL);
-printf("time before(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
-fileLogger(timer1msDiff);
-gettimeofday(&tv,NULL);
-printf("time after(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
-*/
-    //gettimeofday(&stop, NULL);
-    //double elapsed_ms = (stop.tv_sec - start.tv_sec) * 1000.0;
-    //elapsed_ms += (stop.tv_usec - start.tv_usec) / 1000.0;
-    //printf("TASK 1:  %.2f milliseconds\n", elapsed_ms);
-
-    //// cancomm_socketFree for SDO MESSAGING TO JOINTS
-    // printf("MESSAGING!");
-    // strcpy(buf, message);
-    // cancomm_socketFree(buf, ret);
-    // printf("Return message: %s", ret);
+    //printf("App_programAsync \n");
 }
 
 /******************************************************************************/
 void app_program1ms(void)
 {
-    // fileLogger();
-}
-/******************************************************************************/
-void itoa(int value, char *str, int base)
-{
-    static char num[] = "0123456789abcdefghijklmnopqrstuvwxyz";
-    char *wstr = str;
-    int sign;
-    // Validate base
-    if (base < 2 || base > 35)
-    {
-        *wstr = '\0';
-        return;
-    }
-    // Take care of sign
-    if ((sign = value) < 0)
-        value = -value;
-    // Conversion. Number is reversed.
-    do
-        *wstr++ = num[value % base];
-    while (value /= base);
-    if (sign < 0)
-        *wstr++ = '-';
-    *wstr = '\0';
-    // Reverse string
-    strreverse(str, wstr - 1);
-}
-/******************************************************************************/
-void strreverse(char *begin, char *end)
-{
-    char aux;
-    while (end > begin)
-        aux = *end, *end-- = *begin, *begin++ = aux;
+    sitStandMachine.hwStateUpdate();
+    sitStandMachine.update();
 }
 /******************************************************************************/
 void fileLogger()
 {
-    //printf("fileLogger beggining\n");
-    FILE *fp;
-    fp = fopen("X2_log.txt", "a");
-    // Generate whatever you want logged here, "data" is just an example
-    char position[50];
-    char timestamp[50];
-    char torque[50];
-    char comma[] = ", ";
 
-    //Getting timestamp
-    //printf("time(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
-    //itoa(timer1msDiff, position, 10);
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    itoa(tv.tv_sec, timestamp, 10);
-    fputs(timestamp, fp);
-    fputs(comma, fp);
-    itoa(tv.tv_usec, timestamp, 10);
-    fputs(timestamp, fp);
-    fputs(comma, fp);
-
-    // Motor 1: Left Hip position and Torque
-    itoa(CO_OD_RAM.actualMotorPositions.motor1, position, 10);
-    itoa(((int16_t)CO_OD_RAM.statusWords.motor1), torque, 10);
-    fputs(position, fp);
-    fputs(comma, fp);
-    fputs(torque, fp);
-    fputs(comma, fp);
-    // Motor 2: Left Knee position and Torque
-    itoa(CO_OD_RAM.actualMotorPositions.motor2, position, 10);
-    itoa(((int16_t)CO_OD_RAM.statusWords.motor2), torque, 10);
-    fputs(position, fp);
-    fputs(comma, fp);
-    fputs(torque, fp);
-    fputs(comma, fp);
-    // Motor 3: Right Hip position and Torque
-    itoa(CO_OD_RAM.actualMotorPositions.motor3, position, 10);
-    itoa(((int16_t)CO_OD_RAM.statusWords.motor3), torque, 10);
-    fputs(position, fp);
-    fputs(comma, fp);
-    fputs(torque, fp);
-    fputs(comma, fp);
-    // Motor 4: Right Knee position and Torque
-    itoa(CO_OD_RAM.actualMotorPositions.motor4, position, 10);
-    itoa(((int16_t)CO_OD_RAM.statusWords.motor4), torque, 10);
-    fputs(position, fp);
-    fputs(comma, fp);
-    fputs(torque, fp);
-    fputs("\n", fp);
-
-    fclose(fp);
 }
 void fileLogHeader()
 {
-    FILE *fp;
-    fp = fopen("X2_log.txt", "a");
-    char header1[] = "======================================\n";
-    char header2[] = "X2 exoskeleton torque and position log\n";
-    char header3[] = "======================================\n";
-    char header4[] = "Time(s), time(ms) LHPos, LHT, LKPos, LKT, RHPos, RHT,RKPos, RKT\n";
-    fputs(header1, fp);
-    fputs(header2, fp);
-    fputs(header3, fp);
-    fputs(header4, fp);
-    fclose(fp);
+
 }
