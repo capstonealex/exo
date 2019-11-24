@@ -11,7 +11,7 @@ class Robot
 private:
     enum
     {
-        NUM_JOINTS = 4
+        NUM_JOINTS = 6
     };
 
 public:
@@ -21,9 +21,11 @@ public:
     //void jointIncrement();
     void updateJoints();
     bool initPositionControl(void);
+    bool initPositionControlAnkles(void);
     bool homeCalibration(void);
     bool sdoMSG(void);
     bool remapPDO(void);
+    bool remapPDOAnkles(void);
     bool preop(void);
     bool resetTrackingError(void);
    // void printTrajectories();
@@ -37,10 +39,6 @@ public:
     unsigned int BUTTON_THREE = 3;
     unsigned int BUTTON_FOUR = 4;
     //Node ID for the 4 joints
- //   unsigned int LHIP = 1;
- //   unsigned int LKNEE = 2;
- //   unsigned int RHIP = 3;
- //   unsigned int RKNEE = 4;
     int positionControl;
 };
 

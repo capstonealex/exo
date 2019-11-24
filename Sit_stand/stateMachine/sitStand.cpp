@@ -31,14 +31,13 @@
 #include "Joint.h"
 
 //////////////// For testing  ///////////////////////////
-#define _TESTMODE
-#define _NOANKLES
-
+//#define _NOANKLES
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 
+#define _TESTMODE
+
+
 /////////////////////////////////////////////////////////
-
-
 
 #define OWNER ((sitStand *)owner)
 #define POSCLEARANCE (8000)
@@ -50,15 +49,21 @@
 #define TRAJ_LENGTH 6
 
 #ifndef _NOANKLES
-    #define NUM_JOINTS 4
-#else
     #define NUM_JOINTS 6
+#else
+    #define NUM_JOINTS 4
 #endif 
 
-static char *BUTTONRED = "P8_7";
+/*static char *BUTTONRED = "P8_7";
 static char *BUTTONBLUE = "P8_8";
 static char *BUTTONGREEN = "P8_9";
-static char *BUTTONYELLOW = "P8_10";
+static char *BUTTONYELLOW = "P8_10";*/
+
+static char *BUTTONRED = "P8_10";
+static char *BUTTONBLUE = "P8_9";
+static char *BUTTONGREEN = "P8_7";
+static char *BUTTONYELLOW = "P8_8";
+
 
 GPIO::GPIOManager *gp;
 int redPin;
@@ -79,6 +84,7 @@ struct timeval last_tv;
 
 double fracTrajProgress = 0;
 int desiredIndex = 0;
+int running = 0;
 
 #define SITSTANDTIME 1.5
 #define STEPTIME 2
@@ -485,6 +491,8 @@ sitStand::sitStand(void)
     StateMachine::initialize(initState);
     robot = NULL;
     bitFlipState = NOFLIP;
+    
+    running = 0;
 }
 
 
@@ -508,19 +516,29 @@ void sitStand::init(void)
     gp->setDirection(yellowPin, GPIO::INPUT);
     
     // Configure the drives
+    printf("calibrating \n");
     if (calibrated == 0)
     {
-#ifndef _TESTMODE
-        if (robot->remapPDO())
+        if (robot->remapPDOAnkles())
         {
             printf("Motors PDO messages configured\n");
             calibrated = 1;
         }
-#endif
     }
     else{
         printf("Motors already calibrated for motion\n");
     }
+    
+    printf("position control \n");
+    if (robot->positionControl == 0)
+    {
+        if (robot->initPositionControlAnkles())
+        {
+            printf("drives finished position control configuration\n");
+            robot->positionControl = 1;
+        }
+    }        
+        
         
     // Set up the logging file
       time_t rawtime;
@@ -536,6 +554,8 @@ void sitStand::init(void)
 
     /// Move to an initial sitting state at the start 
     bitFlipState = NOFLIP;
+    
+    running = 1;
     printf("END INIT\n");
 }
 void sitStand::activate(void)
@@ -555,33 +575,29 @@ void sitStand::deactivate(void)
 
 void sitStand::InitState::entry(void)
 {
-    printf("Initialise State Entered at Time %f\n", OWNER->mark);
+    printf("Initialise State Entered at Time %d\n", OWNER->mark);
     
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    
-#ifndef _TESTMODE
     OWNER->robot->resetTrackingError();
-#endif
 }
 void sitStand::InitState::during(void)
 {
     // Do nothing in this state
+    for (auto i = 0; i < NUM_JOINTS; i++)
+    {
+        OWNER->robot->joints[i].readyToSwitchOn();
+    }
 }
 void sitStand::InitState::exit(void)
 {
-    if (OWNER->robot->positionControl == 0)
+
+    printf("Initialise State Exited at Time %d\n", OWNER->mark);
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
-#ifndef _TESTMODE
-        if (OWNER->robot->initPositionControl())
-        {
-            printf("drives finished position control configuration\n");
-            OWNER->robot->positionControl = 1;
-        }
-#endif
+        OWNER->robot->joints[i].enable();
     }
-    printf("Initialise State Exited at Time %f\n", OWNER->mark);
 }
 
 
@@ -589,7 +605,7 @@ void sitStand::InitState::exit(void)
 void sitStand::SittingDwn::entry(void)
 {
     //READ TIME OF MAIN
-    printf("Sitting Down State Entered at Time %f\n", OWNER->mark);
+    printf("Sitting Down State Entered at Time %d\n", OWNER->mark);
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS GREEN TO BEGIN SITTING DOWN\n");
@@ -605,13 +621,13 @@ void sitStand::SittingDwn::during(void)
 }
 void sitStand::SittingDwn::exit(void)
 {
-    printf("Sitting Down State Exited at Time %f\n", OWNER->mark);
+    printf("Sitting Down State Exited at Time %d\n", OWNER->mark);
 }
 
 // Negative bending control machine
 void sitStand::StandingUp::entry(void)
 {
-    printf("Standing Up State Entered at Time %f\n", OWNER->mark);
+    printf("Standing Up State Entered at Time %d\n", OWNER->mark);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS GREEN TO BEGIN STANDING UP\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -626,7 +642,7 @@ void sitStand::StandingUp::during(void)
 }
 void sitStand::StandingUp::exit(void)
 {
-    printf("Standing up motion State Exited at Time %f\n", OWNER->mark);
+    printf("Standing up motion State Exited at Time %d\n", OWNER->mark);
 }
 
 
@@ -636,7 +652,7 @@ void sitStand::StandingUp::exit(void)
 void sitStand::Sitting::entry(void)
 {
     //READ TIME OF MAIN
-    printf("Sitting State Entered at Time %f\n", OWNER->mark);
+    printf("Sitting State Entered at Time %d\n", OWNER->mark);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS YELLOW TO START STANDING UP\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -650,7 +666,7 @@ void sitStand::Sitting::during(void)
 }
 void sitStand::Sitting::exit(void)
 {
-    printf("Sitting State Exited at Time %f\n", OWNER->mark);
+    printf("Sitting State Exited at Time %d\n", OWNER->mark);
 }
 
 
@@ -660,7 +676,7 @@ void sitStand::Sitting::exit(void)
 ////////////////////////////////////
 void sitStand::Standing::entry(void)
 {
-    printf("Standing State Entered at Time %f\n", OWNER->mark);
+    printf("Standing State Entered at Time %d\n", OWNER->mark);
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS YELLOW TO START Sitting DOWN\n");
@@ -673,7 +689,7 @@ void sitStand::Standing::during(void)
 }
 void sitStand::Standing::exit(void)
 {
-    printf("Standing State Exited at Time %f\n", OWNER->mark);
+    printf("Standing State Exited at Time %d\n", OWNER->mark);
 }
 
 
@@ -683,7 +699,7 @@ void sitStand::Standing::exit(void)
 void sitStand::SteppingFirstLeft::entry(void)
 {
     //READ TIME OF MAIN
-    printf("SteppingFirstLeft State Entered at Time %f\n", OWNER->mark);
+    printf("SteppingFirstLeft State Entered at Time %d\n", OWNER->mark);
 
     OWNER->startNewTraj();
 }
@@ -697,7 +713,7 @@ void sitStand::SteppingFirstLeft::during(void)
 
 void sitStand::SteppingFirstLeft::exit(void)
 {
-    printf("SteppingFirstLeft State Exited at Time %f\n", OWNER->mark);
+    printf("SteppingFirstLeft State Exited at Time %d\n", OWNER->mark);
     // do nothing
 }
 
@@ -707,7 +723,7 @@ void sitStand::SteppingFirstLeft::exit(void)
 void sitStand::LeftForward::entry(void)
 {
     //READ TIME OF MAIN
-    printf("LeftForward State Entered at Time %f\n", OWNER->mark);
+    printf("LeftForward State Entered at Time %d\n", OWNER->mark);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS BLUE TO KEEP STEPPING\n");
     printf("PRESS YELLOW TO BRING FEET TOGETHER\n");
@@ -718,7 +734,7 @@ void sitStand::LeftForward::during(void)
 }
 void sitStand::LeftForward::exit(void)
 {
-    printf("LeftForward State Exited at Time %f\n", OWNER->mark);
+    printf("LeftForward State Exited at Time %d\n", OWNER->mark);
 }
 
 
@@ -728,7 +744,7 @@ void sitStand::LeftForward::exit(void)
 void sitStand::SteppingRight::entry(void)
 {
     //READ TIME OF MAIN
-    printf("SteppingRight State Entered at Time %f\n", OWNER->mark);
+    printf("SteppingRight State Entered at Time %d\n", OWNER->mark);
 
     OWNER->startNewTraj();
 }
@@ -742,7 +758,7 @@ void sitStand::SteppingRight::during(void)
 
 void sitStand::SteppingRight::exit(void)
 {
-    printf("SteppingRight State Exited at Time %f\n", OWNER->mark);
+    printf("SteppingRight State Exited at Time %d\n", OWNER->mark);
     // do nothing
 }
 
@@ -752,7 +768,7 @@ void sitStand::SteppingRight::exit(void)
 void sitStand::RightForward::entry(void)
 {
     //READ TIME OF MAIN
-    printf("RightForward State Entered at Time %f\n", OWNER->mark);
+    printf("RightForward State Entered at Time %d\n", OWNER->mark);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS BLUE TO KEEP STEPPING OR YELLOW TO BRING FEET TOGETHER\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -763,7 +779,7 @@ void sitStand::RightForward::during(void)
 void sitStand::RightForward::exit(void)
 {
 
-    printf("RightForward State Exited at Time %f\n", OWNER->mark);
+    printf("RightForward State Exited at Time %d\n", OWNER->mark);
 }
 
 
@@ -773,7 +789,7 @@ void sitStand::RightForward::exit(void)
 void sitStand::SteppingLeft::entry(void)
 {
     //READ TIME OF MAIN
-    printf("SteppingLeft State Entered at Time %f\n", OWNER->mark);
+    printf("SteppingLeft State Entered at Time %d\n", OWNER->mark);
 
     OWNER->startNewTraj();
 }
@@ -787,7 +803,7 @@ void sitStand::SteppingLeft::during(void)
 
 void sitStand::SteppingLeft::exit(void)
 {
-    printf("SteppingLeft State Exited at Time %f\n", OWNER->mark);
+    printf("SteppingLeft State Exited at Time %d\n", OWNER->mark);
     // do nothing
 }
 
@@ -798,7 +814,7 @@ void sitStand::SteppingLeft::exit(void)
 void sitStand::SteppingLastRight::entry(void)
 {
     //READ TIME OF MAIN
-    printf("SteppingLastRight State Entered at Time %f\n", OWNER->mark);
+    printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
 
     OWNER->startNewTraj();
 }
@@ -812,12 +828,8 @@ void sitStand::SteppingLastRight::during(void)
 
 void sitStand::SteppingLastRight::exit(void)
 {
-    printf("SteppingLastRight State Exited at Time %f\n", OWNER->mark);
+    printf("SteppingLastRight State Exited at Time %d\n", OWNER->mark);
     // do nothing
-    for (auto i = 0; i < NUM_JOINTS; i++)
-    {
-        OWNER->robot->joints[i].zeroIndex();
-    }
 }
 
 ////////// STATE ////////////////////
@@ -826,7 +838,7 @@ void sitStand::SteppingLastRight::exit(void)
 void sitStand::SteppingLastLeft::entry(void)
 {
     //READ TIME OF MAIN
-    printf("SteppingLastLeft State Entered at Time %f\n", OWNER->mark);
+    printf("SteppingLastLeft State Entered at Time %d\n", OWNER->mark);
 
     OWNER->startNewTraj();
 }
@@ -840,28 +852,24 @@ void sitStand::SteppingLastLeft::during(void)
 
 void sitStand::SteppingLastLeft::exit(void)
 {
-    printf("SteppingLastLeft State Exited at Time %f\n", OWNER->mark);
+    printf("SteppingLastLeft State Exited at Time %d\n", OWNER->mark);
     // do nothing
-    for (auto i = 0; i < NUM_JOINTS; i++)
-    {
-        OWNER->robot->joints[i].zeroIndex();
-    }
 }
-
-
 
 void sitStand::ErrorState::entry(void)
 {
     //READ TIME OF MAIN
-    printf("Error State Entered at Time %f\n", OWNER->mark);
+    printf("Error State Entered at Time %d\n", OWNER->mark);
     logfile.close();
     printf("File Closed \n");
     
     printf("Reset with Red + Green \n");
 
-   // Load New Trajectory
-    OWNER->robot->preop();
-    OWNER->robot->positionControl = 0;
+   // Set Drives to Disabled mode
+    for (auto i = 0; i < NUM_JOINTS; i++)
+    {
+        OWNER->robot->joints[i].disable();
+    }
 }
 
 void sitStand::ErrorState::during(void)
@@ -974,16 +982,21 @@ void sitStand::hwStateUpdate(void)
     // robot->printInfo();
     // robot->printTrajectories();
     
-    // Log to file
-    struct timeval tv;
-    gettimeofday(&tv,NULL);
-    double currtime =  tv.tv_sec+((double)tv.tv_usec)/1000000;
-    logfile << std::to_string(currtime);
-    
-    for (auto i = 0; i< NUM_JOINTS; i++){
-        logfile << "," +std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg());
+    // Log to file    
+    if (mark%5==1){
+        struct timeval tv;
+        gettimeofday(&tv,NULL);
+        double currtime =  tv.tv_sec+((double)tv.tv_usec)/1000000;
+        logfile << std::to_string(currtime);
+        
+        for (auto i = 0; i< NUM_JOINTS; i++){
+            logfile << "," +std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg());
+            //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
+        }
+       // printf("%d, %3f, %3f,", robot->joints[5].getStatus(),  robot->joints[5].getPosDeg(), robot->joints[5].getDesPosDeg());
+        //printf("\n");
+        logfile << "\n";
     }
-    logfile << "\n";
 
 }
 
@@ -1012,7 +1025,6 @@ void sitStand::startNewTraj()
 void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), double trajTime)
 {
     //long lastTarget = 0;
-    
     struct timeval tv;
     struct timeval tv_diff;
     struct timeval tv_changed;
@@ -1031,13 +1043,16 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
 
+
+#ifndef _NOACTUATION
         //printf("Time: %3f \n", fracTrajProgress);
-        for (auto i = 0; i < NUM_JOINTS; i++){
+       // for (auto i = 0; i < NUM_JOINTS; i++){
+           int i = 5;
                 if(robot->joints[i].getBitFlipState() == NOFLIP){
                 // Send a new trajectory point
                 // Get Trajectory point for this joint based on current time
                     double desiredPos = trajFunction(i, fracTrajProgress, robot);
-                           
+                    //printf("%d, %3f \n", i, desiredPos );       
                     robot->joints[i].applyPosDeg(desiredPos);
                     
                     // set state machine bitFlip to LOW state.
@@ -1046,7 +1061,8 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
                 else{
                     robot->joints[i].bitflipHigh();
                 }
-            }
+         //   }
+#endif
     } else{
         timeradd(&stationary_tv, &tv_diff, &tv_changed);
         stationary_tv = tv_changed;

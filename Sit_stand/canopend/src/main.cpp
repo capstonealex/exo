@@ -54,7 +54,7 @@
 
 #define NSEC_PER_SEC (1000000000)      /* The number of nanoseconds per second. */
 #define NSEC_PER_MSEC (1000000)        /* The number of nanoseconds per millisecond. */
-#define TMR_TASK_INTERVAL_NS (5000000) /* Interval of taskTmr in nanoseconds */
+#define TMR_TASK_INTERVAL_NS (1000000) /* Interval of taskTmr in nanoseconds */
 #define TMR_TASK_OVERFLOW_US (5000)    /* Overflow detect limit for taskTmr in microseconds */
 #define INCREMENT_1MS(var) (var++)     /* Increment 1ms variable in taskTmr */
 #define NODEID (100)
@@ -252,12 +252,10 @@ int main(int argc, char *argv[])
         /* Initialize time */
         CO_time_init(&CO_time, CO->SDO[0], &OD_time.epochTimeBaseMs, &OD_time.epochTimeOffsetMs, 0x2130);
 
+
         /* First time only initialization. */
         if (firstRun)
-        {
-            /* Execute optional additional application code */
-            app_programStart();
-            
+        {           
             firstRun = false;
 
             /* Configure epoll for mainline */
@@ -267,6 +265,8 @@ int main(int argc, char *argv[])
 
             /* Init mainline */
             taskMain_init(mainline_epoll_fd, &OD_performance[ODA_performance_mainCycleMaxTime]);
+
+            
             /* Configure epoll for rt_thread */
             rt_thread_epoll_fd = epoll_create(2);
             if (rt_thread_epoll_fd == -1)
@@ -277,21 +277,6 @@ int main(int argc, char *argv[])
 
             OD_performance[ODA_performance_timerCycleTime] = TMR_TASK_INTERVAL_NS / 1000; /* informative */
 
-            printf("Create RT Thread\n");
-            /* Create rt_thread */
-            if (pthread_create(&rt_thread_id, NULL, rt_thread, NULL) != 0)
-                CO_errExit("Program init - rt_thread creation failed");
-            printf("Set Priority \n");
-            /* Set priority for rt_thread */
-            if (rtPriority > 0)
-            {
-                struct sched_param param;
-
-                param.sched_priority = rtPriority;
-                if (pthread_setschedparam(rt_thread_id, SCHED_FIFO, &param) != 0)
-                    CO_errExit("Program init - rt_thread set scheduler failed");
-            }
-            printf("Initialise socket command interface \n");
             /* Initialize socket command interface */
             if (commandEnable)
             {
@@ -301,24 +286,42 @@ int main(int argc, char *argv[])
                 }
                 printf("Canopend - Command interface on socket '%s' started ...\n", CO_command_socketPath);
             }
+            
+            /* Create rt_thread */
+            if (pthread_create(&rt_thread_id, NULL, rt_thread, NULL) != 0)
+                CO_errExit("Program init - rt_thread creation failed");
+            /* Set priority for rt_thread */
+            if (rtPriority > 0)
+            {
+                struct sched_param param;
+
+                param.sched_priority = rtPriority;
+                if (pthread_setschedparam(rt_thread_id, SCHED_FIFO, &param) != 0)
+                    CO_errExit("Program init - rt_thread set scheduler failed");
+            }
         }
 
-        /* Execute optional additional application code */
-        app_communicationReset();
-
-        /* start CAN */
+         /* start CAN */
         CO_CANsetNormalMode(CO->CANmodule[0]);
         pthread_mutex_unlock(&CO_CAN_VALID_mtx);
-
+            
+        /* Execute optional additional application code */
+        app_programStart(); 
+        
         reset = CO_RESET_NOT;
         // Create Statemachine Object -> will be loaded by taskmanager in end program.
 
-        printf("Canopend- running ...\n");
-        
+    
+        /* Execute optional additional application code */
+        app_communicationReset();
+            
         // Initialise the last time variable
         //gettimeofday(&last_tv,NULL);
         //struct timeval first_tv = last_tv;
-
+        
+        
+        printf("Canopend- running ...\n");
+        
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
             /* loop for normal program execution ******************************************/
@@ -410,7 +413,6 @@ int main(int argc, char *argv[])
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
-    printf("RT Thread \n");
     /* Endless loop */
     while (CO_endProgram == 0)
     {
@@ -448,7 +450,8 @@ static void *rt_thread(void *arg)
             /* Detect timer large overflow */
             if (OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal)
             {
-                CO_errorReport(CO->em, CO_EM_ISR_TIMER_OVERFLOW, CO_EMC_SOFTWARE_INTERNAL, 0x22400000L | OD_performance[ODA_performance_timerCycleMaxTime]);
+                //CO_errorReport(CO->em, CO_EM_ISR_TIMER_OVERFLOW, CO_EMC_SOFTWARE_INTERNAL, 0x22400000L | OD_performance[ODA_performance_timerCycleMaxTime]);
+                //printf("Timer large overflow \n");
             }
         }
 

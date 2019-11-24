@@ -28,6 +28,7 @@
 #include "stdio.h"
 #include <stdint.h>
 #include <sys/time.h>
+#include "serial.h"
 
 /*Non canopenNode + Socket libraries*/
 #include "Robot.h"
@@ -44,11 +45,14 @@ char ret[STRING_BUFFER_SIZE];
 
 Robot exo;
 sitStand sitStandMachine;
+//Serial * serialPort;
 
 /******************************************************************************/
 void app_programStart(void)
 {
     printf("app_Program Start \n");
+    //serialPort = new Serial(false);
+    
     sitStandMachine.initRobot(&exo);
     sitStandMachine.init();
     sitStandMachine.activate();
@@ -66,13 +70,22 @@ void app_programEnd(void)
 void app_programAsync(uint16_t timer1msDiffy)
 {
     //printf("App_programAsync \n");
+    //printf("Serial Send Success: %d \n", serialPort->SendChar('b'));
+    //char val[10];
+    //printf("Serial Read Success: %d \n",serialPort->Read(val));
+    //printf("app_program1ms \n");
+
+    if (sitStandMachine.running != 0){
+        sitStandMachine.hwStateUpdate();
+        sitStandMachine.update();
+    }
+
 }
 
 /******************************************************************************/
 void app_program1ms(void)
 {
-    sitStandMachine.hwStateUpdate();
-    sitStandMachine.update();
+
 }
 /******************************************************************************/
 void fileLogger()

@@ -17,7 +17,11 @@
 #define HIP_MOTOR_DEG1 (90)
 #define HIP_MOTOR_POS2 (0)
 #define HIP_MOTOR_DEG2 (180)
-
+//Ankle motor reading and corresponding angle. Used for mapping between degree and motor values.
+#define ANKLE_MOTOR_POS1 (0)
+#define ANKLE_MOTOR_DEG1 (90)
+#define ANKLE_MOTOR_POS2 (800000)
+#define ANKLE_MOTOR_DEG2 (115)
 
 const int STRING_LENGTH = 50;
 // For control word bitFlip functions
@@ -49,6 +53,17 @@ Joint::Joint(double q_init, int ID)
     cout << "Initializing joint WITH INPUTS \n";
     q = q_init;
     id = ID;
+    
+    if (this->id == LEFT_KNEE || this->id == RIGHT_KNEE){
+        maxq = KNEE_MOTOR_POS1*1.5;
+        minq = 0;
+    } else if  (this->id == LEFT_HIP || this->id == RIGHT_HIP){
+        maxq = KNEE_MOTOR_POS1*1.5;
+        minq = 0;
+    } else if (this->id == LEFT_ANKLE || this->id == RIGHT_ANKLE){
+        maxq = ANKLE_MOTOR_POS2;
+        minq = -ANKLE_MOTOR_POS2;
+    }
 }
 /*
 void Joint::setTrajectories(double leftHipTraj[], double rightHipTraj[], double leftKneeTraj[], double rightKneeTraj[], int numPoints)
@@ -130,7 +145,10 @@ void Joint::motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid)
     {
         calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
     }
-
+    if (nodeid == RIGHT_ANKLE || nodeid == LEFT_ANKLE)
+    {
+        calcAB(ANKLE_MOTOR_POS1, ANKLE_MOTOR_DEG1, ANKLE_MOTOR_POS2, ANKLE_MOTOR_DEG2, &A, &B);
+    }
     (*newMotorCmnd) = (long)(A * origDeg + B);
 }
 
@@ -146,6 +164,10 @@ double Joint::motorPosToDegConverter(long motorCmdAngle, int nodeid)
     if (nodeid == RIGHT_KNEE || nodeid == LEFT_KNEE)
     {
         calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
+    }
+    if (nodeid == RIGHT_ANKLE || nodeid == LEFT_ANKLE)
+    {
+        calcAB(ANKLE_MOTOR_POS1, ANKLE_MOTOR_DEG1, ANKLE_MOTOR_POS2, ANKLE_MOTOR_DEG2, &A, &B);
     }
 
     return (motorCmdAngle - B)/A;
@@ -167,7 +189,7 @@ void Joint::applyPosDeg(double qd)
     ///// Testing for PDOs
     long qd_long = 0;
     motorPosConverter(qd, &qd_long, this->id);
-    //printf("Joint ID: %d, %3f, %ld \n", this->id, qd,  qd_long);
+    printf("Joint ID: %d, %3f, %ld \n", this->id, qd,  qd_long);
     applyPos(qd_long);
 }
 
@@ -184,8 +206,7 @@ void Joint::applyPos(long qd)
     }
     else
     {
-        cout << "Positions outside of joint limits"
-             << "\n";
+        printf("Positions outside of joint limits, JID: %d, Pos: %d \n", this->id, qd);
     }
 }
 void Joint::setPos(long qd)
@@ -218,6 +239,96 @@ void Joint::setPos(long qd)
         CO_OD_RAM.targetMotorPositions.motor6 = qd;
     }
 }
+void Joint::disable()
+// TODO: 1. generalize to create .motor<motorID> dynamically
+{
+    // Set target motor position -> will send out to motors
+    if (this->id == 1)
+    {
+        CO_OD_RAM.controlWords.motor1 = 0;
+    }
+    else if (this->id == 2)
+    {
+        CO_OD_RAM.controlWords.motor2 = 0;
+    }
+    else if (this->id == 3)
+    {
+        CO_OD_RAM.controlWords.motor3 = 0;
+    }
+    else if (this->id == 4)
+    {
+        CO_OD_RAM.controlWords.motor4 = 0;
+    }
+    else if (this->id == 5)
+    {
+        CO_OD_RAM.controlWords.motor5 = 0;
+    }
+    else if (this->id == 6)
+    {
+        CO_OD_RAM.controlWords.motor6 = 0;
+    }
+}
+
+void Joint::readyToSwitchOn()
+// TODO: 1. generalize to create .motor<motorID> dynamically
+{
+    // Set target motor position -> will send out to motors
+    if (this->id == 1)
+    {
+        CO_OD_RAM.controlWords.motor1 = 6;
+    }
+    else if (this->id == 2)
+    {
+        CO_OD_RAM.controlWords.motor2 = 6;
+    }
+    else if (this->id == 3)
+    {
+        CO_OD_RAM.controlWords.motor3 = 6;
+    }
+    else if (this->id == 4)
+    {
+        CO_OD_RAM.controlWords.motor4 = 6;
+    }
+    else if (this->id == 5)
+    {
+        CO_OD_RAM.controlWords.motor5 = 6;
+    }
+    else if (this->id == 6)
+    {
+        CO_OD_RAM.controlWords.motor6 = 6;
+    }
+}
+
+void Joint::enable()
+// TODO: 1. generalize to create .motor<motorID> dynamically
+{
+    // Set target motor position -> will send out to motors
+    if (this->id == 1)
+    {
+        CO_OD_RAM.controlWords.motor1 = 15;  // 0x0F
+    }
+    else if (this->id == 2)
+    {
+        CO_OD_RAM.controlWords.motor2 = 15;
+    }
+    else if (this->id == 3)
+    {
+        CO_OD_RAM.controlWords.motor3 = 15;
+    }
+    else if (this->id == 4)
+    {
+        CO_OD_RAM.controlWords.motor4 = 15;
+    }
+    else if (this->id == 5)
+    {
+        CO_OD_RAM.controlWords.motor5 = 15;
+    }
+    else if (this->id == 6)
+    {
+        CO_OD_RAM.controlWords.motor6 = 15;
+    }
+}
+
 
 void Joint::applyVel(long dqd)
 {
@@ -267,10 +378,15 @@ void Joint::setId(int ID)
 {
     id = ID;
     
-    if (ID == LEFT_HIP || ID == RIGHT_HIP)
-    {
-        // TODO CHANGE THIS
+    if (this->id == LEFT_KNEE || this->id == RIGHT_KNEE){
+        maxq = KNEE_MOTOR_POS1*1.5;
+        minq = 0;
+    } else if  (this->id == LEFT_HIP || this->id == RIGHT_HIP){
+        maxq = KNEE_MOTOR_POS1*1.5;
         minq = -27870;
+    } else if (this->id == LEFT_ANKLE || this->id == RIGHT_ANKLE){
+        maxq = ANKLE_MOTOR_POS2;
+        minq = -ANKLE_MOTOR_POS2;
     }
 }
 int Joint::getId()
@@ -306,7 +422,7 @@ void Joint::updateJoint()
     /// Update current joint position from object dictionary
     /// This should be internally mapped from object dictionary
     // TODO: Construct obj dictionary entry message for this motor id
-    //CO_OD_RAM.actualMotorPositions.motor<id_goes_here>
+    //CO_OD_RAM.actualMotorPositions.motor<id_goes_here>    
     if (this->id == 1)
     {
         q = CO_OD_RAM.actualMotorPositions.motor1;
@@ -326,10 +442,13 @@ void Joint::updateJoint()
     else if (this->id == 5)
     {
         q = CO_OD_RAM.actualMotorPositions.motor5;
+        printf("update Joint 5 %2f, %d, ",  q, CO_OD_RAM.actualMotorPositions.motor5);
+
     }
     else if (this->id == 6)
     {
         q = CO_OD_RAM.actualMotorPositions.motor6;
+        printf("update Joint 6: %2f, %d\n", q, CO_OD_RAM.actualMotorPositions.motor6);
     }
 }
 /*
@@ -402,13 +521,12 @@ bool Joint::bitflipLow()
         }
         else if (this->id == 5)
         {
-            CO_OD_RAM.controlWords.motor4 = 47;
+            CO_OD_RAM.controlWords.motor5 = 47;
         }
         else if (this->id == 6)
         {
-            CO_OD_RAM.controlWords.motor4 = 47;
+            CO_OD_RAM.controlWords.motor6 = 47;
         }
-        
         bitFlipState = BITHIGH;
         return true;
     }
@@ -423,4 +541,33 @@ int Joint::getBitFlipState(){
 }
 void Joint::setBitFlipState(int bit){
     bitFlipState = bit;
+}
+
+int Joint::getStatus(){
+    int retVal = 0;
+     if (this->id == 1)
+    {
+        retVal = CO_OD_RAM.statusWords.motor1;
+    }
+    else if (this->id == 2)
+    {
+        retVal = CO_OD_RAM.statusWords.motor2;
+    }
+    else if (this->id == 3)
+    {
+        retVal = CO_OD_RAM.statusWords.motor3;
+    }
+    else if (this->id == 4)
+    {
+        retVal = CO_OD_RAM.statusWords.motor4;
+    }
+    else if (this->id == 5)
+    {
+        retVal = CO_OD_RAM.statusWords.motor5;
+    }
+    else if (this->id == 6)
+    {
+        retVal = CO_OD_RAM.statusWords.motor6;
+    }
+    return retVal;
 }

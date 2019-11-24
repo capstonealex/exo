@@ -49,6 +49,7 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
 
 SOURCESCPP = 	$(CANOPEND_SRC)/main.cpp            \
                 $(APP_SRC)/application.cpp          \
+				$(APP_SRC)/Serial.cpp          \
 				$(STATEMCH_SRC)/Transition.cpp      \
 				$(STATEMCH_SRC)/StateMachine.cpp    \
 				$(STATEMCH_SRC)/State.cpp	    \

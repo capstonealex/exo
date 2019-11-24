@@ -57,6 +57,10 @@ public:
     void applyPos(long qd);
     void applyPosDeg(double qd);
     void applyVel(long dqd);
+    
+    void disable();
+    void readyToSwitchOn();
+    void enable();
 
     int getPos();
     double getPosDeg();
@@ -71,6 +75,7 @@ public:
     bool bitflipLow();
     void incrementIndex();
     int getIndex();
+    int getStatus();
     void zeroIndex();
     int getBitFlipState();
     void setBitFlipState(int bit);
