@@ -76,6 +76,7 @@ public:
     void incrementIndex();
     int getIndex();
     int getStatus();
+    double getActualTorque();
     void zeroIndex();
     int getBitFlipState();
     void setBitFlipState(int bit);

@@ -960,5 +960,5 @@ void cancomm_socketFree(char* command, char* ret) {
     resp[respLen++] = '\n';
     resp[respLen++] = '\0';
     // Bug testing
-    printf("RESPONSE: %s\n", resp);
+    //printf("RESPONSE: %s\n", resp);
 }

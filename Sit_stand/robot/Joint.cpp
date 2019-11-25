@@ -189,7 +189,7 @@ void Joint::applyPosDeg(double qd)
     ///// Testing for PDOs
     long qd_long = 0;
     motorPosConverter(qd, &qd_long, this->id);
-    printf("Joint ID: %d, %3f, %ld \n", this->id, qd,  qd_long);
+    //printf("Joint ID: %d, %3f, %ld \n", this->id, qd,  qd_long);
     applyPos(qd_long);
 }
 
@@ -442,13 +442,13 @@ void Joint::updateJoint()
     else if (this->id == 5)
     {
         q = CO_OD_RAM.actualMotorPositions.motor5;
-        printf("update Joint 5 %2f, %d, ",  q, CO_OD_RAM.actualMotorPositions.motor5);
+        //printf("update Joint 5 %2f, %d, ",  q, CO_OD_RAM.actualMotorPositions.motor5);
 
     }
     else if (this->id == 6)
     {
         q = CO_OD_RAM.actualMotorPositions.motor6;
-        printf("update Joint 6: %2f, %d\n", q, CO_OD_RAM.actualMotorPositions.motor6);
+        //printf("update Joint 6: %2f, %d\n", q, CO_OD_RAM.actualMotorPositions.motor6);
     }
 }
 /*
@@ -568,6 +568,34 @@ int Joint::getStatus(){
     else if (this->id == 6)
     {
         retVal = CO_OD_RAM.statusWords.motor6;
+    }
+    return retVal;
+}
+double Joint::getActualTorque(){
+    double retVal = 0;
+     if (this->id == 1)
+    {
+        retVal = CO_OD_RAM.actualMotorTorques.motor1;
+    }
+    else if (this->id == 2)
+    {
+        retVal = CO_OD_RAM.actualMotorTorques.motor2;
+    }
+    else if (this->id == 3)
+    {
+        retVal = CO_OD_RAM.actualMotorTorques.motor3;
+    }
+    else if (this->id == 4)
+    {
+        retVal = CO_OD_RAM.actualMotorTorques.motor4;
+    }
+    else if (this->id == 5)
+    {
+        retVal = 0;
+    }
+    else if (this->id == 6)
+    {
+        retVal = 0;
     }
     return retVal;
 }

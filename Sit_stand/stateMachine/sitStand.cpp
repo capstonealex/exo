@@ -34,7 +34,7 @@
 //#define _NOANKLES
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 
-#define _TESTMODE
+//#define _TESTMODE
 
 
 /////////////////////////////////////////////////////////
@@ -519,7 +519,7 @@ void sitStand::init(void)
     printf("calibrating \n");
     if (calibrated == 0)
     {
-        if (robot->remapPDOAnkles())
+        if (robot->remapPDOAnkles() && robot->remapPDO())
         {
             printf("Motors PDO messages configured\n");
             calibrated = 1;
@@ -532,7 +532,7 @@ void sitStand::init(void)
     printf("position control \n");
     if (robot->positionControl == 0)
     {
-        if (robot->initPositionControlAnkles())
+        if (robot->initPositionControlAnkles() && robot->initPositionControl())
         {
             printf("drives finished position control configuration\n");
             robot->positionControl = 1;
@@ -990,7 +990,7 @@ void sitStand::hwStateUpdate(void)
         logfile << std::to_string(currtime);
         
         for (auto i = 0; i< NUM_JOINTS; i++){
-            logfile << "," +std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg());
+            logfile << "," +std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg())+ "," + std::to_string(robot->joints[i].getActualTorque());
             //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
         }
        // printf("%d, %3f, %3f,", robot->joints[5].getStatus(),  robot->joints[5].getPosDeg(), robot->joints[5].getDesPosDeg());
@@ -1047,7 +1047,7 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
 #ifndef _NOACTUATION
         //printf("Time: %3f \n", fracTrajProgress);
        // for (auto i = 0; i < NUM_JOINTS; i++){
-           int i = 5;
+           for (int i = 0; i<NUM_JOINTS; i++){
                 if(robot->joints[i].getBitFlipState() == NOFLIP){
                 // Send a new trajectory point
                 // Get Trajectory point for this joint based on current time
@@ -1061,7 +1061,7 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
                 else{
                     robot->joints[i].bitflipHigh();
                 }
-         //   }
+            }
 #endif
     } else{
         timeradd(&stationary_tv, &tv_diff, &tv_changed);
