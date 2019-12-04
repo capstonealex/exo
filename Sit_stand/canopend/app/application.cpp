@@ -29,6 +29,11 @@
 #include <stdint.h>
 #include <sys/time.h>
 #include "serial.h"
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <termios.h>
+#include <string.h>
 
 /*Non canopenNode + Socket libraries*/
 #include "Robot.h"
@@ -56,6 +61,8 @@ void app_programStart(void)
     sitStandMachine.initRobot(&exo);
     sitStandMachine.init();
     sitStandMachine.activate();
+    
+
 }
 /******************************************************************************/
 void app_communicationReset(void)

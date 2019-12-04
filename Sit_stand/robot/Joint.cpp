@@ -20,7 +20,7 @@
 //Ankle motor reading and corresponding angle. Used for mapping between degree and motor values.
 #define ANKLE_MOTOR_POS1 (0)
 #define ANKLE_MOTOR_DEG1 (90)
-#define ANKLE_MOTOR_POS2 (800000)
+#define ANKLE_MOTOR_POS2 (-800000)
 #define ANKLE_MOTOR_DEG2 (115)
 
 const int STRING_LENGTH = 50;
@@ -61,8 +61,8 @@ Joint::Joint(double q_init, int ID)
         maxq = KNEE_MOTOR_POS1*1.5;
         minq = 0;
     } else if (this->id == LEFT_ANKLE || this->id == RIGHT_ANKLE){
-        maxq = ANKLE_MOTOR_POS2;
-        minq = -ANKLE_MOTOR_POS2;
+        maxq = 800000;
+        minq = -800000;
     }
 }
 /*
@@ -206,7 +206,7 @@ void Joint::applyPos(long qd)
     }
     else
     {
-        printf("Positions outside of joint limits, JID: %d, Pos: %d \n", this->id, qd);
+        printf("Positions outside of joint limits, JID: %d, Pos: %d , %d, %d \n", this->id, qd, minq, maxq);
     }
 }
 void Joint::setPos(long qd)
@@ -385,8 +385,8 @@ void Joint::setId(int ID)
         maxq = KNEE_MOTOR_POS1*1.5;
         minq = -27870;
     } else if (this->id == LEFT_ANKLE || this->id == RIGHT_ANKLE){
-        maxq = ANKLE_MOTOR_POS2;
-        minq = -ANKLE_MOTOR_POS2;
+        maxq = 800000;
+        minq = -800000;
     }
 }
 int Joint::getId()
