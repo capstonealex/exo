@@ -31,7 +31,8 @@
 #include "Joint.h"
 
 //////////////// For testing  ///////////////////////////
-//#define _NOANKLES
+#define _NOANKLES
+
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 
 //#define _TESTMODE
@@ -59,10 +60,15 @@ static char *BUTTONBLUE = "P8_8";
 static char *BUTTONGREEN = "P8_9";
 static char *BUTTONYELLOW = "P8_10";*/
 
-static char *BUTTONRED = "P8_10";
+/*static char *BUTTONRED = "P8_10";
 static char *BUTTONBLUE = "P8_9";
 static char *BUTTONGREEN = "P8_7";
-static char *BUTTONYELLOW = "P8_8";
+static char *BUTTONYELLOW = "P8_8";*/
+
+static char *BUTTONRED = "P8_18";
+static char *BUTTONBLUE = "P8_17";
+static char *BUTTONGREEN = "P8_15";
+static char *BUTTONYELLOW = "P8_16";
 
 
 GPIO::GPIOManager *gp;
@@ -86,11 +92,11 @@ double fracTrajProgress = 0;
 int desiredIndex = 0;
 int running = 0;
 
-#define SITSTANDTIME 1.5
+#define SITSTANDTIME 2
 #define STEPTIME 2
 
 #define STANCE_END_KNEE 8
-#define SWING_END_KNEE 25
+#define SWING_END_KNEE 20
 
 #define STANCE_END_HIP 180
 #define SWING_END_HIP 150
@@ -104,7 +110,7 @@ int running = 0;
 
 #define STAND_KNEE_ANGLE 8
 #define STAND_HIP_ANGLE 170
-#define STAND_ANKLE_ANGLE 85
+#define STAND_ANKLE_ANGLE 95
 
 //Stationary Sitting Traj
 std::array<double, TRAJ_LENGTH> stationarySittingKneeTraj = {
@@ -130,7 +136,7 @@ std::array<double, TRAJ_LENGTH>  sittingHipTraj = {
         110,
         SIT_HIP_ANGLE};
 std::array<double, TRAJ_LENGTH>  sittingAnkleTraj = {
-        STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE,
+        STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
         SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
 
 
@@ -209,10 +215,10 @@ std::array<double, TRAJ_LENGTH> stanceKneeTraj = {
          };
 std::array<double, TRAJ_LENGTH> stanceHipTraj = {
         SWING_END_HIP,
+        155,
         160,
         170,
-        170,
-        180,
+        175,
         STANCE_END_HIP};
 std::array<double, TRAJ_LENGTH> stanceAnkleTraj = {
         SWING_END_ANKLE,
@@ -226,16 +232,16 @@ std::array<double, TRAJ_LENGTH> stanceAnkleTraj = {
 std::array<double, TRAJ_LENGTH> swingKneeTraj = {
         STANCE_END_KNEE,
         2,
-        40,
+        20,
         80,
-        90,
+        70,
         SWING_END_KNEE};
 std::array<double, TRAJ_LENGTH> swingHipTraj = {
         STANCE_END_HIP,
         180,
         180,
         140,
-        120,
+        110,
         SWING_END_HIP};  
 std::array<double, TRAJ_LENGTH> swingAnkleTraj = {
         STANCE_END_ANKLE,
@@ -519,7 +525,7 @@ void sitStand::init(void)
     printf("calibrating \n");
     if (calibrated == 0)
     {
-        if (robot->remapPDOAnkles() && robot->remapPDO())
+        if (robot->remapPDO())
         {
             printf("Motors PDO messages configured\n");
             calibrated = 1;
@@ -532,25 +538,17 @@ void sitStand::init(void)
     printf("position control \n");
     if (robot->positionControl == 0)
     {
-        if (robot->initPositionControlAnkles() && robot->initPositionControl())
+        if (robot->initPositionControl())
         {
             printf("drives finished position control configuration\n");
             robot->positionControl = 1;
         }
     }        
+    #ifndef _NOANKLES
+        robot->remapPDOAnkles();
+        robot->initPositionControlAnkles();
+    #endif    
         
-        
-    // Set up the logging file
-      time_t rawtime;
-      struct tm * timeinfo;
-
-      time (&rawtime);
-      timeinfo = localtime (&rawtime);
-
-      strftime (filename,80,"ALEXLOG_%Y%m%e_%H%M.csv",timeinfo);
-      printf("File Created: %s\n", filename);
-      
-      logfile.open (filename);
 
     /// Move to an initial sitting state at the start 
     bitFlipState = NOFLIP;
@@ -568,7 +566,7 @@ void sitStand::deactivate(void)
 }
 
 //////////////////////////////////////////////
-// State Methods ----------------------------------------------------------
+// State Classes ----------------------------------------------------------
 // Moving states
 // Positive bending control machine
 ////////////////////////////////////////////
@@ -581,6 +579,17 @@ void sitStand::InitState::entry(void)
     printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     OWNER->robot->resetTrackingError();
+    // Set up the logging file
+    time_t rawtime;
+    struct tm * timeinfo;
+
+    time (&rawtime);
+    timeinfo = localtime (&rawtime);
+
+    strftime (filename,80,"ALEXLOG_%Y%m%e_%H%M.csv",timeinfo);
+    printf("File Created: %s\n", filename);
+  
+    logfile.open (filename);
 }
 void sitStand::InitState::during(void)
 {
@@ -971,11 +980,13 @@ void sitStand::hwStateUpdate(void)
     int yellowbtn = gp->getValue(yellowPin);
     
     // Send buttons to statemachine variables
-    this->yButton = yellowbtn;
-    this->gButton = greenbtn;
-    this->bButton = bluebtn;
-    this->rButton = redbtn;
-    
+    this->yButton = !yellowbtn;
+    this->gButton = !greenbtn;
+    this->bButton = !bluebtn;
+    this->rButton = !redbtn;
+
+    printf("%d, %d, %d, %d \n", yellowbtn, greenbtn, bluebtn, redbtn);
+
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
@@ -1043,10 +1054,9 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot*), doub
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
 
+        //printf("Time: %3f \n", fracTrajProgress);
 
 #ifndef _NOACTUATION
-        //printf("Time: %3f \n", fracTrajProgress);
-       // for (auto i = 0; i < NUM_JOINTS; i++){
            for (int i = 0; i<NUM_JOINTS; i++){
                 if(robot->joints[i].getBitFlipState() == NOFLIP){
                 // Send a new trajectory point
