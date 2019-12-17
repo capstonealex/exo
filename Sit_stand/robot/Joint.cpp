@@ -106,6 +106,9 @@ int Joint::getIndex()
 /*Helper functions for motor deg to command conversion*/
 // TODO -> don't use this and only use trajectory function
 //Used to convert position array from degrees to motors counts as used in CANopen
+
+// input: trajactory - array of doubles; process: convert from degrees into motor position output: motor position 
+// this is used for a single joint object
 void Joint::motorPosArrayConverter(double origArr[], long newArr[], int arrSize, int nodeid)
 {
     double A = 0;
@@ -126,6 +129,10 @@ void Joint::motorPosArrayConverter(double origArr[], long newArr[], int arrSize,
         newArr[i] = solution;
     }
 }
+
+
+// input: single double in degree process: convert from degrees into motor position output: motor position 
+
 void Joint::motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid)
 {
     double A = 0;
@@ -142,6 +149,8 @@ void Joint::motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid)
 
     (*newMotorCmnd) = (long)(A * origDeg + B);
 }
+
+// reverse the method above: converting from motor position to degrees 
 
 double Joint::motorPosToDegConverter(long motorCmdAngle, int nodeid)
 {
@@ -168,6 +177,12 @@ void Joint::calcAB(long y1, long x1, long y2, long x2, double *A, double *B)
     *B = 1.0 * (y1 * x2 - y2 * x1) / (x2 - x1);
     // printf("B is %f\n", *B);
 }
+
+
+// takes an angle in degrees, converts it into motor position (qd > degrees, qd final degree in long format) 
+// convert from degrees to long and apply the long data type in applyPos method
+
+
 void Joint::applyPosDeg(double qd)
 {
     //Safety checks.
@@ -262,7 +277,7 @@ void Joint::setId(int ID)
     
     if (ID == LEFT_HIP || ID == RIGHT_HIP)
     {
-        // TODO CHANGE THIS
+        // TODO CHANGE THIS > to be included in a constructor 
         minq = -27870;
     }
 }
@@ -300,6 +315,9 @@ void Joint::updateJoint()
     /// This should be internally mapped from object dictionary
     // TODO: Construct obj dictionary entry message for this motor id
     //CO_OD_RAM.actualMotorPositions.motor<id_goes_here>
+    
+    // takes the id of the joint; ask the motor which position it is and; to assign that value (motor position) into q
+    
     if (this->id == 1)
     {
         q = CO_OD_RAM.actualMotorPositions.motor1;
@@ -321,6 +339,10 @@ void Joint::updateJoint()
  * bitflip High changes the specified control Word for this joints motor to HIGH
  * Returns true if successfull or false if not 
 */
+
+
+// TODO: hash define the ids and "63"s
+
 bool Joint::bitflipHigh()
 {
     //TODO: 1. Set up caseses for position, velocity and Torque controlWorkds
@@ -355,6 +377,10 @@ bool Joint::bitflipHigh()
  * bitflip Low changes the specified control Word for this joints motor to HIGH
  * Returns true if successfull or false if not 
 */
+
+
+// TODO: hash define the ids and "47"s
+
 bool Joint::bitflipLow()
 {
     //TODO: 1. Set up caseses for position, velocity and Torque controlWorkds
