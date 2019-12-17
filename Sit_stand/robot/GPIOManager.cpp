@@ -126,7 +126,7 @@ int GPIOManager::setDirection(unsigned int gpio, DIRECTION direction) {
   if (direction == OUTPUT) {
     stream << "out";
   } else {
-    stream << "in-";
+    stream << "in+";
   }
 
   stream.close();

@@ -60,15 +60,15 @@ static char *BUTTONBLUE = "P8_8";
 static char *BUTTONGREEN = "P8_9";
 static char *BUTTONYELLOW = "P8_10";*/
 
-/*static char *BUTTONRED = "P8_10";
+static char *BUTTONRED = "P8_10";
 static char *BUTTONBLUE = "P8_9";
 static char *BUTTONGREEN = "P8_7";
-static char *BUTTONYELLOW = "P8_8";*/
+static char *BUTTONYELLOW = "P8_8";
 
-static char *BUTTONRED = "P8_18";
+/*static char *BUTTONRED = "P8_18";
 static char *BUTTONBLUE = "P8_17";
 static char *BUTTONGREEN = "P8_15";
-static char *BUTTONYELLOW = "P8_16";
+static char *BUTTONYELLOW = "P8_16";*/
 
 
 GPIO::GPIOManager *gp;
@@ -980,19 +980,20 @@ void sitStand::hwStateUpdate(void)
     int yellowbtn = gp->getValue(yellowPin);
     
     // Send buttons to statemachine variables
-    this->yButton = !yellowbtn;
-    this->gButton = !greenbtn;
-    this->bButton = !bluebtn;
-    this->rButton = !redbtn;
+    this->yButton = yellowbtn;
+    this->gButton = greenbtn;
+    this->bButton = bluebtn;
+    this->rButton = redbtn;
 
-    printf("%d, %d, %d, %d \n", yellowbtn, greenbtn, bluebtn, redbtn);
+    //printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
 
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
     // robot->printInfo();
     // robot->printTrajectories();
-    
+    printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
+    //printf(std::to_string(robot->joints[2].getActualTorque()));
     // Log to file    
     if (mark%5==1){
         struct timeval tv;
@@ -1004,7 +1005,9 @@ void sitStand::hwStateUpdate(void)
             logfile << "," +std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg())+ "," + std::to_string(robot->joints[i].getActualTorque());
             //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
         }
-       // printf("%d, %3f, %3f,", robot->joints[5].getStatus(),  robot->joints[5].getPosDeg(), robot->joints[5].getDesPosDeg());
+        //printf("%d, %d, %3f, %3f \n", robot->joints[2].getStatus(),  robot->joints[4].getStatus(), robot->joints[2].getActualTorque(), robot->joints[4].getActualTorque());
+
+        //printf("%d, %3f, %3f,", robot->joints[5].getStatus(),  robot->joints[5].getPosDeg(), robot->joints[5].getDesPosDeg());
         //printf("\n");
         logfile << "\n";
     }
