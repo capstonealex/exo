@@ -1,0 +1,85 @@
+# cmake_minimum_required(VERSION <specify CMake version here>)
+project(Sit_stand)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(canopend/app)
+include_directories(canopend/objDict)
+include_directories(canopend/src)
+include_directories(CANopenNode)
+include_directories(CANopenNode/stack)
+include_directories(CANopenNode/stack/socketCAN)
+include_directories(robot)
+include_directories(stateMachine)
+
+add_executable(Sit_stand
+        canopencgi/CANopenCGI.c
+        canopencomm/CANopenCommand.c
+        canopend/app/application.cpp
+        canopend/app/application.h
+        canopend/app/Serial.cpp
+        canopend/app/Serial.h
+        canopend/objDict/CO_OD.c
+        canopend/objDict/CO_OD.h
+        canopend/objDict/CO_ODorig.c
+        canopend/objDict/CO_ODorig.h
+        canopend/objDict/CO_ODtest.c
+        canopend/objDict/CO_ODtest.h
+        canopend/src/CO_comm_helpers.c
+        canopend/src/CO_comm_helpers.h
+        canopend/src/CO_command.c
+        canopend/src/CO_command.h
+        canopend/src/CO_master.c
+        canopend/src/CO_master.h
+        canopend/src/CO_time.c
+        canopend/src/CO_time.h
+        canopend/src/main.cpp
+        canopend/src/pinread.cpp
+        canopend/Makefile
+        CANopenNode/stack/socketCAN/CO_driver.c
+        CANopenNode/stack/socketCAN/CO_driver.h
+        CANopenNode/stack/socketCAN/CO_Linux_tasks.c
+        CANopenNode/stack/socketCAN/CO_Linux_tasks.h
+        CANopenNode/stack/socketCAN/CO_OD_storage.c
+        CANopenNode/stack/socketCAN/CO_OD_storage.h
+        CANopenNode/stack/CO_Emergency.c
+        CANopenNode/stack/CO_Emergency.h
+        CANopenNode/stack/CO_HBconsumer.c
+        CANopenNode/stack/CO_HBconsumer.h
+        CANopenNode/stack/CO_NMT_Heartbeat.c
+        CANopenNode/stack/CO_NMT_Heartbeat.h
+        CANopenNode/stack/CO_PDO.c
+        CANopenNode/stack/CO_PDO.h
+        CANopenNode/stack/CO_SDO.c
+        CANopenNode/stack/CO_SDO.h
+        CANopenNode/stack/CO_SDOmaster.c
+        CANopenNode/stack/CO_SDOmaster.h
+        CANopenNode/stack/CO_SYNC.c
+        CANopenNode/stack/CO_SYNC.h
+        CANopenNode/stack/CO_trace.c
+        CANopenNode/stack/CO_trace.h
+        CANopenNode/stack/crc16-ccitt.c
+        CANopenNode/stack/crc16-ccitt.h
+        CANopenNode/CANopen.c
+        CANopenNode/CANopen.h
+        robot/GPIOConst.cpp
+        robot/GPIOConst.h
+        robot/GPIOManager.cpp
+        robot/GPIOManager.h
+        robot/Joint.cpp
+        robot/Joint.h
+        robot/Robot.cpp
+        robot/Robot.h
+        stateMachine/bendTest.cpp
+        stateMachine/bendTest.h
+        stateMachine/Event.cpp
+        stateMachine/Event.h
+        stateMachine/sitStand.cpp
+        stateMachine/sitStand.h
+        stateMachine/State.cpp
+        stateMachine/State.h
+        stateMachine/StateMachine.cpp
+        stateMachine/StateMachine.h
+        stateMachine/TrajectoryGenerator.cpp
+        stateMachine/Transition.cpp
+        stateMachine/Transition.h)

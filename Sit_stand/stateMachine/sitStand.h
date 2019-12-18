@@ -15,6 +15,7 @@ double getDegPos(int jointInd, int desiredIndex, Robot *rob);
 class sitStand : public StateMachine
 {
 public:
+    int running = 0;
     sitStand(void);
     void init(void);
     void activate(void);
@@ -34,7 +35,8 @@ private:
     EventObject(IsRPressed) * isRPressed;
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
-
+    EventObject(DummyTrue) * dummyTrue;
+    
     // states
     StateObject(InitState) * initState;
     StateObject(SittingDwn) * sittingDwn;
@@ -47,11 +49,12 @@ private:
     StateObject(RightForward) * rightForward;
     StateObject(SteppingLeft) * steppingLeft;
     StateObject(SteppingLastRight) * steppingLastRight;
+    StateObject(SteppingLastLeft) * steppingLastLeft;
     
     StateObject(ErrorState) * errorState;
 
     // data
-    double mark;
+    int mark;
     int calibrated;
     int gButton;
     int yButton;

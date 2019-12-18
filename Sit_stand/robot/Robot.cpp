@@ -17,7 +17,7 @@ Robot::Robot()
     // Set joint Intial positions.
     
     // // Set joint Intial positions to 0, Set joint IDs, Populate joint Trajectories
-    for (auto i = 0; i < 4; i++)
+    for (auto i = 0; i < 6; i++)
     {
         joints[i].applyPos(0);
         joints[i].setId(i + 1);
@@ -26,12 +26,12 @@ Robot::Robot()
 void Robot::printInfo()
 {
     cout << "This is an X2 robot with: \n";
-    for (auto i = 0; i < 4; i++)
+    for (auto i = 0; i < 6; i++)
     {
         joints[i].printInfo();
     }
 }
-void Robot::printTrajectories()
+/*void Robot::printTrajectories()
 {
     for (auto i = 0; i < 4; i++)
     {
@@ -47,11 +47,11 @@ void Robot::jointIncrement()
         current = current + 1;
         joints[i].applyPos(current);
     }
-}
+}*/
 // Update all of this robots software joint positions from object dictionary
 void Robot::updateJoints()
 {
-    for (auto i = 0; i < 4; i++)
+    for (auto i = 0; i < 6; i++)
     {
         joints[i].updateJoint();
     }
@@ -62,7 +62,7 @@ bool Robot::sdoMSG(void)
     char SDO_Message[CANMESSAGELENGTH];
     strcpy(SDO_Message, "[1] 100 read 0x1017 0 i16");
     cancomm_socketFree(SDO_Message, returnMessage);
-    printf("HEart beat read!\n");
+    printf("Heart beat read!\n");
     return true;
 }
 bool Robot::homeCalibration(void)
@@ -115,6 +115,7 @@ bool Robot::homeCalibration(void)
     {
         cancomm_socketFree(SDO_MessageList[i], returnMessage);
     }
+    
     sleep(5);
     // TODO: Change sleep to check that we reached home
     printf("Home motion complete\n");
@@ -175,10 +176,10 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6060 0 i8 1",
         "[1] 3 write 0x6060 0 i8 1",
         "[1] 4 write 0x6060 0 i8 1",
-        "[1] 2 write 0x6081 0 i32 4000000",
-        "[1] 1 write 0x6081 0 i32 4000000",
-        "[1] 3 write 0x6081 0 i32 4000000",
-        "[1] 4 write 0x6081 0 i32 4000000",
+        "[1] 2 write 0x6081 0 i32 2000000",
+        "[1] 1 write 0x6081 0 i32 2000000",
+        "[1] 3 write 0x6081 0 i32 2000000",
+        "[1] 4 write 0x6081 0 i32 2000000",
         "[1] 2 write 0x6083 0 i32 100000",
         "[1] 1 write 0x6083 0 i32 100000",
         "[1] 3 write 0x6083 0 i32 100000",
@@ -187,6 +188,33 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6084 0 i32 100000",
         "[1] 3 write 0x6084 0 i32 100000",
         "[1] 4 write 0x6084 0 i32 100000"};
+    int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
+    for (int i = 0; i < num_of_Messages; ++i)
+    {
+        cancomm_socketFree(SDO_MessageList[i], returnMessage);
+    }
+    printf("Motors configured for position control\n");
+    return true;
+}
+bool Robot::initPositionControlAnkles(void)
+{
+    char *returnMessage;
+    char SDO_MessageList[][CANMESSAGELENGTH] = {
+        "[1] 5 start",
+        "[1] 6 start",
+        "[1] 5 write 0x6060 0 i8 1",
+        "[1] 6 write 0x6060 0 i8 1",
+        "[1] 5 write 0x6081 0 i32 300000",
+        "[1] 6 write 0x6081 0 i32 300000",
+        "[1] 5 write 0x6083 0 i32 10000000",
+        "[1] 6 write 0x6083 0 i32 10000000",
+        "[1] 5 write 0x6084 0 i32 10000000",
+        "[1] 6 write 0x6084 0 i32 10000000",
+        "[1] 5 write 0x6040 0 i16 6",
+        "[1] 5 write 0x6040 0 i16 15",
+        "[1] 6 write 0x6040 0 i16 6",
+        "[1] 6 write 0x6040 0 i16 15",
+        };
     int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
     for (int i = 0; i < num_of_Messages; ++i)
     {
@@ -333,9 +361,74 @@ bool Robot::remapPDO(void)
         "[1] 3 write 0x6040 0 i16 0",
         "[1] 4 write 0x6040 0 i16 0"};
     int num_of_Messages = sizeof(PDO_MessageList) / sizeof(PDO_MessageList[0]);
-    //    printf("Num of messages: %d\n", num_of_Messages);
     for (int i = 0; i < num_of_Messages; ++i)
     {
+        cancomm_socketFree(PDO_MessageList[i], returnMessage);
+    }
+    return true;
+}
+
+
+bool Robot::remapPDOAnkles(void)
+{
+    char *returnMessage;
+    char PDO_MessageList[][CANMESSAGELENGTH] = {
+        "[1] 5 write 0x1801 1 u32 0x80000285",
+        "[1] 5 write 0x1A01 0 u8 0",
+        "[1] 5 write 0x1801 2 u8 1",
+        "[1] 5 write 0x1A01 1 u32 0x60640020",
+        "[1] 5 write 0x1A01 2 u32 0x606C0020",
+        "[1] 5 write 0x1A01 0 u8 2",
+        "[1] 5 write 0x1801 1 u32 0x285",	
+        "[1] 5 write 0x1800 1 u32 0x80000185",
+        "[1] 5 write 0x1A00 0 u8 0",
+        "[1] 5 write 0x1800 2 u8 0xFF",
+        "[1] 5 write 0x1A00 1 u32 0x60410010",
+        "[1] 5 write 0x1A00 0 u8 1",
+        "[1] 5 write 0x1800 1 u32 0x185",
+        "[1] 5 write 0x1401 1 u32 0x80000305",
+        "[1] 5 write 0x1601 0 u8 0",
+        "[1] 5 write 0x1401 2 u8 0xFF",
+        "[1] 5 write 0x1601 1 u32 0x607A0020",
+        "[1] 5 write 0x1601 0 u8 1",
+        "[1] 5 write 0x1401 1 u32 0x305",
+        "[1] 5 write 0x1402 1 u32 0x80000405",
+        "[1] 5 write 0x1602 0 u8 0",
+        "[1] 5 write 0x1402 2 u8 0xFF",
+        "[1] 5 write 0x1602 1 u32 0x60FF0020",
+        "[1] 5 write 0x1602 0 u8 1",
+        "[1] 5 write 0x1402 1 u32 0x405",
+        "[1] 5 start",
+        "[1] 6 write 0x1801 1 u32 0x80000286",
+        "[1] 6 write 0x1A01 0 u8 0",
+        "[1] 6 write 0x1801 2 u8 1",
+        "[1] 6 write 0x1A01 1 u32 0x60640020",
+        "[1] 6 write 0x1A01 2 u32 0x606C0020",
+        "[1] 6 write 0x1A01 0 u8 2",
+        "[1] 6 write 0x1801 1 u32 0x286",	
+        "[1] 6 write 0x1800 1 u32 0x80000186",
+        "[1] 6 write 0x1A00 0 u8 0",
+        "[1] 6 write 0x1800 2 u8 0xFF",
+        "[1] 6 write 0x1A00 1 u32 0x60410010",
+        "[1] 6 write 0x1A00 0 u8 1",
+        "[1] 6 write 0x1800 1 u32 0x186",
+        "[1] 6 write 0x1401 1 u32 0x80000306",
+        "[1] 6 write 0x1601 0 u8 0",
+        "[1] 6 write 0x1401 2 u8 0xFF",
+        "[1] 6 write 0x1601 1 u32 0x607A0020",
+        "[1] 6 write 0x1601 0 u8 1",
+        "[1] 6 write 0x1401 1 u32 0x306",
+        "[1] 6 write 0x1402 1 u32 0x80000406",
+        "[1] 6 write 0x1602 0 u8 0",
+        "[1] 6 write 0x1402 2 u8 0xFF",
+        "[1] 6 write 0x1602 1 u32 0x60FF0020",
+        "[1] 6 write 0x1602 0 u8 1",
+        "[1] 6 write 0x1402 1 u32 0x406",
+        "[1] 6 start"};
+    int num_of_Messages = sizeof(PDO_MessageList) / sizeof(PDO_MessageList[0]);
+    for (int i = 0; i < num_of_Messages; ++i)
+    {
+        //printf("%s     ", PDO_MessageList[i]);
         cancomm_socketFree(PDO_MessageList[i], returnMessage);
     }
     return true;
@@ -349,7 +442,9 @@ bool Robot::preop(void)
         "[1] 1 preop",
         "[1] 2 preop",
         "[1] 3 preop",
-        "[1] 4 preop"};
+        "[1] 4 preop",
+        "[1] 5 preop",
+        "[1] 6 preop"};
     int num_of_Messages = sizeof(PDO_MessageList) / sizeof(PDO_MessageList[0]);
     //    printf("Num of messages: %d\n", num_of_Messages);
     for (int i = 0; i < num_of_Messages; ++i)
@@ -374,5 +469,4 @@ bool Robot::resetTrackingError(void)
         cancomm_socketFree(PDO_MessageList[i], returnMessage);
     }
     return true;
-
 }

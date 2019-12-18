@@ -13,6 +13,17 @@
 #include <sys/un.h>
 #include <sys/socket.h>
 
+
+//Node ID for the 4 joints
+
+#define LEFT_HIP 1
+#define LEFT_KNEE 2
+#define RIGHT_HIP 3
+#define RIGHT_KNEE 4
+#define LEFT_ANKLE 5
+#define RIGHT_ANKLE 6
+
+
 using namespace std;
 
 class Joint
@@ -46,6 +57,10 @@ public:
     void applyPos(long qd);
     void applyPosDeg(double qd);
     void applyVel(long dqd);
+    
+    void disable();
+    void readyToSwitchOn();
+    void enable();
 
     int getPos();
     double getPosDeg();
@@ -53,21 +68,21 @@ public:
     
     void printInfo();
     void updateJoint();
-    void setTrajectories(double leftHipTraj[], double rightHipTraj[], double leftKneeTraj[], double rightKneeTraj[], int numPoints);
-    //void setFirstLeftTrajectories();
-    void testWrite();
+ //   void setTrajectories(double leftHipTraj[], double rightHipTraj[], double leftKneeTraj[], double rightKneeTraj[], int numPoints);
+//     void getTrajectorie();
+   void testWrite();
     bool bitflipHigh();
     bool bitflipLow();
     void incrementIndex();
     int getIndex();
+    int getStatus();
+    double getActualTorque();
     void zeroIndex();
-    void getTrajectorie();
     int getBitFlipState();
     void setBitFlipState(int bit);
 
     // Make two arrays for coresponding motor commands for trajectorues
     long trajectories[4];
-//    long negTrajectories[NUM_TRAJ_POINTS];
 };
 
 #endif //CAPSTONE_JOINT_H

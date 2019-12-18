@@ -83,6 +83,8 @@
       <File Name="../canopend/objDict/CO_OD.c"/>
     </VirtualDirectory>
     <VirtualDirectory Name="app">
+      <File Name="../canopend/app/Serial.h"/>
+      <File Name="../canopend/app/Serial.cpp"/>
       <File Name="../canopend/app/application.h"/>
       <File Name="../canopend/app/application.cpp"/>
     </VirtualDirectory>
