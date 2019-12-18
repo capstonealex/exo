@@ -42,24 +42,24 @@
 //header files for the implementing logging using spdlog techniques.
 #include <iostream>
 #include <string.h>
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/basic_file_sink.h"
+//#include <spdlog/spdlog.h>
+//#include <spdlog/sinks/basic_file_sink.h>
 
 //// Data logger helper functions
-void fileLoggerBinary();
-void fileLogHeader();
-void fileLogger();
-void strreverse(char *begin, char *end);
-void itoa(int value, char *str, int base);
+//void fileLoggerBinary();
+//void fileLogHeader();
+//void fileLogger();
+//void strreverse(char *begin, char *end);
+//void itoa(int value, char *str, int base);
 
 
 /* File has been modified by Mihai Blaga on 24/10 to implement more robust
  * logging through the implementation of spdlog.
  */
-auto* createLogger(std::string logID, std::string fileLocation);
+/*auto* createLogger(std::string logID, std::string fileLocation);
 //Path to the file in which all of the log files are stored.
 const std::string logFolder = "\logs\";
-
+*/
 
 /*For master-> node SDO message sending*/
 #define CO_COMMAND_SDO_BUFFER_SIZE 100000
@@ -126,36 +126,35 @@ void app_programAsync(uint16_t timer1msDiffy)
     //elapsed_ms += (stop.tv_usec - start.tv_usec) / 1000.0;
     //printf("TASK 1:  %.2f milliseconds\n", elapsed_ms);
     }
+//setting the style of the logger to only hold the data without any extra information.
+/*void setLoggerStyle(spdlog::logger logger){
+    logger->set_pattern("%v");
+
+}*/
 
     /******************************************************************************/
     //creating a logger at a designated fileLocation.
-    auto* createLogger(std::string logID, std::string fileLocation){
-	try{
-	 	auto logger = spdlog::basic_logger_mt(logID, fileLocation);
-		setLoggerStyle(logger);
-		return logger;
-	} catch (const spdlog::spdlog_ex& ex){
-		std::cout << "Failed to create log: " << ex.what() << std::endl;
-		return;
-	}
+/*    spdlog::logger createLogger(std::string logID, std::string fileLocation) {
+        try {
+            auto logger = spdlog::basic_logger_mt(logID, fileLocation);
+            setLoggerStyle(logger);
+            return logger;
+        } catch (const spdlog::spdlog_ex &ex) {
+            std::cout << "Failed to create log: " << ex.what() << std::endl;
+        }
+    }
     
-    
-    //setting the style of the logger to only hold the data without any extra information.
-    void setLoggerStyle(auto* logger){
-	logger->set_pattern("%v");
-
-}
-
+*/
 /******************************************************************************/
 void app_program1ms(void)
 {
-	mainLogger = createLogger("parent", logFolder + "X2_log.txt");
-	spd::set_default_logger(mainLogger);
+	//auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
+	//spdlog::set_default_logger(mainLogger);
 	
-	fileLoggerBinary(mainLogger);
+	//fileLoggerBinary(mainLogger);
 }
 /******************************************************************************/
-void itoa(int value, char *str, int base)
+/*void itoa(int value, char *str, int base)
 {
     static char num[] = "0123456789abcdefghijklmnopqrstuvwxyz";
     char *wstr = str;
@@ -178,16 +177,16 @@ void itoa(int value, char *str, int base)
     *wstr = '\0';
     // Reverse string
     strreverse(str, wstr - 1);
-}
+}*/
 /******************************************************************************/
-void strreverse(char *begin, char *end)
+/*void strreverse(char *begin, char *end)
 {
     char aux;
     while (end > begin)
         aux = *end, *end-- = *begin, *begin++ = aux;
-}
+}*/
 /******************************************************************************/
-void fileLogger(auto* logger){
+/*void fileLogger(auto* logger){
     //printf("fileLogger beggining\n");
 	
     // Generate whatever you want logged here, "data" is just an example
@@ -220,7 +219,7 @@ void fileLogger(auto* logger){
 	motorTor[0] = CO_OD_RAM.statusWords.motor1;
 	motorTor[1] = CO_OD_RAM.statusWords.motor2;
 	motorTor[2] = CO_OD_RAM.statusWords.motor3;
-	motorTor[3] = CO_OD_RAM.statusWords.motor4;
+	motorTor[3] = CO_OD_RAM.statusWords.motor4;*/
 	
 	/* Motor 1: Left Hip
 	 * Motor 2: Left Knee
@@ -228,7 +227,7 @@ void fileLogger(auto* logger){
 	 * Motor 4: Right Knee
 	 */
 	
-	std::stringstream output;
+/*	std::stringstream output;
 	
 	for (int i = 0; i<4; i++){
 		itoa(motorpos[i], position, 10);
@@ -244,7 +243,7 @@ void fileLogger(auto* logger){
 }
 void fileLogHeader(auto* logger){
    	mainLogger = createLogger("parent", logFolder + "X2_log.txt");
-	spd::set_default_logger(mainLogger);
+	spdlog::set_default_logger(mainLogger);
 	
 	std::stringstream header;
 	
@@ -258,14 +257,14 @@ void fileLogHeader(auto* logger){
 
 void fileLoggerBinary(auto* logger){
     	mainLogger = createLogger("parent", logFolder + "parent.txt");
-	spd::set_default_logger(mainLogger);
+	spdlog::set_default_logger(mainLogger);
 
     	struct timeval tv;
     	gettimeofday(&tv,NULL);
 
 	uint32_t motorpos[4];
 	uint16_t motorTor[4];
-	
+
 	motorpos[0] = CO_OD_RAM.actualMotorPositions.motor1;
 	motorpos[1] = CO_OD_RAM.actualMotorPositions.motor2;
 	motorpos[2] = CO_OD_RAM.actualMotorPositions.motor3;
@@ -287,5 +286,5 @@ void fileLoggerBinary(auto* logger){
 		mainLogger->info("{}", &motorTor[i]);
 	}
 }
-
+*/
 
