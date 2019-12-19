@@ -1,3 +1,0 @@
-/cygdrive/c/GitHub_Alex/exo/Sit_stand/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/cygdrive/c/GitHub_Alex/exo/Sit_stand/cmake-build-debug/CMakeFiles/Sit_stand.dir
-/cygdrive/c/GitHub_Alex/exo/Sit_stand/cmake-build-debug/CMakeFiles/edit_cache.dir
