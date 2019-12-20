@@ -25,6 +25,7 @@ Robot::Robot()
 };
 void Robot::printInfo()
 {
+	printf("test Comment \n");
     cout << "This is an X2 robot with: \n";
     for (auto i = 0; i < 6; i++)
     {
@@ -48,6 +49,8 @@ void Robot::jointIncrement()
         joints[i].applyPos(current);
     }
 }*/
+
+
 // Update all of this robots software joint positions from object dictionary
 void Robot::updateJoints()
 {
