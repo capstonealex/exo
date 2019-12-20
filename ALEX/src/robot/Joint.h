@@ -41,7 +41,6 @@ class Joint
     void motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid);
     double motorPosToDegConverter(long motorCmdAngle, int nodeid);
     void calcAB(long y1, long x1, long y2, long x2, double *A, double *B);
-    int arrayIndex;
     int bitFlipState;
     // TODO: Add other vars after initial test implimentation up and running
     // qd, qdd,T, mode. limts, Transformation, Reduction Ratio(CONST)
@@ -73,11 +72,8 @@ public:
    void testWrite();
     bool bitflipHigh();
     bool bitflipLow();
-    void incrementIndex();
-    int getIndex();
     int getStatus();
     double getActualTorque();
-    void zeroIndex();
     int getBitFlipState();
     void setBitFlipState(int bit);
 

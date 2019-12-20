@@ -43,8 +43,6 @@ Joint::Joint()
     maxdq = 2000000;
     mindq = 0;
     
-    // set position arrayIndex to 0;
-    arrayIndex = 0;
     bitFlipState = NOFLIP;
 }
 
@@ -97,18 +95,6 @@ void Joint::getTrajectorie()
     }
 }
  * */
-void Joint::incrementIndex()
-{
-    arrayIndex++;
-}
-void Joint::zeroIndex()
-{
-    arrayIndex = 0;
-}
-int Joint::getIndex()
-{
-    return arrayIndex;
-}
 /*Helper functions for motor deg to command conversion*/
 // TODO -> don't use this and only use trajectory function
 //Used to convert position array from degrees to motors counts as used in CANopen

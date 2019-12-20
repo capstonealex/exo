@@ -25,7 +25,6 @@ Robot::Robot()
 };
 void Robot::printInfo()
 {
-	printf("test Comment \n");
     cout << "This is an X2 robot with: \n";
     for (auto i = 0; i < 6; i++)
     {
