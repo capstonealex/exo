@@ -62,6 +62,15 @@ Joint::Joint(double q_init, int ID)
         maxq = 800000;
         minq = -800000;
     }
+	
+	// Calculates conversion coefficients
+	if (id == RIGHT_HIP || id == LEFT_HIP) {
+        calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &converterA, &converterB);
+    } else if (id == RIGHT_KNEE || id == LEFT_KNEE) {
+        calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &converterA, &converterB);
+    } else if (id == RIGHT_ANKLE || id == LEFT_ANKLE) {
+		calcAB(ANKLE_MOTOR_POS1, ANKLE_MOTOR_DEG1,ANKLE_MOTOR_POS2, ANKLE_MOTOR_DEG2, &converterA, &converterB);
+	}
 }
 /*
 void Joint::setTrajectories(double leftHipTraj[], double rightHipTraj[], double leftKneeTraj[], double rightKneeTraj[], int numPoints)
@@ -98,68 +107,27 @@ void Joint::getTrajectorie()
 /*Helper functions for motor deg to command conversion*/
 // TODO -> don't use this and only use trajectory function
 //Used to convert position array from degrees to motors counts as used in CANopen
-void Joint::motorPosArrayConverter(double origArr[], long newArr[], int arrSize, int nodeid)
+void Joint::motorPosArrayConverter(double origArr[], long newArr[], int arrSize)
 {
-    double A = 0;
-    double B = 0;
-
-    if (nodeid == RIGHT_HIP || nodeid == LEFT_HIP)
-    {
-        calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
-    }
-
-    if (nodeid == RIGHT_KNEE || nodeid == LEFT_KNEE)
-    {
-        calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
-    }
     for (int i = 0; i < arrSize; i++)
     {
-        long solution = lround(origArr[i] * A + B);
-        newArr[i] = solution;
+        newArr[i] = motorPosConverter(origArr[i]);
     }
 }
-void Joint::motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid)
+// Converts an angle in degrees into a motor position
+long Joint::motorPosConverter(double origDeg)
 {
-    double A = 0;
-    double B = 0;
-
-    if (nodeid == RIGHT_HIP || nodeid == LEFT_HIP)
-    {
-        calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
-    }
-    if (nodeid == RIGHT_KNEE || nodeid == LEFT_KNEE)
-    {
-        calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
-    }
-    if (nodeid == RIGHT_ANKLE || nodeid == LEFT_ANKLE)
-    {
-        calcAB(ANKLE_MOTOR_POS1, ANKLE_MOTOR_DEG1, ANKLE_MOTOR_POS2, ANKLE_MOTOR_DEG2, &A, &B);
-    }
-    (*newMotorCmnd) = (long)(A * origDeg + B);
+    return (long)(converterA * origDeg + converterB);
 }
 
-double Joint::motorPosToDegConverter(long motorCmdAngle, int nodeid)
+// Converts a motor position into degrees
+double Joint::motorPosToDegConverter(long motorCmdAngle)
 {
-    double A = 0;
-    double B = 0;
-
-    if (nodeid == RIGHT_HIP || nodeid == LEFT_HIP)
-    {
-        calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
-    }
-    if (nodeid == RIGHT_KNEE || nodeid == LEFT_KNEE)
-    {
-        calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
-    }
-    if (nodeid == RIGHT_ANKLE || nodeid == LEFT_ANKLE)
-    {
-        calcAB(ANKLE_MOTOR_POS1, ANKLE_MOTOR_DEG1, ANKLE_MOTOR_POS2, ANKLE_MOTOR_DEG2, &A, &B);
-    }
-
-    return (motorCmdAngle - B)/A;
+    return (motorCmdAngle - converterB)/converterA;
 }
 
-//calculate A and B in the formula y=Ax+B. Use by motorPosArrayConverter()
+// Calculate A and B in the formula y=Ax+B. Used by motorPosArrayConverter(),
+// motorPosConverter() and motorPosToDegConverter()
 void Joint::calcAB(long y1, long x1, long y2, long x2, double *A, double *B)
 {
     *A = 1.0 * (y2 - y1) / (x2 - x1);
@@ -173,8 +141,7 @@ void Joint::applyPosDeg(double qd)
     // Is joint where we think it is? or within safe range of it?
     // are we trying to move to a pos within the joints limits?
     ///// Testing for PDOs
-    long qd_long = 0;
-    motorPosConverter(qd, &qd_long, this->id);
+    long qd_long = motorPosConverter(qd);
     //printf("Joint ID: %d, %3f, %ld \n", this->id, qd,  qd_long);
     applyPos(qd_long);
 }
@@ -387,14 +354,14 @@ int Joint::getPos()
 double Joint::getPosDeg()
 {
     // Convert q to degrees
-    double qdeg = motorPosToDegConverter(q, this->id);
+    double qdeg = motorPosToDegConverter(q);
     return qdeg;
 }
 
 double Joint::getDesPosDeg()
 {
     // Convert q to degrees
-    double qddeg = motorPosToDegConverter(qd, this->id);
+    double qddeg = motorPosToDegConverter(qd);
     return qddeg;
 }
 
