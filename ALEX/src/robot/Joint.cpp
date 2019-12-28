@@ -64,13 +64,13 @@ Joint::Joint(double q_init, int ID)
     }
 	
 	// Calculates conversion coefficients
-	if (id == RIGHT_HIP || id == LEFT_HIP) {
+    if (id == RIGHT_HIP || id == LEFT_HIP) {
         calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &converterA, &converterB);
     } else if (id == RIGHT_KNEE || id == LEFT_KNEE) {
         calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &converterA, &converterB);
     } else if (id == RIGHT_ANKLE || id == LEFT_ANKLE) {
-		calcAB(ANKLE_MOTOR_POS1, ANKLE_MOTOR_DEG1,ANKLE_MOTOR_POS2, ANKLE_MOTOR_DEG2, &converterA, &converterB);
-	}
+	calcAB(ANKLE_MOTOR_POS1, ANKLE_MOTOR_DEG1,ANKLE_MOTOR_POS2, ANKLE_MOTOR_DEG2, &converterA, &converterB);
+    }
 }
 /*
 void Joint::setTrajectories(double leftHipTraj[], double rightHipTraj[], double leftKneeTraj[], double rightKneeTraj[], int numPoints)
