@@ -63,7 +63,7 @@ Joint::Joint(double q_init, int ID)
         minq = -800000;
     }
 	
-	// Calculates conversion coefficients
+    // Calculates conversion coefficients
     if (id == RIGHT_HIP || id == LEFT_HIP) {
         calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &converterA, &converterB);
     } else if (id == RIGHT_KNEE || id == LEFT_KNEE) {
