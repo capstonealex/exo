@@ -38,9 +38,9 @@ class Joint
 
     void setPos(long qd);
     void setVel(long dqd);
-    void motorPosArrayConverter(double origArr[], long newArr[], int arrSize);
-    long motorPosConverter(double origDeg);
-    double motorPosToDegConverter(long motorCmdAngle);
+    void motorPosArrayConverter(double origArr[], long newArr[], int arrSize, int nodeid);
+    void motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid);
+    double motorPosToDegConverter(long motorCmdAngle, int nodeid);
     void calcAB(long y1, long x1, long y2, long x2, double *A, double *B);
     int bitFlipState;
     // TODO: Add other vars after initial test implimentation up and running
