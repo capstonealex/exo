@@ -34,9 +34,7 @@
 #define _NOANKLES
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
-
 //#define _TESTMODE
-
 
 /////////////////////////////////////////////////////////
 
@@ -995,7 +993,7 @@ void sitStand::hwStateUpdate(void)
     // robot->printInfo();
     // robot->printTrajectories();
 
-    printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
+    //printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
     //printf(std::to_string(robot->joints[2].getActualTorque()));
     // Log to file    
     if (mark%5==1){
