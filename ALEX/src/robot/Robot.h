@@ -13,6 +13,7 @@ private:
     {
         NUM_JOINTS = 6
     };
+    bool positionControlConfigured;
 
 public:
     Robot();
@@ -39,7 +40,7 @@ public:
     unsigned int BUTTON_THREE = 3;
     unsigned int BUTTON_FOUR = 4;
     //Node ID for the 4 joints
-    int positionControl;
+
 };
 
 #endif //CAPSTONE_ROBOT_H

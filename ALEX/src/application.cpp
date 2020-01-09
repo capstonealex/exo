@@ -100,11 +100,16 @@ void app_programAsync(uint16_t timer1msDiffy)
     //printf("Serial Send Success: %d \n", serialPort->SendChar('b'));
     //char val[10];
     //printf("Serial Read Success: %d \n",serialPort->Read(val));
-    //printf("app_program1ms \n");
+    //printf("app_programAsync \n");
 
     if (sitStandMachine.running != 0){
+        //printf("Before hwstateupdate \n");
         sitStandMachine.hwStateUpdate();
+        //printf("Before update \n");
+
         sitStandMachine.update();
+        //printf("After update \n");
+
     }
     
     

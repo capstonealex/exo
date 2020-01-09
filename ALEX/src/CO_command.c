@@ -177,14 +177,7 @@ static void* command_thread(void* arg) {
 
     return NULL;
 }
-/******************************************************************************/
-static void* initNodes() {
 
-}
-
-/******************************************************************************/
-static void* homeCalibration(int nodeID) {
-}
 
 /******************************************************************************/
 static void command_process(int fd, char* command, size_t commandLength) {        

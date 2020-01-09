@@ -66,14 +66,6 @@ void cancomm_socketFree(char *command, char *ret);
  * @return 0 on success
  * @return error on failure
  */
-// static void* initNodes()
-// /**
-//  * Perform homeCalibration of robot through SDOs
-//  * Question: Should most likely return a robot object in home state, to act as the ROBOT initializer.
-//  *
-//  * @return 0 on success
-//  * @return error on failure
-//  */
-// static void* homeCalibration(int nodeID)
+
 
 #endif

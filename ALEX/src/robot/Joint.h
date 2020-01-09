@@ -38,7 +38,6 @@ class Joint
 
     void setPos(long qd);
     void setVel(long dqd);
-    void motorPosArrayConverter(double origArr[], long newArr[], int arrSize, int nodeid);
     void motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid);
     double motorPosToDegConverter(long motorCmdAngle, int nodeid);
     void calcAB(long y1, long x1, long y2, long x2, double *A, double *B);
@@ -68,8 +67,6 @@ public:
     
     void printInfo();
     void updateJoint();
- //   void setTrajectories(double leftHipTraj[], double rightHipTraj[], double leftKneeTraj[], double rightKneeTraj[], int numPoints);
-//     void getTrajectorie();
    void testWrite();
     bool bitflipHigh();
     bool bitflipLow();

@@ -12,7 +12,7 @@
 
 Robot::Robot()
 {
-    positionControl = 0;
+    positionControlConfigured = false;
     cout << "Setting Robot joint initial conditions...\n";
     // Set joint Intial positions.
     
@@ -22,7 +22,7 @@ Robot::Robot()
         joints[i].applyPos(0);
         joints[i].setId(i + 1);
     }
-};
+}
 void Robot::printInfo()
 {
     cout << "This is an X2 robot with: \n";
@@ -31,24 +31,6 @@ void Robot::printInfo()
         joints[i].printInfo();
     }
 }
-/*void Robot::printTrajectories()
-{
-    for (auto i = 0; i < 4; i++)
-    {
-        joints[i].getTrajectorie();
-    }
-}
-void Robot::jointIncrement()
-{
-    int current;
-    for (auto i = 0; i < 4; i++)
-    {
-        current = joints[i].getPos();
-        current = current + 1;
-        joints[i].applyPos(current);
-    }
-}*/
-
 
 // Update all of this robots software joint positions from object dictionary
 void Robot::updateJoints()
@@ -190,13 +172,19 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6084 0 i32 100000",
         "[1] 3 write 0x6084 0 i32 100000",
         "[1] 4 write 0x6084 0 i32 100000"};
-    int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
-    for (int i = 0; i < num_of_Messages; ++i)
-    {
-        cancomm_socketFree(SDO_MessageList[i], returnMessage);
+    if (!positionControlConfigured){
+        int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
+        for (int i = 0; i < num_of_Messages; ++i)
+        {
+            cancomm_socketFree(SDO_MessageList[i], returnMessage);
+        }
+        positionControlConfigured = true;
+        printf("Motors configured for position control\n");
+        return true;
+    } else {
+        printf("WARNING:::: Position Control already configured\n");
+        return false;
     }
-    printf("Motors configured for position control\n");
-    return true;
 }
 bool Robot::initPositionControlAnkles(void)
 {

@@ -521,7 +521,7 @@ void sitStand::init(void)
     gp->setDirection(yellowPin, GPIO::INPUT);
     
     // Configure the drives
-    printf("calibrating \n");
+    printf("Remapping PDOs \n");
     if (calibrated == 0)
     {
         if (robot->remapPDO())
@@ -534,15 +534,11 @@ void sitStand::init(void)
         printf("Motors already calibrated for motion\n");
     }
     
-    printf("position control \n");
-    if (robot->positionControl == 0)
-    {
-        if (robot->initPositionControl())
-        {
-            printf("drives finished position control configuration\n");
-            robot->positionControl = 1;
-        }
-    }        
+    printf("Initialising Position Control \n");
+    if(!robot->initPositionControl()){
+        printf("*****WARNING: LOGIC ERROR*******\n");
+    }
+
     #ifndef _NOANKLES
         robot->remapPDOAnkles();
         robot->initPositionControlAnkles();
@@ -987,6 +983,19 @@ void sitStand::hwStateUpdate(void)
 
     //printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
 
+    if(!yButton){
+        printf("Yellow \n");
+    }
+    if(!gButton){
+        printf("Green \n");
+    }
+    if(!bButton){
+        printf("Blue \n");
+    }
+    if(!rButton){
+        printf("Red \n");
+    }
+
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
@@ -996,22 +1005,19 @@ void sitStand::hwStateUpdate(void)
     //printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
     //printf(std::to_string(robot->joints[2].getActualTorque()));
     // Log to file    
-    if (mark%5==1){
+    //if (mark%%==1){
         struct timeval tv;
         gettimeofday(&tv,NULL);
         double currtime =  tv.tv_sec+((double)tv.tv_usec)/1000000;
         logfile << std::to_string(currtime);
         
-        for (auto i = 0; i< NUM_JOINTS; i++){
+        for (auto i = 3; i< NUM_JOINTS; i++){
             logfile << "," +std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg())+ "," + std::to_string(robot->joints[i].getActualTorque());
             //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
         }
-        //printf("%d, %d, %3f, %3f \n", robot->joints[2].getStatus(),  robot->joints[4].getStatus(), robot->joints[2].getActualTorque(), robot->joints[4].getActualTorque());
-
-        //printf("%d, %3f, %3f,", robot->joints[5].getStatus(),  robot->joints[5].getPosDeg(), robot->joints[5].getDesPosDeg());
         //printf("\n");
         logfile << "\n";
-    }
+   // }
 
 }
 

@@ -64,60 +64,10 @@ Joint::Joint(double q_init, int ID)
         minq = -800000;
     }
 }
-/*
-void Joint::setTrajectories(double leftHipTraj[], double rightHipTraj[], double leftKneeTraj[], double rightKneeTraj[], int numPoints)
-{
-    if (this->id == LEFT_KNEE)
-    {
-        motorPosArrayConverter(leftKneeTraj, this->trajectories, numPoints, this->id);
-    }
-    else if(this->id == RIGHT_KNEE)
-    {
-        motorPosArrayConverter(rightKneeTraj, this->trajectories, numPoints, this->id);
-    }
-    else if (this->id == LEFT_HIP)
-    {
-        motorPosArrayConverter(leftHipTraj, this->trajectories, numPoints, this->id);
-    }
-    else if (this->id == RIGHT_HIP)
-    {
-        motorPosArrayConverter(rightHipTraj, this->trajectories, numPoints, this->id);
-    }
-}
-void Joint::getTrajectorie()
-{
-    printf("~~~~~~~~~~~~~~~~~\n");
-    printf("Trajectories for joint %d", this->id);
-    for (int i = 0; i < 4; i++)
-    {
-        printf(" Trajectory %d: %lu", i, this->trajectories[i]);
-    }
-}
- * */
 
 /*Helper functions for motor deg to command conversion*/
 // TODO -> don't use this and only use trajectory function
 //Used to convert position array from degrees to motors counts as used in CANopen
-void Joint::motorPosArrayConverter(double origArr[], long newArr[], int arrSize, int nodeid)
-{
-    double A = 0;
-    double B = 0;
-
-    if (nodeid == RIGHT_HIP || nodeid == LEFT_HIP)
-    {
-        calcAB(HIP_MOTOR_POS1, HIP_MOTOR_DEG1, HIP_MOTOR_POS2, HIP_MOTOR_DEG2, &A, &B);
-    }
-
-    if (nodeid == RIGHT_KNEE || nodeid == LEFT_KNEE)
-    {
-        calcAB(KNEE_MOTOR_POS1, KNEE_MOTOR_DEG1, KNEE_MOTOR_POS2, KNEE_MOTOR_DEG2, &A, &B);
-    }
-    for (int i = 0; i < arrSize; i++)
-    {
-        long solution = lround(origArr[i] * A + B);
-        newArr[i] = solution;
-    }
-}
 void Joint::motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid)
 {
     double A = 0;
@@ -375,6 +325,7 @@ void Joint::setId(int ID)
         minq = -800000;
     }
 }
+
 int Joint::getId()
 {
     return id;
@@ -428,13 +379,10 @@ void Joint::updateJoint()
     else if (this->id == 5)
     {
         q = CO_OD_RAM.actualMotorPositions.motor5;
-        //printf("update Joint 5 %2f, %d, ",  q, CO_OD_RAM.actualMotorPositions.motor5);
-
     }
     else if (this->id == 6)
     {
         q = CO_OD_RAM.actualMotorPositions.motor6;
-        //printf("update Joint 6: %2f, %d\n", q, CO_OD_RAM.actualMotorPositions.motor6);
     }
 }
 /*
@@ -571,7 +519,6 @@ double Joint::getActualTorque(){
     {
         retVal = CO_OD_RAM.actualMotorTorques.motor3/10;
         //printf("Motor 3: %3f \n", retVal);
-
     }
     else if (this->id == 4)
     {
