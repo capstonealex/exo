@@ -1,4 +1,3 @@
-//hi
 /**
  *
  * Created for ALEX exoskeleton on 2019-10-02.
@@ -969,7 +968,7 @@ void sitStand::initRobot(Robot *rb)
 void sitStand::hwStateUpdate(void)
 {
     /*BUTON CODE*/
-    //Read all 4 BUTTONs  and print to screen
+    //Read all 4 BUTTONs  into int variable
     int redbtn = gp->getValue(redPin);
     int bluebtn = gp->getValue(bluePin);
     int greenbtn = gp->getValue(greenPin);
