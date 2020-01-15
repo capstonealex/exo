@@ -5,6 +5,7 @@
 #ifndef CANOPENBEAGLE_ROBOT_H
 #define CANOPENBEAGLE_ROBOT_H
 #include "Joint.h"
+#include "Buttons.h"
 
 class Robot
 {
@@ -18,6 +19,7 @@ private:
 public:
     Robot();
     Joint joints[NUM_JOINTS];
+    Buttons buttons;
     void printInfo();
     //void jointIncrement();
     void updateJoints();

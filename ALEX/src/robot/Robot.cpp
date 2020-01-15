@@ -13,7 +13,7 @@
 Robot::Robot()
 {
     positionControlConfigured = false;
-    cout << "Setting Robot joint initial conditions...\n";
+    cout << "Setting Robot joint ssssssial conditions...\n";
     // Set joint Intial positions.
     
     // // Set joint Intial positions to 0, Set joint IDs, Populate joint Trajectories

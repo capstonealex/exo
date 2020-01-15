@@ -58,22 +58,15 @@ static char *BUTTONGREEN = "P8_9";
 static char *BUTTONYELLOW = "P8_10";*/
 
 // For remote 
-static char *BUTTONRED = "P8_10";
-static char *BUTTONBLUE = "P8_9";
-static char *BUTTONGREEN = "P8_7";
-static char *BUTTONYELLOW = "P8_8";
-
-/*static char *BUTTONRED = "P8_18";
-static char *BUTTONBLUE = "P8_17";
-static char *BUTTONGREEN = "P8_15";
-static char *BUTTONYELLOW = "P8_16";*/
-
-
-GPIO::GPIOManager *gp;
-int redPin;
-int yellowPin;
-int greenPin;
-int bluePin;
+// static char *BUTTONRED = "P8_10";
+// static char *BUTTONBLUE = "P8_9";
+// static char *BUTTONGREEN = "P8_7";
+// static char *BUTTONYELLOW = "P8_8";
+// GPIO::GPIOManager *gp;
+// int redPin;
+// int yellowPin;
+// int greenPin;
+// int bluePin;
 
 
 // Logging stuff
@@ -509,15 +502,15 @@ void sitStand::init(void)
     StateMachine::init();
 
     // Set up the buttons
-    gp = GPIO::GPIOManager::getInstance();
-    redPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONRED);
-    bluePin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONBLUE);
-    greenPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONGREEN);
-    yellowPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONYELLOW);
-    gp->setDirection(redPin, GPIO::INPUT);
-    gp->setDirection(bluePin, GPIO::INPUT);
-    gp->setDirection(greenPin, GPIO::INPUT);
-    gp->setDirection(yellowPin, GPIO::INPUT);
+    // gp = GPIO::GPIOManager::getInstance();
+    // redPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONRED);
+    // bluePin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONBLUE);
+    // greenPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONGREEN);
+    // yellowPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONYELLOW);
+    // gp->setDirection(redPin, GPIO::INPUT);
+    // gp->setDirection(bluePin, GPIO::INPUT);
+    // gp->setDirection(greenPin, GPIO::INPUT);
+    // gp->setDirection(yellowPin, GPIO::INPUT);
     
     // Configure the drives
     printf("Remapping PDOs \n");
@@ -962,38 +955,42 @@ void sitStand::initRobot(Robot *rb)
     robot = rb;
     // Perform proper initialization
     robot->printInfo();
+    //Set up Robot UI buttons
+    robot->buttons.initButtons();
 };
 
 // Update button state, loop counter (mark) and joints from
 void sitStand::hwStateUpdate(void)
 {
+    robot->buttons.setButtonStates();
+    robot->buttons.printButtonStates();
+    //Test 2
+    // robot->buttons.printPressedButtons();
     /*BUTON CODE*/
     //Read all 4 BUTTONs  into int variable
-    int redbtn = gp->getValue(redPin);
-    int bluebtn = gp->getValue(bluePin);
-    int greenbtn = gp->getValue(greenPin);
-    int yellowbtn = gp->getValue(yellowPin);
+    // int redbtn = gp->getValue(redPin);
+    // int bluebtn = gp->getValue(bluePin);
+    // int greenbtn = gp->getValue(greenPin);
+    // int yellowbtn = gp->getValue(yellowPin);
     
-    // Send buttons to statemachine variables
-    this->yButton = yellowbtn;
-    this->gButton = greenbtn;
-    this->bButton = bluebtn;
-    this->rButton = redbtn;
-
-    //printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
-
-    if(!yButton){
-        printf("Yellow \n");
-    }
-    if(!gButton){
-        printf("Green \n");
-    }
-    if(!bButton){
-        printf("Blue \n");
-    }
-    if(!rButton){
-        printf("Red \n");
-    }
+    // // Send buttons to statemachine variables
+    // this->yButton = yellowbtn;
+    // this->gButton = greenbtn;
+    // this->bButton = bluebtn;
+    // this->rButton = redbtn;
+    //Print which button is pressed
+    // if(!yButton){
+    //     printf("Yellow \n");
+    // }
+    // if(!gButton){
+    //     printf("Green \n");
+    // }
+    // if(!bButton){
+    //     printf("Blue \n");
+    // }
+    // if(!rButton){
+    //     printf("Red \n");
+    // }
 
     // Update loop time counter
     mark = mark + 1;
