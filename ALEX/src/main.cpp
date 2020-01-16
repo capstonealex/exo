@@ -87,6 +87,12 @@ static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
 static int rt_thread_epoll_fd;
 
+/* Realtime thread */
+static void *rt_control_thread(void);
+static pthread_t rt_control_thread_id;
+static int rt_control_thread_epoll_fd;
+
+
 /* Signal handler */
 volatile sig_atomic_t CO_endProgram = 0;
 static void sigHandler(int sig)
@@ -290,14 +296,19 @@ int main(int argc, char *argv[])
             /* Create rt_thread */
             if (pthread_create(&rt_thread_id, NULL, rt_thread, NULL) != 0)
                 CO_errExit("Program init - rt_thread creation failed");
+            /* Create rt control loop thread*/
+            if (pthread_create(&rt_control_thread_id, NULL, rt_control_thread, NULL) != 0)
+                CO_errExit("Program init - Control rt_thread creation failed");
             /* Set priority for rt_thread */
             if (rtPriority > 0)
             {
-                struct sched_param param;
-
+                struct sched_param param, paramcontrol;
                 param.sched_priority = rtPriority;
+                param.sched_priority = 1;
                 if (pthread_setschedparam(rt_thread_id, SCHED_FIFO, &param) != 0)
                     CO_errExit("Program init - rt_thread set scheduler failed");
+                if (pthread_setschedparam(rt_control_thread_id, SCHED_FIFO, &paramcontrol) != 0)
+                    CO_errExit("Program init - rt_control_thread set scheduler failed");
             }
         }
 
@@ -306,7 +317,7 @@ int main(int argc, char *argv[])
         pthread_mutex_unlock(&CO_CAN_VALID_mtx);
             
         /* Execute optional additional application code */
-        app_programStart(); 
+        // app_programStart(); 
         
         reset = CO_RESET_NOT;
         // Create Statemachine Object -> will be loaded by taskmanager in end program.
@@ -354,7 +365,7 @@ int main(int argc, char *argv[])
                
                // sitStandMachine.hwStateUpdate();
                // sitStandMachine.update();
-                app_programAsync(timer1msDiff);
+                // app_programAsync(timer1msDiff);
 
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
@@ -380,6 +391,10 @@ int main(int argc, char *argv[])
 
     CO_endProgram = 1;
     if (pthread_join(rt_thread_id, NULL) != 0)
+    {
+        CO_errExit("Program end - pthread_join failed");
+    }
+    if (pthread_join(rt_control_thread_id, NULL) != 0)
     {
         CO_errExit("Program end - pthread_join failed");
     }
@@ -409,7 +424,10 @@ int main(int argc, char *argv[])
 
     exit(EXIT_SUCCESS);
 }
-
+/* Realtime thread for CAN receive and taskTmr ********************************/
+static void *rt_control_thread(void){
+    std::cout << "Buenos dias amigo"
+}
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
