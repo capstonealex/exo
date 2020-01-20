@@ -9,6 +9,9 @@
 #include "Robot.h"
 #include "GPIOManager.h"
 #include "GPIOConst.h"
+#define OWNER ((sitStand *)owner)
+// Designed State and event classes
+#include "InitState.h"
 
 double getDegPos(int jointInd, int desiredIndex, Robot *rob);
 
@@ -26,6 +29,9 @@ public:
     bool initPositionControl();
     void startNewTraj();
     void moveThroughTraj(double (*trajFunction)(int, double, Robot*), double trajTime);
+    // Robot interface to be used by states to interact with hardware
+    Robot *robot;
+    int mark;
 
 private:
     // events
@@ -37,8 +43,9 @@ private:
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
     EventObject(DummyTrue) * dummyTrue;
     
-    // states
-    StateObject(InitState) * initState;
+    // State Object pointers 
+    //  Used by transition objects for transition direction + safety
+    InitState * initState;
     StateObject(SittingDwn) * sittingDwn;
     StateObject(StandingUp) * standingUp;
     StateObject(Sitting) * sitting;
@@ -53,8 +60,7 @@ private:
     
     StateObject(ErrorState) * errorState;
 
-    // data
-    int mark;
+    // data;
     int calibrated;
     int gButton;
     int yButton;
@@ -63,8 +69,6 @@ private:
     int arrayIndex;
     int bitFlipState;
     GPIO::GPIOManager *gp;
-    // Robot interface to be used by states to interact with hardware
-    Robot *robot;
 };
 
 #endif //EXO_SITSTAND_H

@@ -5,6 +5,7 @@
 #ifndef EXO_STATEMACHINE_H
 #define EXO_STATEMACHINE_H
 #include "State.h"
+#include "Robot.h"
 #include <cstddef>
 /* Forward declarations*/
 class State;
@@ -26,6 +27,10 @@ public:
     void activate(void);
     void deactivate(void);
     void update(void);
+
+     // Robot interface to be used by states to interact with hardware
+    Robot *robot;
+    int mark;
 
 private:
     // pointers to the initial state and the current state
