@@ -15,6 +15,10 @@ private:
     };
     bool positionControlConfigured;
 
+    double fracTrajProgress = 0;
+    int desiredIndex = 0;
+    int running = 0;
+
 public:
     Robot();
     Joint joints[NUM_JOINTS];
@@ -29,7 +33,7 @@ public:
     bool remapPDOAnkles(void);
     bool preop(void);
     bool resetTrackingError(void);
-   // void printTrajectories();
+    // void printTrajectories();
 
     //canFeasat constants
     unsigned int MAX_RECONNECTS = 10;
@@ -40,7 +44,14 @@ public:
     unsigned int BUTTON_THREE = 3;
     unsigned int BUTTON_FOUR = 4;
     //Node ID for the 4 joints
-
+    // Variable for moving through trajectories
+    struct timeval moving_tv;
+    struct timeval stationary_tv;
+    struct timeval start_traj;
+    struct timeval last_tv;
+    // Trajectory functions - should move to trajectory object
+    void startNewTraj();
+    void moveThroughTraj(double (*trajFunction)(int, double, Robot *), double trajTime);
 };
 
 #endif //CAPSTONE_ROBOT_H

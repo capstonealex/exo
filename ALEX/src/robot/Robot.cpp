@@ -8,14 +8,18 @@
 #include <sys/un.h>
 #include <sys/socket.h>
 #include <string.h>
+#include <time.h>
+#include <sys/time.h>
+
 #define CANMESSAGELENGTH (100)
+#define NOFLIP (100)
 
 Robot::Robot()
 {
     positionControlConfigured = false;
     cout << "Setting Robot joint initial conditions...\n";
     // Set joint Intial positions.
-    
+
     // // Set joint Intial positions to 0, Set joint IDs, Populate joint Trajectories
     for (auto i = 0; i < 6; i++)
     {
@@ -99,7 +103,7 @@ bool Robot::homeCalibration(void)
     {
         cancomm_socketFree(SDO_MessageList[i], returnMessage);
     }
-    
+
     sleep(5);
     // TODO: Change sleep to check that we reached home
     printf("Home motion complete\n");
@@ -172,7 +176,8 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6084 0 i32 100000",
         "[1] 3 write 0x6084 0 i32 100000",
         "[1] 4 write 0x6084 0 i32 100000"};
-    if (!positionControlConfigured){
+    if (!positionControlConfigured)
+    {
         int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
         for (int i = 0; i < num_of_Messages; ++i)
         {
@@ -181,7 +186,9 @@ bool Robot::initPositionControl(void)
         positionControlConfigured = true;
         printf("Motors configured for position control\n");
         return true;
-    } else {
+    }
+    else
+    {
         printf("WARNING:::: Position Control already configured\n");
         return false;
     }
@@ -204,7 +211,7 @@ bool Robot::initPositionControlAnkles(void)
         "[1] 5 write 0x6040 0 i16 15",
         "[1] 6 write 0x6040 0 i16 6",
         "[1] 6 write 0x6040 0 i16 15",
-        };
+    };
     int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
     for (int i = 0; i < num_of_Messages; ++i)
     {
@@ -358,7 +365,6 @@ bool Robot::remapPDO(void)
     return true;
 }
 
-
 bool Robot::remapPDOAnkles(void)
 {
     char *returnMessage;
@@ -369,7 +375,7 @@ bool Robot::remapPDOAnkles(void)
         "[1] 5 write 0x1A01 1 u32 0x60640020",
         "[1] 5 write 0x1A01 2 u32 0x606C0020",
         "[1] 5 write 0x1A01 0 u8 2",
-        "[1] 5 write 0x1801 1 u32 0x285",	
+        "[1] 5 write 0x1801 1 u32 0x285",
         "[1] 5 write 0x1800 1 u32 0x80000185",
         "[1] 5 write 0x1A00 0 u8 0",
         "[1] 5 write 0x1800 2 u8 0xFF",
@@ -395,7 +401,7 @@ bool Robot::remapPDOAnkles(void)
         "[1] 6 write 0x1A01 1 u32 0x60640020",
         "[1] 6 write 0x1A01 2 u32 0x606C0020",
         "[1] 6 write 0x1A01 0 u8 2",
-        "[1] 6 write 0x1801 1 u32 0x286",	
+        "[1] 6 write 0x1801 1 u32 0x286",
         "[1] 6 write 0x1800 1 u32 0x80000186",
         "[1] 6 write 0x1A00 0 u8 0",
         "[1] 6 write 0x1800 2 u8 0xFF",
@@ -423,7 +429,6 @@ bool Robot::remapPDOAnkles(void)
     }
     return true;
 }
-
 
 bool Robot::preop(void)
 {
@@ -459,4 +464,77 @@ bool Robot::resetTrackingError(void)
         cancomm_socketFree(PDO_MessageList[i], returnMessage);
     }
     return true;
+}
+
+void Robot::startNewTraj()
+{
+    // Reset the time
+    timerclear(&moving_tv);
+    timerclear(&stationary_tv);
+    gettimeofday(&start_traj, NULL);
+    last_tv = start_traj;
+
+    // Set the bit flip state to zero
+    for (auto i = 0; i < NUM_JOINTS; i++)
+    {
+        joints[i].setBitFlipState(NOFLIP);
+    }
+
+    // Index Resetting
+    desiredIndex = 0;
+    fracTrajProgress = 0;
+
+    printf("Start New Traj \n");
+}
+
+void Robot::moveThroughTraj(double (*trajFunction)(int, double, Robot *robot), double trajTime)
+{
+    //long lastTarget = 0;
+    struct timeval tv;
+    struct timeval tv_diff;
+    struct timeval tv_changed;
+    gettimeofday(&tv, NULL);
+    timersub(&tv, &last_tv, &tv_diff);
+    last_tv = tv;
+
+    //uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
+    long movingMicro = moving_tv.tv_sec * 1000000 + moving_tv.tv_usec;
+
+    double trajTimeUS = trajTime * 1000000;
+    fracTrajProgress = movingMicro / trajTimeUS;
+
+    // if Green Button is pressed, move through trajetory. Otherwise stay where you are
+    if (!gButton)
+    {
+        timeradd(&moving_tv, &tv_diff, &tv_changed);
+        moving_tv = tv_changed;
+
+        //printf("Time: %3f \n", fracTrajProgress);
+
+#ifndef _NOACTUATION
+        for (int i = 0; i < NUM_JOINTS; i++)
+        {
+            if (joints[i].getBitFlipState() == NOFLIP)
+            {
+                // Send a new trajectory point
+                // Get Trajectory point for this joint based on current time
+                double desiredPos = trajFunction(i, fracTrajProgress, robot);
+                //printf("%d, %3f \n", i, desiredPos );
+                joints[i].applyPosDeg(desiredPos);
+
+                // set state machine bitFlip to LOW state.
+                joints[i].bitflipLow();
+            }
+            else
+            {
+                joints[i].bitflipHigh();
+            }
+        }
+#endif
+    }
+    else
+    {
+        timeradd(&stationary_tv, &tv_diff, &tv_changed);
+        stationary_tv = tv_changed;
+    }
 }

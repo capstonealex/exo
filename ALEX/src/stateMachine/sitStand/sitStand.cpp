@@ -12,7 +12,7 @@
  *                                         |                   |
  *                                         standingUp<--+ sitting
  *                                                     isPressed
- * ALL states can also leave to error state as well, which holds the current pos
+ * ALL states can also leave to xferror state as well, which holds the current pos
  * unitl another button is pressed and then goes to uncalibrated (LIMP)
  *
  */
@@ -702,75 +702,9 @@ void sitStand::deactivate(void)
 
 //////////////////////////////////////////////
 // State Classes ----------------------------------------------------------
-// Moving states
-// Positive bending control machine
 ////////////////////////////////////////////
 
-void sitStand::SittingDwn::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("Sitting Down State Entered at Time %d\n", OWNER->mark);
-
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS GREEN TO BEGIN SITTING DOWN\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-    OWNER->startNewTraj();
-}
-void sitStand::SittingDwn::during(void)
-{
-    // long lastTarget = 0;
-    // if the green button is pressed move. Or do nothing/
-    OWNER->moveThroughTraj(sitDownTrajFunc, SITSTANDTIME);
-}
-void sitStand::SittingDwn::exit(void)
-{
-    printf("Sitting Down State Exited at Time %d\n", OWNER->mark);
-}
-
-// Negative bending control machine
-void sitStand::StandingUp::entry(void)
-{
-    printf("Standing Up State Entered at Time %d\n", OWNER->mark);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS GREEN TO BEGIN STANDING UP\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-    OWNER->startNewTraj();
-}
-
-void sitStand::StandingUp::during(void)
-{
-    // if the green button is pressed move. Or do nothing
-    OWNER->moveThroughTraj(standUpTrajFunc, SITSTANDTIME);
-}
-void sitStand::StandingUp::exit(void)
-{
-    printf("Standing up motion State Exited at Time %d\n", OWNER->mark);
-}
-
 ////////// STATE ////////////////////
-//-------  Sitting ------------/////
-////////////////////////////////////
-void sitStand::Sitting::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("Sitting State Entered at Time %d\n", OWNER->mark);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS YELLOW TO START STANDING UP\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-    printf("Forcing to Sitting State\n");
-    OWNER->startNewTraj();
-}
-void sitStand::Sitting::during(void)
-{
-    OWNER->moveThroughTraj(sittingTrajFunc, 10);
-}
-void sitStand::Sitting::exit(void)
-{
-    printf("Sitting State Exited at Time %d\n", OWNER->mark);
-}
 
 ////////// STATE ////////////////////
 //-------  Standing ------------/////
@@ -800,8 +734,8 @@ void sitStand::SteppingFirstLeft::entry(void)
 {
     //READ TIME OF MAIN
     printf("SteppingFirstLeft State Entered at Time %d\n", OWNER->mark);
-
-    OWNER->startNewTraj();
+    // OWNER->startNewTraj();
+    OWNER->robot->startNewTraj();
 }
 
 void sitStand::SteppingFirstLeft::during(void)
@@ -844,8 +778,8 @@ void sitStand::SteppingRight::entry(void)
 {
     //READ TIME OF MAIN
     printf("SteppingRight State Entered at Time %d\n", OWNER->mark);
-
-    OWNER->startNewTraj();
+    // OWNER->startNewTraj();
+    OWNER->robot->startNewTraj();
 }
 
 void sitStand::SteppingRight::during(void)
@@ -888,8 +822,8 @@ void sitStand::SteppingLeft::entry(void)
 {
     //READ TIME OF MAIN
     printf("SteppingLeft State Entered at Time %d\n", OWNER->mark);
-
-    OWNER->startNewTraj();
+    // OWNER->startNewTraj();
+    OWNER->robot->startNewTraj();
 }
 
 void sitStand::SteppingLeft::during(void)
@@ -913,7 +847,7 @@ void sitStand::SteppingLastRight::entry(void)
     //READ TIME OF MAIN
     printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
 
-    OWNER->startNewTraj();
+    OWNER->robot->startNewTraj();
 }
 
 void sitStand::SteppingLastRight::during(void)
@@ -937,7 +871,7 @@ void sitStand::SteppingLastLeft::entry(void)
     //READ TIME OF MAIN
     printf("SteppingLastLeft State Entered at Time %d\n", OWNER->mark);
 
-    OWNER->startNewTraj();
+    OWNER->robot->startNewTraj();
 }
 
 void sitStand::SteppingLastLeft::during(void)
@@ -1116,77 +1050,4 @@ void sitStand::hwStateUpdate(void)
     //printf("\n");
     logfile << "\n";
     // }
-}
-
-void sitStand::startNewTraj()
-{
-    // Reset the time
-    timerclear(&moving_tv);
-    timerclear(&stationary_tv);
-    gettimeofday(&start_traj, NULL);
-    last_tv = start_traj;
-
-    // Set the bit flip state to zero
-    for (auto i = 0; i < NUM_JOINTS; i++)
-    {
-        robot->joints[i].setBitFlipState(NOFLIP);
-    }
-
-    // Index Resetting
-    desiredIndex = 0;
-    fracTrajProgress = 0;
-
-    printf("Start New Traj \n");
-}
-
-void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot *), double trajTime)
-{
-    //long lastTarget = 0;
-    struct timeval tv;
-    struct timeval tv_diff;
-    struct timeval tv_changed;
-    gettimeofday(&tv, NULL);
-    timersub(&tv, &last_tv, &tv_diff);
-    last_tv = tv;
-
-    //uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
-    long movingMicro = moving_tv.tv_sec * 1000000 + moving_tv.tv_usec;
-
-    double trajTimeUS = trajTime * 1000000;
-    fracTrajProgress = movingMicro / trajTimeUS;
-
-    // if Green Button is pressed, move through trajetory. Otherwise stay where you are
-    if (!gButton)
-    {
-        timeradd(&moving_tv, &tv_diff, &tv_changed);
-        moving_tv = tv_changed;
-
-        //printf("Time: %3f \n", fracTrajProgress);
-
-#ifndef _NOACTUATION
-        for (int i = 0; i < NUM_JOINTS; i++)
-        {
-            if (robot->joints[i].getBitFlipState() == NOFLIP)
-            {
-                // Send a new trajectory point
-                // Get Trajectory point for this joint based on current time
-                double desiredPos = trajFunction(i, fracTrajProgress, robot);
-                //printf("%d, %3f \n", i, desiredPos );
-                robot->joints[i].applyPosDeg(desiredPos);
-
-                // set state machine bitFlip to LOW state.
-                robot->joints[i].bitflipLow();
-            }
-            else
-            {
-                robot->joints[i].bitflipHigh();
-            }
-        }
-#endif
-    }
-    else
-    {
-        timeradd(&stationary_tv, &tv_diff, &tv_changed);
-        stationary_tv = tv_changed;
-    }
 }
