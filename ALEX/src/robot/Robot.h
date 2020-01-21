@@ -34,6 +34,7 @@ class Robot
 private:
     bool positionControlConfigured;
     int desiredIndex = 0;
+    double steptime = STEPTIME;
     //Stationary Sitting Traj
     std::array<double, TRAJ_LENGTH> stationarySittingKneeTraj = {
         SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE};
@@ -249,6 +250,7 @@ public:
     // Trajectory functions - should move to trajectory object
     void startNewTraj();
     void moveThroughTraj(double (*trajFunction)(int, double), double trajTime);
+    double getSteptime();
     double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime);
     double sittingTrajFunc(int jointInd, double scaledTime);
     double standUpTrajFunc(int jointInd, double scaledTime);
