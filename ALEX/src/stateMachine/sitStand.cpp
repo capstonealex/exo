@@ -39,9 +39,6 @@
 /////////////////////////////////////////////////////////
 
 #define OWNER ((sitStand *)owner)
-#define POSCLEARANCE (8000)
-#define POSCLEARANCEDEG (2.0)
-#define FINALPOSCLEARANCE (5000)
 #define NOFLIP (100)
 #define BITHIGH (1)
 #define BITLOW (0)
@@ -52,37 +49,20 @@
 #define NUM_JOINTS 4
 #endif
 
-/*static char *BUTTONRED = "P8_7";
-static char *BUTTONBLUE = "P8_8";
-static char *BUTTONGREEN = "P8_9";
-static char *BUTTONYELLOW = "P8_10";*/
-
 // For remote
 static char *BUTTONRED = "P8_10";
 static char *BUTTONBLUE = "P8_9";
 static char *BUTTONGREEN = "P8_7";
 static char *BUTTONYELLOW = "P8_8";
-
-/*static char *BUTTONRED = "P8_18";
-static char *BUTTONBLUE = "P8_17";
-static char *BUTTONGREEN = "P8_15";
-static char *BUTTONYELLOW = "P8_16";*/
-
 GPIO::GPIOManager *gp;
 int redPin;
 int yellowPin;
 int greenPin;
 int bluePin;
 
-// Logging stuff
+// Logging
 char filename[80] = "DefaultFilename.csv";
 ofstream logfile;
-
-// Variable for moving through trajectories
-struct timeval moving_tv;
-struct timeval stationary_tv;
-struct timeval start_traj;
-struct timeval last_tv;
 
 /////////////////////////////////////////////////////////
 // State Machine sitStand methods ----------------------------------------------------------
@@ -205,7 +185,6 @@ void sitStand::init(void)
 
     /// Move to an initial sitting state at the start
     bitFlipState = NOFLIP;
-
     running = 1;
     printf("END INIT\n");
 }
@@ -218,225 +197,13 @@ void sitStand::deactivate(void)
     StateMachine::deactivate();
 }
 
-//////////////////////////////////////////////
-// State Classes ----------------------------------------------------------
-////////////////////////////////////////////
-
-////////// STATE ////////////////////
-
-////////// STATE ////////////////////
-//-------  Standing ------------/////
-////////////////////////////////////
-void sitStand::Standing::entry(void)
-{
-    printf("Standing State Entered at Time %d\n", OWNER->mark);
-
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS YELLOW TO START Sitting DOWN\n");
-    printf("PRESS BLUE BUTTON TO STEP LEFT LEG FORWARD\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-}
-void sitStand::Standing::during(void)
-{
-    // Press yellow button to leave state
-}
-void sitStand::Standing::exit(void)
-{
-    printf("Standing State Exited at Time %d\n", OWNER->mark);
-}
-
-////////// STATE ////////////////////
-// Stepping First Left
-///////////////////////////////////////////////
-void sitStand::SteppingFirstLeft::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("SteppingFirstLeft State Entered at Time %d\n", OWNER->mark);
-    // OWNER->startNewTraj();
-    OWNER->robot->startNewTraj();
-}
-
-void sitStand::SteppingFirstLeft::during(void)
-{
-    //long lastTarget = 0;
-    // if the green button is pressed move. Or do nothing/
-    OWNER->moveThroughTraj(steppingFirstLeftTrajFunc, STEPTIME);
-}
-
-void sitStand::SteppingFirstLeft::exit(void)
-{
-    printf("SteppingFirstLeft State Exited at Time %d\n", OWNER->mark);
-    // do nothing
-}
-
-//////////////////////////////////////////
-// LEFT FORWARD
-//////////////////////////////////////////
-void sitStand::LeftForward::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("LeftForward State Entered at Time %d\n", OWNER->mark);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS BLUE TO KEEP STEPPING\n");
-    printf("PRESS YELLOW TO BRING FEET TOGETHER\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-}
-void sitStand::LeftForward::during(void)
-{
-}
-void sitStand::LeftForward::exit(void)
-{
-    printf("LeftForward State Exited at Time %d\n", OWNER->mark);
-}
-
-////////// STATE ////////////////////
-// Stepping Right
-///////////////////////////////////////////////
-void sitStand::SteppingRight::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("SteppingRight State Entered at Time %d\n", OWNER->mark);
-    // OWNER->startNewTraj();
-    OWNER->robot->startNewTraj();
-}
-
-void sitStand::SteppingRight::during(void)
-{
-    //long lastTarget = 0;
-    // if the green button is pressed move. Or do nothing/
-    OWNER->moveThroughTraj(steppingRightTrajFunc, STEPTIME);
-}
-
-void sitStand::SteppingRight::exit(void)
-{
-    printf("SteppingRight State Exited at Time %d\n", OWNER->mark);
-    // do nothing
-}
-
-//////////////////////////////////////////
-// RIGHT FORWARD
-//////////////////////////////////////////
-void sitStand::RightForward::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("RightForward State Entered at Time %d\n", OWNER->mark);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS BLUE TO KEEP STEPPING OR YELLOW TO BRING FEET TOGETHER\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-}
-void sitStand::RightForward::during(void)
-{
-}
-void sitStand::RightForward::exit(void)
-{
-
-    printf("RightForward State Exited at Time %d\n", OWNER->mark);
-}
-
-////////// STATE ////////////////////
-// Stepping Left
-///////////////////////////////////////////////
-void sitStand::SteppingLeft::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("SteppingLeft State Entered at Time %d\n", OWNER->mark);
-    // OWNER->startNewTraj();
-    OWNER->robot->startNewTraj();
-}
-
-void sitStand::SteppingLeft::during(void)
-{
-    //long lastTarget = 0;
-    // if the green button is pressed move. Or do nothing/
-    OWNER->moveThroughTraj(steppingLeftTrajFunc, STEPTIME);
-}
-
-void sitStand::SteppingLeft::exit(void)
-{
-    printf("SteppingLeft State Exited at Time %d\n", OWNER->mark);
-    // do nothing
-}
-
-////////// STATE ////////////////////
-// Stepping Last Right
-///////////////////////////////////////////////
-void sitStand::SteppingLastRight::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
-
-    OWNER->robot->startNewTraj();
-}
-
-void sitStand::SteppingLastRight::during(void)
-{
-    //long lastTarget = 0;
-    // if the green button is pressed move. Or do nothing/
-    OWNER->moveThroughTraj(steppingLastRightTrajFunc, STEPTIME);
-}
-
-void sitStand::SteppingLastRight::exit(void)
-{
-    printf("SteppingLastRight State Exited at Time %d\n", OWNER->mark);
-    // do nothing
-}
-
-////////// STATE ////////////////////
-// Stepping Last Left
-///////////////////////////////////////////////
-void sitStand::SteppingLastLeft::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("SteppingLastLeft State Entered at Time %d\n", OWNER->mark);
-
-    OWNER->robot->startNewTraj();
-}
-
-void sitStand::SteppingLastLeft::during(void)
-{
-    //long lastTarget = 0;
-    // if the green button is pressed move. Or do nothing/
-    OWNER->moveThroughTraj(steppingLastLeftTrajFunc, STEPTIME);
-}
-
-void sitStand::SteppingLastLeft::exit(void)
-{
-    printf("SteppingLastLeft State Exited at Time %d\n", OWNER->mark);
-    // do nothing
-}
-
-void sitStand::ErrorState::entry(void)
-{
-    //READ TIME OF MAIN
-    printf("Error State Entered at Time %d\n", OWNER->mark);
-    logfile.close();
-    printf("File Closed \n");
-
-    printf("Reset with Red + Green \n");
-
-    // Set Drives to Disabled mode
-    for (auto i = 0; i < NUM_JOINTS; i++)
-    {
-        OWNER->robot->joints[i].disable();
-    }
-}
-
-void sitStand::ErrorState::during(void)
-{
-}
-
-void sitStand::ErrorState::exit(void)
-{
-    printf("Error State Exited");
-}
-
 ////////////////////////////////////////////////////////////////
 // Events ------------------------------------------------------------
 ///////////////////////////////////////////////////////////////
 bool sitStand::EndTraj::check(void)
 {
     //int reached = 0;
-    if (fracTrajProgress > 1.25)
+    if (OWNER->robot->fracTrajProgress > 1.25)
     {
         return true;
     }
@@ -510,7 +277,7 @@ void sitStand::initRobot(Robot *rb)
     robot->printInfo();
 };
 
-// Update button state, loop counter (mark) and joints from
+// Update button state, loop counter (mark) and joints
 void sitStand::hwStateUpdate(void)
 {
     /*BUTON CODE*/
@@ -525,8 +292,6 @@ void sitStand::hwStateUpdate(void)
     this->gButton = greenbtn;
     this->bButton = bluebtn;
     this->rButton = redbtn;
-
-    //printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
 
     if (!yButton)
     {
@@ -548,11 +313,7 @@ void sitStand::hwStateUpdate(void)
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
-    // robot->printInfo();
-    // robot->printTrajectories();
 
-    //printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
-    //printf(std::to_string(robot->joints[2].getActualTorque()));
     // Log to file
     //if (mark%%==1){
     struct timeval tv;
@@ -563,7 +324,6 @@ void sitStand::hwStateUpdate(void)
     for (auto i = 3; i < NUM_JOINTS; i++)
     {
         logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
-        //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
     }
     //printf("\n");
     logfile << "\n";

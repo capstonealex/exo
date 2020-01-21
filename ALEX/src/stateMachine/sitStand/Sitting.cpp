@@ -15,7 +15,7 @@ void Sitting::entry(void)
 }
 void Sitting::during(void)
 {
-    owner->robot->moveThroughTraj(sittingTrajFunc, 10);
+    owner->robot->moveThroughTraj(owner->robot->sittingTrajFunc, 10);
 }
 void Sitting::exit(void)
 {

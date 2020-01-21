@@ -5,10 +5,12 @@
 #ifndef CANOPENBEAGLE_ROBOT_H
 #define CANOPENBEAGLE_ROBOT_H
 #include "Joint.h"
+#include <array>
 // Trajectory constants
 #define TRAJ_LENGTH 6
 #define SITSTANDTIME 2
 #define STEPTIME 2
+#define NUM_JOINTS 4
 
 #define STANCE_END_KNEE 8
 #define SWING_END_KNEE 20
@@ -30,16 +32,8 @@
 class Robot
 {
 private:
-    enum
-    {
-        NUM_JOINTS = 6
-    };
     bool positionControlConfigured;
-
-    double fracTrajProgress = 0;
     int desiredIndex = 0;
-    int running = 0;
-
     //Stationary Sitting Traj
     std::array<double, TRAJ_LENGTH> stationarySittingKneeTraj = {
         SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE};
@@ -223,9 +217,11 @@ private:
 public:
     Robot();
     Joint joints[NUM_JOINTS];
+    double fracTrajProgress = 0;
     void printInfo();
     //void jointIncrement();
     void updateJoints();
+    bool positionControl;
     bool initPositionControl(void);
     bool initPositionControlAnkles(void);
     bool homeCalibration(void);

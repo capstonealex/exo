@@ -18,7 +18,7 @@ void SittingDwn::during(void)
 {
     // long lastTarget = 0;
     // if the green button is pressed move. Or do nothing/
-    owner->robot->moveThroughTraj(sitDownTrajFunc, SITSTANDTIME);
+    owner->robot->moveThroughTraj(owner->robot->sitDownTrajFunc, SITSTANDTIME);
 }
 void SittingDwn::exit(void)
 {

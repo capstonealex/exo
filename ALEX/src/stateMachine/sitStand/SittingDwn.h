@@ -1,7 +1,3 @@
-////////// STATE ////////////////////
-//-------  Sitting Down ------------/////
-////////////////////////////////////
-
 #include "State.h"
 #include "StateMachine.h"
 #include "Robot.h"

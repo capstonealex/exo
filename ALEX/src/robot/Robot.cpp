@@ -11,7 +11,6 @@
 #include <time.h>
 #include <sys/time.h>
 #include <cmath>
-#include <array>
 
 #define CANMESSAGELENGTH (100)
 #define NOFLIP (100)
