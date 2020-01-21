@@ -10,6 +10,8 @@
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
+#include <cmath>
+#include <array>
 
 #define CANMESSAGELENGTH (100)
 #define NOFLIP (100)
@@ -487,7 +489,7 @@ void Robot::startNewTraj()
     printf("Start New Traj \n");
 }
 
-void Robot::moveThroughTraj(double (*trajFunction)(int, double, Robot *robot), double trajTime)
+void Robot::moveThroughTraj(double (*trajFunction)(int, double), double trajTime)
 {
     //long lastTarget = 0;
     struct timeval tv;
@@ -518,7 +520,7 @@ void Robot::moveThroughTraj(double (*trajFunction)(int, double, Robot *robot), d
             {
                 // Send a new trajectory point
                 // Get Trajectory point for this joint based on current time
-                double desiredPos = trajFunction(i, fracTrajProgress, robot);
+                double desiredPos = trajFunction(i, fracTrajProgress);
                 //printf("%d, %3f \n", i, desiredPos );
                 joints[i].applyPosDeg(desiredPos);
 
@@ -537,4 +539,284 @@ void Robot::moveThroughTraj(double (*trajFunction)(int, double, Robot *robot), d
         timeradd(&stationary_tv, &tv_diff, &tv_changed);
         stationary_tv = tv_changed;
     }
+}
+
+// Trajectory functions
+// From input array of points, getInterpolatedPoints outputs an interpolated point
+// @ the given time instance from the array.
+
+double Robot::getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime)
+{
+    int length = points.size();
+    double fractInd = scaledTime * (length - 1);
+    int down = floor(fractInd);
+
+    if (scaledTime >= 1)
+    {
+        return points[length - 1];
+    }
+    else if (scaledTime <= 0)
+    {
+        return points[0];
+    }
+    else
+    {
+        return points[down] + (fractInd - down) * (points[down + 1] - points[down]);
+    }
+}
+double Robot::sittingTrajFunc(int jointInd, double scaledTime)
+{
+    int jointID = joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == LEFT_KNEE)
+    {
+        desPos = getInterpolatedPoint(stationarySittingKneeTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_KNEE)
+    {
+        desPos = getInterpolatedPoint(stationarySittingKneeTraj, scaledTime);
+    }
+    else if (jointID == LEFT_HIP)
+    {
+        desPos = getInterpolatedPoint(stationarySittingHipTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_HIP)
+    {
+        desPos = getInterpolatedPoint(stationarySittingHipTraj, scaledTime);
+    }
+    else if (jointID == LEFT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(stationarySittingAnkleTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(stationarySittingAnkleTraj, scaledTime);
+    }
+
+    return desPos;
+}
+
+double Robot::standUpTrajFunc(int jointInd, double scaledTime)
+{
+    int jointID = joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == LEFT_KNEE)
+    {
+        desPos = getInterpolatedPoint(standingKneeTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_KNEE)
+    {
+        desPos = getInterpolatedPoint(standingKneeTraj, scaledTime);
+    }
+    else if (jointID == LEFT_HIP)
+    {
+        desPos = getInterpolatedPoint(standingHipTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_HIP)
+    {
+        desPos = getInterpolatedPoint(standingHipTraj, scaledTime);
+    }
+    else if (jointID == LEFT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(standingAnkleTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(standingAnkleTraj, scaledTime);
+    }
+    return desPos;
+}
+
+double Robot::sitDownTrajFunc(int jointInd, double scaledTime)
+{
+    int jointID = joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == LEFT_KNEE)
+    {
+        desPos = getInterpolatedPoint(sittingKneeTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_KNEE)
+    {
+        desPos = getInterpolatedPoint(sittingKneeTraj, scaledTime);
+    }
+    else if (jointID == LEFT_HIP)
+    {
+        desPos = getInterpolatedPoint(sittingHipTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_HIP)
+    {
+        desPos = getInterpolatedPoint(sittingHipTraj, scaledTime);
+    }
+    else if (jointID == LEFT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(sittingAnkleTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(sittingAnkleTraj, scaledTime);
+    }
+    return desPos;
+}
+
+double Robot::steppingFirstLeftTrajFunc(int jointInd, double scaledTime)
+{
+    int jointID = joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == LEFT_KNEE)
+    {
+        desPos = getInterpolatedPoint(firstSwingKneeTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_KNEE)
+    {
+        desPos = getInterpolatedPoint(firstStanceKneeTraj, scaledTime);
+    }
+    else if (jointID == LEFT_HIP)
+    {
+        desPos = getInterpolatedPoint(firstSwingHipTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_HIP)
+    {
+        desPos = getInterpolatedPoint(firstStanceHipTraj, scaledTime);
+    }
+    else if (jointID == LEFT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(firstSwingAnkleTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(firstStanceAnkleTraj, scaledTime);
+    }
+    return desPos;
+}
+
+double Robot::steppingRightTrajFunc(int jointInd, double scaledTime)
+{
+    int jointID = joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == LEFT_KNEE)
+    {
+        desPos = getInterpolatedPoint(stanceKneeTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_KNEE)
+    {
+        desPos = getInterpolatedPoint(swingKneeTraj, scaledTime);
+    }
+    else if (jointID == LEFT_HIP)
+    {
+        desPos = getInterpolatedPoint(stanceHipTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_HIP)
+    {
+        desPos = getInterpolatedPoint(swingHipTraj, scaledTime);
+    }
+    else if (jointID == LEFT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(stanceAnkleTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(swingAnkleTraj, scaledTime);
+    }
+    return desPos;
+}
+
+double Robot::steppingLeftTrajFunc(int jointInd, double scaledTime)
+{
+    int jointID = joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == RIGHT_KNEE)
+    {
+        desPos = getInterpolatedPoint(stanceKneeTraj, scaledTime);
+    }
+    else if (jointID == LEFT_KNEE)
+    {
+        desPos = getInterpolatedPoint(swingKneeTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_HIP)
+    {
+        desPos = getInterpolatedPoint(stanceHipTraj, scaledTime);
+    }
+    else if (jointID == LEFT_HIP)
+    {
+        desPos = getInterpolatedPoint(swingHipTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(stanceAnkleTraj, scaledTime);
+    }
+    else if (jointID == LEFT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(swingAnkleTraj, scaledTime);
+    }
+    return desPos;
+}
+
+double Robot::steppingLastRightTrajFunc(int jointInd, double scaledTime)
+{
+    int jointID = joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == RIGHT_KNEE)
+    {
+        desPos = getInterpolatedPoint(lastSwingKneeTraj, scaledTime);
+    }
+    else if (jointID == LEFT_KNEE)
+    {
+        desPos = getInterpolatedPoint(lastStanceKneeTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_HIP)
+    {
+        desPos = getInterpolatedPoint(lastSwingHipTraj, scaledTime);
+    }
+    else if (jointID == LEFT_HIP)
+    {
+        desPos = getInterpolatedPoint(lastStanceHipTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(lastSwingAnkleTraj, scaledTime);
+    }
+    else if (jointID == LEFT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(lastStanceAnkleTraj, scaledTime);
+    }
+    return desPos;
+}
+
+double Robot::steppingLastLeftTrajFunc(int jointInd, double scaledTime)
+{
+    int jointID = joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == LEFT_KNEE)
+    {
+        desPos = getInterpolatedPoint(lastSwingKneeTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_KNEE)
+    {
+        desPos = getInterpolatedPoint(lastStanceKneeTraj, scaledTime);
+    }
+    else if (jointID == LEFT_HIP)
+    {
+        desPos = getInterpolatedPoint(lastSwingHipTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_HIP)
+    {
+        desPos = getInterpolatedPoint(lastStanceHipTraj, scaledTime);
+    }
+    else if (jointID == LEFT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(lastSwingAnkleTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(lastStanceAnkleTraj, scaledTime);
+    }
+    return desPos;
 }
