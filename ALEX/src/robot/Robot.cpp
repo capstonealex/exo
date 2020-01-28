@@ -819,7 +819,3 @@ double Robot::steppingLastLeftTrajFunc(int jointInd, double scaledTime)
     }
     return desPos;
 }
-int Robot::getSteptime()
-{
-    return steptime;
-}
