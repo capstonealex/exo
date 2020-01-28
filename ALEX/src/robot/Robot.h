@@ -42,7 +42,6 @@ private:
         SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE};
     std::array<double, TRAJ_LENGTH> stationarySittingAnkleTraj = {
         SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
-
     // Trajectories for Sitting
     std::array<double, TRAJ_LENGTH> sittingKneeTraj = {
         STAND_KNEE_ANGLE,
@@ -61,7 +60,6 @@ private:
     std::array<double, TRAJ_LENGTH> sittingAnkleTraj = {
         STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
         SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
-
     // Trajectories for Standing
     std::array<double, TRAJ_LENGTH> standingKneeTraj = {
         SIT_KNEE_ANGLE,
@@ -219,6 +217,7 @@ public:
     Robot();
     Joint joints[NUM_JOINTS];
     double fracTrajProgress = 0;
+    double trajTime;
     void printInfo();
     //void jointIncrement();
     void updateJoints();
@@ -249,7 +248,7 @@ public:
     struct timeval last_tv;
     // Trajectory functions - should move to trajectory object
     void startNewTraj();
-    void moveThroughTraj(double (*trajFunction)(int, double), double trajTime);
+    void moveThroughTraj(double (*trajFunction)(int, double));
     double getSteptime();
     double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime);
     double sittingTrajFunc(int jointInd, double scaledTime);

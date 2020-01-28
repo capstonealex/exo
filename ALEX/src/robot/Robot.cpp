@@ -488,7 +488,7 @@ void Robot::startNewTraj()
     printf("Start New Traj \n");
 }
 
-void Robot::moveThroughTraj(double (*trajFunction)(int, double), double trajTime)
+void Robot::moveThroughTraj(double (*trajFunction)(int, double))
 {
     //long lastTarget = 0;
     struct timeval tv;
@@ -504,40 +504,41 @@ void Robot::moveThroughTraj(double (*trajFunction)(int, double), double trajTime
     double trajTimeUS = trajTime * 1000000;
     fracTrajProgress = movingMicro / trajTimeUS;
     /*If gButton -> else commented out until button code integrated as object*/
-    // if Green Button is pressed, move through trajetory. Otherwise stay where you are
-    //     if (!gButton)
-    //     {
-    //         timeradd(&moving_tv, &tv_diff, &tv_changed);
-    //         moving_tv = tv_changed;
+    /*if Green Button is pressed, move through trajetory. Otherwise stay where you are*/
+    int gButton = 0;
+        if (!gButton)
+        {
+            timeradd(&moving_tv, &tv_diff, &tv_changed);
+            moving_tv = tv_changed;
 
-    //         //printf("Time: %3f \n", fracTrajProgress);
+            printf("Time: %3f \n", fracTrajProgress);
 
-    // #ifndef _NOACTUATION
-    //         for (int i = 0; i < NUM_JOINTS; i++)
-    //         {
-    //             if (joints[i].getBitFlipState() == NOFLIP)
-    //             {
-    //                 // Send a new trajectory point
-    //                 // Get Trajectory point for this joint based on current time
-    //                 double desiredPos = trajFunction(i, fracTrajProgress);
-    //                 //printf("%d, %3f \n", i, desiredPos );
-    //                 joints[i].applyPosDeg(desiredPos);
+    #ifndef _NOACTUATION
+            for (int i = 0; i < NUM_JOINTS; i++)
+            {
+                if (joints[i].getBitFlipState() == NOFLIP)
+                {
+                    // Send a new trajectory point
+                    // Get Trajectory point for this joint based on current time
+                    double desiredPos = (*trajFunction)(i, fracTrajProgress);
+                    //printf("%d, %3f \n", i, desiredPos );
+                    joints[i].applyPosDeg(desiredPos);
 
-    //                 // set state machine bitFlip to LOW state.
-    //                 joints[i].bitflipLow();
-    //             }
-    //             else
-    //             {
-    //                 joints[i].bitflipHigh();
-    //             }
-    //         }
-    // #endif
-    //     }
-    //     else
-    //     {
-    //         timeradd(&stationary_tv, &tv_diff, &tv_changed);
-    //         stationary_tv = tv_changed;
-    //     }
+                    // set state machine bitFlip to LOW state.
+                    joints[i].bitflipLow();
+                }
+                else
+                {
+                    joints[i].bitflipHigh();
+                }
+            }
+    #endif
+        }
+        else
+        {
+            timeradd(&stationary_tv, &tv_diff, &tv_changed);
+            stationary_tv = tv_changed;
+        }
 }
 
 // Trajectory functions
@@ -819,7 +820,7 @@ double Robot::steppingLastLeftTrajFunc(int jointInd, double scaledTime)
     }
     return desPos;
 }
-int Robot::getSteptime()
+double Robot::getSteptime()
 {
     return steptime;
 }
