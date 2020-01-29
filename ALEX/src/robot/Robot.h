@@ -50,6 +50,7 @@ private:
         54,
         72,
         SIT_KNEE_ANGLE};
+        //test
     std::array<double, TRAJ_LENGTH> sittingHipTraj = {
         STAND_HIP_ANGLE,
         165,
