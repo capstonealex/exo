@@ -478,7 +478,7 @@ sitStand::sitStand(void)
     NewTransition(steppingLastLeft, endTraj, standing);
     NewTransition(errorState, resetButtonsPressed, initState);
     //Backstep transition
-    NewTransition(standing, backstep, sittingDwn);
+    NewTransition(standing, backStep, sittingDwn);
 
     
     // Transitions to Error State
@@ -684,7 +684,7 @@ void sitStand::Sitting::exit(void)
 void sitStand::Standing::entry(void)
 {
     printf("Standing State Entered at Time %d\n", OWNER->mark);
-    backstep = waitForInput();
+    OWNER->backstep = OWNER->waitForInput();
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS YELLOW TO START Sitting DOWN\n");
     printf("PRESS BLUE BUTTON TO STEP LEFT LEG FORWARD\n");
@@ -697,7 +697,7 @@ void sitStand::Standing::during(void)
 void sitStand::Standing::exit(void)
 {
     printf("Standing State Exited at Time %d\n", OWNER->mark);
-    backstep = false;
+    OWNER->backstep = false;
 }
 
 
@@ -954,7 +954,7 @@ bool sitStand::DummyTrue::check(void)
 }
 bool sitStand::Backstep::check(void)
 {
-    if(backstep){
+    if(OWNER->backStep){
         return true;
     }
     return false;
