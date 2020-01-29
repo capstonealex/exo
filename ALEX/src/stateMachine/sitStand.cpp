@@ -59,10 +59,10 @@ static char *BUTTONGREEN = "P8_9";
 static char *BUTTONYELLOW = "P8_10";*/
 
 // For remote 
-static char *BUTTONRED = "P8_10";
-static char *BUTTONBLUE = "P8_9";
-static char *BUTTONGREEN = "P8_7";
-static char *BUTTONYELLOW = "P8_8";
+static char *BUTTONRED = "P8_9";
+static char *BUTTONBLUE = "P8_10";
+static char *BUTTONGREEN = "P8_8";
+static char *BUTTONYELLOW = "P8_7";
 
 /*static char *BUTTONRED = "P8_18";
 static char *BUTTONBLUE = "P8_17";
