@@ -438,6 +438,7 @@ sitStand::sitStand(void)
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     resetButtonsPressed = new ResetButtonsPressed(this);
+    backStep = new Backstep(this);
   
     // TRANSITION FOR TESTING
     dummyTrue = new DummyTrue(this);
@@ -476,6 +477,8 @@ sitStand::sitStand(void)
     NewTransition(steppingLastRight, endTraj, standing);
     NewTransition(steppingLastLeft, endTraj, standing);
     NewTransition(errorState, resetButtonsPressed, initState);
+    //Backstep transition
+    NewTransition(standing, backstep, sittingDwn);
 
     
     // Transitions to Error State
@@ -569,7 +572,6 @@ void sitStand::deactivate(void)
 void sitStand::InitState::entry(void)
 {
     printf("Initialise State Entered at Time %d\n", OWNER->mark);
-    
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -682,7 +684,7 @@ void sitStand::Sitting::exit(void)
 void sitStand::Standing::entry(void)
 {
     printf("Standing State Entered at Time %d\n", OWNER->mark);
-
+    backstep = waitForInput();
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS YELLOW TO START Sitting DOWN\n");
     printf("PRESS BLUE BUTTON TO STEP LEFT LEG FORWARD\n");
@@ -695,6 +697,7 @@ void sitStand::Standing::during(void)
 void sitStand::Standing::exit(void)
 {
     printf("Standing State Exited at Time %d\n", OWNER->mark);
+    backstep = false;
 }
 
 
@@ -948,6 +951,34 @@ bool sitStand::ResetButtonsPressed::check(void)
 bool sitStand::DummyTrue::check(void)
 {
     return true;
+}
+bool sitStand::Backstep::check(void)
+{
+    if(backstep){
+        return true;
+    }
+    return false;
+}
+
+
+bool sitStand::waitForInput(){
+    char input;
+    bool backstep = false;
+    cout << "Type b and enter to commence a backstep: ";
+    cin>>input;
+    switch(input) {
+        case ('b'):
+            cout << "YOU hit b, you must want to backstep";
+            backstep = true;
+            // code to trigger backstep transition
+            break;
+        case ('d'):
+            cout << "YOU hit d";
+            break;
+        default:
+            cout << "backstep not selected";
+    }
+    return backstep;
 }
 
 //////////////////////////////////////////////////////////////////////
