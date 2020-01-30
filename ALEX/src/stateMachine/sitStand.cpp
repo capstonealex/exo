@@ -59,9 +59,9 @@ static char *BUTTONYELLOW = "P8_10";*/
 
 // For remote
 static char *BUTTONRED = "P8_9";
-static char *BUTTONBLUE = "P8_10";
+static char *BUTTONBLUE = "P8_7";
 static char *BUTTONGREEN = "P8_8";
-static char *BUTTONYELLOW = "P8_7";
+static char *BUTTONYELLOW = "P8_10";
 
 /*static char *BUTTONRED = "P8_18";
 static char *BUTTONBLUE = "P8_17";
@@ -92,10 +92,10 @@ int running = 0;
 #define STEPTIME 2
 
 #define STANCE_END_KNEE 8
-#define SWING_END_KNEE 20
+#define SWING_END_KNEE 10
 
 #define STANCE_END_HIP 180
-#define SWING_END_HIP 150
+#define SWING_END_HIP 160
 
 #define STANCE_END_ANKLE 80
 #define SWING_END_ANKLE 100
@@ -105,7 +105,7 @@ int running = 0;
 #define SIT_ANKLE_ANGLE 100
 
 #define STAND_KNEE_ANGLE 8
-#define STAND_HIP_ANGLE 170
+#define STAND_HIP_ANGLE 175
 #define STAND_ANKLE_ANGLE 95
 
 //Stationary Sitting Traj
@@ -330,6 +330,7 @@ std::array<double, TRAJ_LENGTH> backStanceAnkleTraj = {
     90,
     90,
     SWING_END_ANKLE};
+
 
 double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime)
 {
