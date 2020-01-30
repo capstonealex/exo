@@ -50,7 +50,7 @@ private:
         54,
         72,
         SIT_KNEE_ANGLE};
-        //test
+    //test
     std::array<double, TRAJ_LENGTH> sittingHipTraj = {
         STAND_HIP_ANGLE,
         165,
@@ -249,8 +249,7 @@ public:
     struct timeval last_tv;
     // Trajectory functions - should move to trajectory object
     void startNewTraj();
-    void moveThroughTraj(double (*trajFunction)(int, double));
-    double getSteptime();
+    void moveThroughTraj(double (*trajFunction)(int, double), double trajTime);
     double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime);
     double sittingTrajFunc(int jointInd, double scaledTime);
     double standUpTrajFunc(int jointInd, double scaledTime);
