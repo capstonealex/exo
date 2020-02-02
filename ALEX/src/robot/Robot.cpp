@@ -15,6 +15,185 @@
 #define CANMESSAGELENGTH (100)
 #define NOFLIP (100)
 
+    //Stationary Sitting Traj
+    static constexpr std::array<double, TRAJ_LENGTH> stationarySittingKneeTraj = {
+        SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> stationarySittingHipTraj = {
+        SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> stationarySittingAnkleTraj = {
+        SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
+    // Trajectories for Sitting
+    static constexpr std::array<double, TRAJ_LENGTH> sittingKneeTraj = {
+        STAND_KNEE_ANGLE,
+        15,
+        30,
+        54,
+        72,
+        SIT_KNEE_ANGLE};
+    //test
+    static constexpr std::array<double, TRAJ_LENGTH> sittingHipTraj = {
+        STAND_HIP_ANGLE,
+        165,
+        150,
+        125,
+        110,
+        SIT_HIP_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> sittingAnkleTraj = {
+        STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
+        SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
+    // Trajectories for Standing
+    static constexpr std::array<double, TRAJ_LENGTH> standingKneeTraj = {
+        SIT_KNEE_ANGLE,
+        72,
+        54,
+        30,
+        15,
+        STAND_KNEE_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> standingHipTraj = {
+        SIT_HIP_ANGLE,
+        110,
+        125,
+        150,
+        165,
+        STAND_HIP_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> standingAnkleTraj = {
+        SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
+        STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE};
+
+    //Trajectories for First Step
+    static constexpr std::array<double, TRAJ_LENGTH> firstSwingKneeTraj = {
+        STAND_KNEE_ANGLE,
+        50,
+        80,
+        80,
+        41,
+        SWING_END_KNEE};
+    static constexpr std::array<double, TRAJ_LENGTH> firstSwingHipTraj = {
+        STAND_HIP_ANGLE,
+        140,
+        130,
+        120,
+        120,
+        SWING_END_HIP};
+    static constexpr std::array<double, TRAJ_LENGTH> firstSwingAnkleTraj = {
+        STAND_ANKLE_ANGLE,
+        90,
+        90,
+        90,
+        90,
+        SWING_END_ANKLE};
+
+    static constexpr std::array<double, TRAJ_LENGTH> firstStanceKneeTraj = {
+        STAND_KNEE_ANGLE,
+        8,
+        8,
+        8,
+        8,
+        STANCE_END_KNEE};
+    static constexpr std::array<double, TRAJ_LENGTH> firstStanceHipTraj = {
+        STAND_HIP_ANGLE,
+        170,
+        170,
+        170,
+        175,
+        STANCE_END_HIP};
+    static constexpr std::array<double, TRAJ_LENGTH> firstStanceAnkleTraj = {
+        STAND_ANKLE_ANGLE,
+        90,
+        90,
+        90,
+        STANCE_END_ANKLE,
+        STANCE_END_ANKLE};
+
+    //Trajectories for Step
+    static constexpr std::array<double, TRAJ_LENGTH> stanceKneeTraj = {
+        SWING_END_KNEE,
+        8,
+        8,
+        8,
+        8,
+        STANCE_END_KNEE};
+    static constexpr std::array<double, TRAJ_LENGTH> stanceHipTraj = {
+        SWING_END_HIP,
+        155,
+        160,
+        170,
+        175,
+        STANCE_END_HIP};
+    static constexpr std::array<double, TRAJ_LENGTH> stanceAnkleTraj = {
+        SWING_END_ANKLE,
+        90,
+        90,
+        90,
+        STANCE_END_ANKLE,
+        STANCE_END_ANKLE};
+
+    static constexpr std::array<double, TRAJ_LENGTH> swingKneeTraj = {
+        STANCE_END_KNEE,
+        2,
+        20,
+        80,
+        70,
+        SWING_END_KNEE};
+    static constexpr std::array<double, TRAJ_LENGTH> swingHipTraj = {
+        STANCE_END_HIP,
+        180,
+        180,
+        140,
+        110,
+        SWING_END_HIP};
+    static constexpr std::array<double, TRAJ_LENGTH> swingAnkleTraj = {
+        STANCE_END_ANKLE,
+        110,
+        100,
+        90,
+        90,
+        SWING_END_ANKLE};
+
+    //Trajectories for Last Step
+    static constexpr std::array<double, TRAJ_LENGTH> lastStanceKneeTraj = {
+        SWING_END_KNEE,
+        8,
+        8,
+        8,
+        8,
+        STAND_KNEE_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> lastStanceHipTraj = {
+        SWING_END_HIP,
+        170,
+        170,
+        170,
+        170,
+        STAND_HIP_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> lastStanceAnkleTraj = {
+        SWING_END_ANKLE,
+        90,
+        90,
+        90,
+        90,
+        STAND_ANKLE_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> lastSwingKneeTraj = {
+        STANCE_END_KNEE,
+        8,
+        40,
+        80,
+        40,
+        STAND_KNEE_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> lastSwingHipTraj = {
+        STANCE_END_HIP,
+        185,
+        170,
+        130,
+        130,
+        STAND_HIP_ANGLE};
+    static constexpr std::array<double, TRAJ_LENGTH> lastSwingAnkleTraj = {
+        STANCE_END_ANKLE,
+        90,
+        90,
+        90,
+        90,
+        STAND_ANKLE_ANGLE};
+
 Robot::Robot()
 {
     positionControlConfigured = false;
@@ -54,105 +233,7 @@ bool Robot::sdoMSG(void)
     printf("Heart beat read!\n");
     return true;
 }
-bool Robot::homeCalibration(void)
-{
-    char *returnMessage;
-    char SDO_MessageList[][CANMESSAGELENGTH] = {
-        "[1] 1 start",
-        "[1] 2 start",
-        "[1] 3 start",
-        "[1] 4 start",
-        "[1] 2 write 0x6060 0 i8 1",
-        "[1] 1 write 0x6060 0 i8 1",
-        "[1] 3 write 0x6060 0 i8 1",
-        "[1] 4 write 0x6060 0 i8 1",
-        "[1] 2 write 0x6081 0 i32 200000",
-        "[1] 1 write 0x6081 0 i32 200000",
-        "[1] 3 write 0x6081 0 i32 200000",
-        "[1] 4 write 0x6081 0 i32 200000",
-        "[1] 2 write 0x6083 0 i32 30000",
-        "[1] 1 write 0x6083 0 i32 30000",
-        "[1] 3 write 0x6083 0 i32 30000",
-        "[1] 4 write 0x6083 0 i32 30000",
-        "[1] 2 write 0x6084 0 i32 30000",
-        "[1] 1 write 0x6084 0 i32 30000",
-        "[1] 3 write 0x6084 0 i32 30000",
-        "[1] 4 write 0x6084 0 i32 30000",
-        "[1] 1 read 0x6063 0 i32",
-        "[1] 2 read 0x6063 0 i32",
-        "[1] 3 read 0x6063 0 i32",
-        "[1] 4 read 0x6063 0 i32",
-        "[1] 2 write 0x607A 0 i32 -280000",
-        "[1] 1 write 0x607A 0 i32 115000",
-        "[1] 4 write 0x607A 0 i32 -280000",
-        "[1] 3 write 0x607A 0 i32 115000",
-        "[1] 2 write 0x6040 0 i16 47",
-        "[1] 2 write 0x6040 0 i16 63",
-        "[1] 2 write 0x6040 0 i16 47",
-        "[1] 1 write 0x6040 0 i16 47",
-        "[1] 1 write 0x6040 0 i16 63",
-        "[1] 1 write 0x6040 0 i16 47",
-        "[1] 4 write 0x6040 0 i16 47",
-        "[1] 4 write 0x6040 0 i16 63",
-        "[1] 4 write 0x6040 0 i16 47",
-        "[1] 3 write 0x6040 0 i16 47",
-        "[1] 3 write 0x6040 0 i16 63",
-        "[1] 3 write 0x6040 0 i16 47"};
 
-    int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
-    for (int i = 0; i < num_of_Messages; ++i)
-    {
-        cancomm_socketFree(SDO_MessageList[i], returnMessage);
-    }
-
-    sleep(5);
-    // TODO: Change sleep to check that we reached home
-    printf("Home motion complete\n");
-    char *returnMessageB;
-    char SDO_MessageListB[][CANMESSAGELENGTH] = {
-        "[1] 1 read 0x6063 0 i32",
-        "[1] 2 read 0x6063 0 i32",
-        "[1] 3 read 0x6063 0 i32",
-        "[1] 4 read 0x6063 0 i32",
-        "[1] 2 write 0x6060 0 i8 6",
-        "[1] 1 write 0x6060 0 i8 6",
-        "[1] 3 write 0x6060 0 i8 6",
-        "[1] 4 write 0x6060 0 i8 6 ",
-        "[1] 2 write 0x6098 0 i8 0",
-        "[1] 1 write 0x6098 0 i8 0",
-        "[1] 3 write 0x6098 0 i8 0",
-        "[1] 4 write 0x6098 0 i8 0",
-        "[1] 2 write 0x607C 0 i32 0",
-        "[1] 1 write 0x607C 0 i32 0",
-        "[1] 3 write 0x607C 0 i32 0",
-        "[1] 4 write 0x607C 0 i32 0",
-        "[1] 1 write 0x607D 1 i32 - 110000",
-        "[1] 1 write 0x607D 2 i32 310000",
-        "[1] 2 write 0x607D 1 i32 2000",
-        "[1] 2 write 0x607D 2 i32 280000",
-        "[1] 3 write 0x607D 1 i32 -110000",
-        "[1] 3 write 0x607D 2 i32 310000",
-        "[1] 4 write 0x607D 1 i32 2000",
-        "[1] 4 write 0x607D 2 i32 280000",
-        "[1] 2 write 0x6040 0 i16 15",
-        "[1] 2 write 0x6040 0 i16 31",
-        "[1] 2 write 0x6040 0 i16 15",
-        "[1] 4 write 0x6040 0 i16 15",
-        "[1] 4 write 0x6040 0 i16 31",
-        "[1] 4 write 0x6040 0 i16 15",
-        "[1] 3 write 0x6040 0 i16 15",
-        "[1] 3 write 0x6040 0 i16 31",
-        "[1] 3 write 0x6040 0 i16 15",
-        "[1] 1 write 0x6040 0 i16 15",
-        "[1] 1 write 0x6040 0 i16 31",
-        "[1] 1 write 0x6040 0 i16 15"};
-    for (int i = 0; i < num_of_Messages; ++i)
-    {
-        cancomm_socketFree(SDO_MessageListB[i], returnMessageB);
-    }
-    printf("Zeroing drives complete\n");
-    return true;
-}
 bool Robot::initPositionControl(void)
 {
     char *returnMessage;
@@ -520,7 +601,7 @@ void Robot::moveThroughTraj(double (*trajFunction)(int, double), double trajTime
             {
                 // Send a new trajectory point
                 // Get Trajectory point for this joint based on current time
-                double desiredPos = (*trajFunction)(i, fracTrajProgress);
+                double desiredPos = (*trajFunction)(joints[i].getId(), fracTrajProgress);
                 //printf("%d, %3f \n", i, desiredPos );
                 joints[i].applyPosDeg(desiredPos);
 
@@ -564,9 +645,8 @@ double Robot::getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, doubl
         return points[down] + (fractInd - down) * (points[down + 1] - points[down]);
     }
 }
-double Robot::sittingTrajFunc(int jointInd, double scaledTime)
+double Robot::sittingTrajFunc(int jointID, double scaledTime)
 {
-    int jointID = joints[jointInd].getId();
     double desPos = 0;
 
     if (jointID == LEFT_KNEE)
@@ -597,9 +677,8 @@ double Robot::sittingTrajFunc(int jointInd, double scaledTime)
     return desPos;
 }
 
-double Robot::standUpTrajFunc(int jointInd, double scaledTime)
+double Robot::standUpTrajFunc(int jointID, double scaledTime)
 {
-    int jointID = joints[jointInd].getId();
     double desPos = 0;
 
     if (jointID == LEFT_KNEE)
@@ -629,9 +708,8 @@ double Robot::standUpTrajFunc(int jointInd, double scaledTime)
     return desPos;
 }
 
-double Robot::sitDownTrajFunc(int jointInd, double scaledTime)
+double Robot::sitDownTrajFunc(int jointID, double scaledTime)
 {
-    int jointID = joints[jointInd].getId();
     double desPos = 0;
 
     if (jointID == LEFT_KNEE)
@@ -661,9 +739,8 @@ double Robot::sitDownTrajFunc(int jointInd, double scaledTime)
     return desPos;
 }
 
-double Robot::steppingFirstLeftTrajFunc(int jointInd, double scaledTime)
+double Robot::steppingFirstLeftTrajFunc(int jointID, double scaledTime)
 {
-    int jointID = joints[jointInd].getId();
     double desPos = 0;
 
     if (jointID == LEFT_KNEE)
@@ -693,9 +770,8 @@ double Robot::steppingFirstLeftTrajFunc(int jointInd, double scaledTime)
     return desPos;
 }
 
-double Robot::steppingRightTrajFunc(int jointInd, double scaledTime)
+double Robot::steppingRightTrajFunc(int jointID, double scaledTime)
 {
-    int jointID = joints[jointInd].getId();
     double desPos = 0;
 
     if (jointID == LEFT_KNEE)
@@ -725,9 +801,8 @@ double Robot::steppingRightTrajFunc(int jointInd, double scaledTime)
     return desPos;
 }
 
-double Robot::steppingLeftTrajFunc(int jointInd, double scaledTime)
+double Robot::steppingLeftTrajFunc(int jointID, double scaledTime)
 {
-    int jointID = joints[jointInd].getId();
     double desPos = 0;
 
     if (jointID == RIGHT_KNEE)
@@ -757,9 +832,8 @@ double Robot::steppingLeftTrajFunc(int jointInd, double scaledTime)
     return desPos;
 }
 
-double Robot::steppingLastRightTrajFunc(int jointInd, double scaledTime)
+double Robot::steppingLastRightTrajFunc(int jointID, double scaledTime)
 {
-    int jointID = joints[jointInd].getId();
     double desPos = 0;
 
     if (jointID == RIGHT_KNEE)
@@ -789,9 +863,8 @@ double Robot::steppingLastRightTrajFunc(int jointInd, double scaledTime)
     return desPos;
 }
 
-double Robot::steppingLastLeftTrajFunc(int jointInd, double scaledTime)
+double Robot::steppingLastLeftTrajFunc(int jointID, double scaledTime)
 {
-    int jointID = joints[jointInd].getId();
     double desPos = 0;
 
     if (jointID == LEFT_KNEE)

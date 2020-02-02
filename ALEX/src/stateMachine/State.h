@@ -32,7 +32,7 @@ public:
     Transition *getActiveArc(void);
     // Virtual functions, must be implemented by implented states (inherited classes)
     virtual void entry(void) = 0;
-    virtual void during(void) = 0;
+    virtual void during(void) =0;
     virtual void exit(void) = 0;
 
     const char *getName(void);

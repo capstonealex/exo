@@ -9,9 +9,23 @@
 #include "Robot.h"
 #include "GPIOManager.h"
 #include "GPIOConst.h"
+
 #define OWNER ((sitStand *)owner)
 // Designed State and event classes
 #include "InitState.h"
+#include "SittingDwn.h"
+#include "StandingUp.h"
+#include "Sitting.h"
+#include "Standing.h"
+#include "SteppingFirstLeft.h"
+#include "SteppingLastLeft.h"
+#include "SteppingLastRight.h"
+#include "SteppingLeft.h"
+#include "SteppingRight.h"
+#include "LeftForward.h"
+#include "RightForward.h"
+#include "ErrorState.h"
+
 
 double getDegPos(int jointInd, int desiredIndex, Robot *rob);
 
@@ -46,19 +60,19 @@ private:
     // State Object pointers 
     //  Used by transition objects for transition direction + safety
     InitState * initState;
-    StateObject(SittingDwn) * sittingDwn;
-    StateObject(StandingUp) * standingUp;
-    StateObject(Sitting) * sitting;
-    StateObject(Standing) * standing;
-    StateObject(SteppingFirstLeft) * steppingFirstLeft;
-    StateObject(LeftForward) * leftForward;
-    StateObject(SteppingRight) * steppingRight;
-    StateObject(RightForward) * rightForward;
-    StateObject(SteppingLeft) * steppingLeft;
-    StateObject(SteppingLastRight) * steppingLastRight;
-    StateObject(SteppingLastLeft) * steppingLastLeft;
+    SittingDwn * sittingDwn;
+    StandingUp * standingUp;
+    Sitting * sitting;
+    Standing * standing;
+    SteppingFirstLeft * steppingFirstLeft;
+    LeftForward* leftForward;
+    SteppingRight * steppingRight;
+    RightForward * rightForward;
+    SteppingLeft * steppingLeft;
+    SteppingLastRight * steppingLastRight;
+    SteppingLastLeft * steppingLastLeft;
     
-    StateObject(ErrorState) * errorState;
+    ErrorState * errorState;
 
     // data;
     int calibrated;

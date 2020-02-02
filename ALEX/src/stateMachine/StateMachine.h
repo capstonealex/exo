@@ -42,10 +42,10 @@ private:
 // useage: StateObject ( MyState ) * myState;
 #define StateObject(_name_)                                                  \
     class _name_;                                                            \
-    friend class _name_;                                                     \
     class _name_ : public State                                              \
     {                                                                        \
-                                                                             \
+    friend class sitStand;                                                     \
+                                                                      \
     public:                                                                  \
         _name_(StateMachine *m, const char *name = NULL) : State(m, name){}; \
         void entry(void);                                                    \
