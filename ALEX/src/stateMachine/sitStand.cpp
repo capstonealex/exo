@@ -100,8 +100,8 @@ int running = 0;
 #define STANCE_END_ANKLE 80
 #define SWING_END_ANKLE 100
 
-#define SIT_KNEE_ANGLE 80
-#define SIT_HIP_ANGLE 105
+#define SIT_KNEE_ANGLE 100
+#define SIT_HIP_ANGLE 65
 #define SIT_ANKLE_ANGLE 100
 
 #define STAND_KNEE_ANGLE 8
@@ -127,9 +127,9 @@ std::array<double, TRAJ_LENGTH> sittingKneeTraj = {
 std::array<double, TRAJ_LENGTH> sittingHipTraj = {
     STAND_HIP_ANGLE,
     165,
-    150,
-    125,
-    110,
+    140,
+    90,
+    70,
     SIT_HIP_ANGLE};
 std::array<double, TRAJ_LENGTH> sittingAnkleTraj = {
     STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
@@ -145,9 +145,9 @@ std::array<double, TRAJ_LENGTH> standingKneeTraj = {
     STAND_KNEE_ANGLE};
 std::array<double, TRAJ_LENGTH> standingHipTraj = {
     SIT_HIP_ANGLE,
-    110,
-    125,
-    150,
+    70,
+    90,
+    140,
     165,
     STAND_HIP_ANGLE};
 std::array<double, TRAJ_LENGTH> standingAnkleTraj = {
@@ -1308,7 +1308,7 @@ void sitStand::hwStateUpdate(void)
     double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
     logfile << std::to_string(currtime);
 
-    for (auto i = 3; i < NUM_JOINTS; i++)
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
         logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
         //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
