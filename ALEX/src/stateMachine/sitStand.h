@@ -25,7 +25,8 @@ public:
     //bool bitFlip(int i);
     bool initPositionControl();
     void startNewTraj();
-    void moveThroughTraj(double (*trajFunction)(int, double, Robot*), double trajTime);
+    void moveThroughTraj(double (*trajFunction)(int, double, Robot *), double trajTime);
+    bool waitForInput();
 
 private:
     // events
@@ -33,10 +34,12 @@ private:
     EventObject(IsYPressed) * isYPressed;
     EventObject(IsBPressed) * isBPressed;
     EventObject(IsRPressed) * isRPressed;
+    EventObject(IsGPressed) * isGPressed;
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
     EventObject(DummyTrue) * dummyTrue;
-    
+    EventObject(Backstep) * backStep;
+
     // states
     StateObject(InitState) * initState;
     StateObject(SittingDwn) * sittingDwn;
@@ -50,7 +53,10 @@ private:
     StateObject(SteppingLeft) * steppingLeft;
     StateObject(SteppingLastRight) * steppingLastRight;
     StateObject(SteppingLastLeft) * steppingLastLeft;
-    
+    StateObject(SteppingLeftBack) * steppingLeftBack;
+    StateObject(WalkSelect) * walkSelect;
+    StateObject(WalkSelectConfirm) * walkSelectConfirm;
+
     StateObject(ErrorState) * errorState;
 
     // data
@@ -60,6 +66,7 @@ private:
     int yButton;
     int bButton;
     int rButton;
+    bool backstep;
     int arrayIndex;
     int bitFlipState;
     GPIO::GPIOManager *gp;

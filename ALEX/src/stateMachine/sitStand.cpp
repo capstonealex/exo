@@ -1,4 +1,3 @@
-//hi
 /**
  *
  * Created for ALEX exoskeleton on 2019-10-02.
@@ -93,20 +92,20 @@ int running = 0;
 #define STEPTIME 2
 
 #define STANCE_END_KNEE 8
-#define SWING_END_KNEE 20
+#define SWING_END_KNEE 10
 
 #define STANCE_END_HIP 180
-#define SWING_END_HIP 150
+#define SWING_END_HIP 160
 
 #define STANCE_END_ANKLE 80
 #define SWING_END_ANKLE 100
 
-#define SIT_KNEE_ANGLE 80
-#define SIT_HIP_ANGLE 105
+#define SIT_KNEE_ANGLE 100
+#define SIT_HIP_ANGLE 65
 #define SIT_ANKLE_ANGLE 100
 
 #define STAND_KNEE_ANGLE 8
-#define STAND_HIP_ANGLE 170
+#define STAND_HIP_ANGLE 175
 #define STAND_ANKLE_ANGLE 95
 
 //Stationary Sitting Traj
@@ -128,9 +127,9 @@ std::array<double, TRAJ_LENGTH> sittingKneeTraj = {
 std::array<double, TRAJ_LENGTH> sittingHipTraj = {
     STAND_HIP_ANGLE,
     165,
-    150,
-    125,
-    110,
+    140,
+    90,
+    70,
     SIT_HIP_ANGLE};
 std::array<double, TRAJ_LENGTH> sittingAnkleTraj = {
     STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
@@ -146,9 +145,9 @@ std::array<double, TRAJ_LENGTH> standingKneeTraj = {
     STAND_KNEE_ANGLE};
 std::array<double, TRAJ_LENGTH> standingHipTraj = {
     SIT_HIP_ANGLE,
-    110,
-    125,
-    150,
+    70,
+    90,
+    140,
     165,
     STAND_HIP_ANGLE};
 std::array<double, TRAJ_LENGTH> standingAnkleTraj = {
@@ -288,6 +287,50 @@ std::array<double, TRAJ_LENGTH> lastSwingAnkleTraj = {
     90,
     90,
     STAND_ANKLE_ANGLE};
+// back swing trajectories - reverse of lastSwing/ last stance traj
+std::array<double, TRAJ_LENGTH> backSwingKneeTraj = {
+    STAND_KNEE_ANGLE,
+    40,
+    80,
+    40,
+    8,
+    STANCE_END_KNEE};
+std::array<double, TRAJ_LENGTH> backSwingHipTraj = {
+    STAND_HIP_ANGLE,
+    130,
+    130,
+    170,
+    185,
+    STANCE_END_HIP};
+std::array<double, TRAJ_LENGTH> backSwingAnkleTraj = {
+    STAND_ANKLE_ANGLE,
+    90,
+    90,
+    90,
+    90,
+    STANCE_END_ANKLE};
+std::array<double, TRAJ_LENGTH> backStanceKneeTraj = {
+    STAND_KNEE_ANGLE,
+    8,
+    8,
+    8,
+    8,
+    SWING_END_KNEE};
+std::array<double, TRAJ_LENGTH> backStanceHipTraj = {
+    STAND_HIP_ANGLE,
+    170,
+    170,
+    170,
+    170,
+    SWING_END_HIP};
+std::array<double, TRAJ_LENGTH> backStanceAnkleTraj = {
+    STAND_ANKLE_ANGLE,
+    90,
+    90,
+    90,
+    90,
+    SWING_END_ANKLE};
+
 
 double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime)
 {
@@ -566,6 +609,37 @@ double steppingLastLeftTrajFunc(int jointInd, double scaledTime, Robot *rob)
     return desPos;
 }
 
+double steppingLeftBackTrajFunc(int jointInd, double scaledTime, Robot *rob)
+{
+    int jointID = rob->joints[jointInd].getId();
+    double desPos = 0;
+
+    if (jointID == LEFT_KNEE)
+    {
+        desPos = getInterpolatedPoint(backSwingKneeTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_KNEE)
+    {
+        desPos = getInterpolatedPoint(backStanceKneeTraj, scaledTime);
+    }
+    else if (jointID == LEFT_HIP)
+    {
+        desPos = getInterpolatedPoint(backSwingHipTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_HIP)
+    {
+        desPos = getInterpolatedPoint(backStanceHipTraj, scaledTime);
+    }
+    else if (jointID == LEFT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(backSwingAnkleTraj, scaledTime);
+    }
+    else if (jointID == RIGHT_ANKLE)
+    {
+        desPos = getInterpolatedPoint(backStanceAnkleTraj, scaledTime);
+    }
+    return desPos;
+}
 /////////////////////////////////////////////////////////
 // State Machine sitStand methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////
@@ -577,6 +651,7 @@ sitStand::sitStand(void)
     isYPressed = new IsYPressed(this);
     isBPressed = new IsBPressed(this);
     isRPressed = new IsRPressed(this);
+    isGPressed = new IsGPressed(this);
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     resetButtonsPressed = new ResetButtonsPressed(this);
@@ -597,17 +672,20 @@ sitStand::sitStand(void)
     steppingLeft = new SteppingLeft(this);
     steppingLastRight = new SteppingLastRight(this);
     steppingLastLeft = new SteppingLastLeft(this);
+    //Moonwalking back steps
+    walkSelectConfirm = new WalkSelectConfirm(this);
+    walkSelect = new WalkSelect(this);
+    steppingLeftBack = new SteppingLeftBack(this);
 
     // DUMMY TRANSITION FOR TESTING ONLY
     errorState = new ErrorState(this);
 
-    // Create Trasitions between states and events which trigger them
+    //TEST BACK STEP KEYBOARD
     NewTransition(initState, startButtonsPressed, sitting);
     NewTransition(standing, isYPressed, sittingDwn);
     NewTransition(sittingDwn, endTraj, sitting);
     NewTransition(sitting, isYPressed, standingUp);
     NewTransition(standingUp, endTraj, standing);
-    NewTransition(standing, isBPressed, steppingFirstLeft);
     NewTransition(steppingFirstLeft, endTraj, leftForward);
     NewTransition(leftForward, isBPressed, steppingRight);
     NewTransition(steppingRight, endTraj, rightForward);
@@ -618,6 +696,13 @@ sitStand::sitStand(void)
     NewTransition(steppingLastRight, endTraj, standing);
     NewTransition(steppingLastLeft, endTraj, standing);
     NewTransition(errorState, resetButtonsPressed, initState);
+    // Moonwalking transitions
+    /*Account for no debouncein Y and B button with trigger */
+    NewTransition(standing, isBPressed, walkSelectConfirm);
+    NewTransition(walkSelectConfirm, isGPressed, walkSelect);
+    NewTransition(walkSelect, isBPressed, steppingFirstLeft);
+    NewTransition(walkSelect, isYPressed, steppingLeftBack);
+    NewTransition(steppingLeftBack, endTraj, rightForward);
 
     // Transitions to Error State
     NewTransition(sitting, isRPressed, errorState);
@@ -631,6 +716,9 @@ sitStand::sitStand(void)
     NewTransition(steppingLeft, isRPressed, errorState);
     NewTransition(steppingLastRight, isRPressed, errorState);
     NewTransition(steppingLastLeft, isRPressed, errorState);
+    NewTransition(walkSelect, isRPressed, errorState);
+    NewTransition(walkSelectConfirm, isRPressed, errorState);
+    NewTransition(steppingLeftBack, isRPressed, errorState);
 
     // Initialize the state machine with first state
     StateMachine::initialize(initState);
@@ -711,7 +799,7 @@ void sitStand::InitState::entry(void)
     printf("Initialise State Entered at Time %d\n", OWNER->mark);
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
+    // printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     OWNER->robot->resetTrackingError();
@@ -817,10 +905,9 @@ void sitStand::Sitting::exit(void)
 void sitStand::Standing::entry(void)
 {
     printf("Standing State Entered at Time %d\n", OWNER->mark);
-
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS YELLOW TO START Sitting DOWN\n");
-    printf("PRESS BLUE BUTTON TO STEP LEFT LEG FORWARD\n");
+    printf("TAP BLUE BUTTON TO ENTER WALKING SELECT STATE\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 }
 void sitStand::Standing::during(void)
@@ -1016,7 +1103,75 @@ void sitStand::ErrorState::exit(void)
 {
     printf("Error State Exited");
 }
+////////////////////////////////////////////////////////////////
+// BACK STEP STATES ------------------------------------------------------------
+// Stepping First Left Back
+///////////////////////////////////////////////
+void sitStand::SteppingLeftBack::entry(void)
+{
+    //READ TIME OF MAIN
+    printf("SteppingLeftBack State Entered at Time %d\n", OWNER->mark);
 
+    OWNER->startNewTraj();
+}
+
+void sitStand::SteppingLeftBack::during(void)
+{
+    //long lastTarget = 0;
+    // if the green button is pressed move. Or do nothing/
+    OWNER->moveThroughTraj(steppingLeftBackTrajFunc, STEPTIME);
+}
+
+void sitStand::SteppingLeftBack::exit(void)
+{
+    printf("SteppingLeftBack State Exited at Time %d\n", OWNER->mark);
+    // do nothing
+}
+///////// STATE ////////////////////
+// Walk select
+// *Select to begin forward stepping
+// or take a left back step *
+///////////////////////////////////////////////
+void sitStand::WalkSelect::entry(void)
+{
+    printf("Walk Select State Entered at Time %d\n", OWNER->mark);
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("PRESS YELLOW TO STEP LEFT LEG BACK\n");
+    printf("PRESS BLUE BUTTON TO STEP LEFT LEG FORWARD\n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+}
+void sitStand::WalkSelect::during(void)
+{
+    // Press yellow button to leave state
+}
+void sitStand::WalkSelect::exit(void)
+{
+    printf("Walk select State Exited at Time %d\n", OWNER->mark);
+}
+
+///////// STATE ////////////////////
+// walk Select confirm
+// * Confirm you want to enter walk selct state
+// Used to account for no debounce in Y and B *
+///////////////////////////////////////////////
+
+void sitStand::WalkSelectConfirm::entry(void)
+{
+    printf("Walk Select Confirm State Entered at Time %d\n", OWNER->mark);
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("PAUSE FOR A MOMENT\n");
+    printf("RELEASE BLUE AND YELLOW BUTTONS\n");
+    printf("TAP GREEN TO ENTER WALK SELECTION STATE\n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+}
+void sitStand::WalkSelectConfirm::during(void)
+{
+    // Press green button to leave state
+}
+void sitStand::WalkSelectConfirm::exit(void)
+{
+    printf("Walk select Confirm Exited at Time %d\n", OWNER->mark);
+}
 ////////////////////////////////////////////////////////////////
 // Events ------------------------------------------------------------
 ///////////////////////////////////////////////////////////////
@@ -1055,6 +1210,14 @@ bool sitStand::IsBPressed::check(void)
 bool sitStand::IsRPressed::check(void)
 {
     if (OWNER->rButton == 0)
+    {
+        return true;
+    }
+    return false;
+}
+bool sitStand::IsGPressed::check(void)
+{
+    if (OWNER->gButton == 0)
     {
         return true;
     }
@@ -1147,7 +1310,7 @@ void sitStand::hwStateUpdate(void)
     double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
     logfile << std::to_string(currtime);
 
-    for (auto i = 3; i < NUM_JOINTS; i++)
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
         logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
         //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
