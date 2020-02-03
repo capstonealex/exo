@@ -331,7 +331,6 @@ std::array<double, TRAJ_LENGTH> backStanceAnkleTraj = {
     90,
     SWING_END_ANKLE};
 
-
 double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime)
 {
     int length = points.size();
@@ -799,7 +798,7 @@ void sitStand::InitState::entry(void)
     printf("Initialise State Entered at Time %d\n", OWNER->mark);
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    // printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
+    printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     OWNER->robot->resetTrackingError();
