@@ -797,6 +797,7 @@ void sitStand::deactivate(void)
 void sitStand::InitState::entry(void)
 {
     printf("Initialise State Entered at Time %d\n", OWNER->mark);
+
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     // printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -961,6 +962,7 @@ void sitStand::LeftForward::exit(void)
 {
     printf("LeftForward State Exited at Time %d\n", OWNER->mark);
 }
+
 ////////// STATE ////////////////////
 // Stepping Right
 ///////////////////////////////////////////////
