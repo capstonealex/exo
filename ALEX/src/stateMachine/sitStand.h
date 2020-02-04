@@ -26,7 +26,6 @@
 #include "RightForward.h"
 #include "ErrorState.h"
 
-
 double getDegPos(int jointInd, int desiredIndex, Robot *rob);
 
 class sitStand : public StateMachine
@@ -43,10 +42,26 @@ public:
     //bool bitFlip(int i);
     bool initPositionControl();
     void startNewTraj();
-    void moveThroughTraj(double (*trajFunction)(int, double, Robot*), double trajTime);
+    void moveThroughTraj(double (*trajFunction)(int, double, Robot *), double trajTime);
     // Robot interface to be used by states to interact with hardware
     Robot *robot;
     int mark;
+
+    // State Object pointers
+    //  Used by transition objects for transition direction + safety
+    InitState *initState;
+    SittingDwn *sittingDwn;
+    StandingUp *standingUp;
+    Sitting *sitting;
+    Standing *standing;
+    SteppingFirstLeft *steppingFirstLeft;
+    LeftForward *leftForward;
+    SteppingRight *steppingRight;
+    RightForward *rightForward;
+    SteppingLeft *steppingLeft;
+    SteppingLastRight *steppingLastRight;
+    SteppingLastLeft *steppingLastLeft;
+    ErrorState *errorState;
 
 private:
     // events
@@ -57,22 +72,6 @@ private:
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
     EventObject(DummyTrue) * dummyTrue;
-    
-    // State Object pointers 
-    //  Used by transition objects for transition direction + safety
-    InitState * initState;
-    SittingDwn * sittingDwn;
-    StandingUp * standingUp;
-    Sitting * sitting;
-    Standing * standing;
-    SteppingFirstLeft * steppingFirstLeft;
-    LeftForward* leftForward;
-    SteppingRight * steppingRight;
-    RightForward * rightForward;
-    SteppingLeft * steppingLeft;
-    SteppingLastRight * steppingLastRight;
-    SteppingLastLeft * steppingLastLeft;
-    ErrorState * errorState;
 
     // data;
     int calibrated;
