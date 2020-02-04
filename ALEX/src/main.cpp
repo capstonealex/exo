@@ -350,12 +350,7 @@ int main(int argc, char *argv[])
 
                 /* Execute optional additional application code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
-               
-               
-               // sitStandMachine.hwStateUpdate();
-               // sitStandMachine.update();
                 app_programAsync(timer1msDiff);
-
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
 

@@ -72,7 +72,6 @@ private:
     SteppingLeft * steppingLeft;
     SteppingLastRight * steppingLastRight;
     SteppingLastLeft * steppingLastLeft;
-    
     ErrorState * errorState;
 
     // data;

@@ -105,7 +105,7 @@ void app_programAsync(uint16_t timer1msDiffy)
     if (sitStandMachine.running != 0){
         //printf("Before hwstateupdate \n");
         sitStandMachine.hwStateUpdate();
-        //printf("Before update \n");
+        printf("Before update \n");
 
         sitStandMachine.update();
         printf("After update \n");

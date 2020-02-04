@@ -19,6 +19,7 @@ void StateMachine::initialize(State *i)
 {
     initialState = i;
     std::cout << "Initial state set\n";
+    std::cout << "Current Active State name: "<< initialState << endl;
 };
 State *StateMachine::getCurState(void)
 {
@@ -38,8 +39,7 @@ void StateMachine::activate(void)
 {
     printf("State entered\n");
     currentState = initialState;
-    std::cout << "Current Active State name: ";
-    currentState->printName();
+    std::cout << "Current Active State name: "<< getCurState() <<endl;
     currentState->entry();
 }
 void StateMachine::deactivate(void)
@@ -48,6 +48,7 @@ void StateMachine::deactivate(void)
 void StateMachine::update(void)
 {
     printf("UPDATE FUNCTION Entered\n");
+    std::cout << "Current Active State name: "<< getCurState() <<endl;
     Transition *t = currentState->getActiveArc();
     if (t != NULL)
     {
