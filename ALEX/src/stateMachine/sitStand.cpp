@@ -52,27 +52,6 @@
 #define NUM_JOINTS 4
 #endif
 
-/*static char *BUTTONRED = "P8_7";
-static char *BUTTONBLUE = "P8_8";
-static char *BUTTONGREEN = "P8_9";
-static char *BUTTONYELLOW = "P8_10";*/
-
-// For remote
-static char *BUTTONRED = "P8_9";
-static char *BUTTONBLUE = "P8_7";
-static char *BUTTONGREEN = "P8_8";
-static char *BUTTONYELLOW = "P8_10";
-
-/*static char *BUTTONRED = "P8_18";
-static char *BUTTONBLUE = "P8_17";
-static char *BUTTONGREEN = "P8_15";
-static char *BUTTONYELLOW = "P8_16";*/
-
-GPIO::GPIOManager *gp;
-int redPin;
-int yellowPin;
-int greenPin;
-int bluePin;
 
 // Logging stuff
 char filename[80] = "DefaultFilename.csv";
@@ -101,7 +80,7 @@ int running = 0;
 #define SWING_END_ANKLE 100
 
 #define SIT_KNEE_ANGLE 100
-#define SIT_HIP_ANGLE 65
+#define SIT_HIP_ANGLE 80
 #define SIT_ANKLE_ANGLE 100
 
 #define STAND_KNEE_ANGLE 8
@@ -128,8 +107,8 @@ std::array<double, TRAJ_LENGTH> sittingHipTraj = {
     STAND_HIP_ANGLE,
     165,
     140,
+    100,
     90,
-    70,
     SIT_HIP_ANGLE};
 std::array<double, TRAJ_LENGTH> sittingAnkleTraj = {
     STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
@@ -145,8 +124,8 @@ std::array<double, TRAJ_LENGTH> standingKneeTraj = {
     STAND_KNEE_ANGLE};
 std::array<double, TRAJ_LENGTH> standingHipTraj = {
     SIT_HIP_ANGLE,
-    70,
     90,
+    100,
     140,
     165,
     STAND_HIP_ANGLE};
@@ -735,16 +714,6 @@ void sitStand::init(void)
               << "\n";
     StateMachine::init();
 
-    // Set up the buttons
-    gp = GPIO::GPIOManager::getInstance();
-    redPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONRED);
-    bluePin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONBLUE);
-    greenPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONGREEN);
-    yellowPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONYELLOW);
-    gp->setDirection(redPin, GPIO::INPUT);
-    gp->setDirection(bluePin, GPIO::INPUT);
-    gp->setDirection(greenPin, GPIO::INPUT);
-    gp->setDirection(yellowPin, GPIO::INPUT);
 
     // Configure the drives
     printf("Remapping PDOs \n");
@@ -1187,11 +1156,13 @@ bool sitStand::EndTraj::check(void)
     }
 }
 
+
 //////////// BUTTON PRESS CHECKS //////////////
 bool sitStand::IsYPressed::check(void)
 {
-    if (OWNER->yButton == 0)
+    if (OWNER->robot->buttons.getYButtonState() == 0)
     {
+        printf("Y button pressed\n");
         return true;
     }
     return false;
@@ -1199,8 +1170,9 @@ bool sitStand::IsYPressed::check(void)
 
 bool sitStand::IsBPressed::check(void)
 {
-    if (OWNER->bButton == 0)
+    if (OWNER->robot->buttons.getBButtonState() == 0)
     {
+        printf("B button pressed\n");
         return true;
     }
     return false;
@@ -1208,23 +1180,25 @@ bool sitStand::IsBPressed::check(void)
 
 bool sitStand::IsRPressed::check(void)
 {
-    if (OWNER->rButton == 0)
+    if (OWNER->robot->buttons.getRButtonState() == 0)
     {
+        printf("R button pressed\n");
         return true;
     }
     return false;
 }
 bool sitStand::IsGPressed::check(void)
 {
-    if (OWNER->gButton == 0)
+    if (OWNER->robot->buttons.getGButtonState() == 0)
     {
+        printf("G button pressed\n");
         return true;
     }
     return false;
 }
 bool sitStand::StartButtonsPressed::check(void)
 {
-    if (OWNER->bButton == 0 && OWNER->rButton != 0 && OWNER->yButton == 0 && OWNER->gButton != 0)
+    if (OWNER->robot->buttons.getBButtonState() == 0 && OWNER->robot->buttons.getRButtonState() != 0 && OWNER->robot->buttons.getYButtonState() == 0 && OWNER->robot->buttons.getGButtonState() != 0)
     {
         return true;
     }
@@ -1232,7 +1206,7 @@ bool sitStand::StartButtonsPressed::check(void)
 }
 bool sitStand::ResetButtonsPressed::check(void)
 {
-    if (OWNER->bButton != 0 && OWNER->rButton == 0 && OWNER->yButton != 0 && OWNER->gButton == 0)
+    if (OWNER->robot->buttons.getBButtonState() != 0 && OWNER->robot->buttons.getRButtonState() == 0 && OWNER->robot->buttons.getYButtonState() != 0 && OWNER->robot->buttons.getGButtonState() == 0)
     {
         return true;
     }
@@ -1320,7 +1294,7 @@ void sitStand::moveThroughTraj(double (*trajFunction)(int, double, Robot *), dou
     fracTrajProgress = movingMicro / trajTimeUS;
 
     // if Green Button is pressed, move through trajetory. Otherwise stay where you are
-    if (!gButton)
+    if (!robot->buttons.getGButtonState())
     {
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
