@@ -8,7 +8,7 @@
 class sitStand;
 class InitState : public State
 {
-    friend class sitStand;
+    friend class sitStand ;
     public:
         void entry(void);
         void during(void);

@@ -2,7 +2,7 @@
 
 void InitState::entry(void)
 {
-    printf("Initialise State Entered at Time %d\n", owner->mark);
+    printf("Init State Entered at Time %d\n", owner->mark);
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
@@ -20,9 +20,12 @@ void InitState::entry(void)
     // printf("File Created: %s\n", filename);
 
     // logfile.open (filename);
+
 }
 void InitState::during(void)
 {
+    printf("Init state during entered\n");
+
     // Do nothing in this state
     for (auto i = 0; i < NUM_JOINTS; i++)
     {

@@ -196,6 +196,10 @@ void sitStand::deactivate(void)
 {
     StateMachine::deactivate();
 }
+void sitStand::update(void)
+{
+    StateMachine::update();
+}
 
 ////////////////////////////////////////////////////////////////
 // Events ------------------------------------------------------------

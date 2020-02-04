@@ -36,7 +36,10 @@ void StateMachine::uninit(void)
 
 void StateMachine::activate(void)
 {
+    printf("State entered\n");
     currentState = initialState;
+    std::cout << "Current Active State name: ";
+    currentState->printName();
     currentState->entry();
 }
 void StateMachine::deactivate(void)
@@ -44,13 +47,16 @@ void StateMachine::deactivate(void)
 }
 void StateMachine::update(void)
 {
+    printf("UPDATE FUNCTION Entered\n");
     Transition *t = currentState->getActiveArc();
     if (t != NULL)
     {
-
         currentState->exit();
         currentState = t->target;
         currentState->entry();
     }
+    printf("durring function called\n");
     currentState->during();
+    printf("durring function finished calling\n");
+
 }

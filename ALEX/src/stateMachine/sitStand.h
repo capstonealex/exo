@@ -38,6 +38,7 @@ public:
     void activate(void);
     void deactivate(void);
     void hwStateUpdate(void);
+    void update(void);
     void initRobot(Robot *rb);
     //bool bitFlip(int i);
     bool initPositionControl();

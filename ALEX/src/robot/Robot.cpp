@@ -15,184 +15,184 @@
 #define CANMESSAGELENGTH (100)
 #define NOFLIP (100)
 
-    //Stationary Sitting Traj
-    static constexpr std::array<double, TRAJ_LENGTH> stationarySittingKneeTraj = {
-        SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> stationarySittingHipTraj = {
-        SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> stationarySittingAnkleTraj = {
-        SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
-    // Trajectories for Sitting
-    static constexpr std::array<double, TRAJ_LENGTH> sittingKneeTraj = {
-        STAND_KNEE_ANGLE,
-        15,
-        30,
-        54,
-        72,
-        SIT_KNEE_ANGLE};
-    //test
-    static constexpr std::array<double, TRAJ_LENGTH> sittingHipTraj = {
-        STAND_HIP_ANGLE,
-        165,
-        150,
-        125,
-        110,
-        SIT_HIP_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> sittingAnkleTraj = {
-        STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
-        SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
-    // Trajectories for Standing
-    static constexpr std::array<double, TRAJ_LENGTH> standingKneeTraj = {
-        SIT_KNEE_ANGLE,
-        72,
-        54,
-        30,
-        15,
-        STAND_KNEE_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> standingHipTraj = {
-        SIT_HIP_ANGLE,
-        110,
-        125,
-        150,
-        165,
-        STAND_HIP_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> standingAnkleTraj = {
-        SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
-        STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE};
+//Stationary Sitting Traj
+static constexpr std::array<double, TRAJ_LENGTH> stationarySittingKneeTraj = {
+    SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE, SIT_KNEE_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> stationarySittingHipTraj = {
+    SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE, SIT_HIP_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> stationarySittingAnkleTraj = {
+    SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
+// Trajectories for Sitting
+static constexpr std::array<double, TRAJ_LENGTH> sittingKneeTraj = {
+    STAND_KNEE_ANGLE,
+    15,
+    30,
+    54,
+    72,
+    SIT_KNEE_ANGLE};
+//test
+static constexpr std::array<double, TRAJ_LENGTH> sittingHipTraj = {
+    STAND_HIP_ANGLE,
+    165,
+    150,
+    125,
+    110,
+    SIT_HIP_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> sittingAnkleTraj = {
+    STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
+    SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE};
+// Trajectories for Standing
+static constexpr std::array<double, TRAJ_LENGTH> standingKneeTraj = {
+    SIT_KNEE_ANGLE,
+    72,
+    54,
+    30,
+    15,
+    STAND_KNEE_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> standingHipTraj = {
+    SIT_HIP_ANGLE,
+    110,
+    125,
+    150,
+    165,
+    STAND_HIP_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> standingAnkleTraj = {
+    SIT_ANKLE_ANGLE, SIT_ANKLE_ANGLE,
+    STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE, STAND_ANKLE_ANGLE};
 
-    //Trajectories for First Step
-    static constexpr std::array<double, TRAJ_LENGTH> firstSwingKneeTraj = {
-        STAND_KNEE_ANGLE,
-        50,
-        80,
-        80,
-        41,
-        SWING_END_KNEE};
-    static constexpr std::array<double, TRAJ_LENGTH> firstSwingHipTraj = {
-        STAND_HIP_ANGLE,
-        140,
-        130,
-        120,
-        120,
-        SWING_END_HIP};
-    static constexpr std::array<double, TRAJ_LENGTH> firstSwingAnkleTraj = {
-        STAND_ANKLE_ANGLE,
-        90,
-        90,
-        90,
-        90,
-        SWING_END_ANKLE};
+//Trajectories for First Step
+static constexpr std::array<double, TRAJ_LENGTH> firstSwingKneeTraj = {
+    STAND_KNEE_ANGLE,
+    50,
+    80,
+    80,
+    41,
+    SWING_END_KNEE};
+static constexpr std::array<double, TRAJ_LENGTH> firstSwingHipTraj = {
+    STAND_HIP_ANGLE,
+    140,
+    130,
+    120,
+    120,
+    SWING_END_HIP};
+static constexpr std::array<double, TRAJ_LENGTH> firstSwingAnkleTraj = {
+    STAND_ANKLE_ANGLE,
+    90,
+    90,
+    90,
+    90,
+    SWING_END_ANKLE};
 
-    static constexpr std::array<double, TRAJ_LENGTH> firstStanceKneeTraj = {
-        STAND_KNEE_ANGLE,
-        8,
-        8,
-        8,
-        8,
-        STANCE_END_KNEE};
-    static constexpr std::array<double, TRAJ_LENGTH> firstStanceHipTraj = {
-        STAND_HIP_ANGLE,
-        170,
-        170,
-        170,
-        175,
-        STANCE_END_HIP};
-    static constexpr std::array<double, TRAJ_LENGTH> firstStanceAnkleTraj = {
-        STAND_ANKLE_ANGLE,
-        90,
-        90,
-        90,
-        STANCE_END_ANKLE,
-        STANCE_END_ANKLE};
+static constexpr std::array<double, TRAJ_LENGTH> firstStanceKneeTraj = {
+    STAND_KNEE_ANGLE,
+    8,
+    8,
+    8,
+    8,
+    STANCE_END_KNEE};
+static constexpr std::array<double, TRAJ_LENGTH> firstStanceHipTraj = {
+    STAND_HIP_ANGLE,
+    170,
+    170,
+    170,
+    175,
+    STANCE_END_HIP};
+static constexpr std::array<double, TRAJ_LENGTH> firstStanceAnkleTraj = {
+    STAND_ANKLE_ANGLE,
+    90,
+    90,
+    90,
+    STANCE_END_ANKLE,
+    STANCE_END_ANKLE};
 
-    //Trajectories for Step
-    static constexpr std::array<double, TRAJ_LENGTH> stanceKneeTraj = {
-        SWING_END_KNEE,
-        8,
-        8,
-        8,
-        8,
-        STANCE_END_KNEE};
-    static constexpr std::array<double, TRAJ_LENGTH> stanceHipTraj = {
-        SWING_END_HIP,
-        155,
-        160,
-        170,
-        175,
-        STANCE_END_HIP};
-    static constexpr std::array<double, TRAJ_LENGTH> stanceAnkleTraj = {
-        SWING_END_ANKLE,
-        90,
-        90,
-        90,
-        STANCE_END_ANKLE,
-        STANCE_END_ANKLE};
+//Trajectories for Step
+static constexpr std::array<double, TRAJ_LENGTH> stanceKneeTraj = {
+    SWING_END_KNEE,
+    8,
+    8,
+    8,
+    8,
+    STANCE_END_KNEE};
+static constexpr std::array<double, TRAJ_LENGTH> stanceHipTraj = {
+    SWING_END_HIP,
+    155,
+    160,
+    170,
+    175,
+    STANCE_END_HIP};
+static constexpr std::array<double, TRAJ_LENGTH> stanceAnkleTraj = {
+    SWING_END_ANKLE,
+    90,
+    90,
+    90,
+    STANCE_END_ANKLE,
+    STANCE_END_ANKLE};
 
-    static constexpr std::array<double, TRAJ_LENGTH> swingKneeTraj = {
-        STANCE_END_KNEE,
-        2,
-        20,
-        80,
-        70,
-        SWING_END_KNEE};
-    static constexpr std::array<double, TRAJ_LENGTH> swingHipTraj = {
-        STANCE_END_HIP,
-        180,
-        180,
-        140,
-        110,
-        SWING_END_HIP};
-    static constexpr std::array<double, TRAJ_LENGTH> swingAnkleTraj = {
-        STANCE_END_ANKLE,
-        110,
-        100,
-        90,
-        90,
-        SWING_END_ANKLE};
+static constexpr std::array<double, TRAJ_LENGTH> swingKneeTraj = {
+    STANCE_END_KNEE,
+    2,
+    20,
+    80,
+    70,
+    SWING_END_KNEE};
+static constexpr std::array<double, TRAJ_LENGTH> swingHipTraj = {
+    STANCE_END_HIP,
+    180,
+    180,
+    140,
+    110,
+    SWING_END_HIP};
+static constexpr std::array<double, TRAJ_LENGTH> swingAnkleTraj = {
+    STANCE_END_ANKLE,
+    110,
+    100,
+    90,
+    90,
+    SWING_END_ANKLE};
 
-    //Trajectories for Last Step
-    static constexpr std::array<double, TRAJ_LENGTH> lastStanceKneeTraj = {
-        SWING_END_KNEE,
-        8,
-        8,
-        8,
-        8,
-        STAND_KNEE_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> lastStanceHipTraj = {
-        SWING_END_HIP,
-        170,
-        170,
-        170,
-        170,
-        STAND_HIP_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> lastStanceAnkleTraj = {
-        SWING_END_ANKLE,
-        90,
-        90,
-        90,
-        90,
-        STAND_ANKLE_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> lastSwingKneeTraj = {
-        STANCE_END_KNEE,
-        8,
-        40,
-        80,
-        40,
-        STAND_KNEE_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> lastSwingHipTraj = {
-        STANCE_END_HIP,
-        185,
-        170,
-        130,
-        130,
-        STAND_HIP_ANGLE};
-    static constexpr std::array<double, TRAJ_LENGTH> lastSwingAnkleTraj = {
-        STANCE_END_ANKLE,
-        90,
-        90,
-        90,
-        90,
-        STAND_ANKLE_ANGLE};
+//Trajectories for Last Step
+static constexpr std::array<double, TRAJ_LENGTH> lastStanceKneeTraj = {
+    SWING_END_KNEE,
+    8,
+    8,
+    8,
+    8,
+    STAND_KNEE_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> lastStanceHipTraj = {
+    SWING_END_HIP,
+    170,
+    170,
+    170,
+    170,
+    STAND_HIP_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> lastStanceAnkleTraj = {
+    SWING_END_ANKLE,
+    90,
+    90,
+    90,
+    90,
+    STAND_ANKLE_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> lastSwingKneeTraj = {
+    STANCE_END_KNEE,
+    8,
+    40,
+    80,
+    40,
+    STAND_KNEE_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> lastSwingHipTraj = {
+    STANCE_END_HIP,
+    185,
+    170,
+    130,
+    130,
+    STAND_HIP_ANGLE};
+static constexpr std::array<double, TRAJ_LENGTH> lastSwingAnkleTraj = {
+    STANCE_END_ANKLE,
+    90,
+    90,
+    90,
+    90,
+    STAND_ANKLE_ANGLE};
 
 Robot::Robot()
 {

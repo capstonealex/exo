@@ -25,3 +25,6 @@ bool State::addArc ( Transition * t ) {
 const char * State::getName( void ) {
     return name;
 };
+void State::printName(void) {
+    std::cout << name <<endl;
+};

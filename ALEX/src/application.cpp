@@ -108,7 +108,7 @@ void app_programAsync(uint16_t timer1msDiffy)
         //printf("Before update \n");
 
         sitStandMachine.update();
-        //printf("After update \n");
+        printf("After update \n");
 
     }
     
