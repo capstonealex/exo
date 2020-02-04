@@ -1257,53 +1257,17 @@ void sitStand::initRobot(Robot *rb)
     robot = rb;
     // Perform proper initialization
     robot->printInfo();
+    robot->buttons.initButtons();
 };
 
 // Update button state, loop counter (mark) and joints from
 void sitStand::hwStateUpdate(void)
 {
-    /*BUTON CODE*/
-    //Read all 4 BUTTONs  and print to screen
-    int redbtn = gp->getValue(redPin);
-    int bluebtn = gp->getValue(bluePin);
-    int greenbtn = gp->getValue(greenPin);
-    int yellowbtn = gp->getValue(yellowPin);
-
-    // Send buttons to statemachine variables
-    this->yButton = yellowbtn;
-    this->gButton = greenbtn;
-    this->bButton = bluebtn;
-    this->rButton = redbtn;
-
-    //printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
-
-    if (!yButton)
-    {
-        printf("Yellow \n");
-    }
-    if (!gButton)
-    {
-        printf("Green \n");
-    }
-    if (!bButton)
-    {
-        printf("Blue \n");
-    }
-    if (!rButton)
-    {
-        printf("Red \n");
-    }
-
+    robot->buttons.setButtonStates();
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
-    // robot->printInfo();
-    // robot->printTrajectories();
-
-    //printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
-    //printf(std::to_string(robot->joints[2].getActualTorque()));
-    // Log to file
-    //if (mark%%==1){
+    // Log file timing
     struct timeval tv;
     gettimeofday(&tv, NULL);
     double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
@@ -1314,9 +1278,8 @@ void sitStand::hwStateUpdate(void)
         logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
         //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
     }
-    //printf("\n");
     logfile << "\n";
-    // }
+    robot->buttons.printPressedButtons();
 }
 
 void sitStand::startNewTraj()
