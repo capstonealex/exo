@@ -212,6 +212,7 @@ void Robot::printInfo()
     cout << "This is an X2 robot with: \n";
     for (auto i = 0; i < 6; i++)
     {
+        std::cout << &joints[i] << endl;
         joints[i].printInfo();
     }
 }
@@ -221,7 +222,7 @@ void Robot::updateJoints()
 {
     for (auto i = 0; i < 6; i++)
     {
-        joints[i].updateJoint();
+        //joints[i].updateJoint();
     }
 }
 bool Robot::sdoMSG(void)

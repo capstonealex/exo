@@ -83,6 +83,7 @@ void app_programStart(void)
 /******************************************************************************/
 void app_communicationReset(void)
 {
+    std::cout << "State machine name: APPCOM:" << &sitStandMachine << endl;
 }
 /******************************************************************************/
 void app_programEnd(void)
@@ -92,11 +93,15 @@ void app_programEnd(void)
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiffy)
 {
+    std::cout << "State machine name: Async:" << &sitStandMachine << endl;
     if (sitStandMachine.running != 0)
     {
+        std::cout << "State machine name: Async2:" << sitStandMachine.getCurState() << endl;
+
         //printf("Before hwstateupdate \n");
         sitStandMachine.hwStateUpdate();
         printf("Before update \n");
+        std::cout << "State machine name: Async3:" << sitStandMachine.getCurState() << endl;
 
         sitStandMachine.update();
         printf("After update \n");

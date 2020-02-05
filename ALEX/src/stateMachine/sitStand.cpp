@@ -199,8 +199,9 @@ void sitStand::deactivate(void)
 }
 void sitStand::update(void)
 {
+    std::cout << "this State machine: " << this << endl;
     std::cout << "Initial state" << initState << "Steeping 1st left: " << steppingFirstLeft << "Sitting" << sitting << endl;
-    std::cout << "Current State machine state" << StateMachine::getCurState() << endl;
+    std::cout << "Current State" << getCurState() << endl;
     StateMachine::update();
 }
 
@@ -282,11 +283,13 @@ void sitStand::initRobot(Robot *rb)
     robot = rb;
     // Perform proper initialization
     robot->printInfo();
+    std::cout << "Robot object address: " << robot;
 };
 
 // Update button state, loop counter (mark) and joints
 void sitStand::hwStateUpdate(void)
 {
+
     /*BUTON CODE*/
     //Read all 4 BUTTONs  and print to screen
     int redbtn = gp->getValue(redPin);
@@ -295,10 +298,10 @@ void sitStand::hwStateUpdate(void)
     int yellowbtn = gp->getValue(yellowPin);
 
     // Send buttons to statemachine variables
-    this->yButton = yellowbtn;
-    this->gButton = greenbtn;
-    this->bButton = bluebtn;
-    this->rButton = redbtn;
+    yButton = yellowbtn;
+    gButton = greenbtn;
+    bButton = bluebtn;
+    rButton = redbtn;
 
     if (!yButton)
     {
@@ -316,10 +319,12 @@ void sitStand::hwStateUpdate(void)
     {
         printf("Red \n");
     }
+    std::cout << "State machine name: HW State Update:" << getCurState() << endl;
 
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
+    std::cout << "State machine name: HW State Update:" << getCurState() << endl;
 
     // Log to file
     //if (mark%%==1){
@@ -327,6 +332,7 @@ void sitStand::hwStateUpdate(void)
     gettimeofday(&tv, NULL);
     double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
     logfile << std::to_string(currtime);
+    std::cout << "State machine name: HW State Update:" << getCurState() << endl;
 
     for (auto i = 3; i < NUM_JOINTS; i++)
     {
@@ -334,5 +340,6 @@ void sitStand::hwStateUpdate(void)
     }
     //printf("\n");
     logfile << "\n";
+
     // }
 }

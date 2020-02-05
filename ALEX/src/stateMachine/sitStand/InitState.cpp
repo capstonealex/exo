@@ -20,12 +20,12 @@ void InitState::entry(void)
     // printf("File Created: %s\n", filename);
 
     // logfile.open (filename);
-
 }
 void InitState::during(void)
 {
     printf("Init state during entered\n");
-
+    std::cout << "Robot object address: " << owner->robot;
+    owner->robot->printInfo();
     // Do nothing in this state
     for (auto i = 0; i < NUM_JOINTS; i++)
     {

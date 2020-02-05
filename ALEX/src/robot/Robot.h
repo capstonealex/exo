@@ -10,7 +10,7 @@
 #define TRAJ_LENGTH 6
 #define SITSTANDTIME 2
 #define STEPTIME 2
-#define NUM_JOINTS 4
+#define NUM_JOINTS 6
 
 #define STANCE_END_KNEE 8
 #define SWING_END_KNEE 20
@@ -35,7 +35,6 @@ private:
     bool positionControlConfigured;
     int desiredIndex = 0;
     double steptime = STEPTIME;
-    
 
 
 public:
