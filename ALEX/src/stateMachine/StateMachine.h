@@ -28,13 +28,12 @@ public:
     void deactivate(void);
     void update(void);
 
-     // Robot interface to be used by states to interact with hardware
+    // Robot interface to be used by states to interact with hardware
     Robot *robot;
     int mark;
 
 private:
     // pointers to the initial state and the current state
-    State *initialState;
     State *currentState;
 };
 
@@ -44,8 +43,8 @@ private:
     class _name_;                                                            \
     class _name_ : public State                                              \
     {                                                                        \
-    friend class sitStand;                                                     \
-                                                                      \
+        friend class sitStand;                                               \
+                                                                             \
     public:                                                                  \
         _name_(StateMachine *m, const char *name = NULL) : State(m, name){}; \
         void entry(void);                                                    \

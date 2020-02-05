@@ -38,6 +38,7 @@ public:
     void deactivate(void);
     void hwStateUpdate(void);
     void update(void);
+    State *gettCurState(void);
     void initRobot(Robot *rb);
     //bool bitFlip(int i);
     bool initPositionControl();

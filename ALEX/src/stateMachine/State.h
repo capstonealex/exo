@@ -27,12 +27,13 @@ public:
         name = n; // name of state
         std::cout << "State created\n";
     };
+    ~State();
     // Arc creating and accessing functions
     bool addArc(Transition *t);
     Transition *getActiveArc(void);
     // Virtual functions, must be implemented by implented states (inherited classes)
     virtual void entry(void) = 0;
-    virtual void during(void) =0;
+    virtual void during(void) = 0;
     virtual void exit(void) = 0;
 
     const char *getName(void);

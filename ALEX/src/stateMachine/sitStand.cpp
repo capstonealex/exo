@@ -158,6 +158,7 @@ void sitStand::init(void)
     gp->setDirection(yellowPin, GPIO::INPUT);
 
     // Configure the drives
+    calibrated = 1;
     printf("Remapping PDOs \n");
     if (calibrated == 0)
     {
@@ -198,6 +199,8 @@ void sitStand::deactivate(void)
 }
 void sitStand::update(void)
 {
+    std::cout << "Initial state" << initState << "Steeping 1st left: " << steppingFirstLeft << "Sitting" << sitting << endl;
+    std::cout << "Current State machine state" << StateMachine::getCurState() << endl;
     StateMachine::update();
 }
 
@@ -333,5 +336,3 @@ void sitStand::hwStateUpdate(void)
     logfile << "\n";
     // }
 }
-
-//Testing 123 Moonwalks
