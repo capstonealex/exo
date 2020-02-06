@@ -1,6 +1,7 @@
 Alex Exoskeleton | Developer 
 =============
-Alex Exoskeleton application and development software to run on Beagle Bone Black on Canopen network configured robotic system.
+Alex Exoskeleton application and development software.
+Runs on Beagle Bone Black and Canopen network configured robotic system.
 
 This Toolkit consists of:
 * Robot API to control the robot and read information about the real world (robot configuration and state)
