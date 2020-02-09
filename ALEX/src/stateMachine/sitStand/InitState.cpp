@@ -1,12 +1,10 @@
 #include "InitState.h"
 
-void InitState::entry(Robot *rb)
+void InitState::entry(void)
 {
-    robot = rb;
-
     printf("Init State Entered at Time %d\n", owner->mark);
     std::cout << "Inits OWNER: " << owner << endl;
-    std::cout << "Inits OWNERs robot pointer: " << robot << endl;
+    std::cout << "Inits OWNERs robot pointer: " << owner->robot << endl;
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
@@ -29,12 +27,12 @@ void InitState::during(void)
 {
     printf("Init state during entered\n");
     std::cout << "Inits OWNER: " << owner << endl;
-    std::cout << "Robot object address: " << robot;
+    std::cout << "Robot object address: " << owner->robot;
     owner->robot->printInfo();
     // Do nothing in this state
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        robot->joints[i].readyToSwitchOn();
+        owner->robot->joints[i].readyToSwitchOn();
     }
 }
 void InitState::exit(void)
@@ -43,6 +41,6 @@ void InitState::exit(void)
     printf("Initialise State Exited at Time %d\n", owner->mark);
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        robot->joints[i].enable();
+        owner->robot->joints[i].enable();
     }
 }
