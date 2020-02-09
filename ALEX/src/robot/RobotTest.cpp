@@ -1,0 +1,144 @@
+//
+// Test function for running trajectory before testing it on the exo
+// By Samuel Wong
+//
+
+#include "Trajectory.h"
+#include "time.h"
+#include <unistd.h>
+#include <sys/un.h>
+#include <sys/socket.h>
+#include <string.h>
+/**
+ * Author: Dillon Chong
+ * Date: 29 Sep 2019
+ *
+ * Editor: Samuel Wong
+ * Date: 09/02/2020
+ * compiled using cmd arm-linux-gnueabihf-g++ -I eigen -std=c++11 robottest.cpp trajectory.cpp -o SAM_TEST
+ * Trajectory Generator for walking State Machine (for now)
+ * Please refer to the notes on Trajectory.cpp
+ */
+
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+#include <iomanip>
+//#include <src/tinysplinecpp.h> //https://github.com/msteinbeck/tinyspline
+
+double fRand(double fMin, double fMax);
+
+int main(int argc, char** argv) {
+	cout << "hello world" << endl;
+	cout << "Begin Trajectory Generation." << endl;
+
+	cout << "Argument count: " << argc << endl
+		<< "Arguments: {" << endl;
+	for (int i = 0; i < argc; i++)
+		cout << argv[i] << endl;
+	cout << "}" << endl;
+
+
+	// setting the precision for better layout	
+	std::cout << std::setprecision(3);
+	Trajectory trajectoryObject;
+	vector<Trajectory::jointspace_state_ex> trajectory;
+	Trajectory::jointspace_state currentJointspaceState;
+
+	//srand(time(NULL));
+	//for (int i = 0; i < 1; i++) {
+	//	currentJointspaceState = {
+	//		.q = { fRand(trajectoryObject.Q_MIN_MAX[LEFT_HIP],trajectoryObject.Q_MIN_MAX[LEFT_HIP+1]),
+	//				fRand(trajectoryObject.Q_MIN_MAX[2* LEFT_KNEE],trajectoryObject.Q_MIN_MAX[2*LEFT_KNEE +1]),
+	//				fRand(trajectoryObject.Q_MIN_MAX[2* RIGHT_HIP],trajectoryObject.Q_MIN_MAX[2* RIGHT_HIP+1]),
+	//				fRand(trajectoryObject.Q_MIN_MAX[2* RIGHT_KNEE],trajectoryObject.Q_MIN_MAX[2* RIGHT_KNEE+1]),
+	//				fRand(trajectoryObject.Q_MIN_MAX[2* LEFT_ANKLE],trajectoryObject.Q_MIN_MAX[2* LEFT_ANKLE+1]),
+	//				fRand(trajectoryObject.Q_MIN_MAX[2* RIGHT_ANKLE],trajectoryObject.Q_MIN_MAX[2* RIGHT_ANKLE+1])},
+	//					  .time = 0
+	//	};
+
+	//	trajectory =
+	//		trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+	//}
+	Trajectory::trajectory_parameters walk_parameters = {
+	.sample_period = 0.1,
+	.step_duration = 1,
+	.step_height = 0.2,
+	.step_length = 0.2,
+	.hip_height_slack = 0.003, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Left,
+	.movement = Trajectory::Movement::Stand,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0   // tilted path
+	};
+	Trajectory::pilot_parameters lenny_parameters = {
+		.lowerleg_length = 0.43,
+		.upperleg_length = 0.46,
+		.ankle_height = 0.12,
+		.foot_length = 0.26,
+		.hip_width = 0.43,
+		.torso_length = 0.4,
+		.buttocks_height = 0.05
+	};
+
+	trajectoryObject.pilotParameter = lenny_parameters;
+	trajectoryObject.trajectoryParameter = walk_parameters;
+
+/*	currentJointspaceState = {
+		.q = { deg2rad(170),
+				deg2rad(5),
+				deg2rad(190),
+				deg2rad(5),
+				deg2rad(85),
+				deg2rad(90)},
+						.time = 0
+	}*/;
+	currentJointspaceState = {
+		.q = { deg2rad(90),
+				deg2rad(90),
+				deg2rad(90),
+				deg2rad(90),
+				deg2rad(90),
+				deg2rad(90)},
+						.time = 0
+	};
+	//for (int i = 0; i < 5; i++) {
+	//	for (int j = 0; j < 5; j++) {
+	//		walk_parameters.step_length = 0.1*i;
+	//		walk_parameters.step_height = 0.1*j;
+	//		trajectory =
+	//			trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+	//	}
+	//}
+	
+
+	trajectory =
+		trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+
+	trajectoryObject.generateAndSaveSpline(currentJointspaceState);
+	double positionArray[NO_JOINTS];
+	for (double time = 0; time < 1.01; time += 0.1) {
+		trajectoryObject.calcPosition(time, positionArray);
+		cout << "[get position values from saved spline]: time " << time << " "	;
+			for (auto pos : positionArray) {
+				cout << rad2deg(pos) << "\t";
+			}
+		cout << endl;
+	}
+	   
+	return 0;
+}
+double fRand(double fMin, double fMax)
+{
+	double f = (double)rand() / RAND_MAX;
+	return fMin + f * (fMax - fMin);
+}
+
+

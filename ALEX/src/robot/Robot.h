@@ -5,7 +5,7 @@
 #ifndef CANOPENBEAGLE_ROBOT_H
 #define CANOPENBEAGLE_ROBOT_H
 #include "Joint.h"
-
+#include "Trajectory.h"
 class Robot
 {
 private:

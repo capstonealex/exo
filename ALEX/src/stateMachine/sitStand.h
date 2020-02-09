@@ -25,7 +25,7 @@ public:
     //bool bitFlip(int i);
     bool initPositionControl();
     void startNewTraj();
-    void moveThroughTraj(double (*trajFunction)(int, double, Robot *), double trajTime);
+    void moveThroughTraj();
     bool waitForInput();
 
 private:
