@@ -30,9 +30,6 @@
 
 #include "Joint.h"
 
-//////////////// For testing  ///////////////////////////
-#define _NOANKLES
-
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
 
@@ -42,12 +39,6 @@
 #define NOFLIP (100)
 #define BITHIGH (1)
 #define BITLOW (0)
-
-#ifndef _NOANKLES
-#define NUM_JOINTS 6
-#else
-#define NUM_JOINTS 4
-#endif
 
 // For remote
 static char *BUTTONRED = "P8_10";
@@ -172,12 +163,12 @@ void sitStand::init(void)
     {
         printf("Motors already calibrated for motion\n");
     }
-
-    printf("Initialising Position Control \n");
-    if (!robot->initPositionControl())
-    {
-        printf("*****WARNING: LOGIC ERROR*******\n");
-    }
+    // comment out for Virtual robot
+    // printf("Initialising Position Control \n");
+    // if (!robot->initPositionControl())
+    // {
+    //     printf("*****WARNING: LOGIC ERROR*******\n");
+    // }
 
 #ifndef _NOANKLES
     robot->remapPDOAnkles();

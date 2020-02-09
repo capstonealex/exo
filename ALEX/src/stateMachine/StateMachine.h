@@ -38,20 +38,7 @@ private:
 };
 
 /*Macros to quickly define states. statemachines, events and transitions*/
-// useage: StateObject ( MyState ) * myState;
-#define StateObject(_name_)                                                  \
-    class _name_;                                                            \
-    class _name_ : public State                                              \
-    {                                                                        \
-        friend class sitStand;                                               \
-                                                                             \
-    public:                                                                  \
-        _name_(StateMachine *m, const char *name = NULL) : State(m, name){}; \
-        void entry(void);                                                    \
-        void during(void);                                                   \
-        void exit(void);                                                     \
-    };                                                                       \
-    _name_
+
 // useage: EventObject ( MyEvent ) * myEvent;
 #define EventObject(_name_)             \
     class _name_;                       \
