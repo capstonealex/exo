@@ -72,7 +72,8 @@ public:
 		Stand,
 		Stair,
 		Ramp,
-		Back
+		Back,
+		Sitting
 	} Movement;
 
 

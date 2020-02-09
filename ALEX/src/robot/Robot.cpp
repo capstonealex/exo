@@ -22,6 +22,21 @@ Robot::Robot()
         joints[i].applyPos(0);
         joints[i].setId(i + 1);
     }
+	trajectoryObj.pilotParameter = { .lowerleg_length = 0.42,.upperleg_length = 0.46,.ankle_height = 0.12,.foot_length = 0.24,.hip_width = 0.42,.torso_length = 0.4,.buttocks_height = 0.05 };
+
+	trajectoryObj.trajectoryParameter = { .sample_period = 0.1,
+		.step_duration = 1.0,
+		.step_height = 0.2,
+		.step_length = 0.4,
+		.hip_height_slack = 0.01, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = deg2rad(0), 
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Left,
+		.movement = Trajectory::Movement::Sitting,
+		.seat_height = 0.43, // sit-stand
+		.stair_height = 0.0, // stairs
+		.slope_angle = 0.0   // tilted path
+	};
 }
 void Robot::printInfo()
 {

@@ -5,6 +5,7 @@
 #ifndef CANOPENBEAGLE_ROBOT_H
 #define CANOPENBEAGLE_ROBOT_H
 #include "Joint.h"
+#include "spline.h"
 #include "Trajectory.h"
 class Robot
 {
@@ -14,9 +15,9 @@ private:
         NUM_JOINTS = 6
     };
     bool positionControlConfigured;
-
 public:
     Robot();
+	Trajectory trajectoryObj;
     Joint joints[NUM_JOINTS];
     void printInfo();
     //void jointIncrement();
