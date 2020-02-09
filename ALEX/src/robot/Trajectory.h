@@ -86,6 +86,7 @@ public:
 		double seat_height;  // sit-stand
 		double stair_height; // stairs
 		double slope_angle;  // tilted path
+		bool left_foot_on_tilt, right_foot_on_tilt; // whether the foot is on tilted ground
 	} trajectory_parameters;
 
 
@@ -133,16 +134,16 @@ public:
 		const pilot_parameters& pilotParameters, jointspace_state initialJointspaceState);
 
 	// Converts jointspace to taskspace (Forward Kinematics)
-	taskspace_state jointspace_state_to_taskspace_state(jointspace_state jointspaceState, Foot stanceFoot,
+	taskspace_state jointspace_state_to_taskspace_state(jointspace_state jointspaceState, trajectory_parameters trajectoryParameters,
 		pilot_parameters pilotParameters);
 
 	// Converts taskspace to jointspace (Inverse Kinematics)
-	jointspace_state taskspace_state_to_jointspace_state(taskspace_state taskspaceState,
+	jointspace_state taskspace_state_to_jointspace_state(taskspace_state taskspaceState, trajectory_parameters trajectoryParameters,
 		pilot_parameters pilotParameters);
 
 	// Converts a vector of taskspace states to jointspace (Inverse Kinematics)
 	vector<jointspace_state> taskspace_states_to_jointspace_states(jointspace_state initialJointspaceState,
-		const vector<taskspace_state>& taskspaceStates, pilot_parameters pilotParameters);
+		const vector<taskspace_state>& taskspaceStates, trajectory_parameters trajectoryParameters, pilot_parameters pilotParameters);
 
 	// Helper function for Inverse Kinematics
 	vector<double> triangle_inverse_kinematics(double xAnkle, double zAnkle, double xHip, double zHip, double Llower,

@@ -35,7 +35,10 @@ Robot::Robot()
 		.movement = Trajectory::Movement::Sitting,
 		.seat_height = 0.43, // sit-stand
 		.stair_height = 0.0, // stairs
-		.slope_angle = 0.0   // tilted path
+		.slope_angle = 20.0,   // tilted path
+		.left_foot_on_tilt = false, // whether the foot is on tilted ground
+		.right_foot_on_tilt = false // whether the foot is on tilted ground
+
 	};
 }
 void Robot::printInfo()
