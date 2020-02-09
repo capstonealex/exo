@@ -195,7 +195,27 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			keyTaskspaceStates.push_back(stateEnd);
 		}
 	}
+	// Sitting
+	if (trajectoryParameters.movement == Movement::Sitting) {
+		double seatHeight = trajectoryParameters.seat_height;
+		double buttocksHeight = pilotParameters.buttocks_height;
 
+		{
+			taskspace_state stateEnd = initialTaskspaceState; // init
+			stateEnd.time = 1;
+			stateEnd.left_ankle_position.x = 0;
+			stateEnd.right_ankle_position.x = 0;
+			stateEnd.left_ankle_position.z = pilotParameters.ankle_height;
+			stateEnd.right_ankle_position.z = pilotParameters.ankle_height;
+			stateEnd.hip_position.x =
+				-1 * (pilotParameters.upperleg_length);
+			stateEnd.hip_position.z =
+				seatHeight + buttocksHeight;
+			stateEnd.torso_forward_angle = trajectoryParameters.torso_forward_angle;
+			stateEnd.swing_ankle_down_angle = 0.0;
+			keyTaskspaceStates.push_back(stateEnd);
+		}
+	}
 
 	// Walk
 	if (trajectoryParameters.movement == Movement::Walk) {
