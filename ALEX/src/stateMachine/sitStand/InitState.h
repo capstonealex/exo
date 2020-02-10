@@ -4,7 +4,7 @@
 #include "Robot.h"
 #include <time.h>
 // forward declaration
-class sitStand;
+// #define OWNER ((sitStand *)owner)
 class InitState : public State
 {
     friend class sitStand;

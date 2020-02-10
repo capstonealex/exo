@@ -2,8 +2,8 @@
 
 void InitState::entry(void)
 {
-    printf("Init State Entered at Time %d\n", owner->mark);
-    std::cout << "Inits OWNER: " << owner << endl;
+    printf("Init State Entered at Time %d\n", ((StateMachine *)owner)->mark);
+    std::cout << "Inits OWNER: " << ((StateMachine *)owner) << endl;
     std::cout << "Inits OWNERs robot pointer: " << owner->robot << endl;
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -26,9 +26,9 @@ void InitState::entry(void)
 void InitState::during(void)
 {
     printf("Init state during entered\n");
-    std::cout << "Inits OWNER: " << owner << endl;
-    std::cout << "Robot object address: " << owner->robot;
-    owner->robot->printInfo();
+    std::cout << "Inits OWNER: " << ((StateMachine *)owner) << endl;
+    std::cout << "Robot object address: " << ((StateMachine *)owner)->robot;
+    ((StateMachine *)owner)->robot->printInfo();
     // Do nothing in this state
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
