@@ -26,7 +26,6 @@
 #include <fstream>
 #include <time.h> /* time_t, struct tm, time, localtime, strftime */
 #include <string>
-
 #include "Joint.h"
 
 //////////////// For testing  ///////////////////////////
@@ -886,12 +885,19 @@ void sitStand::moveThroughTraj()
 				int j = robot->joints[i].getId();
 				robotJointspace[j - 1] = robot->joints[i].getPosDeg();
 			}
-			robotTrajJointspace = { .q = {robotJointspace[0],
-										  robotJointspace[1],
-										  robotJointspace[2],
-										  robotJointspace[3],
-								   		  robotJointspace[4],
-										  robotJointspace[5]}, 
+			//robotTrajJointspace = { .q = {deg2rad(robotJointspace[0]),
+			//							  deg2rad(robotJointspace[1]),
+			//							  deg2rad(robotJointspace[2]),
+			//							  deg2rad(robotJointspace[3]),
+			//					   		  deg2rad(robotJointspace[4]),
+			//							  deg2rad(robotJointspace[5])}, 
+			//	                    .time = fracTrajProgress };
+			robotTrajJointspace = { .q = {deg2rad(robotJointspace[0]),
+										  deg2rad(robotJointspace[1]),
+										  deg2rad(robotJointspace[2]),
+										  deg2rad(robotJointspace[3]),
+										  deg2rad(M_PI_2),
+										  deg2rad(M_PI_2)},
 				                    .time = fracTrajProgress };
 
 #ifndef _NOACTUATION

@@ -243,7 +243,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance) 
 			{
 				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + ankleDistance;
-				state1.left_ankle_position.z = trajectoryParameters.step_height + initialTaskspaceState.left_ankle_position.z;
+				state1.left_ankle_position.z = initialTaskspaceState.left_ankle_position.z + trajectoryParameters.step_height;
 				state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
 				state1.right_ankle_position.z = pilotParameters.ankle_height;
 				state1.hip_position.x = initialTaskspaceState.right_ankle_position.x;
@@ -976,7 +976,8 @@ void Trajectory::calcPosition(time_tt time, double* positionArray) {
 		if (time >= trajectoryJointSpline.times.at(polynomial_index) &&
 			time <= trajectoryJointSpline.times.at(polynomial_index + 1)) {
 			//cout << "time " << time << "\t" << trajectoryJointSpline.times.at(polynomial_index)  << endl;
-			for (int i = 0; i < NO_JOINTS; i++) {
+			//for (int i = 0; i < NO_JOINTS; i++) {
+			for (int i = 0; i < 4; i++) {
 				currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
 				temp.q[i] = evaluate_cubic_polynomial(currentPolynomial[i], time);
 				positionArray[i] = temp.q[i];
