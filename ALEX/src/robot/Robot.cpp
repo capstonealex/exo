@@ -27,7 +27,7 @@ Robot::Robot()
     trajectoryObj.trajectoryParameter = {
         .sample_period = 0.1,
         .step_duration = 1.0,
-        .step_height = 0.4,
+        .step_height = 0.2,
         .step_length = 0.4,
         .hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = deg2rad(0),

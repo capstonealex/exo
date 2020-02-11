@@ -386,7 +386,7 @@ void sitStand::SteppingFirstLeft::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("SteppingFirstLeft State Entered at Time %d\n", OWNER->mark);
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.2;
+	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.3;
 	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Right;
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
@@ -434,7 +434,7 @@ void sitStand::SteppingRight::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("SteppingRight State Entered at Time %d\n", OWNER->mark);
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.2;
+	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.3;
 	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Left;
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
@@ -482,7 +482,7 @@ void sitStand::SteppingLeft::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("SteppingLeft State Entered at Time %d\n", OWNER->mark);
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.2;
+	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.3;
 	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Right;
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
