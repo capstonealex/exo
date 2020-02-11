@@ -68,7 +68,8 @@ volatile uint32_t CO_timer1ms = 0U;
 pthread_mutex_t CO_CAN_VALID_mtx = PTHREAD_MUTEX_INITIALIZER;
 
 /* Other variables and objects */
-static int rtPriority = 10;                          /* Real time priority, configurable by arguments. (-1=RT disabled) */
+static int rtPriority = 2; /* Real time priority, configurable by arguments. (-1=RT disabled) */
+static int rtControlPriority = 80;
 static int mainline_epoll_fd;                        /* epoll file descriptor for mainline */
 static CO_OD_storage_t odStor;                       /* Object Dictionary storage object for CO_OD_ROM */
 static CO_OD_storage_t odStorAuto;                   /* Object Dictionary storage object for CO_OD_EEPROM */
@@ -76,17 +77,28 @@ static char *odStorFile_rom = "od4_storage";         /* Name of the file */
 static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
 static CO_time_t CO_time;                            /* Object for current time */
 int commCount = 0;
+bool readyToStart = false;
 
 uint32_t tmr1msPrev = 0;
 
-//struct timeval last_tv;
-
-
+// RT Tast timer
+struct period_info
+{
+    struct timespec next_period;
+    long period_ns;
+};
+// Forward declartion of timer functions
+static void inc_period(struct period_info *pinfo);
+static void periodic_task_init(struct period_info *pinfo);
+static void wait_rest_of_period(struct period_info *pinfo);
 /* Realtime thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
 static int rt_thread_epoll_fd;
-
+/* Realtime control thread */
+static void *rt_control_thread(void *arg);
+static pthread_t rt_control_thread_id;
+static int rt_control_thread_epoll_fd;
 /* Signal handler */
 volatile sig_atomic_t CO_endProgram = 0;
 static void sigHandler(int sig)
@@ -252,10 +264,9 @@ int main(int argc, char *argv[])
         /* Initialize time */
         CO_time_init(&CO_time, CO->SDO[0], &OD_time.epochTimeBaseMs, &OD_time.epochTimeOffsetMs, 0x2130);
 
-
         /* First time only initialization. */
         if (firstRun)
-        {           
+        {
             firstRun = false;
 
             /* Configure epoll for mainline */
@@ -266,7 +277,6 @@ int main(int argc, char *argv[])
             /* Init mainline */
             taskMain_init(mainline_epoll_fd, &OD_performance[ODA_performance_mainCycleMaxTime]);
 
-            
             /* Configure epoll for rt_thread */
             rt_thread_epoll_fd = epoll_create(2);
             if (rt_thread_epoll_fd == -1)
@@ -286,7 +296,7 @@ int main(int argc, char *argv[])
                 }
                 printf("Canopend - Command interface on socket '%s' started ...\n", CO_command_socketPath);
             }
-            
+            /*OLD THREAD CREATION*/
             /* Create rt_thread */
             if (pthread_create(&rt_thread_id, NULL, rt_thread, NULL) != 0)
                 CO_errExit("Program init - rt_thread creation failed");
@@ -299,29 +309,59 @@ int main(int argc, char *argv[])
                 if (pthread_setschedparam(rt_thread_id, SCHED_FIFO, &param) != 0)
                     CO_errExit("Program init - rt_thread set scheduler failed");
             }
+            /* Create rt_control_thread */
+            if (pthread_create(&rt_control_thread_id, NULL, rt_control_thread, NULL) != 0)
+                CO_errExit("Program init - rt_thread_control creation failed");
+            /* Set priority for rt_thread */
+            if (rtPriority > 0)
+            {
+                struct sched_param paramc;
+
+                paramc.sched_priority = rtControlPriority;
+                if (pthread_setschedparam(rt_thread_id, SCHED_FIFO, &paramc) != 0)
+                    CO_errExit("Program init - rt_thread set scheduler failed");
+            }
+
+            /*Create rthreads w. priority b4 creation*/
+            // pthread_attr_t my_attr;
+            // struct sched_param param, paramcontrol;
+            // /* Initialize thread schedule policies and declare priority value*/
+            // pthread_attr_init(&my_attr);
+            // pthread_attr_setschedpolicy(&my_attr, SCHED_FIFO);
+            // param.sched_priority = rtPriority;
+            // paramcontrol.sched_priority = rtControlPriority;
+            // /*Set priority and create each thread*/
+            // /* Create rt_thread */
+            // pthread_attr_setschedpolicy(&my_attr, param.sched_priority);
+            // if (pthread_create(&rt_thread_id, &my_attr, rt_thread, NULL) != 0)
+            //     CO_errExit("Program init - rt_thread creation failed");
+            // /* Create rt control loop thread*/
+            // pthread_attr_setschedpolicy(&my_attr, paramcontrol.sched_priority);
+            // // if (pthread_create(&rt_control_thread_id, &my_attr, rt_control_thread, NULL) != 0)
+            //     CO_errExit("Program init - rt_control_thread creation failed");
         }
 
-         /* start CAN */
+        /* start CAN */
         CO_CANsetNormalMode(CO->CANmodule[0]);
         pthread_mutex_unlock(&CO_CAN_VALID_mtx);
-            
+
         /* Execute optional additional application code */
-        app_programStart(); 
-        
+
+        // app_programStart();
+
         reset = CO_RESET_NOT;
         // Create Statemachine Object -> will be loaded by taskmanager in end program.
 
-    
         /* Execute optional additional application code */
         app_communicationReset();
-            
+
         // Initialise the last time variable
         //gettimeofday(&last_tv,NULL);
         //struct timeval first_tv = last_tv;
-        
-        
+
         printf("Canopend- running ...\n");
-        
+        readyToStart = true;
+
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
             /* loop for normal program execution ******************************************/
@@ -344,17 +384,15 @@ int main(int argc, char *argv[])
                 uint32_t timer1msDiff;
                 timer1msDiff = CO_timer1ms - tmr1msPrev;
                 tmr1msPrev = CO_timer1ms;
-                
 
-               // printf("Abs Time: %d, Diff Time: %d\n", CO_timer1ms, timer1msDiff);
+                // printf("Abs Time: %d, Diff Time: %d\n", CO_timer1ms, timer1msDiff);
 
-                /* Execute optional additional application code */
+                /* Execute optional additional alication code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
-               
-               
-               // sitStandMachine.hwStateUpdate();
-               // sitStandMachine.update();
-                app_programAsync(timer1msDiff);
+
+                // sitStandMachine.hwStateUpdate();
+                // sitStandMachine.update();
+                // app_programAsync(timer1msDiff);
 
                 CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
@@ -416,6 +454,7 @@ static void *rt_thread(void *arg)
     /* Endless loop */
     while (CO_endProgram == 0)
     {
+        // std::cout << "2.PROCESS MESSAGE THREAD\n";
         int ready;
         struct epoll_event ev;
 
@@ -431,7 +470,7 @@ static void *rt_thread(void *arg)
 
         else if (CANrx_taskTmr_process(ev.data.fd))
         {
-            
+
             /* code was processed in the above function. Additional code process below */
             INCREMENT_1MS(CO_timer1ms);
 
@@ -445,7 +484,7 @@ static void *rt_thread(void *arg)
 #endif
 
             /* Execute optional additional application code */
-            app_program1ms();
+            // app_program1ms();
 
             /* Detect timer large overflow */
             if (OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal)
@@ -463,4 +502,50 @@ static void *rt_thread(void *arg)
     }
 
     return NULL;
+}
+/*Control thread*/
+static void *rt_control_thread(void *arg)
+{
+    struct period_info pinfo;
+    periodic_task_init(&pinfo);
+    app_programStart();
+    while (!readyToStart)
+    {
+        wait_rest_of_period(&pinfo);
+    }
+    while (CO_endProgram == 0)
+    {
+        // std::cout << "1.RT Control THREAD\n";
+        app_program1ms();
+        wait_rest_of_period(&pinfo);
+    }
+    return NULL;
+}
+// RT Tast timer
+// Make sure RT control loop runs slow enough for bit flip messages to be sent and changed in each drive.
+
+static void inc_period(struct period_info *pinfo)
+{
+    pinfo->next_period.tv_nsec += pinfo->period_ns;
+
+    while (pinfo->next_period.tv_nsec >= 1000000000)
+    {
+        /* timespec nsec overflow */
+        pinfo->next_period.tv_sec++;
+        pinfo->next_period.tv_nsec -= 1000000000;
+    }
+}
+static void periodic_task_init(struct period_info *pinfo)
+{
+    /* for simplicity, hardcoding a 1ms period */
+    pinfo->period_ns = 1000000;
+
+    clock_gettime(CLOCK_MONOTONIC, &(pinfo->next_period));
+}
+static void wait_rest_of_period(struct period_info *pinfo)
+{
+    inc_period(pinfo);
+
+    /* for simplicity, ignoring possibilities of signal wakes */
+    clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &pinfo->next_period, NULL);
 }

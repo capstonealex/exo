@@ -15,31 +15,32 @@ Robot::Robot()
     positionControlConfigured = false;
     cout << "Setting Robot joint initial conditions...\n";
     // Set joint Intial positions.
-    
+
     // // Set joint Intial positions to 0, Set joint IDs, Populate joint Trajectories
     for (auto i = 0; i < 6; i++)
     {
         joints[i].applyPos(0);
         joints[i].setId(i + 1);
     }
-	trajectoryObj.pilotParameter = { .lowerleg_length = 0.42,.upperleg_length = 0.46,.ankle_height = 0.12,.foot_length = 0.24,.hip_width = 0.42,.torso_length = 0.4,.buttocks_height = 0.05 };
+    trajectoryObj.pilotParameter = {.lowerleg_length = 0.42, .upperleg_length = 0.46, .ankle_height = 0.12, .foot_length = 0.24, .hip_width = 0.42, .torso_length = 0.4, .buttocks_height = 0.05};
 
-	trajectoryObj.trajectoryParameter = { .sample_period = 0.1,
-		.step_duration = 1.0,
-		.step_height = 0.2,
-		.step_length = 0.4,
-		.hip_height_slack = 0.01, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-		.torso_forward_angle = deg2rad(0), 
-		.swing_ankle_down_angle = 0,
-		.stance_foot = Trajectory::Foot::Left,
-		.movement = Trajectory::Movement::Sitting,
-		.seat_height = 0.43, // sit-stand
-		.stair_height = 0.0, // stairs
-		.slope_angle = 20.0,   // tilted path
-		.left_foot_on_tilt = false, // whether the foot is on tilted ground
-		.right_foot_on_tilt = false // whether the foot is on tilted ground
+    trajectoryObj.trajectoryParameter = {
+        .sample_period = 0.1,
+        .step_duration = 1.0,
+        .step_height = 0.2,
+        .step_length = 0.4,
+        .hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = deg2rad(0),
+        .swing_ankle_down_angle = 0,
+        .stance_foot = Trajectory::Foot::Left,
+        .movement = Trajectory::Movement::Stand,
+        .seat_height = 0.43,        // sit-stand
+        .stair_height = 0.0,        // stairs
+        .slope_angle = 20.0,        // tilted path
+        .left_foot_on_tilt = false, // whether the foot is on tilted ground
+        .right_foot_on_tilt = false // whether the foot is on tilted ground
 
-	};
+    };
 }
 void Robot::printInfo()
 {
@@ -117,7 +118,7 @@ bool Robot::homeCalibration(void)
     {
         cancomm_socketFree(SDO_MessageList[i], returnMessage);
     }
-    
+
     sleep(5);
     // TODO: Change sleep to check that we reached home
     printf("Home motion complete\n");
@@ -190,7 +191,8 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6084 0 i32 100000",
         "[1] 3 write 0x6084 0 i32 100000",
         "[1] 4 write 0x6084 0 i32 100000"};
-    if (!positionControlConfigured){
+    if (!positionControlConfigured)
+    {
         int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
         for (int i = 0; i < num_of_Messages; ++i)
         {
@@ -199,7 +201,9 @@ bool Robot::initPositionControl(void)
         positionControlConfigured = true;
         printf("Motors configured for position control\n");
         return true;
-    } else {
+    }
+    else
+    {
         printf("WARNING:::: Position Control already configured\n");
         return false;
     }
@@ -222,7 +226,7 @@ bool Robot::initPositionControlAnkles(void)
         "[1] 5 write 0x6040 0 i16 15",
         "[1] 6 write 0x6040 0 i16 6",
         "[1] 6 write 0x6040 0 i16 15",
-        };
+    };
     int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
     for (int i = 0; i < num_of_Messages; ++i)
     {
@@ -376,7 +380,6 @@ bool Robot::remapPDO(void)
     return true;
 }
 
-
 bool Robot::remapPDOAnkles(void)
 {
     char *returnMessage;
@@ -387,7 +390,7 @@ bool Robot::remapPDOAnkles(void)
         "[1] 5 write 0x1A01 1 u32 0x60640020",
         "[1] 5 write 0x1A01 2 u32 0x606C0020",
         "[1] 5 write 0x1A01 0 u8 2",
-        "[1] 5 write 0x1801 1 u32 0x285",	
+        "[1] 5 write 0x1801 1 u32 0x285",
         "[1] 5 write 0x1800 1 u32 0x80000185",
         "[1] 5 write 0x1A00 0 u8 0",
         "[1] 5 write 0x1800 2 u8 0xFF",
@@ -413,7 +416,7 @@ bool Robot::remapPDOAnkles(void)
         "[1] 6 write 0x1A01 1 u32 0x60640020",
         "[1] 6 write 0x1A01 2 u32 0x606C0020",
         "[1] 6 write 0x1A01 0 u8 2",
-        "[1] 6 write 0x1801 1 u32 0x286",	
+        "[1] 6 write 0x1801 1 u32 0x286",
         "[1] 6 write 0x1800 1 u32 0x80000186",
         "[1] 6 write 0x1A00 0 u8 0",
         "[1] 6 write 0x1800 2 u8 0xFF",
@@ -441,7 +444,6 @@ bool Robot::remapPDOAnkles(void)
     }
     return true;
 }
-
 
 bool Robot::preop(void)
 {

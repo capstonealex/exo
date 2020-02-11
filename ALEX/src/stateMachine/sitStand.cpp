@@ -21,7 +21,7 @@
 #include <cmath>
 #include <array>
 
- // For logging
+// For logging
 #include <iostream>
 #include <fstream>
 #include <time.h> /* time_t, struct tm, time, localtime, strftime */
@@ -87,8 +87,8 @@ double fracTrajProgress = 0;
 int desiredIndex = 0;
 int running = 0;
 
-#define SITSTANDTIME 2
-#define STEPTIME 2
+#define SITSTANDTIME 4
+#define STEPTIME 4
 
 /////////////////////////////////////////////////////////
 // State Machine sitStand methods ----------------------------------------------------------
@@ -183,7 +183,7 @@ void sitStand::init(void)
 	mark = 1;
 	calibrated = 0;
 	std::cout << "Welcome to The ALEX STATE MACHINE"
-		<< "\n";
+			  << "\n";
 	StateMachine::init();
 
 	// Set up the buttons
@@ -316,7 +316,7 @@ void sitStand::StandingUp::entry(void)
 	printf("PRESS GREEN TO BEGIN STANDING UP\n");
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(10);
+	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Stand;
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = SITSTANDTIME;
 	OWNER->startNewTraj();
@@ -387,7 +387,7 @@ void sitStand::SteppingFirstLeft::entry(void)
 	//READ TIME OF MAIN
 	printf("SteppingFirstLeft State Entered at Time %d\n", OWNER->mark);
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.2;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = 0;
+	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Right;
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
@@ -435,7 +435,7 @@ void sitStand::SteppingRight::entry(void)
 	//READ TIME OF MAIN
 	printf("SteppingRight State Entered at Time %d\n", OWNER->mark);
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.2;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = 0;
+	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Left;
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
@@ -483,7 +483,7 @@ void sitStand::SteppingLeft::entry(void)
 	//READ TIME OF MAIN
 	printf("SteppingLeft State Entered at Time %d\n", OWNER->mark);
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.2;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = 0;
+	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Right;
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
@@ -511,7 +511,7 @@ void sitStand::SteppingLastRight::entry(void)
 	//READ TIME OF MAIN
 	printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = 0;
+	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Left;
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
@@ -539,7 +539,7 @@ void sitStand::SteppingLastLeft::entry(void)
 	//READ TIME OF MAIN
 	printf("SteppingLastLeft State Entered at Time %d\n", OWNER->mark);
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = 0;
+	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Right;
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
@@ -592,7 +592,7 @@ void sitStand::SteppingLeftBack::entry(void)
 	//READ TIME OF MAIN
 	printf("SteppingLeftBack State Entered at Time %d\n", OWNER->mark);
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.2;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = 0;
+	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
 	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Left;
 	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Back;
 	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
@@ -762,22 +762,22 @@ void sitStand::hwStateUpdate(void)
 
 	//printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
 
-	if (!yButton)
-	{
-		printf("Yellow \n");
-	}
-	if (!gButton)
-	{
-		printf("Green \n");
-	}
-	if (!bButton)
-	{
-		printf("Blue \n");
-	}
-	if (!rButton)
-	{
-		printf("Red \n");
-	}
+	// if (!yButton)
+	// {
+	// 	printf("Yellow \n");
+	// }
+	// if (!gButton)
+	// {
+	// 	printf("Green \n");
+	// }
+	// if (!bButton)
+	// {
+	// 	printf("Blue \n");
+	// }
+	// if (!rButton)
+	// {
+	// 	printf("Red \n");
+	// }
 
 	// Update loop time counter
 	mark = mark + 1;
@@ -789,18 +789,18 @@ void sitStand::hwStateUpdate(void)
 	//printf(std::to_string(robot->joints[2].getActualTorque()));
 	// Log to file
 	//if (mark%%==1){
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
-	logfile << std::to_string(currtime);
+	// struct timeval tv;
+	// gettimeofday(&tv, NULL);
+	// double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
+	// logfile << std::to_string(currtime);
 
-	for (auto i = 0; i < NUM_JOINTS; i++)
-	{
-		logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
-		//printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
-	}
-	//printf("\n");
-	logfile << "\n";
+	// for (auto i = 0; i < NUM_JOINTS; i++)
+	// {
+	// 	logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
+	// 	//printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
+	// }
+	// //printf("\n");
+	// logfile << "\n";
 	// }
 }
 
@@ -818,17 +818,18 @@ void sitStand::startNewTraj()
 	Trajectory::jointspace_state startNewTrajJointspace;
 	double robotJointspace[NUM_JOINTS];
 	int i;
-	for (i = 0; i < NUM_JOINTS; i++) {
+	for (i = 0; i < NUM_JOINTS; i++)
+	{
 		int j = robot->joints[i].getId();
-		robotJointspace[j - 1] = robot->joints[i].getPosDeg();
+		robotJointspace[j - 1] = deg2rad(robot->joints[i].getPosDeg());
 	}
-	startNewTrajJointspace = { .q = {robotJointspace[0],
-								  robotJointspace[1],
-								  robotJointspace[2],
-								  robotJointspace[3],
-								  robotJointspace[4],
-								  robotJointspace[5]},
-							.time = 0 };
+	startNewTrajJointspace = {.q = {robotJointspace[0],
+									robotJointspace[1],
+									robotJointspace[2],
+									robotJointspace[3],
+									M_PI_2,
+									M_PI_2},
+							  .time = 0};
 
 	robot->trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
 
@@ -857,8 +858,6 @@ void sitStand::moveThroughTraj()
 	double trajTimeUS = robot->trajectoryObj.trajectoryParameter.step_duration * 1000000;
 	fracTrajProgress = movingMicro / trajTimeUS;
 
-
-
 	// if Green Button is pressed, move through trajetory. Otherwise stay where you are
 	if (!gButton)
 	{
@@ -869,54 +868,61 @@ void sitStand::moveThroughTraj()
 
 		// Send a new trajectory point
 
-
-		// if Green Button is pressed, move through trajetory. Otherwise stay where you are 
-		if (!gButton) {
+		// if Green Button is pressed, move through trajetory. Otherwise stay where you are
+		if (!gButton)
+		{
 			timeradd(&moving_tv, &tv_diff, &tv_changed);
 			moving_tv = tv_changed;
 
-			//printf("Time: %3f \n", fracTrajProgress);
+			printf("Time: %3f \n", fracTrajProgress);
 			//array for position and velocity profile
 			double positionArray[NUM_JOINTS];
 			double robotJointspace[NUM_JOINTS];
 			Trajectory::jointspace_state robotTrajJointspace;
 			//get an array for current position
-			for (int i = 0; i < NUM_JOINTS; i++) {
+			for (int i = 0; i < NUM_JOINTS; i++)
+			{
 				int j = robot->joints[i].getId();
-				robotJointspace[j - 1] = robot->joints[i].getPosDeg();
+				robotJointspace[j - 1] = deg2rad(robot->joints[i].getPosDeg());
 			}
+			robot->printInfo();
 			//robotTrajJointspace = { .q = {deg2rad(robotJointspace[0]),
 			//							  deg2rad(robotJointspace[1]),
 			//							  deg2rad(robotJointspace[2]),
 			//							  deg2rad(robotJointspace[3]),
 			//					   		  deg2rad(robotJointspace[4]),
-			//							  deg2rad(robotJointspace[5])}, 
+			//							  deg2rad(robotJointspace[5])},
 			//	                    .time = fracTrajProgress };
-			robotTrajJointspace = { .q = {deg2rad(robotJointspace[0]),
-										  deg2rad(robotJointspace[1]),
-										  deg2rad(robotJointspace[2]),
-										  deg2rad(robotJointspace[3]),
-										  deg2rad(M_PI_2),
-										  deg2rad(M_PI_2)},
-				                    .time = fracTrajProgress };
+			robotTrajJointspace = {.q = {robotJointspace[0],
+										 robotJointspace[1],
+										 robotJointspace[2],
+										 robotJointspace[3],
+										 M_PI_2,
+										 M_PI_2},
+								   .time = fracTrajProgress};
 
 #ifndef _NOACTUATION
 			// Send a new trajectory point
 			// Get Trajectory point for this joint based on current time
 			robot->trajectoryObj.calcPosition(fracTrajProgress, positionArray);
-			for (int i = 0; i < NUM_JOINTS; i++) {
-				if (robot->joints[i].getBitFlipState() == NOFLIP) {
+			std::cout << "Frac traj progress:" << fracTrajProgress << endl;
+
+			for (int i = 0; i < NUM_JOINTS; i++)
+			{
+				if (robot->joints[i].getBitFlipState() == NOFLIP)
+				{
 					int j = robot->joints[i].getId();
-					robot->joints[j - 1].applyPosDeg(positionArray[i]);
+					printf("i: %d, j: %d\n", i, j);
+					robot->joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
 					// set state machine bitFlip to LOW state.
 					robot->joints[i].bitflipLow();
 				}
-				else {
+				else
+				{
 					robot->joints[i].bitflipHigh();
 				}
 			}
 #endif
-
 		}
 		else
 		{
