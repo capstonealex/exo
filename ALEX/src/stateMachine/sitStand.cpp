@@ -877,29 +877,7 @@ void sitStand::moveThroughTraj()
 			printf("Time: %3f \n", fracTrajProgress);
 			//array for position and velocity profile
 			double positionArray[NUM_JOINTS];
-			double robotJointspace[NUM_JOINTS];
-			Trajectory::jointspace_state robotTrajJointspace;
-			//get an array for current position
-			for (int i = 0; i < NUM_JOINTS; i++)
-			{
-				int j = robot->joints[i].getId();
-				robotJointspace[j - 1] = deg2rad(robot->joints[i].getPosDeg());
-			}
 			robot->printInfo();
-			//robotTrajJointspace = { .q = {deg2rad(robotJointspace[0]),
-			//							  deg2rad(robotJointspace[1]),
-			//							  deg2rad(robotJointspace[2]),
-			//							  deg2rad(robotJointspace[3]),
-			//					   		  deg2rad(robotJointspace[4]),
-			//							  deg2rad(robotJointspace[5])},
-			//	                    .time = fracTrajProgress };
-			robotTrajJointspace = {.q = {robotJointspace[0],
-										 robotJointspace[1],
-										 robotJointspace[2],
-										 robotJointspace[3],
-										 M_PI_2,
-										 M_PI_2},
-								   .time = fracTrajProgress};
 
 #ifndef _NOACTUATION
 			// Send a new trajectory point
