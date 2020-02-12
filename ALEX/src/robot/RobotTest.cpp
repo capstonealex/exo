@@ -32,177 +32,173 @@ using namespace std;
 
 double fRand(double fMin, double fMax);
 
-int main(int argc, char** argv) {
-	cout << "hello world" << endl;
-	cout << "Begin Trajectory Generation." << endl;
+// int main(int argc, char** argv) {
+// 	cout << "hello world" << endl;
+// 	cout << "Begin Trajectory Generation." << endl;
 
-	cout << "Argument count: " << argc << endl
-		<< "Arguments: {" << endl;
-	for (int i = 0; i < argc; i++)
-		cout << argv[i] << endl;
-	cout << "}" << endl;
+// 	cout << "Argument count: " << argc << endl
+// 		<< "Arguments: {" << endl;
+// 	for (int i = 0; i < argc; i++)
+// 		cout << argv[i] << endl;
+// 	cout << "}" << endl;
 
+// 	// setting the precision for better layout
+// 	std::cout << std::setprecision(3);
+// 	Trajectory trajectoryObject;
+// 	vector<Trajectory::jointspace_state_ex> trajectory;
+// 	Trajectory::jointspace_state currentJointspaceState;
 
-	// setting the precision for better layout	
-	std::cout << std::setprecision(3);
-	Trajectory trajectoryObject;
-	vector<Trajectory::jointspace_state_ex> trajectory;
-	Trajectory::jointspace_state currentJointspaceState;
+// 	//srand(time(NULL));
+// 	//for (int i = 0; i < 1; i++) {
+// 	//	currentJointspaceState = {
+// 	//		.q = { fRand(trajectoryObject.Q_MIN_MAX[LEFT_HIP],trajectoryObject.Q_MIN_MAX[LEFT_HIP+1]),
+// 	//				fRand(trajectoryObject.Q_MIN_MAX[2* LEFT_KNEE],trajectoryObject.Q_MIN_MAX[2*LEFT_KNEE +1]),
+// 	//				fRand(trajectoryObject.Q_MIN_MAX[2* RIGHT_HIP],trajectoryObject.Q_MIN_MAX[2* RIGHT_HIP+1]),
+// 	//				fRand(trajectoryObject.Q_MIN_MAX[2* RIGHT_KNEE],trajectoryObject.Q_MIN_MAX[2* RIGHT_KNEE+1]),
+// 	//				fRand(trajectoryObject.Q_MIN_MAX[2* LEFT_ANKLE],trajectoryObject.Q_MIN_MAX[2* LEFT_ANKLE+1]),
+// 	//				fRand(trajectoryObject.Q_MIN_MAX[2* RIGHT_ANKLE],trajectoryObject.Q_MIN_MAX[2* RIGHT_ANKLE+1])},
+// 	//					  .time = 0
+// 	//	};
 
-	//srand(time(NULL));
-	//for (int i = 0; i < 1; i++) {
-	//	currentJointspaceState = {
-	//		.q = { fRand(trajectoryObject.Q_MIN_MAX[LEFT_HIP],trajectoryObject.Q_MIN_MAX[LEFT_HIP+1]),
-	//				fRand(trajectoryObject.Q_MIN_MAX[2* LEFT_KNEE],trajectoryObject.Q_MIN_MAX[2*LEFT_KNEE +1]),
-	//				fRand(trajectoryObject.Q_MIN_MAX[2* RIGHT_HIP],trajectoryObject.Q_MIN_MAX[2* RIGHT_HIP+1]),
-	//				fRand(trajectoryObject.Q_MIN_MAX[2* RIGHT_KNEE],trajectoryObject.Q_MIN_MAX[2* RIGHT_KNEE+1]),
-	//				fRand(trajectoryObject.Q_MIN_MAX[2* LEFT_ANKLE],trajectoryObject.Q_MIN_MAX[2* LEFT_ANKLE+1]),
-	//				fRand(trajectoryObject.Q_MIN_MAX[2* RIGHT_ANKLE],trajectoryObject.Q_MIN_MAX[2* RIGHT_ANKLE+1])},
-	//					  .time = 0
-	//	};
+// 	//	trajectory =
+// 	//		trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+// 	//}
+// 	Trajectory::trajectory_parameters walk_parameters = {
+// 	.step_duration = 1,
+// 	.step_height = 0.2,
+// 	.step_length = 0.3,
+// 	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+// 	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+// 	.swing_ankle_down_angle = 0,
+// 	.stance_foot = Trajectory::Foot::Left,
+// 	.movement = Trajectory::Movement::Walk,
+// 	.seat_height = 0.42, // sit-stand
+// 	.stair_height = 0.0, // stairs
+// 	.slope_angle = 0.0,   // tilted path
+// 	.left_foot_on_tilt = false,
+// 	.right_foot_on_tilt = false
+// 	};
+// 	Trajectory::pilot_parameters lenny_parameters = {
+// 		.lowerleg_length = 0.43,
+// 		.upperleg_length = 0.46,
+// 		.ankle_height = 0.12,
+// 		.foot_length = 0.26,
+// 		.hip_width = 0.43,
+// 		.torso_length = 0.4,
+// 		.buttocks_height = 0.05
+// 	};
 
-	//	trajectory =
-	//		trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
-	//}
-	Trajectory::trajectory_parameters walk_parameters = {
-	.step_duration = 1,
-	.step_height = 0.2,
-	.step_length = 0.3,
-	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
-	.swing_ankle_down_angle = 0,
-	.stance_foot = Trajectory::Foot::Left,
-	.movement = Trajectory::Movement::Walk,
-	.seat_height = 0.42, // sit-stand
-	.stair_height = 0.0, // stairs
-	.slope_angle = 0.0,   // tilted path
-	.left_foot_on_tilt = false,
-	.right_foot_on_tilt = false
-	};
-	Trajectory::pilot_parameters lenny_parameters = {
-		.lowerleg_length = 0.43,
-		.upperleg_length = 0.46,
-		.ankle_height = 0.12,
-		.foot_length = 0.26,
-		.hip_width = 0.43,
-		.torso_length = 0.4,
-		.buttocks_height = 0.05
-	};
+// 	trajectoryObject.setPilotParameter(lenny_parameters);
+// 	trajectoryObject.setTrajectoryParameter(walk_parameters);
 
-	trajectoryObject.setPilotParameter(lenny_parameters);
-	trajectoryObject.setTrajectoryParameter(walk_parameters);
+// 	// step
+// 	currentJointspaceState = {
+// 		.q = { deg2rad(170),
+// 				deg2rad(5),
+// 				deg2rad(190),
+// 				deg2rad(5),
+// 				deg2rad(90),
+// 				deg2rad(90)},
+// 						.time = 0
+// 	};
 
-	// step
-	currentJointspaceState = {
-		.q = { deg2rad(170),
-				deg2rad(5),
-				deg2rad(190),
-				deg2rad(5),
-				deg2rad(90),
-				deg2rad(90)},
-						.time = 0
-	};
+// 	//currentJointspaceState = {
+// 	//.q = { deg2rad(190),
+// 	//		deg2rad(5),
+// 	//		deg2rad(170),
+// 	//		deg2rad(5),
+// 	//		deg2rad(90),
+// 	//		deg2rad(90)},
+// 	//				.time = 0
+// 	//};
 
-	//currentJointspaceState = {
-	//.q = { deg2rad(190),
-	//		deg2rad(5),
-	//		deg2rad(170),
-	//		deg2rad(5),
-	//		deg2rad(90),
-	//		deg2rad(90)},
-	//				.time = 0
-	//};
+// 	// sitting
+// 	//currentJointspaceState = {
+// 	//	.q = { deg2rad(75),
+// 	//			deg2rad(99),
+// 	//			deg2rad(75),
+// 	//			deg2rad(99),
+// 	//			deg2rad(90),
+// 	//			deg2rad(90)},
+// 	//					.time = 0
+// 	//};
 
-	// sitting
-	//currentJointspaceState = {
-	//	.q = { deg2rad(75),
-	//			deg2rad(99),
-	//			deg2rad(75),
-	//			deg2rad(99),
-	//			deg2rad(90),
-	//			deg2rad(90)},
-	//					.time = 0
-	//};
+// 	//standing
+// 	//currentJointspaceState = {
+// 	//.q = { deg2rad(179),
+// 	//		deg2rad(1.72),
+// 	//		deg2rad(179),
+// 	//		deg2rad(1.72),
+// 	//		deg2rad(75),
+// 	//		deg2rad(75)},
+// 	//				.time = 0
+// 	//};
+// 	//for (int i = 0; i < 5; i++) {
+// 	//	for (int j = 0; j < 5; j++) {
+// 	//		walk_parameters.step_length = 0.1*i;
+// 	//		walk_parameters.step_height = 0.1*j;
+// 	//		trajectory =
+// 	//			trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+// 	//	}
+// 	//}
 
-	//standing
-	//currentJointspaceState = {
-	//.q = { deg2rad(179),
-	//		deg2rad(1.72),
-	//		deg2rad(179),
-	//		deg2rad(1.72),
-	//		deg2rad(75),
-	//		deg2rad(75)},
-	//				.time = 0
-	//};
-	//for (int i = 0; i < 5; i++) {
-	//	for (int j = 0; j < 5; j++) {
-	//		walk_parameters.step_length = 0.1*i;
-	//		walk_parameters.step_height = 0.1*j;
-	//		trajectory =
-	//			trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
-	//	}
-	//}
-	
+// 	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+// 	walk_parameters = {
+// 	.step_duration = 1,
+// 	.step_height = 0.2,
+// 	.step_length = 0.3,
+// 	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+// 	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+// 	.swing_ankle_down_angle = 0,
+// 	.stance_foot = Trajectory::Foot::Right,
+// 	.movement = Trajectory::Movement::Walk,
+// 	.seat_height = 0.42, // sit-stand
+// 	.stair_height = 0.0, // stairs
+// 	.slope_angle = 0.0,   // tilted path
+// 	.left_foot_on_tilt = false,
+// 	.right_foot_on_tilt = false
+// 	};
 
-	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
-	walk_parameters = {
-	.step_duration = 1,
-	.step_height = 0.2,
-	.step_length = 0.3,
-	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
-	.swing_ankle_down_angle = 0,
-	.stance_foot = Trajectory::Foot::Right,
-	.movement = Trajectory::Movement::Walk,
-	.seat_height = 0.42, // sit-stand
-	.stair_height = 0.0, // stairs
-	.slope_angle = 0.0,   // tilted path
-	.left_foot_on_tilt = false,
-	.right_foot_on_tilt = false
-	};
+// 	trajectoryObject.setTrajectoryParameter(walk_parameters);
 
-	trajectoryObject.setTrajectoryParameter(walk_parameters);
+// 	// step
 
-	// step
+// 	currentJointspaceState = {
+// 	.q = { deg2rad(190),
+// 			deg2rad(5),
+// 			deg2rad(170),
+// 			deg2rad(5),
+// 			deg2rad(90),
+// 			deg2rad(90)},
+// 					.time = 0
+// 	};
+// 	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
 
-	currentJointspaceState = {
-	.q = { deg2rad(190),
-			deg2rad(5),
-			deg2rad(170),
-			deg2rad(5),
-			deg2rad(90),
-			deg2rad(90)},
-					.time = 0
-	};
-	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+// 	std::cout << std::setprecision(3);
 
-	std::cout << std::setprecision(3);
-
-	double positionArray[NO_JOINTS];
-	double previousPosArray[NO_JOINTS];
-	//for (double time = 0; time < 1.01; time += 0.05) {
-	//	trajectoryObject.calcPosition(time, positionArray);
-	//	cout << "[get position values from saved spline]: time " << time << " "	;
-	//		for (auto pos : positionArray) {
-	//			cout << rad2deg(pos) << "\t";
-	//		}
-	//	cout << endl;
-	//}
-	//for (double time = 0; time < 1.01; time += 0.05) {
-	//	trajectoryObject.calcPosition(time, positionArray);
-	//	trajectoryObject.calcPosition(time-0.05, previousPosArray);
-	//	cout << "[get velocity values from saved spline]: time " << time << " ";
-	//	for (int i = 0; i < NO_JOINTS; i++) {
-	//		cout << rad2deg(positionArray[i] - previousPosArray[i]) << "\t";
-	//	}
-	//	cout << endl;
-	//}
-	return 0;
-}
-double fRand(double fMin, double fMax)
-{
-	double f = (double)rand() / RAND_MAX;
-	return fMin + f * (fMax - fMin);
-}
-
-
+// 	double positionArray[NO_JOINTS];
+// 	double previousPosArray[NO_JOINTS];
+// 	//for (double time = 0; time < 1.01; time += 0.05) {
+// 	//	trajectoryObject.calcPosition(time, positionArray);
+// 	//	cout << "[get position values from saved spline]: time " << time << " "	;
+// 	//		for (auto pos : positionArray) {
+// 	//			cout << rad2deg(pos) << "\t";
+// 	//		}
+// 	//	cout << endl;
+// 	//}
+// 	//for (double time = 0; time < 1.01; time += 0.05) {
+// 	//	trajectoryObject.calcPosition(time, positionArray);
+// 	//	trajectoryObject.calcPosition(time-0.05, previousPosArray);
+// 	//	cout << "[get velocity values from saved spline]: time " << time << " ";
+// 	//	for (int i = 0; i < NO_JOINTS; i++) {
+// 	//		cout << rad2deg(positionArray[i] - previousPosArray[i]) << "\t";
+// 	//	}
+// 	//	cout << endl;
+// 	//}
+// 	return 0;
+// }
+// double fRand(double fMin, double fMax)
+// {
+// 	double f = (double)rand() / RAND_MAX;
+// 	return fMin + f * (fMax - fMin);
+// }
