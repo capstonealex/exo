@@ -954,7 +954,7 @@ void sitStand::moveThroughTraj()
     //uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
     long movingMicro = moving_tv.tv_sec * 1000000 + moving_tv.tv_usec;
 
-    double trajTimeUS = robot->trajectoryObj.getStepDuration() * 1000000;
+    double trajTimeUS = robot->trajectoryObj.trajectoryParameter.step_duration * 1000000;
     fracTrajProgress = movingMicro / trajTimeUS;
 
     // if Green Button is pressed, move through trajetory. Otherwise stay where you are
