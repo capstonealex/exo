@@ -53,8 +53,8 @@
 // For remote
 static char *BUTTONRED = "P8_9";
 static char *BUTTONGREEN = "P8_8";
-static char *BUTTONBLUE = "P8_10";
-static char *BUTTONYELLOW = "P8_7";
+static char *BUTTONBLUE = "P8_7";
+static char *BUTTONYELLOW = "P8_10";
 
 GPIO::GPIOManager *gp;
 int redPin;
@@ -76,8 +76,8 @@ double fracTrajProgress = 0;
 int desiredIndex = 0;
 int running = 0;
 
-#define SITSTANDTIME 4
-#define STEPTIME 4
+#define SITSTANDTIME 2
+#define STEPTIME 2
 
 /////////////////////////////////////////////////////////
 // State Machine sitStand methods ----------------------------------------------------------
