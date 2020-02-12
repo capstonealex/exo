@@ -35,9 +35,9 @@ class Trajectory
 #define RIGHT_ANKLE 5
 public:
 	// Hardware angle limiation in Radians
-	const double Q_MIN_MAX[12]{ deg2rad(65), deg2rad(200),
+	const double Q_MIN_MAX[12]{ deg2rad(75), deg2rad(200),
 							   0, deg2rad(100),
-							   deg2rad(65), deg2rad(200),
+							   deg2rad(75), deg2rad(200),
 							   0, deg2rad(100),
 							   deg2rad(75), deg2rad(105),
 							   deg2rad(75), deg2rad(105) };

@@ -45,7 +45,7 @@ Robot::Robot()
 		.hip_width = 0.43,
 		.torso_length = 0.4,
 		.buttocks_height = 0.05
-	
+
 	};
 	trajectoryObj.setPilotParameter(lenny_parameters);
 
