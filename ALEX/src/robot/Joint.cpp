@@ -127,8 +127,7 @@ void Joint::applyPosDeg(double qd)
     //Safety checks.
     // Is joint where we think it is? or within safe range of it?
     // are we trying to move to a pos within the joints limits?
-    ///// Testing for PDOs
-    printf("Applied Positions , JID: %d, Pos: %lf \n", this->id, qd);
+    // printf("Applied Positions , JID: %d, Pos: %lf \n", this->id, qd);
     long qd_long = 0;
     motorPosConverter(qd, &qd_long, this->id);
     //printf("Joint ID: %d, %3f, %ld \n", this->id, qd,  qd_long);
