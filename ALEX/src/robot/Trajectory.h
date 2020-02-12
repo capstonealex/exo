@@ -127,7 +127,7 @@ public:
 	* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 public:
 	jointspace_spline trajectoryJointSpline;
-private:
+public:
 	trajectory_parameters trajectoryParameter;
 	pilot_parameters pilotParameter;
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

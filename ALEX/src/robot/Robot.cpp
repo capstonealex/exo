@@ -31,7 +31,7 @@ Robot::Robot()
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Right,
 		.movement = Trajectory::Movement::Sitting,
-		.seat_height = 0.42, // sit-stand
+		.seat_height = 0.45, // sit-stand
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,   // tilted path
 		.left_foot_on_tilt = false,
