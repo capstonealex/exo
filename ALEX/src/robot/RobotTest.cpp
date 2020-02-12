@@ -98,10 +98,20 @@ int main(int argc, char** argv) {
 				deg2rad(5),
 				deg2rad(190),
 				deg2rad(5),
-				deg2rad(85),
+				deg2rad(90),
 				deg2rad(90)},
 						.time = 0
 	};
+
+	//currentJointspaceState = {
+	//.q = { deg2rad(190),
+	//		deg2rad(5),
+	//		deg2rad(170),
+	//		deg2rad(5),
+	//		deg2rad(90),
+	//		deg2rad(90)},
+	//				.time = 0
+	//};
 
 	// sitting
 	//currentJointspaceState = {
@@ -135,30 +145,58 @@ int main(int argc, char** argv) {
 	
 
 	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+	walk_parameters = {
+	.step_duration = 1,
+	.step_height = 0.2,
+	.step_length = 0.3,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Right,
+	.movement = Trajectory::Movement::Walk,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
 
-	trajectoryObject.generateAndSaveSpline(currentJointspaceState);
+	trajectoryObject.setTrajectoryParameter(walk_parameters);
+
+	// step
+
+	currentJointspaceState = {
+	.q = { deg2rad(190),
+			deg2rad(5),
+			deg2rad(170),
+			deg2rad(5),
+			deg2rad(90),
+			deg2rad(90)},
+					.time = 0
+	};
+	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
 
 	std::cout << std::setprecision(3);
 
 	double positionArray[NO_JOINTS];
 	double previousPosArray[NO_JOINTS];
-	for (double time = 0; time < 1.01; time += 0.05) {
-		trajectoryObject.calcPosition(time, positionArray);
-		cout << "[get position values from saved spline]: time " << time << " "	;
-			for (auto pos : positionArray) {
-				cout << rad2deg(pos) << "\t";
-			}
-		cout << endl;
-	}
-	for (double time = 0; time < 1.01; time += 0.05) {
-		trajectoryObject.calcPosition(time, positionArray);
-		trajectoryObject.calcPosition(time-0.05, previousPosArray);
-		cout << "[get velocity values from saved spline]: time " << time << " ";
-		for (int i = 0; i < NO_JOINTS; i++) {
-			cout << rad2deg(positionArray[i] - previousPosArray[i]) << "\t";
-		}
-		cout << endl;
-	}
+	//for (double time = 0; time < 1.01; time += 0.05) {
+	//	trajectoryObject.calcPosition(time, positionArray);
+	//	cout << "[get position values from saved spline]: time " << time << " "	;
+	//		for (auto pos : positionArray) {
+	//			cout << rad2deg(pos) << "\t";
+	//		}
+	//	cout << endl;
+	//}
+	//for (double time = 0; time < 1.01; time += 0.05) {
+	//	trajectoryObject.calcPosition(time, positionArray);
+	//	trajectoryObject.calcPosition(time-0.05, previousPosArray);
+	//	cout << "[get velocity values from saved spline]: time " << time << " ";
+	//	for (int i = 0; i < NO_JOINTS; i++) {
+	//		cout << rad2deg(positionArray[i] - previousPosArray[i]) << "\t";
+	//	}
+	//	cout << endl;
+	//}
 	return 0;
 }
 double fRand(double fMin, double fMax)

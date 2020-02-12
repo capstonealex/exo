@@ -686,7 +686,7 @@ void sitStand::SteppingLeftBack::entry(void)
         .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
-        .stance_foot = Trajectory::Foot::Left,
+        .stance_foot = Trajectory::Foot::Right,
         .movement = Trajectory::Movement::Back,
         .seat_height = 0.42, // sit-stand
         .stair_height = 0.0, // stairs
