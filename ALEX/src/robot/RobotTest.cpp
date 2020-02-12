@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
 	.swing_ankle_down_angle = 0,
 	.stance_foot = Trajectory::Foot::Left,
-	.movement = Trajectory::Movement::Walk,
+	.movement = Trajectory::Movement::Sit,
 	.seat_height = 0.42, // sit-stand
 	.stair_height = 0.0, // stairs
 	.slope_angle = 0.0,   // tilted path
@@ -93,15 +93,15 @@ int main(int argc, char** argv) {
 	trajectoryObject.setTrajectoryParameter(walk_parameters);
 
 	// step
-	currentJointspaceState = {
-		.q = { deg2rad(170),
-				deg2rad(5),
-				deg2rad(190),
-				deg2rad(5),
-				deg2rad(90),
-				deg2rad(90)},
-						.time = 0
-	};
+	//currentJointspaceState = {
+	//	.q = { deg2rad(170),
+	//			deg2rad(5),
+	//			deg2rad(190),
+	//			deg2rad(5),
+	//			deg2rad(90),
+	//			deg2rad(90)},
+	//					.time = 0
+	//};
 
 	//currentJointspaceState = {
 	//.q = { deg2rad(190),
@@ -113,7 +113,7 @@ int main(int argc, char** argv) {
 	//				.time = 0
 	//};
 
-	// sitting
+	//sitting
 	//currentJointspaceState = {
 	//	.q = { deg2rad(75),
 	//			deg2rad(99),
@@ -125,15 +125,15 @@ int main(int argc, char** argv) {
 	//};
 
 	//standing
-	//currentJointspaceState = {
-	//.q = { deg2rad(179),
-	//		deg2rad(1.72),
-	//		deg2rad(179),
-	//		deg2rad(1.72),
-	//		deg2rad(75),
-	//		deg2rad(75)},
-	//				.time = 0
-	//};
+	currentJointspaceState = {
+	.q = { deg2rad(179),
+			deg2rad(1.72),
+			deg2rad(179),
+			deg2rad(1.72),
+			deg2rad(90),
+			deg2rad(90)},
+					.time = 0
+	};
 	//for (int i = 0; i < 5; i++) {
 	//	for (int j = 0; j < 5; j++) {
 	//		walk_parameters.step_length = 0.1*i;
@@ -145,49 +145,32 @@ int main(int argc, char** argv) {
 	
 
 	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
-	walk_parameters = {
-	.step_duration = 1,
-	.step_height = 0.2,
-	.step_length = 0.3,
-	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
-	.swing_ankle_down_angle = 0,
-	.stance_foot = Trajectory::Foot::Right,
-	.movement = Trajectory::Movement::Walk,
-	.seat_height = 0.42, // sit-stand
-	.stair_height = 0.0, // stairs
-	.slope_angle = 0.0,   // tilted path
-	.left_foot_on_tilt = false,
-	.right_foot_on_tilt = false
-	};
+	
 
-	trajectoryObject.setTrajectoryParameter(walk_parameters);
+	//// step
 
-	// step
+	//currentJointspaceState = {
+	//.q = { deg2rad(190),
+	//		deg2rad(5),
+	//		deg2rad(170),
+	//		deg2rad(5),
+	//		deg2rad(90),
+	//		deg2rad(90)},
+	//				.time = 0
+	//};
+	//trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
 
-	currentJointspaceState = {
-	.q = { deg2rad(190),
-			deg2rad(5),
-			deg2rad(170),
-			deg2rad(5),
-			deg2rad(90),
-			deg2rad(90)},
-					.time = 0
-	};
-	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
-
-	std::cout << std::setprecision(3);
-
-	double positionArray[NO_JOINTS];
-	double previousPosArray[NO_JOINTS];
-	//for (double time = 0; time < 1.01; time += 0.05) {
-	//	trajectoryObject.calcPosition(time, positionArray);
-	//	cout << "[get position values from saved spline]: time " << time << " "	;
-	//		for (auto pos : positionArray) {
-	//			cout << rad2deg(pos) << "\t";
-	//		}
-	//	cout << endl;
-	//}
+	double positionArray[NO_JOINTS] = { 0,0,0,0,0,0 };
+	double previousPosArray[NO_JOINTS] = { 0,0,0,0,0,0 };
+	trajectoryObject.generateAndSaveSpline(currentJointspaceState);
+	for (double time = 0; time < 1.01; time += 0.05) {
+		trajectoryObject.calcPosition(time, positionArray);
+		cout << "[get position values from saved spline]: time " << time << " "	;
+			for (auto pos : positionArray) {
+				cout << rad2deg(pos) << "\t";
+			}
+		cout << endl;
+	}
 	//for (double time = 0; time < 1.01; time += 0.05) {
 	//	trajectoryObject.calcPosition(time, positionArray);
 	//	trajectoryObject.calcPosition(time-0.05, previousPosArray);
@@ -197,6 +180,25 @@ int main(int argc, char** argv) {
 	//	}
 	//	cout << endl;
 	//}
+
+	//extra walking 
+	//walk_parameters = {
+	//.step_duration = 1,
+	//.step_height = 0.2,
+	//.step_length = 0.3,
+	//.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	//.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	//.swing_ankle_down_angle = 0,
+	//.stance_foot = Trajectory::Foot::Right,
+	//.movement = Trajectory::Movement::Walk,
+	//.seat_height = 0.42, // sit-stand
+	//.stair_height = 0.0, // stairs
+	//.slope_angle = 0.0,   // tilted path
+	//.left_foot_on_tilt = false,
+	//.right_foot_on_tilt = false
+	//};
+
+	//trajectoryObject.setTrajectoryParameter(walk_parameters);
 	return 0;
 }
 double fRand(double fMin, double fMax)
