@@ -394,7 +394,6 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		double legLengthSlacked = pilotParameters.lowerleg_length + pilotParameters.upperleg_length - trajectoryParameters.hip_height_slack;
 		double hipHeight = pilotParameters.ankle_height + legLengthSlacked;
 		double stanceFoot_x = max(initialTaskspaceState.left_ankle_position.x, initialTaskspaceState.right_ankle_position.x);
-		cout << "stance foot is at " << stanceFoot_x << endl;
 		// Middle state
 		{
 			taskspace_state state1 = initialTaskspaceState;
@@ -463,7 +462,6 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		double legLengthSlacked = pilotParameters.lowerleg_length + pilotParameters.upperleg_length - trajectoryParameters.hip_height_slack;
 		double hipHeight = pilotParameters.ankle_height + legLengthSlacked;
 		double stanceFoot_x = max(initialTaskspaceState.left_ankle_position.x, initialTaskspaceState.right_ankle_position.x);
-		cout << "stance foot is at " << stanceFoot_x << endl;
 		// Middle state
 		{
 			taskspace_state state1 = initialTaskspaceState;
