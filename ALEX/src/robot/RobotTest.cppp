@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
 	.swing_ankle_down_angle = 0,
 	.stance_foot = Trajectory::Foot::Left,
-	.movement = Trajectory::Movement::Sit,
+	.movement = Trajectory::Movement::Walk,
 	.seat_height = 0.42, // sit-stand
 	.stair_height = 0.0, // stairs
 	.slope_angle = 0.0,   // tilted path
@@ -93,15 +93,15 @@ int main(int argc, char** argv) {
 	trajectoryObject.setTrajectoryParameter(walk_parameters);
 
 	// step
-	//currentJointspaceState = {
-	//	.q = { deg2rad(170),
-	//			deg2rad(5),
-	//			deg2rad(190),
-	//			deg2rad(5),
-	//			deg2rad(85),
-	//			deg2rad(90)},
-	//					.time = 0
-	//};
+	currentJointspaceState = {
+		.q = { deg2rad(170),
+				deg2rad(5),
+				deg2rad(190),
+				deg2rad(5),
+				deg2rad(85),
+				deg2rad(90)},
+						.time = 0
+	};
 
 	// sitting
 	//currentJointspaceState = {
@@ -115,15 +115,15 @@ int main(int argc, char** argv) {
 	//};
 
 	//standing
-	currentJointspaceState = {
-	.q = { deg2rad(179),
-			deg2rad(1.72),
-			deg2rad(179),
-			deg2rad(1.72),
-			deg2rad(75),
-			deg2rad(75)},
-					.time = 0
-	};
+	//currentJointspaceState = {
+	//.q = { deg2rad(179),
+	//		deg2rad(1.72),
+	//		deg2rad(179),
+	//		deg2rad(1.72),
+	//		deg2rad(75),
+	//		deg2rad(75)},
+	//				.time = 0
+	//};
 	//for (int i = 0; i < 5; i++) {
 	//	for (int j = 0; j < 5; j++) {
 	//		walk_parameters.step_length = 0.1*i;
