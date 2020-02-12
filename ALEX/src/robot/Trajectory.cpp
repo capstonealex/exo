@@ -113,7 +113,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			state2.right_ankle_position.z = pilotParameters.ankle_height;
 
 			state2.hip_position.x =
-				-0.2 * (pilotParameters.upperleg_length);
+				-0.5 * (pilotParameters.upperleg_length);
 			state2.hip_position.z =
 				(seatHeight + buttocksHeight) + 0.6 * (pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack - (seatHeight + buttocksHeight)); // how far away from seat height
 			state2.torso_forward_angle = trajectoryParameters.torso_forward_angle * 5;
@@ -145,14 +145,14 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 
 		{
 			taskspace_state state1 = initialTaskspaceState; // init
-			state1.time = 0.7;
+			state1.time = 0.3;
 			state1.left_ankle_position.x = 0;
 			state1.right_ankle_position.x = 0;
 			state1.left_ankle_position.z = pilotParameters.ankle_height;
 			state1.right_ankle_position.z = pilotParameters.ankle_height;
 
 			state1.hip_position.x =
-				-0.2 * (pilotParameters.upperleg_length);
+				-0.5 * (pilotParameters.upperleg_length);
 			state1.hip_position.z =
 				(seatHeight + buttocksHeight) + 0.6 * (pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack - (seatHeight + buttocksHeight)); // how far away from seat height
 			state1.torso_forward_angle = trajectoryParameters.torso_forward_angle * 5;
@@ -220,8 +220,8 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 	if (trajectoryParameters.movement == Movement::Walk)
 	{
 		Foot inferredStanceFoot = ((initialTaskspaceState.left_ankle_position.x > initialTaskspaceState.right_ankle_position.x)
-									   ? Foot::Left
-									   : Foot::Right);
+			? Foot::Left
+			: Foot::Right);
 		if (initialTaskspaceState.stance_foot != inferredStanceFoot)
 			cout << "[generate_key_taskspace_states] Stance foot isn't in front of swing foot!?!!" << endl;
 		double ankleDistance = abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x);
@@ -238,7 +238,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		{
 			taskspace_state state1 = initialTaskspaceState;
 			if (initialTaskspaceState.stance_foot == Foot::Right)
-			//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
+				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + ankleDistance;
 				state1.left_ankle_position.z = initialTaskspaceState.left_ankle_position.z + trajectoryParameters.step_height;
@@ -266,18 +266,18 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			if (initialTaskspaceState.stance_foot == Foot::Right)
 				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
-				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) - 
-					pow(legLengthSlacked-trajectoryParameters.step_height/2, 2.0));
-				state2.left_ankle_position.z = initialTaskspaceState.left_ankle_position.z + trajectoryParameters.step_height/2;
+				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) -
+					pow(legLengthSlacked - trajectoryParameters.step_height / 2, 2.0));
+				state2.left_ankle_position.z = initialTaskspaceState.left_ankle_position.z + trajectoryParameters.step_height / 2;
 				state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
 				state2.right_ankle_position.z = pilotParameters.ankle_height;
 				state2.hip_position.x = initialTaskspaceState.right_ankle_position.x;
 			}
 			else
 			{
-				state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) - 
-					pow(legLengthSlacked-trajectoryParameters.step_height/2, 2.0));
-				state2.right_ankle_position.z = initialTaskspaceState.right_ankle_position.z + trajectoryParameters.step_height/2;
+				state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) -
+					pow(legLengthSlacked - trajectoryParameters.step_height / 2, 2.0));
+				state2.right_ankle_position.z = initialTaskspaceState.right_ankle_position.z + trajectoryParameters.step_height / 2;
 				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
 				state2.left_ankle_position.z = pilotParameters.ankle_height;
 				state2.hip_position.x = initialTaskspaceState.left_ankle_position.x;
@@ -293,7 +293,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		{
 			taskspace_state stateEnd = initialTaskspaceState;
 			if (initialTaskspaceState.stance_foot == Foot::Right)
-			//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
+				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + stepDisplacement;
 				stateEnd.hip_position.x = initialTaskspaceState.right_ankle_position.x + trajectoryParameters.step_length / 2.0;
@@ -316,10 +316,11 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 
 	// Back
 	if (trajectoryParameters.movement == Movement::Back)
+
 	{
 		Foot backwardStanceFoot = ((initialTaskspaceState.left_ankle_position.x > initialTaskspaceState.right_ankle_position.x)
-									   ? Foot::Right
-									   : Foot::Left);
+			? Foot::Right
+			: Foot::Left);
 		if (initialTaskspaceState.stance_foot == backwardStanceFoot)
 			cout << "[generate_key_taskspace_states] Backward stance foot isn't at the back!?!!" << endl;
 		double ankleDistance = abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x);
@@ -334,9 +335,9 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		{
 			taskspace_state state1 = initialTaskspaceState;
 			if (backwardStanceFoot == Foot::Left)
-			//||	abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
+				//||	abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
-				state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x - ankleDistance;
+				state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x - ankleDistance - 0.5*trajectoryParameters.step_length;
 				state1.right_ankle_position.z = initialTaskspaceState.right_ankle_position.z + trajectoryParameters.step_height;
 				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
 				state1.left_ankle_position.z = pilotParameters.ankle_height;
@@ -344,14 +345,14 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			}
 			else
 			{
-				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x - ankleDistance;
+				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x - ankleDistance - 0.5*trajectoryParameters.step_length;
 				state1.left_ankle_position.z = initialTaskspaceState.left_ankle_position.z + trajectoryParameters.step_height;
 				state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
 				state1.right_ankle_position.z = pilotParameters.ankle_height;
 				state1.hip_position.x = initialTaskspaceState.right_ankle_position.x;
 			}
 			state1.hip_position.z = hipHeight; // probably should deal with rounding error that makes hipheight slightly larger than leglength?
-			state1.time += 0.5;
+			state1.time = 0.5;
 			state1.torso_forward_angle = trajectoryParameters.torso_forward_angle;
 			state1.swing_ankle_down_angle = 0.0; // could be non-zero due to slight issues in forward kinematics/positioning, btu zero it out anyways
 			keyTaskspaceStates.push_back(state1);
@@ -360,14 +361,14 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		{
 			taskspace_state stateEnd = initialTaskspaceState;
 			if (backwardStanceFoot == Foot::Left)
-			//||	abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
+				//||	abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
-				stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + stepDisplacement;
+				stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x - stepDisplacement;
 				stateEnd.hip_position.x = initialTaskspaceState.left_ankle_position.x - trajectoryParameters.step_length / 2.0;
 			}
 			else
 			{
-				stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + stepDisplacement;
+				stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x - stepDisplacement;
 				stateEnd.hip_position.x = initialTaskspaceState.right_ankle_position.x - trajectoryParameters.step_length / 2.0;
 			}
 			stateEnd.left_ankle_position.z = pilotParameters.ankle_height;
@@ -383,8 +384,8 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 	if (trajectoryParameters.movement == Movement::Stair)
 	{
 		Foot inferredStanceFoot = ((initialTaskspaceState.left_ankle_position.x > initialTaskspaceState.right_ankle_position.x)
-									   ? Foot::Left
-									   : Foot::Right);
+			? Foot::Left
+			: Foot::Right);
 		if (initialTaskspaceState.stance_foot != inferredStanceFoot)
 			cout << "[generate_key_taskspace_states] Stance foot isn't in front of swing foot!?!!" << endl;
 		double ankleDistance = abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x);
@@ -398,7 +399,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		{
 			taskspace_state state1 = initialTaskspaceState;
 			if (initialTaskspaceState.stance_foot == Foot::Right)
-			//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
+				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + ankleDistance;
 				state1.left_ankle_position.z = initialTaskspaceState.left_ankle_position.z + trajectoryParameters.step_height + heightDistance;
@@ -425,7 +426,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		{
 			taskspace_state stateEnd = initialTaskspaceState;
 			if (initialTaskspaceState.stance_foot == Foot::Right)
-			//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
+				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + stepDisplacement;
 				stateEnd.left_ankle_position.z = initialTaskspaceState.left_ankle_position.z + heightDistance + trajectoryParameters.stair_height;
@@ -451,8 +452,8 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 	if (trajectoryParameters.movement == Movement::Ramp)
 	{
 		Foot inferredStanceFoot = ((initialTaskspaceState.left_ankle_position.x > initialTaskspaceState.right_ankle_position.x)
-									   ? Foot::Left
-									   : Foot::Right);
+			? Foot::Left
+			: Foot::Right);
 		if (initialTaskspaceState.stance_foot != inferredStanceFoot)
 			cout << "[generate_key_taskspace_states] Stance foot isn't in front of swing foot!?!!" << endl;
 		double ankleDistance = abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x);
@@ -467,7 +468,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		{
 			taskspace_state state1 = initialTaskspaceState;
 			if (initialTaskspaceState.stance_foot == Foot::Right)
-			//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
+				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + ankleDistance;
 				state1.left_ankle_position.z = initialTaskspaceState.left_ankle_position.z + trajectoryParameters.step_height + heightDistance;
@@ -494,7 +495,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		{
 			taskspace_state stateEnd = initialTaskspaceState;
 			if (initialTaskspaceState.stance_foot == Foot::Right)
-			//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
+				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + stepDisplacementx;
 				stateEnd.left_ankle_position.z = initialTaskspaceState.left_ankle_position.z + stepDisplacementz;
@@ -520,19 +521,17 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 }
 
 // Generates discrete trajectory from parameters to use in control system
-vector<Trajectory::jointspace_state_ex> Trajectory::compute_discrete_trajectory(
+void Trajectory::compute_discrete_trajectory(
 	const trajectory_parameters &trajectoryParameters,
 	const pilot_parameters &pilotParameters,
 	jointspace_state initialJointspaceState)
 {
 
-	time_tt samplePeriod = trajectoryParameters.sample_period;
 	Foot stanceFoot = trajectoryParameters.stance_foot;
 	taskspace_state initialTaskspaceState;
 	vector<taskspace_state> taskspaceStates;
 	vector<jointspace_state> jointspaceStates;
 	jointspace_spline jointspaceSpline;
-	vector<jointspace_state_ex> discreteTrajectory;
 
 	initialTaskspaceState = jointspace_state_to_taskspace_state(initialJointspaceState, trajectoryParameters, pilotParameters);
 
@@ -542,69 +541,69 @@ vector<Trajectory::jointspace_state_ex> Trajectory::compute_discrete_trajectory(
 	//printing the initial taskspace state
 	cout << "[compute_trajectory]: Keypoints (taskspace):" << endl;
 	cout << "[compute_trajectory]:"
-		 << "\t"
-		 << "time | left_ankle_position | hip_position | right_ankle_position | torso_forward_angle | swing_ankle_down_angle"
-		 << endl;
+		<< "\t"
+		<< "time | left_ankle_position | hip_position | right_ankle_position | torso_forward_angle | swing_ankle_down_angle"
+		<< endl;
 	cout << "[compute_trajectory]:"
-		 << "\t"
-		 << initialTaskspaceState.time << "\t"
-		 << " | "
-		 << initialTaskspaceState.left_ankle_position.x << "\t"
-		 << initialTaskspaceState.left_ankle_position.y << "\t"
-		 << initialTaskspaceState.left_ankle_position.z << "\t"
-		 << " | "
-		 << initialTaskspaceState.hip_position.x << "\t"
-		 << initialTaskspaceState.hip_position.y << "\t"
-		 << initialTaskspaceState.hip_position.z << "\t"
-		 << " | "
-		 << initialTaskspaceState.right_ankle_position.x << "\t"
-		 << initialTaskspaceState.right_ankle_position.y << "\t"
-		 << initialTaskspaceState.right_ankle_position.z << "\t"
-		 << " | "
-		 << initialTaskspaceState.torso_forward_angle << "\t"
-		 << " | "
-		 << initialTaskspaceState.swing_ankle_down_angle
-		 << endl;
+		<< "\t"
+		<< initialTaskspaceState.time << "\t"
+		<< " | "
+		<< initialTaskspaceState.left_ankle_position.x << "\t"
+		<< initialTaskspaceState.left_ankle_position.y << "\t"
+		<< initialTaskspaceState.left_ankle_position.z << "\t"
+		<< " | "
+		<< initialTaskspaceState.hip_position.x << "\t"
+		<< initialTaskspaceState.hip_position.y << "\t"
+		<< initialTaskspaceState.hip_position.z << "\t"
+		<< " | "
+		<< initialTaskspaceState.right_ankle_position.x << "\t"
+		<< initialTaskspaceState.right_ankle_position.y << "\t"
+		<< initialTaskspaceState.right_ankle_position.z << "\t"
+		<< " | "
+		<< initialTaskspaceState.torso_forward_angle << "\t"
+		<< " | "
+		<< initialTaskspaceState.swing_ankle_down_angle
+		<< endl;
 	//printing the middle and last task space states
 	for (auto currentState : taskspaceStates)
 	{
 		cout << "[compute_trajectory]:"
-			 << "\t"
-			 << currentState.time << "\t"
-			 << "|"
-			 << currentState.left_ankle_position.x << "\t"
-			 << currentState.left_ankle_position.y << "\t"
-			 << currentState.left_ankle_position.z << "\t"
-			 << "|"
-			 << currentState.hip_position.x << "\t"
-			 << currentState.hip_position.y << "\t"
-			 << currentState.hip_position.z << "\t"
-			 << "|"
-			 << currentState.right_ankle_position.x << "\t"
-			 << currentState.right_ankle_position.y << "\t"
-			 << currentState.right_ankle_position.z << "\t"
-			 << "|"
-			 << currentState.torso_forward_angle << "\t"
-			 << "|"
-			 << currentState.swing_ankle_down_angle
-			 << endl;
+			<< "\t"
+			<< currentState.time << "\t"
+			<< "|"
+			<< currentState.left_ankle_position.x << "\t"
+			<< currentState.left_ankle_position.y << "\t"
+			<< currentState.left_ankle_position.z << "\t"
+			<< "|"
+			<< currentState.hip_position.x << "\t"
+			<< currentState.hip_position.y << "\t"
+			<< currentState.hip_position.z << "\t"
+			<< "|"
+			<< currentState.right_ankle_position.x << "\t"
+			<< currentState.right_ankle_position.y << "\t"
+			<< currentState.right_ankle_position.z << "\t"
+			<< "|"
+			<< currentState.torso_forward_angle << "\t"
+			<< "|"
+			<< currentState.swing_ankle_down_angle
+			<< endl;
 	}
 
 	// Convert key states to jointspace (prepend known initial jointspace state)
 	jointspaceStates = taskspace_states_to_jointspace_states(initialJointspaceState, taskspaceStates, trajectoryParameters, pilotParameters);
 
 	cout << "[compute_trajectory]: Keypoints (jointspace):"
-		 << "LEFT_HIP"
-		 << "\t"
-		 << "LEFT_KNEE"
-		 << "\t"
-		 << "RIGHT_HIP"
-		 << "\t"
-		 << "RIGHT_KNEE"
-		 << "\t"
-		 << "LEFT_ANKLE"
-		 << "\t"
-		 << "RIGHT_ANKLE" << endl;
+		<< "LEFT_HIP"
+		<< "\t"
+		<< "LEFT_KNEE"
+		<< "\t"
+		<< "RIGHT_HIP"
+		<< "\t"
+		<< "RIGHT_KNEE"
+		<< "\t"
+		<< "LEFT_ANKLE"
+		<< "\t"
+		<< "RIGHT_ANKLE" << endl;
 	for (auto state : jointspaceStates)
 	{
 		cout << "[compute_trajectory]:\t" << state.time << "\t\t\t";
@@ -612,12 +611,6 @@ vector<Trajectory::jointspace_state_ex> Trajectory::compute_discrete_trajectory(
 			cout << rad2deg(state.q[i]) << "\t  ";
 		cout << endl;
 	}
-
-	jointspaceSpline = cubic_spline_jointspace_states(jointspaceStates);
-
-	discreteTrajectory = discretise_spline(jointspaceSpline, samplePeriod);
-
-	return discreteTrajectory;
 }
 Trajectory::taskspace_state Trajectory::jointspace_state_to_taskspace_state(
 	jointspace_state jointspaceState,
@@ -838,11 +831,11 @@ vector<Trajectory::cubic_polynomial> Trajectory::cubic_spline(
 	for (int i = 0; i < numPolynomials; i++)
 	{
 		// cubic (t)
-		cubicSplinePolynomials.push_back({.coefficients = {
+		cubicSplinePolynomials.push_back({ .coefficients = {
 											  X(NUM_CUBIC_COEFFICIENTS * i + 0, 0),
 											  X(NUM_CUBIC_COEFFICIENTS * i + 1, 0),
 											  X(NUM_CUBIC_COEFFICIENTS * i + 2, 0),
-											  X(NUM_CUBIC_COEFFICIENTS * i + 3, 0)}});
+											  X(NUM_CUBIC_COEFFICIENTS * i + 3, 0)} });
 	}
 
 	return cubicSplinePolynomials;
@@ -869,74 +862,6 @@ Trajectory::jointspace_spline Trajectory::cubic_spline_jointspace_states(vector<
 	return jointspaceSpline;
 }
 
-vector<Trajectory::jointspace_state_ex> Trajectory::discretise_spline(
-	jointspace_spline jointspaceSpline,
-	time_tt samplePeriod)
-{
-	vector<jointspace_state_ex> discreteTrajectory;
-
-	//cout << "[discretise_spline]: Discretised Trajectory:" << endl;
-
-	// Discretise/Sample the spline
-
-	Trajectory::time_tt startTime = jointspaceSpline.times.front();
-	Trajectory::time_tt endTime = jointspaceSpline.times.back();
-	Trajectory::time_tt duration = startTime - endTime;
-
-	// Every sample time, compute the value of q1 to q6 based on the time segment / set of NO_JOINTS polynomials
-	{
-		int numPoints = jointspaceSpline.times.size();
-		int numPolynomials = numPoints - 1;
-		time_tt time = startTime;
-		int upper_time_index;
-		time_tt upper_time;
-		cubic_polynomial currentPolynomial[NO_JOINTS];
-		jointspace_state_ex temp{};
-		for (int polynomial_index = 0; polynomial_index < numPolynomials; polynomial_index++)
-		{
-			//cout << "[discretise_spline]: pt " << polynomial_index << ":" << endl;
-			upper_time_index = polynomial_index + 1;
-			upper_time = jointspaceSpline.times.at(upper_time_index);
-
-			for (int i = 0; i < NO_JOINTS; i++)
-			{
-				currentPolynomial[i] = jointspaceSpline.polynomials[i].at(polynomial_index);
-			}
-			while (time < upper_time)
-			{
-				temp.time = time;
-				//cout << "[discretise_spline]:\t" << temp.time << "\t";
-				for (int i = 0; i < NO_JOINTS; i++)
-				{
-					temp.q[i] = evaluate_cubic_polynomial(currentPolynomial[i], time);
-					temp.qd[i] = evaluate_cubic_polynomial_first_derivative(currentPolynomial[i], time);
-					temp.qdd[i] = evaluate_cubic_polynomial_second_derivative(currentPolynomial[i], time);
-					//cout << temp.qd[i] << "\t";
-				}
-				//cout << endl;
-				discreteTrajectory.push_back(temp);
-				time += samplePeriod;
-			}
-		}
-		// last 'time' must be within [endTime,endTime+samplePeriod)
-		// Evaluate spline at 'endTime' but assign to 'time'
-		//  Note: if 'samplePeriod' divides 'duration' exactly, this method is correct
-		temp.time = time;
-		//cout << "[discretise_spline]:\t" << temp.time << "\t";
-		for (int i = 0; i < NO_JOINTS; i++)
-		{
-			temp.q[i] = evaluate_cubic_polynomial(currentPolynomial[i], endTime);
-			temp.qd[i] = evaluate_cubic_polynomial_first_derivative(currentPolynomial[i], endTime);
-			temp.qdd[i] = evaluate_cubic_polynomial_second_derivative(currentPolynomial[i], endTime);
-			//cout << temp.qd[i] << "\t";
-		}
-		//cout << endl;
-		discreteTrajectory.push_back(temp);
-	}
-
-	return discreteTrajectory;
-}
-
 double Trajectory::evaluate_cubic_polynomial(cubic_polynomial cubicPolynomial, time_tt time)
 {
 	return cubicPolynomial.coefficients[0] + cubicPolynomial.coefficients[1] * time + cubicPolynomial.coefficients[2] * time * time + cubicPolynomial.coefficients[3] * time * time * time;
@@ -961,14 +886,48 @@ void Trajectory::generateAndSaveSpline(jointspace_state initialJointspaceState)
 Functions for Controller
 
 **********************************************************************/
-//get the velocity at any given time
+
+/**
+ *
+ * @param initialTaskspaceState
+ * @param trajectoryParameters
+ * @param pilotParameters
+ * @return Vector of key taskspace_states of the trajectory (excluding initial state)
+ */
+
+// Generates trajectory spline from parameters to use in control system
+Trajectory::jointspace_spline Trajectory::compute_trajectory_spline(const trajectory_parameters &trajectoryParameters,
+	const pilot_parameters &pilotParameters,
+	jointspace_state initialJointspaceState)
+{
+
+	Foot stanceFoot = trajectoryParameters.stance_foot;
+	taskspace_state initialTaskspaceState;
+	vector<taskspace_state> taskspaceStates;
+	vector<jointspace_state> jointspaceStates;
+	jointspace_spline jointspaceSpline;
+
+	initialTaskspaceState = jointspace_state_to_taskspace_state(initialJointspaceState, trajectoryParameters, pilotParameters);
+
+	// Obtain key taskspace states
+	//  (output excludes initial state which is already known in jointspace)
+	taskspaceStates = generate_key_taskspace_states(initialTaskspaceState, trajectoryParameters, pilotParameters);
+
+	// Convert key states to jointspace (prepend known initial jointspace state)
+	jointspaceStates = taskspace_states_to_jointspace_states(initialJointspaceState, taskspaceStates, trajectoryParameters, pilotParameters);
+
+	// Calculate the spline for the given jointspacestates
+	jointspaceSpline = cubic_spline_jointspace_states(jointspaceStates);
+
+	return jointspaceSpline;
+}
+
+
+
+
+ //get the velocity at any given time
 void Trajectory::calcVelocity(time_tt time, double *velocityArray)
 {
-	jointspace_state_ex discreteTrajectory;
-
-	//cout << "[discretise_spline]: Discretised Trajectory:" << endl;
-
-	// Discretise/Sample the spline
 
 	Trajectory::time_tt startTime = trajectoryJointSpline.times.front();
 	Trajectory::time_tt endTime = trajectoryJointSpline.times.back();
@@ -1007,7 +966,6 @@ void Trajectory::calcVelocity(time_tt time, double *velocityArray)
 //get the position at any given time
 void Trajectory::calcPosition(time_tt time, double *positionArray)
 {
-	jointspace_state_ex discreteTrajectory;
 	//cout << "[discretise_spline]: Discretised Trajectory:" << endl;
 
 	// Discretise/Sample the spline
@@ -1127,9 +1085,9 @@ void Trajectory::limit_velocity_against_angle_boundary(
 		int maxIndex = i * 2 + 1;
 		//if we near the boundary and velocity is pushing towards it
 		if ((currentJointspaceStates.q[i] < Q_MIN_MAX[minIndex] &&
-			 velocitySignal < 0) ||
+			velocitySignal < 0) ||
 			(currentJointspaceStates.q[i] > Q_MIN_MAX[maxIndex] &&
-			 velocitySignal > 0))
+				velocitySignal > 0))
 		{
 			velocitySignal = 0;
 		}
@@ -1145,7 +1103,7 @@ void Trajectory::limit_position_against_angle_boundary(double positionArray[])
 		int maxIndex = i * 2 + 1;
 		/*cout << "position is" << positionArray[i] << "Q MIN MAX ARE "
 			<< Q_MIN_MAX[minIndex] << " " << Q_MIN_MAX[maxIndex] << endl;*/
-		//if we at the boundary
+			//if we at the boundary
 		if (positionArray[i] < Q_MIN_MAX[minIndex])
 		{
 			positionArray[i] = Q_MIN_MAX[minIndex];
@@ -1184,47 +1142,49 @@ void Trajectory::getVelocityAfterPositionCorrection(
 Getter and setter
 
 ***********************************************************************/
-void Trajectory::setTrajectoryParameter(trajectory_parameters newTrajectoryParameter)
+
+void Trajectory::setTrajectoryParameter(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
+	Foot stance_foot, Movement movement, double seat_height, double stair_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt)
 {
-	trajectoryParameter = newTrajectoryParameter;
-}
-void Trajectory::setPilotParameter(pilot_parameters newPilotParameter)
-{
-	pilotParameter = newPilotParameter;
-}
-// Generates trajectory spline from parameters to use in control system
-Trajectory::jointspace_spline Trajectory::compute_trajectory_spline(const trajectory_parameters &trajectoryParameters,
-																	const pilot_parameters &pilotParameters,
-																	jointspace_state initialJointspaceState)
-{
-
-	time_tt samplePeriod = trajectoryParameters.sample_period;
-	Foot stanceFoot = trajectoryParameters.stance_foot;
-	taskspace_state initialTaskspaceState;
-	vector<taskspace_state> taskspaceStates;
-	vector<jointspace_state> jointspaceStates;
-	jointspace_spline jointspaceSpline;
-	vector<jointspace_state_ex> discreteTrajectory;
-
-	initialTaskspaceState = jointspace_state_to_taskspace_state(initialJointspaceState, trajectoryParameters, pilotParameters);
-
-	// Obtain key taskspace states
-	//  (output excludes initial state which is already known in jointspace)
-	taskspaceStates = generate_key_taskspace_states(initialTaskspaceState, trajectoryParameters, pilotParameters);
-
-	// Convert key states to jointspace (prepend known initial jointspace state)
-	jointspaceStates = taskspace_states_to_jointspace_states(initialJointspaceState, taskspaceStates, trajectoryParameters, pilotParameters);
-
-	// Calculate the spline for the given jointspacestates
-	jointspaceSpline = cubic_spline_jointspace_states(jointspaceStates);
-
-	return jointspaceSpline;
+	trajectoryParameter.step_duration = step_duration;
+	trajectoryParameter.step_height = step_height;
+	trajectoryParameter.step_length = step_length;
+	trajectoryParameter.hip_height_slack = hip_height_slack;
+	trajectoryParameter.torso_forward_angle = torso_forward_angle;
+	trajectoryParameter.swing_ankle_down_angle = swing_ankle_down_angle;
+	trajectoryParameter.stance_foot = stance_foot;
+	trajectoryParameter.movement = movement;
+	trajectoryParameter.seat_height = seat_height;
+	trajectoryParameter.stair_height = stair_height;
+	trajectoryParameter.slope_angle = slope_angle;
+	trajectoryParameter.left_foot_on_tilt = left_foot_on_tilt;
+	trajectoryParameter.right_foot_on_tilt = right_foot_on_tilt;
 }
 
-/**
- *
- * @param initialTaskspaceState
- * @param trajectoryParameters
- * @param pilotParameters
- * @return Vector of key taskspace_states of the trajectory (excluding initial state)
- */
+void Trajectory::setTrajectoryParameter(trajectory_parameters trajectoryParameter) {
+	this->trajectoryParameter = trajectoryParameter;
+}
+void Trajectory::setPilotParameter(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
+	double hip_width, double torso_length, double buttocks_height)
+{
+	pilotParameter.lowerleg_length = lowerleg_length;
+	pilotParameter.upperleg_length = upperleg_length;
+	pilotParameter.ankle_height = ankle_height;
+	pilotParameter.foot_length = foot_length;
+	pilotParameter.hip_width = hip_width;
+	pilotParameter.torso_length = torso_length;
+	pilotParameter.buttocks_height = buttocks_height;
+
+}
+
+void Trajectory::setPilotParameter(pilot_parameters pilotParameter)
+{
+	this->pilotParameter = pilotParameter;
+}
+
+double Trajectory::getStepDuration() {
+	return trajectoryParameter.step_duration;
+}
+
+
+

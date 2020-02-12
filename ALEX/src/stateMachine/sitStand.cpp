@@ -21,7 +21,7 @@
 #include <cmath>
 #include <array>
 
-// For logging
+ // For logging
 #include <iostream>
 #include <fstream>
 #include <time.h> /* time_t, struct tm, time, localtime, strftime */
@@ -183,7 +183,7 @@ void sitStand::init(void)
 	mark = 1;
 	calibrated = 0;
 	std::cout << "Welcome to The ALEX STATE MACHINE"
-			  << "\n";
+		<< "\n";
 	StateMachine::init();
 
 	// Set up the buttons
@@ -291,10 +291,25 @@ void sitStand::SittingDwn::entry(void)
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 	printf("PRESS GREEN TO BEGIN SITTING DOWN\n");
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
-	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Sit;
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = SITSTANDTIME;
+
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+	.step_duration = SITSTANDTIME,
+	.step_height = 0.0,
+	.step_length = 0.3,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Right,
+	.movement = Trajectory::Movement::Sit,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
+
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
 	OWNER->startNewTraj();
 }
 void sitStand::SittingDwn::during(void)
@@ -315,10 +330,24 @@ void sitStand::StandingUp::entry(void)
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 	printf("PRESS GREEN TO BEGIN STANDING UP\n");
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
-	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Stand;
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = SITSTANDTIME;
+
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+	.step_duration = SITSTANDTIME,
+	.step_height = 0.0,
+	.step_length = 0.3,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Right,
+	.movement = Trajectory::Movement::Stand,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
 	OWNER->startNewTraj();
 }
 
@@ -344,10 +373,24 @@ void sitStand::Sitting::entry(void)
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
 	printf("Forcing to Sitting State\n");
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
-	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Sitting;
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = SITSTANDTIME;
+
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+	.step_duration = SITSTANDTIME,
+	.step_height = 0.0,
+	.step_length = 0.3,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Right,
+	.movement = Trajectory::Movement::Sitting,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
 	OWNER->startNewTraj();
 }
 void sitStand::Sitting::during(void)
@@ -386,11 +429,24 @@ void sitStand::SteppingFirstLeft::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("SteppingFirstLeft State Entered at Time %d\n", OWNER->mark);
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.3;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
-	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Right;
-	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
+
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+	.step_duration = STEPTIME,
+	.step_height = 0.2,
+	.step_length = 0.3,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Right,
+	.movement = Trajectory::Movement::Walk,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
 	OWNER->startNewTraj();
 }
 
@@ -434,11 +490,25 @@ void sitStand::SteppingRight::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("SteppingRight State Entered at Time %d\n", OWNER->mark);
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.3;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
-	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Left;
-	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
+
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+	.step_duration = STEPTIME,
+	.step_height = 0.2,
+	.step_length = 0.3,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Left,
+	.movement = Trajectory::Movement::Walk,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
+
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
 	OWNER->startNewTraj();
 }
 
@@ -482,11 +552,23 @@ void sitStand::SteppingLeft::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("SteppingLeft State Entered at Time %d\n", OWNER->mark);
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.3;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
-	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Right;
-	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+		.step_duration = STEPTIME,
+		.step_height = 0.2,
+		.step_length = 0.3,
+		.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Right,
+		.movement = Trajectory::Movement::Walk,
+		.seat_height = 0.42, // sit-stand
+		.stair_height = 0.0, // stairs
+		.slope_angle = 0.0,   // tilted path
+		.left_foot_on_tilt = false,
+		.right_foot_on_tilt = false
+	};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
 	OWNER->startNewTraj();
 }
 
@@ -510,11 +592,23 @@ void sitStand::SteppingLastRight::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
-	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Left;
-	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+	.step_duration = STEPTIME,
+	.step_height = 0.0,
+	.step_length = 0.3,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Left,
+	.movement = Trajectory::Movement::Walk,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
 	OWNER->startNewTraj();
 }
 
@@ -538,11 +632,23 @@ void sitStand::SteppingLastLeft::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("SteppingLastLeft State Entered at Time %d\n", OWNER->mark);
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
-	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Right;
-	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Walk;
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+	.step_duration = STEPTIME,
+	.step_height = 0.,
+	.step_length = 0.3,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Right,
+	.movement = Trajectory::Movement::Walk,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
 	OWNER->startNewTraj();
 }
 
@@ -591,11 +697,24 @@ void sitStand::SteppingLeftBack::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("SteppingLeftBack State Entered at Time %d\n", OWNER->mark);
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_length = 0.2;
-	OWNER->robot->trajectoryObj.trajectoryParameter.torso_forward_angle = deg2rad(5);
-	OWNER->robot->trajectoryObj.trajectoryParameter.stance_foot = Trajectory::Foot::Left;
-	OWNER->robot->trajectoryObj.trajectoryParameter.movement = Trajectory::Movement::Back;
-	OWNER->robot->trajectoryObj.trajectoryParameter.step_duration = STEPTIME;
+
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+	.step_duration = STEPTIME,
+	.step_height = 0.2,
+	.step_length = 0.2,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Left,
+	.movement = Trajectory::Movement::Back,
+	.seat_height = 0.42, // sit-stand
+	.stair_height = 0.0, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
 	OWNER->startNewTraj();
 }
 
@@ -823,13 +942,13 @@ void sitStand::startNewTraj()
 		int j = robot->joints[i].getId();
 		robotJointspace[j - 1] = deg2rad(robot->joints[i].getPosDeg());
 	}
-	startNewTrajJointspace = {.q = {robotJointspace[0],
+	startNewTrajJointspace = { .q = {robotJointspace[0],
 									robotJointspace[1],
 									robotJointspace[2],
 									robotJointspace[3],
 									M_PI_2,
 									M_PI_2},
-							  .time = 0};
+							  .time = 0 };
 
 	robot->trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
 
@@ -855,7 +974,7 @@ void sitStand::moveThroughTraj()
 	//uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
 	long movingMicro = moving_tv.tv_sec * 1000000 + moving_tv.tv_usec;
 
-	double trajTimeUS = robot->trajectoryObj.trajectoryParameter.step_duration * 1000000;
+	double trajTimeUS = robot->trajectoryObj.getStepDuration() * 1000000;
 	fracTrajProgress = movingMicro / trajTimeUS;
 
 	// if Green Button is pressed, move through trajetory. Otherwise stay where you are

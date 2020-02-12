@@ -26,7 +26,7 @@ class Trajectory
 	{                                               \
 		M_PI_2, M_PI_2, -M_PI_2, M_PI_2, -M_PI_2, 0 \
 	}
-//Node ID for the 4 joints
+	 //Node ID for the 4 joints
 #define LEFT_HIP 0
 #define LEFT_KNEE 1
 #define RIGHT_HIP 2
@@ -35,17 +35,17 @@ class Trajectory
 #define RIGHT_ANKLE 5
 public:
 	// Hardware angle limiation in Radians
-	const double Q_MIN_MAX[12]{deg2rad(60), deg2rad(200),
+	const double Q_MIN_MAX[12]{ deg2rad(60), deg2rad(200),
 							   0, deg2rad(100),
 							   deg2rad(60), deg2rad(200),
 							   0, deg2rad(100),
 							   deg2rad(75), deg2rad(105),
-							   deg2rad(75), deg2rad(105)};
+							   deg2rad(75), deg2rad(105) };
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Structs                                                                                                           *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	//typedef long time_tt;
+	 //typedef long time_tt;
 	typedef double time_tt; // time_t is already used
 
 	typedef enum class Foot
@@ -94,7 +94,7 @@ public:
 
 	typedef struct trajectory_parameters
 	{
-		time_tt sample_period, step_duration;
+		time_tt step_duration;
 		double step_height, step_length, hip_height_slack;
 		double torso_forward_angle, swing_ankle_down_angle;
 		Foot stance_foot;
@@ -127,6 +127,7 @@ public:
 	* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 public:
 	jointspace_spline trajectoryJointSpline;
+private:
 	trajectory_parameters trajectoryParameter;
 	pilot_parameters pilotParameter;
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -136,35 +137,35 @@ public:
 	//Initializer
 	Trajectory();
 
-	/********************************************************************** 
-	
+	/**********************************************************************
+
 	Functions for taskspace and joint space conversion
-	
+
 	**********************************************************************/
 
 	// Generates key taskspace states from gait parameters
 	vector<taskspace_state> generate_key_taskspace_states(taskspace_state initialTaskspaceState,
-														  const trajectory_parameters &trajectoryParameters, const pilot_parameters &pilotParameters);
+		const trajectory_parameters &trajectoryParameters, const pilot_parameters &pilotParameters);
 
 	// Generates discrete trajectory from parameters to use in control system
-	vector<jointspace_state_ex> compute_discrete_trajectory(const trajectory_parameters &trajectoryParameters,
-															const pilot_parameters &pilotParameters, jointspace_state initialJointspaceState);
+	void compute_discrete_trajectory(const trajectory_parameters &trajectoryParameters,
+		const pilot_parameters &pilotParameters, jointspace_state initialJointspaceState);
 
 	// Converts jointspace to taskspace (Forward Kinematics)
 	taskspace_state jointspace_state_to_taskspace_state(jointspace_state jointspaceState, trajectory_parameters trajectoryParameters,
-														pilot_parameters pilotParameters);
+		pilot_parameters pilotParameters);
 
 	// Converts taskspace to jointspace (Inverse Kinematics)
 	jointspace_state taskspace_state_to_jointspace_state(taskspace_state taskspaceState, trajectory_parameters trajectoryParameters,
-														 pilot_parameters pilotParameters);
+		pilot_parameters pilotParameters);
 
 	// Converts a vector of taskspace states to jointspace (Inverse Kinematics)
 	vector<jointspace_state> taskspace_states_to_jointspace_states(jointspace_state initialJointspaceState,
-																   const vector<taskspace_state> &taskspaceStates, trajectory_parameters trajectoryParameters, pilot_parameters pilotParameters);
+		const vector<taskspace_state> &taskspaceStates, trajectory_parameters trajectoryParameters, pilot_parameters pilotParameters);
 
 	// Helper function for Inverse Kinematics
 	vector<double> triangle_inverse_kinematics(double xAnkle, double zAnkle, double xHip, double zHip, double Llower,
-											   double Lupper);
+		double Lupper);
 	/**********************************************************************
 
 	Functions for Splines
@@ -181,9 +182,6 @@ public:
 	// Spline the jointspace states (the q's)
 	jointspace_spline cubic_spline_jointspace_states(vector<jointspace_state> states);
 
-	// Discretises/Samples the spline every sample period
-	vector<jointspace_state_ex> discretise_spline(jointspace_spline jointspaceSpline, time_tt samplePeriod);
-
 	//Generate and store the trajectory spline into the trajectory object
 	void generateAndSaveSpline(jointspace_state initialJointspaceState);
 
@@ -194,12 +192,12 @@ public:
 	***********************************************************************/
 	// Generates trajectory spline from parameters to use in control system
 	jointspace_spline compute_trajectory_spline(const trajectory_parameters &trajectoryParameters,
-												const pilot_parameters &pilotParameters, jointspace_state initialJointspaceState);
+		const pilot_parameters &pilotParameters, jointspace_state initialJointspaceState);
 
 	// Compare the provided position to the supposedly spline position
 	// A positive values mean the exo is leading/ spline value is lagging
 	jointspace_state compute_position_trajectory_difference(jointspace_spline jointspaceSpline,
-															jointspace_state currentJointspaceStates);
+		jointspace_state currentJointspaceStates);
 
 	// Limiting the velocity control to not pushing against angle limit
 	// use AFTER the current velocity is added to the control velocity
@@ -220,13 +218,19 @@ public:
 	//calculate the position at any given time
 	void calcPosition(time_tt time, double *positionArray);
 	/**********************************************************************
-	
+
 	Getter and setter
 
 	**********************************************************************/
 	//setter for the parameters
-	void setTrajectoryParameter(trajectory_parameters newTrajectoryParameter);
+	void setTrajectoryParameter(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
+		Foot stance_foot, Movement movement, double seat_height, double stair_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
+	void setTrajectoryParameter(trajectory_parameters trajectoryParameter);
 
-	void setPilotParameter(pilot_parameters newPilotParameter);
+	void setPilotParameter(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
+		double hip_width, double torso_length, double buttocks_height);
+	void setPilotParameter(pilot_parameters pilotParameter);
+	double getStepDuration();
+	
 };
 #endif

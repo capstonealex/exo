@@ -65,18 +65,19 @@ int main(int argc, char** argv) {
 	//		trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
 	//}
 	Trajectory::trajectory_parameters walk_parameters = {
-	.sample_period = 0.1,
-	.step_duration = 1247,
+	.step_duration = 1,
 	.step_height = 0.2,
-	.step_length = 0.2,
-	.hip_height_slack = 0.003, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.step_length = 0.3,
+	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
 	.swing_ankle_down_angle = 0,
 	.stance_foot = Trajectory::Foot::Left,
-	.movement = Trajectory::Movement::Sitting,
+	.movement = Trajectory::Movement::Sit,
 	.seat_height = 0.42, // sit-stand
 	.stair_height = 0.0, // stairs
-	.slope_angle = 0.0   // tilted path
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
 	};
 	Trajectory::pilot_parameters lenny_parameters = {
 		.lowerleg_length = 0.43,
@@ -88,26 +89,40 @@ int main(int argc, char** argv) {
 		.buttocks_height = 0.05
 	};
 
-	trajectoryObject.pilotParameter = lenny_parameters;
-	trajectoryObject.trajectoryParameter = walk_parameters;
+	trajectoryObject.setPilotParameter(lenny_parameters);
+	trajectoryObject.setTrajectoryParameter(walk_parameters);
 
-/*	currentJointspaceState = {
-		.q = { deg2rad(170),
-				deg2rad(5),
-				deg2rad(190),
-				deg2rad(5),
-				deg2rad(85),
-				deg2rad(90)},
-						.time = 0
-	}*/;
+	// step
+	//currentJointspaceState = {
+	//	.q = { deg2rad(170),
+	//			deg2rad(5),
+	//			deg2rad(190),
+	//			deg2rad(5),
+	//			deg2rad(85),
+	//			deg2rad(90)},
+	//					.time = 0
+	//};
+
+	// sitting
+	//currentJointspaceState = {
+	//	.q = { deg2rad(75),
+	//			deg2rad(99),
+	//			deg2rad(75),
+	//			deg2rad(99),
+	//			deg2rad(90),
+	//			deg2rad(90)},
+	//					.time = 0
+	//};
+
+	//standing
 	currentJointspaceState = {
-		.q = { deg2rad(90),
-				deg2rad(90),
-				deg2rad(90),
-				deg2rad(90),
-				deg2rad(90),
-				deg2rad(90)},
-						.time = 0
+	.q = { deg2rad(179),
+			deg2rad(1.72),
+			deg2rad(179),
+			deg2rad(1.72),
+			deg2rad(75),
+			deg2rad(75)},
+					.time = 0
 	};
 	//for (int i = 0; i < 5; i++) {
 	//	for (int j = 0; j < 5; j++) {
@@ -119,12 +134,11 @@ int main(int argc, char** argv) {
 	//}
 	
 
-	trajectory =
-		trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
 
 	trajectoryObject.generateAndSaveSpline(currentJointspaceState);
 	double positionArray[NO_JOINTS];
-	for (double time = 0; time < 2.01; time += 0.1) {
+	for (double time = 0; time < 1.01; time += 0.05) {
 		trajectoryObject.calcPosition(time, positionArray);
 		cout << "[get position values from saved spline]: time " << time << " "	;
 			for (auto pos : positionArray) {
