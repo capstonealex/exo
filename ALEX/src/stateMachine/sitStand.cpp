@@ -962,8 +962,6 @@ void sitStand::moveThroughTraj()
     {
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
-
-        printf("Time: %3f \n", fracTrajProgress);
         //array for position and velocity profile
         double positionArray[NUM_JOINTS];
         // robot->printInfo();
