@@ -125,7 +125,7 @@ sitStand::sitStand(void)
     NewTransition(standing, isYPressed, sittingDwn);
     NewTransition(standing, isBPressed, walkSelect);
     /*Transition to forward or back steps*/
-    NewTransition(walkSelect, isBPressed, steppingFirstLeft);
+    NewTransition(walkSelect, isGPressed, steppingFirstLeft);
     NewTransition(walkSelect, isYPressed, steppingLeftBack);
     /*Forward Stepping*/
     NewTransition(steppingFirstLeft, endTraj, leftForward);
@@ -395,7 +395,7 @@ void sitStand::Standing::entry(void)
     printf("Standing State Entered at Time %d\n", OWNER->mark);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS YELLOW TO START Sitting DOWN\n");
-    printf("Press Green BUTTON TO ENTER WALKING SELECT STATE\n");
+    printf("Press BLUE BUTTON TO ENTER WALKING SELECT STATE\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 }
 void sitStand::Standing::during(void)
@@ -720,7 +720,7 @@ void sitStand::WalkSelect::entry(void)
     printf("Walk Select State Entered at Time %d\n", OWNER->mark);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS YELLOW TO STEP LEFT LEG BACK\n");
-    printf("PRESS Blue BUTTON TO STEP LEFT LEG FORWARD\n");
+    printf("PRESS GREEN BUTTON TO STEP LEFT LEG FORWARD\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 }
 void sitStand::WalkSelect::during(void)
