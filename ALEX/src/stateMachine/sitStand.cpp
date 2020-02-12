@@ -88,7 +88,7 @@ int desiredIndex = 0;
 int running = 0;
 
 #define SITSTANDTIME 4
-#define STEPTIME 4
+#define STEPTIME 6
 
 /////////////////////////////////////////////////////////
 // State Machine sitStand methods ----------------------------------------------------------

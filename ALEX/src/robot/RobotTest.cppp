@@ -137,7 +137,11 @@ int main(int argc, char** argv) {
 	trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
 
 	trajectoryObject.generateAndSaveSpline(currentJointspaceState);
+
+	std::cout << std::setprecision(3);
+
 	double positionArray[NO_JOINTS];
+	double previousPosArray[NO_JOINTS];
 	for (double time = 0; time < 1.01; time += 0.05) {
 		trajectoryObject.calcPosition(time, positionArray);
 		cout << "[get position values from saved spline]: time " << time << " "	;
@@ -146,7 +150,15 @@ int main(int argc, char** argv) {
 			}
 		cout << endl;
 	}
-	   
+	for (double time = 0; time < 1.01; time += 0.05) {
+		trajectoryObject.calcPosition(time, positionArray);
+		trajectoryObject.calcPosition(time-0.05, previousPosArray);
+		cout << "[get velocity values from saved spline]: time " << time << " ";
+		for (int i = 0; i < NO_JOINTS; i++) {
+			cout << rad2deg(positionArray[i] - previousPosArray[i]) << "\t";
+		}
+		cout << endl;
+	}
 	return 0;
 }
 double fRand(double fMin, double fMax)

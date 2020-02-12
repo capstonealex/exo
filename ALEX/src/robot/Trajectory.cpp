@@ -255,12 +255,12 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				state1.hip_position.x = initialTaskspaceState.left_ankle_position.x;
 			}
 			state1.hip_position.z = hipHeight; // probably should deal with rounding error that makes hipheight slightly larger than leglength?
-			state1.time = 0.4;
+			state1.time = 0.3;
 			state1.torso_forward_angle = trajectoryParameters.torso_forward_angle;
 			state1.swing_ankle_down_angle = 0.0; // could be non-zero due to slight issues in forward kinematics/positioning, btu zero it out anyways
 			keyTaskspaceStates.push_back(state1);
 		}
-
+		
 		{
 			taskspace_state state2 = initialTaskspaceState;
 			if (initialTaskspaceState.stance_foot == Foot::Right)
@@ -283,7 +283,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				state2.hip_position.x = initialTaskspaceState.left_ankle_position.x;
 			}
 			state2.hip_position.z = hipHeight; // probably should deal with rounding error that makes hipheight slightly larger than leglength?
-			state2.time = 0.7;
+			state2.time = 0.6;
 			state2.torso_forward_angle = trajectoryParameters.torso_forward_angle;
 			state2.swing_ankle_down_angle = 0.0; // could be non-zero due to slight issues in forward kinematics/positioning, btu zero it out anyways
 			keyTaskspaceStates.push_back(state2);
