@@ -325,7 +325,7 @@ void Joint::setId(int ID)
     else if (this->id == LEFT_HIP || this->id == RIGHT_HIP)
     {
         maxq = KNEE_MOTOR_POS1 * 1.5;
-        minq = -27870;
+        minq = -110000;
     }
     else if (this->id == LEFT_ANKLE || this->id == RIGHT_ANKLE)
     {
