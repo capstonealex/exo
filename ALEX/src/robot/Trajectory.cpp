@@ -249,8 +249,9 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			if (initialTaskspaceState.stance_foot == Foot::Right)
 				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
-				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) -
-					pow(legLengthSlacked - trajectoryParameters.step_height, 2.0));
+				//state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) -
+				//	pow(legLengthSlacked - trajectoryParameters.step_height, 2.0));
+				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + stepDisplacement;
 				state2.left_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height;
 				state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
 				state2.right_ankle_position.z = pilotParameters.ankle_height;
@@ -258,8 +259,9 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			}
 			else
 			{
-				state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) -
-					pow(legLengthSlacked - trajectoryParameters.step_height, 2.0));
+				//state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) -
+				//	pow(legLengthSlacked - trajectoryParameters.step_height, 2.0));
+				stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + stepDisplacement;
 				state2.right_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height;
 				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
 				state2.left_ankle_position.z = pilotParameters.ankle_height;
