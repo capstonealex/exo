@@ -106,6 +106,20 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		}
 		{
 			taskspace_state stateEnd = initialTaskspaceState; // init
+			state2.time = 0.8;
+			state2.left_ankle_position.x = 0;
+			state2.right_ankle_position.x = 0;
+			state2.left_ankle_position.z = pilotParameters.ankle_height;
+			state2.right_ankle_position.z = pilotParameters.ankle_height;
+			state2.hip_position.x =
+				0;
+			state2.hip_position.z =
+				pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack;
+			state2.torso_forward_angle = trajectoryParameters.torso_forward_angle * 5;
+			state2.swing_ankle_down_angle = 0.0;
+			keyTaskspaceStates.push_back(state2);
+		}{
+			taskspace_state stateEnd = initialTaskspaceState; // init
 			stateEnd.time = 1;
 			stateEnd.left_ankle_position.x = 0;
 			stateEnd.right_ankle_position.x = 0;
@@ -115,7 +129,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				0;
 			stateEnd.hip_position.z =
 				pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack;
-			stateEnd.torso_forward_angle = 0;
+			stateEnd.torso_forward_angle = trajectoryParameters.torso_forward_angle ;
 			stateEnd.swing_ankle_down_angle = 0.0;
 			keyTaskspaceStates.push_back(stateEnd);
 		}
