@@ -47,8 +47,10 @@ Robot::Robot()
 
     };
     trajectoryObj.setPilotParameter(lenny_parameters);
+};
+trajectoryObj.setPilotParameter(lenny_parameters);
 
-    trajectoryObj.setTrajectoryParameter(initial_trajectory_parameters);
+trajectoryObj.setTrajectoryParameter(initial_trajectory_parameters);
 }
 void Robot::printInfo()
 {

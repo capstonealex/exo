@@ -302,7 +302,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		// Middle state
 		{
 			taskspace_state state1 = initialTaskspaceState;
-			if (backwardStanceFoot == Foot::Left)
+			if (initialTaskspaceState.stance_foot == Foot::Left)
 				//||	abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x - ankleDistance - 0.5*trajectoryParameters.step_length;
@@ -328,7 +328,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 		// Final state
 		{
 			taskspace_state stateEnd = initialTaskspaceState;
-			if (backwardStanceFoot == Foot::Left)
+			if (initialTaskspaceState.stance_foot == Foot::Left)
 				//||	abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x - stepDisplacement;
