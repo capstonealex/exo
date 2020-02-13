@@ -250,7 +250,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) -
-					pow(legLengthSlacked - 0.5*trajectoryParameters.step_height, 2.0));
+					pow(legLengthSlacked - trajectoryParameters.step_length*trajectoryParameters.step_height, 2.0));
 				state2.left_ankle_position.z = pilotParameters.ankle_height + 0.5*trajectoryParameters.step_height;
 				state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
 				state2.right_ankle_position.z = pilotParameters.ankle_height;
@@ -259,14 +259,14 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			else
 			{
 				state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) -
-					pow(legLengthSlacked - 0.5*trajectoryParameters.step_height, 2.0));
+					pow(legLengthSlacked - trajectoryParameters.step_length*trajectoryParameters.step_height, 2.0));
 				state2.right_ankle_position.z = pilotParameters.ankle_height + 0.5*trajectoryParameters.step_height;
 				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
 				state2.left_ankle_position.z = pilotParameters.ankle_height;
 				state2.hip_position.x = initialTaskspaceState.left_ankle_position.x;
 			}
 			state2.hip_position.z = hipHeight; // probably should deal with rounding error that makes hipheight slightly larger than leglength?
-			state2.time = 0.8;
+			state2.time = 0.7;
 			state2.torso_forward_angle = trajectoryParameters.torso_forward_angle;
 			state2.swing_ankle_down_angle = 0.0; // could be non-zero due to slight issues in forward kinematics/positioning, btu zero it out anyways
 			keyTaskspaceStates.push_back(state2);
