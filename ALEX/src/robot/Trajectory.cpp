@@ -105,7 +105,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			keyTaskspaceStates.push_back(state1);
 		}
 		{
-			taskspace_state stateEnd = initialTaskspaceState; // init
+			taskspace_state state2 = initialTaskspaceState; // init
 			state2.time = 0.8;
 			state2.left_ankle_position.x = 0;
 			state2.right_ankle_position.x = 0;
@@ -118,7 +118,8 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			state2.torso_forward_angle = trajectoryParameters.torso_forward_angle * 5;
 			state2.swing_ankle_down_angle = 0.0;
 			keyTaskspaceStates.push_back(state2);
-		}{
+		}
+		{
 			taskspace_state stateEnd = initialTaskspaceState; // init
 			stateEnd.time = 1;
 			stateEnd.left_ankle_position.x = 0;
