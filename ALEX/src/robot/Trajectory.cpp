@@ -261,7 +261,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			{
 				//state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + ankleDistance + sqrt(pow(legLengthSlacked, 2.0) -
 				//	pow(legLengthSlacked - trajectoryParameters.step_height, 2.0));
-				stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + stepDisplacement;
+				state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + stepDisplacement;
 				state2.right_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height;
 				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
 				state2.left_ankle_position.z = pilotParameters.ankle_height;
