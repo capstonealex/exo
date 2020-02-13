@@ -79,7 +79,7 @@ int running = 0;
 #define SITSTANDTIME 2
 #define STEPTIME 2
 #define STEPLENGTH 0.33
-#define STEPHEIGHT 0.5
+#define STEPHEIGHT 0.7
 /////////////////////////////////////////////////////////
 // State Machine sitStand methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////
