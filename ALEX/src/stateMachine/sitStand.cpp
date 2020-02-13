@@ -79,7 +79,7 @@ int running = 0;
 #define SITSTANDTIME 2
 #define STEPTIME 2
 #define STEPLENGTH 0.33
-#define STEPHEIGHT 0.3
+#define STEPHEIGHT 0.5
 /////////////////////////////////////////////////////////
 // State Machine sitStand methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////
@@ -418,7 +418,7 @@ void sitStand::SteppingFirstLeft::entry(void)
 
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STEPTIME,
-        .step_height = 0.3,
+        .step_height = STEPHEIGHT,
         .step_length = STEPLENGTH,
         .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
@@ -478,7 +478,7 @@ void sitStand::SteppingRight::entry(void)
 
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STEPTIME,
-        .step_height = 0.3,
+        .step_height = STEPHEIGHT,
         .step_length = STEPLENGTH,
         .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
@@ -539,7 +539,7 @@ void sitStand::SteppingLeft::entry(void)
     printf("SteppingLeft State Entered at Time %d\n", OWNER->mark);
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STEPTIME,
-        .step_height = 0.3,
+        .step_height = STEPHEIGHT,
         .step_length = STEPLENGTH,
         .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
