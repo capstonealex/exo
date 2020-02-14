@@ -25,7 +25,7 @@
 #include <vector>
 #include <iostream>
 
-	using namespace std;
+using namespace std;
 
 #include <iomanip>
 
@@ -64,13 +64,13 @@ int main(int argc, char** argv) {
 	//}
 	Trajectory::trajectory_parameters walk_parameters = {
 	.step_duration = 1,
-	.step_height = 0.2,
-	.step_length = 0.33,
+	.step_height = 0.3,
+	.step_length = 0.0,
 	.hip_height_slack = 0.0001, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	.torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
 	.swing_ankle_down_angle = 0,
-	.stance_foot = Trajectory::Foot::Left,
-	.movement = Trajectory::Movement::Stand,
+	.stance_foot = Trajectory::Foot::Right,
+	.movement = Trajectory::Movement::Walk,
 	.seat_height = 0.42, // sit-stand
 	.stair_height = 0.0, // stairs
 	.slope_angle = 0.0,   // tilted path
@@ -90,56 +90,52 @@ int main(int argc, char** argv) {
 	trajectoryObject.setPilotParameter(lenny_parameters);
 	trajectoryObject.setTrajectoryParameter(walk_parameters);
 
-	// step
-	//currentJointspaceState = {
-	//	.q = { deg2rad(170),
-	//			deg2rad(5),
-	//			deg2rad(190),
-	//			deg2rad(5),
-	//			deg2rad(90),
-	//			deg2rad(90)},
-	//					.time = 0
-	//};
-
-	//currentJointspaceState = {
-	//.q = { deg2rad(190),
-	//		deg2rad(5),
-	//		deg2rad(170),
-	//		deg2rad(5),
-	//		deg2rad(90),
-	//		deg2rad(90)},
-	//				.time = 0
-	//};
-
-	//sitting
-	currentJointspaceState = {
+	if (walk_parameters.movement == Trajectory::Movement::Walk && walk_parameters.stance_foot == Trajectory::Foot::Left) {
+		currentJointspaceState = {
+		.q = { deg2rad(170),
+				deg2rad(5),
+				deg2rad(190),
+				deg2rad(5),
+				deg2rad(90),
+				deg2rad(90)},
+			.time = 0
+		};
+	}
+	if (walk_parameters.movement == Trajectory::Movement::Walk && walk_parameters.stance_foot == Trajectory::Foot::Right) {
+		currentJointspaceState = {
+		.q = { deg2rad(190),
+				deg2rad(5),
+				deg2rad(170),
+				deg2rad(5),
+				deg2rad(90),
+				deg2rad(90)},
+			.time = 0
+		};
+	}
+	if (walk_parameters.movement == Trajectory::Movement::Stand) {
+		currentJointspaceState = {
 		.q = { deg2rad(75),
 				deg2rad(99),
 				deg2rad(75),
 				deg2rad(99),
 				deg2rad(90),
 				deg2rad(90)},
-						.time = 0
-	};
+			.time = 0
+		};
+	}
+	if (walk_parameters.movement == Trajectory::Movement::Sit) {
+		currentJointspaceState = {
+	.q = { deg2rad(179),
+			deg2rad(1.72),
+			deg2rad(179),
+			deg2rad(1.72),
+			deg2rad(75),
+			deg2rad(75)},
+			.time = 0
+		};
+	}
 
-	//standing
-	//currentJointspaceState = {
-	//.q = { deg2rad(179),
-	//		deg2rad(1.72),
-	//		deg2rad(179),
-	//		deg2rad(1.72),
-	//		deg2rad(75),
-	//		deg2rad(75)},
-	//				.time = 0
-	//};
-	//for (int i = 0; i < 5; i++) {
-	//	for (int j = 0; j < 5; j++) {
-	//		walk_parameters.step_length = 0.1*i;
-	//		walk_parameters.step_height = 0.1*j;
-	//		trajectory =
-	//			trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
-	//	}
-	//}
+
 
 	//trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
 	//walk_parameters = {
@@ -179,10 +175,10 @@ int main(int argc, char** argv) {
 	double previousPosArray[NO_JOINTS];
 	for (double time = 0; time < 1.01; time += 0.05) {
 		trajectoryObject.calcPosition(time, positionArray);
-		cout << "[get position values from saved spline]: time " << time << " "	;
-			for (auto pos : positionArray) {
-				cout << rad2deg(pos) << "\t";
-			}
+		cout << "[get position values from saved spline]: time " << time << " ";
+		for (auto pos : positionArray) {
+			cout << rad2deg(pos) << "\t";
+		}
 		cout << endl;
 	}
 	//for (double time = 0; time < 1.01; time += 0.05) {
@@ -193,6 +189,15 @@ int main(int argc, char** argv) {
 	//		cout << rad2deg(positionArray[i] - previousPosArray[i]) << "\t";
 	//	}
 	//	cout << endl;
+	//}
+
+	//for (int i = 0; i < 5; i++) {
+	//	for (int j = 0; j < 5; j++) {
+	//		walk_parameters.step_length = 0.1*i;
+	//		walk_parameters.step_height = 0.1*j;
+	//		trajectory =
+	//			trajectoryObject.compute_discrete_trajectory(walk_parameters, lenny_parameters, currentJointspaceState);
+	//	}
 	//}
 	return 0;
 }

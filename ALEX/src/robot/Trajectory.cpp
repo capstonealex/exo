@@ -254,7 +254,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				state2.left_ankle_position.z = pilotParameters.ankle_height + 0.5*trajectoryParameters.step_height;
 				state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
 				state2.right_ankle_position.z = pilotParameters.ankle_height;
-				state2.hip_position.x = initialTaskspaceState.right_ankle_position.x;
+				state2.hip_position.x = initialTaskspaceState.right_ankle_position.x + trajectoryParameters.step_length / 3.0;
 			}
 			else
 			{
@@ -263,9 +263,9 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				state2.right_ankle_position.z = pilotParameters.ankle_height + 0.5*trajectoryParameters.step_height;
 				state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
 				state2.left_ankle_position.z = pilotParameters.ankle_height;
-				state2.hip_position.x = initialTaskspaceState.left_ankle_position.x;
+				state2.hip_position.x = initialTaskspaceState.left_ankle_position.x + trajectoryParameters.step_length / 3.0;
 			}
-			state2.hip_position.z = hipHeight; // probably should deal with rounding error that makes hipheight slightly larger than leglength?
+			state2.hip_position.z = 0.997*(sqrt(pow(hipHeight, 2.0) - pow(trajectoryParameters.step_length / 3.0, 2.0)));
 			state2.time = 0.7;
 			state2.torso_forward_angle = trajectoryParameters.torso_forward_angle;
 			state2.swing_ankle_down_angle = 0.0; // could be non-zero due to slight issues in forward kinematics/positioning, btu zero it out anyways
@@ -279,17 +279,17 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + stepDisplacement;
-				stateEnd.hip_position.x = initialTaskspaceState.right_ankle_position.x + trajectoryParameters.step_length / 2.0;
+				stateEnd.hip_position.x = initialTaskspaceState.right_ankle_position.x + trajectoryParameters.step_length* 1.7 / 3.0;
 			}
 
 			else
 			{
 				stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + stepDisplacement;
-				stateEnd.hip_position.x = initialTaskspaceState.left_ankle_position.x + trajectoryParameters.step_length / 2.0;
+				stateEnd.hip_position.x = initialTaskspaceState.left_ankle_position.x + trajectoryParameters.step_length * 1.7 / 3.0;
 			}
 			stateEnd.left_ankle_position.z = pilotParameters.ankle_height;
 			stateEnd.right_ankle_position.z = pilotParameters.ankle_height;
-			stateEnd.hip_position.z = pilotParameters.ankle_height + sqrt(pow(legLengthSlacked, 2.0) - pow(trajectoryParameters.step_length / 2.0, 2.0));
+			stateEnd.hip_position.z = 0.990*(sqrt(pow(hipHeight, 2.0) - pow(trajectoryParameters.step_length * 1.7 / 3.0, 2.0)));
 			stateEnd.time = 1;
 			stateEnd.torso_forward_angle = trajectoryParameters.torso_forward_angle;
 			stateEnd.swing_ankle_down_angle = 0.0;
