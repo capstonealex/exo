@@ -33,6 +33,21 @@ class Trajectory
 #define RIGHT_KNEE 3
 #define LEFT_ANKLE 4
 #define RIGHT_ANKLE 5
+
+	//step parameters
+#define STANDTIME 2
+#define SITTIME 3
+#define STEPTIME 2
+#define STEPLENGTH 0.4
+#define HALFSTEPLENGTH STEPLENGTH/2
+#define LONGSTEPLENGTH STEPLENGTH*1.5
+#define BACKLENGTH 0.3
+#define STEPHEIGHT 0.5
+#define STEPHIGH 0.7
+#define STEPTGTLENGTH 0.0
+#define LEGSLACK 0.0001
+#define TORSOANGLE deg2rad(5)
+
 public:
 	// Hardware angle limiation in Radians
 	const double Q_MIN_MAX[12]{ deg2rad(70), deg2rad(210),

@@ -76,10 +76,7 @@ double fracTrajProgress = 0;
 int desiredIndex = 0;
 int running = 0;
 
-#define SITSTANDTIME 2
-#define STEPTIME 2
-#define STEPLENGTH 0.33
-#define STEPHEIGHT 0.6
+
 /////////////////////////////////////////////////////////
 // State Machine sitStand methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////
@@ -282,11 +279,11 @@ void sitStand::SittingDwn::entry(void)
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
-        .step_duration = SITSTANDTIME,
+        .step_duration = SITTIME,
         .step_height = 0.0,
         .step_length = 0.3,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
         .movement = Trajectory::Movement::Sit,
@@ -320,11 +317,11 @@ void sitStand::StandingUp::entry(void)
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
-        .step_duration = SITSTANDTIME,
+        .step_duration = STANDTIME,
         .step_height = 0.0,
         .step_length = 0.3,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
         .movement = Trajectory::Movement::Stand,
@@ -362,11 +359,11 @@ void sitStand::Sitting::entry(void)
     printf("Forcing to Sitting State\n");
 
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
-        .step_duration = SITSTANDTIME,
+        .step_duration = SITTIME,
         .step_height = 0.0,
         .step_length = 0.3,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
         .movement = Trajectory::Movement::Sitting,
@@ -420,8 +417,8 @@ void sitStand::SteppingFirstLeft::entry(void)
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,
         .step_length = STEPLENGTH,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
         .movement = Trajectory::Movement::Walk,
@@ -480,8 +477,8 @@ void sitStand::SteppingRight::entry(void)
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,
         .step_length = STEPLENGTH,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Left,
         .movement = Trajectory::Movement::Walk,
@@ -541,8 +538,8 @@ void sitStand::SteppingLeft::entry(void)
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,
         .step_length = STEPLENGTH,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
         .movement = Trajectory::Movement::Walk,
@@ -578,10 +575,10 @@ void sitStand::SteppingLastRight::entry(void)
     printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STEPTIME,
-        .step_height = 0.4,
-        .step_length = 0.0,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .step_height = STEPHEIGHT,
+        .step_length = STEPTGTLENGTH,
+        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Left,
         .movement = Trajectory::Movement::Walk,
@@ -617,10 +614,10 @@ void sitStand::SteppingLastLeft::entry(void)
     printf("SteppingLastLeft State Entered at Time %d\n", OWNER->mark);
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STEPTIME,
-        .step_height = 0.4,
-        .step_length = 0.0,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .step_height = STEPHEIGHT,
+        .step_length = STEPTGTLENGTH,
+        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
         .movement = Trajectory::Movement::Walk,
@@ -682,10 +679,10 @@ void sitStand::SteppingLeftBack::entry(void)
 
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STEPTIME,
-        .step_height = 0.2,
-        .step_length = 0.3,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .step_height = STEPHEIGHT,
+        .step_length = BACKLENGTH,
+        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
         .movement = Trajectory::Movement::Back,
@@ -762,7 +759,7 @@ void sitStand::WalkSelectConfirm::exit(void)
 bool sitStand::EndTraj::check(void)
 {
     //int reached = 0;
-    if (fracTrajProgress > 1.25 && OWNER->gButton == 1)
+    if (fracTrajProgress > 1.15 && OWNER->gButton == 1)
     {
         return true;
     }
