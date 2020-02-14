@@ -578,7 +578,7 @@ void sitStand::SteppingLastRight::entry(void)
     printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STEPTIME,
-        .step_height = 0.2,
+        .step_height = 0.4,
         .step_length = 0.0,
         .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
@@ -617,7 +617,7 @@ void sitStand::SteppingLastLeft::entry(void)
     printf("SteppingLastLeft State Entered at Time %d\n", OWNER->mark);
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STEPTIME,
-        .step_height = 0.2,
+        .step_height = 0.4,
         .step_length = 0.0,
         .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?

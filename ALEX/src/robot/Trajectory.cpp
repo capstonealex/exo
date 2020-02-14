@@ -115,7 +115,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				0;
 			state2.hip_position.z =
 				pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack;
-			state2.torso_forward_angle = trajectoryParameters.torso_forward_angle * 5;
+			state2.torso_forward_angle = trajectoryParameters.torso_forward_angle * 3;
 			state2.swing_ankle_down_angle = 0.0;
 			keyTaskspaceStates.push_back(state2);
 		}
