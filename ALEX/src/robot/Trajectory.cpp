@@ -99,7 +99,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			state1.hip_position.x =
 				-0.5 * (pilotParameters.upperleg_length);
 			state1.hip_position.z =
-				(seatHeight + buttocksHeight) + 0.8 * (pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack - (seatHeight + buttocksHeight)); // how far away from seat height
+				(seatHeight + buttocksHeight) + 0.7 * (pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack - (seatHeight + buttocksHeight)); // how far away from seat height
 			state1.torso_forward_angle = trajectoryParameters.torso_forward_angle * 5;
 			state1.swing_ankle_down_angle = 0.0;
 			keyTaskspaceStates.push_back(state1);
@@ -114,7 +114,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			state2.hip_position.x =
 				0;
 			state2.hip_position.z =
-				pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack;
+				(seatHeight + buttocksHeight) + 0.9 * (pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack - (seatHeight + buttocksHeight)); // how far away from seat height
 			state2.torso_forward_angle = trajectoryParameters.torso_forward_angle * 3;
 			state2.swing_ankle_down_angle = 0.0;
 			keyTaskspaceStates.push_back(state2);
