@@ -29,7 +29,7 @@
 #include "Joint.h"
 
 //////////////// For testing  ///////////////////////////
-#define _NOANKLES
+// #define _NOANKLES
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
@@ -75,7 +75,6 @@ struct timeval last_tv;
 double fracTrajProgress = 0;
 int desiredIndex = 0;
 int running = 0;
-
 
 /////////////////////////////////////////////////////////
 // State Machine sitStand methods ----------------------------------------------------------
@@ -282,7 +281,7 @@ void sitStand::SittingDwn::entry(void)
         .step_duration = SITTIME,
         .step_height = 0.0,
         .step_length = 0.3,
-        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
@@ -320,7 +319,7 @@ void sitStand::StandingUp::entry(void)
         .step_duration = STANDTIME,
         .step_height = 0.0,
         .step_length = 0.3,
-        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
@@ -362,7 +361,7 @@ void sitStand::Sitting::entry(void)
         .step_duration = SITTIME,
         .step_height = 0.0,
         .step_length = 0.3,
-        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
@@ -417,7 +416,7 @@ void sitStand::SteppingFirstLeft::entry(void)
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,
         .step_length = STEPLENGTH,
-        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
@@ -477,7 +476,7 @@ void sitStand::SteppingRight::entry(void)
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,
         .step_length = STEPLENGTH,
-        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Left,
@@ -538,7 +537,7 @@ void sitStand::SteppingLeft::entry(void)
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,
         .step_length = STEPLENGTH,
-        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
@@ -577,7 +576,7 @@ void sitStand::SteppingLastRight::entry(void)
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,
         .step_length = STEPTGTLENGTH,
-        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Left,
@@ -616,7 +615,7 @@ void sitStand::SteppingLastLeft::entry(void)
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,
         .step_length = STEPTGTLENGTH,
-        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
@@ -681,7 +680,7 @@ void sitStand::SteppingLeftBack::entry(void)
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,
         .step_length = BACKLENGTH,
-        .hip_height_slack = LEGSLACK,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Right,
