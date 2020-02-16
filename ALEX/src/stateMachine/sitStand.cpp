@@ -923,8 +923,8 @@ void sitStand::startNewTraj()
                                     robotJointspace[1],
                                     robotJointspace[2],
                                     robotJointspace[3],
-                                    M_PI_2,
-                                    M_PI_2},
+                                    robotJointspace[4],
+                                    robotJointspace[5]},
                               .time = 0};
 
     robot->trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
