@@ -974,8 +974,7 @@ void Trajectory::calcPosition(time_tt time, double *positionArray)
 			time <= trajectoryJointSpline.times.at(polynomial_index + 1))
 		{
 			//cout << "time " << time << "\t" << trajectoryJointSpline.times.at(polynomial_index)  << endl;
-			//for (int i = 0; i < NO_JOINTS; i++) {
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < NO_JOINTS; i++) {
 			{
 				currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
 				positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], time);
@@ -987,7 +986,7 @@ void Trajectory::calcPosition(time_tt time, double *positionArray)
 	}
 	//cout << "[discretise_spline]:\t" << temp.time << "\t";
 	//if the time point is outside range
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < NO_JOINTS; i++) 
 	{
 		currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
 		positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], endTime);

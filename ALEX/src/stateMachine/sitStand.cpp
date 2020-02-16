@@ -29,7 +29,7 @@
 #include "Joint.h"
 
 //////////////// For testing  ///////////////////////////
-#define _NOANKLES
+//#define _NOANKLES
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
