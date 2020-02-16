@@ -28,7 +28,7 @@ cd /home/debian/CANopenSocket/canopencomm
 ./canopencomm [1] 5 write 0x6040 0 i16 47
 ./canopencomm [1] 5 write 0x6040 0 i16 63
 # Wait for movement to complete
-sleep 10s
+sleep 15s
 
 #Command to reset the current home position
 ./canopencomm [1] 5 write 0x6060 0 i8 6
@@ -67,3 +67,6 @@ sleep 10s
 ./canopencomm [1] 6 write 0x607A 0 i32 0
 ./canopencomm [1] 6 write 0x6040 0 i16 47
 ./canopencomm [1] 6 write 0x6040 0 i16 63
+# Set encoder mode: position sync to encoder master
+./canopencomm [1] 6 write 0x2031 0 i8 24
+./canopencomm [1] 5 write 0x2031 0 i8 24
