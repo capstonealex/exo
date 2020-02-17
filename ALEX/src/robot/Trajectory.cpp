@@ -68,6 +68,7 @@ using namespace std;
 
 Trajectory::Trajectory(void)
 {
+
 }
 /**********************************************************************
 
@@ -978,10 +979,15 @@ void Trajectory::calcPosition(time_tt time, double *positionArray)
 				{
 					currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
 					positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], time);
-				}
-				//make sure the angles are within boundary
-				limit_position_against_angle_boundary(positionArray);
+				}			
 			}
+			//force ankles to be in the final position
+			currentPolynomial[LEFT_ANKLE] = trajectoryJointSpline.polynomials[LEFT_ANKLE].at(numPolynomials - 1);
+			positionArray[LEFT_ANKLE] = evaluate_cubic_polynomial(currentPolynomial[LEFT_ANKLE], endTime);
+			currentPolynomial[RIGHT_ANKLE] = trajectoryJointSpline.polynomials[RIGHT_ANKLE].at(numPolynomials - 1);
+			positionArray[RIGHT_ANKLE] = evaluate_cubic_polynomial(currentPolynomial[RIGHT_ANKLE], endTime);
+			//make sure the angles are within boundary
+			limit_position_against_angle_boundary(positionArray);
 			return;
 					
 		}

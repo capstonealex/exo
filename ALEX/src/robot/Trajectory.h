@@ -38,11 +38,12 @@ class Trajectory
 #define STANDTIME 2
 #define SITTIME 3
 #define STEPTIME 2
-#define STEPLENGTH 0.4
+#define STEPLENGTH 0.5
+//#define STEPLENGTH 0.8	
 #define HALFSTEPLENGTH STEPLENGTH/2
 #define LONGSTEPLENGTH STEPLENGTH*1.5
 #define BACKLENGTH 0.3
-#define STEPHEIGHT 0.5
+#define STEPHEIGHT 0.4
 #define STEPHIGH 0.7
 #define STEPTGTLENGTH 0.0
 #define LEGSLACK 0.0001
