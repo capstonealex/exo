@@ -217,7 +217,6 @@ void Joint::readyToSwitchOn()
     // Set target motor position -> will send out to motors
     if (this->id == 1)
     {
-        std::cout << "HERE1" << endl;
         CO_OD_RAM.controlWords.motor1 = 6;
     }
     else if (this->id == 2)
@@ -230,20 +229,16 @@ void Joint::readyToSwitchOn()
     }
     else if (this->id == 4)
     {
-        std::cout << "HERE4" << endl;
         CO_OD_RAM.controlWords.motor4 = 6;
     }
     else if (this->id == 5)
     {
-        std::cout << "5" << endl;
         CO_OD_RAM.controlWords.motor5 = 6;
     }
     else if (this->id == 6)
     {
-        std::cout << "6" << endl;
         CO_OD_RAM.controlWords.motor6 = 6;
     }
-    std::cout << "END" << endl;
 }
 
 void Joint::enable()

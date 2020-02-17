@@ -1,7 +1,6 @@
 // Init State Class publically inheriting State
 
 #include "State.h"
-#include "StateMachine.h"
 #include "Robot.h"
 #include <time.h>
 // forward declaration

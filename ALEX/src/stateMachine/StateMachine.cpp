@@ -42,8 +42,8 @@ void StateMachine::deactivate(void)
 }
 void StateMachine::update(void)
 {
-    printf("UPDATE FUNCTION Entered\n");
-    std::cout << "UPDATE STATE MACHINE" << this << endl;
+    printf("STATE MACHINE CLASS UPDATE FUNCTION Entered\n");
+    std::cout << "UPDATE STATE MACHINE ADDRESS:" << this << endl;
     std::cout << "UPDATE Current Active State name: " << getCurState() << endl;
 
     Transition *t = currentState->getActiveArc();

@@ -1,7 +1,7 @@
 #include "State.h"
 #include "StateMachine.h"
-#include "Robot.h"
 #include <time.h>
+#include "Robot.h"
 // forward declaration
 class sitStand;
 class Standing : public State

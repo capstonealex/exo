@@ -86,8 +86,6 @@ sitStand::sitStand(void)
     steppingLeft = new SteppingLeft(this);
     steppingLastRight = new SteppingLastRight(this);
     steppingLastLeft = new SteppingLastLeft(this);
-
-    // DUMMY TRANSITION FOR TESTING ONLY
     errorState = new ErrorState(this);
 
     // Create Trasitions between states and events which trigger them
@@ -125,7 +123,6 @@ sitStand::sitStand(void)
     StateMachine::initialize(initState);
     robot = NULL;
     bitFlipState = NOFLIP;
-
     running = 0;
 }
 
@@ -190,9 +187,10 @@ void sitStand::deactivate(void)
 }
 void sitStand::update(void)
 {
+    cout << "!!!!!! WITHIN UPDATE FUNCTION in SIT STAND" << endl;
     std::cout << "this State machine: " << this << endl;
-    std::cout << "Initial state" << initState << "Steeping 1st left: " << steppingFirstLeft << "Sitting" << sitting << endl;
-    std::cout << "Current State" << getCurState() << endl;
+    std::cout << "Robot object" << robot << endl;
+
     StateMachine::update();
 }
 
@@ -267,6 +265,7 @@ bool sitStand::DummyTrue::check(void)
 void sitStand::initRobot(Robot *rb)
 {
 
+    cout << "initRobot function entered" << endl;
     if (robot != NULL)
     {
         printf("Robot object already selected");
@@ -274,7 +273,20 @@ void sitStand::initRobot(Robot *rb)
     robot = rb;
     // Perform proper initialization
     robot->printInfo();
-    std::cout << "Robot object address: " << robot;
+    std::cout << "Robot object address: " << robot << endl;
+    // Initialize all States with same robot pointer
+    initState->initRobot(rb);
+    // standing
+    //     sitting
+    //         standingUp
+    //             sittingDwn
+    //                 steppingFirstLeft
+    //                     leftForward
+    //                         steppingRight = new SteppingRight(this);
+    // rightForward = new RightForward(this);
+    // steppingLeft = new SteppingLeft(this);
+    // steppingLastRight = new SteppingLastRight(this);
+    // steppingLastLeft = new SteppingLastLeft(this);
 };
 
 // Update button state, loop counter (mark) and joints
@@ -310,12 +322,12 @@ void sitStand::hwStateUpdate(void)
     {
         printf("Red \n");
     }
-    std::cout << "State machine name: HW State Update:" << getCurState() << endl;
+    std::cout << "CURRENT State  HW State Update:" << getCurState() << endl;
 
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
-    std::cout << "State machine name: HW State Update:" << getCurState() << endl;
+    std::cout << "CURRENT State : HW State Update:" << getCurState() << endl;
 
     // Log to file
     //if (mark%%==1){

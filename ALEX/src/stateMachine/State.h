@@ -7,6 +7,7 @@
 
 #include "Transition.h"
 #include "StateMachine.h"
+#include "Robot.h"
 #include <cstddef>
 #include <iostream>
 #define MAXARCS 20
@@ -39,11 +40,12 @@ public:
     const char *getName(void);
     void printName(void);
     StateMachine *owner; // Pointer to the owner state machine for this State
+    Robot *robot;
 
 private:
-    int numarcs;
     Transition *arclist[MAXARCS];
     const char *name; // Pointer to the name of this State
+    int numarcs;
 };
 
 #endif //EXO_STATE_H

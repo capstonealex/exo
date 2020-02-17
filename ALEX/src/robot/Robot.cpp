@@ -212,8 +212,8 @@ void Robot::printInfo()
     cout << "This is an X2 robot with: \n";
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        std::cout << &joints[i] << endl;
-        joints[i].printInfo();
+        // std::cout << "Joint address:" << &joints[i] << endl;
+        this->joints[i].printInfo();
     }
 }
 
