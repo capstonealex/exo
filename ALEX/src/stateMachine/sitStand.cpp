@@ -976,8 +976,8 @@ void sitStand::moveThroughTraj()
             if (robot->joints[i].getBitFlipState() == NOFLIP)
             {
                 int j = robot->joints[i].getId();
-				cout << " applied position on joint " << robot->joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
-                //robot->joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
+				//cout << " applied position on joint " << robot->joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+                robot->joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
                 // set state machine bitFlip to LOW state.
                 robot->joints[i].bitflipLow();
             }
