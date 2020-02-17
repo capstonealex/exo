@@ -844,61 +844,61 @@ void sitStand::initRobot(Robot *rb)
 // Update button state, loop counter (mark) and joints from
 void sitStand::hwStateUpdate(void)
 {
-	/*BUTON CODE*/
-	//Read all 4 BUTTONs  and print to screen
-	int redbtn = gp->getValue(redPin);
-	int bluebtn = gp->getValue(bluePin);
-	int greenbtn = gp->getValue(greenPin);
-	int yellowbtn = gp->getValue(yellowPin);
+    /*BUTON CODE*/
+    //Read all 4 BUTTONs  and print to screen
+    int redbtn = gp->getValue(redPin);
+    int bluebtn = gp->getValue(bluePin);
+    int greenbtn = gp->getValue(greenPin);
+    int yellowbtn = gp->getValue(yellowPin);
 
-	// Send buttons to statemachine variables
-	this->yButton = yellowbtn;
-	this->gButton = greenbtn;
-	this->bButton = bluebtn;
-	this->rButton = redbtn;
+    // Send buttons to statemachine variables
+    this->yButton = yellowbtn;
+    this->gButton = greenbtn;
+    this->bButton = bluebtn;
+    this->rButton = redbtn;
 
-	//printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
+    //printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
 
-	// if (!yButton)
-	// {
-	// 	printf("Yellow \n");
-	// }
-	// if (!gButton)
-	// {
-	// 	printf("Green \n");
-	// }
-	// if (!bButton)
-	// {
-	// 	printf("Blue \n");
-	// }
-	// if (!rButton)
-	// {
-	// 	printf("Red \n");
-	// }
+    // if (!yButton)
+    // {
+    // 	printf("Yellow \n");
+    // }
+    // if (!gButton)
+    // {
+    // 	printf("Green \n");
+    // }
+    // if (!bButton)
+    // {
+    // 	printf("Blue \n");
+    // }
+    // if (!rButton)
+    // {
+    // 	printf("Red \n");
+    // }
 
-	// Update loop time counter
-	mark = mark + 1;
-	robot->updateJoints();
-	// robot->printInfo();
-	// robot->printTrajectories();
+    // Update loop time counter
+    mark = mark + 1;
+    robot->updateJoints();
+    // robot->printInfo();
+    // robot->printTrajectories();
 
-	//printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
-	//printf(std::to_string(robot->joints[2].getActualTorque()));
-	// Log to file
-	//if (mark%%==1){
-	// struct timeval tv;
-	// gettimeofday(&tv, NULL);
-	// double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
-	// logfile << std::to_string(currtime);
+    //printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
+    //printf(std::to_string(robot->joints[2].getActualTorque()));
+    // Log to file
+    if (mark%5==1){
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
+    logfile << std::to_string(currtime);
 
-	// for (auto i = 0; i < NUM_JOINTS; i++)
-	// {
-	// 	logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
-	// 	//printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
-	// }
-	// //printf("\n");
-	// logfile << "\n";
-	// }
+    for (auto i = 0; i < NUM_JOINTS; i++)
+    {
+     	logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
+     	//printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
+    }
+     //printf("\n");
+     logfile << "\n";
+     }
 }
 
 void sitStand::startNewTraj()
@@ -967,7 +967,7 @@ void sitStand::moveThroughTraj()
 		// robot->printInfo();
 
 #ifndef _NOACTUATION
-		// Send a new trajectory point
+ 		// Send a new trajectory point
 		// Get Trajectory point for this joint based on current time
 		robot->trajectoryObj.calcPosition(fracTrajProgress, positionArray);
 
