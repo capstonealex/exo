@@ -130,7 +130,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				0;
 			stateEnd.hip_position.z =
 				pilotParameters.ankle_height + pilotParameters.upperleg_length + pilotParameters.lowerleg_length - trajectoryParameters.hip_height_slack;
-			stateEnd.torso_forward_angle = trajectoryParameters.torso_forward_angle ;
+			stateEnd.torso_forward_angle = trajectoryParameters.torso_forward_angle;
 			stateEnd.swing_ankle_down_angle = 0.0;
 			keyTaskspaceStates.push_back(stateEnd);
 		}
@@ -232,18 +232,18 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			else
 			{
 				state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + ankleDistance;
-				state1.right_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height ;
+				state1.right_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height;
 				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
 				state1.left_ankle_position.z = pilotParameters.ankle_height;
 				state1.hip_position.x = initialTaskspaceState.left_ankle_position.x;
 			}
 			state1.hip_position.z = hipHeight; // probably should deal with rounding error that makes hipheight slightly larger than leglength?
 			state1.time = 0.4;
-			state1.torso_forward_angle = trajectoryParameters.torso_forward_angle*0;
+			state1.torso_forward_angle = trajectoryParameters.torso_forward_angle * 0;
 			state1.swing_ankle_down_angle = 0.0; // could be non-zero due to slight issues in forward kinematics/positioning, btu zero it out anyways
 			keyTaskspaceStates.push_back(state1);
 		}
-		
+
 		{
 			taskspace_state state2 = initialTaskspaceState;
 			if (initialTaskspaceState.stance_foot == Foot::Right)
@@ -884,7 +884,7 @@ Functions for Controller
  * @return Vector of key taskspace_states of the trajectory (excluding initial state)
  */
 
-// Generates trajectory spline from parameters to use in control system
+ // Generates trajectory spline from parameters to use in control system
 Trajectory::jointspace_spline Trajectory::compute_trajectory_spline(const trajectory_parameters &trajectoryParameters,
 	const pilot_parameters &pilotParameters,
 	jointspace_state initialJointspaceState)
@@ -914,7 +914,7 @@ Trajectory::jointspace_spline Trajectory::compute_trajectory_spline(const trajec
 
 
 
- //get the velocity at any given time
+//get the velocity at any given time
 void Trajectory::calcVelocity(time_tt time, double *velocityArray)
 {
 
@@ -975,26 +975,26 @@ void Trajectory::calcPosition(time_tt time, double *positionArray)
 		{
 			//cout << "time " << time << "\t" << trajectoryJointSpline.times.at(polynomial_index)  << endl;
 			for (int i = 0; i < NO_JOINTS; i++) {
-			{
-				currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
-				positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], time);
+				{
+					currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
+					positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], time);
+				}
+				//make sure the angles are within boundary
+				limit_position_against_angle_boundary(positionArray);
+				return;
 			}
-			//make sure the angles are within boundary
-			limit_position_against_angle_boundary(positionArray);
-			return;
 		}
+		//cout << "[discretise_spline]:\t" << temp.time << "\t";
+		//if the time point is outside range
+		for (int i = 0; i < NO_JOINTS; i++)
+		{
+			currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
+			positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], endTime);
+		}
+		//make sure the angles are within boundary
+		limit_position_against_angle_boundary(positionArray);
 	}
-	//cout << "[discretise_spline]:\t" << temp.time << "\t";
-	//if the time point is outside range
-	for (int i = 0; i < NO_JOINTS; i++) 
-	{
-		currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
-		positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], endTime);
-	}
-	//make sure the angles are within boundary
-	limit_position_against_angle_boundary(positionArray);
 }
-
 Trajectory::jointspace_state Trajectory::compute_position_trajectory_difference(
 	jointspace_spline jointspaceSpline,
 	jointspace_state currentJointspaceStates)
