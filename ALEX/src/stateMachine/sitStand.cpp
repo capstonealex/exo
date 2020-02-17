@@ -885,20 +885,20 @@ void sitStand::hwStateUpdate(void)
     //printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
     //printf(std::to_string(robot->joints[2].getActualTorque()));
     // Log to file
-    //if (mark%%==1){
-    // struct timeval tv;
-    // gettimeofday(&tv, NULL);
-    // double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
-    // logfile << std::to_string(currtime);
+    if (mark%5==1){
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
+    logfile << std::to_string(currtime);
 
-    // for (auto i = 0; i < NUM_JOINTS; i++)
-    // {
-    // 	logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
-    // 	//printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
-    // }
-    // //printf("\n");
-    // logfile << "\n";
-    // }
+    for (auto i = 0; i < NUM_JOINTS; i++)
+    {
+     	logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
+     	//printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
+    }
+     //printf("\n");
+     logfile << "\n";
+     }
 }
 
 void sitStand::startNewTraj()
@@ -976,8 +976,13 @@ void sitStand::moveThroughTraj()
             if (robot->joints[i].getBitFlipState() == NOFLIP)
             {
                 int j = robot->joints[i].getId();
-				//cout << " applied position on joint " << robot->joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
-                robot->joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
+                // cout << " applied position on joint " << robot->joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+                if ( i == 4 || i == 5){
+                    robot->joints[i].applyPosDeg(180-(rad2deg(positionArray[j - 1])));
+                }
+                else{
+                    robot->joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
+                }
                 // set state machine bitFlip to LOW state.
                 robot->joints[i].bitflipLow();
             }
