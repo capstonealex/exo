@@ -202,7 +202,7 @@ int main(int argc, char** argv) {
 				deg2rad(85.2)},
 			.time = 0
 	};
-	standJointspaceState = {
+	 sitJointspaceState = {
 		.q = { deg2rad(75),
 				deg2rad(99.1),
 				deg2rad(75.1),
@@ -212,7 +212,7 @@ int main(int argc, char** argv) {
 			.time = 0
 	};
 
-	sitJointspaceState = {
+	 standJointspaceState = {
 	.q = { deg2rad(179),
 			deg2rad(1.72),
 			deg2rad(179),

@@ -981,19 +981,21 @@ void Trajectory::calcPosition(time_tt time, double *positionArray)
 				}
 				//make sure the angles are within boundary
 				limit_position_against_angle_boundary(positionArray);
-				return;
 			}
+			return;
+					
 		}
-		//cout << "[discretise_spline]:\t" << temp.time << "\t";
-		//if the time point is outside range
-		for (int i = 0; i < NO_JOINTS; i++)
-		{
-			currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
-			positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], endTime);
-		}
-		//make sure the angles are within boundary
-		limit_position_against_angle_boundary(positionArray);
 	}
+	//cout << "[discretise_spline]:\t" << temp.time << "\t";
+	//if the time point is outside range
+	for (int i = 0; i < NO_JOINTS; i++)
+	{
+		currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
+		positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], endTime);
+	}
+	//make sure the angles are within boundary
+	limit_position_against_angle_boundary(positionArray);
+
 }
 Trajectory::jointspace_state Trajectory::compute_position_trajectory_difference(
 	jointspace_spline jointspaceSpline,

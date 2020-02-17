@@ -29,7 +29,7 @@
 #include "Joint.h"
 
 //////////////// For testing  ///////////////////////////
-#define _NOANKLES
+// #define _NOANKLES
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
@@ -926,10 +926,8 @@ void sitStand::startNewTraj()
                                     robotJointspace[1],
                                     robotJointspace[2],
                                     robotJointspace[3],
-                                    M_PI_2,
-                                    M_PI_2},
-    //                                robotJointspace[4],
-    //                               robotJointspace[5]},
+		                            robotJointspace[4],
+                                    robotJointspace[5]},
                               .time = 0};
 
     robot->trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
