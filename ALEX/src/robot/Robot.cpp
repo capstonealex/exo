@@ -17,7 +17,7 @@ Robot::Robot()
     // Set joint Intial positions.
 
     // // Set joint Intial positions to 0, Set joint IDs, Populate joint Trajectories
-    for (auto i = 0; i < 6; i++)
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
         joints[i].applyPos(0);
         joints[i].setId(i + 1);
@@ -59,7 +59,7 @@ void Robot::printInfo()
 // Update all of this robots software joint positions from object dictionary
 void Robot::updateJoints()
 {
-    for (auto i = 0; i < 6; i++)
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
         joints[i].updateJoint();
     }
