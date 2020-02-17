@@ -29,7 +29,7 @@
 #include "Joint.h"
 
 //////////////// For testing  ///////////////////////////
-// #define _NOANKLES
+#define _NOANKLES
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
@@ -926,8 +926,10 @@ void sitStand::startNewTraj()
                                     robotJointspace[1],
                                     robotJointspace[2],
                                     robotJointspace[3],
-                                    robotJointspace[4],
-                                    robotJointspace[5]},
+                                    M_PI_2,
+                                    M_PI_2},
+    //                                robotJointspace[4],
+    //                               robotJointspace[5]},
                               .time = 0};
 
     robot->trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
@@ -976,8 +978,8 @@ void sitStand::moveThroughTraj()
             if (robot->joints[i].getBitFlipState() == NOFLIP)
             {
                 int j = robot->joints[i].getId();
-				cout << " applied position on joint " + robot->joints[i].getId() + " is " + positionArray[j - 1] << endl;
-                robot->joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
+				cout << " applied position on joint " << robot->joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+                //robot->joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
                 // set state machine bitFlip to LOW state.
                 robot->joints[i].bitflipLow();
             }
