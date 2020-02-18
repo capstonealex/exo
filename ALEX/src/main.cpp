@@ -46,7 +46,7 @@
 
 /*Non canopenNode + Socket libraries*/
 #include "Robot.h"
-#include "sitStand.h"
+#include "exoStateMachine.h"
 
 /*For master-> code SDO direct messaging*/
 // #define CO_COMMAND_SDO_BUFFER_SIZE 100000
@@ -80,7 +80,6 @@ int commCount = 0;
 uint32_t tmr1msPrev = 0;
 
 //struct timeval last_tv;
-
 
 /* Realtime thread */
 static void *rt_thread(void *arg);
@@ -252,10 +251,9 @@ int main(int argc, char *argv[])
         /* Initialize time */
         CO_time_init(&CO_time, CO->SDO[0], &OD_time.epochTimeBaseMs, &OD_time.epochTimeOffsetMs, 0x2130);
 
-
         /* First time only initialization. */
         if (firstRun)
-        {           
+        {
             firstRun = false;
 
             /* Configure epoll for mainline */
@@ -266,7 +264,6 @@ int main(int argc, char *argv[])
             /* Init mainline */
             taskMain_init(mainline_epoll_fd, &OD_performance[ODA_performance_mainCycleMaxTime]);
 
-            
             /* Configure epoll for rt_thread */
             rt_thread_epoll_fd = epoll_create(2);
             if (rt_thread_epoll_fd == -1)
@@ -284,9 +281,8 @@ int main(int argc, char *argv[])
                 {
                     CO_errExit("Socket command interface initialization failed");
                 }
-                printf("Canopend - Command interface on socket '%s' started ...\n", CO_command_socketPath);
             }
-            
+
             /* Create rt_thread */
             if (pthread_create(&rt_thread_id, NULL, rt_thread, NULL) != 0)
                 CO_errExit("Program init - rt_thread creation failed");
@@ -301,27 +297,23 @@ int main(int argc, char *argv[])
             }
         }
 
-         /* start CAN */
+        /* start CAN */
         CO_CANsetNormalMode(CO->CANmodule[0]);
         pthread_mutex_unlock(&CO_CAN_VALID_mtx);
-            
+
         /* Execute optional additional application code */
-        app_programStart(); 
-        
+        app_programStart();
+
         reset = CO_RESET_NOT;
         // Create Statemachine Object -> will be loaded by taskmanager in end program.
 
-    
         /* Execute optional additional application code */
         app_communicationReset();
-            
+
         // Initialise the last time variable
         //gettimeofday(&last_tv,NULL);
         //struct timeval first_tv = last_tv;
-        
-        
-        printf("Canopend- running ...\n");
-        
+
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
             /* loop for normal program execution ******************************************/
@@ -344,9 +336,8 @@ int main(int argc, char *argv[])
                 uint32_t timer1msDiff;
                 timer1msDiff = CO_timer1ms - tmr1msPrev;
                 tmr1msPrev = CO_timer1ms;
-                
 
-               // printf("Abs Time: %d, Diff Time: %d\n", CO_timer1ms, timer1msDiff);
+                // printf("Abs Time: %d, Diff Time: %d\n", CO_timer1ms, timer1msDiff);
 
                 /* Execute optional additional application code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
@@ -426,7 +417,7 @@ static void *rt_thread(void *arg)
 
         else if (CANrx_taskTmr_process(ev.data.fd))
         {
-            
+
             /* code was processed in the above function. Additional code process below */
             INCREMENT_1MS(CO_timer1ms);
 

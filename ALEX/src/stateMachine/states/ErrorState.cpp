@@ -1,4 +1,4 @@
-#include "sitStand.h"
+#include "exoStateMachine.h"
 ////////// STATE ////////////////////
 // Error State
 ///////////////////////////////////////////////
@@ -7,9 +7,9 @@ void ErrorState::entry(void)
 {
     //READ TIME OF MAIN
     printf("Error State Entered at Time %d\n", OWNER->mark);
+    std::cout << "ERROR STATE Robot object address: " << OWNER->robot << endl;
     // logfile.close();
     // printf("File Closed \n");
-
     printf("Reset with Red + Green \n");
 
     // Set Drives to Disabled mode

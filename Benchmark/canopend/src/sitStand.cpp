@@ -572,7 +572,6 @@ double steppingLastLeftTrajFunc(int jointInd, double scaledTime, Robot *rob)
 
 sitStand::sitStand(void)
 {
-    // Create PRE-DESIGNED State Machine events, states and transitions
     // StateMachine events
     isYPressed = new IsYPressed(this);
     isBPressed = new IsBPressed(this);
@@ -580,10 +579,6 @@ sitStand::sitStand(void)
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     resetButtonsPressed = new ResetButtonsPressed(this);
-
-    // TRANSITION FOR TESTING
-    dummyTrue = new DummyTrue(this);
-
     // StateMachine states
     initState = new InitState(this);
     standing = new Standing(this);
@@ -597,8 +592,6 @@ sitStand::sitStand(void)
     steppingLeft = new SteppingLeft(this);
     steppingLastRight = new SteppingLastRight(this);
     steppingLastLeft = new SteppingLastLeft(this);
-
-    // DUMMY TRANSITION FOR TESTING ONLY
     errorState = new ErrorState(this);
 
     // Create Trasitions between states and events which trigger them
@@ -618,7 +611,6 @@ sitStand::sitStand(void)
     NewTransition(steppingLastRight, endTraj, standing);
     NewTransition(steppingLastLeft, endTraj, standing);
     NewTransition(errorState, resetButtonsPressed, initState);
-
     // Transitions to Error State
     NewTransition(sitting, isRPressed, errorState);
     NewTransition(standing, isRPressed, errorState);
@@ -1078,11 +1070,6 @@ bool sitStand::ResetButtonsPressed::check(void)
         return true;
     }
     return false;
-}
-
-bool sitStand::DummyTrue::check(void)
-{
-    return true;
 }
 
 //////////////////////////////////////////////////////////////////////

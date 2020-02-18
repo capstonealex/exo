@@ -16,7 +16,7 @@
  * unitl another button is pressed and then goes to uncalibrated (LIMP)
  *
  */
-#include "sitStand.h"
+#include "exoStateMachine.h"
 #include "CO_command.h"
 #include <sys/time.h>
 #include <cmath>
@@ -35,7 +35,7 @@
 #define _VIRTUALROBOT
 /////////////////////////////////////////////////////////
 
-#define OWNER ((sitStand *)owner)
+#define OWNER ((exoStateMachine *)owner)
 #define NOFLIP (100)
 #define BITHIGH (1)
 #define BITLOW (0)
@@ -56,10 +56,10 @@ char filename[80] = "DefaultFilename.csv";
 ofstream logfile;
 
 /////////////////////////////////////////////////////////
-// State Machine sitStand methods ----------------------------------------------------------
+// State Machine exoStateMachine methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////
 
-sitStand::sitStand(void)
+exoStateMachine::exoStateMachine(void)
 {
     // Create PRE-DESIGNED State Machine events, states and transitions
     // StateMachine events
@@ -69,9 +69,6 @@ sitStand::sitStand(void)
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     resetButtonsPressed = new ResetButtonsPressed(this);
-
-    // TRANSITION FOR TESTING
-    dummyTrue = new DummyTrue(this);
 
     // StateMachine states
     initState = new InitState(this);
@@ -126,7 +123,7 @@ sitStand::sitStand(void)
     running = 0;
 }
 
-void sitStand::init(void)
+void exoStateMachine::init(void)
 {
     mark = 1;
     calibrated = 0;
@@ -179,17 +176,16 @@ void sitStand::init(void)
     /// Move to an initial sitting state at the start
     bitFlipState = NOFLIP;
     running = 1;
-    printf("END INIT\n");
 }
-void sitStand::activate(void)
+void exoStateMachine::activate(void)
 {
     StateMachine::activate();
 }
-void sitStand::deactivate(void)
+void exoStateMachine::deactivate(void)
 {
     StateMachine::deactivate();
 }
-void sitStand::update(void)
+void exoStateMachine::update(void)
 {
     StateMachine::update();
 }
@@ -197,7 +193,7 @@ void sitStand::update(void)
 ////////////////////////////////////////////////////////////////
 // Events ------------------------------------------------------------
 ///////////////////////////////////////////////////////////////
-bool sitStand::EndTraj::check(void)
+bool exoStateMachine::EndTraj::check(void)
 {
     //int reached = 0;
     if (OWNER->robot->fracTrajProgress > 1.25)
@@ -211,7 +207,7 @@ bool sitStand::EndTraj::check(void)
 }
 
 //////////// BUTTON PRESS CHECKS //////////////
-bool sitStand::IsYPressed::check(void)
+bool exoStateMachine::IsYPressed::check(void)
 {
     if (OWNER->yButton == 0)
     {
@@ -220,7 +216,7 @@ bool sitStand::IsYPressed::check(void)
     return false;
 }
 
-bool sitStand::IsBPressed::check(void)
+bool exoStateMachine::IsBPressed::check(void)
 {
     if (OWNER->bButton == 0)
     {
@@ -229,7 +225,7 @@ bool sitStand::IsBPressed::check(void)
     return false;
 }
 
-bool sitStand::IsRPressed::check(void)
+bool exoStateMachine::IsRPressed::check(void)
 {
     if (OWNER->rButton == 0)
     {
@@ -237,7 +233,7 @@ bool sitStand::IsRPressed::check(void)
     }
     return false;
 }
-bool sitStand::StartButtonsPressed::check(void)
+bool exoStateMachine::StartButtonsPressed::check(void)
 {
     if (OWNER->bButton == 0 && OWNER->rButton != 0 && OWNER->yButton == 0 && OWNER->gButton != 0)
     {
@@ -245,7 +241,7 @@ bool sitStand::StartButtonsPressed::check(void)
     }
     return false;
 }
-bool sitStand::ResetButtonsPressed::check(void)
+bool exoStateMachine::ResetButtonsPressed::check(void)
 {
     if (OWNER->bButton != 0 && OWNER->rButton == 0 && OWNER->yButton != 0 && OWNER->gButton == 0)
     {
@@ -254,15 +250,10 @@ bool sitStand::ResetButtonsPressed::check(void)
     return false;
 }
 
-bool sitStand::DummyTrue::check(void)
-{
-    return true;
-}
-
 //////////////////////////////////////////////////////////////////////
 // Robot interface methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
-void sitStand::initRobot(Robot *rb)
+void exoStateMachine::initRobot(Robot *rb)
 {
     cout << "initRobot function entered" << endl;
     if (robot != NULL)
@@ -275,7 +266,7 @@ void sitStand::initRobot(Robot *rb)
 };
 
 // Update button state, loop counter (mark) and joints
-void sitStand::hwStateUpdate(void)
+void exoStateMachine::hwStateUpdate(void)
 {
 
     /*BUTON CODE*/

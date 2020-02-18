@@ -31,11 +31,7 @@ void StateMachine::uninit(void)
 
 void StateMachine::activate(void)
 {
-    printf("State entered\n");
-    // currentState = initialState;
-    std::cout << "ACTICE Current Active State name: " << getCurState() << endl;
     currentState->entry();
-    std::cout << "STATE MACHINE" << this << endl;
 }
 void StateMachine::deactivate(void)
 {

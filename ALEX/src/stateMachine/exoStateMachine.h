@@ -10,7 +10,7 @@
 #include "GPIOManager.h"
 #include "GPIOConst.h"
 
-#define OWNER ((sitStand *)owner)
+#define OWNER ((exoStateMachine *)owner)
 // Designed State and event classes
 #include "InitState.h"
 #include "SittingDwn.h"
@@ -28,11 +28,11 @@
 
 double getDegPos(int jointInd, int desiredIndex, Robot *rob);
 
-class sitStand : public StateMachine
+class exoStateMachine : public StateMachine
 {
 public:
     int running = 0;
-    sitStand(void);
+    exoStateMachine(void);
     void init(void);
     void activate(void);
     void deactivate(void);
@@ -72,7 +72,6 @@ private:
     EventObject(IsRPressed) * isRPressed;
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
-    EventObject(DummyTrue) * dummyTrue;
 
     // data;
     int calibrated;

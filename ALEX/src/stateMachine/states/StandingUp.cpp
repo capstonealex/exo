@@ -1,5 +1,4 @@
-#include "sitStand.h"
-
+#include "exoStateMachine.h"
 // Negative bending control machine
 void StandingUp::entry(void)
 {

@@ -1,5 +1,4 @@
-#include "sitStand.h"
-
+#include "exoStateMachine.h"
 ////////// STATE ////////////////////
 //-------  Sitting Down ------------/////
 ////////////////////////////////////
@@ -7,7 +6,7 @@ void SittingDwn::entry(void)
 {
     //READ TIME OF MAIN
     printf("Sitting Down State Entered at Time %d\n", OWNER->mark);
-    std::cout << "INIT STATE Robot object address: " << OWNER->robot << endl;
+    std::cout << "SittindDWN STATE Robot object address: " << OWNER->robot << endl;
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS GREEN TO BEGIN SITTING DOWN\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");

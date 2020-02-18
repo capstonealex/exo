@@ -36,7 +36,7 @@
 
 /*Non canopenNode + Socket libraries*/
 #include "Robot.h"
-#include "sitStand.h"
+#include "exoStateMachine.h"
 
 //header files for the implementing logging using spdlog techniques.
 #include <iostream>
@@ -67,23 +67,19 @@ char buf[STRING_BUFFER_SIZE];
 char ret[STRING_BUFFER_SIZE];
 
 Robot exo;
-sitStand sitStandMachine;
-//Serial * serialPort;
+exoStateMachine exoMachine;
 
 /******************************************************************************/
 void app_programStart(void)
 {
     printf("app_Program Start \n");
-    //serialPort = new Serial(false);
-
-    sitStandMachine.initRobot(&exo);
-    sitStandMachine.init();
-    sitStandMachine.activate();
+    exoMachine.initRobot(&exo);
+    exoMachine.init();
+    exoMachine.activate();
 }
 /******************************************************************************/
 void app_communicationReset(void)
 {
-    std::cout << "State machine name: APPCOM:" << &sitStandMachine << endl;
 }
 /******************************************************************************/
 void app_programEnd(void)
@@ -93,10 +89,10 @@ void app_programEnd(void)
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiffy)
 {
-    if (sitStandMachine.running != 0)
+    if (exoMachine.running != 0)
     {
-        sitStandMachine.hwStateUpdate();
-        sitStandMachine.update();
+        exoMachine.hwStateUpdate();
+        exoMachine.update();
     }
 
     //Timing speed of reading from memory and file writing

@@ -2,7 +2,8 @@
 //////////////////////////////////////////
 // RIGHT FORWARD
 //////////////////////////////////////////
-#include "sitStand.h"
+#include "exoStateMachine.h"
+
 void RightForward::entry(void)
 {
     //READ TIME OF MAIN
@@ -10,6 +11,7 @@ void RightForward::entry(void)
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS BLUE TO KEEP STEPPING OR YELLOW TO BRING FEET TOGETHER\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    std::cout << "RFWD STATE Robot object address: " << OWNER->robot << endl;
 }
 void RightForward::during(void)
 {
