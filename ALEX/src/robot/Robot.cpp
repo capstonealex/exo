@@ -588,7 +588,7 @@ void Robot::moveThroughTraj(double (*trajFunction)(int, double), double trajTime
     /*If gButton -> else commented out until button code integrated as object*/
     /*if Green Button is pressed, move through trajetory. Otherwise stay where you are*/
     int gButton = 0;
-    if (!gButton)
+    if (!buttons.getGButtonState())
     {
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;

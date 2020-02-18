@@ -5,6 +5,7 @@
 #ifndef CANOPENBEAGLE_ROBOT_H
 #define CANOPENBEAGLE_ROBOT_H
 #include "Joint.h"
+#include "Buttons.h"
 #include <array>
 // Trajectory constants
 #define TRAJ_LENGTH 6
@@ -49,7 +50,7 @@ public:
     double fracTrajProgress = 0;
     double trajTime;
     void printInfo();
-    //void jointIncrement();
+    Buttons buttons;
     void updateJoints();
     bool positionControl;
     bool initPositionControl(void);

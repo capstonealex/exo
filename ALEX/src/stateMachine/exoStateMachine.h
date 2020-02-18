@@ -70,6 +70,7 @@ private:
     EventObject(IsYPressed) * isYPressed;
     EventObject(IsBPressed) * isBPressed;
     EventObject(IsRPressed) * isRPressed;
+    EventObject(IsGPressed) * isGPressed;
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
 

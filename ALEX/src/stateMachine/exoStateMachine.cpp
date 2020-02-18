@@ -40,17 +40,6 @@
 #define BITHIGH (1)
 #define BITLOW (0)
 
-// For remote
-static char *BUTTONRED = "P8_10";
-static char *BUTTONBLUE = "P8_9";
-static char *BUTTONGREEN = "P8_7";
-static char *BUTTONYELLOW = "P8_8";
-GPIO::GPIOManager *gp;
-int redPin;
-int yellowPin;
-int greenPin;
-int bluePin;
-
 // Logging
 char filename[80] = "DefaultFilename.csv";
 ofstream logfile;
@@ -66,10 +55,10 @@ exoStateMachine::exoStateMachine(void)
     isYPressed = new IsYPressed(this);
     isBPressed = new IsBPressed(this);
     isRPressed = new IsRPressed(this);
+    isGPressed = new IsGPressed(this);
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     resetButtonsPressed = new ResetButtonsPressed(this);
-
     // StateMachine states
     initState = new InitState(this);
     standing = new Standing(this);
@@ -130,18 +119,6 @@ void exoStateMachine::init(void)
     std::cout << "Welcome to The ALEX STATE MACHINE"
               << "\n";
     StateMachine::init();
-
-    // Set up the buttons
-    gp = GPIO::GPIOManager::getInstance();
-    redPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONRED);
-    bluePin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONBLUE);
-    greenPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONGREEN);
-    yellowPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONYELLOW);
-    gp->setDirection(redPin, GPIO::INPUT);
-    gp->setDirection(bluePin, GPIO::INPUT);
-    gp->setDirection(greenPin, GPIO::INPUT);
-    gp->setDirection(yellowPin, GPIO::INPUT);
-
 // Configure the drives
 // VIRTUAL ROBOT
 #ifdef _VIRTUALROBOT
@@ -196,7 +173,7 @@ void exoStateMachine::update(void)
 bool exoStateMachine::EndTraj::check(void)
 {
     //int reached = 0;
-    if (OWNER->robot->fracTrajProgress > 1.25)
+    if (OWNER->robot->fracTrajProgress > 1.15 && OWNER->robot->buttons.getGButtonState() == 1)
     {
         return true;
     }
@@ -209,7 +186,7 @@ bool exoStateMachine::EndTraj::check(void)
 //////////// BUTTON PRESS CHECKS //////////////
 bool exoStateMachine::IsYPressed::check(void)
 {
-    if (OWNER->yButton == 0)
+    if (OWNER->robot->buttons.getYButtonState() == 0)
     {
         return true;
     }
@@ -218,7 +195,7 @@ bool exoStateMachine::IsYPressed::check(void)
 
 bool exoStateMachine::IsBPressed::check(void)
 {
-    if (OWNER->bButton == 0)
+    if (OWNER->robot->buttons.getBButtonState() == 0)
     {
         return true;
     }
@@ -227,15 +204,24 @@ bool exoStateMachine::IsBPressed::check(void)
 
 bool exoStateMachine::IsRPressed::check(void)
 {
-    if (OWNER->rButton == 0)
+    if (OWNER->robot->buttons.getRButtonState() == 0)
     {
+        return true;
+    }
+    return false;
+}
+bool exoStateMachine::IsGPressed::check(void)
+{
+    if (OWNER->robot->buttons.getGButtonState() == 0)
+    {
+        printf("G button pressed\n");
         return true;
     }
     return false;
 }
 bool exoStateMachine::StartButtonsPressed::check(void)
 {
-    if (OWNER->bButton == 0 && OWNER->rButton != 0 && OWNER->yButton == 0 && OWNER->gButton != 0)
+    if (OWNER->robot->buttons.getBButtonState() == 0 && OWNER->robot->buttons.getRButtonState() != 0 && OWNER->robot->buttons.getYButtonState() == 0 && OWNER->robot->buttons.getGButtonState() != 0)
     {
         return true;
     }
@@ -243,7 +229,7 @@ bool exoStateMachine::StartButtonsPressed::check(void)
 }
 bool exoStateMachine::ResetButtonsPressed::check(void)
 {
-    if (OWNER->bButton != 0 && OWNER->rButton == 0 && OWNER->yButton != 0 && OWNER->gButton == 0)
+    if (OWNER->robot->buttons.getBButtonState() != 0 && OWNER->robot->buttons.getRButtonState() == 0 && OWNER->robot->buttons.getYButtonState() != 0 && OWNER->robot->buttons.getGButtonState() == 0)
     {
         return true;
     }
@@ -261,6 +247,7 @@ void exoStateMachine::initRobot(Robot *rb)
         printf("Robot object already selected");
     }
     robot = rb;
+    robot->buttons.initButtons();
     robot->printInfo();
 };
 
@@ -269,35 +256,7 @@ void exoStateMachine::hwStateUpdate(void)
 {
 
     /*BUTON CODE*/
-    //Read all 4 BUTTONs  and print to screen
-    int redbtn = gp->getValue(redPin);
-    int bluebtn = gp->getValue(bluePin);
-    int greenbtn = gp->getValue(greenPin);
-    int yellowbtn = gp->getValue(yellowPin);
-
-    // Send buttons to statemachine variables
-    yButton = yellowbtn;
-    gButton = greenbtn;
-    bButton = bluebtn;
-    rButton = redbtn;
-
-    if (!yButton)
-    {
-        printf("Yellow \n");
-    }
-    if (!gButton)
-    {
-        printf("Green \n");
-    }
-    if (!bButton)
-    {
-        printf("Blue \n");
-    }
-    if (!rButton)
-    {
-        printf("Red \n");
-    }
-
+    robot->buttons.setButtonStates();
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
@@ -314,6 +273,6 @@ void exoStateMachine::hwStateUpdate(void)
     }
     //printf("\n");
     logfile << "\n";
-
+    robot->buttons.printPressedButtons();
     // }
 }
