@@ -213,7 +213,6 @@ void Joint::disable()
 void Joint::readyToSwitchOn()
 // TODO: 1. generalize to create .motor<motorID> dynamically
 {
-    printf("readyToSwitchOn start\n");
     // Set target motor position -> will send out to motors
     if (this->id == 1)
     {

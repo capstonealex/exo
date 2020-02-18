@@ -40,7 +40,6 @@ public:
     const char *getName(void);
     void printName(void);
     StateMachine *owner; // Pointer to the owner state machine for this State
-    Robot *robot;
 
 private:
     Transition *arclist[MAXARCS];

@@ -1,16 +1,13 @@
-#include "InitState.h"
+#include "sitStand.h"
 
 void InitState::entry(void)
 {
-    printf("Init State Entered at Time %d\n", ((StateMachine *)owner)->mark);
-    std::cout << "Inits OWNER: " << ((StateMachine *)owner) << endl;
-    std::cout << "Inits OWNERs robot pointer: " << robot << endl;
-
+    printf("Init State Entered at Time %d\n", OWNER->mark);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
-    robot->resetTrackingError();
+    OWNER->robot->resetTrackingError();
+    std::cout << "INIT STATE Robot object address: " << OWNER->robot << endl;
     // Set up the logging file
     // time_t rawtime;
     // struct tm * timeinfo;
@@ -25,15 +22,9 @@ void InitState::entry(void)
 }
 void InitState::during(void)
 {
-    // ss = dynamic_cast<sitStand *>(owner);
-
-    printf("Init state during entered\n");
-    std::cout << "Robot object address: " << robot << endl;
-    robot->printInfo();
-    // Do nothing in this state
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        robot->joints[i].readyToSwitchOn();
+        OWNER->robot->joints[i].readyToSwitchOn();
     }
 }
 void InitState::exit(void)
@@ -42,13 +33,6 @@ void InitState::exit(void)
     printf("Initialise State Exited at Time %d\n", owner->mark);
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        robot->joints[i].enable();
+        OWNER->robot->joints[i].enable();
     }
-}
-void InitState::initRobot(Robot *rb)
-{
-    robot = rb;
-    robot->printInfo();
-    std::cout << "Robot object address: " << robot
-              << endl;
 }

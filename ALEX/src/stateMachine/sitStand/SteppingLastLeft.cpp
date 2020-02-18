@@ -1,24 +1,24 @@
-#include "SteppingLastLeft.h"
+#include "sitStand.h"
 /////////// STATE ////////////////////
 // Stepping Last Left
 ///////////////////////////////////////////////
 void SteppingLastLeft::entry(void)
 {
     //READ TIME OF MAIN
-    printf("SteppingLastLeft State Entered at Time %d\n", owner->mark);
+    printf("SteppingLastLeft State Entered at Time %d\n", OWNER->mark);
 
-    owner->robot->startNewTraj();
+    OWNER->robot->startNewTraj();
 }
 
 void SteppingLastLeft::during(void)
 {
     //long lastTarget = 0;
     // if the green button is pressed move. Or do nothing/
-    owner->robot->moveThroughTraj(owner->robot->steppingLastLeftTrajFunc, STEPTIME);
+    OWNER->robot->moveThroughTraj(OWNER->robot->steppingLastLeftTrajFunc, STEPTIME);
 }
 
 void SteppingLastLeft::exit(void)
 {
-    printf("SteppingLastLeft State Exited at Time %d\n", owner->mark);
+    printf("SteppingLastLeft State Exited at Time %d\n", OWNER->mark);
     // do nothing
 }

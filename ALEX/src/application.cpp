@@ -93,15 +93,10 @@ void app_programEnd(void)
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiffy)
 {
-    std::cout << "State machine name: Async:" << &sitStandMachine << endl;
     if (sitStandMachine.running != 0)
     {
-        //printf("Before hwstateupdate \n");
         sitStandMachine.hwStateUpdate();
-        printf("Before update \n");
-
         sitStandMachine.update();
-        printf("After update \n");
     }
 
     //Timing speed of reading from memory and file writing

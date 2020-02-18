@@ -1,4 +1,4 @@
-#include "ErrorState.h"
+#include "sitStand.h"
 ////////// STATE ////////////////////
 // Error State
 ///////////////////////////////////////////////
@@ -6,7 +6,7 @@
 void ErrorState::entry(void)
 {
     //READ TIME OF MAIN
-    printf("Error State Entered at Time %d\n", owner->mark);
+    printf("Error State Entered at Time %d\n", OWNER->mark);
     // logfile.close();
     // printf("File Closed \n");
 
@@ -15,7 +15,7 @@ void ErrorState::entry(void)
     // Set Drives to Disabled mode
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        owner->robot->joints[i].disable();
+        OWNER->robot->joints[i].disable();
     }
 }
 

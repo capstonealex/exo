@@ -593,8 +593,6 @@ void Robot::moveThroughTraj(double (*trajFunction)(int, double), double trajTime
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
 
-        printf("Time: %3f \n", fracTrajProgress);
-
 #ifndef _NOACTUATION
         for (int i = 0; i < NUM_JOINTS; i++)
         {

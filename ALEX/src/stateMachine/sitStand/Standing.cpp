@@ -1,11 +1,11 @@
-#include "Standing.h"
+#include "sitStand.h"
 ////////// STATE ////////////////////
 //-------  Standing ------------/////
 ////////////////////////////////////
 void Standing::entry(void)
 {
-    printf("Standing State Entered at Time %d\n", owner->mark);
-
+    printf("Standing State Entered at Time %d\n", OWNER->mark);
+    std::cout << "INIT STATE Robot object address: " << OWNER->robot << endl;
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS YELLOW TO START Sitting DOWN\n");
     printf("PRESS BLUE BUTTON TO STEP LEFT LEG FORWARD\n");
@@ -17,5 +17,5 @@ void Standing::during(void)
 }
 void Standing::exit(void)
 {
-    printf("Standing State Exited at Time %d\n", owner->mark);
+    printf("Standing State Exited at Time %d\n", OWNER->mark);
 }

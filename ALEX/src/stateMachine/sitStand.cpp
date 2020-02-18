@@ -32,7 +32,7 @@
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
-
+#define _VIRTUALROBOT
 /////////////////////////////////////////////////////////
 
 #define OWNER ((sitStand *)owner)
@@ -145,8 +145,11 @@ void sitStand::init(void)
     gp->setDirection(greenPin, GPIO::INPUT);
     gp->setDirection(yellowPin, GPIO::INPUT);
 
-    // Configure the drives
+// Configure the drives
+// VIRTUAL ROBOT
+#ifdef _VIRTUALROBOT
     calibrated = 1;
+#endif
     printf("Remapping PDOs \n");
     if (calibrated == 0)
     {
@@ -160,12 +163,13 @@ void sitStand::init(void)
     {
         printf("Motors already calibrated for motion\n");
     }
-    // comment out for Virtual robot
-    // printf("Initialising Position Control \n");
-    // if (!robot->initPositionControl())
-    // {
-    //     printf("*****WARNING: LOGIC ERROR*******\n");
-    // }
+#ifndef _VIRTUALROBOT
+    printf("Initialising Position Control \n");
+    if (!robot->initPositionControl())
+    {
+        printf("*****WARNING: LOGIC ERROR*******\n");
+    }
+#endif
 
 #ifndef _NOANKLES
     robot->remapPDOAnkles();
@@ -187,10 +191,6 @@ void sitStand::deactivate(void)
 }
 void sitStand::update(void)
 {
-    cout << "!!!!!! WITHIN UPDATE FUNCTION in SIT STAND" << endl;
-    std::cout << "this State machine: " << this << endl;
-    std::cout << "Robot object" << robot << endl;
-
     StateMachine::update();
 }
 
@@ -264,29 +264,14 @@ bool sitStand::DummyTrue::check(void)
 /////////////////////////////////////////////////////////////////////
 void sitStand::initRobot(Robot *rb)
 {
-
     cout << "initRobot function entered" << endl;
     if (robot != NULL)
     {
         printf("Robot object already selected");
     }
     robot = rb;
-    // Perform proper initialization
     robot->printInfo();
-    std::cout << "Robot object address: " << robot << endl;
-    // Initialize all States with same robot pointer
-    initState->initRobot(rb);
-    // standing
-    //     sitting
-    //         standingUp
-    //             sittingDwn
-    //                 steppingFirstLeft
-    //                     leftForward
-    //                         steppingRight = new SteppingRight(this);
-    // rightForward = new RightForward(this);
-    // steppingLeft = new SteppingLeft(this);
-    // steppingLastRight = new SteppingLastRight(this);
-    // steppingLastLeft = new SteppingLastLeft(this);
+    std::cout << "INIT RPT CALL: Robot object address: " << robot << endl;
 };
 
 // Update button state, loop counter (mark) and joints
@@ -322,20 +307,16 @@ void sitStand::hwStateUpdate(void)
     {
         printf("Red \n");
     }
-    std::cout << "CURRENT State  HW State Update:" << getCurState() << endl;
 
     // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
-    std::cout << "CURRENT State : HW State Update:" << getCurState() << endl;
-
     // Log to file
     //if (mark%%==1){
     struct timeval tv;
     gettimeofday(&tv, NULL);
     double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
     logfile << std::to_string(currtime);
-    std::cout << "State machine name: HW State Update:" << getCurState() << endl;
 
     for (auto i = 3; i < NUM_JOINTS; i++)
     {
