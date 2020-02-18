@@ -12,7 +12,7 @@ SOCKETCAN_DIR = src/CANopenNode/stack/socketCAN
 OD_DIR = src/objDict
 ROBOT_DIR = src/robot
 SM_DIR = src/stateMachine
-SStand_DIR= src/stateMachine/sitStand
+SStand_DIR= src/stateMachine/states
 
 TARGET_FOLDER = bin/
 LINK_TARGET  =  $ ALEX_APP
