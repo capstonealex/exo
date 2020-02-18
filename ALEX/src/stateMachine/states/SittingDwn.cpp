@@ -6,7 +6,6 @@ void SittingDwn::entry(void)
 {
     //READ TIME OF MAIN
     printf("Sitting Down State Entered at Time %d\n", OWNER->mark);
-    std::cout << "SittindDWN STATE Robot object address: " << OWNER->robot << endl;
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("PRESS GREEN TO BEGIN SITTING DOWN\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");

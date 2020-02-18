@@ -10,7 +10,6 @@ void LeftForward::entry(void)
     printf("PRESS BLUE TO KEEP STEPPING\n");
     printf("PRESS YELLOW TO BRING FEET TOGETHER\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    std::cout << "LFWD STATE Robot object address: " << OWNER->robot << endl;
 }
 void LeftForward::during(void)
 {

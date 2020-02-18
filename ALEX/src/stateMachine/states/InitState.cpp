@@ -7,7 +7,6 @@ void InitState::entry(void)
     printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     OWNER->robot->resetTrackingError();
-    std::cout << "INIT SATE Robot object address: " << OWNER->robot << endl;
     // Set up the logging file
     // time_t rawtime;
     // struct tm * timeinfo;

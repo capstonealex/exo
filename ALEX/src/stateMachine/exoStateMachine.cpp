@@ -262,7 +262,6 @@ void exoStateMachine::initRobot(Robot *rb)
     }
     robot = rb;
     robot->printInfo();
-    std::cout << "INIT RPT CALL: Robot object address: " << robot << endl;
 };
 
 // Update button state, loop counter (mark) and joints
