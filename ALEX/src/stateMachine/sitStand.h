@@ -53,9 +53,18 @@ private:
     StateObject(SteppingLeft) * steppingLeft;
     StateObject(SteppingLastRight) * steppingLastRight;
     StateObject(SteppingLastLeft) * steppingLastLeft;
+
     StateObject(SteppingLeftBack) * steppingLeftBack;
+    StateObject(SteppingRightBack) * steppingRightBack;
+    StateObject(BackSteppingLastLeft) * backSteppingLastLeft;
+    StateObject(BackSteppingLastRight) * backSteppingLastRight;
+    StateObject(RevRightBack) * revRightBack;
+    StateObject(RevLeftBack) * revLeftBack;
+    StateObject(RightBack) * rightBack;
+    StateObject(LeftBack) * leftBack;
+
     StateObject(WalkSelect) * walkSelect;
-    StateObject(WalkSelectConfirm) * walkSelectConfirm;
+    StateObject(BackStepSelect) * backStepSelect;
 
     StateObject(ErrorState) * errorState;
 

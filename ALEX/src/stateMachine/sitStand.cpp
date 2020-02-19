@@ -21,7 +21,7 @@
 #include <cmath>
 #include <array>
 
- // For logging
+// For logging
 #include <iostream>
 #include <fstream>
 #include <time.h> /* time_t, struct tm, time, localtime, strftime */
@@ -33,7 +33,6 @@
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
-
 
 /////////////////////////////////////////////////////////
 
@@ -109,23 +108,33 @@ sitStand::sitStand(void)
 	steppingLeft = new SteppingLeft(this);
 	steppingLastRight = new SteppingLastRight(this);
 	steppingLastLeft = new SteppingLastLeft(this);
+	errorState = new ErrorState(this);
 	//Moonwalking back steps
-	walkSelectConfirm = new WalkSelectConfirm(this);
+	backStepSelect = new BackStepSelect(this);
 	walkSelect = new WalkSelect(this);
 	steppingLeftBack = new SteppingLeftBack(this);
-	errorState = new ErrorState(this);
-	// Transitions
+	steppingRightBack = new SteppingRightBack(this);
+	backSteppingLastRight = new BackSteppingLastRight(this);
+	backSteppingLastLeft = new BackSteppingLastLeft(this);
+	revRightBack = new RevRightBack(this);
+	revLeftBack = new RevLeftBack(this);
+	leftBack = new LeftBack(this);
+	rightBack = new RightBack(this);
+	// Init Robot transition
 	NewTransition(initState, startButtonsPressed, sitting);
-	//Sit stand*/
+	// Sit-stand
 	NewTransition(sitting, isYPressed, standingUp);
 	NewTransition(standingUp, endTraj, standing);
 	NewTransition(sittingDwn, endTraj, sitting);
 	NewTransition(standing, isYPressed, sittingDwn);
 	NewTransition(standing, isBPressed, walkSelect);
-	/*Transition to forward or back steps*/
+	// Transition to forward walking or back step modes
 	NewTransition(walkSelect, isGPressed, steppingFirstLeft);
-	NewTransition(walkSelect, isYPressed, steppingLeftBack);
-	/*Forward Stepping*/
+	NewTransition(walkSelect, isYPressed, backStepSelect);
+	NewTransition(backStepSelect, isGPressed, steppingLeftBack);
+	NewTransition(backStepSelect, isBPressed, steppingRightBack);
+	NewTransition(backStepSelect, isYPressed, walkSelect);
+	// Forward Stepping
 	NewTransition(steppingFirstLeft, endTraj, leftForward);
 	NewTransition(leftForward, isGPressed, steppingRight);
 	NewTransition(steppingRight, endTraj, rightForward);
@@ -135,10 +144,27 @@ sitStand::sitStand(void)
 	NewTransition(rightForward, isYPressed, steppingLastLeft);
 	NewTransition(steppingLastLeft, endTraj, standing);
 	NewTransition(steppingLastRight, endTraj, standing);
-	// Moonwalking transitions
-	// NewTransition(walkSelectConfirm, isGPressed, walkSelect); Testing w/o
-	NewTransition(steppingLeftBack, endTraj, rightForward);
+	// Moonwalking
+	NewTransition(steppingLeftBack, endTraj, leftBack);
+	NewTransition(steppingRightBack, endTraj, rightBack);
+	NewTransition(rightBack, isGPressed, backSteppingLastLeft);
+	NewTransition(backSteppingLastLeft, endTraj, backStepSelect);
+	NewTransition(rightBack, isYPressed, revRightBack);
+	NewTransition(revRightBack, endTraj, backStepSelect);
+	NewTransition(leftBack, isGPressed, backSteppingLastRight);
+	NewTransition(backSteppingLastRight, endTraj, backStepSelect);
+	NewTransition(leftBack, isYPressed, revLeftBack);
+	NewTransition(revLeftBack, endTraj, backStepSelect);
 	// Transitions to Error State
+	NewTransition(backStepSelect, isRPressed, errorState);
+	NewTransition(revLeftBack, isRPressed, errorState);
+	NewTransition(revRightBack, isRPressed, errorState);
+	NewTransition(rightBack, isRPressed, errorState);
+	NewTransition(leftBack, isRPressed, errorState);
+	NewTransition(backSteppingLastRight, isRPressed, errorState);
+	NewTransition(backSteppingLastLeft, isRPressed, errorState);
+	NewTransition(steppingRightBack, isRPressed, errorState);
+	NewTransition(steppingLeftBack, isRPressed, errorState);
 	NewTransition(sitting, isRPressed, errorState);
 	NewTransition(standing, isRPressed, errorState);
 	NewTransition(standingUp, isRPressed, errorState);
@@ -169,7 +195,7 @@ void sitStand::init(void)
 	mark = 1;
 	calibrated = 0;
 	std::cout << "Welcome to The ALEX STATE MACHINE"
-		<< "\n";
+			  << "\n";
 	StateMachine::init();
 
 	// Set up the buttons
@@ -282,7 +308,7 @@ void sitStand::SittingDwn::entry(void)
 		.step_duration = SITTIME,
 		.step_height = STEPHEIGHT,
 		.step_length = STEPLENGTH,
-		.hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Right,
@@ -291,7 +317,7 @@ void sitStand::SittingDwn::entry(void)
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,  // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 
 	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
@@ -320,7 +346,7 @@ void sitStand::StandingUp::entry(void)
 		.step_duration = STANDTIME,
 		.step_height = STEPHEIGHT,
 		.step_length = STEPLENGTH,
-		.hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Right,
@@ -329,7 +355,7 @@ void sitStand::StandingUp::entry(void)
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,  // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
 	OWNER->startNewTraj();
@@ -362,7 +388,7 @@ void sitStand::Sitting::entry(void)
 		.step_duration = SITTIME,
 		.step_height = STEPHEIGHT,
 		.step_length = STEPLENGTH,
-		.hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Right,
@@ -371,7 +397,7 @@ void sitStand::Sitting::entry(void)
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,  // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
 	OWNER->startNewTraj();
@@ -417,7 +443,7 @@ void sitStand::SteppingFirstLeft::entry(void)
 		.step_duration = STEPTIME,
 		.step_height = STEPHEIGHT,
 		.step_length = STEPLENGTH,
-		.hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Right,
@@ -426,7 +452,7 @@ void sitStand::SteppingFirstLeft::entry(void)
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,  // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
 	OWNER->startNewTraj();
@@ -477,7 +503,7 @@ void sitStand::SteppingRight::entry(void)
 		.step_duration = STEPTIME,
 		.step_height = STEPHEIGHT,
 		.step_length = STEPLENGTH,
-		.hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Left,
@@ -486,7 +512,7 @@ void sitStand::SteppingRight::entry(void)
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,  // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 
 	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
@@ -538,7 +564,7 @@ void sitStand::SteppingLeft::entry(void)
 		.step_duration = STEPTIME,
 		.step_height = STEPHEIGHT,
 		.step_length = STEPLENGTH,
-		.hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Right,
@@ -547,7 +573,7 @@ void sitStand::SteppingLeft::entry(void)
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,  // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
 	OWNER->startNewTraj();
@@ -577,7 +603,7 @@ void sitStand::SteppingLastRight::entry(void)
 		.step_duration = STEPTIME,
 		.step_height = STEPHEIGHT,
 		.step_length = STEPTGTLENGTH,
-		.hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Left,
@@ -586,7 +612,7 @@ void sitStand::SteppingLastRight::entry(void)
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,  // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
 	OWNER->startNewTraj();
@@ -616,7 +642,7 @@ void sitStand::SteppingLastLeft::entry(void)
 		.step_duration = STEPTIME,
 		.step_height = STEPHEIGHT,
 		.step_length = STEPTGTLENGTH,
-		.hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Right,
@@ -625,7 +651,7 @@ void sitStand::SteppingLastLeft::entry(void)
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,  // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
 	OWNER->startNewTraj();
@@ -668,20 +694,62 @@ void sitStand::ErrorState::exit(void)
 {
 	printf("Error State Exited");
 }
+///////// STATE ////////////////////
+// Walk select
+// *Select to begin forward stepping
+// or take a left back step *
+///////////////////////////////////////////////
+void sitStand::WalkSelect::entry(void)
+{
+	printf("Walk Select State Entered at Time %d\n", OWNER->mark);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("PRESS YELLOW TO Select BACK STEP\n");
+	printf("PRESS GREEN BUTTON TO STEP LEFT LEG FORWARD\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+}
+void sitStand::WalkSelect::during(void)
+{
+	// Press yellow button to leave state
+}
+void sitStand::WalkSelect::exit(void)
+{
+	printf("Walk select State Exited at Time %d\n", OWNER->mark);
+}
+///////// STATE ////////////////////
+// Moon Walking states ------------------------------------------------------------
+// Back Step Select
+// * Select which leg you'd like to perform a backward step with *
+///////////////////////////////////////////////
+
+void sitStand::BackStepSelect::entry(void)
+{
+	printf("Back Step Select State Entered at Time %d\n", OWNER->mark);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("Press BLUE to MOVE RIGHT LEG BACK\n");
+	printf("TAP GREEN TO to move RIGHT LEG BACK\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+}
+void sitStand::BackStepSelect::during(void)
+{
+	// Press green button to leave state
+}
+void sitStand::BackStepSelect::exit(void)
+{
+	printf("Back step select  Exited at Time %d\n", OWNER->mark);
+}
 ////////////////////////////////////////////////////////////////
-// BACK STEP STATES ------------------------------------------------------------
-// Stepping First Left Back
+// Stepping Left Back
+// *Move Left leg back from standing state *
 ///////////////////////////////////////////////
 void sitStand::SteppingLeftBack::entry(void)
 {
-	//READ TIME OF MAIN
 	printf("SteppingLeftBack State Entered at Time %d\n", OWNER->mark);
 
 	Trajectory::trajectory_parameters movement_trajectory_parameters = {
 		.step_duration = STEPTIME,
 		.step_height = STEPHEIGHT,
 		.step_length = BACKLENGTH,
-		.hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 		.swing_ankle_down_angle = 0,
 		.stance_foot = Trajectory::Foot::Right,
@@ -690,7 +758,7 @@ void sitStand::SteppingLeftBack::entry(void)
 		.stair_height = 0.0, // stairs
 		.slope_angle = 0.0,  // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
 	OWNER->startNewTraj();
@@ -708,51 +776,235 @@ void sitStand::SteppingLeftBack::exit(void)
 	printf("SteppingLeftBack State Exited at Time %d\n", OWNER->mark);
 	// do nothing
 }
-///////// STATE ////////////////////
-// Walk select
-// *Select to begin forward stepping
-// or take a left back step *
+//////// STATE ////////////////////
+// Stepping Right Back
+// *Move Right leg back from standing state *
 ///////////////////////////////////////////////
-void sitStand::WalkSelect::entry(void)
+void sitStand::SteppingRightBack::entry(void)
 {
-	printf("Walk Select State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS YELLOW TO STEP LEFT LEG BACK\n");
-	printf("PRESS GREEN BUTTON TO STEP LEFT LEG FORWARD\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-}
-void sitStand::WalkSelect::during(void)
-{
-	// Press yellow button to leave state
-}
-void sitStand::WalkSelect::exit(void)
-{
-	printf("Walk select State Exited at Time %d\n", OWNER->mark);
+	//READ TIME OF MAIN
+	printf("SteppingRightBack State Entered at Time %d\n", OWNER->mark);
+
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+		.step_duration = STEPTIME,
+		.step_height = STEPHEIGHT,
+		.step_length = BACKLENGTH,
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Left,
+		.movement = Trajectory::Movement::Back,
+		.seat_height = 0.42, // sit-stand
+		.stair_height = 0.0, // stairs
+		.slope_angle = 0.0,  // tilted path
+		.left_foot_on_tilt = false,
+		.right_foot_on_tilt = false};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
+	OWNER->startNewTraj();
 }
 
-///////// STATE ////////////////////
-// walk Select confirm
-// * Confirm you want to enter walk selct state
-// Used to account for no debounce in Y and B *
-///////////////////////////////////////////////
+void sitStand::SteppingRightBack::during(void)
+{
+	//long lastTarget = 0;
+	// if the green button is pressed move. Or do nothing/
+	OWNER->moveThroughTraj();
+}
 
-void sitStand::WalkSelectConfirm::entry(void)
+void sitStand::SteppingRightBack::exit(void)
 {
-	printf("Walk Select Confirm State Entered at Time %d\n", OWNER->mark);
+	printf("SteppingRightBack State Exited at Time %d\n", OWNER->mark);
+	// do nothing
+}
+////////// STATE ////////////////////
+// BACK Stepping Last Right
+///////////////////////////////////////////////
+void sitStand::BackSteppingLastRight::entry(void)
+{
+	//READ TIME OF MAIN
+	printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+		.step_duration = STEPTIME,
+		.step_height = STEPHEIGHT,
+		.step_length = STEPTGTLENGTH,
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Left,
+		.movement = Trajectory::Movement::Back,
+		.seat_height = 0.42, // sit-stand
+		.stair_height = 0.0, // stairs
+		.slope_angle = 0.0,  // tilted path
+		.left_foot_on_tilt = false,
+		.right_foot_on_tilt = false};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
+	OWNER->startNewTraj();
+}
+
+void sitStand::BackSteppingLastRight::during(void)
+{
+	OWNER->moveThroughTraj();
+}
+
+void sitStand::BackSteppingLastRight::exit(void)
+{
+	printf("SteppingLastRight State Exited at Time %d\n", OWNER->mark);
+	// do nothing
+}
+////////// STATE ////////////////////
+// BACK Stepping Last Left
+///////////////////////////////////////////////
+void sitStand::BackSteppingLastLeft::entry(void)
+{
+	//READ TIME OF MAIN
+	printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+		.step_duration = STEPTIME,
+		.step_height = STEPHEIGHT,
+		.step_length = STEPTGTLENGTH,
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Right,
+		.movement = Trajectory::Movement::Back,
+		.seat_height = 0.42, // sit-stand
+		.stair_height = 0.0, // stairs
+		.slope_angle = 0.0,  // tilted path
+		.left_foot_on_tilt = false,
+		.right_foot_on_tilt = false};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
+	OWNER->startNewTraj();
+}
+
+void sitStand::BackSteppingLastLeft::during(void)
+{
+	OWNER->moveThroughTraj();
+}
+
+void sitStand::BackSteppingLastLeft::exit(void)
+{
+	printf("SteppingLastRight State Exited at Time %d\n", OWNER->mark);
+}
+//////////////////////////////////////////
+// LEFT BACK
+//////////////////////////////////////////
+void sitStand::LeftBack::entry(void)
+{
+	//READ TIME OF MAIN
+	printf("LeftBack State Entered at Time %d\n", OWNER->mark);
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PAUSE FOR A MOMENT\n");
-	printf("RELEASE BLUE AND YELLOW BUTTONS\n");
-	printf("TAP GREEN TO ENTER WALK SELECTION STATE\n");
+	printf("PRESS GREEN TO STEP RIGHT FOOT BACK TO: FEET TOGETHER\n");
+	printf("PRESS YELLOW TO STEP LEFT FOOT FORWARD TO: FEET TOGETHER\n");
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 }
-void sitStand::WalkSelectConfirm::during(void)
+void sitStand::LeftBack::during(void)
 {
-	// Press green button to leave state
 }
-void sitStand::WalkSelectConfirm::exit(void)
+void sitStand::LeftBack::exit(void)
 {
-	printf("Walk select Confirm Exited at Time %d\n", OWNER->mark);
+	printf("LeftBack State Exited at Time %d\n", OWNER->mark);
 }
+
+//////////////////////////////////////////
+// RIGHT BACK
+//////////////////////////////////////////
+void sitStand::RightBack::entry(void)
+{
+	//READ TIME OF MAIN
+	printf("RightBack State Entered at Time %d\n", OWNER->mark);
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("PRESS GREEN TO STEP LEFT FOOT BACK TO: FEET TOGETHER\n");
+	printf("PRESS YELLOW TO STEP RIGHT FOOT FORWARD TO: FEET TOGETHER\n");
+	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+}
+void sitStand::RightBack::during(void)
+{
+}
+void sitStand::RightBack::exit(void)
+{
+	printf("LeftBack State Exited at Time %d\n", OWNER->mark);
+}
+
+////////// STATE ////////////////////
+// Reverse Right Back = Stepping Last Right
+///////////////////////////////////////////////
+void sitStand::RevRightBack::entry(void)
+{
+	//READ TIME OF MAIN
+	printf("RevRightBack State Entered at Time %d\n", OWNER->mark);
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+		.step_duration = STEPTIME,
+		.step_height = STEPHEIGHT,
+		.step_length = STEPTGTLENGTH,
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Left,
+		.movement = Trajectory::Movement::Walk,
+		.seat_height = 0.42, // sit-stand
+		.stair_height = 0.0, // stairs
+		.slope_angle = 0.0,  // tilted path
+		.left_foot_on_tilt = false,
+		.right_foot_on_tilt = false};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
+	OWNER->startNewTraj();
+}
+
+void sitStand::RevRightBack::during(void)
+{
+	//long lastTarget = 0;
+	// if the green button is pressed move. Or do nothing/
+	OWNER->moveThroughTraj();
+}
+
+void sitStand::RevRightBack::exit(void)
+{
+	printf("RevRightBack State Exited at Time %d\n", OWNER->mark);
+	// do nothing
+}
+
+////////// STATE ////////////////////
+// Reverse Left Back = Stepping Last Left
+///////////////////////////////////////////////
+void sitStand::RevLeftBack::entry(void)
+{
+	//READ TIME OF MAIN
+	printf("RevLeftBack State Entered at Time %d\n", OWNER->mark);
+	Trajectory::trajectory_parameters movement_trajectory_parameters = {
+		.step_duration = STEPTIME,
+		.step_height = STEPHEIGHT,
+		.step_length = STEPTGTLENGTH,
+		.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Right,
+		.movement = Trajectory::Movement::Walk,
+		.seat_height = 0.42, // sit-stand
+		.stair_height = 0.0, // stairs
+		.slope_angle = 0.0,  // tilted path
+		.left_foot_on_tilt = false,
+		.right_foot_on_tilt = false};
+	OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
+
+	OWNER->startNewTraj();
+}
+
+void sitStand::RevLeftBack::during(void)
+{
+	//long lastTarget = 0;
+	// if the green button is pressed move. Or do nothing/
+	OWNER->moveThroughTraj();
+}
+
+void sitStand::RevLeftBack::exit(void)
+{
+	printf("RevLeftBack State Exited at Time %d\n", OWNER->mark);
+	// do nothing
+}
+
 ////////////////////////////////////////////////////////////////
 // Events ------------------------------------------------------------
 ///////////////////////////////////////////////////////////////
@@ -844,61 +1096,62 @@ void sitStand::initRobot(Robot *rb)
 // Update button state, loop counter (mark) and joints from
 void sitStand::hwStateUpdate(void)
 {
-    /*BUTON CODE*/
-    //Read all 4 BUTTONs  and print to screen
-    int redbtn = gp->getValue(redPin);
-    int bluebtn = gp->getValue(bluePin);
-    int greenbtn = gp->getValue(greenPin);
-    int yellowbtn = gp->getValue(yellowPin);
+	/*BUTON CODE*/
+	//Read all 4 BUTTONs  and print to screen
+	int redbtn = gp->getValue(redPin);
+	int bluebtn = gp->getValue(bluePin);
+	int greenbtn = gp->getValue(greenPin);
+	int yellowbtn = gp->getValue(yellowPin);
 
-    // Send buttons to statemachine variables
-    this->yButton = yellowbtn;
-    this->gButton = greenbtn;
-    this->bButton = bluebtn;
-    this->rButton = redbtn;
+	// Send buttons to statemachine variables
+	this->yButton = yellowbtn;
+	this->gButton = greenbtn;
+	this->bButton = bluebtn;
+	this->rButton = redbtn;
 
-    //printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
+	//printf("%d, %d, %d, %d \n", yButton, gButton, bButton, rButton);
 
-    // if (!yButton)
-    // {
-    // 	printf("Yellow \n");
-    // }
-    // if (!gButton)
-    // {
-    // 	printf("Green \n");
-    // }
-    // if (!bButton)
-    // {
-    // 	printf("Blue \n");
-    // }
-    // if (!rButton)
-    // {
-    // 	printf("Red \n");
-    // }
+	// if (!yButton)
+	// {
+	// 	printf("Yellow \n");
+	// }
+	// if (!gButton)
+	// {
+	// 	printf("Green \n");
+	// }
+	// if (!bButton)
+	// {
+	// 	printf("Blue \n");
+	// }
+	// if (!rButton)
+	// {
+	// 	printf("Red \n");
+	// }
 
-    // Update loop time counter
-    mark = mark + 1;
-    robot->updateJoints();
-    // robot->printInfo();
-    // robot->printTrajectories();
+	// Update loop time counter
+	mark = mark + 1;
+	robot->updateJoints();
+	// robot->printInfo();
+	// robot->printTrajectories();
 
-    //printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
-    //printf(std::to_string(robot->joints[2].getActualTorque()));
-    // Log to file
-    if (mark%5==1){
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
-    logfile << std::to_string(currtime);
+	//printf("%d, %3f \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
+	//printf(std::to_string(robot->joints[2].getActualTorque()));
+	// Log to file
+	if (mark % 5 == 1)
+	{
+		struct timeval tv;
+		gettimeofday(&tv, NULL);
+		double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
+		logfile << std::to_string(currtime);
 
-    for (auto i = 0; i < NUM_JOINTS; i++)
-    {
-     	logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
-     	//printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
-    }
-     //printf("\n");
-     logfile << "\n";
-     }
+		for (auto i = 0; i < NUM_JOINTS; i++)
+		{
+			logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
+			//printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
+		}
+		//printf("\n");
+		logfile << "\n";
+	}
 }
 
 void sitStand::startNewTraj()
@@ -922,13 +1175,13 @@ void sitStand::startNewTraj()
 	}
 	cout << "joints position at start traj" << endl;
 	robot->printInfo();
-	startNewTrajJointspace = { .q = {robotJointspace[0],
+	startNewTrajJointspace = {.q = {robotJointspace[0],
 									robotJointspace[1],
 									robotJointspace[2],
 									robotJointspace[3],
 									robotJointspace[4],
 									robotJointspace[5]},
-							  .time = 0 };
+							  .time = 0};
 
 	robot->trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
 
@@ -967,7 +1220,7 @@ void sitStand::moveThroughTraj()
 		// robot->printInfo();
 
 #ifndef _NOACTUATION
- 		// Send a new trajectory point
+		// Send a new trajectory point
 		// Get Trajectory point for this joint based on current time
 		robot->trajectoryObj.calcPosition(fracTrajProgress, positionArray);
 
@@ -977,10 +1230,12 @@ void sitStand::moveThroughTraj()
 			{
 				int j = robot->joints[i].getId();
 				//cout << " applied position on joint " << robot->joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
-				if (i == 4 || i == 5) {
+				if (i == 4 || i == 5)
+				{
 					robot->joints[i].applyPosDeg(180 - rad2deg(positionArray[j - 1]));
 				}
-				else {
+				else
+				{
 					robot->joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
 				}
 				// set state machine bitFlip to LOW state.
