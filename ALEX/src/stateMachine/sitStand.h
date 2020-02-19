@@ -65,6 +65,7 @@ private:
 
     StateObject(WalkSelect) * walkSelect;
     StateObject(BackStepSelect) * backStepSelect;
+    StateObject(ConfirmBackStep) * confirmBackStep;
 
     StateObject(ErrorState) * errorState;
 

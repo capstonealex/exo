@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "vector": "cpp"
+        "vector": "cpp",
+        "orderingmethods": "cpp",
+        "sparseqr": "cpp",
+        "*.tcc": "cpp"
     }
 }

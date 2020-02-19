@@ -110,6 +110,7 @@ sitStand::sitStand(void)
 	steppingLastLeft = new SteppingLastLeft(this);
 	errorState = new ErrorState(this);
 	//Moonwalking back steps
+	confirmBackStep = new ConfirmBackStep(this);
 	backStepSelect = new BackStepSelect(this);
 	walkSelect = new WalkSelect(this);
 	steppingLeftBack = new SteppingLeftBack(this);
@@ -130,10 +131,12 @@ sitStand::sitStand(void)
 	NewTransition(standing, isBPressed, walkSelect);
 	// Transition to forward walking or back step modes
 	NewTransition(walkSelect, isGPressed, steppingFirstLeft);
-	NewTransition(walkSelect, isYPressed, backStepSelect);
-	NewTransition(backStepSelect, isGPressed, steppingLeftBack);
+	NewTransition(walkSelect, isYPressed, confirmBackStep);
+	NewTransition(confirmBackStep, isGPressed, backStepSelect);
+	NewTransition(confirmBackStep, isBPressed, walkSelect);
+
+	NewTransition(backStepSelect, isYPressed, steppingLeftBack);
 	NewTransition(backStepSelect, isBPressed, steppingRightBack);
-	NewTransition(backStepSelect, isYPressed, walkSelect);
 	// Forward Stepping
 	NewTransition(steppingFirstLeft, endTraj, leftForward);
 	NewTransition(leftForward, isGPressed, steppingRight);
@@ -148,13 +151,13 @@ sitStand::sitStand(void)
 	NewTransition(steppingLeftBack, endTraj, leftBack);
 	NewTransition(steppingRightBack, endTraj, rightBack);
 	NewTransition(rightBack, isGPressed, backSteppingLastLeft);
-	NewTransition(backSteppingLastLeft, endTraj, backStepSelect);
+	NewTransition(backSteppingLastLeft, endTraj, confirmBackStep);
 	NewTransition(rightBack, isYPressed, revRightBack);
-	NewTransition(revRightBack, endTraj, backStepSelect);
+	NewTransition(revRightBack, endTraj, confirmBackStep);
 	NewTransition(leftBack, isGPressed, backSteppingLastRight);
-	NewTransition(backSteppingLastRight, endTraj, backStepSelect);
+	NewTransition(backSteppingLastRight, endTraj, confirmBackStep);
 	NewTransition(leftBack, isYPressed, revLeftBack);
-	NewTransition(revLeftBack, endTraj, backStepSelect);
+	NewTransition(revLeftBack, endTraj, confirmBackStep);
 	// Transitions to Error State
 	NewTransition(backStepSelect, isRPressed, errorState);
 	NewTransition(revLeftBack, isRPressed, errorState);
@@ -258,11 +261,14 @@ void sitStand::deactivate(void)
 
 void sitStand::InitState::entry(void)
 {
-	printf("Initialise State Entered at Time %d\n", OWNER->mark);
-
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	// printf("Initialise State Entered at Time %d\n", OWNER->mark);
+	printf("==============\n");
+	printf(" WELCOME BRAD\n");
+	printf("==============\n");
+	printf("\n");
+	printf("========================\n");
+	printf(" BLUE + YELLOW -> START \n");
+	printf("========================\n");
 
 	OWNER->robot->resetTrackingError();
 	// Set up the logging file
@@ -297,12 +303,10 @@ void sitStand::InitState::exit(void)
 
 void sitStand::SittingDwn::entry(void)
 {
-	//READ TIME OF MAIN
 	printf("Sitting Down State Entered at Time %d\n", OWNER->mark);
-
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS GREEN TO BEGIN SITTING DOWN\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("===================\n");
+	printf(" GREEN -> SIT DOWN \n");
+	printf("===================\n");
 
 	Trajectory::trajectory_parameters movement_trajectory_parameters = {
 		.step_duration = SITTIME,
@@ -338,9 +342,9 @@ void sitStand::SittingDwn::exit(void)
 void sitStand::StandingUp::entry(void)
 {
 	printf("Standing Up State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS GREEN TO BEGIN STANDING UP\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("===================\n");
+	printf(" GREEN -> STAND UP\n");
+	printf("===================\n");
 
 	Trajectory::trajectory_parameters movement_trajectory_parameters = {
 		.step_duration = STANDTIME,
@@ -378,9 +382,9 @@ void sitStand::Sitting::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("Sitting State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS YELLOW TO START STANDING UP\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("=======================\n");
+	printf(" YELLOW -> STAND UP\n");
+	printf("=======================\n");
 
 	printf("Forcing to Sitting State\n");
 
@@ -416,11 +420,11 @@ void sitStand::Sitting::exit(void)
 ////////////////////////////////////
 void sitStand::Standing::entry(void)
 {
-	printf("Standing State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS YELLOW TO START Sitting DOWN\n");
-	printf("Press BLUE BUTTON TO ENTER WALKING SELECT STATE\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	// printf("Standing State Entered at Time %d\n", OWNER->mark);
+	printf("======================\n");
+	printf(" YELLOW -> Sit DOWN\n");
+	printf(" BLUE   -> WALK SELECT \n");
+	printf("======================\n");
 }
 void sitStand::Standing::during(void)
 {
@@ -428,7 +432,7 @@ void sitStand::Standing::during(void)
 }
 void sitStand::Standing::exit(void)
 {
-	printf("Standing State Exited at Time %d\n", OWNER->mark);
+	// printf("Standing State Exited at Time %d\n", OWNER->mark);
 }
 
 ////////// STATE ////////////////////
@@ -478,17 +482,17 @@ void sitStand::LeftForward::entry(void)
 {
 	//READ TIME OF MAIN
 	printf("LeftForward State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS GREEN TO KEEP STEPPING\n");
-	printf("PRESS YELLOW TO BRING FEET TOGETHER\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("=========================\n");
+	printf(" GREEN  -> KEEP STEPPING\n");
+	printf(" YELLOW -> FEET TOGETHER\n");
+	printf("=========================\n");
 }
 void sitStand::LeftForward::during(void)
 {
 }
 void sitStand::LeftForward::exit(void)
 {
-	printf("LeftForward State Exited at Time %d\n", OWNER->mark);
+	// printf("LeftForward State Exited at Time %d\n", OWNER->mark);
 }
 
 ////////// STATE ////////////////////
@@ -528,7 +532,7 @@ void sitStand::SteppingRight::during(void)
 
 void sitStand::SteppingRight::exit(void)
 {
-	printf("SteppingRight State Exited at Time %d\n", OWNER->mark);
+	// printf("SteppingRight State Exited at Time %d\n", OWNER->mark);
 	// do nothing
 }
 
@@ -538,11 +542,11 @@ void sitStand::SteppingRight::exit(void)
 void sitStand::RightForward::entry(void)
 {
 	//READ TIME OF MAIN
-	printf("RightForward State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS GREEN TO KEEP STEPPING \n");
-	printf("YELLOW TO BRING FEET TOGETHER\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	// printf("RightForward State Entered at Time %d\n", OWNER->mark);
+	printf("========================\n");
+	printf(" GREEN  -> KEEP STEPPING \n");
+	printf(" YELLOW -> FEET TOGETHER\n");
+	printf("========================n");
 }
 void sitStand::RightForward::during(void)
 {
@@ -550,7 +554,7 @@ void sitStand::RightForward::during(void)
 void sitStand::RightForward::exit(void)
 {
 
-	printf("RightForward State Exited at Time %d\n", OWNER->mark);
+	// printf("RightForward State Exited at Time %d\n", OWNER->mark);
 }
 
 ////////// STATE ////////////////////
@@ -558,7 +562,6 @@ void sitStand::RightForward::exit(void)
 ///////////////////////////////////////////////
 void sitStand::SteppingLeft::entry(void)
 {
-	//READ TIME OF MAIN
 	printf("SteppingLeft State Entered at Time %d\n", OWNER->mark);
 	Trajectory::trajectory_parameters movement_trajectory_parameters = {
 		.step_duration = STEPTIME,
@@ -627,7 +630,7 @@ void sitStand::SteppingLastRight::during(void)
 
 void sitStand::SteppingLastRight::exit(void)
 {
-	printf("SteppingLastRight State Exited at Time %d\n", OWNER->mark);
+	// printf("SteppingLastRight State Exited at Time %d\n", OWNER->mark);
 	// do nothing
 }
 
@@ -666,7 +669,7 @@ void sitStand::SteppingLastLeft::during(void)
 
 void sitStand::SteppingLastLeft::exit(void)
 {
-	printf("SteppingLastLeft State Exited at Time %d\n", OWNER->mark);
+	// printf("SteppingLastLeft State Exited at Time %d\n", OWNER->mark);
 	// do nothing
 }
 
@@ -702,10 +705,10 @@ void sitStand::ErrorState::exit(void)
 void sitStand::WalkSelect::entry(void)
 {
 	printf("Walk Select State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS YELLOW TO Select BACK STEP\n");
-	printf("PRESS GREEN BUTTON TO STEP LEFT LEG FORWARD\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	printf("============================\n");
+	printf(" GREEN  -> LEFT LEG FORWARD \n");
+	printf(" YELLOW -> BACK STEP SELECT \n");
+	printf("============================\n");
 }
 void sitStand::WalkSelect::during(void)
 {
@@ -713,21 +716,42 @@ void sitStand::WalkSelect::during(void)
 }
 void sitStand::WalkSelect::exit(void)
 {
-	printf("Walk select State Exited at Time %d\n", OWNER->mark);
+	// printf("Walk select State Exited at Time %d\n", OWNER->mark);
 }
 ///////// STATE ////////////////////
 // Moon Walking states ------------------------------------------------------------
+// Back Step CONFIRM
+// * CONFIRM BACKSTEP or GO BACK to walk Select *
+///////////////////////////////////////////////
+
+void sitStand::ConfirmBackStep::entry(void)
+{
+	// printf("ConfirmBackStep State Entered at Time %d\n", OWNER->mark);
+	printf("===========================\n");
+	printf("GREEN -> CONFIRM BACKSTEP \n");
+	printf("BLUE  -> WALK SELECT\n");
+	printf("===========================\n");
+}
+void sitStand::ConfirmBackStep::during(void)
+{
+	// Press green button to leave state
+}
+void sitStand::ConfirmBackStep::exit(void)
+{
+	// printf("ConfirmBackStep  Exited at Time %d\n", OWNER->mark);
+}
+///////// STATE ////////////////////
 // Back Step Select
 // * Select which leg you'd like to perform a backward step with *
 ///////////////////////////////////////////////
 
 void sitStand::BackStepSelect::entry(void)
 {
-	printf("Back Step Select State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("Press BLUE to MOVE RIGHT LEG BACK\n");
-	printf("TAP GREEN TO to move RIGHT LEG BACK\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	// printf("Back Step Select State Entered at Time %d\n", OWNER->mark);
+	printf("===========================\n");
+	printf(" BLUE   -> RIGHT LEG BACK\n");
+	printf(" YELLOW -> LEFT  LEG BACK\n");
+	printf("===========================\n");
 }
 void sitStand::BackStepSelect::during(void)
 {
@@ -735,8 +759,9 @@ void sitStand::BackStepSelect::during(void)
 }
 void sitStand::BackStepSelect::exit(void)
 {
-	printf("Back step select  Exited at Time %d\n", OWNER->mark);
+	// printf("Back step select  Exited at Time %d\n", OWNER->mark);
 }
+
 ////////////////////////////////////////////////////////////////
 // Stepping Left Back
 // *Move Left leg back from standing state *
@@ -893,18 +918,18 @@ void sitStand::BackSteppingLastLeft::exit(void)
 void sitStand::LeftBack::entry(void)
 {
 	//READ TIME OF MAIN
-	printf("LeftBack State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS GREEN TO STEP RIGHT FOOT BACK TO: FEET TOGETHER\n");
-	printf("PRESS YELLOW TO STEP LEFT FOOT FORWARD TO: FEET TOGETHER\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	// printf("LeftBack State Entered at Time %d\n", OWNER->mark);
+	printf("===========================\n");
+	printf(" GREEN  -> RIGHT FOOT BACK \n");
+	printf(" YELLOW -> LEFT FOOT FORWARD \n");
+	printf("===========================\n");
 }
 void sitStand::LeftBack::during(void)
 {
 }
 void sitStand::LeftBack::exit(void)
 {
-	printf("LeftBack State Exited at Time %d\n", OWNER->mark);
+	// printf("LeftBack State Exited at Time %d\n", OWNER->mark);
 }
 
 //////////////////////////////////////////
@@ -913,18 +938,18 @@ void sitStand::LeftBack::exit(void)
 void sitStand::RightBack::entry(void)
 {
 	//READ TIME OF MAIN
-	printf("RightBack State Entered at Time %d\n", OWNER->mark);
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-	printf("PRESS GREEN TO STEP LEFT FOOT BACK TO: FEET TOGETHER\n");
-	printf("PRESS YELLOW TO STEP RIGHT FOOT FORWARD TO: FEET TOGETHER\n");
-	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	// printf("RightBack State Entered at Time %d\n", OWNER->mark);
+	printf("================================================\n");
+	printf(" GREEN  -> LEFT FOOT BACK -> FEET TOGETHER\n");
+	printf(" YELLOW -> RIGHT FOOT FORWARD -> FEET TOGETHER\n");
+	printf("================================================\n");
 }
 void sitStand::RightBack::during(void)
 {
 }
 void sitStand::RightBack::exit(void)
 {
-	printf("LeftBack State Exited at Time %d\n", OWNER->mark);
+	// printf("LeftBack State Exited at Time %d\n", OWNER->mark);
 }
 
 ////////// STATE ////////////////////
