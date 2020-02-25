@@ -7,9 +7,6 @@
 
 #include "StateMachine.h"
 #include "Robot.h"
-#include "GPIOManager.h"
-#include "GPIOConst.h"
-
 #define OWNER ((exoStateMachine *)owner)
 // Designed State and event classes
 #include "InitState.h"
@@ -76,13 +73,8 @@ private:
 
     // data;
     int calibrated;
-    int gButton;
-    int yButton;
-    int bButton;
-    int rButton;
     int arrayIndex;
     int bitFlipState;
-    GPIO::GPIOManager *gp;
 };
 
 #endif //EXO_SITSTAND_H

@@ -1,5 +1,5 @@
-#include "GPIOManager.h"
-#include "GPIOConst.h"
+#include "GPIO/GPIOManager.h"
+#include "GPIO/GPIOConst.h"
 #include <iostream>
 class Buttons
 {
@@ -8,7 +8,7 @@ private:
     int yButton;
     int bButton;
     int rButton;
-// button 
+    // button
 
 public:
     Buttons();

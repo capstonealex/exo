@@ -12,11 +12,12 @@ SOCKETCAN_DIR = src/CANopenNode/stack/socketCAN
 OD_DIR = src/objDict
 ROBOT_DIR = src/robot
 SM_DIR = src/stateMachine
+EIGEN_DIR0 = src/robot/Eigen
 STATE_DIR= src/stateMachine/states
 
 
 TARGET_FOLDER = bin/
-LINK_TARGET  =  $ ALEX_APP
+LINK_TARGET  =  $ EXO_APP
 
 INCLUDE_DIRS = 	-I$(SRC_DIR) \
 				-I$(CAN_DIR)    \
@@ -25,6 +26,7 @@ INCLUDE_DIRS = 	-I$(SRC_DIR) \
 				-I$(OD_DIR) \
 				-I$(ROBOT_DIR) \
 				-I$(SM_DIR)	\
+				-I$(EIGEN_DIR0) \
 				-I$(STATE_DIR)
 
 SOURCES =   $(wildcard src/*.c) $(wildcard src/*/*.c) $(wildcard src/*/*/*.c) $(wildcard src/*/*/*/*.c)
