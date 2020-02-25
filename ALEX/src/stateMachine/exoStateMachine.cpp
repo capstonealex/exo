@@ -121,9 +121,7 @@ void exoStateMachine::init(void)
     StateMachine::init();
 // Configure the drives
 // VIRTUAL ROBOT
-#ifdef _VIRTUALROBOT
-    calibrated = 1;
-#endif
+#ifndef _VIRTUALROBOT
     printf("Remapping PDOs \n");
     if (calibrated == 0)
     {
@@ -137,7 +135,7 @@ void exoStateMachine::init(void)
     {
         printf("Motors already calibrated for motion\n");
     }
-#ifndef _VIRTUALROBOT
+
     printf("Initialising Position Control \n");
     if (!robot->initPositionControl())
     {
