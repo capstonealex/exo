@@ -5,6 +5,8 @@
 #ifndef CANOPENBEAGLE_ROBOT_H
 #define CANOPENBEAGLE_ROBOT_H
 #include "Joint.h"
+#include "spline.h"
+#include "Trajectory.h"
 #include "Buttons.h"
 #include <array>
 // Trajectory constants
@@ -46,6 +48,7 @@ private:
 
 public:
     Robot();
+    Trajectory trajectoryObj;
     Joint joints[NUM_JOINTS];
     double fracTrajProgress = 0;
     double trajTime;
@@ -78,7 +81,7 @@ public:
     struct timeval last_tv;
     // Trajectory functions - should move to trajectory object
     void startNewTraj();
-    void moveThroughTraj(double (*trajFunction)(int, double), double trajTime);
+    void moveThroughTraj();
     static double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime);
     static double sittingTrajFunc(int jointInd, double scaledTime);
     static double standUpTrajFunc(int jointInd, double scaledTime);

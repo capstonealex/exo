@@ -37,11 +37,8 @@ public:
     void update(void);
     State *gettCurState(void);
     void initRobot(Robot *rb);
-    //bool bitFlip(int i);
     bool initPositionControl();
     void startNewTraj();
-    void moveThroughTraj(double (*trajFunction)(int, double, Robot *), double trajTime);
-    // Robot interface to be used by states to interact with hardware
     Robot *robot;
     int mark;
 

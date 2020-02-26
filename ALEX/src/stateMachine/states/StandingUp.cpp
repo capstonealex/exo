@@ -13,7 +13,7 @@ void StandingUp::entry(void)
 void StandingUp::during(void)
 {
     // if the green button is pressed move. Or do nothing
-    OWNER->robot->moveThroughTraj(OWNER->robot->standUpTrajFunc, SITSTANDTIME);
+    OWNER->robot->moveThroughTraj();
 }
 void StandingUp::exit(void)
 {

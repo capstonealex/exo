@@ -28,7 +28,7 @@
 #include <time.h> /* time_t, struct tm, time, localtime, strftime */
 #include <string>
 
-#include "Joint.h"
+int running = 0;
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
@@ -119,8 +119,6 @@ void exoStateMachine::init(void)
     std::cout << "Welcome to The ALEX STATE MACHINE"
               << "\n";
     StateMachine::init();
-// Configure the drives
-// VIRTUAL ROBOT
 #ifndef _VIRTUALROBOT
     printf("Remapping PDOs \n");
     if (calibrated == 0)
@@ -135,7 +133,6 @@ void exoStateMachine::init(void)
     {
         printf("Motors already calibrated for motion\n");
     }
-
     printf("Initialising Position Control \n");
     if (!robot->initPositionControl())
     {
@@ -239,13 +236,13 @@ bool exoStateMachine::ResetButtonsPressed::check(void)
 /////////////////////////////////////////////////////////////////////
 void exoStateMachine::initRobot(Robot *rb)
 {
-    cout << "initRobot function entered" << endl;
     if (robot != NULL)
     {
         printf("Robot object already selected");
     }
     robot = rb;
     robot->buttons.initButtons();
+    std::cout << "Robot object initialized" << std::endl;
     robot->printInfo();
 };
 
@@ -269,7 +266,6 @@ void exoStateMachine::hwStateUpdate(void)
     {
         logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
     }
-    //printf("\n");
     logfile << "\n";
     robot->buttons.printPressedButtons();
     // }

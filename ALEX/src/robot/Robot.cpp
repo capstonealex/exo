@@ -198,14 +198,35 @@ Robot::Robot()
 {
     positionControlConfigured = false;
     cout << "Setting Robot joint initial conditions...\n";
-    // Set joint Intial positions.
-
-    // // Set joint Intial positions to 0, Set joint IDs, Populate joint Trajectories
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
         joints[i].applyPos(0);
         joints[i].setId(i + 1);
     }
+    Trajectory::trajectory_parameters initial_trajectory_parameters = {
+        .step_duration = 1,
+        .step_height = 0.2,
+        .step_length = 0.3,
+        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .swing_ankle_down_angle = 0,
+        .stance_foot = Trajectory::Foot::Right,
+        .movement = Trajectory::Movement::Sitting,
+        .seat_height = 0.45,    // sit-stand
+        .step_end_height = 0.0, // stairs
+        .slope_angle = 0.0,     // tilted path
+        .left_foot_on_tilt = false,
+        .right_foot_on_tilt = false};
+    Trajectory::pilot_parameters lenny_parameters = {
+        .lowerleg_length = 0.43,
+        .upperleg_length = 0.46,
+        .ankle_height = 0.12,
+        .foot_length = 0.30,
+        .hip_width = 0.43,
+        .torso_length = 0.4,
+        .buttocks_height = 0.05};
+    trajectoryObj.setPilotParameter(lenny_parameters);
+    trajectoryObj.setTrajectoryParameter(initial_trajectory_parameters);
 }
 void Robot::printInfo()
 {
@@ -548,15 +569,8 @@ bool Robot::resetTrackingError(void)
     }
     return true;
 }
-
 void Robot::startNewTraj()
 {
-    // Reset the time
-    timerclear(&moving_tv);
-    timerclear(&stationary_tv);
-    gettimeofday(&start_traj, NULL);
-    last_tv = start_traj;
-
     // Set the bit flip state to zero
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
@@ -566,11 +580,36 @@ void Robot::startNewTraj()
     // Index Resetting
     desiredIndex = 0;
     fracTrajProgress = 0;
+    Trajectory::jointspace_state startNewTrajJointspace;
+    double robotJointspace[NUM_JOINTS];
+    int i;
+    for (i = 0; i < NUM_JOINTS; i++)
+    {
+        int j = joints[i].getId();
+        robotJointspace[j - 1] = deg2rad(joints[i].getPosDeg());
+    }
+    cout << "joints position at start traj" << endl;
+    printInfo();
+    startNewTrajJointspace = {.q = {robotJointspace[0],
+                                    robotJointspace[1],
+                                    robotJointspace[2],
+                                    robotJointspace[3],
+                                    robotJointspace[4],
+                                    robotJointspace[5]},
+                              .time = 0};
+
+    trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
+
+    // Reset the time
+    timerclear(&moving_tv);
+    timerclear(&stationary_tv);
+    gettimeofday(&start_traj, NULL);
+    last_tv = start_traj;
 
     printf("Start New Traj \n");
 }
 
-void Robot::moveThroughTraj(double (*trajFunction)(int, double), double trajTime)
+void Robot::moveThroughTraj()
 {
     //long lastTarget = 0;
     struct timeval tv;
@@ -583,26 +622,30 @@ void Robot::moveThroughTraj(double (*trajFunction)(int, double), double trajTime
     //uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
     long movingMicro = moving_tv.tv_sec * 1000000 + moving_tv.tv_usec;
 
-    double trajTimeUS = trajTime * 1000000;
+    double trajTimeUS = trajectoryObj.trajectoryParameter.step_duration * 1000000;
     fracTrajProgress = movingMicro / trajTimeUS;
-    /*If gButton -> else commented out until button code integrated as object*/
-    /*if Green Button is pressed, move through trajetory. Otherwise stay where you are*/
-    int gButton = 0;
+
+    // if Green Button is pressed, move through trajetory. Otherwise stay where you are
     if (!buttons.getGButtonState())
     {
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
+        //array for position and velocity profile
+        double positionArray[NUM_JOINTS];
+        // printInfo();
 
 #ifndef _NOACTUATION
+        // Send a new trajectory point
+        // Get Trajectory point for this joint based on current time
+        trajectoryObj.calcPosition(fracTrajProgress, positionArray);
+
         for (int i = 0; i < NUM_JOINTS; i++)
         {
             if (joints[i].getBitFlipState() == NOFLIP)
             {
-                // Send a new trajectory point
-                // Get Trajectory point for this joint based on current time
-                double desiredPos = (*trajFunction)(joints[i].getId(), fracTrajProgress);
-                //printf("%d, %3f \n", i, desiredPos );
-                joints[i].applyPosDeg(desiredPos);
+                int j = joints[i].getId();
+                cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+                joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
 
                 // set state machine bitFlip to LOW state.
                 joints[i].bitflipLow();
@@ -621,7 +664,7 @@ void Robot::moveThroughTraj(double (*trajFunction)(int, double), double trajTime
     }
 }
 
-// Trajectory functions
+// OLD Trajectory functions
 // From input array of points, getInterpolatedPoints outputs an interpolated point
 // @ the given time instance from the array.
 

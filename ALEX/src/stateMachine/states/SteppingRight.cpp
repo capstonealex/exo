@@ -12,7 +12,7 @@ void SteppingRight::entry(void)
 void SteppingRight::during(void)
 {
     // if the green button is pressed move. Or do nothing/
-    OWNER->robot->moveThroughTraj(OWNER->robot->steppingRightTrajFunc, STEPTIME);
+    OWNER->robot->moveThroughTraj();
 }
 
 void SteppingRight::exit(void)

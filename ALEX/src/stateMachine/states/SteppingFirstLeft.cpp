@@ -15,7 +15,7 @@ void SteppingFirstLeft::during(void)
     //long lastTarget = 0;
     // if the green button is pressed move. Or do nothing/
     OWNER->robot->trajTime = STEPTIME;
-    OWNER->robot->moveThroughTraj(OWNER->robot->steppingFirstLeftTrajFunc, OWNER->robot->trajTime);
+    OWNER->robot->moveThroughTraj();
 }
 
 void SteppingFirstLeft::exit(void)
