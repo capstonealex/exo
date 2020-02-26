@@ -5,7 +5,9 @@
 void SteppingLastLeft::entry(void)
 {
     std::cout
-        << "SteppingLastLeft State Entered at Time: " << OWNER->mark << endl;
+        << "==================" << endl
+        << " Stepping Last Left" << endl
+        << "==================" << endl;
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STEPTIME,
         .step_height = STEPHEIGHT,

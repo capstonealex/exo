@@ -7,7 +7,6 @@
 //State machine constructors
 StateMachine::StateMachine(void)
 {
-    std::cout << "Constructor sm:" << this << endl;
     currentState = NULL;
 };
 // Set initial state to input of constructor

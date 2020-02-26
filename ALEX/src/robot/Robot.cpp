@@ -18,7 +18,6 @@
 Robot::Robot()
 {
     positionControlConfigured = false;
-    cout << "Setting Robot joint initial conditions...\n";
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
         joints[i].applyPos(0);
@@ -409,8 +408,8 @@ void Robot::startNewTraj()
         int j = joints[i].getId();
         robotJointspace[j - 1] = deg2rad(joints[i].getPosDeg());
     }
-    cout << "joints position at start traj" << endl;
-    printInfo();
+    // cout << "joints position at start traj" << endl;
+    // printInfo();
     startNewTrajJointspace = {.q = {robotJointspace[0],
                                     robotJointspace[1],
                                     robotJointspace[2],
@@ -465,7 +464,7 @@ void Robot::moveThroughTraj()
             if (joints[i].getBitFlipState() == NOFLIP)
             {
                 int j = joints[i].getId();
-                cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+                // cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
                 joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
 
                 // set state machine bitFlip to LOW state.

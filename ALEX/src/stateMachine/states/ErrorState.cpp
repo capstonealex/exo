@@ -6,10 +6,14 @@
 void ErrorState::entry(void)
 {
     //READ TIME OF MAIN
-    printf("Error State Entered at Time %d\n", OWNER->mark);
+    std::cout
+        << "==================" << endl
+        << " ERROR STATE !!!!" << endl
+        << "==================" << endl
+        << "Reset -> Red + Green" << endl
+        << "==================" << endl;
     // logfile.close();
     // printf("File Closed \n");
-    printf("Reset with Red + Green \n");
 
     // Set Drives to Disabled mode
     for (auto i = 0; i < NUM_JOINTS; i++)

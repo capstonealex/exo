@@ -82,9 +82,9 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(standingUp, endTraj, standing);
     NewTransition(standing, isBPressed, steppingFirstLeft);
     NewTransition(steppingFirstLeft, endTraj, leftForward);
-    NewTransition(leftForward, isBPressed, steppingRight);
+    NewTransition(leftForward, isGPressed, steppingRight);
     NewTransition(steppingRight, endTraj, rightForward);
-    NewTransition(rightForward, isBPressed, steppingLeft);
+    NewTransition(rightForward, isGPressed, steppingLeft);
     NewTransition(steppingLeft, endTraj, leftForward);
     NewTransition(leftForward, isYPressed, steppingLastRight);
     NewTransition(rightForward, isYPressed, steppingLastLeft);
@@ -264,6 +264,6 @@ void exoStateMachine::hwStateUpdate(void)
         logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
     }
     logfile << "\n";
-    robot->buttons.printPressedButtons();
+    // robot->buttons.printPressedButtons();
     // }
 }

@@ -6,7 +6,10 @@ void SteppingFirstLeft::entry(void)
 {
     //READ TIME OF MAIN
     std::cout
-        << "SteppingFirstLeft State Entered at Time: " << OWNER->mark << endl;
+        << "==================" << endl
+        << " Stepping 1st Left" << endl
+        << "==================" << endl;
+    // << "SteppingFirstLeft State Entered at Time: " << OWNER->mark << endl;
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         //.step_duration = STEPTIME,
         .step_duration = UNEVENSTEPTIME,
