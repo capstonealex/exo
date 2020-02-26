@@ -2144,25 +2144,25 @@ typedef domain_t DOMAIN;
 #define OD_2110_32_variableInt32_int32 32
 
 /*2111 */
-#define OD_2111_variableROM_Int32 0x2111
+// #define OD_2111_variableROM_Int32 0x2111
 
-#define OD_2111_0_variableROM_Int32_maxSubIndex 0
-#define OD_2111_1_variableROM_Int32_int32 1
-#define OD_2111_2_variableROM_Int32_int32 2
-#define OD_2111_3_variableROM_Int32_int32 3
-#define OD_2111_4_variableROM_Int32_int32 4
-#define OD_2111_5_variableROM_Int32_int32 5
-#define OD_2111_6_variableROM_Int32_int32 6
-#define OD_2111_7_variableROM_Int32_int32 7
-#define OD_2111_8_variableROM_Int32_int32 8
-#define OD_2111_9_variableROM_Int32_int32 9
-#define OD_2111_10_variableROM_Int32_int32 10
-#define OD_2111_11_variableROM_Int32_int32 11
-#define OD_2111_12_variableROM_Int32_int32 12
-#define OD_2111_13_variableROM_Int32_int32 13
-#define OD_2111_14_variableROM_Int32_int32 14
-#define OD_2111_15_variableROM_Int32_int32 15
-#define OD_2111_16_variableROM_Int32_int32 16
+// #define OD_2111_0_variableROM_Int32_maxSubIndex 0
+// #define OD_2111_1_variableROM_Int32_int32 1
+// #define OD_2111_2_variableROM_Int32_int32 2
+// #define OD_2111_3_variableROM_Int32_int32 3
+// #define OD_2111_4_variableROM_Int32_int32 4
+// #define OD_2111_5_variableROM_Int32_int32 5
+// #define OD_2111_6_variableROM_Int32_int32 6
+// #define OD_2111_7_variableROM_Int32_int32 7
+// #define OD_2111_8_variableROM_Int32_int32 8
+// #define OD_2111_9_variableROM_Int32_int32 9
+// #define OD_2111_10_variableROM_Int32_int32 10
+// #define OD_2111_11_variableROM_Int32_int32 11
+// #define OD_2111_12_variableROM_Int32_int32 12
+// #define OD_2111_13_variableROM_Int32_int32 13
+// #define OD_2111_14_variableROM_Int32_int32 14
+// #define OD_2111_15_variableROM_Int32_int32 15
+// #define OD_2111_16_variableROM_Int32_int32 16
 
 /*2112 */
 #define OD_2112_variableNV_Int32 0x2112
@@ -3110,16 +3110,16 @@ typedef domain_t DOMAIN;
 *******************************************************************************/
 #define CO_OD_FIRST_LAST_WORD 0x55 //Any value from 0x01 to 0xFE. If changed, EEPROM will be reinitialized.
 
-/***** Structure for ROM variables ********************************************/
-struct sCO_OD_ROM
-{
-        UNSIGNED32 FirstWord;
+// /***** Structure for ROM variables ********************************************/
+// struct sCO_OD_ROM
+// {
+//         UNSIGNED32 FirstWord;
 
-        /*100c      */ UNSIGNED16 guardTime;
-        /*1012      */ UNSIGNED32 COB_ID_TIME;
+//         /*100c      */ UNSIGNED16 guardTime;
+//         /*1012      */ UNSIGNED32 COB_ID_TIME;
 
-        UNSIGNED32 LastWord;
-};
+//         UNSIGNED32 LastWord;
+// };
 
 /***** Structure for RAM variables ********************************************/
 struct sCO_OD_RAM
@@ -3198,11 +3198,8 @@ struct sCO_OD_EEPROM
 };
 
 /***** Declaration of Object Dictionary variables *****************************/
-extern struct sCO_OD_ROM CO_OD_ROM;
 
 extern struct sCO_OD_RAM CO_OD_RAM;
-
-extern struct sCO_OD_EEPROM CO_OD_EEPROM;
 
 /*******************************************************************************
    ALIASES FOR OBJECT DICTIONARY VARIABLES
