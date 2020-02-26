@@ -82,15 +82,6 @@ public:
     // Trajectory functions - should move to trajectory object
     void startNewTraj();
     void moveThroughTraj();
-    static double getInterpolatedPoint(std::array<double, TRAJ_LENGTH> points, double scaledTime);
-    static double sittingTrajFunc(int jointInd, double scaledTime);
-    static double standUpTrajFunc(int jointInd, double scaledTime);
-    static double sitDownTrajFunc(int jointInd, double scaledTime);
-    static double steppingFirstLeftTrajFunc(int jointInd, double scaledTime);
-    static double steppingRightTrajFunc(int jointInd, double scaledTime);
-    static double steppingLeftTrajFunc(int jointInd, double scaledTime);
-    static double steppingLastRightTrajFunc(int jointInd, double scaledTime);
-    static double steppingLastLeftTrajFunc(int jointInd, double scaledTime);
 };
 
 #endif //CAPSTONE_ROBOT_H

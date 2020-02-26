@@ -5,20 +5,34 @@
 void SteppingLastRight::entry(void)
 {
     //READ TIME OF MAIN
-    printf("SteppingLastRight State Entered at Time %d\n", OWNER->mark);
+    std::cout
+        << "SteppingLastRight State Entered at Time: " << OWNER->mark << endl;
+    Trajectory::trajectory_parameters movement_trajectory_parameters = {
+        .step_duration = STEPTIME,
+        .step_height = STEPHEIGHT,
+        .step_length = STEPTGTLENGTH,
+        .hip_height_slack = LEGSLACK,      // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+        .swing_ankle_down_angle = 0,
+        .stance_foot = Trajectory::Foot::Left,
+        .movement = Trajectory::Movement::Back,
+        .seat_height = 0.42,    // sit-stand
+        .step_end_height = 0.0, // stairs
+        .slope_angle = 0.0,     // tilted path
+        .left_foot_on_tilt = false,
+        .right_foot_on_tilt = false};
+    OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
 
     OWNER->robot->startNewTraj();
 }
 
 void SteppingLastRight::during(void)
 {
-    //long lastTarget = 0;
-    // if the green button is pressed move. Or do nothing/
     OWNER->robot->moveThroughTraj();
 }
 
 void SteppingLastRight::exit(void)
 {
-    printf("SteppingLastRight State Exited at Time %d\n", OWNER->mark);
-    // do nothing
+    std::cout
+        << "SteppingLastRight State Exited at Time: " << OWNER->mark << endl;
 }

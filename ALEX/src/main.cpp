@@ -164,7 +164,7 @@ int main(int argc, char *argv[])
         CO_errExit(s);
     }
 
-    printf("starting CANopen device with Node ID %d(0x%02X)", nodeId, nodeId);
+    //printf("starting CANopen device with Node ID %d(0x%02X)", nodeId, nodeId);
 
     /* Verify, if OD structures have proper alignment of initial values */
     if (CO_OD_RAM.FirstWord != CO_OD_RAM.LastWord)
@@ -201,7 +201,7 @@ int main(int argc, char *argv[])
         /* CANopen communication reset - initialize CANopen objects *******************/
         CO_ReturnError_t err;
 
-        printf("Canopend- communication reset ...\n");
+        //printf("Canopend- communication reset ...\n");
 
         /* Wait other threads (command interface). */
         pthread_mutex_lock(&CO_CAN_VALID_mtx);

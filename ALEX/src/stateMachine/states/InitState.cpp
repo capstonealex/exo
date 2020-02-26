@@ -2,10 +2,14 @@
 
 void InitState::entry(void)
 {
-    printf("Init State Entered at Time %d\n", OWNER->mark);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS BLUE + YELLOW  TO START PROGRAM\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    std::cout
+        << "==============" << endl
+        << " WELCOME BRAD" << endl
+        << "==============" << endl
+        << endl
+        << "========================" << endl
+        << " BLUE + YELLOW -> START " << endl
+        << "========================" << endl;
     OWNER->robot->resetTrackingError();
     // Set up the logging file
     // time_t rawtime;
@@ -29,7 +33,7 @@ void InitState::during(void)
 void InitState::exit(void)
 {
 
-    printf("Initialise State Exited at Time %d\n", owner->mark);
+    std::cout << "Initialise State Exited at Time: " << OWNER->mark << endl;
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
         OWNER->robot->joints[i].enable();

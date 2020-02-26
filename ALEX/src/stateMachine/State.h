@@ -26,7 +26,7 @@ public:
         owner = p;
         numarcs = 0;
         name = n; // name of state
-        std::cout << "State created\n";
+        // std::cout << "State created\n";
     };
     ~State();
     // Arc creating and accessing functions

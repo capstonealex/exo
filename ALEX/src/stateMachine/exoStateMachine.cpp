@@ -116,8 +116,6 @@ void exoStateMachine::init(void)
 {
     mark = 1;
     calibrated = 0;
-    std::cout << "Welcome to The ALEX STATE MACHINE"
-              << "\n";
     StateMachine::init();
 #ifndef _VIRTUALROBOT
     printf("Remapping PDOs \n");
@@ -242,8 +240,7 @@ void exoStateMachine::initRobot(Robot *rb)
     }
     robot = rb;
     robot->buttons.initButtons();
-    std::cout << "Robot object initialized" << std::endl;
-    robot->printInfo();
+    // robot->printInfo();
 };
 
 // Update button state, loop counter (mark) and joints

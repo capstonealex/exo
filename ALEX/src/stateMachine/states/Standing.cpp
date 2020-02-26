@@ -4,11 +4,11 @@
 ////////////////////////////////////
 void Standing::entry(void)
 {
-    printf("Standing State Entered at Time %d\n", OWNER->mark);
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("PRESS YELLOW TO START Sitting DOWN\n");
-    printf("PRESS BLUE BUTTON TO STEP LEFT LEG FORWARD\n");
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    std::cout
+        << "======================" << endl
+        << " YELLOW -> Sit DOWN" << endl
+        << " BLUE   -> WALK SELECT" << endl
+        << "======================" << endl;
 }
 void Standing::during(void)
 {
@@ -16,5 +16,6 @@ void Standing::during(void)
 }
 void Standing::exit(void)
 {
-    printf("Standing State Exited at Time %d\n", OWNER->mark);
+    std::cout
+        << "Standing State Exited at Time: " << OWNER->mark << endl;
 }

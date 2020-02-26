@@ -29,7 +29,7 @@ void Buttons::initButtons(void)
     gp->setDirection(greenPin, GPIO::INPUT);
     gp->setDirection(yellowPin, GPIO::INPUT);
     //for testing
-    std::cout << "buttons initialized\n";
+    // std::cout << "buttons initialized\n";
 }
 // get functions for each individual button and all buttons as an array
 

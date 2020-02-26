@@ -72,7 +72,7 @@ exoStateMachine exoMachine;
 /******************************************************************************/
 void app_programStart(void)
 {
-    printf("app_Program Start \n");
+    //printf("app_Program Start \n");
     exoMachine.initRobot(&exo);
     exoMachine.init();
     exoMachine.activate();
