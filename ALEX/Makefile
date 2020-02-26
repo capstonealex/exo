@@ -12,9 +12,12 @@ SOCKETCAN_DIR = src/CANopenNode/stack/socketCAN
 OD_DIR = src/objDict
 ROBOT_DIR = src/robot
 SM_DIR = src/stateMachine
+EIGEN_DIR0 = src/robot/Eigen
+STATE_DIR= src/stateMachine/states
+
 
 TARGET_FOLDER = bin/
-LINK_TARGET  =  $ ALEX_APP
+LINK_TARGET  =  $ EXO_APP
 
 INCLUDE_DIRS = 	-I$(SRC_DIR) \
 				-I$(CAN_DIR)    \
@@ -22,7 +25,9 @@ INCLUDE_DIRS = 	-I$(SRC_DIR) \
 				-I$(SOCKETCAN_DIR)  \
 				-I$(OD_DIR) \
 				-I$(ROBOT_DIR) \
-				-I$(SM_DIR)    
+				-I$(SM_DIR)	\
+				-I$(EIGEN_DIR0) \
+				-I$(STATE_DIR)
 
 SOURCES =   $(wildcard src/*.c) $(wildcard src/*/*.c) $(wildcard src/*/*/*.c) $(wildcard src/*/*/*/*.c)
 CPPSOURCES =  $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp)
@@ -41,10 +46,10 @@ OBJS = $(SOURCES:%.c=%.o) $(CPPSOURCES:%.cpp=%.o)
 #CC = g++
 #CFLAGS =  -std=c++11  -g $(INCLUDE_DIRS)
 #LDFLAGS = -lrt -pthread
-
+#O3 is optimization v3 flag -> for EIGEN calculations
 CC = arm-linux-gnueabihf-gcc
 CXX = arm-linux-gnueabihf-g++
-CXXFLAGS = -Wall -std=c++11 -g $(INCLUDE_DIRS)
+CXXFLAGS = -std=c++11 -O3 $(INCLUDE_DIRS)
 LDFLAGS = -lpthread 
 
 $(LINK_TARGET): $(OBJS)

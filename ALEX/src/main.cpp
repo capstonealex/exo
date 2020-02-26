@@ -46,7 +46,7 @@
 
 /*Non canopenNode + Socket libraries*/
 #include "Robot.h"
-#include "sitStand.h"
+#include "exoStateMachine.h"
 
 /*For master-> code SDO direct messaging*/
 // #define CO_COMMAND_SDO_BUFFER_SIZE 100000
@@ -68,19 +68,15 @@ volatile uint32_t CO_timer1ms = 0U;
 pthread_mutex_t CO_CAN_VALID_mtx = PTHREAD_MUTEX_INITIALIZER;
 
 /* Other variables and objects */
-static int rtPriority = 10;                          /* Real time priority, configurable by arguments. (-1=RT disabled) */
-static int mainline_epoll_fd;                        /* epoll file descriptor for mainline */
-static CO_OD_storage_t odStor;                       /* Object Dictionary storage object for CO_OD_ROM */
-static CO_OD_storage_t odStorAuto;                   /* Object Dictionary storage object for CO_OD_EEPROM */
-static char *odStorFile_rom = "od4_storage";         /* Name of the file */
-static char *odStorFile_eeprom = "od4_storage_auto"; /* Name of the file */
-static CO_time_t CO_time;                            /* Object for current time */
+static int rtPriority = 10;   /* Real time priority, configurable by arguments. (-1=RT disabled) */
+static int mainline_epoll_fd; /* epoll file descriptor for mainline */
+
+static CO_time_t CO_time; /* Object for current time */
 int commCount = 0;
 
 uint32_t tmr1msPrev = 0;
 
 //struct timeval last_tv;
-
 
 /* Realtime thread */
 static void *rt_thread(void *arg);
@@ -114,7 +110,6 @@ void CO_error(const uint32_t info)
 int main(int argc, char *argv[])
 {
     CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
-    CO_ReturnError_t odStorStatus_rom, odStorStatus_eeprom;
     int CANdevice0Index = 0;
     int opt;
     bool_t firstRun = true;
@@ -165,7 +160,7 @@ int main(int argc, char *argv[])
         CO_errExit(s);
     }
 
-    printf("starting CANopen device with Node ID %d(0x%02X)", nodeId, nodeId);
+    //printf("starting CANopen device with Node ID %d(0x%02X)", nodeId, nodeId);
 
     /* Verify, if OD structures have proper alignment of initial values */
     if (CO_OD_RAM.FirstWord != CO_OD_RAM.LastWord)
@@ -173,20 +168,16 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Program init - Canopend- Error in CO_OD_RAM.\n");
         exit(EXIT_FAILURE);
     }
-    if (CO_OD_EEPROM.FirstWord != CO_OD_EEPROM.LastWord)
-    {
-        fprintf(stderr, "Program init - Canopend - Error in CO_OD_EEPROM.\n");
-        exit(EXIT_FAILURE);
-    }
-    if (CO_OD_ROM.FirstWord != CO_OD_ROM.LastWord)
-    {
-        fprintf(stderr, "Program init - Canopend - Error in CO_OD_ROM.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    /* initialize Object Dictionary storage */
-    odStorStatus_rom = CO_OD_storage_init(&odStor, (uint8_t *)&CO_OD_ROM, sizeof(CO_OD_ROM), odStorFile_rom);
-    odStorStatus_eeprom = CO_OD_storage_init(&odStorAuto, (uint8_t *)&CO_OD_EEPROM, sizeof(CO_OD_EEPROM), odStorFile_eeprom);
+    // if (CO_OD_EEPROM.FirstWord != CO_OD_EEPROM.LastWord)
+    // {
+    //     fprintf(stderr, "Program init - Canopend - Error in CO_OD_EEPROM.\n");
+    //     exit(EXIT_FAILURE);
+    // }
+    // if (CO_OD_ROM.FirstWord != CO_OD_ROM.LastWord)
+    // {
+    //     fprintf(stderr, "Program init - Canopend - Error in CO_OD_ROM.\n");
+    //     exit(EXIT_FAILURE);
+    // }
 
     /* Catch signals SIGINT and SIGTERM */
     if (signal(SIGINT, sigHandler) == SIG_ERR)
@@ -202,7 +193,7 @@ int main(int argc, char *argv[])
         /* CANopen communication reset - initialize CANopen objects *******************/
         CO_ReturnError_t err;
 
-        printf("Canopend- communication reset ...\n");
+        //printf("Canopend- communication reset ...\n");
 
         /* Wait other threads (command interface). */
         pthread_mutex_lock(&CO_CAN_VALID_mtx);
@@ -232,18 +223,6 @@ int main(int argc, char *argv[])
             CO_errExit(s);
         }
 
-        /* initialize OD objects 1010 and 1011 and verify errors. */
-        CO_OD_configure(CO->SDO[0], OD_H1010_STORE_PARAM_FUNC, CO_ODF_1010, (void *)&odStor, 0, 0U);
-        CO_OD_configure(CO->SDO[0], OD_H1011_REST_PARAM_FUNC, CO_ODF_1011, (void *)&odStor, 0, 0U);
-        if (odStorStatus_rom != CO_ERROR_NO)
-        {
-            CO_errorReport(CO->em, CO_EM_NON_VOLATILE_MEMORY, CO_EMC_HARDWARE, (uint32_t)odStorStatus_rom);
-        }
-        if (odStorStatus_eeprom != CO_ERROR_NO)
-        {
-            CO_errorReport(CO->em, CO_EM_NON_VOLATILE_MEMORY, CO_EMC_HARDWARE, (uint32_t)odStorStatus_eeprom + 1000);
-        }
-
         /* Configure callback functions for task control */
         CO_EM_initCallback(CO->em, taskMain_cbSignal);
         CO_SDO_initCallback(CO->SDO[0], taskMain_cbSignal);
@@ -252,10 +231,9 @@ int main(int argc, char *argv[])
         /* Initialize time */
         CO_time_init(&CO_time, CO->SDO[0], &OD_time.epochTimeBaseMs, &OD_time.epochTimeOffsetMs, 0x2130);
 
-
         /* First time only initialization. */
         if (firstRun)
-        {           
+        {
             firstRun = false;
 
             /* Configure epoll for mainline */
@@ -266,7 +244,6 @@ int main(int argc, char *argv[])
             /* Init mainline */
             taskMain_init(mainline_epoll_fd, &OD_performance[ODA_performance_mainCycleMaxTime]);
 
-            
             /* Configure epoll for rt_thread */
             rt_thread_epoll_fd = epoll_create(2);
             if (rt_thread_epoll_fd == -1)
@@ -284,9 +261,8 @@ int main(int argc, char *argv[])
                 {
                     CO_errExit("Socket command interface initialization failed");
                 }
-                printf("Canopend - Command interface on socket '%s' started ...\n", CO_command_socketPath);
             }
-            
+
             /* Create rt_thread */
             if (pthread_create(&rt_thread_id, NULL, rt_thread, NULL) != 0)
                 CO_errExit("Program init - rt_thread creation failed");
@@ -301,27 +277,23 @@ int main(int argc, char *argv[])
             }
         }
 
-         /* start CAN */
+        /* start CAN */
         CO_CANsetNormalMode(CO->CANmodule[0]);
         pthread_mutex_unlock(&CO_CAN_VALID_mtx);
-            
+
         /* Execute optional additional application code */
-        app_programStart(); 
-        
+        app_programStart();
+
         reset = CO_RESET_NOT;
         // Create Statemachine Object -> will be loaded by taskmanager in end program.
 
-    
         /* Execute optional additional application code */
         app_communicationReset();
-            
+
         // Initialise the last time variable
         //gettimeofday(&last_tv,NULL);
         //struct timeval first_tv = last_tv;
-        
-        
-        printf("Canopend- running ...\n");
-        
+
         while (reset == CO_RESET_NOT && CO_endProgram == 0)
         {
             /* loop for normal program execution ******************************************/
@@ -344,19 +316,12 @@ int main(int argc, char *argv[])
                 uint32_t timer1msDiff;
                 timer1msDiff = CO_timer1ms - tmr1msPrev;
                 tmr1msPrev = CO_timer1ms;
-                
 
-               // printf("Abs Time: %d, Diff Time: %d\n", CO_timer1ms, timer1msDiff);
+                // printf("Abs Time: %d, Diff Time: %d\n", CO_timer1ms, timer1msDiff);
 
                 /* Execute optional additional application code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
-               
-               
-               // sitStandMachine.hwStateUpdate();
-               // sitStandMachine.update();
                 app_programAsync(timer1msDiff);
-
-                CO_OD_storage_autoSave(&odStorAuto, CO_timer1ms, 60000);
             }
 
             else
@@ -386,11 +351,6 @@ int main(int argc, char *argv[])
 
     /* Execute optional additional application code */
     app_programEnd();
-
-    /* Store CO_OD_EEPROM */
-    CO_OD_storage_autoSave(&odStorAuto, 0, 0);
-    CO_OD_storage_autoSaveClose(&odStorAuto);
-
     /* delete objects from memory */
     CANrx_taskTmr_close();
     taskMain_close();
@@ -431,7 +391,7 @@ static void *rt_thread(void *arg)
 
         else if (CANrx_taskTmr_process(ev.data.fd))
         {
-            
+
             /* code was processed in the above function. Additional code process below */
             INCREMENT_1MS(CO_timer1ms);
 

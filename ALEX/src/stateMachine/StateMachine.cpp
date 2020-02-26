@@ -7,28 +7,22 @@
 //State machine constructors
 StateMachine::StateMachine(void)
 {
-    initialState = NULL;
+    currentState = NULL;
 };
 // Set initial state to input of constructor
-StateMachine::StateMachine(State *i)
-{
-    initialState = i;
-};
+StateMachine::StateMachine(State *i){};
 // Set the pointer of the initial state
 void StateMachine::initialize(State *i)
 {
-    initialState = i;
-    std::cout << "Initial state set\n";
-};
+    currentState = i;
+}
 State *StateMachine::getCurState(void)
 {
     return currentState;
 }
-
 // methods
 void StateMachine::init(void)
 {
-    currentState = initialState;
 }
 void StateMachine::uninit(void)
 {
@@ -36,7 +30,6 @@ void StateMachine::uninit(void)
 
 void StateMachine::activate(void)
 {
-    currentState = initialState;
     currentState->entry();
 }
 void StateMachine::deactivate(void)
@@ -47,7 +40,6 @@ void StateMachine::update(void)
     Transition *t = currentState->getActiveArc();
     if (t != NULL)
     {
-
         currentState->exit();
         currentState = t->target;
         currentState->entry();

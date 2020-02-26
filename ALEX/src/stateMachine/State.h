@@ -7,6 +7,7 @@
 
 #include "Transition.h"
 #include "StateMachine.h"
+#include "Robot.h"
 #include <cstddef>
 #include <iostream>
 #define MAXARCS 20
@@ -25,8 +26,9 @@ public:
         owner = p;
         numarcs = 0;
         name = n; // name of state
-        std::cout << "State created\n";
+        // std::cout << "State created\n";
     };
+    ~State();
     // Arc creating and accessing functions
     bool addArc(Transition *t);
     Transition *getActiveArc(void);
@@ -36,12 +38,13 @@ public:
     virtual void exit(void) = 0;
 
     const char *getName(void);
+    void printName(void);
     StateMachine *owner; // Pointer to the owner state machine for this State
 
 private:
-    int numarcs;
     Transition *arclist[MAXARCS];
     const char *name; // Pointer to the name of this State
+    int numarcs;
 };
 
 #endif //EXO_STATE_H

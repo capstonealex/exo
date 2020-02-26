@@ -36,7 +36,7 @@
 
 /*Non canopenNode + Socket libraries*/
 #include "Robot.h"
-#include "sitStand.h"
+#include "exoStateMachine.h"
 
 //header files for the implementing logging using spdlog techniques.
 #include <iostream>
@@ -50,7 +50,6 @@
 //void fileLogger();
 //void strreverse(char *begin, char *end);
 //void itoa(int value, char *str, int base);
-
 
 /* File has been modified by Mihai Blaga on 24/10 to implement more robust
  * logging through the implementation of spdlog.
@@ -67,22 +66,16 @@ const std::string logFolder = "\logs\";
 char buf[STRING_BUFFER_SIZE];
 char ret[STRING_BUFFER_SIZE];
 
-
 Robot exo;
-sitStand sitStandMachine;
-//Serial * serialPort;
+exoStateMachine exoMachine;
 
 /******************************************************************************/
 void app_programStart(void)
 {
-    printf("app_Program Start \n");
-    //serialPort = new Serial(false);
-    
-    sitStandMachine.initRobot(&exo);
-    sitStandMachine.init();
-    sitStandMachine.activate();
-    
-
+    //printf("app_Program Start \n");
+    exoMachine.initRobot(&exo);
+    exoMachine.init();
+    exoMachine.activate();
 }
 /******************************************************************************/
 void app_communicationReset(void)
@@ -96,23 +89,12 @@ void app_programEnd(void)
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiffy)
 {
-    //printf("App_programAsync \n");
-    //printf("Serial Send Success: %d \n", serialPort->SendChar('b'));
-    //char val[10];
-    //printf("Serial Read Success: %d \n",serialPort->Read(val));
-    //printf("app_programAsync \n");
-
-    if (sitStandMachine.running != 0){
-        //printf("Before hwstateupdate \n");
-        sitStandMachine.hwStateUpdate();
-        //printf("Before update \n");
-
-        sitStandMachine.update();
-        //printf("After update \n");
-
+    if (exoMachine.running != 0)
+    {
+        exoMachine.hwStateUpdate();
+        exoMachine.update();
     }
-    
-    
+
     //Timing speed of reading from memory and file writing
     //struct timeval start;
     //struct timeval stop;
@@ -129,15 +111,15 @@ void app_programAsync(uint16_t timer1msDiffy)
     //double elapsed_ms = (stop.tv_sec - start.tv_sec) * 1000.0;
     //elapsed_ms += (stop.tv_usec - start.tv_usec) / 1000.0;
     //printf("TASK 1:  %.2f milliseconds\n", elapsed_ms);
-    }
+}
 //setting the style of the logger to only hold the data without any extra information.
 /*void setLoggerStyle(spdlog::logger logger){
     logger->set_pattern("%v");
 
 }*/
 
-    /******************************************************************************/
-    //creating a logger at a designated fileLocation.
+/******************************************************************************/
+//creating a logger at a designated fileLocation.
 /*    spdlog::logger createLogger(std::string logID, std::string fileLocation) {
         try {
             auto logger = spdlog::basic_logger_mt(logID, fileLocation);
@@ -152,10 +134,10 @@ void app_programAsync(uint16_t timer1msDiffy)
 /******************************************************************************/
 void app_program1ms(void)
 {
-	//auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
-	//spdlog::set_default_logger(mainLogger);
-	
-	//fileLoggerBinary(mainLogger);
+    //auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
+    //spdlog::set_default_logger(mainLogger);
+
+    //fileLoggerBinary(mainLogger);
 }
 /******************************************************************************/
 /*void itoa(int value, char *str, int base)
@@ -224,13 +206,13 @@ void app_program1ms(void)
 	motorTor[1] = CO_OD_RAM.statusWords.motor2;
 	motorTor[2] = CO_OD_RAM.statusWords.motor3;
 	motorTor[3] = CO_OD_RAM.statusWords.motor4;*/
-	
-	/* Motor 1: Left Hip
+
+/* Motor 1: Left Hip
 	 * Motor 2: Left Knee
 	 * Motor 3: Right Hip
 	 * Motor 4: Right Knee
 	 */
-	
+
 /*	std::stringstream output;
 	
 	for (int i = 0; i<4; i++){
@@ -291,4 +273,3 @@ void fileLoggerBinary(auto* logger){
 	}
 }
 */
-

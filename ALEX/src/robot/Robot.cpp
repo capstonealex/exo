@@ -8,36 +8,62 @@
 #include <sys/un.h>
 #include <sys/socket.h>
 #include <string.h>
+#include <time.h>
+#include <sys/time.h>
+#include <cmath>
+
 #define CANMESSAGELENGTH (100)
+#define NOFLIP (100)
 
 Robot::Robot()
 {
     positionControlConfigured = false;
-    cout << "Setting Robot joint initial conditions...\n";
-    // Set joint Intial positions.
-    
-    // // Set joint Intial positions to 0, Set joint IDs, Populate joint Trajectories
-    for (auto i = 0; i < 6; i++)
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
         joints[i].applyPos(0);
         joints[i].setId(i + 1);
     }
+    Trajectory::trajectory_parameters initial_trajectory_parameters = {
+        .step_duration = 1,
+        .step_height = 0.2,
+        .step_length = 0.3,
+        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+        .swing_ankle_down_angle = 0,
+        .stance_foot = Trajectory::Foot::Right,
+        .movement = Trajectory::Movement::Sitting,
+        .seat_height = 0.45,    // sit-stand
+        .step_end_height = 0.0, // stairs
+        .slope_angle = 0.0,     // tilted path
+        .left_foot_on_tilt = false,
+        .right_foot_on_tilt = false};
+    Trajectory::pilot_parameters lenny_parameters = {
+        .lowerleg_length = 0.43,
+        .upperleg_length = 0.46,
+        .ankle_height = 0.12,
+        .foot_length = 0.30,
+        .hip_width = 0.43,
+        .torso_length = 0.4,
+        .buttocks_height = 0.05};
+    trajectoryObj.setPilotParameter(lenny_parameters);
+    trajectoryObj.setTrajectoryParameter(initial_trajectory_parameters);
 }
 void Robot::printInfo()
 {
     cout << "This is an X2 robot with: \n";
-    for (auto i = 0; i < 6; i++)
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        joints[i].printInfo();
+        // std::cout << "Joint address:" << &joints[i] << endl;
+        this->joints[i].printInfo();
     }
 }
 
 // Update all of this robots software joint positions from object dictionary
 void Robot::updateJoints()
 {
-    for (auto i = 0; i < 6; i++)
+    for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        joints[i].updateJoint();
+        //joints[i].updateJoint();
     }
 }
 bool Robot::sdoMSG(void)
@@ -49,105 +75,7 @@ bool Robot::sdoMSG(void)
     printf("Heart beat read!\n");
     return true;
 }
-bool Robot::homeCalibration(void)
-{
-    char *returnMessage;
-    char SDO_MessageList[][CANMESSAGELENGTH] = {
-        "[1] 1 start",
-        "[1] 2 start",
-        "[1] 3 start",
-        "[1] 4 start",
-        "[1] 2 write 0x6060 0 i8 1",
-        "[1] 1 write 0x6060 0 i8 1",
-        "[1] 3 write 0x6060 0 i8 1",
-        "[1] 4 write 0x6060 0 i8 1",
-        "[1] 2 write 0x6081 0 i32 200000",
-        "[1] 1 write 0x6081 0 i32 200000",
-        "[1] 3 write 0x6081 0 i32 200000",
-        "[1] 4 write 0x6081 0 i32 200000",
-        "[1] 2 write 0x6083 0 i32 30000",
-        "[1] 1 write 0x6083 0 i32 30000",
-        "[1] 3 write 0x6083 0 i32 30000",
-        "[1] 4 write 0x6083 0 i32 30000",
-        "[1] 2 write 0x6084 0 i32 30000",
-        "[1] 1 write 0x6084 0 i32 30000",
-        "[1] 3 write 0x6084 0 i32 30000",
-        "[1] 4 write 0x6084 0 i32 30000",
-        "[1] 1 read 0x6063 0 i32",
-        "[1] 2 read 0x6063 0 i32",
-        "[1] 3 read 0x6063 0 i32",
-        "[1] 4 read 0x6063 0 i32",
-        "[1] 2 write 0x607A 0 i32 -280000",
-        "[1] 1 write 0x607A 0 i32 115000",
-        "[1] 4 write 0x607A 0 i32 -280000",
-        "[1] 3 write 0x607A 0 i32 115000",
-        "[1] 2 write 0x6040 0 i16 47",
-        "[1] 2 write 0x6040 0 i16 63",
-        "[1] 2 write 0x6040 0 i16 47",
-        "[1] 1 write 0x6040 0 i16 47",
-        "[1] 1 write 0x6040 0 i16 63",
-        "[1] 1 write 0x6040 0 i16 47",
-        "[1] 4 write 0x6040 0 i16 47",
-        "[1] 4 write 0x6040 0 i16 63",
-        "[1] 4 write 0x6040 0 i16 47",
-        "[1] 3 write 0x6040 0 i16 47",
-        "[1] 3 write 0x6040 0 i16 63",
-        "[1] 3 write 0x6040 0 i16 47"};
 
-    int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
-    for (int i = 0; i < num_of_Messages; ++i)
-    {
-        cancomm_socketFree(SDO_MessageList[i], returnMessage);
-    }
-    
-    sleep(5);
-    // TODO: Change sleep to check that we reached home
-    printf("Home motion complete\n");
-    char *returnMessageB;
-    char SDO_MessageListB[][CANMESSAGELENGTH] = {
-        "[1] 1 read 0x6063 0 i32",
-        "[1] 2 read 0x6063 0 i32",
-        "[1] 3 read 0x6063 0 i32",
-        "[1] 4 read 0x6063 0 i32",
-        "[1] 2 write 0x6060 0 i8 6",
-        "[1] 1 write 0x6060 0 i8 6",
-        "[1] 3 write 0x6060 0 i8 6",
-        "[1] 4 write 0x6060 0 i8 6 ",
-        "[1] 2 write 0x6098 0 i8 0",
-        "[1] 1 write 0x6098 0 i8 0",
-        "[1] 3 write 0x6098 0 i8 0",
-        "[1] 4 write 0x6098 0 i8 0",
-        "[1] 2 write 0x607C 0 i32 0",
-        "[1] 1 write 0x607C 0 i32 0",
-        "[1] 3 write 0x607C 0 i32 0",
-        "[1] 4 write 0x607C 0 i32 0",
-        "[1] 1 write 0x607D 1 i32 - 110000",
-        "[1] 1 write 0x607D 2 i32 310000",
-        "[1] 2 write 0x607D 1 i32 2000",
-        "[1] 2 write 0x607D 2 i32 280000",
-        "[1] 3 write 0x607D 1 i32 -110000",
-        "[1] 3 write 0x607D 2 i32 310000",
-        "[1] 4 write 0x607D 1 i32 2000",
-        "[1] 4 write 0x607D 2 i32 280000",
-        "[1] 2 write 0x6040 0 i16 15",
-        "[1] 2 write 0x6040 0 i16 31",
-        "[1] 2 write 0x6040 0 i16 15",
-        "[1] 4 write 0x6040 0 i16 15",
-        "[1] 4 write 0x6040 0 i16 31",
-        "[1] 4 write 0x6040 0 i16 15",
-        "[1] 3 write 0x6040 0 i16 15",
-        "[1] 3 write 0x6040 0 i16 31",
-        "[1] 3 write 0x6040 0 i16 15",
-        "[1] 1 write 0x6040 0 i16 15",
-        "[1] 1 write 0x6040 0 i16 31",
-        "[1] 1 write 0x6040 0 i16 15"};
-    for (int i = 0; i < num_of_Messages; ++i)
-    {
-        cancomm_socketFree(SDO_MessageListB[i], returnMessageB);
-    }
-    printf("Zeroing drives complete\n");
-    return true;
-}
 bool Robot::initPositionControl(void)
 {
     char *returnMessage;
@@ -172,7 +100,8 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6084 0 i32 100000",
         "[1] 3 write 0x6084 0 i32 100000",
         "[1] 4 write 0x6084 0 i32 100000"};
-    if (!positionControlConfigured){
+    if (!positionControlConfigured)
+    {
         int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
         for (int i = 0; i < num_of_Messages; ++i)
         {
@@ -181,7 +110,9 @@ bool Robot::initPositionControl(void)
         positionControlConfigured = true;
         printf("Motors configured for position control\n");
         return true;
-    } else {
+    }
+    else
+    {
         printf("WARNING:::: Position Control already configured\n");
         return false;
     }
@@ -204,7 +135,7 @@ bool Robot::initPositionControlAnkles(void)
         "[1] 5 write 0x6040 0 i16 15",
         "[1] 6 write 0x6040 0 i16 6",
         "[1] 6 write 0x6040 0 i16 15",
-        };
+    };
     int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
     for (int i = 0; i < num_of_Messages; ++i)
     {
@@ -270,30 +201,30 @@ bool Robot::remapPDO(void)
         "[1] 2 write 0x1800 1 u32 0x182",
         "[1] 3 write 0x1800 1 u32 0x183",
         "[1] 4 write 0x1800 1 u32 0x184",
-        "[1] 1 write 0x1800 1 u32 0x80000381",
-        "[1] 2 write 0x1800 1 u32 0x80000382",
-        "[1] 3 write 0x1800 1 u32 0x80000383",
-        "[1] 4 write 0x1800 1 u32 0x80000384",
-        "[1] 1 write 0x1A00 0 u8 0",
-        "[1] 1 write 0x1800 2 u8 0x01",
-        "[1] 1 write 0x1A00 1 u32 0x60770010",
-        "[1] 1 write 0x1A00 0 u8 1",
-        "[1] 2 write 0x1A00 0 u8 0",
-        "[1] 2 write 0x1800 2 u8 0x01",
-        "[1] 2 write 0x1A00 1 u32 0x60770010",
-        "[1] 2 write 0x1A00 0 u8 1",
-        "[1] 3 write 0x1A00 0 u8 0",
-        "[1] 3 write 0x1800 2 u8 0x01",
-        "[1] 3 write 0x1A00 1 u32 0x60770010",
-        "[1] 3 write 0x1A00 0 u8 1",
-        "[1] 4 write 0x1A00 0 u8 0",
-        "[1] 4 write 0x1800 2 u8 0x01",
-        "[1] 4 write 0x1A00 1 u32 0x60770010",
-        "[1] 4 write 0x1A00 0 u8 1",
-        "[1] 1 write 0x1800 1 u32 0x381",
-        "[1] 2 write 0x1800 1 u32 0x382",
-        "[1] 3 write 0x1800 1 u32 0x383",
-        "[1] 4 write 0x1800 1 u32 0x384",
+        "[1] 1 write 0x1802 1 u32 0x80000381",
+        "[1] 2 write 0x1802 1 u32 0x80000382",
+        "[1] 3 write 0x1802 1 u32 0x80000383",
+        "[1] 4 write 0x1802 1 u32 0x80000384",
+        "[1] 1 write 0x1A02 0 u8 0",
+        "[1] 1 write 0x1802 2 u8 0x01",
+        "[1] 1 write 0x1A02 1 u32 0x60770010",
+        "[1] 1 write 0x1A02 0 u8 1",
+        "[1] 2 write 0x1A02 0 u8 0",
+        "[1] 2 write 0x1802 2 u8 0x01",
+        "[1] 2 write 0x1A02 1 u32 0x60770010",
+        "[1] 2 write 0x1A02 0 u8 1",
+        "[1] 3 write 0x1A02 0 u8 0",
+        "[1] 3 write 0x1802 2 u8 0x01",
+        "[1] 3 write 0x1A02 1 u32 0x60770010",
+        "[1] 3 write 0x1A02 0 u8 1",
+        "[1] 4 write 0x1A02 0 u8 0",
+        "[1] 4 write 0x1802 2 u8 0x01",
+        "[1] 4 write 0x1A02 1 u32 0x60770010",
+        "[1] 4 write 0x1A02 0 u8 1",
+        "[1] 1 write 0x1802 1 u32 0x381",
+        "[1] 2 write 0x1802 1 u32 0x382",
+        "[1] 3 write 0x1802 1 u32 0x383",
+        "[1] 4 write 0x1802 1 u32 0x384",
         "[1] 1 write 0x1401 1 u32 0x80000301",
         "[1] 2 write 0x1401 1 u32 0x80000302",
         "[1] 3 write 0x1401 1 u32 0x80000303",
@@ -358,7 +289,6 @@ bool Robot::remapPDO(void)
     return true;
 }
 
-
 bool Robot::remapPDOAnkles(void)
 {
     char *returnMessage;
@@ -369,7 +299,7 @@ bool Robot::remapPDOAnkles(void)
         "[1] 5 write 0x1A01 1 u32 0x60640020",
         "[1] 5 write 0x1A01 2 u32 0x606C0020",
         "[1] 5 write 0x1A01 0 u8 2",
-        "[1] 5 write 0x1801 1 u32 0x285",	
+        "[1] 5 write 0x1801 1 u32 0x285",
         "[1] 5 write 0x1800 1 u32 0x80000185",
         "[1] 5 write 0x1A00 0 u8 0",
         "[1] 5 write 0x1800 2 u8 0xFF",
@@ -395,7 +325,7 @@ bool Robot::remapPDOAnkles(void)
         "[1] 6 write 0x1A01 1 u32 0x60640020",
         "[1] 6 write 0x1A01 2 u32 0x606C0020",
         "[1] 6 write 0x1A01 0 u8 2",
-        "[1] 6 write 0x1801 1 u32 0x286",	
+        "[1] 6 write 0x1801 1 u32 0x286",
         "[1] 6 write 0x1800 1 u32 0x80000186",
         "[1] 6 write 0x1A00 0 u8 0",
         "[1] 6 write 0x1800 2 u8 0xFF",
@@ -423,7 +353,6 @@ bool Robot::remapPDOAnkles(void)
     }
     return true;
 }
-
 
 bool Robot::preop(void)
 {
@@ -459,4 +388,98 @@ bool Robot::resetTrackingError(void)
         cancomm_socketFree(PDO_MessageList[i], returnMessage);
     }
     return true;
+}
+void Robot::startNewTraj()
+{
+    // Set the bit flip state to zero
+    for (auto i = 0; i < NUM_JOINTS; i++)
+    {
+        joints[i].setBitFlipState(NOFLIP);
+    }
+
+    // Index Resetting
+    desiredIndex = 0;
+    fracTrajProgress = 0;
+    Trajectory::jointspace_state startNewTrajJointspace;
+    double robotJointspace[NUM_JOINTS];
+    int i;
+    for (i = 0; i < NUM_JOINTS; i++)
+    {
+        int j = joints[i].getId();
+        robotJointspace[j - 1] = deg2rad(joints[i].getPosDeg());
+    }
+    // cout << "joints position at start traj" << endl;
+    // printInfo();
+    startNewTrajJointspace = {.q = {robotJointspace[0],
+                                    robotJointspace[1],
+                                    robotJointspace[2],
+                                    robotJointspace[3],
+                                    robotJointspace[4],
+                                    robotJointspace[5]},
+                              .time = 0};
+
+    trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
+
+    // Reset the time
+    timerclear(&moving_tv);
+    timerclear(&stationary_tv);
+    gettimeofday(&start_traj, NULL);
+    last_tv = start_traj;
+
+    printf("Start New Traj \n");
+}
+
+void Robot::moveThroughTraj()
+{
+    //long lastTarget = 0;
+    struct timeval tv;
+    struct timeval tv_diff;
+    struct timeval tv_changed;
+    gettimeofday(&tv, NULL);
+    timersub(&tv, &last_tv, &tv_diff);
+    last_tv = tv;
+
+    //uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
+    long movingMicro = moving_tv.tv_sec * 1000000 + moving_tv.tv_usec;
+
+    double trajTimeUS = trajectoryObj.trajectoryParameter.step_duration * 1000000;
+    fracTrajProgress = movingMicro / trajTimeUS;
+
+    // if Green Button is pressed, move through trajetory. Otherwise stay where you are
+    if (!buttons.getGButtonState())
+    {
+        timeradd(&moving_tv, &tv_diff, &tv_changed);
+        moving_tv = tv_changed;
+        //array for position and velocity profile
+        double positionArray[NUM_JOINTS];
+        // printInfo();
+
+#ifndef _NOACTUATION
+        // Send a new trajectory point
+        // Get Trajectory point for this joint based on current time
+        trajectoryObj.calcPosition(fracTrajProgress, positionArray);
+
+        for (int i = 0; i < NUM_JOINTS; i++)
+        {
+            if (joints[i].getBitFlipState() == NOFLIP)
+            {
+                int j = joints[i].getId();
+                // cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+                joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
+
+                // set state machine bitFlip to LOW state.
+                joints[i].bitflipLow();
+            }
+            else
+            {
+                joints[i].bitflipHigh();
+            }
+        }
+#endif
+    }
+    else
+    {
+        timeradd(&stationary_tv, &tv_diff, &tv_changed);
+        stationary_tv = tv_changed;
+    }
 }

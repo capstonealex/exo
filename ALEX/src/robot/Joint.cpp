@@ -35,14 +35,14 @@ Joint::Joint()
     q = 0;
     qd = 0;
     id = 0;
-    
+
     // THESE MUST BE HARD SET AT OBJECT INITIALIZATION
-    maxq = KNEE_MOTOR_POS1*1.5;
+    maxq = KNEE_MOTOR_POS1 * 1.5;
     minq = 0;
-    
+
     maxdq = 2000000;
     mindq = 0;
-    
+
     // set position arrayIndex to 0;
     bitFlipState = NOFLIP;
 }
@@ -52,14 +52,19 @@ Joint::Joint(double q_init, int ID)
     cout << "Initializing joint WITH INPUTS \n";
     q = q_init;
     id = ID;
-    
-    if (this->id == LEFT_KNEE || this->id == RIGHT_KNEE){
-        maxq = KNEE_MOTOR_POS1*1.5;
+
+    if (this->id == LEFT_KNEE || this->id == RIGHT_KNEE)
+    {
+        maxq = KNEE_MOTOR_POS1 * 1.5;
         minq = 0;
-    } else if  (this->id == LEFT_HIP || this->id == RIGHT_HIP){
-        maxq = KNEE_MOTOR_POS1*1.5;
+    }
+    else if (this->id == LEFT_HIP || this->id == RIGHT_HIP)
+    {
+        maxq = KNEE_MOTOR_POS1 * 1.5;
         minq = 0;
-    } else if (this->id == LEFT_ANKLE || this->id == RIGHT_ANKLE){
+    }
+    else if (this->id == LEFT_ANKLE || this->id == RIGHT_ANKLE)
+    {
         maxq = 800000;
         minq = -800000;
     }
@@ -68,7 +73,7 @@ Joint::Joint(double q_init, int ID)
 /*Helper functions for motor deg to command conversion*/
 // TODO -> don't use this and only use trajectory function
 //Used to convert position array from degrees to motors counts as used in CANopen
-void Joint::motorPosConverter(double origDeg, long * newMotorCmnd, int nodeid)
+void Joint::motorPosConverter(double origDeg, long *newMotorCmnd, int nodeid)
 {
     double A = 0;
     double B = 0;
@@ -106,7 +111,7 @@ double Joint::motorPosToDegConverter(long motorCmdAngle, int nodeid)
         calcAB(ANKLE_MOTOR_POS1, ANKLE_MOTOR_DEG1, ANKLE_MOTOR_POS2, ANKLE_MOTOR_DEG2, &A, &B);
     }
 
-    return (motorCmdAngle - B)/A;
+    return (motorCmdAngle - B) / A;
 }
 
 //calculate A and B in the formula y=Ax+B. Use by motorPosArrayConverter()
@@ -132,10 +137,7 @@ void Joint::applyPosDeg(double qd)
 void Joint::applyPos(long qd)
 {
     //Safety checks.
-    // Is joint where we think it is? or within safe range of it?
-    // are we trying to move to a pos within the joints limits?
-    ///// Testing for PDOs
-    //printf("apply pos of %ld issued\n", qd);
+
     if (qd >= minq && qd <= maxq)
     {
         Joint::setPos(qd);
@@ -241,7 +243,7 @@ void Joint::enable()
     // Set target motor position -> will send out to motors
     if (this->id == 1)
     {
-        CO_OD_RAM.controlWords.motor1 = 15;  // 0x0F
+        CO_OD_RAM.controlWords.motor1 = 15; // 0x0F
     }
     else if (this->id == 2)
     {
@@ -265,7 +267,6 @@ void Joint::enable()
     }
 }
 
-
 void Joint::applyVel(long dqd)
 {
     printf("apply vel of %ld issued\n", dqd);
@@ -279,7 +280,6 @@ void Joint::applyVel(long dqd)
              << "\n";
     }
 }
-
 
 void Joint::setVel(long dqd)
 // TODO: 1. generalize to create .motor<motorID> dynamically
@@ -313,14 +313,19 @@ void Joint::setVel(long dqd)
 void Joint::setId(int ID)
 {
     id = ID;
-    
-    if (this->id == LEFT_KNEE || this->id == RIGHT_KNEE){
-        maxq = KNEE_MOTOR_POS1*1.5;
+
+    if (this->id == LEFT_KNEE || this->id == RIGHT_KNEE)
+    {
+        maxq = KNEE_MOTOR_POS1 * 1.5;
         minq = 0;
-    } else if  (this->id == LEFT_HIP || this->id == RIGHT_HIP){
-        maxq = KNEE_MOTOR_POS1*1.5;
+    }
+    else if (this->id == LEFT_HIP || this->id == RIGHT_HIP)
+    {
+        maxq = KNEE_MOTOR_POS1 * 1.5;
         minq = -27870;
-    } else if (this->id == LEFT_ANKLE || this->id == RIGHT_ANKLE){
+    }
+    else if (this->id == LEFT_ANKLE || this->id == RIGHT_ANKLE)
+    {
         maxq = 800000;
         minq = -800000;
     }
@@ -359,7 +364,7 @@ void Joint::updateJoint()
     /// Update current joint position from object dictionary
     /// This should be internally mapped from object dictionary
     // TODO: Construct obj dictionary entry message for this motor id
-    //CO_OD_RAM.actualMotorPositions.motor<id_goes_here>    
+    //CO_OD_RAM.actualMotorPositions.motor<id_goes_here>
     if (this->id == 1)
     {
         q = CO_OD_RAM.actualMotorPositions.motor1;
@@ -394,7 +399,8 @@ bool Joint::bitflipHigh()
     //TODO: 1. Set up caseses for position, velocity and Torque controlWorkds
     //      2. generalize to create .motor<motorID> dynamically
     //      3. error check control word has been changed in the actual motor.
-    if(bitFlipState == BITHIGH){
+    if (bitFlipState == BITHIGH)
+    {
         if (this->id == 1)
         {
             CO_OD_RAM.controlWords.motor1 = 63;
@@ -422,7 +428,8 @@ bool Joint::bitflipHigh()
         bitFlipState = NOFLIP;
         return true;
     }
-    else{
+    else
+    {
         printf("FALTY DIRECTION TO BITFLIPHIGH\n");
         return false;
     }
@@ -436,7 +443,8 @@ bool Joint::bitflipLow()
     //TODO: 1. Set up caseses for position, velocity and Torque controlWorkds
     //      2. generalize to create .motor<motorID> dynamically
     //      3. error check control word has been changed in the actual motor.
-    if(bitFlipState == BITLOW||bitFlipState == NOFLIP){
+    if (bitFlipState == BITLOW || bitFlipState == NOFLIP)
+    {
         if (this->id == 1)
         {
             CO_OD_RAM.controlWords.motor1 = 47;
@@ -464,22 +472,26 @@ bool Joint::bitflipLow()
         bitFlipState = BITHIGH;
         return true;
     }
-    else{
+    else
+    {
         printf("FALTY DIRECTION TO BITFLIPLOW\n");
         return false;
     }
 }
 
-int Joint::getBitFlipState(){
+int Joint::getBitFlipState()
+{
     return bitFlipState;
 }
-void Joint::setBitFlipState(int bit){
+void Joint::setBitFlipState(int bit)
+{
     bitFlipState = bit;
 }
 
-int Joint::getStatus(){
+int Joint::getStatus()
+{
     int retVal = 0;
-     if (this->id == 1)
+    if (this->id == 1)
     {
         retVal = CO_OD_RAM.statusWords.motor1;
     }
@@ -505,24 +517,25 @@ int Joint::getStatus(){
     }
     return retVal;
 }
-double Joint::getActualTorque(){
-    double retVal = 0;
-     if (this->id == 1)
+int Joint::getActualTorque()
+{
+    int retVal = 0;
+    if (this->id == 1)
     {
-        retVal = CO_OD_RAM.actualMotorTorques.motor1/10;
+        retVal = (int16_t)CO_OD_RAM.actualMotorTorques.motor1;
     }
     else if (this->id == 2)
     {
-        retVal = CO_OD_RAM.actualMotorTorques.motor2/10;
+        retVal = (int16_t)CO_OD_RAM.actualMotorTorques.motor2;
     }
     else if (this->id == 3)
     {
-        retVal = CO_OD_RAM.actualMotorTorques.motor3/10;
+        retVal = (int16_t)CO_OD_RAM.actualMotorTorques.motor3;
         //printf("Motor 3: %3f \n", retVal);
     }
     else if (this->id == 4)
     {
-        retVal = CO_OD_RAM.actualMotorTorques.motor4/10;
+        retVal = (int16_t)CO_OD_RAM.actualMotorTorques.motor4;
         //printf("Motor 4: %3f \n", retVal);
     }
     else if (this->id == 5)
