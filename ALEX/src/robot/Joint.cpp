@@ -517,25 +517,25 @@ int Joint::getStatus()
     }
     return retVal;
 }
-double Joint::getActualTorque()
+int Joint::getActualTorque()
 {
-    double retVal = 0;
+    int retVal = 0;
     if (this->id == 1)
     {
-        retVal = CO_OD_RAM.actualMotorTorques.motor1 / 10;
+        retVal = (int16_t)CO_OD_RAM.actualMotorTorques.motor1;
     }
     else if (this->id == 2)
     {
-        retVal = CO_OD_RAM.actualMotorTorques.motor2 / 10;
+        retVal = (int16_t)CO_OD_RAM.actualMotorTorques.motor2;
     }
     else if (this->id == 3)
     {
-        retVal = CO_OD_RAM.actualMotorTorques.motor3 / 10;
+        retVal = (int16_t)CO_OD_RAM.actualMotorTorques.motor3;
         //printf("Motor 3: %3f \n", retVal);
     }
     else if (this->id == 4)
     {
-        retVal = CO_OD_RAM.actualMotorTorques.motor4 / 10;
+        retVal = (int16_t)CO_OD_RAM.actualMotorTorques.motor4;
         //printf("Motor 4: %3f \n", retVal);
     }
     else if (this->id == 5)
