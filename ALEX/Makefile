@@ -46,10 +46,10 @@ OBJS = $(SOURCES:%.c=%.o) $(CPPSOURCES:%.cpp=%.o)
 #CC = g++
 #CFLAGS =  -std=c++11  -g $(INCLUDE_DIRS)
 #LDFLAGS = -lrt -pthread
-
+#O3 is optimization v3 flag -> for EIGEN calculations
 CC = arm-linux-gnueabihf-gcc
 CXX = arm-linux-gnueabihf-g++
-CXXFLAGS = -Wall -std=c++11 -g $(INCLUDE_DIRS)
+CXXFLAGS = -std=c++11 -O3 $(INCLUDE_DIRS)
 LDFLAGS = -lpthread 
 
 $(LINK_TARGET): $(OBJS)
