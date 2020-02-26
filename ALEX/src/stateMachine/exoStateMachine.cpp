@@ -246,24 +246,24 @@ void exoStateMachine::initRobot(Robot *rb)
 // Update button state, loop counter (mark) and joints
 void exoStateMachine::hwStateUpdate(void)
 {
-
-    /*BUTON CODE*/
     robot->buttons.setButtonStates();
-    // Update loop time counter
     mark = mark + 1;
     robot->updateJoints();
-    // Log to file
-    //if (mark%%==1){
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
-    logfile << std::to_string(currtime);
-
-    for (auto i = 3; i < NUM_JOINTS; i++)
+    // LOG TO FILE
+    if (mark % 10 == 1)
     {
-        logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
+        //printf("%d, %d \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
+        struct timeval tv;
+        gettimeofday(&tv, NULL);
+        double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
+        logfile << std::to_string(currtime);
+
+        for (auto i = 0; i < NUM_JOINTS; i++)
+        {
+            logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
+            //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
+        }
+        //printf("\n");
+        logfile << "\n";
     }
-    logfile << "\n";
-    // robot->buttons.printPressedButtons();
-    // }
 }
