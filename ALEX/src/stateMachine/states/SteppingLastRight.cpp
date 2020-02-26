@@ -17,7 +17,7 @@ void SteppingLastRight::entry(void)
         .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Left,
-        .movement = Trajectory::Movement::Back,
+        .movement = Trajectory::Movement::Walk,
         .seat_height = 0.42,    // sit-stand
         .step_end_height = 0.0, // stairs
         .slope_angle = 0.0,     // tilted path
