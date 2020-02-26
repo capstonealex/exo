@@ -137,10 +137,7 @@ void Joint::applyPosDeg(double qd)
 void Joint::applyPos(long qd)
 {
     //Safety checks.
-    // Is joint where we think it is? or within safe range of it?
-    // are we trying to move to a pos within the joints limits?
-    ///// Testing for PDOs
-    //printf("apply pos of %ld issued\n", qd);
+
     if (qd >= minq && qd <= maxq)
     {
         Joint::setPos(qd);
