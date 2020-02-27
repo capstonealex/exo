@@ -59,6 +59,11 @@ exoStateMachine::exoStateMachine(void)
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     resetButtonsPressed = new ResetButtonsPressed(this);
+    startWalk = new StartWalk(this);
+    // startSit = new StartSit(this);
+    // startStand = new StartStand(this);
+    // startBackStep = new StartBackStep(this);
+
     // StateMachine states
     initState = new InitState(this);
     standing = new Standing(this);
@@ -74,25 +79,33 @@ exoStateMachine::exoStateMachine(void)
     steppingLastLeft = new SteppingLastLeft(this);
     errorState = new ErrorState(this);
 
-    // Create Trasitions between states and events which trigger them
-    NewTransition(initState, startButtonsPressed, sitting);
-    NewTransition(standing, isYPressed, sittingDwn);
+    // Trajectory Transitions
     NewTransition(sittingDwn, endTraj, sitting);
-    NewTransition(sitting, isYPressed, standingUp);
     NewTransition(standingUp, endTraj, standing);
-    NewTransition(standing, isBPressed, steppingFirstLeft);
-    NewTransition(steppingFirstLeft, endTraj, leftForward);
-    NewTransition(leftForward, isGPressed, steppingRight);
     NewTransition(steppingRight, endTraj, rightForward);
-    NewTransition(rightForward, isGPressed, steppingLeft);
+    NewTransition(steppingFirstLeft, endTraj, leftForward);
     NewTransition(steppingLeft, endTraj, leftForward);
-    NewTransition(leftForward, isYPressed, steppingLastRight);
-    NewTransition(rightForward, isYPressed, steppingLastLeft);
     NewTransition(steppingLastRight, endTraj, standing);
     NewTransition(steppingLastLeft, endTraj, standing);
-    NewTransition(errorState, resetButtonsPressed, initState);
+    // Sit Stand Transitions
+    NewTransition(initState, startButtonsPressed, sitting);
+    NewTransition(standing, isYPressed, sittingDwn);
+    NewTransition(sitting, isYPressed, standingUp);
+    // Walking Transitions
+    NewTransition(standing, isBPressed, steppingFirstLeft);
+    NewTransition(leftForward, isGPressed, steppingRight);
+    NewTransition(rightForward, isGPressed, steppingLeft);
+    NewTransition(leftForward, isYPressed, steppingLastRight);
+    NewTransition(rightForward, isYPressed, steppingLastLeft);
+    // TRANSITION USING NEWMOTION OD EVENTS
+    // NewTransition(standing, startWalk, steppingFirstLeft);
+    // NewTransition(leftForward, startWalk, steppingRight);
+    // NewTransition(rightForward, startWalk, steppingLeft);
+    // NewTransition(leftForward, feetTogether, steppingLastRight);
+    // NewTransition(rightForward, feetTogether, steppingLastLeft);
 
-    // Transitions to Error State
+    // Error State Transitions
+    NewTransition(errorState, resetButtonsPressed, initState);
     NewTransition(sitting, isRPressed, errorState);
     NewTransition(standing, isRPressed, errorState);
     NewTransition(standingUp, isRPressed, errorState);
@@ -228,6 +241,84 @@ bool exoStateMachine::ResetButtonsPressed::check(void)
     }
     return false;
 }
+//////////////////////////////////////////////////////////////////////
+//Crutch new Motion Paramater Events ----------------------------------------------------------
+/////////////////////////////////////////////////////////////////////
+bool exoStateMachine::StartWalk::check(void)
+{
+    // OD_NM = CO_OD_RAM.nextMovement;
+    int OD_NM = 1;
+    //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
+    if ((OD_NM > 0 && OD_NM < 6) && OWNER->robot->buttons.getGButtonState() == 0)
+    {
+        // Set trajOBJECT paramaters to selected nexMOVEMENT
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
+        // RESET OD_NM for safety
+        OD_NM = 0;
+        return true;
+    }
+    return false;
+}
+bool exoStateMachine::FeetTogether::check(void)
+{
+    // OD_NM = CO_OD_RAM.nextMovement;
+    int OD_NM = 6;
+    //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
+    if (OD_NM == 6 && OWNER->robot->buttons.getGButtonState() == 0)
+    {
+        // Set trajOBJECT paramaters to selected nexMOVEMENT
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
+        // RESET OD_NM for safety
+        OD_NM = 0;
+        return true;
+    }
+    return false;
+}
+// bool exoStateMachine::startSit::check(void)
+// {
+//     // OD_NM = CO_OD_RAM.nextMovement;
+//     int OD_NM = 8;
+//     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
+//     if ((OD_NM == 8 ) && OWNER->robot->buttons.getGButtonState() == 0)
+//     {
+//         // Set trajOBJECT paramaters to selected nexMOVEMENT
+//         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
+//         // RESET OD_NM for safety
+//         OD_NM = 0;
+//         return true;
+//     }
+//     return false;
+// }
+// bool exoStateMachine::startStand::check(void)
+// {
+//    // OD_NM = CO_OD_RAM.nextMovement;
+// int OD_NM = 8;
+// //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
+// if ((OD_NM == 8) && OWNER->robot->buttons.getGButtonState() == 0)
+// {
+//     // Set trajOBJECT paramaters to selected nexMOVEMENT
+//     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
+//     // RESET OD_NM for safety
+//     OD_NM = 0;
+//     return true;
+// }
+// return false;
+// }
+// bool exoStateMachine::startBackstep::check(void)
+// {
+//     // OD_NM = CO_OD_RAM.nextMovement;
+//     int OD_NM = 1;
+//     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
+//     if ((OD_NM == 7) && OWNER->robot->buttons.getGButtonState() == 0)
+//     {
+//         // Set trajOBJECT paramaters to selected nexMOVEMENT
+//         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
+//         // RESET OD_NM for safety
+//         OD_NM = 0;
+//         return true;
+//     }
+//     return false;
+// }
 
 //////////////////////////////////////////////////////////////////////
 // Robot interface methods ----------------------------------------------------------

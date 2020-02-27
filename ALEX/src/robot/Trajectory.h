@@ -9,6 +9,7 @@ using namespace std;
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <map>
 class Trajectory
 {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -26,7 +27,7 @@ class Trajectory
 	{                                               \
 		M_PI_2, M_PI_2, -M_PI_2, M_PI_2, -M_PI_2, 0 \
 	}
-	 //Node ID for the 4 joints
+	//Node ID for the 4 joints
 #define LEFT_HIP 0
 #define LEFT_KNEE 1
 #define RIGHT_HIP 2
@@ -41,8 +42,8 @@ class Trajectory
 #define UNEVENSTEPTIME 4
 #define UNEVENTORSO deg2rad(10)
 #define STEPLENGTH 0.3
-#define HALFSTEPLENGTH STEPLENGTH/2
-#define LONGSTEPLENGTH STEPLENGTH*1.5
+#define HALFSTEPLENGTH STEPLENGTH / 2
+#define LONGSTEPLENGTH STEPLENGTH * 1.5
 #define BACKLENGTH 0.3
 #define STEPHEIGHT 0.4
 #define STEPHIGH 0.7
@@ -52,17 +53,17 @@ class Trajectory
 
 public:
 	// Hardware angle limiation in Radians
-	const double Q_MIN_MAX[12]{ deg2rad(70), deg2rad(210),
+	const double Q_MIN_MAX[12]{deg2rad(70), deg2rad(210),
 							   0, deg2rad(120),
 							   deg2rad(70), deg2rad(210),
 							   0, deg2rad(120),
 							   deg2rad(75), deg2rad(105),
-							   deg2rad(75), deg2rad(105) };
+							   deg2rad(75), deg2rad(105)};
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Structs                                                                                                           *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	 //typedef long time_tt;
+	//typedef long time_tt;
 	typedef double time_tt; // time_t is already used
 
 	typedef enum class Foot
@@ -139,12 +140,87 @@ public:
 		vector<cubic_polynomial> polynomials[NO_JOINTS]; // polynomial[0] is a vector of cubic polynomials for q0
 		vector<time_tt> times;							 // Start/end times of the polynomials (#times = #polynomials+1)
 	} jointspace_spline;
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Trajectory Param map: 
+ * 						maping OD.next motion dictionary values to trajectory paramater structs defined for each motion
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+ * 1 - Normal walk
+ * 2 - Up Stairs
+ * 3 - Down Stairs
+ * 4 - Tilt Up
+ * 5 - Tilt Dwn
+ * 6 - Feet Together
+ * 7 - Backstep
+ * 8 - Sit Down
+ * 9 - Stand Up                                                                                           *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	// todo:: ADD IN CORRECT PARAMS FOR 4-7
+	std::map<int, Trajectory::trajectory_parameters> TrajParamMap = {
+		{1, {.step_duration = UNEVENSTEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
+			 .hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+			 //.torso_forward_angle = TORSOANGLE,
+			 .torso_forward_angle = UNEVENTORSO,
+			 .swing_ankle_down_angle = 0,
+			 .stance_foot = Trajectory::Foot::Right,
+			 //.movement = Trajectory::Movement::Walk,
+			 .movement = Trajectory::Movement::Uneven,
+			 .seat_height = 0.42,	// sit-stand
+			 .step_end_height = 0.0, // stairs
+			 .slope_angle = 0.0,	 // tilted path
+			 .left_foot_on_tilt = false,
+			 .right_foot_on_tilt = false}},
+		{2, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = STEPTGTLENGTH,
+			 .hip_height_slack = LEGSLACK,		// never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+			 .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+			 .swing_ankle_down_angle = 0,
+			 .stance_foot = Trajectory::Foot::Right,
+			 .movement = Trajectory::Movement::Walk,
+			 .seat_height = 0.42,	// sit-stand
+			 .step_end_height = 0.0, // stairs
+			 .slope_angle = 0.0,	 // tilted path
+			 .left_foot_on_tilt = false,
+			 .right_foot_on_tilt = false}},
+		{3, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
+			 .hip_height_slack = LEGSLACK,		// never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+			 .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+			 .swing_ankle_down_angle = 0,
+			 .stance_foot = Trajectory::Foot::Left,
+			 .movement = Trajectory::Movement::Back,
+			 .seat_height = 0.42,	// sit-stand
+			 .step_end_height = 0.0, // stairs
+			 .slope_angle = 0.0,	 // tilted path
+			 .left_foot_on_tilt = false,
+			 .right_foot_on_tilt = false}},
+		{8, {.step_duration = SITTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
+			 .hip_height_slack = LEGSLACK,		// never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+			 .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+			 .swing_ankle_down_angle = 0,
+			 .stance_foot = Trajectory::Foot::Right,
+			 .movement = Trajectory::Movement::Sit,
+			 .seat_height = 0.42,	// sit-stand
+			 .step_end_height = 0.0, // stairs
+			 .slope_angle = 0.0,	 // tilted path
+			 .left_foot_on_tilt = false,
+			 .right_foot_on_tilt = false}},
+		{9, {.step_duration = STANDTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
+			 .hip_height_slack = LEGSLACK,		// never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+			 .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+			 .swing_ankle_down_angle = 0,
+			 .stance_foot = Trajectory::Foot::Right,
+			 .movement = Trajectory::Movement::Stand,
+			 .seat_height = 0.42,	// sit-stand
+			 .step_end_height = 0.0, // stairs
+			 .slope_angle = 0.0,	 // tilted path
+			 .left_foot_on_tilt = false,
+			 .right_foot_on_tilt = false}}};
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	* Class Variables																									 *
 	* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 public:
 	jointspace_spline trajectoryJointSpline;
+
 public:
 	trajectory_parameters trajectoryParameter;
 	pilot_parameters pilotParameter;
@@ -163,27 +239,27 @@ public:
 
 	// Generates key taskspace states from gait parameters
 	vector<taskspace_state> generate_key_taskspace_states(taskspace_state initialTaskspaceState,
-		const trajectory_parameters &trajectoryParameters, const pilot_parameters &pilotParameters);
+														  const trajectory_parameters &trajectoryParameters, const pilot_parameters &pilotParameters);
 
 	// Generates discrete trajectory from parameters to use in control system
 	void compute_discrete_trajectory(const trajectory_parameters &trajectoryParameters,
-		const pilot_parameters &pilotParameters, jointspace_state initialJointspaceState);
+									 const pilot_parameters &pilotParameters, jointspace_state initialJointspaceState);
 
 	// Converts jointspace to taskspace (Forward Kinematics)
 	taskspace_state jointspace_state_to_taskspace_state(jointspace_state jointspaceState, trajectory_parameters trajectoryParameters,
-		pilot_parameters pilotParameters);
+														pilot_parameters pilotParameters);
 
 	// Converts taskspace to jointspace (Inverse Kinematics)
 	jointspace_state taskspace_state_to_jointspace_state(taskspace_state taskspaceState, trajectory_parameters trajectoryParameters,
-		pilot_parameters pilotParameters);
+														 pilot_parameters pilotParameters);
 
 	// Converts a vector of taskspace states to jointspace (Inverse Kinematics)
 	vector<jointspace_state> taskspace_states_to_jointspace_states(jointspace_state initialJointspaceState,
-		const vector<taskspace_state> &taskspaceStates, trajectory_parameters trajectoryParameters, pilot_parameters pilotParameters);
+																   const vector<taskspace_state> &taskspaceStates, trajectory_parameters trajectoryParameters, pilot_parameters pilotParameters);
 
 	// Helper function for Inverse Kinematics
 	vector<double> triangle_inverse_kinematics(double xAnkle, double zAnkle, double xHip, double zHip, double Llower,
-		double Lupper);
+											   double Lupper);
 	/**********************************************************************
 
 	Functions for Splines
@@ -210,12 +286,12 @@ public:
 	***********************************************************************/
 	// Generates trajectory spline from parameters to use in control system
 	jointspace_spline compute_trajectory_spline(const trajectory_parameters &trajectoryParameters,
-		const pilot_parameters &pilotParameters, jointspace_state initialJointspaceState);
+												const pilot_parameters &pilotParameters, jointspace_state initialJointspaceState);
 
 	// Compare the provided position to the supposedly spline position
 	// A positive values mean the exo is leading/ spline value is lagging
 	jointspace_state compute_position_trajectory_difference(jointspace_spline jointspaceSpline,
-		jointspace_state currentJointspaceStates);
+															jointspace_state currentJointspaceStates);
 
 	// Limiting the velocity control to not pushing against angle limit
 	// use AFTER the current velocity is added to the control velocity
@@ -242,13 +318,13 @@ public:
 	**********************************************************************/
 	//setter for the parameters
 	void setTrajectoryParameter(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
-		Foot stance_foot, Movement movement, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
+								Foot stance_foot, Movement movement, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
 	void setTrajectoryParameter(trajectory_parameters trajectoryParameter);
 
 	void setPilotParameter(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
-		double hip_width, double torso_length, double buttocks_height);
+						   double hip_width, double torso_length, double buttocks_height);
 	void setPilotParameter(pilot_parameters pilotParameter);
+
 	double getStepDuration();
-	
 };
 #endif

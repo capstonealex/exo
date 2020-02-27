@@ -67,6 +67,11 @@ private:
     EventObject(IsGPressed) * isGPressed;
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
+    EventObject(StartWalk) * startWalk;
+    // EventObject(FeetTogether) * feetTogether;
+    // EventObject(StartSit) * startSit;
+    // EventObject(StartStand) * startStand;
+    // EventObject(StartBackStep) * startBackStep;
 
     // data;
     int calibrated;
