@@ -320,6 +320,8 @@ public:
 	void setTrajectoryParameter(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
 								Foot stance_foot, Movement movement, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
 	void setTrajectoryParameter(trajectory_parameters trajectoryParameter);
+	void setTrajectoryStanceRight();
+	void setTrajectoryStanceLeft();
 
 	void setPilotParameter(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
 						   double hip_width, double torso_length, double buttocks_height);

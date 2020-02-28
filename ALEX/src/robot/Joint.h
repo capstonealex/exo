@@ -12,6 +12,10 @@
 #include <unistd.h>
 #include <sys/un.h>
 #include <sys/socket.h>
+#include "CANopen.h"
+#include <stdlib.h>
+#include <string>
+#include <math.h>
 
 //Node ID for the 4 joints
 

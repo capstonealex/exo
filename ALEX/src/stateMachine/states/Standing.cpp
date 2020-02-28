@@ -7,7 +7,8 @@ void Standing::entry(void)
     std::cout
         << "======================" << endl
         << " YELLOW -> Sit DOWN" << endl
-        << " BLUE   -> WALK SELECT" << endl
+        // << " BLUE   -> WALK SELECT" << endl
+        << " Trigger startWalk with BLUE"
         << "======================" << endl;
 }
 void Standing::during(void)

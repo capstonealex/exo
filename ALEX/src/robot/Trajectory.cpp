@@ -1345,7 +1345,14 @@ void Trajectory::setTrajectoryParameter(time_tt step_duration, double step_heigh
 	trajectoryParameter.left_foot_on_tilt = left_foot_on_tilt;
 	trajectoryParameter.right_foot_on_tilt = right_foot_on_tilt;
 }
-
+void Trajectory::setTrajectoryStanceRight()
+{
+	trajectoryParameter.stance_foot = Foot::Right;
+}
+void Trajectory::setTrajectoryStanceLeft()
+{
+	trajectoryParameter.stance_foot = Foot::Left;
+}
 void Trajectory::setTrajectoryParameter(trajectory_parameters trajectoryParameter)
 {
 	this->trajectoryParameter = trajectoryParameter;

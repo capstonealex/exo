@@ -11,8 +11,7 @@ void SteppingFirstLeft::entry(void)
         << "==================" << endl;
 
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[1]);
-    Trajectory::trajectory_parameters stance_param{.stance_foot = Trajectory::Foot::Right};
-    OWNER->robot->trajectoryObj.setTrajectoryParameter(stance_param);
+    OWNER->robot->trajectoryObj.setTrajectoryStanceRight();
     OWNER->robot->startNewTraj();
 }
 

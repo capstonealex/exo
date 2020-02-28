@@ -9,8 +9,7 @@ void SteppingLastLeft::entry(void)
         << " Stepping Last Left" << endl
         << "==================" << endl;
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[2]);
-    Trajectory::trajectory_parameters stance_param{.stance_foot = Trajectory::Foot::Right};
-    OWNER->robot->trajectoryObj.setTrajectoryParameter(stance_param);
+    OWNER->robot->trajectoryObj.setTrajectoryStanceRight();
     OWNER->robot->startNewTraj();
 }
 

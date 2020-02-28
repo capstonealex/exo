@@ -10,8 +10,7 @@ void SteppingLastRight::entry(void)
         << " Stepping Last Right" << endl
         << "==================" << endl;
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[2]);
-    Trajectory::trajectory_parameters stance_param{.stance_foot = Trajectory::Foot::Left};
-    OWNER->robot->trajectoryObj.setTrajectoryParameter(stance_param);
+    OWNER->robot->trajectoryObj.setTrajectoryStanceLeft();
     OWNER->robot->startNewTraj();
 }
 

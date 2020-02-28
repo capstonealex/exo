@@ -10,9 +10,7 @@ void SteppingRight::entry(void)
         << " Stepping Right" << endl
         << "==================" << endl;
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[2]);
-    //TODO: seTrajStanding FootParam based on state and move above function to event
-    Trajectory::trajectory_parameters stance_param{.stance_foot = Trajectory::Foot::Left};
-    OWNER->robot->trajectoryObj.setTrajectoryParameter(stance_param);
+    OWNER->robot->trajectoryObj.setTrajectoryStanceLeft();
     OWNER->robot->startNewTraj();
 }
 
