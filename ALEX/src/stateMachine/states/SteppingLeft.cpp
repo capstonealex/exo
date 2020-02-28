@@ -12,6 +12,7 @@ void SteppingLeft::entry(void)
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[2]);
     OWNER->robot->trajectoryObj.setTrajectoryStanceRight();
     OWNER->robot->startNewTraj();
+    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]
 }
 
 void SteppingLeft::during(void)

@@ -10,6 +10,7 @@ void Standing::entry(void)
         // << " BLUE   -> WALK SELECT" << endl
         << " Trigger startWalk with BLUE"
         << "======================" << endl;
+    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]s
 }
 void Standing::during(void)
 {

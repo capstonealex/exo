@@ -10,8 +10,8 @@ void SittingDwn::entry(void)
               << "===================" << endl;
 
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[8]);
-
     OWNER->robot->startNewTraj();
+    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]
 }
 void SittingDwn::during(void)
 {

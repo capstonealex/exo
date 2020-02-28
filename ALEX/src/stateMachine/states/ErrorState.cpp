@@ -20,6 +20,7 @@ void ErrorState::entry(void)
     {
         OWNER->robot->joints[i].disable();
     }
+    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]
 }
 
 void ErrorState::during(void)

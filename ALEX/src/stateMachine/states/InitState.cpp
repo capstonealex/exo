@@ -11,6 +11,7 @@ void InitState::entry(void)
         << " BLUE + YELLOW -> START " << endl
         << "========================" << endl;
     OWNER->robot->resetTrackingError();
+    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]
     // Set up the logging file
     // time_t rawtime;
     // struct tm * timeinfo;

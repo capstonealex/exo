@@ -11,6 +11,7 @@ void RightForward::entry(void)
         << " GREEN  -> KEEP STEPPING " << endl
         << " YELLOW -> FEET TOGETHER" << endl
         << "========================n" << endl;
+    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]
 }
 void RightForward::during(void)
 {
