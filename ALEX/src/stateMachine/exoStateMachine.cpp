@@ -63,6 +63,7 @@ exoStateMachine::exoStateMachine(void)
     // startSit = new StartSit(this);
     // startStand = new StartStand(this);
     // startBackStep = new StartBackStep(this);
+    // feetTogether = new FeetTogether(this);
 
     // StateMachine states
     initState = new InitState(this);
@@ -264,14 +265,13 @@ bool exoStateMachine::StartWalk::check(void)
 // bool exoStateMachine::FeetTogether::check(void)
 // {
 //     // OD_NM = CO_OD_RAM.nextMovement;
-//     int OD_NM = 6;
 //     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
 //     if (OD_NM == 6 && OWNER->robot->buttons.getGButtonState() == 0)
 //     {
 //         // Set trajOBJECT paramaters to selected nexMOVEMENT
 //         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
 //         // RESET OD_NM for safety
-//         OD_NM = 0;
+//         CO_OD_RAM.nextMovement = 0;
 //         return true;
 //     }
 //     return false;
@@ -279,14 +279,13 @@ bool exoStateMachine::StartWalk::check(void)
 // bool exoStateMachine::startSit::check(void)
 // {
 //     // OD_NM = CO_OD_RAM.nextMovement;
-//     int OD_NM = 8;
 //     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
 //     if ((OD_NM == 8 ) && OWNER->robot->buttons.getGButtonState() == 0)
 //     {
 //         // Set trajOBJECT paramaters to selected nexMOVEMENT
 //         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
 //         // RESET OD_NM for safety
-//         OD_NM = 0;
+//         CO_OD_RAM.nextMovement= 0;
 //         return true;
 //     }
 //     return false;
@@ -294,14 +293,13 @@ bool exoStateMachine::StartWalk::check(void)
 // bool exoStateMachine::startStand::check(void)
 // {
 //    // OD_NM = CO_OD_RAM.nextMovement;
-// int OD_NM = 8;
 // //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
 // if ((OD_NM == 8) && OWNER->robot->buttons.getGButtonState() == 0)
 // {
 //     // Set trajOBJECT paramaters to selected nexMOVEMENT
 //     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
 //     // RESET OD_NM for safety
-//     OD_NM = 0;
+//     CO_OD_RAM.nextMovement= 0;
 //     return true;
 // }
 // return false;
@@ -309,14 +307,13 @@ bool exoStateMachine::StartWalk::check(void)
 // bool exoStateMachine::startBackstep::check(void)
 // {
 //     // OD_NM = CO_OD_RAM.nextMovement;
-//     int OD_NM = 1;
 //     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
 //     if ((OD_NM == 7) && OWNER->robot->buttons.getGButtonState() == 0)
 //     {
 //         // Set trajOBJECT paramaters to selected nexMOVEMENT
 //         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
 //         // RESET OD_NM for safety
-//         OD_NM = 0;
+//         CO_OD_RAM.nextMovement = 0;
 //         return true;
 //     }
 //     return false;
