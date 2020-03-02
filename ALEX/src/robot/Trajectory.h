@@ -35,12 +35,12 @@ class Trajectory
 #define RIGHT_ANKLE 5
 
 	//step parameters
-#define STANDTIME 4
+#define STANDTIME 3
 #define SITTIME 3
 #define STEPTIME 2
 #define UNEVENSTEPTIME 4
 #define UNEVENTORSO deg2rad(10)
-#define STEPLENGTH 0.3
+#define STEPLENGTH 0.33
 #define HALFSTEPLENGTH STEPLENGTH/2
 #define LONGSTEPLENGTH STEPLENGTH*1.5
 #define BACKLENGTH 0.3
@@ -49,6 +49,7 @@ class Trajectory
 #define STEPTGTLENGTH 0.0
 #define LEGSLACK 0.0001
 #define TORSOANGLE deg2rad(5)
+#define UNEVENSTEP 0.3
 
 public:
 	// Hardware angle limiation in Radians

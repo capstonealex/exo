@@ -410,12 +410,12 @@ void Robot::startNewTraj()
     }
     // cout << "joints position at start traj" << endl;
     // printInfo();
-    startNewTrajJointspace = {.q = {robotJointspace[0],
+    startNewTrajJointspace = { .q = {robotJointspace[0],
                                     robotJointspace[1],
                                     robotJointspace[2],
                                     robotJointspace[3],
-                                    robotJointspace[4],
-                                    robotJointspace[5]},
+                                    deg2rad(85), //robotJointspace[4],
+                                    deg2rad(85)}, //robotJointspace[5]},
                               .time = 0};
 
     trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
