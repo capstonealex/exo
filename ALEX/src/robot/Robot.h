@@ -14,7 +14,7 @@
 #define SITSTANDTIME 2
 #define STEPTIME 2
 //////////////// For testing  ///////////////////////////
-#define _NOANKLES w / o ankles
+#define _NOANKLES //w / o ankles
 
 #ifndef _NOANKLES
 #define NUM_JOINTS 6

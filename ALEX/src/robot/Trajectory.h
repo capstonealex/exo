@@ -37,7 +37,7 @@ class Trajectory
 	//step parameters
 #define STANDTIME 3
 #define SITTIME 3
-#define STEPTIME 2
+#define STEPTIME 1.8
 #define UNEVENSTEPTIME 4
 #define UNEVENTORSO deg2rad(10)
 #define STEPLENGTH 0.33

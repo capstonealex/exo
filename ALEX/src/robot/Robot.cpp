@@ -137,7 +137,8 @@ bool Robot::initPositionControlAnkles(void)
         "[1] 6 write 0x6040 0 i16 15",
     };
     int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
-    for (int i = 0; i < num_of_Messages; ++i)
+    
+	(int i = 0; i < num_of_Messages; ++i)
     {
         cancomm_socketFree(SDO_MessageList[i], returnMessage);
     }
@@ -464,7 +465,7 @@ void Robot::moveThroughTraj()
             if (joints[i].getBitFlipState() == NOFLIP)
             {
                 int j = joints[i].getId();
-                // cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+                cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
                 joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
 
                 // set state machine bitFlip to LOW state.
