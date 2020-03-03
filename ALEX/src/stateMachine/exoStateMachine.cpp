@@ -32,7 +32,7 @@ int running = 0;
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
-#define _VIRTUALROBOT
+//#define _VIRTUALROBOT
 /////////////////////////////////////////////////////////
 
 #define OWNER ((exoStateMachine *)owner)

@@ -10,7 +10,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
-#include <cmath>
+#include <cmath> 
 
 #define CANMESSAGELENGTH (100)
 #define NOFLIP (100)
@@ -138,7 +138,7 @@ bool Robot::initPositionControlAnkles(void)
     };
     int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
     
-	(int i = 0; i < num_of_Messages; ++i)
+	for (int i = 0; i < num_of_Messages; ++i)
     {
         cancomm_socketFree(SDO_MessageList[i], returnMessage);
     }
@@ -409,8 +409,8 @@ void Robot::startNewTraj()
         int j = joints[i].getId();
         robotJointspace[j - 1] = deg2rad(joints[i].getPosDeg());
     }
-    // cout << "joints position at start traj" << endl;
-    // printInfo();
+    cout << "joints position at start traj" << endl;
+    printInfo();
     startNewTrajJointspace = { .q = {robotJointspace[0],
                                     robotJointspace[1],
                                     robotJointspace[2],
@@ -453,20 +453,20 @@ void Robot::moveThroughTraj()
         moving_tv = tv_changed;
         //array for position and velocity profile
         double positionArray[NUM_JOINTS];
-        // printInfo();
+        printInfo();
 
 #ifndef _NOACTUATION
         // Send a new trajectory point
         // Get Trajectory point for this joint based on current time
         trajectoryObj.calcPosition(fracTrajProgress, positionArray);
-
         for (int i = 0; i < NUM_JOINTS; i++)
         {
             if (joints[i].getBitFlipState() == NOFLIP)
             {
                 int j = joints[i].getId();
                 cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
-                joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
+				joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
+
 
                 // set state machine bitFlip to LOW state.
                 joints[i].bitflipLow();
