@@ -11,7 +11,8 @@ void RightForward::entry(void)
         << " GREEN  -> KEEP STEPPING " << endl
         << " YELLOW -> FEET TOGETHER" << endl
         << "========================n" << endl;
-    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]
+    // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
+    CO_OD_RAM.currentState = stateToIntODMap["Standing"]
 }
 void RightForward::during(void)
 {

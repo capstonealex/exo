@@ -11,7 +11,8 @@ void SittingDwn::entry(void)
 
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[8]);
     OWNER->robot->startNewTraj();
-    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]
+    // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
+    CO_OD_RAM.currentState = stateToIntODMap["Moving"]
 }
 void SittingDwn::during(void)
 {

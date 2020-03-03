@@ -13,7 +13,8 @@ void SteppingFirstLeft::entry(void)
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[1]);
     OWNER->robot->trajectoryObj.setTrajectoryStanceRight();
     OWNER->robot->startNewTraj();
-    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]
+    // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
+    CO_OD_RAM.currentState = stateToIntODMap["Moving"]
 }
 
 void SteppingFirstLeft::during(void)

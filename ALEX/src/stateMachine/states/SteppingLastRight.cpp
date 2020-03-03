@@ -12,7 +12,8 @@ void SteppingLastRight::entry(void)
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[2]);
     OWNER->robot->trajectoryObj.setTrajectoryStanceLeft();
     OWNER->robot->startNewTraj();
-    //TODO, when OD WORKING: OD.CS = StateODMap[this.getName()]
+    // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
+    CO_OD_RAM.currentState = stateToIntODMap["Moving"]
 }
 
 void SteppingLastRight::during(void)

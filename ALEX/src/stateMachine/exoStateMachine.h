@@ -57,6 +57,12 @@ public:
     SteppingLastRight *steppingLastRight;
     SteppingLastLeft *steppingLastLeft;
     ErrorState *errorState;
+    /*Crutch dictionaries and functions*/
+    std::map<std::string, int> mvmntToIntODMap;
+    std::map<int, std::string> intToMvmntODMap;
+    std::map<std::string, int> stateToIntODMap;
+    std::map<int, std::string> intToStateODMap;
+    void populateDictionary(void);
 
 private:
     // events

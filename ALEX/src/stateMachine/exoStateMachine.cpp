@@ -131,6 +131,7 @@ void exoStateMachine::init(void)
     mark = 1;
     calibrated = 0;
     StateMachine::init();
+    populateDictionary();
 #ifndef _VIRTUALROBOT
     printf("Remapping PDOs \n");
     if (calibrated == 0)
@@ -362,4 +363,43 @@ void exoStateMachine::hwStateUpdate(void)
         //printf("\n");
         logfile << "\n";
     }
+}
+void exoStateMachine::populateDictionary(void)
+{
+    // nm and cm OD maps
+    mvmntToIntODMap["normal"] = 1;
+    mvmntToIntODMap["backstep"] = 2;
+    mvmntToIntODMap["feet together"] = 3;
+    mvmntToIntODMap["up stairs"] = 4;
+    mvmntToIntODMap["down stairs"] = 5;
+    mvmntToIntODMap["up slope"] = 6;
+    mvmntToIntODMap["down slope"] = 7;
+    mvmntToIntODMap["uneven"] = 8;
+    mvmntToIntODMap["Sit Down"] = 9;
+    mvmntToIntODMap["Stand Up"] = 10;
+    intToMvmntODMap[1] = "normal";
+    intToMvmntODMap[2] = "backstep";
+    intToMvmntODMap[3] = "feet together";
+    intToMvmntODMap[4] = "up stairs";
+    intToMvmntODMap[5] = "down stairs";
+    intToMvmntODMap[6] = "up slope";
+    intToMvmntODMap[7] = "down slope";
+    intToMvmntODMap[8] = "uneven";
+    intToMvmntODMap[9] = "Sit Down";
+    intToMvmntODMap[10] = "Stand Up";
+    // state to OD maps
+    // TODO:change to less generic if we want: After testing
+    stateToIntODMap["Error"] = 1;
+    stateToIntODMap["Init"] = 2;
+    stateToIntODMap["Moving"] = 3;
+    stateToIntODMap["Standing"] = 4;
+    stateToIntODMap["Sitting"] = 4;
+
+    intToStateODMap[1] = "Error";
+    intToStateODMap[2] = "Init";
+    intToStateODMap[3] = "Moving";
+    intToStateODMap[4] = "Standing";
+    intToStateODMap[5] = "Sitting";
+
+    std::cout << "Dictionary populated" << std::endl;
 }
