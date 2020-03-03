@@ -116,13 +116,13 @@ void app_program1ms(void)
     //spdlog::set_default_logger(mainLogger);
 
     //fileLoggerBinary(mainLogger);'
-    if (sitStandMachine.running != 0)
+    if (exoMachine.running != 0)
     {
         //printf("Before hwstateupdate \n");
-        sitStandMachine.hwStateUpdate();
+        exoMachine.hwStateUpdate();
         //printf("Before update \n");
 
-        sitStandMachine.update();
+        exoMachine.update();
         //printf("After update \n");
     }
     //auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
