@@ -356,7 +356,7 @@ double Joint::getDesPosDeg()
 
 void Joint::printInfo()
 {
-    cout << "Joint id number " << id << " @ pos " << q << "\n";
+    cout << "Joint id number " << id << " @ pos " << getPosDeg() << "\n";
 }
 //// Robot motion and state update functions
 void Joint::updateJoint()

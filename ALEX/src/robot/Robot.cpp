@@ -453,7 +453,7 @@ void Robot::moveThroughTraj()
         moving_tv = tv_changed;
         //array for position and velocity profile
         double positionArray[NUM_JOINTS];
-        printInfo();
+        //printInfo();
 
 #ifndef _NOACTUATION
         // Send a new trajectory point
@@ -464,7 +464,7 @@ void Robot::moveThroughTraj()
             if (joints[i].getBitFlipState() == NOFLIP)
             {
                 int j = joints[i].getId();
-                cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+                //cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
 				joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
 
 
