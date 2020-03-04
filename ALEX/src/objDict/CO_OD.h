@@ -105,7 +105,7 @@ typedef domain_t DOMAIN;
 /*******************************************************************************
    OBJECT DICTIONARY
 *******************************************************************************/
-#define CO_OD_NoOfElements 247
+#define CO_OD_NoOfElements 253
 
 /*******************************************************************************
    TYPE DEFINITIONS FOR RECORDS
@@ -187,6 +187,16 @@ typedef domain_t DOMAIN;
         UNSIGNED64 epochTimeBaseMs;
         UNSIGNED32 epochTimeOffsetMs;
 } OD_time_t;
+/*2209    */ typedef struct
+{
+        UNSIGNED8 numberOfMotors;
+        UNSIGNED16 motor1;
+        UNSIGNED16 motor2;
+        UNSIGNED16 motor3;
+        UNSIGNED16 motor4;
+        UNSIGNED16 motor5;
+        UNSIGNED16 motor6;
+} OD_motorTempSensorVoltages_t;
 /*2301    */ typedef struct
 {
         UNSIGNED8 maxSubIndex;
@@ -1227,6 +1237,7 @@ typedef domain_t DOMAIN;
 #define OD_1810_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1810_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1810_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1810_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1810_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1810_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1237,6 +1248,7 @@ typedef domain_t DOMAIN;
 #define OD_1811_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1811_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1811_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1811_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1811_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1811_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1247,6 +1259,7 @@ typedef domain_t DOMAIN;
 #define OD_1812_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1812_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1812_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1812_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1812_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1812_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1257,6 +1270,7 @@ typedef domain_t DOMAIN;
 #define OD_1813_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1813_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1813_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1813_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1813_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1813_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1267,6 +1281,7 @@ typedef domain_t DOMAIN;
 #define OD_1814_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1814_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1814_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1814_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1814_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1814_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1277,6 +1292,7 @@ typedef domain_t DOMAIN;
 #define OD_1815_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1815_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1815_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1815_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1815_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1815_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1287,6 +1303,7 @@ typedef domain_t DOMAIN;
 #define OD_1816_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1816_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1816_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1816_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1816_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1816_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1297,6 +1314,7 @@ typedef domain_t DOMAIN;
 #define OD_1817_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1817_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1817_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1817_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1817_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1817_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1307,6 +1325,7 @@ typedef domain_t DOMAIN;
 #define OD_1818_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1818_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1818_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1818_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1818_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1818_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1317,6 +1336,7 @@ typedef domain_t DOMAIN;
 #define OD_1819_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_1819_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_1819_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_1819_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_1819_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_1819_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1327,6 +1347,7 @@ typedef domain_t DOMAIN;
 #define OD_181a_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_181a_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_181a_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_181a_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_181a_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_181a_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1337,6 +1358,7 @@ typedef domain_t DOMAIN;
 #define OD_181b_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_181b_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_181b_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_181b_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_181b_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_181b_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1347,6 +1369,7 @@ typedef domain_t DOMAIN;
 #define OD_181c_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_181c_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_181c_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_181c_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_181c_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_181c_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1357,6 +1380,7 @@ typedef domain_t DOMAIN;
 #define OD_181d_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_181d_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_181d_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_181d_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_181d_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_181d_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1367,6 +1391,7 @@ typedef domain_t DOMAIN;
 #define OD_181e_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_181e_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_181e_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_181e_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_181e_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_181e_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -1377,6 +1402,7 @@ typedef domain_t DOMAIN;
 #define OD_181f_1_TPDOCommunicationParameter_COB_IDUsedByTPDO 1
 #define OD_181f_2_TPDOCommunicationParameter_transmissionType 2
 #define OD_181f_3_TPDOCommunicationParameter_inhibitTime 3
+#define OD_181f_4_TPDOCommunicationParameter_compatibilityEntry 4
 #define OD_181f_5_TPDOCommunicationParameter_eventTimer 5
 #define OD_181f_6_TPDOCommunicationParameter_SYNCStartValue 6
 
@@ -2144,25 +2170,25 @@ typedef domain_t DOMAIN;
 #define OD_2110_32_variableInt32_int32 32
 
 /*2111 */
-// #define OD_2111_variableROM_Int32 0x2111
+#define OD_2111_variableROM_Int32 0x2111
 
-// #define OD_2111_0_variableROM_Int32_maxSubIndex 0
-// #define OD_2111_1_variableROM_Int32_int32 1
-// #define OD_2111_2_variableROM_Int32_int32 2
-// #define OD_2111_3_variableROM_Int32_int32 3
-// #define OD_2111_4_variableROM_Int32_int32 4
-// #define OD_2111_5_variableROM_Int32_int32 5
-// #define OD_2111_6_variableROM_Int32_int32 6
-// #define OD_2111_7_variableROM_Int32_int32 7
-// #define OD_2111_8_variableROM_Int32_int32 8
-// #define OD_2111_9_variableROM_Int32_int32 9
-// #define OD_2111_10_variableROM_Int32_int32 10
-// #define OD_2111_11_variableROM_Int32_int32 11
-// #define OD_2111_12_variableROM_Int32_int32 12
-// #define OD_2111_13_variableROM_Int32_int32 13
-// #define OD_2111_14_variableROM_Int32_int32 14
-// #define OD_2111_15_variableROM_Int32_int32 15
-// #define OD_2111_16_variableROM_Int32_int32 16
+#define OD_2111_0_variableROM_Int32_maxSubIndex 0
+#define OD_2111_1_variableROM_Int32_int32 1
+#define OD_2111_2_variableROM_Int32_int32 2
+#define OD_2111_3_variableROM_Int32_int32 3
+#define OD_2111_4_variableROM_Int32_int32 4
+#define OD_2111_5_variableROM_Int32_int32 5
+#define OD_2111_6_variableROM_Int32_int32 6
+#define OD_2111_7_variableROM_Int32_int32 7
+#define OD_2111_8_variableROM_Int32_int32 8
+#define OD_2111_9_variableROM_Int32_int32 9
+#define OD_2111_10_variableROM_Int32_int32 10
+#define OD_2111_11_variableROM_Int32_int32 11
+#define OD_2111_12_variableROM_Int32_int32 12
+#define OD_2111_13_variableROM_Int32_int32 13
+#define OD_2111_14_variableROM_Int32_int32 14
+#define OD_2111_15_variableROM_Int32_int32 15
+#define OD_2111_16_variableROM_Int32_int32 16
 
 /*2112 */
 #define OD_2112_variableNV_Int32 0x2112
@@ -2202,6 +2228,17 @@ typedef domain_t DOMAIN;
 #define OD_2130_1_time_string 1
 #define OD_2130_2_time_epochTimeBaseMs 2
 #define OD_2130_3_time_epochTimeOffsetMs 3
+
+/*2209 */
+#define OD_2209_motorTempSensorVoltages 0x2209
+
+#define OD_2209_0_motorTempSensorVoltages_maxSubIndex 0
+#define OD_2209_1_motorTempSensorVoltages_motor1 1
+#define OD_2209_2_motorTempSensorVoltages_motor2 2
+#define OD_2209_3_motorTempSensorVoltages_motor3 3
+#define OD_2209_4_motorTempSensorVoltages_motor4 4
+#define OD_2209_5_motorTempSensorVoltages_motor5 5
+#define OD_2209_6_motorTempSensorVoltages_motor6 6
 
 /*2301 */
 #define OD_2301_traceConfig 0x2301
@@ -2987,6 +3024,21 @@ typedef domain_t DOMAIN;
 #define OD_6000_7_readInput8Bit_input 7
 #define OD_6000_8_readInput8Bit_input 8
 
+/*6001 */
+#define OD_6001_currentState 0x6001
+
+/*6002 */
+#define OD_6002_currentMovement 0x6002
+
+/*6003 */
+#define OD_6003_nextMovement 0x6003
+
+/*6004 */
+#define OD_6004_goButton 0x6004
+
+/*6005 */
+#define OD_6005_HB 0x6005
+
 /*6040 */
 #define OD_6040_controlWords 0x6040
 
@@ -3110,16 +3162,16 @@ typedef domain_t DOMAIN;
 *******************************************************************************/
 #define CO_OD_FIRST_LAST_WORD 0x55 //Any value from 0x01 to 0xFE. If changed, EEPROM will be reinitialized.
 
-// /***** Structure for ROM variables ********************************************/
-// struct sCO_OD_ROM
-// {
-//         UNSIGNED32 FirstWord;
+/***** Structure for ROM variables ********************************************/
+struct sCO_OD_ROM
+{
+        UNSIGNED32 FirstWord;
 
-//         /*100c      */ UNSIGNED16 guardTime;
-//         /*1012      */ UNSIGNED32 COB_ID_TIME;
+        /*100c      */ UNSIGNED16 guardTime;
+        /*1012      */ UNSIGNED32 COB_ID_TIME;
 
-//         UNSIGNED32 LastWord;
-// };
+        UNSIGNED32 LastWord;
+};
 
 /***** Structure for RAM variables ********************************************/
 struct sCO_OD_RAM
@@ -3171,10 +3223,16 @@ struct sCO_OD_RAM
         /*2112      */ INTEGER32 variableNV_Int32[16];
         /*2120      */ OD_testVar_t testVar;
         /*2130      */ OD_time_t time;
+        /*2209      */ OD_motorTempSensorVoltages_t motorTempSensorVoltages;
         /*2301      */ OD_traceConfig_t traceConfig[32];
         /*2400      */ UNSIGNED8 traceEnable;
         /*2401      */ OD_trace_t trace[32];
         /*6000      */ UNSIGNED8 readInput8Bit[8];
+        /*6001      */ UNSIGNED16 currentState;
+        /*6002      */ UNSIGNED16 currentMovement;
+        /*6003      */ UNSIGNED16 nextMovement;
+        /*6004      */ UNSIGNED16 goButton;
+        /*6005      */ UNSIGNED16 HB;
         /*6040      */ OD_controlWords_t controlWords;
         /*6041      */ OD_statusWords_t statusWords;
         /*6064      */ OD_actualMotorPositions_t actualMotorPositions;
@@ -3198,8 +3256,11 @@ struct sCO_OD_EEPROM
 };
 
 /***** Declaration of Object Dictionary variables *****************************/
+extern struct sCO_OD_ROM CO_OD_ROM;
 
 extern struct sCO_OD_RAM CO_OD_RAM;
+
+extern struct sCO_OD_EEPROM CO_OD_EEPROM;
 
 /*******************************************************************************
    ALIASES FOR OBJECT DICTIONARY VARIABLES
@@ -3384,6 +3445,9 @@ extern struct sCO_OD_RAM CO_OD_RAM;
 /*2130, Data Type: time_t */
 #define OD_time CO_OD_RAM.time
 
+/*2209, Data Type: motorTempSensorVoltages_t */
+#define OD_motorTempSensorVoltages CO_OD_RAM.motorTempSensorVoltages
+
 /*2301, Data Type: traceConfig_t */
 #define OD_traceConfig CO_OD_RAM.traceConfig
 
@@ -3397,6 +3461,21 @@ extern struct sCO_OD_RAM CO_OD_RAM;
 #define OD_readInput8Bit CO_OD_RAM.readInput8Bit
 #define ODL_readInput8Bit_arrayLength 8
 #define ODA_readInput8Bit_input 0
+
+/*6001, Data Type: UNSIGNED16 */
+#define OD_currentState CO_OD_RAM.currentState
+
+/*6002, Data Type: UNSIGNED16 */
+#define OD_currentMovement CO_OD_RAM.currentMovement
+
+/*6003, Data Type: UNSIGNED16 */
+#define OD_nextMovement CO_OD_RAM.nextMovement
+
+/*6004, Data Type: UNSIGNED16 */
+#define OD_goButton CO_OD_RAM.goButton
+
+/*6005, Data Type: UNSIGNED16 */
+#define OD_HB CO_OD_RAM.HB
 
 /*6040, Data Type: controlWords_t */
 #define OD_controlWords CO_OD_RAM.controlWords

@@ -89,11 +89,14 @@ void app_programEnd(void)
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiffy)
 {
-    if (exoMachine.running != 0)
-    {
-        exoMachine.hwStateUpdate();
-        exoMachine.update();
-    }
+    // TESTING OD
+    CO_OD_RAM.currentState = CO_OD_RAM.currentState + 1;
+    std::cout << "BEAGLE NEXT MOVE:" << CO_OD_RAM.nextMovement << std::endl;
+    // if (exoMachine.running != 0)
+    // {
+    //     exoMachine.hwStateUpdate();
+    //     exoMachine.update();
+    // }
 
     //Timing speed of reading from memory and file writing
     //struct timeval start;

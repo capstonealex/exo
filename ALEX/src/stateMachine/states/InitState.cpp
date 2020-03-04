@@ -12,7 +12,7 @@ void InitState::entry(void)
         << "========================" << endl;
     OWNER->robot->resetTrackingError();
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
-    CO_OD_RAM.currentState = stateToIntODMap["Init"]
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Init"];
     // Set up the logging file
     // time_t rawtime;
     // struct tm * timeinfo;
@@ -24,6 +24,7 @@ void InitState::entry(void)
     // printf("File Created: %s\n", filename);
 
     // logfile.open (filename);
+    std::cout << CO_OD_RAM.nextMovement;
 }
 void InitState::during(void)
 {

@@ -13,7 +13,7 @@ void SteppingRight::entry(void)
     OWNER->robot->trajectoryObj.setTrajectoryStanceLeft();
     OWNER->robot->startNewTraj();
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
-    CO_OD_RAM.currentState = stateToIntODMap["Moving"]
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Moving"];
 }
 
 void SteppingRight::during(void)

@@ -21,7 +21,7 @@ void ErrorState::entry(void)
         OWNER->robot->joints[i].disable();
     }
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
-    CO_OD_RAM.currentState = stateToIntODMap["Error"]
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Error"];
 }
 
 void ErrorState::during(void)
