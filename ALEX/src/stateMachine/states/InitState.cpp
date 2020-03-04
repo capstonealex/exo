@@ -24,10 +24,10 @@ void InitState::entry(void)
     // printf("File Created: %s\n", filename);
 
     // logfile.open (filename);
-    std::cout << CO_OD_RAM.nextMovement;
 }
 void InitState::during(void)
 {
+    std::cout << "NEXT MOVEMENT" << CO_OD_RAM.nextMovement << endl;
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
         OWNER->robot->joints[i].readyToSwitchOn();
