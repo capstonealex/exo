@@ -153,8 +153,9 @@ void exoStateMachine::init(void)
 
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-
-	strftime(filename, 80, "ALEXLOG_%Y%m%e_%H%M.csv", timeinfo);
+	
+	//strftime(filename, 80, "ALEXLOG_%Y%m%e_%H%M.csv", timeinfo);
+	cin >> filename;
 	printf("File Created: %s\n", filename);
 
 	logfile.open(filename);
@@ -178,7 +179,7 @@ void exoStateMachine::update(void)
 bool exoStateMachine::EndTraj::check(void)
 {
     //int reached = 0;
-    if (OWNER->robot->fracTrajProgress > 1.15 && OWNER->robot->buttons.getGButtonState() == 1)
+    if (OWNER->robot->fracTrajProgress > 1.10 && OWNER->robot->buttons.getGButtonState() == 1)
     {
         return true;
     }
