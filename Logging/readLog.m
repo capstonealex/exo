@@ -1,6 +1,6 @@
 close all; clear; 
 format long g
-C = csvread('ALEXLOG_2020 2 28 walk and full task.csv');
+C = csvread('ALEXLOG_TESTING_0304.csv');
 m = getMotorSpecs;
 raw2torque = m.nominalTorque/1000;        % 0.319 [Nm] in the datasheet
 torqueConstant    = m.torqueConstant;   % in [Nm/A] from Maxon - 412825 datasheet
