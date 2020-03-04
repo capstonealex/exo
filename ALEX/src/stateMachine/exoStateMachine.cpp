@@ -253,7 +253,7 @@ void exoStateMachine::hwStateUpdate(void)
     // LOG TO FILE
     if (mark % 10 == 1)
     {
-        //printf("%d, %d \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
+        printf("%d, %d \n", robot->joints[2].getStatus(),   robot->joints[2].getActualTorque() );
         struct timeval tv;
         gettimeofday(&tv, NULL);
         double currtime = tv.tv_sec + ((double)tv.tv_usec) / 1000000;
@@ -262,9 +262,9 @@ void exoStateMachine::hwStateUpdate(void)
         for (auto i = 0; i < NUM_JOINTS; i++)
         {
             logfile << "," + std::to_string(robot->joints[i].getPosDeg()) + "," + std::to_string(robot->joints[i].getDesPosDeg()) + "," + std::to_string(robot->joints[i].getActualTorque());
-            //printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
+            printf("%3f, %3f,", robot->joints[i].getPosDeg(), robot->joints[i].getDesPosDeg());
         }
-        //printf("\n");
+        printf("\n");
         logfile << "\n";
     }
 }
