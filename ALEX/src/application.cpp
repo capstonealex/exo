@@ -90,8 +90,7 @@ void app_programEnd(void)
 void app_programAsync(uint16_t timer1msDiffy)
 {
     // TESTING OD
-    CO_OD_RAM.currentState = CO_OD_RAM.currentState + 1;
-    std::cout << "BEAGLE NEXT MOVE:" << CO_OD_RAM.nextMovement << std::endl;
+
     // if (exoMachine.running != 0)
     // {
     //     exoMachine.hwStateUpdate();
