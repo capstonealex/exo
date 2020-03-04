@@ -65,6 +65,9 @@ void Buttons::setButtonStates()
     this->gButton = greenbtn;
     this->bButton = bluebtn;
     this->rButton = redbtn;
+    // USING OBJECT DICTIONARY
+    // on other end 0 = GO and 1 = NO
+    // CAN CHANGE IF NEED BE, but that's how app works
 }
 void Buttons::printButtonStates()
 {

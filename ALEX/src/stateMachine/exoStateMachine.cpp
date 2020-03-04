@@ -90,8 +90,11 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingLastLeft, endTraj, standing);
     // Sit Stand Transitions
     NewTransition(initState, startButtonsPressed, sitting);
-    NewTransition(standing, isYPressed, sittingDwn);
     NewTransition(sitting, isYPressed, standingUp);
+    NewTransition(standing, isYPressed, sittingDwn);
+    // TRANSITION USING NEWMOTION OD EVENTS
+    // NewTransition(sitting, startStand, standingUp);
+    // NewTransition(standing, startSit, sittingDwn);
     // Walking Transitions
     // NewTransition(standing, isBPressed, steppingFirstLeft);
     NewTransition(leftForward, isGPressed, steppingRight);
