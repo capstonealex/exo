@@ -231,7 +231,6 @@ bool exoStateMachine::StartButtonsPressed::check(void)
 {
     if (OWNER->robot->buttons.getBButtonState() == 0 && OWNER->robot->buttons.getRButtonState() != 0 && OWNER->robot->buttons.getYButtonState() == 0 && OWNER->robot->buttons.getGButtonState() != 0)
     {
-        CO_OD_RAM.actualMotorVelocities.motor1 = 0;
         return true;
     }
     return false;
@@ -250,7 +249,7 @@ bool exoStateMachine::ResetButtonsPressed::check(void)
 bool exoStateMachine::StartWalk::check(void)
 {
     // OD_NM = CO_OD_RAM.nextMovement;
-    int OD_NM = CO_OD_RAM.actualMotorVelocities.motor1;
+    int OD_NM = CO_OD_RAM.nextMovement;
     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
     if ((OD_NM > 0 && OD_NM < 6) && OWNER->robot->buttons.getGButtonState() == 0)
     {
@@ -258,7 +257,8 @@ bool exoStateMachine::StartWalk::check(void)
         // Set trajOBJECT paramaters to selected nexMOVEMENT
         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
         // RESET OD_NM for safety
-        CO_OD_RAM.actualMotorVelocities.motor1 = 0;
+        CO_OD_RAM.nextMovement = 0;
+        CO_OD_RAM.currentMovement = OD_NM;
         return true;
     }
     return false;
@@ -339,11 +339,11 @@ void exoStateMachine::hwStateUpdate(void)
 {
     robot->buttons.setButtonStates();
     //if blue button pressed change actualMotorV to 1 use as sudo change from crutch
-    if (robot->buttons.getBButtonState() == 0)
-    {
-        CO_OD_RAM.actualMotorVelocities.motor1 = 1;
-        std::cout << "CHANGE NM FLAG!" << endl;
-    }
+    // if (robot->buttons.getBButtonState() == 0)
+    // {
+    //     CO_OD_RAM.actualMotorVelocities.motor1 = 1;
+    //     std::cout << "CHANGE NM FLAG!" << endl;
+    // }
     mark = mark + 1;
     robot->updateJoints();
     // LOG TO FILE

@@ -72,7 +72,7 @@ exoStateMachine exoMachine;
 /******************************************************************************/
 void app_programStart(void)
 {
-    //printf("app_Program Start \n");
+    printf("app_Program Start \n");
     exoMachine.initRobot(&exo);
     exoMachine.init();
     exoMachine.activate();
@@ -89,30 +89,6 @@ void app_programEnd(void)
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiffy)
 {
-    // TESTING OD
-
-    // if (exoMachine.running != 0)
-    // {
-    //     exoMachine.hwStateUpdate();
-    //     exoMachine.update();
-    // }
-
-    //Timing speed of reading from memory and file writing
-    //struct timeval start;
-    //struct timeval stop;
-    //gettimeofday(&start, NULL);
-    /*
-    struct timeval tv;
-    gettimeofday(&tv,NULL);
-    printf("time before(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
-    fileLogger(timer1msDiff);
-    gettimeofday(&tv,NULL);
-    printf("time after(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
-    */
-    //gettimeofday(&stop, NULL);
-    //double elapsed_ms = (stop.tv_sec - start.tv_sec) * 1000.0;
-    //elapsed_ms += (stop.tv_usec - start.tv_usec) / 1000.0;
-    //printf("TASK 1:  %.2f milliseconds\n", elapsed_ms);
 }
 //setting the style of the logger to only hold the data without any extra information.
 /*void setLoggerStyle(spdlog::logger logger){
@@ -136,9 +112,22 @@ void app_programAsync(uint16_t timer1msDiffy)
 /******************************************************************************/
 void app_program1ms(void)
 {
+    // std::cout << "BEAGLE NEXT MOVE:" << CO_OD_RAM.nextMovement << std::endl;
     //auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
     //spdlog::set_default_logger(mainLogger);
 
+    //fileLoggerBinary(mainLogger);'
+    if (exoMachine.running != 0)
+    {
+        //printf("Before hwstateupdate \n");
+        exoMachine.hwStateUpdate();
+        //printf("Before update \n");
+
+        exoMachine.update();
+        //printf("After update \n");
+    }
+    //auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
+    //spdlog::set_default_logger(mainLogger);
     //fileLoggerBinary(mainLogger);
 }
 /******************************************************************************/
