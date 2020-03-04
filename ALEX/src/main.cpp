@@ -358,8 +358,7 @@ int main(int argc, char *argv[])
 
                 /* Execute optional additional alication code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
-
-                // sitStandMachine.hwStateUpdate();
+				// sitStandMachine.hwStateUpdate();
                 // sitStandMachine.update();
                 // app_programAsync(timer1msDiff);
             }

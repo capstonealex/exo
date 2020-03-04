@@ -246,6 +246,7 @@ void exoStateMachine::initRobot(Robot *rb)
 // Update button state, loop counter (mark) and joints
 void exoStateMachine::hwStateUpdate(void)
 {
+	//cout << "looping" << endl;
     robot->buttons.setButtonStates();
     mark = mark + 1;
     robot->updateJoints();

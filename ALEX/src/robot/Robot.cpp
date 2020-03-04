@@ -63,7 +63,7 @@ void Robot::updateJoints()
 {
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        //joints[i].updateJoint();
+        joints[i].updateJoint();
     }
 }
 bool Robot::sdoMSG(void)
@@ -92,14 +92,14 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6081 0 i32 2000000",
         "[1] 3 write 0x6081 0 i32 2000000",
         "[1] 4 write 0x6081 0 i32 2000000",
-        "[1] 2 write 0x6083 0 i32 100000",
-        "[1] 1 write 0x6083 0 i32 100000",
-        "[1] 3 write 0x6083 0 i32 100000",
-        "[1] 4 write 0x6083 0 i32 100000",
-        "[1] 2 write 0x6084 0 i32 100000",
-        "[1] 1 write 0x6084 0 i32 100000",
-        "[1] 3 write 0x6084 0 i32 100000",
-        "[1] 4 write 0x6084 0 i32 100000"};
+        "[1] 2 write 0x6083 0 i32 1000000",
+        "[1] 1 write 0x6083 0 i32 1000000",
+        "[1] 3 write 0x6083 0 i32 1000000",
+        "[1] 4 write 0x6083 0 i32 1000000",
+        "[1] 2 write 0x6084 0 i32 1000000",
+        "[1] 1 write 0x6084 0 i32 1000000",
+        "[1] 3 write 0x6084 0 i32 1000000",
+        "[1] 4 write 0x6084 0 i32 1000000"};
     if (!positionControlConfigured)
     {
         int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
