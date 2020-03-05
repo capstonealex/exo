@@ -89,16 +89,6 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingLeft, endTraj, leftForward);
     NewTransition(steppingLastRight, endTraj, standing);
     NewTransition(steppingLastLeft, endTraj, standing);
-    // Sit Stand Transitions
-    // NewTransition(initState, startButtonsPressed, sitting);
-    // NewTransition(sitting, isYPressed, standingUp);
-    // NewTransition(standing, isYPressed, sittingDwn);
-    // Walking Transitions
-    // NewTransition(standing, isBPressed, steppingFirstLeft);
-    // NewTransition(leftForward, isGPressed, steppingRight);
-    // NewTransition(rightForward, isGPressed, steppingLeft);
-    // NewTransition(leftForward, isYPressed, steppingLastRight);
-    // NewTransition(rightForward, isYPressed, steppingLastLeft);
     // TRANSITION USING OD.NM Triggered EVENTS
     NewTransition(initState, startExo, sitting);
     NewTransition(standing, startWalk, steppingFirstLeft);
@@ -184,8 +174,7 @@ void exoStateMachine::update(void)
 ///////////////////////////////////////////////////////////////
 bool exoStateMachine::EndTraj::check(void)
 {
-    //int reached = 0;
-    if (OWNER->robot->fracTrajProgress > 1.15 && OWNER->robot->buttons.getGButtonState() == 1)
+    if (OWNER->robot->fracTrajProgress > 1.15 && OWNER->robot->buttons.getGButtonState() == 0)
     {
         return true;
     }
@@ -258,7 +247,6 @@ bool exoStateMachine::StartExo::check(void)
         // Set trajOBJECT paramaters to selected nexMOVEMENT
         // OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
         // RESET OD_NM for safety
-        CO_OD_RAM.nextMovement = 0;
         return true;
     }
     return false;
@@ -270,7 +258,6 @@ bool exoStateMachine::StartStand::check(void)
         // Set trajOBJECT paramaters to selected nexMOVEMENT
         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[STNDUP]);
         // RESET OD_NM for safety
-        CO_OD_RAM.nextMovement = 0;
         return true;
     }
     return false;
@@ -283,7 +270,6 @@ bool exoStateMachine::StartWalk::check(void)
         // Set trajOBJECT paramaters to selected nexMOVEMENT
         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[CO_OD_RAM.currentMovement]);
         // RESET OD_NM for safety
-        CO_OD_RAM.nextMovement = 0;
         return true;
     }
     return false;
@@ -295,7 +281,6 @@ bool exoStateMachine::FeetTogether::check(void)
         // Set trajOBJECT paramaters to selected nexMOVEMENT
         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[FTTG]);
         // RESET OD_NM for safety
-        CO_OD_RAM.nextMovement = 0;
         return true;
     }
     return false;
@@ -307,7 +292,6 @@ bool exoStateMachine::StartSit::check(void)
         // Set trajOBJECT paramaters to selected nexMOVEMENT
         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[SITDWN]);
         // RESET OD_NM for safety
-        CO_OD_RAM.nextMovement = 0;
         return true;
     }
     return false;
@@ -414,9 +398,18 @@ void exoStateMachine::populateDictionary(void)
 
     intToStateODMap[1] = "Error";
     intToStateODMap[2] = "Init";
-    intToStateODMap[3] = "Moving";
-    intToStateODMap[4] = "Standing";
-    intToStateODMap[5] = "Sitting";
+    intToStateODMap[3] = "Left Forward";
+    intToStateODMap[4] = "Right Forward";
+    intToStateODMap[5] = "Standing";
+    intToStateODMap[6] = "Sitting";
+    intToStateODMap[7] = "Sitting Down";
+    intToStateODMap[8] = "Standing Up";
+    intToStateODMap[9] = "Step 1st L";
+    intToStateODMap[10] = "Step 1st R";
+    intToStateODMap[11] = "Step last L";
+    intToStateODMap[12] = "Step last R";
+    intToStateODMap[13] = "Step L";
+    intToStateODMap[14] = "Step R";
 
     std::cout << "Dictionary populated" << std::endl;
 }
