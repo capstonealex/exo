@@ -13,6 +13,8 @@ void InitState::entry(void)
     OWNER->robot->resetTrackingError();
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
     CO_OD_RAM.currentState = OWNER->stateToIntODMap["Init"];
+    std::cout << "current movement:" << CO_OD_RAM.currentMovement << std::endl;
+
     // Set up the logging file
     // time_t rawtime;
     // struct tm * timeinfo;
@@ -27,7 +29,8 @@ void InitState::entry(void)
 }
 void InitState::during(void)
 {
-    std::cout << "NEXT MOVEMENT" << CO_OD_RAM.nextMovement << endl;
+    // std::cout << "NEXT MOVEMENT" << CO_OD_RAM.nextMovement << endl;
+    CO_OD_RAM.currentMovement = CO_OD_RAM.nextMovement;
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
         OWNER->robot->joints[i].readyToSwitchOn();

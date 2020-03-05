@@ -62,12 +62,10 @@ void Buttons::setButtonStates()
 
     // Send buttons to variables
     this->yButton = yellowbtn;
-    this->gButton = greenbtn;
+    // this->gButton = greenbtn;
     this->bButton = bluebtn;
     this->rButton = redbtn;
-    // USING OBJECT DICTIONARY
-    // on other end 0 = GO and 1 = NO
-    // CAN CHANGE IF NEED BE, but that's how app works
+    this->gButton = CO_OD_RAM.goButton;
 }
 void Buttons::printButtonStates()
 {
@@ -82,7 +80,7 @@ void Buttons::printPressedButtons()
     {
         printf("Yellow \n");
     }
-    if (!gButton)
+    if (gButton)
     {
         printf("Green \n");
     }

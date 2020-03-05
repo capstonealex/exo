@@ -60,10 +60,11 @@ exoStateMachine::exoStateMachine(void)
     startButtonsPressed = new StartButtonsPressed(this);
     resetButtonsPressed = new ResetButtonsPressed(this);
     startWalk = new StartWalk(this);
-    // startSit = new StartSit(this);
-    // startStand = new StartStand(this);
+    startExo = new StartExo(this);
+    startSit = new StartSit(this);
+    startStand = new StartStand(this);
     // startBackStep = new StartBackStep(this);
-    // feetTogether = new FeetTogether(this);
+    feetTogether = new FeetTogether(this);
 
     // StateMachine states
     initState = new InitState(this);
@@ -89,24 +90,24 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingLastRight, endTraj, standing);
     NewTransition(steppingLastLeft, endTraj, standing);
     // Sit Stand Transitions
-    NewTransition(initState, startButtonsPressed, sitting);
-    NewTransition(sitting, isYPressed, standingUp);
-    NewTransition(standing, isYPressed, sittingDwn);
-    // TRANSITION USING NEWMOTION OD EVENTS
-    // NewTransition(sitting, startStand, standingUp);
-    // NewTransition(standing, startSit, sittingDwn);
+    // NewTransition(initState, startButtonsPressed, sitting);
+    // NewTransition(sitting, isYPressed, standingUp);
+    // NewTransition(standing, isYPressed, sittingDwn);
     // Walking Transitions
     // NewTransition(standing, isBPressed, steppingFirstLeft);
-    NewTransition(leftForward, isGPressed, steppingRight);
-    NewTransition(rightForward, isGPressed, steppingLeft);
-    NewTransition(leftForward, isYPressed, steppingLastRight);
-    NewTransition(rightForward, isYPressed, steppingLastLeft);
-    // TRANSITION USING NEWMOTION OD EVENTS
+    // NewTransition(leftForward, isGPressed, steppingRight);
+    // NewTransition(rightForward, isGPressed, steppingLeft);
+    // NewTransition(leftForward, isYPressed, steppingLastRight);
+    // NewTransition(rightForward, isYPressed, steppingLastLeft);
+    // TRANSITION USING OD.NM Triggered EVENTS
+    NewTransition(initState, startExo, sitting);
     NewTransition(standing, startWalk, steppingFirstLeft);
-    // NewTransition(leftForward, startWalk, steppingRight);
-    // NewTransition(rightForward, startWalk, steppingLeft);
-    // NewTransition(leftForward, feetTogether, steppingLastRight);
-    // NewTransition(rightForward, feetTogether, steppingLastLeft);
+    NewTransition(standing, startSit, sittingDwn);
+    NewTransition(sitting, startStand, standingUp);
+    NewTransition(leftForward, startWalk, steppingRight);
+    NewTransition(rightForward, startWalk, steppingLeft);
+    NewTransition(leftForward, feetTogether, steppingLastRight);
+    NewTransition(rightForward, feetTogether, steppingLastLeft);
 
     // Error State Transitions
     NewTransition(errorState, resetButtonsPressed, initState);
@@ -249,70 +250,73 @@ bool exoStateMachine::ResetButtonsPressed::check(void)
 //////////////////////////////////////////////////////////////////////
 //Crutch new Motion Paramater Events ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
-bool exoStateMachine::StartWalk::check(void)
+bool exoStateMachine::StartExo::check(void)
 {
-    // OD_NM = CO_OD_RAM.nextMovement;
-    int OD_NM = CO_OD_RAM.nextMovement;
-    //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
-    if ((OD_NM > 0 && OD_NM < 6) && OWNER->robot->buttons.getGButtonState() == 0)
+    if ((CO_OD_RAM.currentMovement == 11) && OWNER->robot->buttons.getGButtonState() == 0)
     {
-        std::cout << "START WALK EVENT HAPPEND YEWW" << endl;
+        std::cout << "LEAVING INIT and entering Sitting" << endl;
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
+        // OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
         // RESET OD_NM for safety
         CO_OD_RAM.nextMovement = 0;
-        CO_OD_RAM.currentMovement = OD_NM;
         return true;
     }
     return false;
 }
-// bool exoStateMachine::FeetTogether::check(void)
-// {
-//     // OD_NM = CO_OD_RAM.nextMovement;
-//     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
-//     if (OD_NM == 6 && OWNER->robot->buttons.getGButtonState() == 0)
-//     {
-//         // Set trajOBJECT paramaters to selected nexMOVEMENT
-//         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
-//         // RESET OD_NM for safety
-//         CO_OD_RAM.nextMovement = 0;
-//         return true;
-//     }
-//     return false;
-// }
-// bool exoStateMachine::startSit::check(void)
-// {
-//     // OD_NM = CO_OD_RAM.nextMovement;
-//     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
-//     if ((OD_NM == 8 ) && OWNER->robot->buttons.getGButtonState() == 0)
-//     {
-//         // Set trajOBJECT paramaters to selected nexMOVEMENT
-//         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
-//         // RESET OD_NM for safety
-//         CO_OD_RAM.nextMovement= 0;
-//         return true;
-//     }
-//     return false;
-// }
-// bool exoStateMachine::startStand::check(void)
-// {
-//    // OD_NM = CO_OD_RAM.nextMovement;
-// //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
-// if ((OD_NM == 8) && OWNER->robot->buttons.getGButtonState() == 0)
-// {
-//     // Set trajOBJECT paramaters to selected nexMOVEMENT
-//     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
-//     // RESET OD_NM for safety
-//     CO_OD_RAM.nextMovement= 0;
-//     return true;
-// }
-// return false;
-// }
+bool exoStateMachine::StartStand::check(void)
+{
+    if ((CO_OD_RAM.currentMovement == STNDUP) && OWNER->robot->buttons.getGButtonState() == 1)
+    {
+        // Set trajOBJECT paramaters to selected nexMOVEMENT
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[STNDUP]);
+        // RESET OD_NM for safety
+        CO_OD_RAM.nextMovement = 0;
+        return true;
+    }
+    return false;
+}
+bool exoStateMachine::StartWalk::check(void)
+{
+    if ((CO_OD_RAM.currentMovement >= NORMALWALK && CO_OD_RAM.currentMovement <= TILTDWN) && OWNER->robot->buttons.getGButtonState() == 1)
+    {
+        std::cout << "START WALK EVENT HAPPEND YEWW" << endl;
+        // Set trajOBJECT paramaters to selected nexMOVEMENT
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[CO_OD_RAM.currentMovement]);
+        // RESET OD_NM for safety
+        CO_OD_RAM.nextMovement = 0;
+        return true;
+    }
+    return false;
+}
+bool exoStateMachine::FeetTogether::check(void)
+{
+    if (CO_OD_RAM.currentMovement == FTTG && OWNER->robot->buttons.getGButtonState() == 1)
+    {
+        // Set trajOBJECT paramaters to selected nexMOVEMENT
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[FTTG]);
+        // RESET OD_NM for safety
+        CO_OD_RAM.nextMovement = 0;
+        return true;
+    }
+    return false;
+}
+bool exoStateMachine::StartSit::check(void)
+{
+    if (CO_OD_RAM.currentMovement == SITDWN && OWNER->robot->buttons.getGButtonState() == 1)
+    {
+        // Set trajOBJECT paramaters to selected nexMOVEMENT
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[SITDWN]);
+        // RESET OD_NM for safety
+        CO_OD_RAM.nextMovement = 0;
+        return true;
+    }
+    return false;
+}
 // bool exoStateMachine::startBackstep::check(void)
 // {
 //     // OD_NM = CO_OD_RAM.nextMovement;
 //     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
-//     if ((OD_NM == 7) && OWNER->robot->buttons.getGButtonState() == 0)
+//     if ((OD_NM == 7) && OWNER->robot->buttons.getGButtonState() == 1)
 //     {
 //         // Set trajOBJECT paramaters to selected nexMOVEMENT
 //         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
@@ -341,12 +345,14 @@ void exoStateMachine::initRobot(Robot *rb)
 void exoStateMachine::hwStateUpdate(void)
 {
     robot->buttons.setButtonStates();
-    //if blue button pressed change actualMotorV to 1 use as sudo change from crutch
-    // if (robot->buttons.getBButtonState() == 0)
-    // {
-    //     CO_OD_RAM.actualMotorVelocities.motor1 = 1;
-    //     std::cout << "CHANGE NM FLAG!" << endl;
-    // }
+    // Check for commands from Crutch, when new nm sent send back that cm has been changed
+    // Proper event now checks for that cm index and the next gButton press to transition
+    CO_OD_RAM.currentMovement = CO_OD_RAM.nextMovement;
+    if (cm != CO_OD_RAM.currentMovement)
+    {
+        cm = CO_OD_RAM.currentMovement;
+        std::cout << "NEXT MOTION: " << cm << std::endl;
+    }
     mark = mark + 1;
     robot->updateJoints();
     // LOG TO FILE
@@ -369,34 +375,42 @@ void exoStateMachine::hwStateUpdate(void)
 }
 void exoStateMachine::populateDictionary(void)
 {
-    // nm and cm OD maps
+    // next Movement maps
     mvmntToIntODMap["normal"] = 1;
-    mvmntToIntODMap["backstep"] = 2;
-    mvmntToIntODMap["feet together"] = 3;
-    mvmntToIntODMap["up stairs"] = 4;
-    mvmntToIntODMap["down stairs"] = 5;
-    mvmntToIntODMap["up slope"] = 6;
-    mvmntToIntODMap["down slope"] = 7;
-    mvmntToIntODMap["uneven"] = 8;
-    mvmntToIntODMap["Sit Down"] = 9;
-    mvmntToIntODMap["Stand Up"] = 10;
+    mvmntToIntODMap["up stairs"] = 2;
+    mvmntToIntODMap["down stairs"] = 3;
+    mvmntToIntODMap["up slope"] = 4;
+    mvmntToIntODMap["down slope"] = 5;
+    mvmntToIntODMap["feet together"] = 6;
+    mvmntToIntODMap["backstep"] = 7;
+    mvmntToIntODMap["sit Down"] = 8;
+    mvmntToIntODMap["stand Up"] = 9;
+    mvmntToIntODMap["uneven"] = 10;
     intToMvmntODMap[1] = "normal";
-    intToMvmntODMap[2] = "backstep";
-    intToMvmntODMap[3] = "feet together";
-    intToMvmntODMap[4] = "up stairs";
-    intToMvmntODMap[5] = "down stairs";
-    intToMvmntODMap[6] = "up slope";
-    intToMvmntODMap[7] = "down slope";
-    intToMvmntODMap[8] = "uneven";
-    intToMvmntODMap[9] = "Sit Down";
-    intToMvmntODMap[10] = "Stand Up";
-    // state to OD maps
-    // TODO:change to less generic if we want: After testing
+    intToMvmntODMap[2] = "up stairs";
+    intToMvmntODMap[3] = "down stairs";
+    intToMvmntODMap[4] = "up slope";
+    intToMvmntODMap[5] = "down slope";
+    intToMvmntODMap[6] = "feet together";
+    intToMvmntODMap[7] = "backstep";
+    intToMvmntODMap[8] = "sit Down";
+    intToMvmntODMap[9] = "stand Up";
+    intToMvmntODMap[10] = "uneven";
+    // State maps
     stateToIntODMap["Error"] = 1;
     stateToIntODMap["Init"] = 2;
-    stateToIntODMap["Moving"] = 3;
-    stateToIntODMap["Standing"] = 4;
-    stateToIntODMap["Sitting"] = 4;
+    stateToIntODMap["Left Forward"] = 3;
+    stateToIntODMap["Right Forward"] = 4;
+    stateToIntODMap["Standing"] = 5;
+    stateToIntODMap["Sitting"] = 6;
+    stateToIntODMap["Sitting Down"] = 7;
+    stateToIntODMap["Standing Up"] = 8;
+    stateToIntODMap["Step 1st L"] = 9;
+    stateToIntODMap["Step 1st R"] = 10;
+    stateToIntODMap["Step last L"] = 11;
+    stateToIntODMap["Step last R"] = 12;
+    stateToIntODMap["Step L"] = 13;
+    stateToIntODMap["Step R"] = 14;
 
     intToStateODMap[1] = "Error";
     intToStateODMap[2] = "Init";

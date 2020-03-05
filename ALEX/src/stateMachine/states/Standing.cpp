@@ -8,7 +8,7 @@ void Standing::entry(void)
         << "======================" << endl
         << " YELLOW -> Sit DOWN" << endl
         // << " BLUE   -> WALK SELECT" << endl
-        << " Trigger startWalk with BLUE"
+        << " Trigger -> startWalk " << endl
         << "======================" << endl;
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()];
     CO_OD_RAM.currentState = OWNER->stateToIntODMap["Standing"];

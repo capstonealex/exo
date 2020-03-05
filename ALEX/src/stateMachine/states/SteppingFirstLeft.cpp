@@ -14,7 +14,7 @@ void SteppingFirstLeft::entry(void)
     OWNER->robot->trajectoryObj.setTrajectoryStanceRight();
     OWNER->robot->startNewTraj();
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
-    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Moving"];
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Step 1st L"];
 }
 
 void SteppingFirstLeft::during(void)

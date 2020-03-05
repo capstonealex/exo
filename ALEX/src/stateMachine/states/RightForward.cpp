@@ -12,7 +12,7 @@ void RightForward::entry(void)
         << " YELLOW -> FEET TOGETHER" << endl
         << "========================n" << endl;
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()];
-    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Standing"];
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Right Forward"];
 }
 void RightForward::during(void)
 {

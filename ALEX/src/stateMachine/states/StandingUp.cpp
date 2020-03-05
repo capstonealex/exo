@@ -9,7 +9,7 @@ void StandingUp::entry(void)
     OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[9]);
     OWNER->robot->startNewTraj();
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
-    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Moving"];
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Standing Up"];
 }
 
 void StandingUp::during(void)
