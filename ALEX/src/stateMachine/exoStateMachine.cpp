@@ -215,7 +215,6 @@ bool exoStateMachine::IsGPressed::check(void)
 {
     if (OWNER->robot->buttons.getGButtonState() == 0)
     {
-        printf("G button pressed\n");
         return true;
     }
     return false;
@@ -266,7 +265,7 @@ bool exoStateMachine::StartWalk::check(void)
 {
     if ((CO_OD_RAM.currentMovement >= NORMALWALK && CO_OD_RAM.currentMovement <= TILTDWN) && OWNER->robot->buttons.getGButtonState() == 1)
     {
-        std::cout << "START WALK EVENT HAPPEND YEWW" << endl;
+        std::cout << "Motion Type:" << OWNER->intToMvmntODMap[CO_OD_RAM.currentMovement];
         // Set trajOBJECT paramaters to selected nexMOVEMENT
         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[CO_OD_RAM.currentMovement]);
         // RESET OD_NM for safety
@@ -369,7 +368,7 @@ void exoStateMachine::populateDictionary(void)
     mvmntToIntODMap["backstep"] = 7;
     mvmntToIntODMap["sit Down"] = 8;
     mvmntToIntODMap["stand Up"] = 9;
-    mvmntToIntODMap["uneven"] = 10;
+
     intToMvmntODMap[1] = "normal";
     intToMvmntODMap[2] = "up stairs";
     intToMvmntODMap[3] = "down stairs";
@@ -379,7 +378,6 @@ void exoStateMachine::populateDictionary(void)
     intToMvmntODMap[7] = "backstep";
     intToMvmntODMap[8] = "sit Down";
     intToMvmntODMap[9] = "stand Up";
-    intToMvmntODMap[10] = "uneven";
     // State maps
     stateToIntODMap["Error"] = 1;
     stateToIntODMap["Init"] = 2;
