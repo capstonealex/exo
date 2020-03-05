@@ -1,6 +1,6 @@
 close all; clear; 
 format long g
-C = csvread('ALEXLOG_TESTING_0304.csv');
+C = csvread('0305_fullcourse.csv');
 m = getMotorSpecs;
 raw2torque = m.nominalTorque/1000;        % 0.319 [Nm] in the datasheet
 torqueConstant    = m.torqueConstant;   % in [Nm/A] from Maxon - 412825 datasheet
@@ -18,12 +18,12 @@ RHipActTorq     = C(:,10);
 RKneeActPos      = C(:,11);
 RKneeDesPos      = C(:,12);
 RKneeActTorq     = C(:,13);
-LAnkActPos      = C(:,14);
-LAnkDesPos      = C(:,15);
-LAnkpActTorq     = C(:,16);
-RAnkActPos      = C(:,17);
-RAnkDesPos      = C(:,18);
-RAnkpActTorq     = C(:,19);
+% LAnkActPos      = C(:,14);
+% LAnkDesPos      = C(:,15);
+% LAnkpActTorq     = C(:,16);
+% RAnkActPos      = C(:,17);
+% RAnkDesPos      = C(:,18);
+% RAnkpActTorq     = C(:,19);
 
 LHipActCurrent = LHipActTorq*raw2torque/torqueConstant;
 RHipActCurrent = RHipActTorq*raw2torque/torqueConstant;
@@ -35,7 +35,7 @@ maxCurrent = 18;
 highDriverCurrent = 5;
 
 % idx=find(timePerc>100&timePerc<timePerc(end));
-idx=find(timePerc>1500&timePerc<1600);
+idx=find(timePerc>1530&timePerc<1700);
 idx_maxCurrent = find((tot_current>maxCurrent)&((LHipActCurrent>highDriverCurrent)...
     |(RHipActCurrent>highDriverCurrent)|(LKneeActCurrent>highDriverCurrent)|...
     (RKneeActCurrent>highDriverCurrent)));

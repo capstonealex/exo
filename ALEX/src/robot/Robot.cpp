@@ -464,7 +464,7 @@ void Robot::moveThroughTraj()
             if (joints[i].getBitFlipState() == NOFLIP)
             {
                 int j = joints[i].getId();
-                //cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+                cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
 				joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
 
 

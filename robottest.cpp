@@ -219,6 +219,21 @@ int main(int argc, char** argv) {
 		.left_foot_on_tilt = false,
 		.right_foot_on_tilt = false
 	};
+	Trajectory::trajectory_parameters stair_parameters = {
+	.step_duration = 1,
+	.step_height = STEPHEIGHT,
+	.step_length = STEPLENGTH,
+	.hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Right,
+	.movement = Trajectory::Movement::Stair,
+	.seat_height = 0.42, // sit-stand
+	.step_end_height = 0.17, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
 	Trajectory::pilot_parameters brad_parameters = {
 		.lowerleg_length = 0.43,
 		.upperleg_length = 0.46,
@@ -269,14 +284,23 @@ int main(int argc, char** argv) {
 			deg2rad(105)},
 			.time = 0
 	 };
-	cout << "walk to stand" << endl;
-	logfile.open("TrajectoryCSV/walk to stand.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(step_together_parameters);
-	trajectoryObject.compute_discrete_trajectory(step_together_parameters, brad_parameters, walkJointspaceState);
-	trajectoryObject.generateAndSaveSpline(walkJointspaceState);
+	 stairJointspaceState = {
+	.q = { deg2rad(155.5),
+		deg2rad(30),
+		deg2rad(200),
+		deg2rad(0.02),
+		deg2rad(105),
+		deg2rad(105)},
+		.time = 0
+	 };
+	//cout << "walk to stand" << endl;
+	//logfile.open("TrajectoryCSV/walk to stand.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(step_together_parameters);
+	//trajectoryObject.compute_discrete_trajectory(step_together_parameters, brad_parameters, walkJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(walkJointspaceState);
 
- isProblem = plotPoints(logfile, trajectoryObject);
+ //isProblem = plotPoints(logfile, trajectoryObject);
 
 
 	cout << "walk to walk" << endl;
@@ -290,104 +314,114 @@ int main(int argc, char** argv) {
  isProblem = plotPoints(logfile, trajectoryObject);
 
 
-	cout << "stand to walk" << endl;
-	logfile.open("TrajectoryCSV/stand to walk.csv");
+	//cout << "stand to walk" << endl;
+	//logfile.open("TrajectoryCSV/stand to walk.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(walk_parameters);
+	//trajectoryObject.compute_discrete_trajectory(walk_parameters, brad_parameters, standJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(standJointspaceState);
+	//
+	//isProblem = plotPoints(logfile, trajectoryObject);
+
+
+	//cout << "stand to sit" << endl;
+	//logfile.open("TrajectoryCSV/stand to sit.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(sit_parameters);
+	//trajectoryObject.compute_discrete_trajectory(sit_parameters, brad_parameters, standJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(standJointspaceState);
+
+ //isProblem = plotPoints(logfile, trajectoryObject);
+
+
+	//cout << "sit to stand" << endl;
+	//logfile.open("TrajectoryCSV/sit to stand.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(stand_parameters);
+	//trajectoryObject.compute_discrete_trajectory(stand_parameters, brad_parameters, sitJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(sitJointspaceState);
+
+ //isProblem = plotPoints(logfile, trajectoryObject);
+
+
+	//cout << "walk to long walk" << endl;
+	//logfile.open("TrajectoryCSV/walk to long walk.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(long_walk_parameters);
+	//trajectoryObject.compute_discrete_trajectory(long_walk_parameters, brad_parameters, walkJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(walkJointspaceState);
+
+
+ //isProblem = plotPoints(logfile, trajectoryObject);
+
+
+	//cout << "walk to half walk" << endl;
+	//logfile.open("TrajectoryCSV/walk to half walk.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(half_walk_parameters);
+	//trajectoryObject.compute_discrete_trajectory(half_walk_parameters, brad_parameters, walkJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(walkJointspaceState);
+
+ //isProblem = plotPoints(logfile, trajectoryObject);
+
+
+	//cout << "walk to high walk" << endl;
+	//logfile.open("TrajectoryCSV/walk to high walk.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(high_walk_parameters);
+	//trajectoryObject.compute_discrete_trajectory(high_walk_parameters, brad_parameters, walkJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(walkJointspaceState);
+
+ //isProblem = plotPoints(logfile, trajectoryObject);
+
+
+	//cout << "walk to back" << endl;
+	//logfile.open("TrajectoryCSV/walk to back.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(back_parameters);
+	//trajectoryObject.compute_discrete_trajectory(back_parameters, brad_parameters, walkJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(walkJointspaceState);
+
+ //isProblem = plotPoints(logfile, trajectoryObject);
+
+
+	//cout << "stand to back" << endl;
+	//logfile.open("TrajectoryCSV/stand to back.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(back_parameters);
+	//trajectoryObject.compute_discrete_trajectory(back_parameters, brad_parameters, standJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(standJointspaceState);
+
+ //isProblem = plotPoints(logfile, trajectoryObject);
+
+	//cout << "back to stand" << endl;
+	//logfile.open("TrajectoryCSV/back to stand.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(backstand_parameters);
+	//trajectoryObject.compute_discrete_trajectory(backstand_parameters, brad_parameters, walkJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(walkJointspaceState);
+
+ //isProblem = plotPoints(logfile, trajectoryObject);
+
+	//cout << "walk to uneven" << endl;
+	//logfile.open("TrajectoryCSV/walk to uneven.csv");
+	//trajectoryObject.setPilotParameter(brad_parameters);
+	//trajectoryObject.setTrajectoryParameter(uneven_parameters);
+	//trajectoryObject.compute_discrete_trajectory(uneven_parameters, brad_parameters, unevenJointspaceState);
+	//trajectoryObject.generateAndSaveSpline(unevenJointspaceState);
+
+ //isProblem = plotPoints(logfile, trajectoryObject);
+
+	cout << "walk to stair" << endl;
+	logfile.open("TrajectoryCSV/walk to stair.csv");
 	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(walk_parameters);
-	trajectoryObject.compute_discrete_trajectory(walk_parameters, brad_parameters, standJointspaceState);
-	trajectoryObject.generateAndSaveSpline(standJointspaceState);
-	
-	isProblem = plotPoints(logfile, trajectoryObject);
-
-
-	cout << "stand to sit" << endl;
-	logfile.open("TrajectoryCSV/stand to sit.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(sit_parameters);
-	trajectoryObject.compute_discrete_trajectory(sit_parameters, brad_parameters, standJointspaceState);
-	trajectoryObject.generateAndSaveSpline(standJointspaceState);
-
- isProblem = plotPoints(logfile, trajectoryObject);
-
-
-	cout << "sit to stand" << endl;
-	logfile.open("TrajectoryCSV/sit to stand.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(stand_parameters);
-	trajectoryObject.compute_discrete_trajectory(stand_parameters, brad_parameters, sitJointspaceState);
-	trajectoryObject.generateAndSaveSpline(sitJointspaceState);
-
- isProblem = plotPoints(logfile, trajectoryObject);
-
-
-	cout << "walk to long walk" << endl;
-	logfile.open("TrajectoryCSV/walk to long walk.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(long_walk_parameters);
-	trajectoryObject.compute_discrete_trajectory(long_walk_parameters, brad_parameters, walkJointspaceState);
+	trajectoryObject.setTrajectoryParameter(stair_parameters);
+	trajectoryObject.compute_discrete_trajectory(stair_parameters, brad_parameters, walkJointspaceState);
 	trajectoryObject.generateAndSaveSpline(walkJointspaceState);
 
 
- isProblem = plotPoints(logfile, trajectoryObject);
-
-
-	cout << "walk to half walk" << endl;
-	logfile.open("TrajectoryCSV/walk to half walk.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(half_walk_parameters);
-	trajectoryObject.compute_discrete_trajectory(half_walk_parameters, brad_parameters, walkJointspaceState);
-	trajectoryObject.generateAndSaveSpline(walkJointspaceState);
-
- isProblem = plotPoints(logfile, trajectoryObject);
-
-
-	cout << "walk to high walk" << endl;
-	logfile.open("TrajectoryCSV/walk to high walk.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(high_walk_parameters);
-	trajectoryObject.compute_discrete_trajectory(high_walk_parameters, brad_parameters, walkJointspaceState);
-	trajectoryObject.generateAndSaveSpline(walkJointspaceState);
-
- isProblem = plotPoints(logfile, trajectoryObject);
-
-
-	cout << "walk to back" << endl;
-	logfile.open("TrajectoryCSV/walk to back.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(back_parameters);
-	trajectoryObject.compute_discrete_trajectory(back_parameters, brad_parameters, walkJointspaceState);
-	trajectoryObject.generateAndSaveSpline(walkJointspaceState);
-
- isProblem = plotPoints(logfile, trajectoryObject);
-
-
-	cout << "stand to back" << endl;
-	logfile.open("TrajectoryCSV/stand to back.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(back_parameters);
-	trajectoryObject.compute_discrete_trajectory(back_parameters, brad_parameters, standJointspaceState);
-	trajectoryObject.generateAndSaveSpline(standJointspaceState);
-
- isProblem = plotPoints(logfile, trajectoryObject);
-
-	cout << "back to stand" << endl;
-	logfile.open("TrajectoryCSV/back to stand.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(backstand_parameters);
-	trajectoryObject.compute_discrete_trajectory(backstand_parameters, brad_parameters, walkJointspaceState);
-	trajectoryObject.generateAndSaveSpline(walkJointspaceState);
-
- isProblem = plotPoints(logfile, trajectoryObject);
-
-	cout << "walk to uneven" << endl;
-	logfile.open("TrajectoryCSV/walk to uneven.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(uneven_parameters);
-	trajectoryObject.compute_discrete_trajectory(uneven_parameters, brad_parameters, unevenJointspaceState);
-	trajectoryObject.generateAndSaveSpline(unevenJointspaceState);
-
- isProblem = plotPoints(logfile, trajectoryObject);
-	if (isProblem) {
+isProblem = plotPoints(logfile, trajectoryObject);
+	if (isProblem == true) {
 		cout << "THERE IS A PROBLEM!!!! " << endl;
 		cout << "THERE IS A PROBLEM!!!! " << endl;
 		cout << "THERE IS A PROBLEM!!!! " << endl;
@@ -417,7 +451,7 @@ double fRand(double fMin, double fMax)
 	return fMin + f * (fMax - fMin);
 }
 bool plotPoints(std::ofstream& logfile, Trajectory trajectoryObject) {
-	bool isProblem;
+	bool isProblem = false;
 	double positionArray[NO_JOINTS];
 	for (double time = 0; time < 1.01; time += 0.05) {
 		trajectoryObject.calcPosition(time, positionArray);
