@@ -14,7 +14,7 @@ void SteppingFirstLeft::entry(void)
         .step_duration = STEPTIME,
         //.step_duration = UNEVENSTEPTIME,
         .step_height = STEPHEIGHT,
-        .step_length = STEPLENGTH,
+        .step_length = STEPLENGTH, 
         .hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE,
         //.torso_forward_angle = UNEVENTORSO,

@@ -3,6 +3,7 @@
 
 #ifndef TRAJECTORY_H_INCLUDED
 #define TRAJECTORY_H_INCLUDED
+#define _USE_MATH_DEFINES
 
 using namespace std;
 #include <iomanip>
@@ -50,7 +51,8 @@ class Trajectory
 #define LEGSLACK 0.0001
 #define TORSOANGLE deg2rad(5)
 #define UNEVENSTEP 0.3
-
+#define STAIRSSTEP 0.35
+#define STAIRSHEIGHT 0.25
 public:
 	// Hardware angle limiation in Radians
 	const double Q_MIN_MAX[12]{ deg2rad(70), deg2rad(210),
@@ -108,7 +110,8 @@ public:
 		Ramp,
 		Back,
 		Sitting,
-		Uneven
+		Uneven,
+		DownStair
 	} Movement;
 
 	typedef struct trajectory_parameters

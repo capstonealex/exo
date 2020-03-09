@@ -35,7 +35,7 @@ maxCurrent = 18;
 highDriverCurrent = 5;
 
 % idx=find(timePerc>100&timePerc<timePerc(end));
-idx=find(timePerc>1530&timePerc<1700);
+idx=find(timePerc>382.5 &timePerc<385);
 idx_maxCurrent = find((tot_current>maxCurrent)&((LHipActCurrent>highDriverCurrent)...
     |(RHipActCurrent>highDriverCurrent)|(LKneeActCurrent>highDriverCurrent)|...
     (RKneeActCurrent>highDriverCurrent)));
@@ -51,6 +51,7 @@ subplot(2,1,2)
 plot(timePerc(idx),RHipActPos(idx),'LineWidth',1.5)
 hold on
 plot(timePerc(idx),RHipDesPos(idx))
+legend('Actual trajectory','Target Trajectory')
 
 figure('Name','Current and pos from LHip motor','NumberTitle','off');
 subplot(2,1,1)
@@ -64,6 +65,7 @@ subplot(2,1,2)
 plot(timePerc(idx),LHipActPos(idx),'LineWidth',1.5)
 hold on
 plot(timePerc(idx),LHipDesPos(idx))
+legend('Actual trajectory','Target Trajectory')
 
 figure('Name','Current and pos from RKnee motor','NumberTitle','off');
 subplot(2,1,1)
@@ -76,6 +78,7 @@ subplot(2,1,2)
 plot(timePerc(idx),RKneeActPos(idx),'LineWidth',1.5)
 hold on
 plot(timePerc(idx),RKneeDesPos(idx))
+legend('Actual trajectory','Target Trajectory')
 
 figure('Name','Current and pos from LKnee motor','NumberTitle','off');
 subplot(2,1,1)
@@ -88,6 +91,7 @@ subplot(2,1,2)
 plot(timePerc(idx),LKneeActPos(idx),'LineWidth',1.5)
 hold on
 plot(timePerc(idx),LKneeDesPos(idx))
+legend('Actual trajectory','Target Trajectory')
 
 figure('Name','Total Current from all motors','NumberTitle','off');
 plot(timePerc(idx),tot_current(idx))

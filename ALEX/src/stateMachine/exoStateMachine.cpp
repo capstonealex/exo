@@ -73,14 +73,24 @@ exoStateMachine::exoStateMachine(void)
     steppingLastRight = new SteppingLastRight(this);
     steppingLastLeft = new SteppingLastLeft(this);
     errorState = new ErrorState(this);
+	//stair states
+	steppingLeftStair = new SteppingLeftStair(this);
+	steppingLeftStairDown = new SteppingLeftStairDown(this);
+	steppingRightStair = new SteppingRightStair(this);
+	steppingRightStairDown = new SteppingRightStairDown(this);
+	stairStanding = new StairStanding(this);
+	stairLeftLegUp = new StairLeftLegUp(this);
+	stairLeftLegUp2 = new StairLeftLegUp2(this);
+	stairStandingTop = new StairStandingTop(this);
+	walkSelect = new WalkSelect(this);
 
-    // Create Trasitions between states and events which trigger them
+	// Create Trasitions between states and events which trigger them
     NewTransition(initState, startButtonsPressed, sitting);
     NewTransition(standing, isYPressed, sittingDwn);
     NewTransition(sittingDwn, endTraj, sitting);
     NewTransition(sitting, isYPressed, standingUp);
     NewTransition(standingUp, endTraj, standing);
-    NewTransition(standing, isBPressed, steppingFirstLeft);
+    NewTransition(standing, isBPressed, walkSelect);
     NewTransition(steppingFirstLeft, endTraj, leftForward);
     NewTransition(leftForward, isGPressed, steppingRight);
     NewTransition(steppingRight, endTraj, rightForward);
@@ -91,6 +101,19 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingLastRight, endTraj, standing);
     NewTransition(steppingLastLeft, endTraj, standing);
     NewTransition(errorState, resetButtonsPressed, initState);
+
+	//stairs transitions
+	NewTransition(walkSelect, isGPressed, steppingFirstLeft);
+	NewTransition(walkSelect, isYPressed, stairStanding);
+	NewTransition(stairStanding, isGPressed, steppingLeftStair);
+	NewTransition(steppingLeftStair, endTraj, stairLeftLegUp);
+	NewTransition(stairLeftLegUp, isGPressed, steppingRightStair);
+	NewTransition(steppingRightStair, endTraj, stairStandingTop);
+	NewTransition(stairStandingTop, isGPressed, steppingRightStairDown);
+	NewTransition(steppingRightStairDown, endTraj, stairLeftLegUp2);
+	NewTransition(stairLeftLegUp2, isGPressed, steppingLeftStairDown);
+	NewTransition(steppingLeftStairDown, endTraj, standing);
+
 
     // Transitions to Error State
     NewTransition(sitting, isRPressed, errorState);
@@ -104,7 +127,15 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingLeft, isRPressed, errorState);
     NewTransition(steppingLastRight, isRPressed, errorState);
     NewTransition(steppingLastLeft, isRPressed, errorState);
-
+	NewTransition(walkSelect, isRPressed, errorState);
+	NewTransition(stairStanding, isRPressed, errorState);
+	NewTransition(steppingLeftStair, isRPressed, errorState);
+	NewTransition(stairLeftLegUp, isRPressed, errorState);
+	NewTransition(steppingRightStair, isRPressed, errorState);
+	NewTransition(stairStandingTop, isRPressed, errorState);
+	NewTransition(steppingRightStairDown, isRPressed, errorState);
+	NewTransition(stairLeftLegUp2, isRPressed, errorState);
+	NewTransition(steppingLeftStairDown, isRPressed, errorState);
     // Initialize the state machine with first state
     StateMachine::initialize(initState);
     robot = NULL;

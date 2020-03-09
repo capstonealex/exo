@@ -22,7 +22,7 @@ void SteppingRight::entry(void)
         .movement = Trajectory::Movement::Walk,
         //.movement = Trajectory::Movement::Uneven,
         .seat_height = 0.42,    // sit-stand
-        .step_end_height = 0.0, // stairs
+        .step_end_height = 0.00, // stairs
         .slope_angle = 0.0,     // tilted path
         .left_foot_on_tilt = false,
         .right_foot_on_tilt = false};

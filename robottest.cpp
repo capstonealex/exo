@@ -8,8 +8,6 @@
 #include "Trajectory.h"
 #include "time.h"
 #include <unistd.h>
-#include <sys/un.h>
-#include <sys/socket.h>
 #include <string.h>
 // For logging
 #include <iostream>
@@ -35,7 +33,6 @@ using namespace std;
 
 #include <iomanip>
 
-double fRand(double fMin, double fMax);
 bool plotPoints(std::ofstream& logfile, Trajectory trajectoryObject);
 
 int main(int argc, char** argv) {
@@ -50,6 +47,8 @@ int main(int argc, char** argv) {
 	for (int i = 0; i < argc; i++)
 		cout << argv[i] << endl;
 	cout << "}" << endl;
+	cout << "}" << endl;
+
 
 	// setting the precision for better layout
 	std::cout << std::setprecision(3);
@@ -59,6 +58,7 @@ int main(int argc, char** argv) {
 	Trajectory::jointspace_state sitJointspaceState;
 	Trajectory::jointspace_state standJointspaceState;	
 	Trajectory::jointspace_state unevenJointspaceState;
+	Trajectory::jointspace_state stairJointspaceState;
 
 	double previousPosArray[NO_JOINTS];
 
@@ -234,6 +234,22 @@ int main(int argc, char** argv) {
 	.left_foot_on_tilt = false,
 	.right_foot_on_tilt = false
 	};
+	Trajectory::trajectory_parameters downstair_parameters = {
+	.step_duration = 1,
+	.step_height = STEPHEIGHT,
+	//.step_length = 0,
+	.step_length = STAIRSSTEP,
+	.hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
+	.swing_ankle_down_angle = 0,
+	.stance_foot = Trajectory::Foot::Right,
+	.movement = Trajectory::Movement::DownStair,
+	.seat_height = 0.42, // sit-stand
+	.step_end_height = 0.25, // stairs
+	.slope_angle = 0.0,   // tilted path
+	.left_foot_on_tilt = false,
+	.right_foot_on_tilt = false
+	};
 	Trajectory::pilot_parameters brad_parameters = {
 		.lowerleg_length = 0.43,
 		.upperleg_length = 0.46,
@@ -285,12 +301,12 @@ int main(int argc, char** argv) {
 			.time = 0
 	 };
 	 stairJointspaceState = {
-	.q = { deg2rad(155.5),
-		deg2rad(30),
-		deg2rad(200),
-		deg2rad(0.02),
-		deg2rad(105),
-		deg2rad(105)},
+	.q = { deg2rad(112.5),
+		deg2rad(70),
+		deg2rad(172),
+		deg2rad(5.4),
+		deg2rad(95),
+		deg2rad(95)},
 		.time = 0
 	 };
 	//cout << "walk to stand" << endl;
@@ -421,6 +437,26 @@ int main(int argc, char** argv) {
 
 
 isProblem = plotPoints(logfile, trajectoryObject);
+
+	cout << "stair to downstair" << endl;
+	logfile.open("TrajectoryCSV/stair to downstair.csv");
+	trajectoryObject.setPilotParameter(brad_parameters);
+	trajectoryObject.setTrajectoryParameter(downstair_parameters);
+	trajectoryObject.compute_discrete_trajectory(downstair_parameters, brad_parameters, stairJointspaceState);
+	trajectoryObject.generateAndSaveSpline(stairJointspaceState);
+
+
+isProblem = plotPoints(logfile, trajectoryObject);
+
+cout << "steptgt to downstair" << endl;
+	logfile.open("TrajectoryCSV/steptgt to downstair.csv");
+	trajectoryObject.setPilotParameter(brad_parameters);
+	trajectoryObject.setTrajectoryParameter(downstair_parameters);
+	trajectoryObject.compute_discrete_trajectory(downstair_parameters, brad_parameters, standJointspaceState);
+	trajectoryObject.generateAndSaveSpline(standJointspaceState);
+
+
+isProblem = plotPoints(logfile, trajectoryObject);
 	if (isProblem == true) {
 		cout << "THERE IS A PROBLEM!!!! " << endl;
 		cout << "THERE IS A PROBLEM!!!! " << endl;
@@ -444,11 +480,6 @@ isProblem = plotPoints(logfile, trajectoryObject);
 
 
 	return 0;
-}
-double fRand(double fMin, double fMax)
-{
-	double f = (double)rand() / RAND_MAX;
-	return fMin + f * (fMax - fMin);
 }
 bool plotPoints(std::ofstream& logfile, Trajectory trajectoryObject) {
 	bool isProblem = false;
