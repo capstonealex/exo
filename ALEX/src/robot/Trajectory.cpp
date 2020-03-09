@@ -15,8 +15,7 @@
  * - tilted path up
  * - tilted path middle
  * - tiled path down
- * -
- *
+
  * Notes and definitions:
  * - All angles typically in radians
  * - Swing foot/ankle is that of the foot that is moving in the air during a step
