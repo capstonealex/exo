@@ -48,6 +48,15 @@
 #include "Robot.h"
 #include "exoStateMachine.h"
 
+// For logging
+#include <iostream>
+#include <fstream>
+#include <time.h> /* time_t, struct tm, time, localtime, strftime */
+#include <string>
+char filename2[80] = "rtlog.txt";
+ofstream logfile2;
+char filename3[80] = "controllog.txt";
+ofstream logfile3;
 /*For master-> code SDO direct messaging*/
 // #define CO_COMMAND_SDO_BUFFER_SIZE 100000
 // #define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
@@ -225,7 +234,7 @@ int main(int argc, char *argv[])
             CO_errExit(s);
         }
 
-              /* Configure callback functions for task control */
+        /* Configure callback functions for task control */
         CO_EM_initCallback(CO->em, taskMain_cbSignal);
         CO_SDO_initCallback(CO->SDO[0], taskMain_cbSignal);
         CO_SDOclient_initCallback(CO->SDOclient, taskMain_cbSignal);
@@ -358,7 +367,7 @@ int main(int argc, char *argv[])
 
                 /* Execute optional additional alication code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
-				// sitStandMachine.hwStateUpdate();
+                // sitStandMachine.hwStateUpdate();
                 // sitStandMachine.update();
                 // app_programAsync(timer1msDiff);
             }
@@ -415,10 +424,14 @@ int main(int argc, char *argv[])
 /* Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg)
 {
+    //ERROR LOG
+    logfile2.open(filename2);
+    logfile2 << "LOGFILE STARTED"
+             << "\n";
     /* Endless loop */
     while (CO_endProgram == 0)
     {
-        // std::cout << "2.PROCESS MESSAGE THREAD\n";
+        logfile2 << CO_timer1ms << ": RT \n";
         int ready;
         struct epoll_event ev;
 
@@ -446,15 +459,12 @@ static void *rt_thread(void *arg)
                 CO_trace_process(CO->trace[i], *CO_time.epochTimeOffsetMs);
             }
 #endif
-
-            /* Execute optional additional application code */
-            // app_program1ms();
-
             /* Detect timer large overflow */
             if (OD_performance[ODA_performance_timerCycleMaxTime] > TMR_TASK_OVERFLOW_US && rtPriority > 0 && CO->CANmodule[0]->CANnormal)
             {
                 CO_errorReport(CO->em, CO_EM_ISR_TIMER_OVERFLOW, CO_EMC_SOFTWARE_INTERNAL, 0x22400000L | OD_performance[ODA_performance_timerCycleMaxTime]);
-                //printf("Timer large overflow \n");
+                logfile2 << "Timer large overflow "
+                         << "\n";
             }
         }
 
@@ -473,13 +483,18 @@ static void *rt_control_thread(void *arg)
     struct period_info pinfo;
     periodic_task_init(&pinfo);
     app_programStart();
+    //ERROR LOG
+    logfile3.open(filename3);
+    logfile3 << "LOGFILE STARTED"
+             << "\n";
     while (!readyToStart)
     {
         wait_rest_of_period(&pinfo);
     }
     while (CO_endProgram == 0)
     {
-        // std::cout << "1.RT Control THREAD\n";
+        logfile3 << CO_timer1ms << ": CONTROL "
+                 << "\n";
         app_program1ms();
         wait_rest_of_period(&pinfo);
     }
