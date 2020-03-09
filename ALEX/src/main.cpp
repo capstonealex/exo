@@ -43,6 +43,8 @@
 #include "CO_command.h"
 #include <pthread.h>
 #include <sys/time.h>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
 
 /*Non canopenNode + Socket libraries*/
 #include "Robot.h"
@@ -102,9 +104,13 @@ static void sigHandler(int sig)
     CO_endProgram = 1;
 }
 
+std::shared_ptr<spdlog::logger> mainLogger;
+
+
 /* Helper functions ***********************************************************/
 void CO_errExit(char *msg)
 {
+    mainLogger->error(msg);
     perror(msg);
     exit(EXIT_FAILURE);
 }
@@ -112,8 +118,8 @@ void CO_errExit(char *msg)
 /* send CANopen generic emergency message */
 void CO_error(const uint32_t info)
 {
+    mainLogger->error("canopend generic error: 0x%X\n", info);
     CO_errorReport(CO->em, CO_EM_GENERIC_SOFTWARE_ERROR, CO_EMC_SOFTWARE_INTERNAL, info);
-    fprintf(stderr, "canopend generic error: 0x%X\n", info);
 }
 
 /******************************************************************************/
@@ -121,6 +127,11 @@ void CO_error(const uint32_t info)
 /******************************************************************************/
 int main(int argc, char *argv[])
 {
+    mainLogger = createLogger("parent", "main_log.txt");
+    spdlog::set_default_logger(mainLogger);
+
+    mainLogger->info("Logger creation successful.");
+
     CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
     int CANdevice0Index = 0;
     int opt;

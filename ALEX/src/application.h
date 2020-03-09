@@ -26,6 +26,13 @@
 
 #ifndef CO_APPLICATION_H
 #define CO_APPLICATION_H
+
+//relevant for logging
+#include <iostream>
+#include <string.h>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
+
 /**
  * Function is called on program startup.
  */
@@ -54,5 +61,9 @@ void app_programAsync(uint16_t timer1msDiff);
  * Code inside this function must be executed fast. Take care on race conditions.
  */
 void app_program1ms(void);
+
+std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string fileLocation);
+
+void setLoggerStyle(std::shared_ptr<spdlog::logger> logger);
 
 #endif

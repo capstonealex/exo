@@ -25,7 +25,6 @@
  */
 #include "CANopen.h"
 #include "CO_command.h"
-#include "stdio.h"
 #include <stdint.h>
 #include <sys/time.h>
 #include <stdio.h>
@@ -40,7 +39,6 @@
 
 //header files for the implementing logging using spdlog techniques.
 #include <iostream>
-#include <string.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/basic_file_sink.h>
 
@@ -55,13 +53,10 @@ void fileLoggerBinary();
  * logging through the implementation of spdlog.
  */
 std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string fileLocation);
-//Path to the file in which all of the log files are stored.
-const std::string logFolder = "\\logs\\";
 
 /*For master-> node SDO message sending*/
 #define CO_COMMAND_SDO_BUFFER_SIZE 100000
 #define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
-#include <string.h>
 char buf[STRING_BUFFER_SIZE];
 char ret[STRING_BUFFER_SIZE];
 
@@ -78,7 +73,7 @@ void app_programStart(void)
 	exoMachine.init();
 	exoMachine.activate();
 
-	mainLogger = createLogger("parent", logFolder + "X2_log.txt");
+	mainLogger = createLogger("parent", "application_log.txt");
 	spdlog::set_default_logger(mainLogger);
 }
 /******************************************************************************/
@@ -131,14 +126,11 @@ void app_program1ms(void)
 		//printf("After update \n");
 	}
 	mainLogger->info("LOGGER IS WORKING");
-	cout << "HEYY!";
 
-	//auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
-	//spdlog::set_default_logger(mainLogger);
-	//fileLoggerBinary(mainLogger);
+	fileLoggerBinary(mainLogger);
 }
 /******************************************************************************/
-/*void itoa(int value, char *str, int base)
+void itoa(int value, char *str, int base)
 {
     static char num[] = "0123456789abcdefghijklmnopqrstuvwxyz";
     char *wstr = str;
@@ -161,36 +153,35 @@ void app_program1ms(void)
     *wstr = '\0';
     // Reverse string
     strreverse(str, wstr - 1);
-}*/
+}
 /******************************************************************************/
-/*void strreverse(char *begin, char *end)
+void strreverse(char *begin, char *end)
 {
     char aux;
     while (end > begin)
         aux = *end, *end-- = *begin, *begin++ = aux;
-}*/
+}
 /******************************************************************************/
-/*void fileLogger(auto* logger){
-    //printf("fileLogger beggining\n");
+void fileLogger(std::shared_ptr<spdlog::logger> logger){
+    logger->info("fileLogger beginning\n");
 	
     // Generate whatever you want logged here, "data" is just an example
-    	char position [50];
+	char position [50];
 	char timestamp [50];
-    	char torque[50];
-    	char comma[] = ", ";
+	char torque[50];
+	char comma[] = ", ";
 	
 	//Getting timestamp
-	//printf("time(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
-    	//itoa(timer1msDiff, position, 10);
 	struct timeval tv;
 	gettimeofday(&tv,NULL);
 	itoa(tv.tv_sec, timestamp, 10);
-	
-	mainLogger->info("{}, ", timestamp);
+	logger->info("time(s): %lu, (us): %lu\n",tv.tv_sec, tv.tv_usec);
+
+	logger->info("{}, ", timestamp);
 	
 	itoa(tv.tv_usec, timestamp, 10);
 	
-	mainLogger->info("{}, ", timestamp);
+	logger->info("{}, ", timestamp);
 	
 	uint32_t motorpos[4];
 	uint16_t motorTor[4];
@@ -203,15 +194,15 @@ void app_program1ms(void)
 	motorTor[0] = CO_OD_RAM.statusWords.motor1;
 	motorTor[1] = CO_OD_RAM.statusWords.motor2;
 	motorTor[2] = CO_OD_RAM.statusWords.motor3;
-	motorTor[3] = CO_OD_RAM.statusWords.motor4;*/
+	motorTor[3] = CO_OD_RAM.statusWords.motor4;
 
-/* Motor 1: Left Hip
+ 	/*Motor 1: Left Hip
 	 * Motor 2: Left Knee
 	 * Motor 3: Right Hip
 	 * Motor 4: Right Knee
 	 */
 
-/*	std::stringstream output;
+	std::stringstream output;
 	
 	for (int i = 0; i<4; i++){
 		itoa(motorpos[i], position, 10);
@@ -225,26 +216,20 @@ void app_program1ms(void)
 	logger->info(output.str());
 	
 }
-void fileLogHeader(auto* logger){
-   	mainLogger = createLogger("parent", logFolder + "X2_log.txt");
-	spdlog::set_default_logger(mainLogger);
-	
+void fileLogHeader(std::shared_ptr<spdlog::logger> logger){
 	std::stringstream header;
 	
-    	header << "======================================\n";
-    	header << "X2 exoskeleton torque and position log\n";
-    	header << "======================================\n";
-    	header << "Time(s), time(ms) LHPos, LHT, LKPos, LKT, RHPos, RHT, RKPos, RKT\n";
+	header << "======================================\n";
+	header << "X2 exoskeleton torque and position log\n";
+	header << "======================================\n";
+	header << "Time(s), time(ms) LHPos, LHT, LKPos, LKT, RHPos, RHT, RKPos, RKT\n";
     
 	logger->info(header.str());
 }
 
-void fileLoggerBinary(auto* logger){
-    	mainLogger = createLogger("parent", logFolder + "parent.txt");
-	spdlog::set_default_logger(mainLogger);
-
-    	struct timeval tv;
-    	gettimeofday(&tv,NULL);
+void fileLoggerBinary(std::shared_ptr<spdlog::logger> logger){
+	struct timeval tv;
+	gettimeofday(&tv,NULL);
 
 	uint32_t motorpos[4];
 	uint16_t motorTor[4];
@@ -259,8 +244,8 @@ void fileLoggerBinary(auto* logger){
 	motorTor[2] = CO_OD_RAM.statusWords.motor3;
 	motorTor[3] = CO_OD_RAM.statusWords.motor4;
 	
-    	long long timesec=tv.tv_sec;
-    	long timeusec=tv.tv_usec;
+	long long timesec=tv.tv_sec;
+	long timeusec=tv.tv_usec;
 
 	logger->info("{}", timesec);
 	logger->info("{}", timeusec);
@@ -270,4 +255,3 @@ void fileLoggerBinary(auto* logger){
 		mainLogger->info("{}", &motorTor[i]);
 	}
 }
-*/
