@@ -37,15 +37,15 @@ Robot::Robot()
         .slope_angle = 0.0,     // tilted path
         .left_foot_on_tilt = false,
         .right_foot_on_tilt = false};
-    Trajectory::pilot_parameters lenny_parameters = {
-        .lowerleg_length = 0.43,
-        .upperleg_length = 0.46,
+    Trajectory::pilot_parameters Brad_parameters = {
+        .lowerleg_length = 0.44,
+        .upperleg_length = 0.44,
         .ankle_height = 0.12,
         .foot_length = 0.30,
         .hip_width = 0.43,
         .torso_length = 0.4,
         .buttocks_height = 0.05};
-    trajectoryObj.setPilotParameter(lenny_parameters);
+    trajectoryObj.setPilotParameter(Brad_parameters);
     trajectoryObj.setTrajectoryParameter(initial_trajectory_parameters);
 }
 void Robot::printInfo()

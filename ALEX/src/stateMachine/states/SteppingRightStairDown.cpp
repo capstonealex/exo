@@ -10,17 +10,14 @@ void SteppingRightStairDown::entry(void)
         << " Stepping Right Stair Down" << endl
         << "==================" << endl;
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
-        .step_duration = STEPTIME,
-        //.step_duration = UNEVENSTEPTIME,
+        .step_duration = STAIRTIME,
         .step_height = STEPHEIGHT,
         .step_length = STAIRSSTEP,
         .hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE,
-        //.torso_forward_angle = UNEVENTORSO,
         .swing_ankle_down_angle = 0,
         .stance_foot = Trajectory::Foot::Left,
         .movement = Trajectory::Movement::DownStair,
-        //.movement = Trajectory::Movement::Uneven,
         .seat_height = 0.42,    // sit-stand
         .step_end_height = STAIRSHEIGHT, // stairs
         .slope_angle = 0.0,     // tilted path

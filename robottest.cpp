@@ -219,37 +219,62 @@ int main(int argc, char** argv) {
 		.left_foot_on_tilt = false,
 		.right_foot_on_tilt = false
 	};
-	Trajectory::trajectory_parameters stair_parameters = {
-	.step_duration = 1,
-	.step_height = STEPHEIGHT,
-	.step_length = STEPLENGTH,
-	.hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-	.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
-	.swing_ankle_down_angle = 0,
-	.stance_foot = Trajectory::Foot::Right,
-	.movement = Trajectory::Movement::Stair,
-	.seat_height = 0.42, // sit-stand
-	.step_end_height = 0.17, // stairs
-	.slope_angle = 0.0,   // tilted path
-	.left_foot_on_tilt = false,
-	.right_foot_on_tilt = false
-	};
-	Trajectory::trajectory_parameters downstair_parameters = {
-	.step_duration = 1,
-	.step_height = STEPHEIGHT,
-	//.step_length = 0,
-	.step_length = STAIRSSTEP,
-	.hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-	.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
-	.swing_ankle_down_angle = 0,
-	.stance_foot = Trajectory::Foot::Right,
-	.movement = Trajectory::Movement::DownStair,
-	.seat_height = 0.42, // sit-stand
-	.step_end_height = 0.25, // stairs
-	.slope_angle = 0.0,   // tilted path
-	.left_foot_on_tilt = false,
-	.right_foot_on_tilt = false
-	};
+	Trajectory::trajectory_parameters steppingRightStair_parameters = {
+		.step_duration = STAIRTIME,
+		.step_height = STEPHEIGHT,
+		.step_length = STAIRSSTEP,
+		.hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = TORSOANGLE,
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Left,
+		.movement = Trajectory::Movement::Stair,
+		.seat_height = 0.42,    // sit-stand
+		.step_end_height = STAIRSHEIGHT, // stairs
+		.slope_angle = 0.0,     // tilted path
+		.left_foot_on_tilt = false,
+		.right_foot_on_tilt = false };
+	Trajectory::trajectory_parameters steppingLeftStair_parameters = {
+		.step_duration = STEPTIME,
+		.step_height = STEPHEIGHT,
+		.step_length = STAIRSSTEP,
+		.hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = TORSOANGLE,
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Right,
+		.movement = Trajectory::Movement::Stair,
+		.seat_height = 0.42,    // sit-stand
+		.step_end_height = STAIRSHEIGHT, // stairs
+		.slope_angle = 0.0,     // tilted path
+		.left_foot_on_tilt = false,
+		.right_foot_on_tilt = false };
+	Trajectory::trajectory_parameters steppingLeftStairDown_parameters = {
+		.step_duration = STEPTIME,
+		.step_height = STEPHEIGHT,
+		.step_length = 0,
+		.hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+		.torso_forward_angle = TORSOANGLE,
+		.swing_ankle_down_angle = 0,
+		.stance_foot = Trajectory::Foot::Right,
+		.movement = Trajectory::Movement::DownStair,
+		.seat_height = 0.42,    // sit-stand
+		.step_end_height = 0, // stairs
+		.slope_angle = 0.0,     // tilted path
+		.left_foot_on_tilt = false,
+		.right_foot_on_tilt = false };
+	Trajectory::trajectory_parameters steppingRightStairDown_parameters = {
+	   .step_duration = STEPTIME,
+	   .step_height = STEPHEIGHT,
+	   .step_length = STAIRSSTEP,
+	   .hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+	   .torso_forward_angle = TORSOANGLE,
+	   .swing_ankle_down_angle = 0,
+	   .stance_foot = Trajectory::Foot::Left,
+	   .movement = Trajectory::Movement::DownStair,
+	   .seat_height = 0.42,    // sit-stand
+	   .step_end_height = STAIRSHEIGHT, // stairs
+	   .slope_angle = 0.0,     // tilted path
+	   .left_foot_on_tilt = false,
+	   .right_foot_on_tilt = false };
 	Trajectory::pilot_parameters brad_parameters = {
 		.lowerleg_length = 0.43,
 		.upperleg_length = 0.46,
@@ -309,6 +334,7 @@ int main(int argc, char** argv) {
 		deg2rad(95)},
 		.time = 0
 	 };
+
 	//cout << "walk to stand" << endl;
 	//logfile.open("TrajectoryCSV/walk to stand.csv");
 	//trajectoryObject.setPilotParameter(brad_parameters);
@@ -428,35 +454,44 @@ int main(int argc, char** argv) {
 
  //isProblem = plotPoints(logfile, trajectoryObject);
 
-	cout << "walk to stair" << endl;
-	logfile.open("TrajectoryCSV/walk to stair.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(stair_parameters);
-	trajectoryObject.compute_discrete_trajectory(stair_parameters, brad_parameters, walkJointspaceState);
-	trajectoryObject.generateAndSaveSpline(walkJointspaceState);
+cout << "SteppingLeftStair" << endl;
+logfile.open("TrajectoryCSV/SteppingLeftStair.csv");
+trajectoryObject.setPilotParameter(brad_parameters);
+trajectoryObject.setTrajectoryParameter(steppingLeftStair_parameters);
+trajectoryObject.compute_discrete_trajectory(steppingLeftStair_parameters, brad_parameters, standJointspaceState);
+trajectoryObject.generateAndSaveSpline(standJointspaceState);
 
 
 isProblem = plotPoints(logfile, trajectoryObject);
 
-	cout << "stair to downstair" << endl;
-	logfile.open("TrajectoryCSV/stair to downstair.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(downstair_parameters);
-	trajectoryObject.compute_discrete_trajectory(downstair_parameters, brad_parameters, stairJointspaceState);
-	trajectoryObject.generateAndSaveSpline(stairJointspaceState);
+cout << "SteppingRightStair" << endl;
+logfile.open("TrajectoryCSV/SteppingRightStair.csv");
+trajectoryObject.setPilotParameter(brad_parameters);
+trajectoryObject.setTrajectoryParameter(steppingRightStair_parameters);
+trajectoryObject.compute_discrete_trajectory(steppingRightStair_parameters, brad_parameters, stairJointspaceState);
+trajectoryObject.generateAndSaveSpline(stairJointspaceState);
+
+isProblem = plotPoints(logfile, trajectoryObject);
+
+cout << "SteppingLeftStairDown" << endl;
+logfile.open("TrajectoryCSV/SteppingLeftStairDown.csv");
+trajectoryObject.setPilotParameter(brad_parameters);
+trajectoryObject.setTrajectoryParameter(steppingLeftStairDown_parameters);
+trajectoryObject.compute_discrete_trajectory(steppingLeftStairDown_parameters, brad_parameters, stairJointspaceState);
+trajectoryObject.generateAndSaveSpline(stairJointspaceState);
 
 
 isProblem = plotPoints(logfile, trajectoryObject);
 
-cout << "steptgt to downstair" << endl;
-	logfile.open("TrajectoryCSV/steptgt to downstair.csv");
-	trajectoryObject.setPilotParameter(brad_parameters);
-	trajectoryObject.setTrajectoryParameter(downstair_parameters);
-	trajectoryObject.compute_discrete_trajectory(downstair_parameters, brad_parameters, standJointspaceState);
-	trajectoryObject.generateAndSaveSpline(standJointspaceState);
-
+cout << "SteppingRightStairDown" << endl;
+logfile.open("TrajectoryCSV/SteppingRightStairDown.csv");
+trajectoryObject.setPilotParameter(brad_parameters);
+trajectoryObject.setTrajectoryParameter(steppingRightStairDown_parameters);
+trajectoryObject.compute_discrete_trajectory(steppingRightStairDown_parameters, brad_parameters, standJointspaceState);
+trajectoryObject.generateAndSaveSpline(standJointspaceState);
 
 isProblem = plotPoints(logfile, trajectoryObject);
+
 	if (isProblem == true) {
 		cout << "THERE IS A PROBLEM!!!! " << endl;
 		cout << "THERE IS A PROBLEM!!!! " << endl;
