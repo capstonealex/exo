@@ -587,7 +587,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 				//|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
 			{
 				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x - ankleDistance;
-				state1.left_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height*.75;
+				state1.left_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height*.85;
 				state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
 				state1.right_ankle_position.z = pilotParameters.ankle_height;
 				state1.hip_position.x = initialTaskspaceState.right_ankle_position.x;
@@ -595,7 +595,7 @@ vector<Trajectory::taskspace_state> Trajectory::generate_key_taskspace_states(
 			else
 			{
 				state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x - ankleDistance;
-				state1.right_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height*.75;
+				state1.right_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height*.85;
 				state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
 				state1.left_ankle_position.z = pilotParameters.ankle_height;
 				state1.hip_position.x = initialTaskspaceState.left_ankle_position.x;

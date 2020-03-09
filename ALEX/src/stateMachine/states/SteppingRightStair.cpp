@@ -11,7 +11,7 @@ void SteppingRightStair::entry(void)
         << "==================" << endl;
     Trajectory::trajectory_parameters movement_trajectory_parameters = {
         .step_duration = STAIRTIME,
-        .step_height = STEPHEIGHT,
+        .step_height = STEPHEIGHT, 
         .step_length = STAIRSSTEP,
         .hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
         .torso_forward_angle = TORSOANGLE,

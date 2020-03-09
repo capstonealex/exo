@@ -53,7 +53,7 @@ class Trajectory
 #define TORSOANGLE deg2rad(5)
 #define UNEVENSTEP 0.3
 #define STAIRSSTEP 0.35
-#define STAIRSHEIGHT 0.25
+#define STAIRSHEIGHT 0.30
 public:
 	// Hardware angle limiation in Radians
 	const double Q_MIN_MAX[12]{ deg2rad(70), deg2rad(210),

@@ -5,7 +5,7 @@
 void SteppingRightStairDown::entry(void)
 {
     //READ TIME OF MAIN
-    std::cout
+    std::cout 
         << "==================" << endl
         << " Stepping Right Stair Down" << endl
         << "==================" << endl;
