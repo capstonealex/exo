@@ -41,11 +41,11 @@
 //header files for the implementing logging using spdlog techniques.
 #include <iostream>
 #include <string.h>
-//#include <spdlog/spdlog.h>
-//#include <spdlog/sinks/basic_file_sink.h>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
 
 //// Data logger helper functions
-//void fileLoggerBinary();
+void fileLoggerBinary();
 //void fileLogHeader();
 //void fileLogger();
 //void strreverse(char *begin, char *end);
@@ -54,10 +54,10 @@
 /* File has been modified by Mihai Blaga on 24/10 to implement more robust
  * logging through the implementation of spdlog.
  */
-/*auto* createLogger(std::string logID, std::string fileLocation);
+std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string fileLocation);
 //Path to the file in which all of the log files are stored.
-const std::string logFolder = "\logs\";
-*/
+const std::string logFolder = "\\logs\\";
+
 
 /*For master-> node SDO message sending*/
 #define CO_COMMAND_SDO_BUFFER_SIZE 100000
@@ -69,6 +69,8 @@ char ret[STRING_BUFFER_SIZE];
 Robot exo;
 exoStateMachine exoMachine;
 
+std::shared_ptr<spdlog::logger> mainLogger;
+
 /******************************************************************************/
 void app_programStart(void)
 {
@@ -76,6 +78,10 @@ void app_programStart(void)
     exoMachine.initRobot(&exo);
     exoMachine.init();
     exoMachine.activate();
+
+	mainLogger = createLogger("parent", logFolder + "X2_log.txt");
+    spdlog::set_default_logger(mainLogger);
+
 }
 /******************************************************************************/
 void app_communicationReset(void)
@@ -90,32 +96,27 @@ void app_programEnd(void)
 void app_programAsync(uint16_t timer1msDiffy)
 {
 }
-//setting the style of the logger to only hold the data without any extra information.
-/*void setLoggerStyle(spdlog::logger logger){
+//setting the style of the logger to only hold the data without any metadata.
+void setLoggerStyle(std::shared_ptr<spdlog::logger> logger){
     logger->set_pattern("%v");
-
-}*/
+}
 
 /******************************************************************************/
 //creating a logger at a designated fileLocation.
-/*    spdlog::logger createLogger(std::string logID, std::string fileLocation) {
-        try {
-            auto logger = spdlog::basic_logger_mt(logID, fileLocation);
-            setLoggerStyle(logger);
-            return logger;
-        } catch (const spdlog::spdlog_ex &ex) {
-            std::cout << "Failed to create log: " << ex.what() << std::endl;
-        }
-    }
-    
-*/
+std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string fileLocation) {
+	try {
+		auto logger = spdlog::basic_logger_mt(logID, fileLocation);
+		setLoggerStyle(logger);
+		return logger;
+	} catch (const spdlog::spdlog_ex &ex) {
+		std::cout << "Failed to create log: " << ex.what() << std::endl;
+	}
+}
+
 /******************************************************************************/
 void app_program1ms(void)
 {
-    //auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
-    //spdlog::set_default_logger(mainLogger);
-
-    //fileLoggerBinary(mainLogger);'
+    //fileLoggerBinary(mainLogger);
     if (exoMachine.running != 0)
     {
         //printf("Before hwstateupdate \n");
@@ -123,8 +124,11 @@ void app_program1ms(void)
         //printf("Before update \n");
 
         exoMachine.update();
-        //printf("After update \n");
+        
+		//printf("After update \n");
     }
+	mainLogger->info("LOGGER IS WORKING");
+
     //auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
     //spdlog::set_default_logger(mainLogger);
     //fileLoggerBinary(mainLogger);
