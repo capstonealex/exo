@@ -232,7 +232,7 @@ int main(int argc, char** argv) {
 		.step_end_height = STAIRSHEIGHT, // stairs
 		.slope_angle = 0.0,     // tilted path
 		.left_foot_on_tilt = false,
-		.right_foot_on_tilt = false };
+		.right_foot_on_tilt = false};
 	Trajectory::trajectory_parameters steppingLeftStair_parameters = {
 		.step_duration = STEPTIME,
 		.step_height = STEPHEIGHT,

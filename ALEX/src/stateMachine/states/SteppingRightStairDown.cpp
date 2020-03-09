@@ -3,7 +3,7 @@
 // Stepping Right
 ///////////////////////////////////////////////
 void SteppingRightStairDown::entry(void)
-{
+{ 
     //READ TIME OF MAIN
     std::cout 
         << "==================" << endl
