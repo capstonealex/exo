@@ -43,8 +43,8 @@
 #include "CO_command.h"
 #include <pthread.h>
 #include <sys/time.h>
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/basic_file_sink.h>
+
+#include "spdlog/logUtilities.h"
 
 /*Non canopenNode + Socket libraries*/
 #include "Robot.h"

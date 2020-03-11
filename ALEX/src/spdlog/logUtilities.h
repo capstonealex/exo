@@ -21,9 +21,4 @@
 */
 std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string fileLocation);
 
-/*
-* Sets the style of the logs to the default previously defined
-*/
-void setLoggerStyle(std::shared_ptr<spdlog::logger> logger);
-
 #endif

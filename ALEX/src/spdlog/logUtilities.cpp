@@ -1,35 +1,27 @@
 /*
- * Application interface for CANopenSocket.
+ * Logging interface for ALEX exoskeleton.
  *
- * @file        application.c
- * @author      Janez Paternoster
- * @copyright   2016 Janez Paternoster
+ * @file        logUtilities.cpp
+ * @author      Mihai Blaga
+ * @copyright   2020 Mihai Blaga
  *
- * This file is part of CANopenSocket, a Linux implementation of CANopen
- * stack with master functionality. Project home page is
- * <https://github.com/CANopenNode/CANopenSocket>. CANopenSocket is based
- * on CANopenNode: <https://github.com/CANopenNode/CANopenNode>.
- *
- * CANopenSocket is free and open source software: you can redistribute
- * it and/or modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation, either version 2 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * Written to provide robust logging functionality to the ALEX exoskeleton.
+ * 
+ * USAGE: when a logger is set up, publish logs to the desired location by calling
+ * loggerName->message_priority(desired_message);
+ * 
+ * Message Priorities:
+ * logger->info();
+ * logger->error();
+ * logger->warn();
+ * logger->critical();
+ * logger->debugger();
+ * 
+ * For more information, refer to <https://github.com/gabime/spdlog> 
  */
 #include "logUtilities.h"
 
-//setting the style of the logger to only hold the data without any metadata.
-void setLoggerStyle(std::shared_ptr<spdlog::logger> logger)
-{
-	logger->set_pattern("%v");
-}
+const char* DEFAULT_LOGGER_STYLE = "%v";
 
 /******************************************************************************/
 //creating a logger at a designated fileLocation.
@@ -38,11 +30,11 @@ std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string file
 	try
 	{
 		auto logger = spdlog::basic_logger_mt(logID, fileLocation);
-		setLoggerStyle(logger);
+		logger->set_pattern(DEFAULT_LOGGER_STYLE);
 		return logger;
 	}
 	catch (const spdlog::spdlog_ex &ex)
 	{
-		std::cout << "Failed to create log: " << ex.what() << std::endl;
+		std::cout << "Failed to create log: " << logID << std::endl << ex.what() << std::endl;
 	}
 }

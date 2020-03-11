@@ -38,7 +38,7 @@
 #include "exoStateMachine.h"
 
 //Header file that enables all the logging features.
-#include "spdlog\logUtilities.h"
+#include "spdlog/logUtilities.h"
 
 //// Data logger helper functions
 void fileLoggerBinary();
