@@ -12,5 +12,5 @@ This Toolkit consists of:
 
 ## Ressources
 
-Documentation: https://embeded.readthedocs.io/en/latest/
+Documentation: https://exoembedded.readthedocs.io/en/latest/
 CanOpen Socket: https://github.com/CANopenNode/CANopenSocket
