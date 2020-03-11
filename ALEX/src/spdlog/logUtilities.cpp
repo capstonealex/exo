@@ -1,10 +1,10 @@
-/**
+/*
  * Application interface for CANopenSocket.
  *
- * @file        application.h
+ * @file        application.c
  * @author      Janez Paternoster
  * @copyright   2016 Janez Paternoster
- * 
+ *
  * This file is part of CANopenSocket, a Linux implementation of CANopen
  * stack with master functionality. Project home page is
  * <https://github.com/CANopenNode/CANopenSocket>. CANopenSocket is based
@@ -23,47 +23,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#include "logUtilities.h"
 
-#ifndef CO_APPLICATION_H
-#define CO_APPLICATION_H
+//setting the style of the logger to only hold the data without any metadata.
+void setLoggerStyle(std::shared_ptr<spdlog::logger> logger)
+{
+	logger->set_pattern("%v");
+}
 
-//relevant for logging
-#include <iostream>
-#include <string.h>
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/basic_file_sink.h>
-
-/**
- * Function is called on program startup.
- */
-void app_programStart(void);
-
-/**
- * Function is called after CANopen communication reset.
- */
-void app_communicationReset(void);
-
-/**
- * Function is called just before program ends.
- */
-void app_programEnd(void);
-
-/**
- * Function is called cyclically from main.
- *
- * @param timer1msDiff Time difference since last call
- */
-void app_programAsync(uint16_t timer1msDiff);
-
-/**
- * Function is called cyclically from realtime thread at constant intervals.
- *
- * Code inside this function must be executed fast. Take care on race conditions.
- */
-void app_program1ms(void);
-
-std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string fileLocation);
-
-void setLoggerStyle(std::shared_ptr<spdlog::logger> logger);
-
-#endif
+/******************************************************************************/
+//creating a logger at a designated fileLocation.
+std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string fileLocation)
+{
+	try
+	{
+		auto logger = spdlog::basic_logger_mt(logID, fileLocation);
+		setLoggerStyle(logger);
+		return logger;
+	}
+	catch (const spdlog::spdlog_ex &ex)
+	{
+		std::cout << "Failed to create log: " << ex.what() << std::endl;
+	}
+}

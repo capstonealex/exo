@@ -37,10 +37,8 @@
 #include "Robot.h"
 #include "exoStateMachine.h"
 
-//header files for the implementing logging using spdlog techniques.
-#include <iostream>
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/basic_file_sink.h>
+//Header file that enables all the logging features.
+#include "spdlog\logUtilities.h"
 
 //// Data logger helper functions
 void fileLoggerBinary();
@@ -48,11 +46,6 @@ void fileLoggerBinary();
 //void fileLogger();
 //void strreverse(char *begin, char *end);
 //void itoa(int value, char *str, int base);
-
-/* File has been modified by Mihai Blaga on 24/10 to implement more robust
- * logging through the implementation of spdlog.
- */
-std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string fileLocation);
 
 /*For master-> node SDO message sending*/
 #define CO_COMMAND_SDO_BUFFER_SIZE 100000
@@ -89,27 +82,6 @@ void app_programEnd(void)
 void app_programAsync(uint16_t timer1msDiffy)
 {
 }
-//setting the style of the logger to only hold the data without any metadata.
-void setLoggerStyle(std::shared_ptr<spdlog::logger> logger)
-{
-	logger->set_pattern("%v");
-}
-
-/******************************************************************************/
-//creating a logger at a designated fileLocation.
-std::shared_ptr<spdlog::logger> createLogger(std::string logID, std::string fileLocation)
-{
-	try
-	{
-		auto logger = spdlog::basic_logger_mt(logID, fileLocation);
-		setLoggerStyle(logger);
-		return logger;
-	}
-	catch (const spdlog::spdlog_ex &ex)
-	{
-		std::cout << "Failed to create log: " << ex.what() << std::endl;
-	}
-}
 
 /******************************************************************************/
 void app_program1ms(void)
@@ -117,15 +89,10 @@ void app_program1ms(void)
 	//fileLoggerBinary(mainLogger);
 	if (exoMachine.running != 0)
 	{
-		//printf("Before hwstateupdate \n");
 		exoMachine.hwStateUpdate();
-		//printf("Before update \n");
-
 		exoMachine.update();
-
-		//printf("After update \n");
 	}
-	mainLogger->info("LOGGER IS WORKING");
+	//mainLogger->info("LOGGER IS WORKING");
 
 	fileLoggerBinary(mainLogger);
 }
