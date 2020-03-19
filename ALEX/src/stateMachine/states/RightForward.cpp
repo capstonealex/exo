@@ -1,4 +1,3 @@
-
 //////////////////////////////////////////
 // RIGHT FORWARD
 //////////////////////////////////////////
@@ -6,11 +5,13 @@
 
 void RightForward::entry(void)
 {
-    std::cout
-        << "========================" << endl
-        << " GREEN  -> KEEP STEPPING " << endl
-        << " YELLOW -> FEET TOGETHER" << endl
-        << "========================n" << endl;
+	std::cout
+		<< "RightForward State Entered at Time:: " << OWNER->mark << endl
+		<< "========================" << endl
+		<< " GREEN  -> KEEP STEPPING " << endl
+		<< " YELLOW -> FEET TOGETHER" << endl
+		<< " BLUE -> LEFT HIGH STEP" << endl
+        << "========================\n" << endl;
 }
 void RightForward::during(void)
 {

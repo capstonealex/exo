@@ -68,8 +68,10 @@ exoStateMachine::exoStateMachine(void)
     steppingFirstLeft = new SteppingFirstLeft(this);
     leftForward = new LeftForward(this);
     steppingRight = new SteppingRight(this);
+    steppingRightHigh = new SteppingRightHigh(this);
     rightForward = new RightForward(this);
     steppingLeft = new SteppingLeft(this);
+    steppingLeftHigh = new SteppingLeftHigh(this);
     steppingLastRight = new SteppingLastRight(this);
     steppingLastLeft = new SteppingLastLeft(this);
     errorState = new ErrorState(this);
@@ -93,9 +95,13 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(standing, isBPressed, walkSelect);
     NewTransition(steppingFirstLeft, endTraj, leftForward);
     NewTransition(leftForward, isGPressed, steppingRight);
+    NewTransition(leftForward, isBPressed, steppingRightHigh);
+    NewTransition(steppingRightHigh, endTraj, rightForward);
     NewTransition(steppingRight, endTraj, rightForward);
     NewTransition(rightForward, isGPressed, steppingLeft);
-    NewTransition(steppingLeft, endTraj, leftForward);
+    NewTransition(rightForward, isBPressed, steppingLeftHigh);
+	NewTransition(steppingLeftHigh, endTraj, leftForward);
+	NewTransition(steppingLeft, endTraj, leftForward);
     NewTransition(leftForward, isYPressed, steppingLastRight);
     NewTransition(rightForward, isYPressed, steppingLastLeft);
     NewTransition(steppingLastRight, endTraj, standing);
@@ -123,8 +129,10 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingFirstLeft, isRPressed, errorState);
     NewTransition(leftForward, isRPressed, errorState);
     NewTransition(steppingRight, isRPressed, errorState);
+    NewTransition(steppingRightHigh, isRPressed, errorState);
     NewTransition(rightForward, isRPressed, errorState);
     NewTransition(steppingLeft, isRPressed, errorState);
+    NewTransition(steppingLeftHigh, isRPressed, errorState);
     NewTransition(steppingLastRight, isRPressed, errorState);
     NewTransition(steppingLastLeft, isRPressed, errorState);
 	NewTransition(walkSelect, isRPressed, errorState);

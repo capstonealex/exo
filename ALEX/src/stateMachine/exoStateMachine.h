@@ -18,7 +18,9 @@
 #include "SteppingLastLeft.h"
 #include "SteppingLastRight.h"
 #include "SteppingLeft.h"
+#include "SteppingLeftHigh.h"
 #include "SteppingRight.h"
+#include "SteppingRightHigh.h"
 #include "LeftForward.h"
 #include "RightForward.h"
 #include "ErrorState.h"
@@ -61,8 +63,10 @@ public:
     SteppingFirstLeft *steppingFirstLeft;
     LeftForward *leftForward;
     SteppingRight *steppingRight;
+    SteppingRightHigh *steppingRightHigh;
     RightForward *rightForward;
     SteppingLeft *steppingLeft;
+    SteppingLeftHigh *steppingLeftHigh;
     SteppingLastRight *steppingLastRight;
     SteppingLastLeft *steppingLastLeft;
     ErrorState *errorState;

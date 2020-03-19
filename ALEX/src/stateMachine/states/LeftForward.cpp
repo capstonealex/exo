@@ -10,6 +10,7 @@ void LeftForward::entry(void)
         << "=========================" << endl
         << " GREEN  -> KEEP STEPPING" << endl
         << " YELLOW -> FEET TOGETHER" << endl
+		<< " BLUE -> RIGHT HIGH STEP" << endl
         << "=========================" << endl;
 }
 void LeftForward::during(void)
