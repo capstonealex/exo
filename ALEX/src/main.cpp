@@ -400,9 +400,11 @@ static void *rt_thread(void *arg)
     /* Endless loop */
     while (CO_endProgram == 0)
     {
-        // CO_UNLOCK_OD();
+        // std::cout << "2.PROCESS MESSAGE THREAD\n";
+        int ready;
         struct epoll_event ev;
-        int ready = epoll_wait(rt_thread_epoll_fd, &ev, 1, -1);
+
+        ready = epoll_wait(rt_thread_epoll_fd, &ev, 1, -1);
 
         if (ready != 1)
         {
@@ -459,9 +461,8 @@ static void *rt_control_thread(void *arg)
     }
     while (CO_endProgram == 0)
     {
-        CO_LOCK_OD();
+        // std::cout << "1.RT Control THREAD\n";
         app_program1ms();
-        CO_UNLOCK_OD();
         wait_rest_of_period(&pinfo);
     }
     return NULL;
