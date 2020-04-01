@@ -1,0 +1,75 @@
+\hypertarget{application_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/application.h File Reference}
+\label{application_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/application.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/application.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{application_8h_af9990230bdf7fd1068406de569d68c7c}{app\+\_\+program\+Start}} (void)
+\item 
+void \mbox{\hyperlink{application_8h_ad3edbdda0aa67d53c837276bf8ee30e4}{app\+\_\+communication\+Reset}} (void)
+\item 
+void \mbox{\hyperlink{application_8h_a00f503823e1ab0bd86a24598f70752f6}{app\+\_\+program\+End}} (void)
+\item 
+void \mbox{\hyperlink{application_8h_aeab4bc6c320aa91f10645a5596b31008}{app\+\_\+program\+Async}} (uint16\+\_\+t timer1ms\+Diff)
+\item 
+void \mbox{\hyperlink{application_8h_a03eb2c824230d0cf7680b774cdae4d31}{app\+\_\+program1ms}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Application interface for C\+A\+Nopen\+Socket.
+
+\begin{DoxyAuthor}{Author}
+Janez Paternoster 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+2016 Janez Paternoster
+\end{DoxyCopyright}
+This file is part of C\+A\+Nopen\+Socket, a Linux implementation of C\+A\+Nopen stack with master functionality. Project home page is \href{https://github.com/CANopenNode/CANopenSocket}{\texttt{ https\+://github.\+com/\+C\+A\+Nopen\+Node/\+C\+A\+Nopen\+Socket}}. C\+A\+Nopen\+Socket is based on C\+A\+Nopen\+Node\+: \href{https://github.com/CANopenNode/CANopenNode}{\texttt{ https\+://github.\+com/\+C\+A\+Nopen\+Node/\+C\+A\+Nopen\+Node}}.
+
+C\+A\+Nopen\+Socket is free and open source software\+: you can redistribute it and/or modify it under the terms of the G\+NU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but W\+I\+T\+H\+O\+UT A\+NY W\+A\+R\+R\+A\+N\+TY; without even the implied warranty of M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY or F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE. See the G\+NU General Public License for more details.
+
+You should have received a copy of the G\+NU General Public License along with this program. If not, see \href{http://www.gnu.org/licenses/}{\texttt{ http\+://www.\+gnu.\+org/licenses/}}. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{application_8h_ad3edbdda0aa67d53c837276bf8ee30e4}\label{application_8h_ad3edbdda0aa67d53c837276bf8ee30e4}} 
+\index{application.h@{application.h}!app\_communicationReset@{app\_communicationReset}}
+\index{app\_communicationReset@{app\_communicationReset}!application.h@{application.h}}
+\doxysubsubsection{\texorpdfstring{app\_communicationReset()}{app\_communicationReset()}}
+{\footnotesize\ttfamily void app\+\_\+communication\+Reset (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Function is called after C\+A\+Nopen communication reset. \mbox{\Hypertarget{application_8h_a03eb2c824230d0cf7680b774cdae4d31}\label{application_8h_a03eb2c824230d0cf7680b774cdae4d31}} 
+\index{application.h@{application.h}!app\_program1ms@{app\_program1ms}}
+\index{app\_program1ms@{app\_program1ms}!application.h@{application.h}}
+\doxysubsubsection{\texorpdfstring{app\_program1ms()}{app\_program1ms()}}
+{\footnotesize\ttfamily void app\+\_\+program1ms (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Function is called cyclically from realtime thread at constant intervals.
+
+Code inside this function must be executed fast. Take care on race conditions. \mbox{\Hypertarget{application_8h_aeab4bc6c320aa91f10645a5596b31008}\label{application_8h_aeab4bc6c320aa91f10645a5596b31008}} 
+\index{application.h@{application.h}!app\_programAsync@{app\_programAsync}}
+\index{app\_programAsync@{app\_programAsync}!application.h@{application.h}}
+\doxysubsubsection{\texorpdfstring{app\_programAsync()}{app\_programAsync()}}
+{\footnotesize\ttfamily void app\+\_\+program\+Async (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{timer1ms\+Diff }\end{DoxyParamCaption})}
+
+Function is called cyclically from main.
+
+
+\begin{DoxyParams}{Parameters}
+{\em timer1ms\+Diff} & Time difference since last call \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{application_8h_a00f503823e1ab0bd86a24598f70752f6}\label{application_8h_a00f503823e1ab0bd86a24598f70752f6}} 
+\index{application.h@{application.h}!app\_programEnd@{app\_programEnd}}
+\index{app\_programEnd@{app\_programEnd}!application.h@{application.h}}
+\doxysubsubsection{\texorpdfstring{app\_programEnd()}{app\_programEnd()}}
+{\footnotesize\ttfamily void app\+\_\+program\+End (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Function is called just before program ends. \mbox{\Hypertarget{application_8h_af9990230bdf7fd1068406de569d68c7c}\label{application_8h_af9990230bdf7fd1068406de569d68c7c}} 
+\index{application.h@{application.h}!app\_programStart@{app\_programStart}}
+\index{app\_programStart@{app\_programStart}!application.h@{application.h}}
+\doxysubsubsection{\texorpdfstring{app\_programStart()}{app\_programStart()}}
+{\footnotesize\ttfamily void app\+\_\+program\+Start (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Function is called on program startup. 

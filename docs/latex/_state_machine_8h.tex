@@ -1,0 +1,48 @@
+\hypertarget{_state_machine_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/state\+Machine/\+State\+Machine.h File Reference}
+\label{_state_machine_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/stateMachine/StateMachine.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/stateMachine/StateMachine.h}}
+{\ttfamily \#include \char`\"{}State.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Robot.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$cstddef$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_state_machine}{State\+Machine}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_state_machine_8h_ac55e5bc46f7171fea0bbb3880b279a63}{Event\+Object}}(\+\_\+name\+\_\+)
+\item 
+\#define \mbox{\hyperlink{_state_machine_8h_a485a4b81b2e164b0d3797b49473be673}{New\+Transition}}(\+\_\+from\+\_\+,  \+\_\+event\+\_\+,  \+\_\+to\+\_\+)~\+\_\+from\+\_\+-\/$>$add\+Arc(new \mbox{\hyperlink{class_transition}{Transition}}(\+\_\+to\+\_\+, \+\_\+event\+\_\+))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_state_machine_8h_ac55e5bc46f7171fea0bbb3880b279a63}\label{_state_machine_8h_ac55e5bc46f7171fea0bbb3880b279a63}} 
+\index{StateMachine.h@{StateMachine.h}!EventObject@{EventObject}}
+\index{EventObject@{EventObject}!StateMachine.h@{StateMachine.h}}
+\doxysubsubsection{\texorpdfstring{EventObject}{EventObject}}
+{\footnotesize\ttfamily \#define Event\+Object(\begin{DoxyParamCaption}\item[{}]{\+\_\+name\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keyword}{class }\_name\_;                       \(\backslash\)}
+\DoxyCodeLine{    friend \textcolor{keyword}{class }\_name\_;                \(\backslash\)}
+\DoxyCodeLine{    class \_name\_ : \textcolor{keyword}{public} \mbox{\hyperlink{class_event}{Event}}         \(\backslash\)}
+\DoxyCodeLine{    \{                                   \(\backslash\)}
+\DoxyCodeLine{                                        \(\backslash\)}
+\DoxyCodeLine{    public:                             \(\backslash\)}
+\DoxyCodeLine{        \_name\_(\mbox{\hyperlink{class_state_machine}{StateMachine}} *m,         \(\backslash\)}
+\DoxyCodeLine{               \textcolor{keyword}{const} \textcolor{keywordtype}{char} *name = NULL) \(\backslash\)}
+\DoxyCodeLine{            : \mbox{\hyperlink{class_event}{Event}}(m, name)\{\};         \(\backslash\)}
+\DoxyCodeLine{        bool check(\textcolor{keywordtype}{void});               \(\backslash\)}
+\DoxyCodeLine{    \};                                  \(\backslash\)}
+\DoxyCodeLine{    \_name\_}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{_state_machine_8h_a485a4b81b2e164b0d3797b49473be673}\label{_state_machine_8h_a485a4b81b2e164b0d3797b49473be673}} 
+\index{StateMachine.h@{StateMachine.h}!NewTransition@{NewTransition}}
+\index{NewTransition@{NewTransition}!StateMachine.h@{StateMachine.h}}
+\doxysubsubsection{\texorpdfstring{NewTransition}{NewTransition}}
+{\footnotesize\ttfamily \#define New\+Transition(\begin{DoxyParamCaption}\item[{}]{\+\_\+from\+\_\+,  }\item[{}]{\+\_\+event\+\_\+,  }\item[{}]{\+\_\+to\+\_\+ }\end{DoxyParamCaption})~\+\_\+from\+\_\+-\/$>$add\+Arc(new \mbox{\hyperlink{class_transition}{Transition}}(\+\_\+to\+\_\+, \+\_\+event\+\_\+))}
+

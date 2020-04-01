@@ -1,0 +1,138 @@
+\hypertarget{classspdlog_1_1sinks_1_1systemd__sink}{}\doxysection{spdlog\+::sinks\+::systemd\+\_\+sink$<$ Mutex $>$ Class Template Reference}
+\label{classspdlog_1_1sinks_1_1systemd__sink}\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+
+
+{\ttfamily \#include $<$systemd\+\_\+sink.\+h$>$}
+
+Inheritance diagram for spdlog\+::sinks\+::systemd\+\_\+sink$<$ Mutex $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classspdlog_1_1sinks_1_1systemd__sink}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_ab49d05081d02e681128fcac0a1eadca6}{systemd\+\_\+sink}} ()
+\item 
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_a3e2ede637b044920d39bb4ac4e61d526}{$\sim$systemd\+\_\+sink}} () override
+\item 
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_ad7b63a446a6888241ab14c81e177288f}{systemd\+\_\+sink}} (const \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{systemd\+\_\+sink}} \&)=delete
+\item 
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{systemd\+\_\+sink}} \& \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_a1c2db92cf34a45775d26dfe0ad65c4ec}{operator=}} (const \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{systemd\+\_\+sink}} \&)=delete
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_ad0652008be66ac583f91e738c3d5a1f3}{levels\+\_\+array}} = std\+::array$<$ int, 7 $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_a90fe52782d60b582ca21cad93b7df843}{sink\+\_\+it\+\_\+}} (const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{details\+::log\+\_\+msg}} \&msg) override
+\item 
+int \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_a29e942c5d7b3be09d515f6806cff9063}{syslog\+\_\+level}} (\mbox{\hyperlink{namespacespdlog_1_1level_a35f5227e5daf228d28a207b7b2aefc8b}{level\+::level\+\_\+enum}} l)
+\item 
+void \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_a017478cdcc1e751a502ebfe0ba55e6c6}{flush\+\_\+}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_ad0652008be66ac583f91e738c3d5a1f3}{levels\+\_\+array}} \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_a044b037c7f79f073741affdabef4c2d8}{syslog\+\_\+levels\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Mutex$>$\newline
+class spdlog\+::sinks\+::systemd\+\_\+sink$<$ Mutex $>$}
+
+Sink that write to systemd journal using the {\ttfamily sd\+\_\+journal\+\_\+send()} library call.
+
+Locking is not needed, as {\ttfamily sd\+\_\+journal\+\_\+send()} itself is thread-\/safe. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classspdlog_1_1sinks_1_1systemd__sink_ad0652008be66ac583f91e738c3d5a1f3}\label{classspdlog_1_1sinks_1_1systemd__sink_ad0652008be66ac583f91e738c3d5a1f3}} 
+\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}!levels\_array@{levels\_array}}
+\index{levels\_array@{levels\_array}!spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{levels\_array}{levels\_array}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+using \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{spdlog\+::sinks\+::systemd\+\_\+sink}}$<$ Mutex $>$\+::\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_ad0652008be66ac583f91e738c3d5a1f3}{levels\+\_\+array}} =  std\+::array$<$int, 7$>$\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classspdlog_1_1sinks_1_1systemd__sink_ab49d05081d02e681128fcac0a1eadca6}\label{classspdlog_1_1sinks_1_1systemd__sink_ab49d05081d02e681128fcac0a1eadca6}} 
+\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}!systemd\_sink@{systemd\_sink}}
+\index{systemd\_sink@{systemd\_sink}!spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{systemd\_sink()}{systemd\_sink()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{spdlog\+::sinks\+::systemd\+\_\+sink}}$<$ Mutex $>$\+::\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{systemd\+\_\+sink}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classspdlog_1_1sinks_1_1systemd__sink_a3e2ede637b044920d39bb4ac4e61d526}\label{classspdlog_1_1sinks_1_1systemd__sink_a3e2ede637b044920d39bb4ac4e61d526}} 
+\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}!````~systemd\_sink@{$\sim$systemd\_sink}}
+\index{````~systemd\_sink@{$\sim$systemd\_sink}!spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$systemd\_sink()}{~systemd\_sink()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{spdlog\+::sinks\+::systemd\+\_\+sink}}$<$ Mutex $>$\+::$\sim$\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{systemd\+\_\+sink}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+\mbox{\Hypertarget{classspdlog_1_1sinks_1_1systemd__sink_ad7b63a446a6888241ab14c81e177288f}\label{classspdlog_1_1sinks_1_1systemd__sink_ad7b63a446a6888241ab14c81e177288f}} 
+\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}!systemd\_sink@{systemd\_sink}}
+\index{systemd\_sink@{systemd\_sink}!spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{systemd\_sink()}{systemd\_sink()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{spdlog\+::sinks\+::systemd\+\_\+sink}}$<$ Mutex $>$\+::\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{systemd\+\_\+sink}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{systemd\+\_\+sink}}$<$ Mutex $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classspdlog_1_1sinks_1_1systemd__sink_a017478cdcc1e751a502ebfe0ba55e6c6}\label{classspdlog_1_1sinks_1_1systemd__sink_a017478cdcc1e751a502ebfe0ba55e6c6}} 
+\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}!flush\_@{flush\_}}
+\index{flush\_@{flush\_}!spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{flush\_()}{flush\_()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+void \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{spdlog\+::sinks\+::systemd\+\_\+sink}}$<$ Mutex $>$\+::flush\+\_\+ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classspdlog_1_1sinks_1_1base__sink_a5ac2b237c60f68a18122a1ca09b812b4}{spdlog\+::sinks\+::base\+\_\+sink$<$ Mutex $>$}}.
+
+\mbox{\Hypertarget{classspdlog_1_1sinks_1_1systemd__sink_a1c2db92cf34a45775d26dfe0ad65c4ec}\label{classspdlog_1_1sinks_1_1systemd__sink_a1c2db92cf34a45775d26dfe0ad65c4ec}} 
+\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{systemd\+\_\+sink}}\& \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{spdlog\+::sinks\+::systemd\+\_\+sink}}$<$ Mutex $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{systemd\+\_\+sink}}$<$ Mutex $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classspdlog_1_1sinks_1_1systemd__sink_a90fe52782d60b582ca21cad93b7df843}\label{classspdlog_1_1sinks_1_1systemd__sink_a90fe52782d60b582ca21cad93b7df843}} 
+\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}!sink\_it\_@{sink\_it\_}}
+\index{sink\_it\_@{sink\_it\_}!spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{sink\_it\_()}{sink\_it\_()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+void \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{spdlog\+::sinks\+::systemd\+\_\+sink}}$<$ Mutex $>$\+::sink\+\_\+it\+\_\+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{details\+::log\+\_\+msg}} \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classspdlog_1_1sinks_1_1base__sink_ad698d300cb7f5e58b2aa1b9907cdbd87}{spdlog\+::sinks\+::base\+\_\+sink$<$ Mutex $>$}}.
+
+\mbox{\Hypertarget{classspdlog_1_1sinks_1_1systemd__sink_a29e942c5d7b3be09d515f6806cff9063}\label{classspdlog_1_1sinks_1_1systemd__sink_a29e942c5d7b3be09d515f6806cff9063}} 
+\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}!syslog\_level@{syslog\_level}}
+\index{syslog\_level@{syslog\_level}!spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{syslog\_level()}{syslog\_level()}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+int \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{spdlog\+::sinks\+::systemd\+\_\+sink}}$<$ Mutex $>$\+::syslog\+\_\+level (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacespdlog_1_1level_a35f5227e5daf228d28a207b7b2aefc8b}{level\+::level\+\_\+enum}}}]{l }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classspdlog_1_1sinks_1_1systemd__sink_a044b037c7f79f073741affdabef4c2d8}\label{classspdlog_1_1sinks_1_1systemd__sink_a044b037c7f79f073741affdabef4c2d8}} 
+\index{spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}!syslog\_levels\_@{syslog\_levels\_}}
+\index{syslog\_levels\_@{syslog\_levels\_}!spdlog::sinks::systemd\_sink$<$ Mutex $>$@{spdlog::sinks::systemd\_sink$<$ Mutex $>$}}
+\doxysubsubsection{\texorpdfstring{syslog\_levels\_}{syslog\_levels\_}}
+{\footnotesize\ttfamily template$<$typename Mutex $>$ \\
+\mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink_ad0652008be66ac583f91e738c3d5a1f3}{levels\+\_\+array}} \mbox{\hyperlink{classspdlog_1_1sinks_1_1systemd__sink}{spdlog\+::sinks\+::systemd\+\_\+sink}}$<$ Mutex $>$\+::syslog\+\_\+levels\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/sinks/\mbox{\hyperlink{systemd__sink_8h}{systemd\+\_\+sink.\+h}}\end{DoxyCompactItemize}

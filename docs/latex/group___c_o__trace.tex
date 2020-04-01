@@ -1,0 +1,123 @@
+\hypertarget{group___c_o__trace}{}\doxysection{Trace}
+\label{group___c_o__trace}\index{Trace@{Trace}}
+\doxysubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{_c_o__trace_8h}{C\+O\+\_\+trace.\+h}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_o__trace__data_type__t}{C\+O\+\_\+trace\+\_\+data\+Type\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct_c_o__trace__t}{C\+O\+\_\+trace\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group___c_o__trace_ga4edaf4c29180028f5f128f0aed2a417d}{O\+D\+\_\+\+I\+N\+D\+E\+X\+\_\+\+T\+R\+A\+C\+E\+\_\+\+C\+O\+N\+F\+IG}}~0x2301
+\item 
+\#define \mbox{\hyperlink{group___c_o__trace_gab1901f48fffe8ce03e66038029f8e7b6}{O\+D\+\_\+\+I\+N\+D\+E\+X\+\_\+\+T\+R\+A\+CE}}~0x2401
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init}} (\mbox{\hyperlink{struct_c_o__trace__t}{C\+O\+\_\+trace\+\_\+t}} $\ast$trace, \mbox{\hyperlink{struct_c_o___s_d_o__t}{C\+O\+\_\+\+S\+D\+O\+\_\+t}} $\ast$S\+DO, uint8\+\_\+t enabled, uint32\+\_\+t $\ast$time\+Buffer, int32\+\_\+t $\ast$value\+Buffer, uint32\+\_\+t buffer\+Size, uint32\+\_\+t $\ast$map, uint8\+\_\+t $\ast$\mbox{\hyperlink{locale_8h_a5bc4ef9df000061088de5f970684bb01}{format}}, uint8\+\_\+t $\ast$trigger, int32\+\_\+t $\ast$threshold, int32\+\_\+t $\ast$value, int32\+\_\+t $\ast$min\+Value, int32\+\_\+t $\ast$max\+Value, uint32\+\_\+t $\ast$trigger\+Time, uint16\+\_\+t idx\+\_\+\+O\+D\+\_\+trace\+Config, uint16\+\_\+t idx\+\_\+\+O\+D\+\_\+trace)
+\item 
+void \mbox{\hyperlink{group___c_o__trace_ga5b8d9460d7a42920325cf66eb8b725ec}{C\+O\+\_\+trace\+\_\+process}} (\mbox{\hyperlink{struct_c_o__trace__t}{C\+O\+\_\+trace\+\_\+t}} $\ast$trace, uint32\+\_\+t timestamp)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+C\+A\+Nopen trace for recording variables over time.
+
+In embedded systems there is often a need to monitor some variables over time. Results are then displayed on graph, similar as in oscilloscope.
+
+C\+A\+Nopen trace is a configurable object, accessible via C\+A\+Nopen Object Dictionary, which records chosen variable over time. It generates a curve, which can be read via S\+DO and can then be displayed in a graph.
+
+\mbox{\hyperlink{group___c_o__trace_ga5b8d9460d7a42920325cf66eb8b725ec}{C\+O\+\_\+trace\+\_\+process()}} runs in 1 ms intervals and monitors one variable. If it changes, it makes a record with timestamp into circular buffer. When trace is accessed by C\+A\+Nopen S\+DO object, it reads latest points from the the circular buffer, prints a S\+VG curve into string and sends it as a S\+DO response. If a S\+DO request was received from the same device, then no traffic occupies C\+AN network. 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group___c_o__trace_gab1901f48fffe8ce03e66038029f8e7b6}\label{group___c_o__trace_gab1901f48fffe8ce03e66038029f8e7b6}} 
+\index{Trace@{Trace}!OD\_INDEX\_TRACE@{OD\_INDEX\_TRACE}}
+\index{OD\_INDEX\_TRACE@{OD\_INDEX\_TRACE}!Trace@{Trace}}
+\doxysubsubsection{\texorpdfstring{OD\_INDEX\_TRACE}{OD\_INDEX\_TRACE}}
+{\footnotesize\ttfamily \#define O\+D\+\_\+\+I\+N\+D\+E\+X\+\_\+\+T\+R\+A\+CE~0x2401}
+
+\mbox{\Hypertarget{group___c_o__trace_ga4edaf4c29180028f5f128f0aed2a417d}\label{group___c_o__trace_ga4edaf4c29180028f5f128f0aed2a417d}} 
+\index{Trace@{Trace}!OD\_INDEX\_TRACE\_CONFIG@{OD\_INDEX\_TRACE\_CONFIG}}
+\index{OD\_INDEX\_TRACE\_CONFIG@{OD\_INDEX\_TRACE\_CONFIG}!Trace@{Trace}}
+\doxysubsubsection{\texorpdfstring{OD\_INDEX\_TRACE\_CONFIG}{OD\_INDEX\_TRACE\_CONFIG}}
+{\footnotesize\ttfamily \#define O\+D\+\_\+\+I\+N\+D\+E\+X\+\_\+\+T\+R\+A\+C\+E\+\_\+\+C\+O\+N\+F\+IG~0x2301}
+
+Start index of trace\+Config and Trace objects in Object Dictionary. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}\label{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}} 
+\index{Trace@{Trace}!CO\_trace\_init@{CO\_trace\_init}}
+\index{CO\_trace\_init@{CO\_trace\_init}!Trace@{Trace}}
+\doxysubsubsection{\texorpdfstring{CO\_trace\_init()}{CO\_trace\_init()}}
+{\footnotesize\ttfamily void C\+O\+\_\+trace\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o__trace__t}{C\+O\+\_\+trace\+\_\+t}} $\ast$}]{trace,  }\item[{\mbox{\hyperlink{struct_c_o___s_d_o__t}{C\+O\+\_\+\+S\+D\+O\+\_\+t}} $\ast$}]{S\+DO,  }\item[{uint8\+\_\+t}]{enabled,  }\item[{uint32\+\_\+t $\ast$}]{time\+Buffer,  }\item[{int32\+\_\+t $\ast$}]{value\+Buffer,  }\item[{uint32\+\_\+t}]{buffer\+Size,  }\item[{uint32\+\_\+t $\ast$}]{map,  }\item[{uint8\+\_\+t $\ast$}]{format,  }\item[{uint8\+\_\+t $\ast$}]{trigger,  }\item[{int32\+\_\+t $\ast$}]{threshold,  }\item[{int32\+\_\+t $\ast$}]{value,  }\item[{int32\+\_\+t $\ast$}]{min\+Value,  }\item[{int32\+\_\+t $\ast$}]{max\+Value,  }\item[{uint32\+\_\+t $\ast$}]{trigger\+Time,  }\item[{uint16\+\_\+t}]{idx\+\_\+\+O\+D\+\_\+trace\+Config,  }\item[{uint16\+\_\+t}]{idx\+\_\+\+O\+D\+\_\+trace }\end{DoxyParamCaption})}
+
+Initialize trace object.
+
+Function must be called in the communication reset section.
+
+
+\begin{DoxyParams}{Parameters}
+{\em trace} & This object will be initialized. \\
+\hline
+{\em S\+DO} & S\+DO server object. \\
+\hline
+{\em enabled} & Is trace enabled. \\
+\hline
+{\em time\+Buffer} & Memory block for storing time records. \\
+\hline
+{\em value\+Buffer} & Memory block for storing value records. \\
+\hline
+{\em buffer\+Size} & Size of the above buffers. \\
+\hline
+{\em map} & Map to variable in Object Dictionary, which will be monitored. Same structure as in P\+DO. \\
+\hline
+{\em Format} & Format of the plot. If first bit is 1, above variable is unsigned. For more info see Object Dictionary. \\
+\hline
+{\em trigger} & If different than zero, trigger time is recorded, when variable goes through threshold. \\
+\hline
+{\em threshold} & Used with trigger. \\
+\hline
+{\em value} & Pointer to variable, which will show last value of the variable. \\
+\hline
+{\em min\+Value} & Pointer to variable, which will show minimum value of the variable. \\
+\hline
+{\em max\+Value} & Pointer to variable, which will show maximum value of the variable. \\
+\hline
+{\em trigger\+Time} & Pointer to variable, which will show last trigger time of the variable. \\
+\hline
+{\em idx\+\_\+\+O\+D\+\_\+trace\+Config} & Index in Object Dictionary. \\
+\hline
+{\em idx\+\_\+\+O\+D\+\_\+trace} & Index in Object Dictionary.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on error. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___c_o__trace_ga5b8d9460d7a42920325cf66eb8b725ec}\label{group___c_o__trace_ga5b8d9460d7a42920325cf66eb8b725ec}} 
+\index{Trace@{Trace}!CO\_trace\_process@{CO\_trace\_process}}
+\index{CO\_trace\_process@{CO\_trace\_process}!Trace@{Trace}}
+\doxysubsubsection{\texorpdfstring{CO\_trace\_process()}{CO\_trace\_process()}}
+{\footnotesize\ttfamily void C\+O\+\_\+trace\+\_\+process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o__trace__t}{C\+O\+\_\+trace\+\_\+t}} $\ast$}]{trace,  }\item[{uint32\+\_\+t}]{timestamp }\end{DoxyParamCaption})}
+
+Process trace object.
+
+Function must be called cyclically in 1ms intervals.
+
+
+\begin{DoxyParams}{Parameters}
+{\em trace} & This object. \\
+\hline
+{\em timestamp} & Timestamp (usually in millisecond resolution).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on error. 
+\end{DoxyReturn}

@@ -1,0 +1,83 @@
+\hypertarget{_c_o__master_8c}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+O\+\_\+master.c File Reference}
+\label{_c_o__master_8c}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CO\_master.c@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CO\_master.c}}
+{\ttfamily \#include \char`\"{}C\+O\+\_\+master.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_c_o__master_8c_a37d4b496ebab19fd2f577e1380e00d7c}{sdo\+Client\+Upload}} (C\+O\+\_\+\+S\+D\+Oclient\+\_\+t $\ast$S\+D\+Oclient, uint8\+\_\+t node\+ID, uint16\+\_\+t idx, uint8\+\_\+t subidx, uint8\+\_\+t $\ast$data\+Rx, uint32\+\_\+t data\+Rx\+Size, uint32\+\_\+t $\ast$data\+Rx\+Len, uint32\+\_\+t $\ast$S\+D\+Oabort\+Code, uint16\+\_\+t \mbox{\hyperlink{_c_o__command_8c_a3ca1c5930a07f919a36f61ee3def89ba}{S\+D\+Otimeout\+Time}}, uint8\+\_\+t \mbox{\hyperlink{_c_o__command_8c_a0b4b4a72acd90c2cec67378ec0f262bd}{block\+Transfer\+Enable}})
+\item 
+int \mbox{\hyperlink{_c_o__master_8c_a9c7b647f5c6e2c802ecb391eff63228f}{sdo\+Client\+Download}} (C\+O\+\_\+\+S\+D\+Oclient\+\_\+t $\ast$S\+D\+Oclient, uint8\+\_\+t node\+ID, uint16\+\_\+t idx, uint8\+\_\+t subidx, uint8\+\_\+t $\ast$data\+Tx, uint32\+\_\+t data\+Tx\+Len, uint32\+\_\+t $\ast$S\+D\+Oabort\+Code, uint16\+\_\+t \mbox{\hyperlink{_c_o__command_8c_a3ca1c5930a07f919a36f61ee3def89ba}{S\+D\+Otimeout\+Time}}, uint8\+\_\+t \mbox{\hyperlink{_c_o__command_8c_a0b4b4a72acd90c2cec67378ec0f262bd}{block\+Transfer\+Enable}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_o__master_8c_a9c7b647f5c6e2c802ecb391eff63228f}\label{_c_o__master_8c_a9c7b647f5c6e2c802ecb391eff63228f}} 
+\index{CO\_master.c@{CO\_master.c}!sdoClientDownload@{sdoClientDownload}}
+\index{sdoClientDownload@{sdoClientDownload}!CO\_master.c@{CO\_master.c}}
+\doxysubsubsection{\texorpdfstring{sdoClientDownload()}{sdoClientDownload()}}
+{\footnotesize\ttfamily int sdo\+Client\+Download (\begin{DoxyParamCaption}\item[{C\+O\+\_\+\+S\+D\+Oclient\+\_\+t $\ast$}]{S\+D\+Oclient,  }\item[{uint8\+\_\+t}]{node\+ID,  }\item[{uint16\+\_\+t}]{idx,  }\item[{uint8\+\_\+t}]{subidx,  }\item[{uint8\+\_\+t $\ast$}]{data\+Tx,  }\item[{uint32\+\_\+t}]{data\+Tx\+Len,  }\item[{uint32\+\_\+t $\ast$}]{S\+D\+Oabort\+Code,  }\item[{uint16\+\_\+t}]{S\+D\+Otimeout\+Time,  }\item[{uint8\+\_\+t}]{block\+Transfer\+Enable }\end{DoxyParamCaption})}
+
+Sdo client download.
+
+For further details see C\+A\+Nopen\+Node/stack/\+C\+O\+\_\+master.\+h file. This is blocking function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em S\+D\+Oclient} & Pointer to C\+A\+Nopen S\+DO client object. \\
+\hline
+{\em node\+ID} & Node-\/\+ID of the remote node. \\
+\hline
+{\em idx} & Index of object in object dictionary in remote node. \\
+\hline
+{\em subidx} & Subindex of object in object dictionary in remote node. \\
+\hline
+{\em data\+Tx} & Pointer to data buffer, which contains the data. \\
+\hline
+{\em data\+Tx\+Len} & Length of data in data\+Tx. \\
+\hline
+{\em S\+D\+Oabort\+Code} & Return variable -\/ S\+DO abort code. \\
+\hline
+{\em S\+D\+Otimeout\+Time} & S\+DO timeout time in milliseconds. \\
+\hline
+{\em block\+Transfer\+Enable} & If true, try to initiate block transfer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__master_8c_a37d4b496ebab19fd2f577e1380e00d7c}\label{_c_o__master_8c_a37d4b496ebab19fd2f577e1380e00d7c}} 
+\index{CO\_master.c@{CO\_master.c}!sdoClientUpload@{sdoClientUpload}}
+\index{sdoClientUpload@{sdoClientUpload}!CO\_master.c@{CO\_master.c}}
+\doxysubsubsection{\texorpdfstring{sdoClientUpload()}{sdoClientUpload()}}
+{\footnotesize\ttfamily int sdo\+Client\+Upload (\begin{DoxyParamCaption}\item[{C\+O\+\_\+\+S\+D\+Oclient\+\_\+t $\ast$}]{S\+D\+Oclient,  }\item[{uint8\+\_\+t}]{node\+ID,  }\item[{uint16\+\_\+t}]{idx,  }\item[{uint8\+\_\+t}]{subidx,  }\item[{uint8\+\_\+t $\ast$}]{data\+Rx,  }\item[{uint32\+\_\+t}]{data\+Rx\+Size,  }\item[{uint32\+\_\+t $\ast$}]{data\+Rx\+Len,  }\item[{uint32\+\_\+t $\ast$}]{S\+D\+Oabort\+Code,  }\item[{uint16\+\_\+t}]{S\+D\+Otimeout\+Time,  }\item[{uint8\+\_\+t}]{block\+Transfer\+Enable }\end{DoxyParamCaption})}
+
+Sdo client upload.
+
+For further details see C\+A\+Nopen\+Node/stack/\+C\+O\+\_\+master.\+h file. This is blocking function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em S\+D\+Oclient} & Pointer to C\+A\+Nopen S\+DO client object. \\
+\hline
+{\em node\+ID} & Node-\/\+ID of the remote node. \\
+\hline
+{\em idx} & Index of object in object dictionary in remote node. \\
+\hline
+{\em subidx} & Subindex of object in object dictionary in remote node. \\
+\hline
+{\em data\+Rx} & Pointer to data buffer, into which received data will be written. \\
+\hline
+{\em data\+Rx\+Size} & Maximum size of data\+Rx. \\
+\hline
+{\em data\+Rx\+Len} & Return variable -\/ actual data length in data\+Rx. \\
+\hline
+{\em S\+D\+Oabort\+Code} & Return variable -\/ S\+DO abort code. \\
+\hline
+{\em S\+D\+Otimeout\+Time} & S\+DO timeout time in milliseconds. \\
+\hline
+{\em block\+Transfer\+Enable} & If true, try to initiate block transfer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success. 
+\end{DoxyReturn}

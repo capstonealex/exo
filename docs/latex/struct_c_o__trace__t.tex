@@ -1,0 +1,172 @@
+\hypertarget{struct_c_o__trace__t}{}\doxysection{C\+O\+\_\+trace\+\_\+t Struct Reference}
+\label{struct_c_o__trace__t}\index{CO\_trace\_t@{CO\_trace\_t}}
+
+
+{\ttfamily \#include $<$C\+O\+\_\+trace.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{struct_c_o__trace__t_aefa5e9934aaac1f00d0a1866100dae50}{enabled}}
+\item 
+\mbox{\hyperlink{struct_c_o___s_d_o__t}{C\+O\+\_\+\+S\+D\+O\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a33616f410feb93ddb6a2ac238027996b}{S\+DO}}
+\item 
+uint32\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a83806299bd57a23f5946f81cb05ab41d}{time\+Buffer}}
+\item 
+int32\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_abc2f00a5f99453c77dd8515f3526e428}{value\+Buffer}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_c_o__trace__t_a3dfe996be2bef106f50de085a7f5ca9f}{buffer\+Size}}
+\item 
+volatile uint32\+\_\+t \mbox{\hyperlink{struct_c_o__trace__t_ae3a556a180e38e7247b39b84de609b5d}{write\+Ptr}}
+\item 
+volatile uint32\+\_\+t \mbox{\hyperlink{struct_c_o__trace__t_af439eee35bf45f6ec14a32270577ff85}{read\+Ptr}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_c_o__trace__t_af3ffa370f4b25a3c3fd27f9ce75379c0}{last\+Time\+Stamp}}
+\item 
+void $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a2d71398a641edb4fe095aabb6e81f834}{O\+D\+\_\+variable}}
+\item 
+const \mbox{\hyperlink{struct_c_o__trace__data_type__t}{C\+O\+\_\+trace\+\_\+data\+Type\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a31e42b2511450377294475fcf0189d89}{dt}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{struct_c_o__trace__t_abe713136228c54327c1540b99a1a2fd1}{value\+Prev}}
+\item 
+uint32\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_ad6e329507a29f46b41ea6bef210b6502}{map}}
+\item 
+uint8\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a3ea91e63f2c2f6c34b3ee1ae0f84e939}{format}}
+\item 
+int32\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a24fa467aeeb1581c6a3272bd397a2f10}{value}}
+\item 
+int32\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a0f1b287dae5b6a30b43f481d2bee41ab}{min\+Value}}
+\item 
+int32\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a7b41b99eb65d49fe522c25d08127f81d}{max\+Value}}
+\item 
+uint32\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a1b7176f0ad48679449a666c34fe45a3f}{trigger\+Time}}
+\item 
+uint8\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a879f362c9d4a88de9e48d23c4d0c770c}{trigger}}
+\item 
+int32\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o__trace__t_a6400336e1207dcfa5fa8ef2a908fda08}{threshold}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Trace object. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_c_o__trace__t_a3dfe996be2bef106f50de085a7f5ca9f}\label{struct_c_o__trace__t_a3dfe996be2bef106f50de085a7f5ca9f}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!bufferSize@{bufferSize}}
+\index{bufferSize@{bufferSize}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{bufferSize}{bufferSize}}
+{\footnotesize\ttfamily uint32\+\_\+t C\+O\+\_\+trace\+\_\+t\+::buffer\+Size}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_a31e42b2511450377294475fcf0189d89}\label{struct_c_o__trace__t_a31e42b2511450377294475fcf0189d89}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!dt@{dt}}
+\index{dt@{dt}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{dt}{dt}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct_c_o__trace__data_type__t}{C\+O\+\_\+trace\+\_\+data\+Type\+\_\+t}}$\ast$ C\+O\+\_\+trace\+\_\+t\+::dt}
+
+Data type specific function pointers. \mbox{\Hypertarget{struct_c_o__trace__t_aefa5e9934aaac1f00d0a1866100dae50}\label{struct_c_o__trace__t_aefa5e9934aaac1f00d0a1866100dae50}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!enabled@{enabled}}
+\index{enabled@{enabled}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{enabled}{enabled}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} C\+O\+\_\+trace\+\_\+t\+::enabled}
+
+True, if trace is enabled. \mbox{\Hypertarget{struct_c_o__trace__t_a3ea91e63f2c2f6c34b3ee1ae0f84e939}\label{struct_c_o__trace__t_a3ea91e63f2c2f6c34b3ee1ae0f84e939}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!format@{format}}
+\index{format@{format}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{format}{format}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::format}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_af3ffa370f4b25a3c3fd27f9ce75379c0}\label{struct_c_o__trace__t_af3ffa370f4b25a3c3fd27f9ce75379c0}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!lastTimeStamp@{lastTimeStamp}}
+\index{lastTimeStamp@{lastTimeStamp}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{lastTimeStamp}{lastTimeStamp}}
+{\footnotesize\ttfamily uint32\+\_\+t C\+O\+\_\+trace\+\_\+t\+::last\+Time\+Stamp}
+
+Last time stamp. If zero, then last point contains last timestamp. \mbox{\Hypertarget{struct_c_o__trace__t_ad6e329507a29f46b41ea6bef210b6502}\label{struct_c_o__trace__t_ad6e329507a29f46b41ea6bef210b6502}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!map@{map}}
+\index{map@{map}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{map}{map}}
+{\footnotesize\ttfamily uint32\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::map}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_a7b41b99eb65d49fe522c25d08127f81d}\label{struct_c_o__trace__t_a7b41b99eb65d49fe522c25d08127f81d}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!maxValue@{maxValue}}
+\index{maxValue@{maxValue}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{maxValue}{maxValue}}
+{\footnotesize\ttfamily int32\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::max\+Value}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_a0f1b287dae5b6a30b43f481d2bee41ab}\label{struct_c_o__trace__t_a0f1b287dae5b6a30b43f481d2bee41ab}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!minValue@{minValue}}
+\index{minValue@{minValue}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{minValue}{minValue}}
+{\footnotesize\ttfamily int32\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::min\+Value}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_a2d71398a641edb4fe095aabb6e81f834}\label{struct_c_o__trace__t_a2d71398a641edb4fe095aabb6e81f834}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!OD\_variable@{OD\_variable}}
+\index{OD\_variable@{OD\_variable}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{OD\_variable}{OD\_variable}}
+{\footnotesize\ttfamily void$\ast$ C\+O\+\_\+trace\+\_\+t\+::\+O\+D\+\_\+variable}
+
+Pointer to variable, which is monitored \mbox{\Hypertarget{struct_c_o__trace__t_af439eee35bf45f6ec14a32270577ff85}\label{struct_c_o__trace__t_af439eee35bf45f6ec14a32270577ff85}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!readPtr@{readPtr}}
+\index{readPtr@{readPtr}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{readPtr}{readPtr}}
+{\footnotesize\ttfamily volatile uint32\+\_\+t C\+O\+\_\+trace\+\_\+t\+::read\+Ptr}
+
+Location in buffer, which will be next read. \mbox{\Hypertarget{struct_c_o__trace__t_a33616f410feb93ddb6a2ac238027996b}\label{struct_c_o__trace__t_a33616f410feb93ddb6a2ac238027996b}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!SDO@{SDO}}
+\index{SDO@{SDO}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{SDO}{SDO}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___s_d_o__t}{C\+O\+\_\+\+S\+D\+O\+\_\+t}}$\ast$ C\+O\+\_\+trace\+\_\+t\+::\+S\+DO}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_a6400336e1207dcfa5fa8ef2a908fda08}\label{struct_c_o__trace__t_a6400336e1207dcfa5fa8ef2a908fda08}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!threshold@{threshold}}
+\index{threshold@{threshold}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{threshold}{threshold}}
+{\footnotesize\ttfamily int32\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::threshold}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_a83806299bd57a23f5946f81cb05ab41d}\label{struct_c_o__trace__t_a83806299bd57a23f5946f81cb05ab41d}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!timeBuffer@{timeBuffer}}
+\index{timeBuffer@{timeBuffer}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{timeBuffer}{timeBuffer}}
+{\footnotesize\ttfamily uint32\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::time\+Buffer}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_a879f362c9d4a88de9e48d23c4d0c770c}\label{struct_c_o__trace__t_a879f362c9d4a88de9e48d23c4d0c770c}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!trigger@{trigger}}
+\index{trigger@{trigger}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{trigger}{trigger}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::trigger}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_a1b7176f0ad48679449a666c34fe45a3f}\label{struct_c_o__trace__t_a1b7176f0ad48679449a666c34fe45a3f}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!triggerTime@{triggerTime}}
+\index{triggerTime@{triggerTime}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{triggerTime}{triggerTime}}
+{\footnotesize\ttfamily uint32\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::trigger\+Time}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_a24fa467aeeb1581c6a3272bd397a2f10}\label{struct_c_o__trace__t_a24fa467aeeb1581c6a3272bd397a2f10}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!value@{value}}
+\index{value@{value}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily int32\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::value}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_abc2f00a5f99453c77dd8515f3526e428}\label{struct_c_o__trace__t_abc2f00a5f99453c77dd8515f3526e428}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!valueBuffer@{valueBuffer}}
+\index{valueBuffer@{valueBuffer}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{valueBuffer}{valueBuffer}}
+{\footnotesize\ttfamily int32\+\_\+t$\ast$ C\+O\+\_\+trace\+\_\+t\+::value\+Buffer}
+
+From \mbox{\hyperlink{group___c_o__trace_ga50621e5b8e28349f7caf260b6cf9962e}{C\+O\+\_\+trace\+\_\+init()}}. \mbox{\Hypertarget{struct_c_o__trace__t_abe713136228c54327c1540b99a1a2fd1}\label{struct_c_o__trace__t_abe713136228c54327c1540b99a1a2fd1}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!valuePrev@{valuePrev}}
+\index{valuePrev@{valuePrev}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{valuePrev}{valuePrev}}
+{\footnotesize\ttfamily int32\+\_\+t C\+O\+\_\+trace\+\_\+t\+::value\+Prev}
+
+Previous value of value. \mbox{\Hypertarget{struct_c_o__trace__t_ae3a556a180e38e7247b39b84de609b5d}\label{struct_c_o__trace__t_ae3a556a180e38e7247b39b84de609b5d}} 
+\index{CO\_trace\_t@{CO\_trace\_t}!writePtr@{writePtr}}
+\index{writePtr@{writePtr}!CO\_trace\_t@{CO\_trace\_t}}
+\doxysubsubsection{\texorpdfstring{writePtr}{writePtr}}
+{\footnotesize\ttfamily volatile uint32\+\_\+t C\+O\+\_\+trace\+\_\+t\+::write\+Ptr}
+
+Location in buffer, which will be next written. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+A\+Nopen\+Node/stack/\mbox{\hyperlink{_c_o__trace_8h}{C\+O\+\_\+trace.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,117 @@
+\hypertarget{classformat__arg__store}{}\doxysection{format\+\_\+arg\+\_\+store$<$ Context, Args $>$ Class Template Reference}
+\label{classformat__arg__store}\index{format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}}
+
+
+{\ttfamily \#include $<$core.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classformat__arg__store_a785430d11d4e8e5dcd9f231e7d69695e}{format\+\_\+arg\+\_\+store}} (const Args \&... args)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr unsigned long long \mbox{\hyperlink{classformat__arg__store_aa68b8300886c4203a390ded3ad056254}{types}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classformat__arg__store_ab8ef8bb0705f91fe846e39a0da2045dc}{value\+\_\+type}} = \mbox{\hyperlink{core_8h_acdb0eff728aec08ed6fff07d2885ea9d}{conditional\+\_\+t}}$<$ \mbox{\hyperlink{classformat__arg__store_a888a530af0dcf680153a13f7453871eb}{is\+\_\+packed}}, \mbox{\hyperlink{classinternal_1_1value}{internal\+::value}}$<$ Context $>$, \mbox{\hyperlink{classbasic__format__arg}{basic\+\_\+format\+\_\+arg}}$<$ Context $>$ $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classformat__arg__store_ab8ef8bb0705f91fe846e39a0da2045dc}{value\+\_\+type}} \mbox{\hyperlink{classformat__arg__store_a414053d83fcc87bf4fbc0141267464f8}{data\+\_\+}} \mbox{[}\mbox{\hyperlink{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}{num\+\_\+args}}+(\mbox{\hyperlink{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}{num\+\_\+args}}==0 ? 1 \+:0)\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const size\+\_\+t \mbox{\hyperlink{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}{num\+\_\+args}} = sizeof...(Args)
+\item 
+static const bool \mbox{\hyperlink{classformat__arg__store_a888a530af0dcf680153a13f7453871eb}{is\+\_\+packed}} = \mbox{\hyperlink{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}{num\+\_\+args}} $<$ \mbox{\hyperlink{namespaceinternal_a3ecc511ce920fecfd94fed0acd3b9f10a1868fd9ce8f55804389e2ef50fa5901c}{internal\+::max\+\_\+packed\+\_\+args}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classformat__arg__store_ab8e9e33cc7b78829001a86ef6110ebb6}{basic\+\_\+format\+\_\+args$<$ Context $>$}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Context, typename... Args$>$\newline
+class format\+\_\+arg\+\_\+store$<$ Context, Args $>$}
+
+\textbackslash{}rst An array of references to arguments. It can be implicitly converted into {\ttfamily $\sim$fmt\mbox{\hyperlink{classbasic__format__args}{basic\+\_\+format\+\_\+args}}} for passing into type-\/erased formatting functions such as {\ttfamily $\sim$fmt\mbox{\hyperlink{locale_8h_aed889019bc950b4fa8ab1cfec2af9727}{vformat}}}. \textbackslash{}endrst 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classformat__arg__store_ab8ef8bb0705f91fe846e39a0da2045dc}\label{classformat__arg__store_ab8ef8bb0705f91fe846e39a0da2045dc}} 
+\index{format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}!value\_type@{value\_type}}
+\index{value\_type@{value\_type}!format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}}
+\doxysubsubsection{\texorpdfstring{value\_type}{value\_type}}
+{\footnotesize\ttfamily template$<$typename Context , typename... Args$>$ \\
+using \mbox{\hyperlink{classformat__arg__store}{format\+\_\+arg\+\_\+store}}$<$ Context, Args $>$\+::\mbox{\hyperlink{classformat__arg__store_ab8ef8bb0705f91fe846e39a0da2045dc}{value\+\_\+type}} =  \mbox{\hyperlink{core_8h_acdb0eff728aec08ed6fff07d2885ea9d}{conditional\+\_\+t}}$<$\mbox{\hyperlink{classformat__arg__store_a888a530af0dcf680153a13f7453871eb}{is\+\_\+packed}}, \mbox{\hyperlink{classinternal_1_1value}{internal\+::value}}$<$Context$>$, \mbox{\hyperlink{classbasic__format__arg}{basic\+\_\+format\+\_\+arg}}$<$Context$>$ $>$\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classformat__arg__store_a785430d11d4e8e5dcd9f231e7d69695e}\label{classformat__arg__store_a785430d11d4e8e5dcd9f231e7d69695e}} 
+\index{format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}!format\_arg\_store@{format\_arg\_store}}
+\index{format\_arg\_store@{format\_arg\_store}!format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}}
+\doxysubsubsection{\texorpdfstring{format\_arg\_store()}{format\_arg\_store()}}
+{\footnotesize\ttfamily template$<$typename Context , typename... Args$>$ \\
+\mbox{\hyperlink{classformat__arg__store}{format\+\_\+arg\+\_\+store}}$<$ Context, Args $>$\+::\mbox{\hyperlink{classformat__arg__store}{format\+\_\+arg\+\_\+store}} (\begin{DoxyParamCaption}\item[{const Args \&...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classformat__arg__store_ab8e9e33cc7b78829001a86ef6110ebb6}\label{classformat__arg__store_ab8e9e33cc7b78829001a86ef6110ebb6}} 
+\index{format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}!basic\_format\_args$<$ Context $>$@{basic\_format\_args$<$ Context $>$}}
+\index{basic\_format\_args$<$ Context $>$@{basic\_format\_args$<$ Context $>$}!format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}}
+\doxysubsubsection{\texorpdfstring{basic\_format\_args$<$ Context $>$}{basic\_format\_args< Context >}}
+{\footnotesize\ttfamily template$<$typename Context , typename... Args$>$ \\
+friend class \mbox{\hyperlink{classbasic__format__args}{basic\+\_\+format\+\_\+args}}$<$ Context $>$\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classformat__arg__store_a414053d83fcc87bf4fbc0141267464f8}\label{classformat__arg__store_a414053d83fcc87bf4fbc0141267464f8}} 
+\index{format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}!data\_@{data\_}}
+\index{data\_@{data\_}!format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}}
+\doxysubsubsection{\texorpdfstring{data\_}{data\_}}
+{\footnotesize\ttfamily template$<$typename Context , typename... Args$>$ \\
+\mbox{\hyperlink{classformat__arg__store_ab8ef8bb0705f91fe846e39a0da2045dc}{value\+\_\+type}} \mbox{\hyperlink{classformat__arg__store}{format\+\_\+arg\+\_\+store}}$<$ Context, Args $>$\+::data\+\_\+\mbox{[}\mbox{\hyperlink{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}{num\+\_\+args}}+(\mbox{\hyperlink{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}{num\+\_\+args}}==0 ? 1 \+:0)\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classformat__arg__store_a888a530af0dcf680153a13f7453871eb}\label{classformat__arg__store_a888a530af0dcf680153a13f7453871eb}} 
+\index{format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}!is\_packed@{is\_packed}}
+\index{is\_packed@{is\_packed}!format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}}
+\doxysubsubsection{\texorpdfstring{is\_packed}{is\_packed}}
+{\footnotesize\ttfamily template$<$typename Context , typename... Args$>$ \\
+const bool \mbox{\hyperlink{classformat__arg__store}{format\+\_\+arg\+\_\+store}}$<$ Context, Args $>$\+::is\+\_\+packed = \mbox{\hyperlink{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}{num\+\_\+args}} $<$ \mbox{\hyperlink{namespaceinternal_a3ecc511ce920fecfd94fed0acd3b9f10a1868fd9ce8f55804389e2ef50fa5901c}{internal\+::max\+\_\+packed\+\_\+args}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}\label{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}} 
+\index{format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}!num\_args@{num\_args}}
+\index{num\_args@{num\_args}!format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}}
+\doxysubsubsection{\texorpdfstring{num\_args}{num\_args}}
+{\footnotesize\ttfamily template$<$typename Context , typename... Args$>$ \\
+const size\+\_\+t \mbox{\hyperlink{classformat__arg__store}{format\+\_\+arg\+\_\+store}}$<$ Context, Args $>$\+::num\+\_\+args = sizeof...(Args)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classformat__arg__store_aa68b8300886c4203a390ded3ad056254}\label{classformat__arg__store_aa68b8300886c4203a390ded3ad056254}} 
+\index{format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}!types@{types}}
+\index{types@{types}!format\_arg\_store$<$ Context, Args $>$@{format\_arg\_store$<$ Context, Args $>$}}
+\doxysubsubsection{\texorpdfstring{types}{types}}
+{\footnotesize\ttfamily template$<$typename Context , typename... Args$>$ \\
+constexpr unsigned long long \mbox{\hyperlink{classformat__arg__store}{format\+\_\+arg\+\_\+store}}$<$ Context, Args $>$\+::types\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{classformat__arg__store_a888a530af0dcf680153a13f7453871eb}{is\_packed}} ? \mbox{\hyperlink{namespaceinternal_a47e8df20c718e5c2053ab0883316d6b4}{internal::encode\_types}}<Context, Args...>()}
+\DoxyCodeLine{                : \mbox{\hyperlink{namespaceinternal_ae71fe2816af754dc8939aa6fe219f5a3aa369fe459d2605e7f4d98f40111d23aa}{internal::is\_unpacked\_bit}} | \mbox{\hyperlink{classformat__arg__store_ae02d97eac035816ed9368edfdc908d4e}{num\_args}}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{core_8h}{core.\+h}}\end{DoxyCompactItemize}

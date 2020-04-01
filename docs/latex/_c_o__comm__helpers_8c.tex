@@ -1,0 +1,422 @@
+\hypertarget{_c_o__comm__helpers_8c}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+O\+\_\+comm\+\_\+helpers.c File Reference}
+\label{_c_o__comm__helpers_8c}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CO\_comm\_helpers.c@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CO\_comm\_helpers.c}}
+{\ttfamily \#include \char`\"{}C\+O\+\_\+comm\+\_\+helpers.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_c_o__comm__helpers_8c_a61fac56d1a659c8f3dec27c3889a9a40}{dtp\+Hex}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a993b76729e58c58a1e7269c614c664b6}{dtp\+Str}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_aa7e14930ca3f930a1396c2f9b536dd07}{dtp\+U8}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_af438ccd5b8c64f1de1dd3c8c627875fb}{dtp\+U16}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_af542086b563ca0f43e4f454c5bbccecc}{dtp\+U32}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_ab69a7a756a1342b0dac99398fb002f37}{dtp\+U64}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_ac84b4dc037e97896af111d836c9a730c}{dtp\+I8}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a531f6342e9abf1c0ec2f98ac4374478b}{dtp\+I16}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a5ffa8e34f7a697fe0cfc684e81ac02df}{dtp\+I32}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a62916ed146d1742b0b0f6c23f3c5f612}{dtp\+I64}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a50ab9bb9247ad076cedad1470f75f356}{dtp\+R32}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a1947274a57c23677b34f36a5497ef4a4}{dtp\+R64}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+int \mbox{\hyperlink{_c_o__comm__helpers_8c_a7f9d58aadd080b13c906ded1ba953943}{dts\+Hex}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a31d6212953d951ca1f94cb97cf99b198}{dts\+Str}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a3686f96e4fb5a294313273ffcde079ee}{dts\+U8}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a02337effaf5d8371398f7ec48378c4a2}{dts\+U16}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a2b7f7ece502cb67b8a642c1960bb862e}{dts\+U32}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a7b5affe34cda6b6773acabd25afceee6}{dts\+U64}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_ac68a71b9dc9bc5e16fff754db8d84368}{dts\+I8}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a9d990ec0c36e50527be632c58e649cff}{dts\+I16}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_a4093ed4c7ec0df588d9d7892f3b89948}{dts\+I32}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_ac40aaf82d1ff8d8636845119a2b04c8f}{dts\+I64}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_af3907cfc475fdd2c3a6f871004326661}{dts\+R32}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+static int \mbox{\hyperlink{_c_o__comm__helpers_8c_aed5c90d1099f01db1f0f5587cf4a387d}{dts\+R64}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+char $\ast$ \mbox{\hyperlink{_c_o__comm__helpers_8c_a5f7a1e183d7cbfe40b4ac78de552108c}{get\+Tok}} (char $\ast$init\+Str, const char $\ast$delim, int $\ast$err)
+\item 
+void \mbox{\hyperlink{_c_o__comm__helpers_8c_a3ebc4b4695269eae20196f76bb81efec}{last\+Tok}} (char $\ast$init\+Str, const char $\ast$delim, int $\ast$err)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8c_a46c92bc0fbe7480cbed98ccd65f80f89}{get\+U32}} (char $\ast$token, uint32\+\_\+t min, uint32\+\_\+t max, int $\ast$err)
+\item 
+int32\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8c_a87716fa4efe4f4b931d1d5f1032d09ba}{get\+I32}} (char $\ast$token, int32\+\_\+t min, int32\+\_\+t max, int $\ast$err)
+\item 
+uint64\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8c_a095e6493ecfe9575930d1652f593c65e}{get\+U64}} (char $\ast$token, uint64\+\_\+t min, uint64\+\_\+t max, int $\ast$err)
+\item 
+int64\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8c_ab07d3bf496c1c1769069f4c662725936}{get\+I64}} (char $\ast$token, int64\+\_\+t min, int64\+\_\+t max, int $\ast$err)
+\item 
+float32\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8c_a63f1899dc35cc429bb303dd3028dd19d}{get\+R32}} (char $\ast$token, int $\ast$err)
+\item 
+float64\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8c_aa764b0695a3d5ba9809bb5144353d6fd}{get\+R64}} (char $\ast$token, int $\ast$err)
+\item 
+const \mbox{\hyperlink{structdata_type__t}{data\+Type\+\_\+t}} $\ast$ \mbox{\hyperlink{_c_o__comm__helpers_8c_a9497d44b2df4b7b4a8f1f50742a542c3}{get\+Data\+Type}} (char $\ast$token, int $\ast$err)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \mbox{\hyperlink{_c_o__comm__helpers_8c_adc643f3e84ae6a16d0692aaf9d21a171}{space\+Delim}} \mbox{[}$\,$\mbox{]} = \char`\"{} \textbackslash{}t\textbackslash{}n\textbackslash{}r\textbackslash{}f\textbackslash{}v\char`\"{}
+\item 
+static char $\ast$ \mbox{\hyperlink{_c_o__comm__helpers_8c_a583724ac9dd4814529ea58a7862aeffe}{strtok\+Save\+Ptr}} = N\+U\+LL
+\item 
+static const \mbox{\hyperlink{structdata_type__t}{data\+Type\+\_\+t}} \mbox{\hyperlink{_c_o__comm__helpers_8c_af62e505bd608c5ee0640b394cf9a1186}{data\+Types}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a61fac56d1a659c8f3dec27c3889a9a40}\label{_c_o__comm__helpers_8c_a61fac56d1a659c8f3dec27c3889a9a40}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpHex@{dtpHex}}
+\index{dtpHex@{dtpHex}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpHex()}{dtpHex()}}
+{\footnotesize\ttfamily int dtp\+Hex (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})}
+
+Data type print function.
+
+Functions writes binary data from buf\+Sdo to strout (with sprintf). dtp\+Hex outputs in hex format (two hex digits, space separated). There are other dtp functions inside data\+Types\mbox{[}\mbox{]} array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em strout} & Output string. \\
+\hline
+{\em buf\+Sdo} & Input binary data. \\
+\hline
+{\em buf\+Len} & Size of input binary data.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes written to strout. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a531f6342e9abf1c0ec2f98ac4374478b}\label{_c_o__comm__helpers_8c_a531f6342e9abf1c0ec2f98ac4374478b}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpI16@{dtpI16}}
+\index{dtpI16@{dtpI16}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpI16()}{dtpI16()}}
+{\footnotesize\ttfamily static int dtp\+I16 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a5ffa8e34f7a697fe0cfc684e81ac02df}\label{_c_o__comm__helpers_8c_a5ffa8e34f7a697fe0cfc684e81ac02df}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpI32@{dtpI32}}
+\index{dtpI32@{dtpI32}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpI32()}{dtpI32()}}
+{\footnotesize\ttfamily static int dtp\+I32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a62916ed146d1742b0b0f6c23f3c5f612}\label{_c_o__comm__helpers_8c_a62916ed146d1742b0b0f6c23f3c5f612}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpI64@{dtpI64}}
+\index{dtpI64@{dtpI64}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpI64()}{dtpI64()}}
+{\footnotesize\ttfamily static int dtp\+I64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_ac84b4dc037e97896af111d836c9a730c}\label{_c_o__comm__helpers_8c_ac84b4dc037e97896af111d836c9a730c}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpI8@{dtpI8}}
+\index{dtpI8@{dtpI8}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpI8()}{dtpI8()}}
+{\footnotesize\ttfamily static int dtp\+I8 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a50ab9bb9247ad076cedad1470f75f356}\label{_c_o__comm__helpers_8c_a50ab9bb9247ad076cedad1470f75f356}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpR32@{dtpR32}}
+\index{dtpR32@{dtpR32}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpR32()}{dtpR32()}}
+{\footnotesize\ttfamily static int dtp\+R32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a1947274a57c23677b34f36a5497ef4a4}\label{_c_o__comm__helpers_8c_a1947274a57c23677b34f36a5497ef4a4}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpR64@{dtpR64}}
+\index{dtpR64@{dtpR64}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpR64()}{dtpR64()}}
+{\footnotesize\ttfamily static int dtp\+R64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a993b76729e58c58a1e7269c614c664b6}\label{_c_o__comm__helpers_8c_a993b76729e58c58a1e7269c614c664b6}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpStr@{dtpStr}}
+\index{dtpStr@{dtpStr}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpStr()}{dtpStr()}}
+{\footnotesize\ttfamily static int dtp\+Str (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_af438ccd5b8c64f1de1dd3c8c627875fb}\label{_c_o__comm__helpers_8c_af438ccd5b8c64f1de1dd3c8c627875fb}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpU16@{dtpU16}}
+\index{dtpU16@{dtpU16}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpU16()}{dtpU16()}}
+{\footnotesize\ttfamily static int dtp\+U16 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_af542086b563ca0f43e4f454c5bbccecc}\label{_c_o__comm__helpers_8c_af542086b563ca0f43e4f454c5bbccecc}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpU32@{dtpU32}}
+\index{dtpU32@{dtpU32}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpU32()}{dtpU32()}}
+{\footnotesize\ttfamily static int dtp\+U32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_ab69a7a756a1342b0dac99398fb002f37}\label{_c_o__comm__helpers_8c_ab69a7a756a1342b0dac99398fb002f37}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpU64@{dtpU64}}
+\index{dtpU64@{dtpU64}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpU64()}{dtpU64()}}
+{\footnotesize\ttfamily static int dtp\+U64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_aa7e14930ca3f930a1396c2f9b536dd07}\label{_c_o__comm__helpers_8c_aa7e14930ca3f930a1396c2f9b536dd07}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtpU8@{dtpU8}}
+\index{dtpU8@{dtpU8}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtpU8()}{dtpU8()}}
+{\footnotesize\ttfamily static int dtp\+U8 (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a7f9d58aadd080b13c906ded1ba953943}\label{_c_o__comm__helpers_8c_a7f9d58aadd080b13c906ded1ba953943}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsHex@{dtsHex}}
+\index{dtsHex@{dtsHex}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsHex()}{dtsHex()}}
+{\footnotesize\ttfamily int dts\+Hex (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})}
+
+Data type scan function.
+
+Functions scans input string string and writes binary data to buf\+Sdo. dts\+Hex scans from hex format (two hex digits, space separated). There are other dts functions inside data\+Types\mbox{[}\mbox{]} array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf\+Sdo} & Output binary data. \\
+\hline
+{\em strin} & Input string.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes written to buf\+Sdo, 0 on failure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a9d990ec0c36e50527be632c58e649cff}\label{_c_o__comm__helpers_8c_a9d990ec0c36e50527be632c58e649cff}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsI16@{dtsI16}}
+\index{dtsI16@{dtsI16}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsI16()}{dtsI16()}}
+{\footnotesize\ttfamily static int dts\+I16 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a4093ed4c7ec0df588d9d7892f3b89948}\label{_c_o__comm__helpers_8c_a4093ed4c7ec0df588d9d7892f3b89948}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsI32@{dtsI32}}
+\index{dtsI32@{dtsI32}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsI32()}{dtsI32()}}
+{\footnotesize\ttfamily static int dts\+I32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_ac40aaf82d1ff8d8636845119a2b04c8f}\label{_c_o__comm__helpers_8c_ac40aaf82d1ff8d8636845119a2b04c8f}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsI64@{dtsI64}}
+\index{dtsI64@{dtsI64}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsI64()}{dtsI64()}}
+{\footnotesize\ttfamily static int dts\+I64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_ac68a71b9dc9bc5e16fff754db8d84368}\label{_c_o__comm__helpers_8c_ac68a71b9dc9bc5e16fff754db8d84368}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsI8@{dtsI8}}
+\index{dtsI8@{dtsI8}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsI8()}{dtsI8()}}
+{\footnotesize\ttfamily static int dts\+I8 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_af3907cfc475fdd2c3a6f871004326661}\label{_c_o__comm__helpers_8c_af3907cfc475fdd2c3a6f871004326661}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsR32@{dtsR32}}
+\index{dtsR32@{dtsR32}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsR32()}{dtsR32()}}
+{\footnotesize\ttfamily static int dts\+R32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_aed5c90d1099f01db1f0f5587cf4a387d}\label{_c_o__comm__helpers_8c_aed5c90d1099f01db1f0f5587cf4a387d}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsR64@{dtsR64}}
+\index{dtsR64@{dtsR64}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsR64()}{dtsR64()}}
+{\footnotesize\ttfamily static int dts\+R64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a31d6212953d951ca1f94cb97cf99b198}\label{_c_o__comm__helpers_8c_a31d6212953d951ca1f94cb97cf99b198}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsStr@{dtsStr}}
+\index{dtsStr@{dtsStr}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsStr()}{dtsStr()}}
+{\footnotesize\ttfamily static int dts\+Str (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a02337effaf5d8371398f7ec48378c4a2}\label{_c_o__comm__helpers_8c_a02337effaf5d8371398f7ec48378c4a2}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsU16@{dtsU16}}
+\index{dtsU16@{dtsU16}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsU16()}{dtsU16()}}
+{\footnotesize\ttfamily static int dts\+U16 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a2b7f7ece502cb67b8a642c1960bb862e}\label{_c_o__comm__helpers_8c_a2b7f7ece502cb67b8a642c1960bb862e}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsU32@{dtsU32}}
+\index{dtsU32@{dtsU32}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsU32()}{dtsU32()}}
+{\footnotesize\ttfamily static int dts\+U32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a7b5affe34cda6b6773acabd25afceee6}\label{_c_o__comm__helpers_8c_a7b5affe34cda6b6773acabd25afceee6}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsU64@{dtsU64}}
+\index{dtsU64@{dtsU64}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsU64()}{dtsU64()}}
+{\footnotesize\ttfamily static int dts\+U64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a3686f96e4fb5a294313273ffcde079ee}\label{_c_o__comm__helpers_8c_a3686f96e4fb5a294313273ffcde079ee}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dtsU8@{dtsU8}}
+\index{dtsU8@{dtsU8}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dtsU8()}{dtsU8()}}
+{\footnotesize\ttfamily static int dts\+U8 (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a9497d44b2df4b7b4a8f1f50742a542c3}\label{_c_o__comm__helpers_8c_a9497d44b2df4b7b4a8f1f50742a542c3}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!getDataType@{getDataType}}
+\index{getDataType@{getDataType}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{getDataType()}{getDataType()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structdata_type__t}{data\+Type\+\_\+t}}$\ast$ get\+Data\+Type (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+Get data type from token.
+
+Token must exactly match one of the \textquotesingle{}syntax\textquotesingle{} from data\+Types\mbox{[}\mbox{]}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & Input string. \\
+\hline
+{\em err} & Input and returning parameter sets to true in case of error. If err is already true, function returns 0 immediately.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a87716fa4efe4f4b931d1d5f1032d09ba}\label{_c_o__comm__helpers_8c_a87716fa4efe4f4b931d1d5f1032d09ba}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!getI32@{getI32}}
+\index{getI32@{getI32}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{getI32()}{getI32()}}
+{\footnotesize\ttfamily int32\+\_\+t get\+I32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int32\+\_\+t}]{min,  }\item[{int32\+\_\+t}]{max,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_ab07d3bf496c1c1769069f4c662725936}\label{_c_o__comm__helpers_8c_ab07d3bf496c1c1769069f4c662725936}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!getI64@{getI64}}
+\index{getI64@{getI64}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{getI64()}{getI64()}}
+{\footnotesize\ttfamily int64\+\_\+t get\+I64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int64\+\_\+t}]{min,  }\item[{int64\+\_\+t}]{max,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a63f1899dc35cc429bb303dd3028dd19d}\label{_c_o__comm__helpers_8c_a63f1899dc35cc429bb303dd3028dd19d}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!getR32@{getR32}}
+\index{getR32@{getR32}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{getR32()}{getR32()}}
+{\footnotesize\ttfamily float32\+\_\+t get\+R32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_aa764b0695a3d5ba9809bb5144353d6fd}\label{_c_o__comm__helpers_8c_aa764b0695a3d5ba9809bb5144353d6fd}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!getR64@{getR64}}
+\index{getR64@{getR64}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{getR64()}{getR64()}}
+{\footnotesize\ttfamily float64\+\_\+t get\+R64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a5f7a1e183d7cbfe40b4ac78de552108c}\label{_c_o__comm__helpers_8c_a5f7a1e183d7cbfe40b4ac78de552108c}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!getTok@{getTok}}
+\index{getTok@{getTok}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{getTok()}{getTok()}}
+{\footnotesize\ttfamily char$\ast$ get\+Tok (\begin{DoxyParamCaption}\item[{char $\ast$}]{init\+Str,  }\item[{const char $\ast$}]{delim,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+Get token from currently parsing string.
+
+Function calls thread safe strtok\+\_\+r function and returns token. get\+Tok itself may be used from one thread only.
+
+
+\begin{DoxyParams}{Parameters}
+{\em init\+Str} & Same as first argument to strtok\+\_\+r. \\
+\hline
+{\em delim} & Same as second argument to strtok\+\_\+r. \\
+\hline
+{\em err} & Input and returning parameter sets to true in case of error. If err is already true, function returns N\+U\+LL immediately.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Next token or N\+U\+LL. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a46c92bc0fbe7480cbed98ccd65f80f89}\label{_c_o__comm__helpers_8c_a46c92bc0fbe7480cbed98ccd65f80f89}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!getU32@{getU32}}
+\index{getU32@{getU32}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{getU32()}{getU32()}}
+{\footnotesize\ttfamily uint32\+\_\+t get\+U32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{uint32\+\_\+t}]{min,  }\item[{uint32\+\_\+t}]{max,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+Get number from token.
+
+Token must contain no other characters and number must be inside limits.
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & Input string. \\
+\hline
+{\em min} & Minimum value for the output number. \\
+\hline
+{\em max} & Maximum value for the output number. \\
+\hline
+{\em err} & Input and returning parameter sets to true in case of error. If err is already true, function returns 0 immediately.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a095e6493ecfe9575930d1652f593c65e}\label{_c_o__comm__helpers_8c_a095e6493ecfe9575930d1652f593c65e}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!getU64@{getU64}}
+\index{getU64@{getU64}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{getU64()}{getU64()}}
+{\footnotesize\ttfamily uint64\+\_\+t get\+U64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{uint64\+\_\+t}]{min,  }\item[{uint64\+\_\+t}]{max,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a3ebc4b4695269eae20196f76bb81efec}\label{_c_o__comm__helpers_8c_a3ebc4b4695269eae20196f76bb81efec}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!lastTok@{lastTok}}
+\index{lastTok@{lastTok}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{lastTok()}{lastTok()}}
+{\footnotesize\ttfamily void last\+Tok (\begin{DoxyParamCaption}\item[{char $\ast$}]{init\+Str,  }\item[{const char $\ast$}]{delim,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+Verify, if there are no more tokens.
+
+Function calls get\+Tok and if there is another token and that token doesn\textquotesingle{}t start with \textquotesingle{}\#\textquotesingle{}, it sets err to 1. (Comments are ignored.)
+
+
+\begin{DoxyParams}{Parameters}
+{\em init\+Str} & Same as in get\+Tok. \\
+\hline
+{\em delim} & Same as in get\+Tok. \\
+\hline
+{\em err} & Same as in get\+Tok. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_af62e505bd608c5ee0640b394cf9a1186}\label{_c_o__comm__helpers_8c_af62e505bd608c5ee0640b394cf9a1186}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!dataTypes@{dataTypes}}
+\index{dataTypes@{dataTypes}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{dataTypes}{dataTypes}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structdata_type__t}{data\+Type\+\_\+t}} data\+Types\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"b"},   1, \mbox{\hyperlink{_c_o__comm__helpers_8c_ac84b4dc037e97896af111d836c9a730c}{dtpI8}},  \mbox{\hyperlink{_c_o__comm__helpers_8c_ac68a71b9dc9bc5e16fff754db8d84368}{dtsI8}} \}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"u8"},  1, \mbox{\hyperlink{_c_o__comm__helpers_8c_aa7e14930ca3f930a1396c2f9b536dd07}{dtpU8}},  \mbox{\hyperlink{_c_o__comm__helpers_8c_a3686f96e4fb5a294313273ffcde079ee}{dtsU8}} \}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"u16"}, 2, \mbox{\hyperlink{_c_o__comm__helpers_8c_af438ccd5b8c64f1de1dd3c8c627875fb}{dtpU16}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a02337effaf5d8371398f7ec48378c4a2}{dtsU16}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"u32"}, 4, \mbox{\hyperlink{_c_o__comm__helpers_8c_af542086b563ca0f43e4f454c5bbccecc}{dtpU32}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a2b7f7ece502cb67b8a642c1960bb862e}{dtsU32}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"u64"}, 8, \mbox{\hyperlink{_c_o__comm__helpers_8c_ab69a7a756a1342b0dac99398fb002f37}{dtpU64}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a7b5affe34cda6b6773acabd25afceee6}{dtsU64}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"i8"},  1, \mbox{\hyperlink{_c_o__comm__helpers_8c_ac84b4dc037e97896af111d836c9a730c}{dtpI8}},  \mbox{\hyperlink{_c_o__comm__helpers_8c_ac68a71b9dc9bc5e16fff754db8d84368}{dtsI8}} \}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"i16"}, 2, \mbox{\hyperlink{_c_o__comm__helpers_8c_a531f6342e9abf1c0ec2f98ac4374478b}{dtpI16}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a9d990ec0c36e50527be632c58e649cff}{dtsI16}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"i32"}, 4, \mbox{\hyperlink{_c_o__comm__helpers_8c_a5ffa8e34f7a697fe0cfc684e81ac02df}{dtpI32}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a4093ed4c7ec0df588d9d7892f3b89948}{dtsI32}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"i64"}, 8, \mbox{\hyperlink{_c_o__comm__helpers_8c_a62916ed146d1742b0b0f6c23f3c5f612}{dtpI64}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_ac40aaf82d1ff8d8636845119a2b04c8f}{dtsI64}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"r32"}, 4, \mbox{\hyperlink{_c_o__comm__helpers_8c_a50ab9bb9247ad076cedad1470f75f356}{dtpR32}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_af3907cfc475fdd2c3a6f871004326661}{dtsR32}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"r64"}, 8, \mbox{\hyperlink{_c_o__comm__helpers_8c_a1947274a57c23677b34f36a5497ef4a4}{dtpR64}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_aed5c90d1099f01db1f0f5587cf4a387d}{dtsR64}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"t"},   0, \mbox{\hyperlink{_c_o__comm__helpers_8c_a61fac56d1a659c8f3dec27c3889a9a40}{dtpHex}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a7f9d58aadd080b13c906ded1ba953943}{dtsHex}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"td"},  0, \mbox{\hyperlink{_c_o__comm__helpers_8c_a61fac56d1a659c8f3dec27c3889a9a40}{dtpHex}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a7f9d58aadd080b13c906ded1ba953943}{dtsHex}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"vs"},  0, \mbox{\hyperlink{_c_o__comm__helpers_8c_a993b76729e58c58a1e7269c614c664b6}{dtpStr}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a31d6212953d951ca1f94cb97cf99b198}{dtsStr}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"os"},  0, \mbox{\hyperlink{_c_o__comm__helpers_8c_a61fac56d1a659c8f3dec27c3889a9a40}{dtpHex}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a7f9d58aadd080b13c906ded1ba953943}{dtsHex}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"us"},  0, \mbox{\hyperlink{_c_o__comm__helpers_8c_a61fac56d1a659c8f3dec27c3889a9a40}{dtpHex}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a7f9d58aadd080b13c906ded1ba953943}{dtsHex}}\}, }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"d"},   0, \mbox{\hyperlink{_c_o__comm__helpers_8c_a61fac56d1a659c8f3dec27c3889a9a40}{dtpHex}}, \mbox{\hyperlink{_c_o__comm__helpers_8c_a7f9d58aadd080b13c906ded1ba953943}{dtsHex}}\}  }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_adc643f3e84ae6a16d0692aaf9d21a171}\label{_c_o__comm__helpers_8c_adc643f3e84ae6a16d0692aaf9d21a171}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!spaceDelim@{spaceDelim}}
+\index{spaceDelim@{spaceDelim}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{spaceDelim}{spaceDelim}}
+{\footnotesize\ttfamily const char space\+Delim\mbox{[}$\,$\mbox{]} = \char`\"{} \textbackslash{}t\textbackslash{}n\textbackslash{}r\textbackslash{}f\textbackslash{}v\char`\"{}}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8c_a583724ac9dd4814529ea58a7862aeffe}\label{_c_o__comm__helpers_8c_a583724ac9dd4814529ea58a7862aeffe}} 
+\index{CO\_comm\_helpers.c@{CO\_comm\_helpers.c}!strtokSavePtr@{strtokSavePtr}}
+\index{strtokSavePtr@{strtokSavePtr}!CO\_comm\_helpers.c@{CO\_comm\_helpers.c}}
+\doxysubsubsection{\texorpdfstring{strtokSavePtr}{strtokSavePtr}}
+{\footnotesize\ttfamily char$\ast$ strtok\+Save\+Ptr = N\+U\+LL\hspace{0.3cm}{\ttfamily [static]}}
+

@@ -1,0 +1,52 @@
+\hypertarget{ostream_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/ostream.h File Reference}
+\label{ostream_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/fmt/bundled/ostream.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/fmt/bundled/ostream.h}}
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include \char`\"{}format.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classinternal_1_1formatbuf}{internal\+::formatbuf$<$ Char $>$}}
+\item 
+struct \mbox{\hyperlink{structinternal_1_1test__stream}{internal\+::test\+\_\+stream$<$ Char $>$}}
+\item 
+class \mbox{\hyperlink{classinternal_1_1is__streamable}{internal\+::is\+\_\+streamable$<$ T, Char $>$}}
+\item 
+struct \mbox{\hyperlink{structinternal_1_1fallback__formatter_3_01_t_00_01_char_00_01enable__if__t_3_01is__streamable_3_5182f96b213c85479e4fbfa710b29535}{internal\+::fallback\+\_\+formatter$<$ T, Char, enable\+\_\+if\+\_\+t$<$ is\+\_\+streamable$<$ T, Char $>$\+::value $>$ $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceinternal}{internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Char $>$ }\\void \mbox{\hyperlink{namespaceinternal_a2dcc3daf9716c2b3bdc1b7662026f5ac}{internal\+::write}} (std\+::basic\+\_\+ostream$<$ Char $>$ \&os, buffer$<$ Char $>$ \&\mbox{\hyperlink{application_8cpp_aa600422614c972633e9e2951539ff779}{buf}})
+\item 
+{\footnotesize template$<$typename Char , typename T $>$ }\\void \mbox{\hyperlink{namespaceinternal_a16fc77430351ab4ab5c780bc04fd8eed}{internal\+::format\+\_\+value}} (buffer$<$ Char $>$ \&\mbox{\hyperlink{application_8cpp_aa600422614c972633e9e2951539ff779}{buf}}, const T \&value, locale\+\_\+ref loc=locale\+\_\+ref())
+\item 
+{\footnotesize template$<$typename Char $>$ }\\void \mbox{\hyperlink{ostream_8h_aef610c63a1111d39c80746d9ffb34d12}{vprint}} (std\+::basic\+\_\+ostream$<$ Char $>$ \&os, \mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$ format\+\_\+str, \mbox{\hyperlink{classbasic__format__args}{basic\+\_\+format\+\_\+args}}$<$ \mbox{\hyperlink{core_8h_a3a8b3acceda81e24b06db0342f6bde64}{buffer\+\_\+context}}$<$ Char $>$$>$ args)
+\item 
+{\footnotesize template$<$typename S , typename... Args, typename Char  = enable\+\_\+if\+\_\+t$<$internal\+::is\+\_\+string$<$\+S$>$\+::value, char\+\_\+t$<$\+S$>$$>$$>$ }\\void \mbox{\hyperlink{ostream_8h_a16b659293cdaa442d9ae9ea94ad713be}{print}} (std\+::basic\+\_\+ostream$<$ Char $>$ \&os, const S \&format\+\_\+str, Args \&\&... args)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ostream_8h_a16b659293cdaa442d9ae9ea94ad713be}\label{ostream_8h_a16b659293cdaa442d9ae9ea94ad713be}} 
+\index{ostream.h@{ostream.h}!print@{print}}
+\index{print@{print}!ostream.h@{ostream.h}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily template$<$typename S , typename... Args, typename Char  = enable\+\_\+if\+\_\+t$<$internal\+::is\+\_\+string$<$\+S$>$\+::value, char\+\_\+t$<$\+S$>$$>$$>$ \\
+void print (\begin{DoxyParamCaption}\item[{std\+::basic\+\_\+ostream$<$ Char $>$ \&}]{os,  }\item[{const S \&}]{format\+\_\+str,  }\item[{Args \&\&...}]{args }\end{DoxyParamCaption})}
+
+\textbackslash{}rst Prints formatted data to the stream {\itshape os}.
+
+Example$\ast$$\ast$\+::
+
+fmt\+::print(cerr, \char`\"{}\+Don\textquotesingle{}t \{\}!\char`\"{}, \char`\"{}panic\char`\"{}); \textbackslash{}endrst \mbox{\Hypertarget{ostream_8h_aef610c63a1111d39c80746d9ffb34d12}\label{ostream_8h_aef610c63a1111d39c80746d9ffb34d12}} 
+\index{ostream.h@{ostream.h}!vprint@{vprint}}
+\index{vprint@{vprint}!ostream.h@{ostream.h}}
+\doxysubsubsection{\texorpdfstring{vprint()}{vprint()}}
+{\footnotesize\ttfamily template$<$typename Char $>$ \\
+void vprint (\begin{DoxyParamCaption}\item[{std\+::basic\+\_\+ostream$<$ Char $>$ \&}]{os,  }\item[{\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$}]{format\+\_\+str,  }\item[{\mbox{\hyperlink{classbasic__format__args}{basic\+\_\+format\+\_\+args}}$<$ \mbox{\hyperlink{core_8h_a3a8b3acceda81e24b06db0342f6bde64}{buffer\+\_\+context}}$<$ Char $>$$>$}]{args }\end{DoxyParamCaption})}
+

@@ -19,7 +19,6 @@
 #define NUM_JOINTS 4
 #endif
 
-
 class Robot
 {
 private:
@@ -28,7 +27,15 @@ private:
     double steptime = STEPTIME;
 
 public:
+    /**
+ * @brief Construct a new Robot object
+ * 
+ */
     Robot();
+    /**
+ * @brief Trajectory Object 
+ * 
+ */
     Trajectory trajectoryObj;
     Joint joints[NUM_JOINTS];
     double fracTrajProgress = 0;

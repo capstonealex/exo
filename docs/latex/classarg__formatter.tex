@@ -1,0 +1,138 @@
+\hypertarget{classarg__formatter}{}\doxysection{arg\+\_\+formatter$<$ Range $>$ Class Template Reference}
+\label{classarg__formatter}\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+
+
+{\ttfamily \#include $<$format.\+h$>$}
+
+Inheritance diagram for arg\+\_\+formatter$<$ Range $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classarg__formatter}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classarg__formatter_a2bcb25652305fe80defb8aba949153fc}{range}} = Range
+\item 
+using \mbox{\hyperlink{classarg__formatter_af26ef28f7c6bdc61e7c99e5428557b9f}{iterator}} = typename \mbox{\hyperlink{classinternal_1_1arg__formatter__base_a11232a436aedfe6665c8c04f808045d3}{base\+::iterator}}
+\item 
+using \mbox{\hyperlink{classarg__formatter_a2caa42890a7bffa22304e8287eeeb0e6}{format\+\_\+specs}} = typename \mbox{\hyperlink{classinternal_1_1arg__formatter__base_a615fc4e1c3491b2084620350f6c17e28}{base\+::format\+\_\+specs}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classarg__formatter_ad30be490bff49291d06048448b004331}{arg\+\_\+formatter}} (\mbox{\hyperlink{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}{context\+\_\+type}} \&ctx, \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ \mbox{\hyperlink{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}{char\+\_\+type}} $>$ $\ast$parse\+\_\+ctx=nullptr, \mbox{\hyperlink{classarg__formatter_a2caa42890a7bffa22304e8287eeeb0e6}{format\+\_\+specs}} $\ast$\mbox{\hyperlink{classinternal_1_1arg__formatter__base_a04811dbf9aab54fc4893851c82ba4ea4}{specs}}=nullptr)
+\item 
+\mbox{\hyperlink{classarg__formatter_af26ef28f7c6bdc61e7c99e5428557b9f}{iterator}} \mbox{\hyperlink{classarg__formatter_ac8ddd9b78934fc951916a30d46114ab1}{operator()}} (typename \mbox{\hyperlink{classbasic__format__arg}{basic\+\_\+format\+\_\+arg}}$<$ \mbox{\hyperlink{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}{context\+\_\+type}} $>$\+::handle handle)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}{char\+\_\+type}} = typename Range\+::value\+\_\+type
+\item 
+using \mbox{\hyperlink{classarg__formatter_a7351aa48f0cdd9ce2303bc573f057353}{base}} = \mbox{\hyperlink{classinternal_1_1arg__formatter__base}{internal\+::arg\+\_\+formatter\+\_\+base}}$<$ Range $>$
+\item 
+using \mbox{\hyperlink{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}{context\+\_\+type}} = \mbox{\hyperlink{classbasic__format__context}{basic\+\_\+format\+\_\+context}}$<$ typename \mbox{\hyperlink{classinternal_1_1arg__formatter__base_a11232a436aedfe6665c8c04f808045d3}{base\+::iterator}}, \mbox{\hyperlink{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}{char\+\_\+type}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}{context\+\_\+type}} \& \mbox{\hyperlink{classarg__formatter_af4d917776087506ba159ac48780f4b74}{ctx\+\_\+}}
+\item 
+\mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ \mbox{\hyperlink{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}{char\+\_\+type}} $>$ $\ast$ \mbox{\hyperlink{classarg__formatter_a51254d91e5cc886e2264af3de9e0c6bd}{parse\+\_\+ctx\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Range$>$\newline
+class arg\+\_\+formatter$<$ Range $>$}
+
+The default argument formatter. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classarg__formatter_a7351aa48f0cdd9ce2303bc573f057353}\label{classarg__formatter_a7351aa48f0cdd9ce2303bc573f057353}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!base@{base}}
+\index{base@{base}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{base}{base}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+using \mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::\mbox{\hyperlink{classarg__formatter_a7351aa48f0cdd9ce2303bc573f057353}{base}} =  \mbox{\hyperlink{classinternal_1_1arg__formatter__base}{internal\+::arg\+\_\+formatter\+\_\+base}}$<$Range$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}\label{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!char\_type@{char\_type}}
+\index{char\_type@{char\_type}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{char\_type}{char\_type}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+using \mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::\mbox{\hyperlink{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}{char\+\_\+type}} =  typename Range\+::value\+\_\+type\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}\label{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!context\_type@{context\_type}}
+\index{context\_type@{context\_type}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{context\_type}{context\_type}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+using \mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::\mbox{\hyperlink{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}{context\+\_\+type}} =  \mbox{\hyperlink{classbasic__format__context}{basic\+\_\+format\+\_\+context}}$<$typename \mbox{\hyperlink{classinternal_1_1arg__formatter__base_a11232a436aedfe6665c8c04f808045d3}{base\+::iterator}}, \mbox{\hyperlink{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}{char\+\_\+type}}$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classarg__formatter_a2caa42890a7bffa22304e8287eeeb0e6}\label{classarg__formatter_a2caa42890a7bffa22304e8287eeeb0e6}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!format\_specs@{format\_specs}}
+\index{format\_specs@{format\_specs}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{format\_specs}{format\_specs}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+using \mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::\mbox{\hyperlink{classarg__formatter_a2caa42890a7bffa22304e8287eeeb0e6}{format\+\_\+specs}} =  typename \mbox{\hyperlink{classinternal_1_1arg__formatter__base_a615fc4e1c3491b2084620350f6c17e28}{base\+::format\+\_\+specs}}}
+
+\mbox{\Hypertarget{classarg__formatter_af26ef28f7c6bdc61e7c99e5428557b9f}\label{classarg__formatter_af26ef28f7c6bdc61e7c99e5428557b9f}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!iterator@{iterator}}
+\index{iterator@{iterator}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{iterator}{iterator}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+using \mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::\mbox{\hyperlink{classarg__formatter_af26ef28f7c6bdc61e7c99e5428557b9f}{iterator}} =  typename \mbox{\hyperlink{classinternal_1_1arg__formatter__base_a11232a436aedfe6665c8c04f808045d3}{base\+::iterator}}}
+
+\mbox{\Hypertarget{classarg__formatter_a2bcb25652305fe80defb8aba949153fc}\label{classarg__formatter_a2bcb25652305fe80defb8aba949153fc}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!range@{range}}
+\index{range@{range}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{range}{range}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+using \mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::\mbox{\hyperlink{classarg__formatter_a2bcb25652305fe80defb8aba949153fc}{range}} =  Range}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classarg__formatter_ad30be490bff49291d06048448b004331}\label{classarg__formatter_ad30be490bff49291d06048448b004331}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!arg\_formatter@{arg\_formatter}}
+\index{arg\_formatter@{arg\_formatter}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{arg\_formatter()}{arg\_formatter()}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+\mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::\mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}{context\+\_\+type}} \&}]{ctx,  }\item[{\mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ \mbox{\hyperlink{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}{char\+\_\+type}} $>$ $\ast$}]{parse\+\_\+ctx = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{classarg__formatter_a2caa42890a7bffa22304e8287eeeb0e6}{format\+\_\+specs}} $\ast$}]{specs = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\textbackslash{}rst Constructs an argument formatter object. ctx$\ast$ is a reference to the formatting context, specs$\ast$ contains format specifier information for standard argument types. \textbackslash{}endrst 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classarg__formatter_ac8ddd9b78934fc951916a30d46114ab1}\label{classarg__formatter_ac8ddd9b78934fc951916a30d46114ab1}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+\mbox{\hyperlink{classarg__formatter_af26ef28f7c6bdc61e7c99e5428557b9f}{iterator}} \mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::operator() (\begin{DoxyParamCaption}\item[{typename \mbox{\hyperlink{classbasic__format__arg}{basic\+\_\+format\+\_\+arg}}$<$ \mbox{\hyperlink{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}{context\+\_\+type}} $>$\+::handle}]{handle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Formats an argument of a user-\/defined type. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classarg__formatter_af4d917776087506ba159ac48780f4b74}\label{classarg__formatter_af4d917776087506ba159ac48780f4b74}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!ctx\_@{ctx\_}}
+\index{ctx\_@{ctx\_}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{ctx\_}{ctx\_}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+\mbox{\hyperlink{classarg__formatter_a53ebf1dffbbb1888aa9ef7848320bee6}{context\+\_\+type}}\& \mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::ctx\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classarg__formatter_a51254d91e5cc886e2264af3de9e0c6bd}\label{classarg__formatter_a51254d91e5cc886e2264af3de9e0c6bd}} 
+\index{arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}!parse\_ctx\_@{parse\_ctx\_}}
+\index{parse\_ctx\_@{parse\_ctx\_}!arg\_formatter$<$ Range $>$@{arg\_formatter$<$ Range $>$}}
+\doxysubsubsection{\texorpdfstring{parse\_ctx\_}{parse\_ctx\_}}
+{\footnotesize\ttfamily template$<$typename Range $>$ \\
+\mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$\mbox{\hyperlink{classarg__formatter_a102cf774f1f4c0de17daf0c26dd897e0}{char\+\_\+type}}$>$$\ast$ \mbox{\hyperlink{classarg__formatter}{arg\+\_\+formatter}}$<$ Range $>$\+::parse\+\_\+ctx\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{format_8h}{format.\+h}}\end{DoxyCompactItemize}

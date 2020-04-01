@@ -1,0 +1,134 @@
+\hypertarget{class_g_p_i_o_1_1_g_p_i_o_const}{}\doxysection{G\+P\+IO\+::G\+P\+I\+O\+Const Class Reference}
+\label{class_g_p_i_o_1_1_g_p_i_o_const}\index{GPIO::GPIOConst@{GPIO::GPIOConst}}
+
+
+{\ttfamily \#include $<$G\+P\+I\+O\+Const.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_a6fbdb471bd46be385760f1e42b4f1a82}{G\+P\+I\+O\+Const}} ()
+\item 
+virtual \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_ac99f062c5bf181e46c1837e0791dc9be}{$\sim$\+G\+P\+I\+O\+Const}} ()
+\item 
+int \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_a378816d8e9bd7dd6dbf2635d887c3295}{get\+Gpio\+By\+Key}} (const char $\ast$key)
+\item 
+int \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_af1a38a7803474af556ab7df03e06eeec}{get\+Gpio\+By\+Name}} (const char $\ast$name)
+\item 
+const char $\ast$ \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_a3741ccce77dc5ba042c880eb79f12b77}{get\+Gpio\+Name\+By\+Pin}} (unsigned int pin)
+\item 
+const char $\ast$ \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_a0eff4148e3b08764f5f4541bd1a17a55}{get\+Gpio\+Key\+By\+Pin}} (unsigned int pin)
+\item 
+const char $\ast$ \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_ad6ce561df594261d8182b6f3f1e4221c}{get\+Edge\+Value\+By\+Index}} (unsigned int index)
+\item 
+int \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_a206a63d639dbff8d05903f0d683f9ae8}{get\+Edge\+Index\+By\+Value}} (const char $\ast$value)
+\item 
+int \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_ae51d587fd55b388b3514fc253756e372}{is\+Pin\+Allocated\+By\+Default}} (unsigned int pin)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const}{G\+P\+I\+O\+Const}} $\ast$ \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_aec61760dcea6585909ee3ce9d00e05d1}{get\+Instance}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{struct_g_p_i_o_1_1pins__t}{pins\+\_\+t}} \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_a508fccb2aaf6a8623d23584c5b03b827}{pin\+Table}} \mbox{[}97\mbox{]}
+\item 
+static const char $\ast$ \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_ab9558537485dce2019d2fb59b62a43c0}{str\+Edge}} \mbox{[}4\mbox{]} = \{ \char`\"{}none\char`\"{}, \char`\"{}rising\char`\"{}, \char`\"{}falling\char`\"{}, \char`\"{}both\char`\"{} \}
+\item 
+static \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const}{G\+P\+I\+O\+Const}} $\ast$ \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const_a85757bcd37689d885a8cf3315572ea8e}{instance}} = N\+U\+LL
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_a6fbdb471bd46be385760f1e42b4f1a82}\label{class_g_p_i_o_1_1_g_p_i_o_const_a6fbdb471bd46be385760f1e42b4f1a82}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!GPIOConst@{GPIOConst}}
+\index{GPIOConst@{GPIOConst}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{GPIOConst()}{GPIOConst()}}
+{\footnotesize\ttfamily G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::\+G\+P\+I\+O\+Const (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructor \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_ac99f062c5bf181e46c1837e0791dc9be}\label{class_g_p_i_o_1_1_g_p_i_o_const_ac99f062c5bf181e46c1837e0791dc9be}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!````~GPIOConst@{$\sim$GPIOConst}}
+\index{````~GPIOConst@{$\sim$GPIOConst}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{$\sim$GPIOConst()}{~GPIOConst()}}
+{\footnotesize\ttfamily G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::$\sim$\+G\+P\+I\+O\+Const (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Destructor 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_a206a63d639dbff8d05903f0d683f9ae8}\label{class_g_p_i_o_1_1_g_p_i_o_const_a206a63d639dbff8d05903f0d683f9ae8}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!getEdgeIndexByValue@{getEdgeIndexByValue}}
+\index{getEdgeIndexByValue@{getEdgeIndexByValue}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{getEdgeIndexByValue()}{getEdgeIndexByValue()}}
+{\footnotesize\ttfamily int G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::get\+Edge\+Index\+By\+Value (\begin{DoxyParamCaption}\item[{const char $\ast$}]{value }\end{DoxyParamCaption})}
+
+Get edge index by edge name \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_ad6ce561df594261d8182b6f3f1e4221c}\label{class_g_p_i_o_1_1_g_p_i_o_const_ad6ce561df594261d8182b6f3f1e4221c}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!getEdgeValueByIndex@{getEdgeValueByIndex}}
+\index{getEdgeValueByIndex@{getEdgeValueByIndex}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{getEdgeValueByIndex()}{getEdgeValueByIndex()}}
+{\footnotesize\ttfamily const char $\ast$ G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::get\+Edge\+Value\+By\+Index (\begin{DoxyParamCaption}\item[{unsigned int}]{index }\end{DoxyParamCaption})}
+
+Get edge value by index \mbox{[}0, 3\mbox{]} \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_a378816d8e9bd7dd6dbf2635d887c3295}\label{class_g_p_i_o_1_1_g_p_i_o_const_a378816d8e9bd7dd6dbf2635d887c3295}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!getGpioByKey@{getGpioByKey}}
+\index{getGpioByKey@{getGpioByKey}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{getGpioByKey()}{getGpioByKey()}}
+{\footnotesize\ttfamily int G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::get\+Gpio\+By\+Key (\begin{DoxyParamCaption}\item[{const char $\ast$}]{key }\end{DoxyParamCaption})}
+
+Get gpio pin number by key i.\+e \char`\"{}\+P8\+\_\+10\char`\"{} \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_af1a38a7803474af556ab7df03e06eeec}\label{class_g_p_i_o_1_1_g_p_i_o_const_af1a38a7803474af556ab7df03e06eeec}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!getGpioByName@{getGpioByName}}
+\index{getGpioByName@{getGpioByName}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{getGpioByName()}{getGpioByName()}}
+{\footnotesize\ttfamily int G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::get\+Gpio\+By\+Name (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Get gpio number by name i.\+e \char`\"{}\+G\+P\+I\+O0\+\_\+7\char`\"{} \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_a0eff4148e3b08764f5f4541bd1a17a55}\label{class_g_p_i_o_1_1_g_p_i_o_const_a0eff4148e3b08764f5f4541bd1a17a55}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!getGpioKeyByPin@{getGpioKeyByPin}}
+\index{getGpioKeyByPin@{getGpioKeyByPin}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{getGpioKeyByPin()}{getGpioKeyByPin()}}
+{\footnotesize\ttfamily const char $\ast$ G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::get\+Gpio\+Key\+By\+Pin (\begin{DoxyParamCaption}\item[{unsigned int}]{pin }\end{DoxyParamCaption})}
+
+Get \mbox{\hyperlink{namespace_g_p_i_o}{G\+P\+IO}} key by pin number \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_a3741ccce77dc5ba042c880eb79f12b77}\label{class_g_p_i_o_1_1_g_p_i_o_const_a3741ccce77dc5ba042c880eb79f12b77}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!getGpioNameByPin@{getGpioNameByPin}}
+\index{getGpioNameByPin@{getGpioNameByPin}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{getGpioNameByPin()}{getGpioNameByPin()}}
+{\footnotesize\ttfamily const char $\ast$ G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::get\+Gpio\+Name\+By\+Pin (\begin{DoxyParamCaption}\item[{unsigned int}]{pin }\end{DoxyParamCaption})}
+
+Get \mbox{\hyperlink{namespace_g_p_i_o}{G\+P\+IO}} name by pin number \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_aec61760dcea6585909ee3ce9d00e05d1}\label{class_g_p_i_o_1_1_g_p_i_o_const_aec61760dcea6585909ee3ce9d00e05d1}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const}{G\+P\+I\+O\+Const}} $\ast$ G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns the \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const}{G\+P\+I\+O\+Const}} instance \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_ae51d587fd55b388b3514fc253756e372}\label{class_g_p_i_o_1_1_g_p_i_o_const_ae51d587fd55b388b3514fc253756e372}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!isPinAllocatedByDefault@{isPinAllocatedByDefault}}
+\index{isPinAllocatedByDefault@{isPinAllocatedByDefault}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{isPinAllocatedByDefault()}{isPinAllocatedByDefault()}}
+{\footnotesize\ttfamily int G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::is\+Pin\+Allocated\+By\+Default (\begin{DoxyParamCaption}\item[{unsigned int}]{pin }\end{DoxyParamCaption})}
+
+Is the pin allocated by default refering to \href{https://github.com/derekmolloy/boneDeviceTree/tree/master/docs}{\texttt{ https\+://github.\+com/derekmolloy/bone\+Device\+Tree/tree/master/docs}} 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_a85757bcd37689d885a8cf3315572ea8e}\label{class_g_p_i_o_1_1_g_p_i_o_const_a85757bcd37689d885a8cf3315572ea8e}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!instance@{instance}}
+\index{instance@{instance}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{instance}{instance}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const}{G\+P\+I\+O\+Const}} $\ast$ G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::instance = N\+U\+LL\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\hyperlink{class_g_p_i_o_1_1_g_p_i_o_const}{G\+P\+I\+O\+Const}} singleton instance \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_a508fccb2aaf6a8623d23584c5b03b827}\label{class_g_p_i_o_1_1_g_p_i_o_const_a508fccb2aaf6a8623d23584c5b03b827}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!pinTable@{pinTable}}
+\index{pinTable@{pinTable}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{pinTable}{pinTable}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_g_p_i_o_1_1pins__t}{pins\+\_\+t}} G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::pin\+Table\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+Table of values for pins. Table generated based on \href{https://raw.github.com/jadonk/bonescript/master/node_modules/bonescript/bone.js}{\texttt{ https\+://raw.\+github.\+com/jadonk/bonescript/master/node\+\_\+modules/bonescript/bone.\+js}} \mbox{\Hypertarget{class_g_p_i_o_1_1_g_p_i_o_const_ab9558537485dce2019d2fb59b62a43c0}\label{class_g_p_i_o_1_1_g_p_i_o_const_ab9558537485dce2019d2fb59b62a43c0}} 
+\index{GPIO::GPIOConst@{GPIO::GPIOConst}!strEdge@{strEdge}}
+\index{strEdge@{strEdge}!GPIO::GPIOConst@{GPIO::GPIOConst}}
+\doxysubsubsection{\texorpdfstring{strEdge}{strEdge}}
+{\footnotesize\ttfamily const char $\ast$ G\+P\+I\+O\+::\+G\+P\+I\+O\+Const\+::str\+Edge = \{ \char`\"{}none\char`\"{}, \char`\"{}rising\char`\"{}, \char`\"{}falling\char`\"{}, \char`\"{}both\char`\"{} \}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+Values of the edge 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/robot/\+G\+P\+I\+O/\mbox{\hyperlink{_g_p_i_o_const_8h}{G\+P\+I\+O\+Const.\+h}}\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/robot/\+G\+P\+I\+O/\mbox{\hyperlink{_g_p_i_o_const_8cpp}{G\+P\+I\+O\+Const.\+cpp}}\end{DoxyCompactItemize}

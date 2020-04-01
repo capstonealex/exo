@@ -1,0 +1,287 @@
+\hypertarget{main_8cpp}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/main.cpp File Reference}
+\label{main_8cpp}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/main.cpp@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/main.cpp}}
+{\ttfamily \#include \char`\"{}C\+A\+Nopen.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}C\+O\+\_\+\+O\+D\+\_\+storage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}C\+O\+\_\+\+Linux\+\_\+tasks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}C\+O\+\_\+time.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}application.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sched.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$sys/epoll.\+h$>$}\newline
+{\ttfamily \#include $<$net/if.\+h$>$}\newline
+{\ttfamily \#include $<$linux/reboot.\+h$>$}\newline
+{\ttfamily \#include $<$sys/reboot.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}C\+O\+\_\+command.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Robot.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}exo\+State\+Machine.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structperiod__info}{period\+\_\+info}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a0501e82515b2bdf36453c4cc80f5e0cc}{N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+S\+EC}}~(1000000000)      /$\ast$ The number of nanoseconds per second. $\ast$/
+\item 
+\#define \mbox{\hyperlink{main_8cpp_ad16e9029e202d2dfb4cfae8f09131f8f}{N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+M\+S\+EC}}~(1000000)        /$\ast$ The number of nanoseconds per millisecond. $\ast$/
+\item 
+\#define \mbox{\hyperlink{main_8cpp_aab154c4d240d0841bb9d515a679b9e05}{T\+M\+R\+\_\+\+T\+A\+S\+K\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+NS}}~(1000000) /$\ast$ Interval of task\+Tmr in nanoseconds $\ast$/
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a6bbfb7dad19a393956e2e396993fe1e5}{T\+M\+R\+\_\+\+T\+A\+S\+K\+\_\+\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+US}}~(5000)    /$\ast$ Overflow detect limit for task\+Tmr in microseconds $\ast$/
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a5bb3d6473b0005eaf4968da1b3a22dcf}{I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+1\+MS}}(var)~(var++)     /$\ast$ Increment 1ms variable in task\+Tmr $\ast$/
+\item 
+\#define \mbox{\hyperlink{main_8cpp_a2f7945514ea8b2c7145cf68d47c96a08}{N\+O\+D\+E\+ID}}~(100)
+\item 
+\#define \mbox{\hyperlink{main_8cpp_acdcd42b36f18567a3de4da26db341eb9}{C\+A\+N\+M\+E\+S\+S\+A\+G\+E\+L\+E\+N\+G\+TH}}~(100)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{main_8cpp_af61384f920a9be0eba3f6cd396732501}{inc\+\_\+period}} (struct \mbox{\hyperlink{structperiod__info}{period\+\_\+info}} $\ast$pinfo)
+\item 
+static void \mbox{\hyperlink{main_8cpp_a5727f8c6637529ff98ecac0070c634c8}{periodic\+\_\+task\+\_\+init}} (struct \mbox{\hyperlink{structperiod__info}{period\+\_\+info}} $\ast$pinfo)
+\item 
+static void \mbox{\hyperlink{main_8cpp_ae91bf2cf28b3841f82f03636860cbc19}{wait\+\_\+rest\+\_\+of\+\_\+period}} (struct \mbox{\hyperlink{structperiod__info}{period\+\_\+info}} $\ast$pinfo)
+\item 
+static void $\ast$ \mbox{\hyperlink{main_8cpp_ab3a1b4b10ecfbc8600a0b441ea54eea0}{rt\+\_\+thread}} (void $\ast$arg)
+\item 
+static void $\ast$ \mbox{\hyperlink{main_8cpp_af92061aefbfba6b478e67fcd4ab77d1b}{rt\+\_\+control\+\_\+thread}} (void $\ast$arg)
+\item 
+static void \mbox{\hyperlink{main_8cpp_a868566417be678db3da65d805afaf684}{sig\+Handler}} (int sig)
+\item 
+void \mbox{\hyperlink{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}} (char $\ast$msg)
+\item 
+void \mbox{\hyperlink{main_8cpp_a9cd63cee5c593a28f28039df39d98d76}{C\+O\+\_\+error}} (const uint32\+\_\+t info)
+\item 
+int \mbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint32\+\_\+t \mbox{\hyperlink{main_8cpp_a911133f62683e05be58b20f676880765}{C\+O\+\_\+timer1ms}} = 0U
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{main_8cpp_a522f6e250a19f5d006ebe753fca8dfb0}{C\+O\+\_\+\+C\+A\+N\+\_\+\+V\+A\+L\+I\+D\+\_\+mtx}} = P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ER
+\item 
+static int \mbox{\hyperlink{main_8cpp_a85cea9b29c1ee0afdc59658604762cb8}{rt\+Priority}} = 2
+\item 
+static int \mbox{\hyperlink{main_8cpp_ac987f52fefdf11af435088a954724cb9}{rt\+Control\+Priority}} = 80
+\item 
+static int \mbox{\hyperlink{main_8cpp_a59a51d869df2a9a1be62893c067ca080}{mainline\+\_\+epoll\+\_\+fd}}
+\item 
+static \mbox{\hyperlink{struct_c_o__time__t}{C\+O\+\_\+time\+\_\+t}} \mbox{\hyperlink{main_8cpp_abdd765d9ce73fc368872b8c7d595d7cd}{C\+O\+\_\+time}}
+\item 
+int \mbox{\hyperlink{main_8cpp_a3c077759f619d92419122992423af3a7}{comm\+Count}} = 0
+\item 
+bool \mbox{\hyperlink{main_8cpp_a9bb40e3b67919175c619e044e59c1fdb}{ready\+To\+Start}} = false
+\item 
+uint32\+\_\+t \mbox{\hyperlink{main_8cpp_abb55b13a6f11eb11aa620b9ab01d1cbc}{tmr1ms\+Prev}} = 0
+\item 
+static pthread\+\_\+t \mbox{\hyperlink{main_8cpp_a03b238fc4d40c31ac1ad064466b5c21e}{rt\+\_\+thread\+\_\+id}}
+\item 
+static int \mbox{\hyperlink{main_8cpp_aedfff333a993c16a9d2ae71e9199a38b}{rt\+\_\+thread\+\_\+epoll\+\_\+fd}}
+\item 
+static pthread\+\_\+t \mbox{\hyperlink{main_8cpp_ae69da6f51187c30c6bed7c334ba8ead3}{rt\+\_\+control\+\_\+thread\+\_\+id}}
+\item 
+static int \mbox{\hyperlink{main_8cpp_a44deb9c4484709a679a3c83f36ba0426}{rt\+\_\+control\+\_\+thread\+\_\+epoll\+\_\+fd}}
+\item 
+volatile sig\+\_\+atomic\+\_\+t \mbox{\hyperlink{main_8cpp_a150c5174cdead1977c8498a4cf02a080}{C\+O\+\_\+end\+Program}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{main_8cpp_acdcd42b36f18567a3de4da26db341eb9}\label{main_8cpp_acdcd42b36f18567a3de4da26db341eb9}} 
+\index{main.cpp@{main.cpp}!CANMESSAGELENGTH@{CANMESSAGELENGTH}}
+\index{CANMESSAGELENGTH@{CANMESSAGELENGTH}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CANMESSAGELENGTH}{CANMESSAGELENGTH}}
+{\footnotesize\ttfamily \#define C\+A\+N\+M\+E\+S\+S\+A\+G\+E\+L\+E\+N\+G\+TH~(100)}
+
+\mbox{\Hypertarget{main_8cpp_a5bb3d6473b0005eaf4968da1b3a22dcf}\label{main_8cpp_a5bb3d6473b0005eaf4968da1b3a22dcf}} 
+\index{main.cpp@{main.cpp}!INCREMENT\_1MS@{INCREMENT\_1MS}}
+\index{INCREMENT\_1MS@{INCREMENT\_1MS}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{INCREMENT\_1MS}{INCREMENT\_1MS}}
+{\footnotesize\ttfamily \#define I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+1\+MS(\begin{DoxyParamCaption}\item[{}]{var }\end{DoxyParamCaption})~(var++)     /$\ast$ Increment 1ms variable in task\+Tmr $\ast$/}
+
+\mbox{\Hypertarget{main_8cpp_a2f7945514ea8b2c7145cf68d47c96a08}\label{main_8cpp_a2f7945514ea8b2c7145cf68d47c96a08}} 
+\index{main.cpp@{main.cpp}!NODEID@{NODEID}}
+\index{NODEID@{NODEID}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{NODEID}{NODEID}}
+{\footnotesize\ttfamily \#define N\+O\+D\+E\+ID~(100)}
+
+\mbox{\Hypertarget{main_8cpp_ad16e9029e202d2dfb4cfae8f09131f8f}\label{main_8cpp_ad16e9029e202d2dfb4cfae8f09131f8f}} 
+\index{main.cpp@{main.cpp}!NSEC\_PER\_MSEC@{NSEC\_PER\_MSEC}}
+\index{NSEC\_PER\_MSEC@{NSEC\_PER\_MSEC}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{NSEC\_PER\_MSEC}{NSEC\_PER\_MSEC}}
+{\footnotesize\ttfamily \#define N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+M\+S\+EC~(1000000)        /$\ast$ The number of nanoseconds per millisecond. $\ast$/}
+
+\mbox{\Hypertarget{main_8cpp_a0501e82515b2bdf36453c4cc80f5e0cc}\label{main_8cpp_a0501e82515b2bdf36453c4cc80f5e0cc}} 
+\index{main.cpp@{main.cpp}!NSEC\_PER\_SEC@{NSEC\_PER\_SEC}}
+\index{NSEC\_PER\_SEC@{NSEC\_PER\_SEC}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{NSEC\_PER\_SEC}{NSEC\_PER\_SEC}}
+{\footnotesize\ttfamily \#define N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+S\+EC~(1000000000)      /$\ast$ The number of nanoseconds per second. $\ast$/}
+
+\mbox{\Hypertarget{main_8cpp_aab154c4d240d0841bb9d515a679b9e05}\label{main_8cpp_aab154c4d240d0841bb9d515a679b9e05}} 
+\index{main.cpp@{main.cpp}!TMR\_TASK\_INTERVAL\_NS@{TMR\_TASK\_INTERVAL\_NS}}
+\index{TMR\_TASK\_INTERVAL\_NS@{TMR\_TASK\_INTERVAL\_NS}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{TMR\_TASK\_INTERVAL\_NS}{TMR\_TASK\_INTERVAL\_NS}}
+{\footnotesize\ttfamily \#define T\+M\+R\+\_\+\+T\+A\+S\+K\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+NS~(1000000) /$\ast$ Interval of task\+Tmr in nanoseconds $\ast$/}
+
+\mbox{\Hypertarget{main_8cpp_a6bbfb7dad19a393956e2e396993fe1e5}\label{main_8cpp_a6bbfb7dad19a393956e2e396993fe1e5}} 
+\index{main.cpp@{main.cpp}!TMR\_TASK\_OVERFLOW\_US@{TMR\_TASK\_OVERFLOW\_US}}
+\index{TMR\_TASK\_OVERFLOW\_US@{TMR\_TASK\_OVERFLOW\_US}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{TMR\_TASK\_OVERFLOW\_US}{TMR\_TASK\_OVERFLOW\_US}}
+{\footnotesize\ttfamily \#define T\+M\+R\+\_\+\+T\+A\+S\+K\+\_\+\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+US~(5000)    /$\ast$ Overflow detect limit for task\+Tmr in microseconds $\ast$/}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}\label{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}} 
+\index{main.cpp@{main.cpp}!CO\_errExit@{CO\_errExit}}
+\index{CO\_errExit@{CO\_errExit}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CO\_errExit()}{CO\_errExit()}}
+{\footnotesize\ttfamily void C\+O\+\_\+err\+Exit (\begin{DoxyParamCaption}\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_a9cd63cee5c593a28f28039df39d98d76}\label{main_8cpp_a9cd63cee5c593a28f28039df39d98d76}} 
+\index{main.cpp@{main.cpp}!CO\_error@{CO\_error}}
+\index{CO\_error@{CO\_error}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CO\_error()}{CO\_error()}}
+{\footnotesize\ttfamily void C\+O\+\_\+error (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{info }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_af61384f920a9be0eba3f6cd396732501}\label{main_8cpp_af61384f920a9be0eba3f6cd396732501}} 
+\index{main.cpp@{main.cpp}!inc\_period@{inc\_period}}
+\index{inc\_period@{inc\_period}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{inc\_period()}{inc\_period()}}
+{\footnotesize\ttfamily static void inc\+\_\+period (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structperiod__info}{period\+\_\+info}} $\ast$}]{pinfo }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Mainline and RT thread ~\newline
+ \mbox{\Hypertarget{main_8cpp_a5727f8c6637529ff98ecac0070c634c8}\label{main_8cpp_a5727f8c6637529ff98ecac0070c634c8}} 
+\index{main.cpp@{main.cpp}!periodic\_task\_init@{periodic\_task\_init}}
+\index{periodic\_task\_init@{periodic\_task\_init}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{periodic\_task\_init()}{periodic\_task\_init()}}
+{\footnotesize\ttfamily static void periodic\+\_\+task\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structperiod__info}{period\+\_\+info}} $\ast$}]{pinfo }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_af92061aefbfba6b478e67fcd4ab77d1b}\label{main_8cpp_af92061aefbfba6b478e67fcd4ab77d1b}} 
+\index{main.cpp@{main.cpp}!rt\_control\_thread@{rt\_control\_thread}}
+\index{rt\_control\_thread@{rt\_control\_thread}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{rt\_control\_thread()}{rt\_control\_thread()}}
+{\footnotesize\ttfamily static void $\ast$ rt\+\_\+control\+\_\+thread (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_ab3a1b4b10ecfbc8600a0b441ea54eea0}\label{main_8cpp_ab3a1b4b10ecfbc8600a0b441ea54eea0}} 
+\index{main.cpp@{main.cpp}!rt\_thread@{rt\_thread}}
+\index{rt\_thread@{rt\_thread}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{rt\_thread()}{rt\_thread()}}
+{\footnotesize\ttfamily static void $\ast$ rt\+\_\+thread (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_a868566417be678db3da65d805afaf684}\label{main_8cpp_a868566417be678db3da65d805afaf684}} 
+\index{main.cpp@{main.cpp}!sigHandler@{sigHandler}}
+\index{sigHandler@{sigHandler}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{sigHandler()}{sigHandler()}}
+{\footnotesize\ttfamily static void sig\+Handler (\begin{DoxyParamCaption}\item[{int}]{sig }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_ae91bf2cf28b3841f82f03636860cbc19}\label{main_8cpp_ae91bf2cf28b3841f82f03636860cbc19}} 
+\index{main.cpp@{main.cpp}!wait\_rest\_of\_period@{wait\_rest\_of\_period}}
+\index{wait\_rest\_of\_period@{wait\_rest\_of\_period}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{wait\_rest\_of\_period()}{wait\_rest\_of\_period()}}
+{\footnotesize\ttfamily static void wait\+\_\+rest\+\_\+of\+\_\+period (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structperiod__info}{period\+\_\+info}} $\ast$}]{pinfo }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{main_8cpp_a522f6e250a19f5d006ebe753fca8dfb0}\label{main_8cpp_a522f6e250a19f5d006ebe753fca8dfb0}} 
+\index{main.cpp@{main.cpp}!CO\_CAN\_VALID\_mtx@{CO\_CAN\_VALID\_mtx}}
+\index{CO\_CAN\_VALID\_mtx@{CO\_CAN\_VALID\_mtx}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CO\_CAN\_VALID\_mtx}{CO\_CAN\_VALID\_mtx}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t C\+O\+\_\+\+C\+A\+N\+\_\+\+V\+A\+L\+I\+D\+\_\+mtx = P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ER}
+
+\mbox{\Hypertarget{main_8cpp_a150c5174cdead1977c8498a4cf02a080}\label{main_8cpp_a150c5174cdead1977c8498a4cf02a080}} 
+\index{main.cpp@{main.cpp}!CO\_endProgram@{CO\_endProgram}}
+\index{CO\_endProgram@{CO\_endProgram}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CO\_endProgram}{CO\_endProgram}}
+{\footnotesize\ttfamily volatile sig\+\_\+atomic\+\_\+t C\+O\+\_\+end\+Program = 0}
+
+\mbox{\Hypertarget{main_8cpp_abdd765d9ce73fc368872b8c7d595d7cd}\label{main_8cpp_abdd765d9ce73fc368872b8c7d595d7cd}} 
+\index{main.cpp@{main.cpp}!CO\_time@{CO\_time}}
+\index{CO\_time@{CO\_time}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CO\_time}{CO\_time}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o__time__t}{C\+O\+\_\+time\+\_\+t}} C\+O\+\_\+time\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_a911133f62683e05be58b20f676880765}\label{main_8cpp_a911133f62683e05be58b20f676880765}} 
+\index{main.cpp@{main.cpp}!CO\_timer1ms@{CO\_timer1ms}}
+\index{CO\_timer1ms@{CO\_timer1ms}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CO\_timer1ms}{CO\_timer1ms}}
+{\footnotesize\ttfamily volatile uint32\+\_\+t C\+O\+\_\+timer1ms = 0U}
+
+\mbox{\Hypertarget{main_8cpp_a3c077759f619d92419122992423af3a7}\label{main_8cpp_a3c077759f619d92419122992423af3a7}} 
+\index{main.cpp@{main.cpp}!commCount@{commCount}}
+\index{commCount@{commCount}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{commCount}{commCount}}
+{\footnotesize\ttfamily int comm\+Count = 0}
+
+\mbox{\Hypertarget{main_8cpp_a59a51d869df2a9a1be62893c067ca080}\label{main_8cpp_a59a51d869df2a9a1be62893c067ca080}} 
+\index{main.cpp@{main.cpp}!mainline\_epoll\_fd@{mainline\_epoll\_fd}}
+\index{mainline\_epoll\_fd@{mainline\_epoll\_fd}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{mainline\_epoll\_fd}{mainline\_epoll\_fd}}
+{\footnotesize\ttfamily int mainline\+\_\+epoll\+\_\+fd\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_a9bb40e3b67919175c619e044e59c1fdb}\label{main_8cpp_a9bb40e3b67919175c619e044e59c1fdb}} 
+\index{main.cpp@{main.cpp}!readyToStart@{readyToStart}}
+\index{readyToStart@{readyToStart}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{readyToStart}{readyToStart}}
+{\footnotesize\ttfamily bool ready\+To\+Start = false}
+
+\mbox{\Hypertarget{main_8cpp_a44deb9c4484709a679a3c83f36ba0426}\label{main_8cpp_a44deb9c4484709a679a3c83f36ba0426}} 
+\index{main.cpp@{main.cpp}!rt\_control\_thread\_epoll\_fd@{rt\_control\_thread\_epoll\_fd}}
+\index{rt\_control\_thread\_epoll\_fd@{rt\_control\_thread\_epoll\_fd}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{rt\_control\_thread\_epoll\_fd}{rt\_control\_thread\_epoll\_fd}}
+{\footnotesize\ttfamily int rt\+\_\+control\+\_\+thread\+\_\+epoll\+\_\+fd\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_ae69da6f51187c30c6bed7c334ba8ead3}\label{main_8cpp_ae69da6f51187c30c6bed7c334ba8ead3}} 
+\index{main.cpp@{main.cpp}!rt\_control\_thread\_id@{rt\_control\_thread\_id}}
+\index{rt\_control\_thread\_id@{rt\_control\_thread\_id}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{rt\_control\_thread\_id}{rt\_control\_thread\_id}}
+{\footnotesize\ttfamily pthread\+\_\+t rt\+\_\+control\+\_\+thread\+\_\+id\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_aedfff333a993c16a9d2ae71e9199a38b}\label{main_8cpp_aedfff333a993c16a9d2ae71e9199a38b}} 
+\index{main.cpp@{main.cpp}!rt\_thread\_epoll\_fd@{rt\_thread\_epoll\_fd}}
+\index{rt\_thread\_epoll\_fd@{rt\_thread\_epoll\_fd}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{rt\_thread\_epoll\_fd}{rt\_thread\_epoll\_fd}}
+{\footnotesize\ttfamily int rt\+\_\+thread\+\_\+epoll\+\_\+fd\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_a03b238fc4d40c31ac1ad064466b5c21e}\label{main_8cpp_a03b238fc4d40c31ac1ad064466b5c21e}} 
+\index{main.cpp@{main.cpp}!rt\_thread\_id@{rt\_thread\_id}}
+\index{rt\_thread\_id@{rt\_thread\_id}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{rt\_thread\_id}{rt\_thread\_id}}
+{\footnotesize\ttfamily pthread\+\_\+t rt\+\_\+thread\+\_\+id\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_ac987f52fefdf11af435088a954724cb9}\label{main_8cpp_ac987f52fefdf11af435088a954724cb9}} 
+\index{main.cpp@{main.cpp}!rtControlPriority@{rtControlPriority}}
+\index{rtControlPriority@{rtControlPriority}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{rtControlPriority}{rtControlPriority}}
+{\footnotesize\ttfamily int rt\+Control\+Priority = 80\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_a85cea9b29c1ee0afdc59658604762cb8}\label{main_8cpp_a85cea9b29c1ee0afdc59658604762cb8}} 
+\index{main.cpp@{main.cpp}!rtPriority@{rtPriority}}
+\index{rtPriority@{rtPriority}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{rtPriority}{rtPriority}}
+{\footnotesize\ttfamily int rt\+Priority = 2\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{main_8cpp_abb55b13a6f11eb11aa620b9ab01d1cbc}\label{main_8cpp_abb55b13a6f11eb11aa620b9ab01d1cbc}} 
+\index{main.cpp@{main.cpp}!tmr1msPrev@{tmr1msPrev}}
+\index{tmr1msPrev@{tmr1msPrev}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{tmr1msPrev}{tmr1msPrev}}
+{\footnotesize\ttfamily uint32\+\_\+t tmr1ms\+Prev = 0}
+

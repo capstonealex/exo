@@ -1,0 +1,455 @@
+\hypertarget{structinternal_1_1chrono__formatter}{}\doxysection{internal\+::chrono\+\_\+formatter$<$ Format\+Context, Output\+It, Rep, Period $>$ Struct Template Reference}
+\label{structinternal_1_1chrono__formatter}\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+
+
+{\ttfamily \#include $<$chrono.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}{rep}} = \mbox{\hyperlink{core_8h_acdb0eff728aec08ed6fff07d2885ea9d}{conditional\+\_\+t}}$<$ std\+::is\+\_\+integral$<$ Rep $>$\+::\mbox{\hyperlink{classinternal_1_1value}{value}} \&\&sizeof(Rep)$<$ sizeof(int), unsigned, typename \mbox{\hyperlink{structinternal_1_1make__unsigned__or__unchanged}{make\+\_\+unsigned\+\_\+or\+\_\+unchanged}}$<$ Rep $>$\+::\mbox{\hyperlink{namespaceinternal_a8661864098ac0acff9a6dd7e66f59038}{type}} $>$
+\item 
+using \mbox{\hyperlink{structinternal_1_1chrono__formatter_ad45e80d4cf0805176cc980f93f99e95e}{seconds}} = std\+::chrono\+::duration$<$ \mbox{\hyperlink{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}{rep}} $>$
+\item 
+using \mbox{\hyperlink{structinternal_1_1chrono__formatter_a9435a37e3cd01a35f2e84d5b8a0ac95e}{milliseconds}} = std\+::chrono\+::duration$<$ \mbox{\hyperlink{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}{rep}}, std\+::milli $>$
+\item 
+using \mbox{\hyperlink{structinternal_1_1chrono__formatter_a00dde15800a2da0d4740c04757420f78}{char\+\_\+type}} = typename Format\+Context\+::char\+\_\+type
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structinternal_1_1chrono__formatter_a55af30f2aea49dc895ae838b4aca5419}{chrono\+\_\+formatter}} (Format\+Context \&ctx, Output\+It o, std\+::chrono\+::duration$<$ Rep, Period $>$ d)
+\item 
+bool \mbox{\hyperlink{structinternal_1_1chrono__formatter_a944612c1e2f326456dbf58450730a9cd}{handle\+\_\+nan\+\_\+inf}} ()
+\item 
+Rep \mbox{\hyperlink{structinternal_1_1chrono__formatter_a493a7da3effd57445d8f30a836dae62b}{hour}} () const
+\item 
+Rep \mbox{\hyperlink{structinternal_1_1chrono__formatter_ac88e9a05d649c871711fa44e74d6f381}{hour12}} () const
+\item 
+Rep \mbox{\hyperlink{structinternal_1_1chrono__formatter_a3da339b84345f3387d7a3576fe9a947a}{minute}} () const
+\item 
+Rep \mbox{\hyperlink{structinternal_1_1chrono__formatter_a284556b16bf61863e1e09e37f605c9ba}{second}} () const
+\item 
+std\+::tm \mbox{\hyperlink{structinternal_1_1chrono__formatter_a6db7bd9594c704d8820efe85e0efea3c}{time}} () const
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a90e6f92821c52c30ca912cc6ccc2e5ba}{write\+\_\+sign}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_ac794f6fadb1f9ca1db842f065b27e347}{write}} (Rep \mbox{\hyperlink{classinternal_1_1value}{value}}, int width)
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a53c32b87fb16b7f0d5431b6bbd4f8133}{write\+\_\+nan}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a0b5a1c8606fc46eef627fb1f5068a6ab}{write\+\_\+pinf}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a87f67d63e1191923387de7cb3a2b8da9}{write\+\_\+ninf}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a8f71a707d3945556dace9e1d3d74bc1d}{format\+\_\+localized}} (const tm \&\mbox{\hyperlink{structinternal_1_1chrono__formatter_a6db7bd9594c704d8820efe85e0efea3c}{time}}, const char $\ast$\mbox{\hyperlink{locale_8h_a5bc4ef9df000061088de5f970684bb01}{format}})
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_abba76d8a6a28c064a6d68b941901f174}{on\+\_\+text}} (const \mbox{\hyperlink{structinternal_1_1chrono__formatter_a00dde15800a2da0d4740c04757420f78}{char\+\_\+type}} $\ast$begin, const \mbox{\hyperlink{structinternal_1_1chrono__formatter_a00dde15800a2da0d4740c04757420f78}{char\+\_\+type}} $\ast$end)
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_aaed60a2f6f5b3f9adf2fb96dbe5aa892}{on\+\_\+abbr\+\_\+weekday}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a98d3ab2ed7b03a57fea663e823893275}{on\+\_\+full\+\_\+weekday}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_af676eef777c4660b0e52871fbb6b22ce}{on\+\_\+dec0\+\_\+weekday}} (\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}})
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a4b79d5263e285b9b490b55dbf6c326b3}{on\+\_\+dec1\+\_\+weekday}} (\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}})
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_ac38a1ba3aeeb629c046c5dbc0bc49e0e}{on\+\_\+abbr\+\_\+month}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a97a50945ba209b1d314866dfd07df23a}{on\+\_\+full\+\_\+month}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a0fa8f6743655989d24b1ecfb24a0242c}{on\+\_\+datetime}} (\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}})
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a1f1984edfda89a14f9db3bd0f1b724c0}{on\+\_\+loc\+\_\+date}} (\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}})
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_abe92c0c304cf699b11e18c635a270121}{on\+\_\+loc\+\_\+time}} (\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}})
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a21a715964023e5affdfcbafd41617915}{on\+\_\+us\+\_\+date}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a35101fcd82a8b9ffef6927e3eae860c6}{on\+\_\+iso\+\_\+date}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a814af1f55ba38dd4ff495b41ddfa07f8}{on\+\_\+utc\+\_\+offset}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a69745462c35a45ecb487c22d4cd90ad2}{on\+\_\+tz\+\_\+name}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a87660031e58a3805167e4319b05b2aef}{on\+\_\+24\+\_\+hour}} (\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}} ns)
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a7fd2cc7a664e63aa577f62f548fe45f1}{on\+\_\+12\+\_\+hour}} (\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}} ns)
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a7a027568968a6d8358fccc1345f5c725}{on\+\_\+minute}} (\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}} ns)
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a749f6645acc8aed79b00cad12e7c913b}{on\+\_\+second}} (\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}} ns)
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a58481c3b24968dee0e2fb569e25eb7f7}{on\+\_\+12\+\_\+hour\+\_\+time}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a10a4b3ed5d4c949c5322c3dd708f144b}{on\+\_\+24\+\_\+hour\+\_\+time}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_abfb1c828ba7da8bdf5cd255e97115a9c}{on\+\_\+iso\+\_\+time}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a1d5f87f734f21ec3f211f4d4cb9ae490}{on\+\_\+am\+\_\+pm}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a01c9749fe3745f0f337c0fd38256a438}{on\+\_\+duration\+\_\+value}} ()
+\item 
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter_a6017bb9c581bfd434b982011a5473703}{on\+\_\+duration\+\_\+unit}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Format\+Context \& \mbox{\hyperlink{structinternal_1_1chrono__formatter_ad80a2fffd1e8491f2abdad94dab346cd}{context}}
+\item 
+Output\+It \mbox{\hyperlink{structinternal_1_1chrono__formatter_ac906e02120e826534b1266ede2e09198}{out}}
+\item 
+int \mbox{\hyperlink{structinternal_1_1chrono__formatter_ab005c313cfaed2ea8b4b140819f59c9b}{precision}}
+\item 
+\mbox{\hyperlink{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}{rep}} \mbox{\hyperlink{structinternal_1_1chrono__formatter_a397c0efe678abd21a2993bcb41019f31}{val}}
+\item 
+\mbox{\hyperlink{structinternal_1_1chrono__formatter_ad45e80d4cf0805176cc980f93f99e95e}{seconds}} \mbox{\hyperlink{structinternal_1_1chrono__formatter_ae3ef230affdecbe54a4d2cc48595b259}{s}}
+\item 
+bool \mbox{\hyperlink{structinternal_1_1chrono__formatter_a04a27f319fe9eeac0516053734fb4aeb}{negative}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a00dde15800a2da0d4740c04757420f78}\label{structinternal_1_1chrono__formatter_a00dde15800a2da0d4740c04757420f78}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!char\_type@{char\_type}}
+\index{char\_type@{char\_type}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{char\_type}{char\_type}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+using \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::\mbox{\hyperlink{structinternal_1_1chrono__formatter_a00dde15800a2da0d4740c04757420f78}{char\+\_\+type}} =  typename Format\+Context\+::char\+\_\+type}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a9435a37e3cd01a35f2e84d5b8a0ac95e}\label{structinternal_1_1chrono__formatter_a9435a37e3cd01a35f2e84d5b8a0ac95e}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!milliseconds@{milliseconds}}
+\index{milliseconds@{milliseconds}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{milliseconds}{milliseconds}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+using \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::\mbox{\hyperlink{structinternal_1_1chrono__formatter_a9435a37e3cd01a35f2e84d5b8a0ac95e}{milliseconds}} =  std\+::chrono\+::duration$<$\mbox{\hyperlink{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}{rep}}, std\+::milli$>$}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}\label{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!rep@{rep}}
+\index{rep@{rep}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{rep}{rep}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+using \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::\mbox{\hyperlink{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}{rep}} =  \mbox{\hyperlink{core_8h_acdb0eff728aec08ed6fff07d2885ea9d}{conditional\+\_\+t}}$<$std\+::is\+\_\+integral$<$Rep$>$\+::\mbox{\hyperlink{classinternal_1_1value}{value}} \&\& sizeof(Rep) $<$ sizeof(int), unsigned, typename \mbox{\hyperlink{structinternal_1_1make__unsigned__or__unchanged}{make\+\_\+unsigned\+\_\+or\+\_\+unchanged}}$<$Rep$>$\+::\mbox{\hyperlink{namespaceinternal_a8661864098ac0acff9a6dd7e66f59038}{type}}$>$}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_ad45e80d4cf0805176cc980f93f99e95e}\label{structinternal_1_1chrono__formatter_ad45e80d4cf0805176cc980f93f99e95e}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!seconds@{seconds}}
+\index{seconds@{seconds}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{seconds}{seconds}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+using \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::\mbox{\hyperlink{structinternal_1_1chrono__formatter_ad45e80d4cf0805176cc980f93f99e95e}{seconds}} =  std\+::chrono\+::duration$<$\mbox{\hyperlink{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}{rep}}$>$}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a55af30f2aea49dc895ae838b4aca5419}\label{structinternal_1_1chrono__formatter_a55af30f2aea49dc895ae838b4aca5419}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!chrono\_formatter@{chrono\_formatter}}
+\index{chrono\_formatter@{chrono\_formatter}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{chrono\_formatter()}{chrono\_formatter()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+\mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::\mbox{\hyperlink{structinternal_1_1chrono__formatter}{chrono\+\_\+formatter}} (\begin{DoxyParamCaption}\item[{Format\+Context \&}]{ctx,  }\item[{Output\+It}]{o,  }\item[{std\+::chrono\+::duration$<$ Rep, Period $>$}]{d }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a8f71a707d3945556dace9e1d3d74bc1d}\label{structinternal_1_1chrono__formatter_a8f71a707d3945556dace9e1d3d74bc1d}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!format\_localized@{format\_localized}}
+\index{format\_localized@{format\_localized}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{format\_localized()}{format\_localized()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::format\+\_\+localized (\begin{DoxyParamCaption}\item[{const tm \&}]{time,  }\item[{const char $\ast$}]{format }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a944612c1e2f326456dbf58450730a9cd}\label{structinternal_1_1chrono__formatter_a944612c1e2f326456dbf58450730a9cd}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!handle\_nan\_inf@{handle\_nan\_inf}}
+\index{handle\_nan\_inf@{handle\_nan\_inf}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{handle\_nan\_inf()}{handle\_nan\_inf()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+bool \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::handle\+\_\+nan\+\_\+inf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a493a7da3effd57445d8f30a836dae62b}\label{structinternal_1_1chrono__formatter_a493a7da3effd57445d8f30a836dae62b}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!hour@{hour}}
+\index{hour@{hour}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{hour()}{hour()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+Rep \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::hour (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_ac88e9a05d649c871711fa44e74d6f381}\label{structinternal_1_1chrono__formatter_ac88e9a05d649c871711fa44e74d6f381}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!hour12@{hour12}}
+\index{hour12@{hour12}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{hour12()}{hour12()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+Rep \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::hour12 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a3da339b84345f3387d7a3576fe9a947a}\label{structinternal_1_1chrono__formatter_a3da339b84345f3387d7a3576fe9a947a}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!minute@{minute}}
+\index{minute@{minute}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{minute()}{minute()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+Rep \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::minute (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a7fd2cc7a664e63aa577f62f548fe45f1}\label{structinternal_1_1chrono__formatter_a7fd2cc7a664e63aa577f62f548fe45f1}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_12\_hour@{on\_12\_hour}}
+\index{on\_12\_hour@{on\_12\_hour}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_12\_hour()}{on\_12\_hour()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+12\+\_\+hour (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}}}]{ns }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a58481c3b24968dee0e2fb569e25eb7f7}\label{structinternal_1_1chrono__formatter_a58481c3b24968dee0e2fb569e25eb7f7}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_12\_hour\_time@{on\_12\_hour\_time}}
+\index{on\_12\_hour\_time@{on\_12\_hour\_time}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_12\_hour\_time()}{on\_12\_hour\_time()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+12\+\_\+hour\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a87660031e58a3805167e4319b05b2aef}\label{structinternal_1_1chrono__formatter_a87660031e58a3805167e4319b05b2aef}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_24\_hour@{on\_24\_hour}}
+\index{on\_24\_hour@{on\_24\_hour}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_24\_hour()}{on\_24\_hour()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+24\+\_\+hour (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}}}]{ns }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a10a4b3ed5d4c949c5322c3dd708f144b}\label{structinternal_1_1chrono__formatter_a10a4b3ed5d4c949c5322c3dd708f144b}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_24\_hour\_time@{on\_24\_hour\_time}}
+\index{on\_24\_hour\_time@{on\_24\_hour\_time}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_24\_hour\_time()}{on\_24\_hour\_time()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+24\+\_\+hour\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_ac38a1ba3aeeb629c046c5dbc0bc49e0e}\label{structinternal_1_1chrono__formatter_ac38a1ba3aeeb629c046c5dbc0bc49e0e}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_abbr\_month@{on\_abbr\_month}}
+\index{on\_abbr\_month@{on\_abbr\_month}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_abbr\_month()}{on\_abbr\_month()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+abbr\+\_\+month (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_aaed60a2f6f5b3f9adf2fb96dbe5aa892}\label{structinternal_1_1chrono__formatter_aaed60a2f6f5b3f9adf2fb96dbe5aa892}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_abbr\_weekday@{on\_abbr\_weekday}}
+\index{on\_abbr\_weekday@{on\_abbr\_weekday}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_abbr\_weekday()}{on\_abbr\_weekday()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+abbr\+\_\+weekday (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a1d5f87f734f21ec3f211f4d4cb9ae490}\label{structinternal_1_1chrono__formatter_a1d5f87f734f21ec3f211f4d4cb9ae490}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_am\_pm@{on\_am\_pm}}
+\index{on\_am\_pm@{on\_am\_pm}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_am\_pm()}{on\_am\_pm()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+am\+\_\+pm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a0fa8f6743655989d24b1ecfb24a0242c}\label{structinternal_1_1chrono__formatter_a0fa8f6743655989d24b1ecfb24a0242c}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_datetime@{on\_datetime}}
+\index{on\_datetime@{on\_datetime}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_datetime()}{on\_datetime()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+datetime (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_af676eef777c4660b0e52871fbb6b22ce}\label{structinternal_1_1chrono__formatter_af676eef777c4660b0e52871fbb6b22ce}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_dec0\_weekday@{on\_dec0\_weekday}}
+\index{on\_dec0\_weekday@{on\_dec0\_weekday}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_dec0\_weekday()}{on\_dec0\_weekday()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+dec0\+\_\+weekday (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a4b79d5263e285b9b490b55dbf6c326b3}\label{structinternal_1_1chrono__formatter_a4b79d5263e285b9b490b55dbf6c326b3}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_dec1\_weekday@{on\_dec1\_weekday}}
+\index{on\_dec1\_weekday@{on\_dec1\_weekday}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_dec1\_weekday()}{on\_dec1\_weekday()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+dec1\+\_\+weekday (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a6017bb9c581bfd434b982011a5473703}\label{structinternal_1_1chrono__formatter_a6017bb9c581bfd434b982011a5473703}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_duration\_unit@{on\_duration\_unit}}
+\index{on\_duration\_unit@{on\_duration\_unit}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_duration\_unit()}{on\_duration\_unit()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+duration\+\_\+unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a01c9749fe3745f0f337c0fd38256a438}\label{structinternal_1_1chrono__formatter_a01c9749fe3745f0f337c0fd38256a438}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_duration\_value@{on\_duration\_value}}
+\index{on\_duration\_value@{on\_duration\_value}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_duration\_value()}{on\_duration\_value()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+duration\+\_\+value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a97a50945ba209b1d314866dfd07df23a}\label{structinternal_1_1chrono__formatter_a97a50945ba209b1d314866dfd07df23a}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_full\_month@{on\_full\_month}}
+\index{on\_full\_month@{on\_full\_month}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_full\_month()}{on\_full\_month()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+full\+\_\+month (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a98d3ab2ed7b03a57fea663e823893275}\label{structinternal_1_1chrono__formatter_a98d3ab2ed7b03a57fea663e823893275}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_full\_weekday@{on\_full\_weekday}}
+\index{on\_full\_weekday@{on\_full\_weekday}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_full\_weekday()}{on\_full\_weekday()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+full\+\_\+weekday (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a35101fcd82a8b9ffef6927e3eae860c6}\label{structinternal_1_1chrono__formatter_a35101fcd82a8b9ffef6927e3eae860c6}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_iso\_date@{on\_iso\_date}}
+\index{on\_iso\_date@{on\_iso\_date}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_iso\_date()}{on\_iso\_date()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+iso\+\_\+date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_abfb1c828ba7da8bdf5cd255e97115a9c}\label{structinternal_1_1chrono__formatter_abfb1c828ba7da8bdf5cd255e97115a9c}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_iso\_time@{on\_iso\_time}}
+\index{on\_iso\_time@{on\_iso\_time}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_iso\_time()}{on\_iso\_time()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+iso\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a1f1984edfda89a14f9db3bd0f1b724c0}\label{structinternal_1_1chrono__formatter_a1f1984edfda89a14f9db3bd0f1b724c0}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_loc\_date@{on\_loc\_date}}
+\index{on\_loc\_date@{on\_loc\_date}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_loc\_date()}{on\_loc\_date()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+loc\+\_\+date (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_abe92c0c304cf699b11e18c635a270121}\label{structinternal_1_1chrono__formatter_abe92c0c304cf699b11e18c635a270121}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_loc\_time@{on\_loc\_time}}
+\index{on\_loc\_time@{on\_loc\_time}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_loc\_time()}{on\_loc\_time()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+loc\+\_\+time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a7a027568968a6d8358fccc1345f5c725}\label{structinternal_1_1chrono__formatter_a7a027568968a6d8358fccc1345f5c725}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_minute@{on\_minute}}
+\index{on\_minute@{on\_minute}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_minute()}{on\_minute()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+minute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}}}]{ns }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a749f6645acc8aed79b00cad12e7c913b}\label{structinternal_1_1chrono__formatter_a749f6645acc8aed79b00cad12e7c913b}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_second@{on\_second}}
+\index{on\_second@{on\_second}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_second()}{on\_second()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+second (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespaceinternal_a16e2a1195ca0f5beab658685f71df86b}{numeric\+\_\+system}}}]{ns }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_abba76d8a6a28c064a6d68b941901f174}\label{structinternal_1_1chrono__formatter_abba76d8a6a28c064a6d68b941901f174}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_text@{on\_text}}
+\index{on\_text@{on\_text}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_text()}{on\_text()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+text (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structinternal_1_1chrono__formatter_a00dde15800a2da0d4740c04757420f78}{char\+\_\+type}} $\ast$}]{begin,  }\item[{const \mbox{\hyperlink{structinternal_1_1chrono__formatter_a00dde15800a2da0d4740c04757420f78}{char\+\_\+type}} $\ast$}]{end }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a69745462c35a45ecb487c22d4cd90ad2}\label{structinternal_1_1chrono__formatter_a69745462c35a45ecb487c22d4cd90ad2}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_tz\_name@{on\_tz\_name}}
+\index{on\_tz\_name@{on\_tz\_name}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_tz\_name()}{on\_tz\_name()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+tz\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a21a715964023e5affdfcbafd41617915}\label{structinternal_1_1chrono__formatter_a21a715964023e5affdfcbafd41617915}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_us\_date@{on\_us\_date}}
+\index{on\_us\_date@{on\_us\_date}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_us\_date()}{on\_us\_date()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+us\+\_\+date (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a814af1f55ba38dd4ff495b41ddfa07f8}\label{structinternal_1_1chrono__formatter_a814af1f55ba38dd4ff495b41ddfa07f8}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!on\_utc\_offset@{on\_utc\_offset}}
+\index{on\_utc\_offset@{on\_utc\_offset}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{on\_utc\_offset()}{on\_utc\_offset()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::on\+\_\+utc\+\_\+offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a284556b16bf61863e1e09e37f605c9ba}\label{structinternal_1_1chrono__formatter_a284556b16bf61863e1e09e37f605c9ba}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!second@{second}}
+\index{second@{second}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{second()}{second()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+Rep \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::second (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a6db7bd9594c704d8820efe85e0efea3c}\label{structinternal_1_1chrono__formatter_a6db7bd9594c704d8820efe85e0efea3c}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!time@{time}}
+\index{time@{time}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{time()}{time()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+std\+::tm \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_ac794f6fadb1f9ca1db842f065b27e347}\label{structinternal_1_1chrono__formatter_ac794f6fadb1f9ca1db842f065b27e347}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!write@{write}}
+\index{write@{write}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::write (\begin{DoxyParamCaption}\item[{Rep}]{value,  }\item[{int}]{width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a53c32b87fb16b7f0d5431b6bbd4f8133}\label{structinternal_1_1chrono__formatter_a53c32b87fb16b7f0d5431b6bbd4f8133}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!write\_nan@{write\_nan}}
+\index{write\_nan@{write\_nan}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{write\_nan()}{write\_nan()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::write\+\_\+nan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a87f67d63e1191923387de7cb3a2b8da9}\label{structinternal_1_1chrono__formatter_a87f67d63e1191923387de7cb3a2b8da9}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!write\_ninf@{write\_ninf}}
+\index{write\_ninf@{write\_ninf}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{write\_ninf()}{write\_ninf()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::write\+\_\+ninf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a0b5a1c8606fc46eef627fb1f5068a6ab}\label{structinternal_1_1chrono__formatter_a0b5a1c8606fc46eef627fb1f5068a6ab}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!write\_pinf@{write\_pinf}}
+\index{write\_pinf@{write\_pinf}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{write\_pinf()}{write\_pinf()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::write\+\_\+pinf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a90e6f92821c52c30ca912cc6ccc2e5ba}\label{structinternal_1_1chrono__formatter_a90e6f92821c52c30ca912cc6ccc2e5ba}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!write\_sign@{write\_sign}}
+\index{write\_sign@{write\_sign}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{write\_sign()}{write\_sign()}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+void \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::write\+\_\+sign (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_ad80a2fffd1e8491f2abdad94dab346cd}\label{structinternal_1_1chrono__formatter_ad80a2fffd1e8491f2abdad94dab346cd}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!context@{context}}
+\index{context@{context}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{context}{context}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+Format\+Context\& \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::context}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a04a27f319fe9eeac0516053734fb4aeb}\label{structinternal_1_1chrono__formatter_a04a27f319fe9eeac0516053734fb4aeb}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!negative@{negative}}
+\index{negative@{negative}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{negative}{negative}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+bool \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::negative}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_ac906e02120e826534b1266ede2e09198}\label{structinternal_1_1chrono__formatter_ac906e02120e826534b1266ede2e09198}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!out@{out}}
+\index{out@{out}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{out}{out}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+Output\+It \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::out}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_ab005c313cfaed2ea8b4b140819f59c9b}\label{structinternal_1_1chrono__formatter_ab005c313cfaed2ea8b4b140819f59c9b}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!precision@{precision}}
+\index{precision@{precision}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{precision}{precision}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+int \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::precision}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_ae3ef230affdecbe54a4d2cc48595b259}\label{structinternal_1_1chrono__formatter_ae3ef230affdecbe54a4d2cc48595b259}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!s@{s}}
+\index{s@{s}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{s}{s}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+\mbox{\hyperlink{structinternal_1_1chrono__formatter_ad45e80d4cf0805176cc980f93f99e95e}{seconds}} \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::s}
+
+\mbox{\Hypertarget{structinternal_1_1chrono__formatter_a397c0efe678abd21a2993bcb41019f31}\label{structinternal_1_1chrono__formatter_a397c0efe678abd21a2993bcb41019f31}} 
+\index{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}!val@{val}}
+\index{val@{val}!internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$@{internal::chrono\_formatter$<$ FormatContext, OutputIt, Rep, Period $>$}}
+\doxysubsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily template$<$typename Format\+Context , typename Output\+It , typename Rep , typename Period $>$ \\
+\mbox{\hyperlink{structinternal_1_1chrono__formatter_a0d2cf0ef93d14d1ce3a44b9ef48cf218}{rep}} \mbox{\hyperlink{structinternal_1_1chrono__formatter}{internal\+::chrono\+\_\+formatter}}$<$ Format\+Context, Output\+It, Rep, Period $>$\+::val}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{chrono_8h}{chrono.\+h}}\end{DoxyCompactItemize}

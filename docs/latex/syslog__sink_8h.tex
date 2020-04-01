@@ -1,0 +1,33 @@
+\hypertarget{syslog__sink_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/sinks/syslog\+\_\+sink.h File Reference}
+\label{syslog__sink_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/sinks/syslog\_sink.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/sinks/syslog\_sink.h}}
+{\ttfamily \#include $<$spdlog/sinks/base\+\_\+sink.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/details/null\+\_\+mutex.\+h$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$syslog.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classspdlog_1_1sinks_1_1syslog__sink}{spdlog\+::sinks\+::syslog\+\_\+sink$<$ Mutex $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacespdlog}{spdlog}}
+\item 
+ \mbox{\hyperlink{namespacespdlog_1_1sinks}{spdlog\+::sinks}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacespdlog_1_1sinks_a6674644a4ab8a7579e45bd79dc107a70}{spdlog\+::sinks\+::syslog\+\_\+sink\+\_\+mt}} = syslog\+\_\+sink$<$ std\+::mutex $>$
+\item 
+using \mbox{\hyperlink{namespacespdlog_1_1sinks_a83f4d6616a2fbf3473a6a979647b5139}{spdlog\+::sinks\+::syslog\+\_\+sink\+\_\+st}} = syslog\+\_\+sink$<$ details\+::null\+\_\+mutex $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Factory  = default\+\_\+factory$>$ }\\std\+::shared\+\_\+ptr$<$ logger $>$ \mbox{\hyperlink{namespacespdlog_a2ee7cdae7d867bc0b7d4ec05334dd408}{spdlog\+::syslog\+\_\+logger\+\_\+mt}} (const std\+::string \&logger\+\_\+name, const std\+::string \&syslog\+\_\+ident=\char`\"{}\char`\"{}, int syslog\+\_\+option=0, int syslog\+\_\+facility=L\+O\+G\+\_\+\+U\+S\+ER, bool enable\+\_\+formatting=false)
+\item 
+{\footnotesize template$<$typename Factory  = default\+\_\+factory$>$ }\\std\+::shared\+\_\+ptr$<$ logger $>$ \mbox{\hyperlink{namespacespdlog_a92db8ed52f8cec4226db36cbd15bc6c0}{spdlog\+::syslog\+\_\+logger\+\_\+st}} (const std\+::string \&logger\+\_\+name, const std\+::string \&syslog\+\_\+ident=\char`\"{}\char`\"{}, int syslog\+\_\+option=0, int syslog\+\_\+facility=L\+O\+G\+\_\+\+U\+S\+ER, bool enable\+\_\+formatting=false)
+\end{DoxyCompactItemize}

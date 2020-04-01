@@ -1,0 +1,215 @@
+\hypertarget{_c_a_nopen_8c}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+A\+Nopen\+Node/\+C\+A\+Nopen.c File Reference}
+\label{_c_a_nopen_8c}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CANopenNode/CANopen.c@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CANopenNode/CANopen.c}}
+{\ttfamily \#include \char`\"{}C\+A\+Nopen.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a54e67bd5e554f7a463d07af56dff36b2}{C\+O\+\_\+\+N\+O\+\_\+\+H\+B\+\_\+\+C\+O\+NS}}~0
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a0b18d85905ed4316550da3e8be5430fb}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+N\+MT}}~0                                      /$\ast$  index for N\+MT message $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a0d629508641bf510a40db1cdcd2cd224}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+Y\+NC}}~1                                      /$\ast$  index for S\+Y\+NC message $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_acfac885c76c226ae8b7e2a9f7695cfaf}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+R\+P\+DO}}~(\mbox{\hyperlink{_c_a_nopen_8c_a0d629508641bf510a40db1cdcd2cd224}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+Y\+NC}}+\mbox{\hyperlink{_c_o___o_d_8h_ad159c826e338044f521877f0a2cb3399}{C\+O\+\_\+\+N\+O\+\_\+\+S\+Y\+NC}})              /$\ast$  start index for R\+P\+DO messages $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a10e8eed861983b6963b45a1789eb2d1d}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+S\+RV}}~(\mbox{\hyperlink{_c_a_nopen_8c_acfac885c76c226ae8b7e2a9f7695cfaf}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+R\+P\+DO}}+\mbox{\hyperlink{_c_o___o_d_8h_a3fd70c7d577da632c62d4bccef1b410c}{C\+O\+\_\+\+N\+O\+\_\+\+R\+P\+DO}})              /$\ast$  start index for S\+DO server message (request) $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a45a057ca3e80ab9ef8c736f98e7cdfd1}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+C\+LI}}~(\mbox{\hyperlink{_c_a_nopen_8c_a10e8eed861983b6963b45a1789eb2d1d}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+S\+RV}}+\mbox{\hyperlink{_c_o___o_d_8h_ae05671a26d9dfe361478d5627b18b778}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+S\+E\+R\+V\+ER}})     /$\ast$  start index for S\+DO client message (response) $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a6fe695d7c2b7976636f099afede5ccc1}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+C\+O\+N\+S\+\_\+\+HB}}~(\mbox{\hyperlink{_c_a_nopen_8c_a45a057ca3e80ab9ef8c736f98e7cdfd1}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+C\+LI}}+\mbox{\hyperlink{_c_o___o_d_8h_a651a131f31175e56783b58bf1d881ef1}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+C\+L\+I\+E\+NT}})     /$\ast$  start index for Heartbeat Consumer messages $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_ad8d733aecac3c51782df30401cc969e5}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+N\+O\+\_\+\+M\+S\+GS}}~(1+\mbox{\hyperlink{_c_o___o_d_8h_ad159c826e338044f521877f0a2cb3399}{C\+O\+\_\+\+N\+O\+\_\+\+S\+Y\+NC}}+\mbox{\hyperlink{_c_o___o_d_8h_a3fd70c7d577da632c62d4bccef1b410c}{C\+O\+\_\+\+N\+O\+\_\+\+R\+P\+DO}}+\mbox{\hyperlink{_c_o___o_d_8h_ae05671a26d9dfe361478d5627b18b778}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+S\+E\+R\+V\+ER}}+\mbox{\hyperlink{_c_o___o_d_8h_a651a131f31175e56783b58bf1d881ef1}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+C\+L\+I\+E\+NT}}+\mbox{\hyperlink{_c_a_nopen_8c_a54e67bd5e554f7a463d07af56dff36b2}{C\+O\+\_\+\+N\+O\+\_\+\+H\+B\+\_\+\+C\+O\+NS}})
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a6bca686f6913b76720501c7a860f053f}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+N\+MT}}~0                                      /$\ast$  index for N\+MT master message $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_ae6a842eb138ff7ac84840c46193f48a1}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+Y\+NC}}~\mbox{\hyperlink{_c_a_nopen_8c_a6bca686f6913b76720501c7a860f053f}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+N\+MT}}+\mbox{\hyperlink{_c_o___o_d_8h_aef6601363164225dd214d9cba546f350}{C\+O\+\_\+\+N\+O\+\_\+\+N\+M\+T\+\_\+\+M\+A\+S\+T\+ER}}          /$\ast$  index for S\+Y\+NC message $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_ad286e78eb83c7364c953832fa81269cf}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+E\+M\+E\+RG}}~(\mbox{\hyperlink{_c_a_nopen_8c_ae6a842eb138ff7ac84840c46193f48a1}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+Y\+NC}}+\mbox{\hyperlink{_c_o___o_d_8h_ad159c826e338044f521877f0a2cb3399}{C\+O\+\_\+\+N\+O\+\_\+\+S\+Y\+NC}})              /$\ast$  index for Emergency message $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a1eb14cb08e7e68e01ee0a4bd7a76e43b}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+T\+P\+DO}}~(\mbox{\hyperlink{_c_a_nopen_8c_ad286e78eb83c7364c953832fa81269cf}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+E\+M\+E\+RG}}+\mbox{\hyperlink{_c_o___o_d_8h_ac3798c40574463c36ba57b2332213608}{C\+O\+\_\+\+N\+O\+\_\+\+E\+M\+E\+R\+G\+E\+N\+CY}})        /$\ast$  start index for T\+P\+DO messages $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a21bb4f5f4794be06c2009254f8e8c928}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+S\+RV}}~(\mbox{\hyperlink{_c_a_nopen_8c_a1eb14cb08e7e68e01ee0a4bd7a76e43b}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+T\+P\+DO}}+\mbox{\hyperlink{_c_o___o_d_8h_a48e2baafb4253c5d3d6882add81201fc}{C\+O\+\_\+\+N\+O\+\_\+\+T\+P\+DO}})              /$\ast$  start index for S\+DO server message (response) $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a7437c733cfec2ff78ea854708e3ad29b}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+C\+LI}}~(\mbox{\hyperlink{_c_a_nopen_8c_a21bb4f5f4794be06c2009254f8e8c928}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+S\+RV}}+\mbox{\hyperlink{_c_o___o_d_8h_ae05671a26d9dfe361478d5627b18b778}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+S\+E\+R\+V\+ER}})     /$\ast$  start index for S\+DO client message (request) $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_a5c6c75ca926a29a2e333b73648e27af0}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+HB}}~(\mbox{\hyperlink{_c_a_nopen_8c_a7437c733cfec2ff78ea854708e3ad29b}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+C\+LI}}+\mbox{\hyperlink{_c_o___o_d_8h_a651a131f31175e56783b58bf1d881ef1}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+C\+L\+I\+E\+NT}})     /$\ast$  index for Heartbeat message $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_a_nopen_8c_ad727e172f62824c3d82433d66910abb4}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+N\+O\+\_\+\+M\+S\+GS}}~(\mbox{\hyperlink{_c_o___o_d_8h_aef6601363164225dd214d9cba546f350}{C\+O\+\_\+\+N\+O\+\_\+\+N\+M\+T\+\_\+\+M\+A\+S\+T\+ER}}+\mbox{\hyperlink{_c_o___o_d_8h_ad159c826e338044f521877f0a2cb3399}{C\+O\+\_\+\+N\+O\+\_\+\+S\+Y\+NC}}+\mbox{\hyperlink{_c_o___o_d_8h_ac3798c40574463c36ba57b2332213608}{C\+O\+\_\+\+N\+O\+\_\+\+E\+M\+E\+R\+G\+E\+N\+CY}}+\mbox{\hyperlink{_c_o___o_d_8h_a48e2baafb4253c5d3d6882add81201fc}{C\+O\+\_\+\+N\+O\+\_\+\+T\+P\+DO}}+\mbox{\hyperlink{_c_o___o_d_8h_ae05671a26d9dfe361478d5627b18b778}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+S\+E\+R\+V\+ER}}+\mbox{\hyperlink{_c_o___o_d_8h_a651a131f31175e56783b58bf1d881ef1}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+C\+L\+I\+E\+NT}}+1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} \mbox{\hyperlink{group___c_o___c_a_nopen_gaaae306153556b4457973e59ff6feaa04}{C\+O\+\_\+init}} (int32\+\_\+t C\+A\+Nbase\+Address, uint8\+\_\+t node\+Id, uint16\+\_\+t bit\+Rate)
+\item 
+void \mbox{\hyperlink{group___c_o___c_a_nopen_ga6448888e1a11f88c167fa08cc991c958}{C\+O\+\_\+delete}} (int32\+\_\+t C\+A\+Nbase\+Address)
+\item 
+\mbox{\hyperlink{group___c_o___n_m_t___heartbeat_gaf42f056a571b8e17a2d74428d1a49674}{C\+O\+\_\+\+N\+M\+T\+\_\+reset\+\_\+cmd\+\_\+t}} \mbox{\hyperlink{group___c_o___c_a_nopen_gae3628f88850473dc2e51c337d8cbb881}{C\+O\+\_\+process}} (\mbox{\hyperlink{struct_c_o__t}{C\+O\+\_\+t}} $\ast$\mbox{\hyperlink{group___c_o___c_a_nopen_gaa6b0e31a1f760af91bb742c83c00a6c1}{CO}}, uint16\+\_\+t time\+Difference\+\_\+ms, uint16\+\_\+t $\ast$timer\+Next\+\_\+ms)
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{group___c_o___c_a_nopen_gaf0399bd5f845b6fa9092da95da7fd954}{C\+O\+\_\+process\+\_\+\+S\+Y\+N\+C\+\_\+\+R\+P\+DO}} (\mbox{\hyperlink{struct_c_o__t}{C\+O\+\_\+t}} $\ast$\mbox{\hyperlink{group___c_o___c_a_nopen_gaa6b0e31a1f760af91bb742c83c00a6c1}{CO}}, uint32\+\_\+t time\+Difference\+\_\+us)
+\item 
+void \mbox{\hyperlink{group___c_o___c_a_nopen_ga11a9aec32cafe4f91786a64e4476a34d}{C\+O\+\_\+process\+\_\+\+T\+P\+DO}} (\mbox{\hyperlink{struct_c_o__t}{C\+O\+\_\+t}} $\ast$\mbox{\hyperlink{group___c_o___c_a_nopen_gaa6b0e31a1f760af91bb742c83c00a6c1}{CO}}, \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} sync\+Was, uint32\+\_\+t time\+Difference\+\_\+us)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static uint32\+\_\+t \mbox{\hyperlink{_c_a_nopen_8c_a4d8d35ade378f44c9da0cc0d5e56844f}{C\+O\+\_\+memory\+Used}} = 0
+\item 
+const \mbox{\hyperlink{struct_c_o___o_d__entry__t}{C\+O\+\_\+\+O\+D\+\_\+entry\+\_\+t}} \mbox{\hyperlink{_c_a_nopen_8c_a27b6662ea2ca9004ffa9ae5b4718fb90}{C\+O\+\_\+\+OD}} \mbox{[}\mbox{\hyperlink{_c_o___o_d_8h_acf3c8deb87d3bc33ea86632959ec936d}{C\+O\+\_\+\+O\+D\+\_\+\+No\+Of\+Elements}}\mbox{]}
+\item 
+static \mbox{\hyperlink{struct_c_o__t}{C\+O\+\_\+t}} \mbox{\hyperlink{_c_a_nopen_8c_a0860f722faca6adf9ffe29454acea1f1}{C\+OO}}
+\item 
+\mbox{\hyperlink{struct_c_o__t}{C\+O\+\_\+t}} $\ast$ \mbox{\hyperlink{group___c_o___c_a_nopen_gaa6b0e31a1f760af91bb742c83c00a6c1}{CO}} = N\+U\+LL
+\item 
+static \mbox{\hyperlink{struct_c_o___c_a_nrx__t}{C\+O\+\_\+\+C\+A\+Nrx\+\_\+t}} $\ast$ \mbox{\hyperlink{_c_a_nopen_8c_ac8ff0fb50b4eb798dbcc26fb30cae5b2}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+rx\+Array0}}
+\item 
+static \mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}} $\ast$ \mbox{\hyperlink{_c_a_nopen_8c_afb4c4c04845ed282a2d125d0390710a2}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+tx\+Array0}}
+\item 
+static \mbox{\hyperlink{struct_c_o___o_d__extension__t}{C\+O\+\_\+\+O\+D\+\_\+extension\+\_\+t}} $\ast$ \mbox{\hyperlink{_c_a_nopen_8c_a2333064a1265f72fe53bd55618a45f92}{C\+O\+\_\+\+S\+D\+O\+\_\+\+O\+D\+Extensions}}
+\item 
+static \mbox{\hyperlink{struct_c_o___h_bcons_node__t}{C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t}} $\ast$ \mbox{\hyperlink{_c_a_nopen_8c_ac371e1ff468aa2de55ffd4fb6b4ae619}{C\+O\+\_\+\+H\+Bcons\+\_\+monitored\+Nodes}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_c_a_nopen_8c_a54e67bd5e554f7a463d07af56dff36b2}\label{_c_a_nopen_8c_a54e67bd5e554f7a463d07af56dff36b2}} 
+\index{CANopen.c@{CANopen.c}!CO\_NO\_HB\_CONS@{CO\_NO\_HB\_CONS}}
+\index{CO\_NO\_HB\_CONS@{CO\_NO\_HB\_CONS}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_NO\_HB\_CONS}{CO\_NO\_HB\_CONS}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+N\+O\+\_\+\+H\+B\+\_\+\+C\+O\+NS~0}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a6fe695d7c2b7976636f099afede5ccc1}\label{_c_a_nopen_8c_a6fe695d7c2b7976636f099afede5ccc1}} 
+\index{CANopen.c@{CANopen.c}!CO\_RXCAN\_CONS\_HB@{CO\_RXCAN\_CONS\_HB}}
+\index{CO\_RXCAN\_CONS\_HB@{CO\_RXCAN\_CONS\_HB}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_RXCAN\_CONS\_HB}{CO\_RXCAN\_CONS\_HB}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+C\+O\+N\+S\+\_\+\+HB~(\mbox{\hyperlink{_c_a_nopen_8c_a45a057ca3e80ab9ef8c736f98e7cdfd1}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+C\+LI}}+\mbox{\hyperlink{_c_o___o_d_8h_a651a131f31175e56783b58bf1d881ef1}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+C\+L\+I\+E\+NT}})     /$\ast$  start index for Heartbeat Consumer messages $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a0b18d85905ed4316550da3e8be5430fb}\label{_c_a_nopen_8c_a0b18d85905ed4316550da3e8be5430fb}} 
+\index{CANopen.c@{CANopen.c}!CO\_RXCAN\_NMT@{CO\_RXCAN\_NMT}}
+\index{CO\_RXCAN\_NMT@{CO\_RXCAN\_NMT}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_RXCAN\_NMT}{CO\_RXCAN\_NMT}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+N\+MT~0                                      /$\ast$  index for N\+MT message $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_ad8d733aecac3c51782df30401cc969e5}\label{_c_a_nopen_8c_ad8d733aecac3c51782df30401cc969e5}} 
+\index{CANopen.c@{CANopen.c}!CO\_RXCAN\_NO\_MSGS@{CO\_RXCAN\_NO\_MSGS}}
+\index{CO\_RXCAN\_NO\_MSGS@{CO\_RXCAN\_NO\_MSGS}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_RXCAN\_NO\_MSGS}{CO\_RXCAN\_NO\_MSGS}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+N\+O\+\_\+\+M\+S\+GS~(1+\mbox{\hyperlink{_c_o___o_d_8h_ad159c826e338044f521877f0a2cb3399}{C\+O\+\_\+\+N\+O\+\_\+\+S\+Y\+NC}}+\mbox{\hyperlink{_c_o___o_d_8h_a3fd70c7d577da632c62d4bccef1b410c}{C\+O\+\_\+\+N\+O\+\_\+\+R\+P\+DO}}+\mbox{\hyperlink{_c_o___o_d_8h_ae05671a26d9dfe361478d5627b18b778}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+S\+E\+R\+V\+ER}}+\mbox{\hyperlink{_c_o___o_d_8h_a651a131f31175e56783b58bf1d881ef1}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+C\+L\+I\+E\+NT}}+\mbox{\hyperlink{_c_a_nopen_8c_a54e67bd5e554f7a463d07af56dff36b2}{C\+O\+\_\+\+N\+O\+\_\+\+H\+B\+\_\+\+C\+O\+NS}})}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_acfac885c76c226ae8b7e2a9f7695cfaf}\label{_c_a_nopen_8c_acfac885c76c226ae8b7e2a9f7695cfaf}} 
+\index{CANopen.c@{CANopen.c}!CO\_RXCAN\_RPDO@{CO\_RXCAN\_RPDO}}
+\index{CO\_RXCAN\_RPDO@{CO\_RXCAN\_RPDO}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_RXCAN\_RPDO}{CO\_RXCAN\_RPDO}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+R\+P\+DO~(\mbox{\hyperlink{_c_a_nopen_8c_a0d629508641bf510a40db1cdcd2cd224}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+Y\+NC}}+\mbox{\hyperlink{_c_o___o_d_8h_ad159c826e338044f521877f0a2cb3399}{C\+O\+\_\+\+N\+O\+\_\+\+S\+Y\+NC}})              /$\ast$  start index for R\+P\+DO messages $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a45a057ca3e80ab9ef8c736f98e7cdfd1}\label{_c_a_nopen_8c_a45a057ca3e80ab9ef8c736f98e7cdfd1}} 
+\index{CANopen.c@{CANopen.c}!CO\_RXCAN\_SDO\_CLI@{CO\_RXCAN\_SDO\_CLI}}
+\index{CO\_RXCAN\_SDO\_CLI@{CO\_RXCAN\_SDO\_CLI}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_RXCAN\_SDO\_CLI}{CO\_RXCAN\_SDO\_CLI}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+C\+LI~(\mbox{\hyperlink{_c_a_nopen_8c_a10e8eed861983b6963b45a1789eb2d1d}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+S\+RV}}+\mbox{\hyperlink{_c_o___o_d_8h_ae05671a26d9dfe361478d5627b18b778}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+S\+E\+R\+V\+ER}})     /$\ast$  start index for S\+DO client message (response) $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a10e8eed861983b6963b45a1789eb2d1d}\label{_c_a_nopen_8c_a10e8eed861983b6963b45a1789eb2d1d}} 
+\index{CANopen.c@{CANopen.c}!CO\_RXCAN\_SDO\_SRV@{CO\_RXCAN\_SDO\_SRV}}
+\index{CO\_RXCAN\_SDO\_SRV@{CO\_RXCAN\_SDO\_SRV}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_RXCAN\_SDO\_SRV}{CO\_RXCAN\_SDO\_SRV}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+S\+RV~(\mbox{\hyperlink{_c_a_nopen_8c_acfac885c76c226ae8b7e2a9f7695cfaf}{C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+R\+P\+DO}}+\mbox{\hyperlink{_c_o___o_d_8h_a3fd70c7d577da632c62d4bccef1b410c}{C\+O\+\_\+\+N\+O\+\_\+\+R\+P\+DO}})              /$\ast$  start index for S\+DO server message (request) $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a0d629508641bf510a40db1cdcd2cd224}\label{_c_a_nopen_8c_a0d629508641bf510a40db1cdcd2cd224}} 
+\index{CANopen.c@{CANopen.c}!CO\_RXCAN\_SYNC@{CO\_RXCAN\_SYNC}}
+\index{CO\_RXCAN\_SYNC@{CO\_RXCAN\_SYNC}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_RXCAN\_SYNC}{CO\_RXCAN\_SYNC}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+R\+X\+C\+A\+N\+\_\+\+S\+Y\+NC~1                                      /$\ast$  index for S\+Y\+NC message $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_ad286e78eb83c7364c953832fa81269cf}\label{_c_a_nopen_8c_ad286e78eb83c7364c953832fa81269cf}} 
+\index{CANopen.c@{CANopen.c}!CO\_TXCAN\_EMERG@{CO\_TXCAN\_EMERG}}
+\index{CO\_TXCAN\_EMERG@{CO\_TXCAN\_EMERG}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_TXCAN\_EMERG}{CO\_TXCAN\_EMERG}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+E\+M\+E\+RG~(\mbox{\hyperlink{_c_a_nopen_8c_ae6a842eb138ff7ac84840c46193f48a1}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+Y\+NC}}+\mbox{\hyperlink{_c_o___o_d_8h_ad159c826e338044f521877f0a2cb3399}{C\+O\+\_\+\+N\+O\+\_\+\+S\+Y\+NC}})              /$\ast$  index for Emergency message $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a5c6c75ca926a29a2e333b73648e27af0}\label{_c_a_nopen_8c_a5c6c75ca926a29a2e333b73648e27af0}} 
+\index{CANopen.c@{CANopen.c}!CO\_TXCAN\_HB@{CO\_TXCAN\_HB}}
+\index{CO\_TXCAN\_HB@{CO\_TXCAN\_HB}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_TXCAN\_HB}{CO\_TXCAN\_HB}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+HB~(\mbox{\hyperlink{_c_a_nopen_8c_a7437c733cfec2ff78ea854708e3ad29b}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+C\+LI}}+\mbox{\hyperlink{_c_o___o_d_8h_a651a131f31175e56783b58bf1d881ef1}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+C\+L\+I\+E\+NT}})     /$\ast$  index for Heartbeat message $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a6bca686f6913b76720501c7a860f053f}\label{_c_a_nopen_8c_a6bca686f6913b76720501c7a860f053f}} 
+\index{CANopen.c@{CANopen.c}!CO\_TXCAN\_NMT@{CO\_TXCAN\_NMT}}
+\index{CO\_TXCAN\_NMT@{CO\_TXCAN\_NMT}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_TXCAN\_NMT}{CO\_TXCAN\_NMT}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+N\+MT~0                                      /$\ast$  index for N\+MT master message $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_ad727e172f62824c3d82433d66910abb4}\label{_c_a_nopen_8c_ad727e172f62824c3d82433d66910abb4}} 
+\index{CANopen.c@{CANopen.c}!CO\_TXCAN\_NO\_MSGS@{CO\_TXCAN\_NO\_MSGS}}
+\index{CO\_TXCAN\_NO\_MSGS@{CO\_TXCAN\_NO\_MSGS}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_TXCAN\_NO\_MSGS}{CO\_TXCAN\_NO\_MSGS}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+N\+O\+\_\+\+M\+S\+GS~(\mbox{\hyperlink{_c_o___o_d_8h_aef6601363164225dd214d9cba546f350}{C\+O\+\_\+\+N\+O\+\_\+\+N\+M\+T\+\_\+\+M\+A\+S\+T\+ER}}+\mbox{\hyperlink{_c_o___o_d_8h_ad159c826e338044f521877f0a2cb3399}{C\+O\+\_\+\+N\+O\+\_\+\+S\+Y\+NC}}+\mbox{\hyperlink{_c_o___o_d_8h_ac3798c40574463c36ba57b2332213608}{C\+O\+\_\+\+N\+O\+\_\+\+E\+M\+E\+R\+G\+E\+N\+CY}}+\mbox{\hyperlink{_c_o___o_d_8h_a48e2baafb4253c5d3d6882add81201fc}{C\+O\+\_\+\+N\+O\+\_\+\+T\+P\+DO}}+\mbox{\hyperlink{_c_o___o_d_8h_ae05671a26d9dfe361478d5627b18b778}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+S\+E\+R\+V\+ER}}+\mbox{\hyperlink{_c_o___o_d_8h_a651a131f31175e56783b58bf1d881ef1}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+C\+L\+I\+E\+NT}}+1)}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a7437c733cfec2ff78ea854708e3ad29b}\label{_c_a_nopen_8c_a7437c733cfec2ff78ea854708e3ad29b}} 
+\index{CANopen.c@{CANopen.c}!CO\_TXCAN\_SDO\_CLI@{CO\_TXCAN\_SDO\_CLI}}
+\index{CO\_TXCAN\_SDO\_CLI@{CO\_TXCAN\_SDO\_CLI}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_TXCAN\_SDO\_CLI}{CO\_TXCAN\_SDO\_CLI}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+C\+LI~(\mbox{\hyperlink{_c_a_nopen_8c_a21bb4f5f4794be06c2009254f8e8c928}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+S\+RV}}+\mbox{\hyperlink{_c_o___o_d_8h_ae05671a26d9dfe361478d5627b18b778}{C\+O\+\_\+\+N\+O\+\_\+\+S\+D\+O\+\_\+\+S\+E\+R\+V\+ER}})     /$\ast$  start index for S\+DO client message (request) $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a21bb4f5f4794be06c2009254f8e8c928}\label{_c_a_nopen_8c_a21bb4f5f4794be06c2009254f8e8c928}} 
+\index{CANopen.c@{CANopen.c}!CO\_TXCAN\_SDO\_SRV@{CO\_TXCAN\_SDO\_SRV}}
+\index{CO\_TXCAN\_SDO\_SRV@{CO\_TXCAN\_SDO\_SRV}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_TXCAN\_SDO\_SRV}{CO\_TXCAN\_SDO\_SRV}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+D\+O\+\_\+\+S\+RV~(\mbox{\hyperlink{_c_a_nopen_8c_a1eb14cb08e7e68e01ee0a4bd7a76e43b}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+T\+P\+DO}}+\mbox{\hyperlink{_c_o___o_d_8h_a48e2baafb4253c5d3d6882add81201fc}{C\+O\+\_\+\+N\+O\+\_\+\+T\+P\+DO}})              /$\ast$  start index for S\+DO server message (response) $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_ae6a842eb138ff7ac84840c46193f48a1}\label{_c_a_nopen_8c_ae6a842eb138ff7ac84840c46193f48a1}} 
+\index{CANopen.c@{CANopen.c}!CO\_TXCAN\_SYNC@{CO\_TXCAN\_SYNC}}
+\index{CO\_TXCAN\_SYNC@{CO\_TXCAN\_SYNC}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_TXCAN\_SYNC}{CO\_TXCAN\_SYNC}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+S\+Y\+NC~\mbox{\hyperlink{_c_a_nopen_8c_a6bca686f6913b76720501c7a860f053f}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+N\+MT}}+\mbox{\hyperlink{_c_o___o_d_8h_aef6601363164225dd214d9cba546f350}{C\+O\+\_\+\+N\+O\+\_\+\+N\+M\+T\+\_\+\+M\+A\+S\+T\+ER}}          /$\ast$  index for S\+Y\+NC message $\ast$/}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a1eb14cb08e7e68e01ee0a4bd7a76e43b}\label{_c_a_nopen_8c_a1eb14cb08e7e68e01ee0a4bd7a76e43b}} 
+\index{CANopen.c@{CANopen.c}!CO\_TXCAN\_TPDO@{CO\_TXCAN\_TPDO}}
+\index{CO\_TXCAN\_TPDO@{CO\_TXCAN\_TPDO}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_TXCAN\_TPDO}{CO\_TXCAN\_TPDO}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+T\+P\+DO~(\mbox{\hyperlink{_c_a_nopen_8c_ad286e78eb83c7364c953832fa81269cf}{C\+O\+\_\+\+T\+X\+C\+A\+N\+\_\+\+E\+M\+E\+RG}}+\mbox{\hyperlink{_c_o___o_d_8h_ac3798c40574463c36ba57b2332213608}{C\+O\+\_\+\+N\+O\+\_\+\+E\+M\+E\+R\+G\+E\+N\+CY}})        /$\ast$  start index for T\+P\+DO messages $\ast$/}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_c_a_nopen_8c_ac8ff0fb50b4eb798dbcc26fb30cae5b2}\label{_c_a_nopen_8c_ac8ff0fb50b4eb798dbcc26fb30cae5b2}} 
+\index{CANopen.c@{CANopen.c}!CO\_CANmodule\_rxArray0@{CO\_CANmodule\_rxArray0}}
+\index{CO\_CANmodule\_rxArray0@{CO\_CANmodule\_rxArray0}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_CANmodule\_rxArray0}{CO\_CANmodule\_rxArray0}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___c_a_nrx__t}{C\+O\+\_\+\+C\+A\+Nrx\+\_\+t}}$\ast$ C\+O\+\_\+\+C\+A\+Nmodule\+\_\+rx\+Array0\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_afb4c4c04845ed282a2d125d0390710a2}\label{_c_a_nopen_8c_afb4c4c04845ed282a2d125d0390710a2}} 
+\index{CANopen.c@{CANopen.c}!CO\_CANmodule\_txArray0@{CO\_CANmodule\_txArray0}}
+\index{CO\_CANmodule\_txArray0@{CO\_CANmodule\_txArray0}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_CANmodule\_txArray0}{CO\_CANmodule\_txArray0}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}}$\ast$ C\+O\+\_\+\+C\+A\+Nmodule\+\_\+tx\+Array0\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_ac371e1ff468aa2de55ffd4fb6b4ae619}\label{_c_a_nopen_8c_ac371e1ff468aa2de55ffd4fb6b4ae619}} 
+\index{CANopen.c@{CANopen.c}!CO\_HBcons\_monitoredNodes@{CO\_HBcons\_monitoredNodes}}
+\index{CO\_HBcons\_monitoredNodes@{CO\_HBcons\_monitoredNodes}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_HBcons\_monitoredNodes}{CO\_HBcons\_monitoredNodes}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___h_bcons_node__t}{C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t}}$\ast$ C\+O\+\_\+\+H\+Bcons\+\_\+monitored\+Nodes\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a4d8d35ade378f44c9da0cc0d5e56844f}\label{_c_a_nopen_8c_a4d8d35ade378f44c9da0cc0d5e56844f}} 
+\index{CANopen.c@{CANopen.c}!CO\_memoryUsed@{CO\_memoryUsed}}
+\index{CO\_memoryUsed@{CO\_memoryUsed}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_memoryUsed}{CO\_memoryUsed}}
+{\footnotesize\ttfamily uint32\+\_\+t C\+O\+\_\+memory\+Used = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a27b6662ea2ca9004ffa9ae5b4718fb90}\label{_c_a_nopen_8c_a27b6662ea2ca9004ffa9ae5b4718fb90}} 
+\index{CANopen.c@{CANopen.c}!CO\_OD@{CO\_OD}}
+\index{CO\_OD@{CO\_OD}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_OD}{CO\_OD}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{struct_c_o___o_d__entry__t}{C\+O\+\_\+\+O\+D\+\_\+entry\+\_\+t}} C\+O\+\_\+\+OD\mbox{[}\mbox{\hyperlink{_c_o___o_d_8h_acf3c8deb87d3bc33ea86632959ec936d}{C\+O\+\_\+\+O\+D\+\_\+\+No\+Of\+Elements}}\mbox{]}}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a2333064a1265f72fe53bd55618a45f92}\label{_c_a_nopen_8c_a2333064a1265f72fe53bd55618a45f92}} 
+\index{CANopen.c@{CANopen.c}!CO\_SDO\_ODExtensions@{CO\_SDO\_ODExtensions}}
+\index{CO\_SDO\_ODExtensions@{CO\_SDO\_ODExtensions}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{CO\_SDO\_ODExtensions}{CO\_SDO\_ODExtensions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___o_d__extension__t}{C\+O\+\_\+\+O\+D\+\_\+extension\+\_\+t}}$\ast$ C\+O\+\_\+\+S\+D\+O\+\_\+\+O\+D\+Extensions\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{_c_a_nopen_8c_a0860f722faca6adf9ffe29454acea1f1}\label{_c_a_nopen_8c_a0860f722faca6adf9ffe29454acea1f1}} 
+\index{CANopen.c@{CANopen.c}!COO@{COO}}
+\index{COO@{COO}!CANopen.c@{CANopen.c}}
+\doxysubsubsection{\texorpdfstring{COO}{COO}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o__t}{C\+O\+\_\+t}} C\+OO\hspace{0.3cm}{\ttfamily [static]}}
+

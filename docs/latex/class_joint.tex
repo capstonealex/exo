@@ -1,0 +1,337 @@
+\hypertarget{class_joint}{}\doxysection{Joint Class Reference}
+\label{class_joint}\index{Joint@{Joint}}
+
+
+{\ttfamily \#include $<$Joint.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_joint_a79a7a4715b2166714e039d7c7c5ea3b4}{Joint}} ()
+\item 
+\mbox{\hyperlink{class_joint_ac9e9b4c5d91e0d5ec9b9fb9a8321a8aa}{Joint}} (double q\+\_\+init, int ID)
+\item 
+void \mbox{\hyperlink{class_joint_a0cddea9a5fd3d5544ad3971cfa78c179}{set\+Id}} (int ID)
+\item 
+int \mbox{\hyperlink{class_joint_af137ef4cbae04591b2c8d1a194df8482}{get\+Id}} ()
+\item 
+void \mbox{\hyperlink{class_joint_aecc9b8ac6e84d117bb93ec09db3e2e26}{apply\+Pos}} (long \mbox{\hyperlink{class_joint_a221b44871ed16cf640c77a2c945ee236}{qd}})
+\item 
+void \mbox{\hyperlink{class_joint_a79522608968fa98edfd93079a95172fe}{apply\+Pos\+Deg}} (double \mbox{\hyperlink{class_joint_a221b44871ed16cf640c77a2c945ee236}{qd}})
+\item 
+void \mbox{\hyperlink{class_joint_a33ef77cad88f2af54421d65af2b8ba2c}{apply\+Vel}} (long dqd)
+\item 
+void \mbox{\hyperlink{class_joint_a1b8102e0e9521b7c29cdac5c231bf884}{disable}} ()
+\item 
+void \mbox{\hyperlink{class_joint_abc321d78916ca3c41f818b0ac1f87495}{ready\+To\+Switch\+On}} ()
+\item 
+void \mbox{\hyperlink{class_joint_a962cfbf2e7da893d4a3cf51de8d545b2}{enable}} ()
+\item 
+int \mbox{\hyperlink{class_joint_a5c94a17c718887d82759202ba79368b4}{get\+Pos}} ()
+\item 
+double \mbox{\hyperlink{class_joint_a5a1eb001fd651a0fae31355fafb53d61}{get\+Pos\+Deg}} ()
+\item 
+double \mbox{\hyperlink{class_joint_aa9bd0339443b61a25fd495e13a4cf5c6}{get\+Des\+Pos\+Deg}} ()
+\item 
+void \mbox{\hyperlink{class_joint_aa81356c3eb3d4e9b86f61416b872b400}{print\+Info}} ()
+\item 
+void \mbox{\hyperlink{class_joint_a3934df0bcbe2da490c4011f613790043}{update\+Joint}} ()
+\item 
+void \mbox{\hyperlink{class_joint_a10bdcb5424bcb0fdfcc5fe36fc64a100}{test\+Write}} ()
+\item 
+bool \mbox{\hyperlink{class_joint_a4482e2b220a643031d3f22ee99035d93}{bitflip\+High}} ()
+\item 
+bool \mbox{\hyperlink{class_joint_a9f7bea55ec860e9a1157bc665c0213e4}{bitflip\+Low}} ()
+\item 
+int \mbox{\hyperlink{class_joint_a4d4fa86dd4dfa65b681ecc82b6dfe3c8}{get\+Status}} ()
+\item 
+int \mbox{\hyperlink{class_joint_ae45b5b5ae9b7200201f8e61c85c3934d}{get\+Actual\+Torque}} ()
+\item 
+int \mbox{\hyperlink{class_joint_ab5d645f6bd68f5ff4d1978b584cf7609}{get\+Bit\+Flip\+State}} ()
+\item 
+void \mbox{\hyperlink{class_joint_ac2fda20853c90cf8bfff87f92ef8a4ab}{set\+Bit\+Flip\+State}} (int bit)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+long \mbox{\hyperlink{class_joint_a809eac7bc99b85edb16329ca5cd15d06}{trajectories}} \mbox{[}4\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_joint_a0cfc33c1db79938c982fa4887e9fa998}{set\+Pos}} (long \mbox{\hyperlink{class_joint_a221b44871ed16cf640c77a2c945ee236}{qd}})
+\item 
+void \mbox{\hyperlink{class_joint_acd47e886291094ddbf7fa3f15a9a4f2c}{set\+Vel}} (long dqd)
+\item 
+void \mbox{\hyperlink{class_joint_a103b546f6762db8de402c5ef8ebb730f}{motor\+Pos\+Converter}} (double orig\+Deg, long $\ast$new\+Motor\+Cmnd, int nodeid)
+\item 
+double \mbox{\hyperlink{class_joint_a7bb032772128a5627d0d82e3a66e65a8}{motor\+Pos\+To\+Deg\+Converter}} (long motor\+Cmd\+Angle, int nodeid)
+\item 
+void \mbox{\hyperlink{class_joint_ae15799de483d37819b425e55dc9799fc}{calc\+AB}} (long y1, long x1, long y2, long x2, double $\ast$\mbox{\hyperlink{spline_8cpp_a955f504eccf76b4eb2489c0adab03121}{A}}, double $\ast$\mbox{\hyperlink{spline_8cpp_a111da81ae5883147168bbb8366377b10}{B}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_joint_ae69e656935b6abbb13eeafe13fc9eb9f}{id}}
+\item 
+double \mbox{\hyperlink{class_joint_a7753e7d9fc7e167eae3b36d280f33c04}{q}}
+\item 
+double \mbox{\hyperlink{class_joint_a221b44871ed16cf640c77a2c945ee236}{qd}}
+\item 
+long \mbox{\hyperlink{class_joint_a641f8ab270de1a108d2c282be73f6c63}{maxq}}
+\item 
+long \mbox{\hyperlink{class_joint_a7a09dfc8f4de580942cef4abeeca2c0f}{minq}}
+\item 
+long \mbox{\hyperlink{class_joint_ad44b0fab57aca0a1d0c8d1a64f034198}{maxdq}}
+\item 
+long \mbox{\hyperlink{class_joint_ac41cc24526fa98359f121584bd629b49}{mindq}}
+\item 
+double \mbox{\hyperlink{class_joint_ad726422b8cda124ed3e1a22f4d490989}{converterA}}
+\item 
+double \mbox{\hyperlink{class_joint_adf3d633e0186484bd60e4736efd0b13a}{converterB}}
+\item 
+int \mbox{\hyperlink{class_joint_a8ccbd16f7084e493d02b86da5691306e}{bit\+Flip\+State}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_joint_a79a7a4715b2166714e039d7c7c5ea3b4}\label{class_joint_a79a7a4715b2166714e039d7c7c5ea3b4}} 
+\index{Joint@{Joint}!Joint@{Joint}}
+\index{Joint@{Joint}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{Joint()}{Joint()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Joint\+::\+Joint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_ac9e9b4c5d91e0d5ec9b9fb9a8321a8aa}\label{class_joint_ac9e9b4c5d91e0d5ec9b9fb9a8321a8aa}} 
+\index{Joint@{Joint}!Joint@{Joint}}
+\index{Joint@{Joint}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{Joint()}{Joint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Joint\+::\+Joint (\begin{DoxyParamCaption}\item[{double}]{q\+\_\+init,  }\item[{int}]{ID }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_joint_aecc9b8ac6e84d117bb93ec09db3e2e26}\label{class_joint_aecc9b8ac6e84d117bb93ec09db3e2e26}} 
+\index{Joint@{Joint}!applyPos@{applyPos}}
+\index{applyPos@{applyPos}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{applyPos()}{applyPos()}}
+{\footnotesize\ttfamily void Joint\+::apply\+Pos (\begin{DoxyParamCaption}\item[{long}]{qd }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a79522608968fa98edfd93079a95172fe}\label{class_joint_a79522608968fa98edfd93079a95172fe}} 
+\index{Joint@{Joint}!applyPosDeg@{applyPosDeg}}
+\index{applyPosDeg@{applyPosDeg}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{applyPosDeg()}{applyPosDeg()}}
+{\footnotesize\ttfamily void Joint\+::apply\+Pos\+Deg (\begin{DoxyParamCaption}\item[{double}]{qd }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a33ef77cad88f2af54421d65af2b8ba2c}\label{class_joint_a33ef77cad88f2af54421d65af2b8ba2c}} 
+\index{Joint@{Joint}!applyVel@{applyVel}}
+\index{applyVel@{applyVel}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{applyVel()}{applyVel()}}
+{\footnotesize\ttfamily void Joint\+::apply\+Vel (\begin{DoxyParamCaption}\item[{long}]{dqd }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a4482e2b220a643031d3f22ee99035d93}\label{class_joint_a4482e2b220a643031d3f22ee99035d93}} 
+\index{Joint@{Joint}!bitflipHigh@{bitflipHigh}}
+\index{bitflipHigh@{bitflipHigh}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{bitflipHigh()}{bitflipHigh()}}
+{\footnotesize\ttfamily bool Joint\+::bitflip\+High (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a9f7bea55ec860e9a1157bc665c0213e4}\label{class_joint_a9f7bea55ec860e9a1157bc665c0213e4}} 
+\index{Joint@{Joint}!bitflipLow@{bitflipLow}}
+\index{bitflipLow@{bitflipLow}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{bitflipLow()}{bitflipLow()}}
+{\footnotesize\ttfamily bool Joint\+::bitflip\+Low (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_ae15799de483d37819b425e55dc9799fc}\label{class_joint_ae15799de483d37819b425e55dc9799fc}} 
+\index{Joint@{Joint}!calcAB@{calcAB}}
+\index{calcAB@{calcAB}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{calcAB()}{calcAB()}}
+{\footnotesize\ttfamily void Joint\+::calc\+AB (\begin{DoxyParamCaption}\item[{long}]{y1,  }\item[{long}]{x1,  }\item[{long}]{y2,  }\item[{long}]{x2,  }\item[{double $\ast$}]{A,  }\item[{double $\ast$}]{B }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_a1b8102e0e9521b7c29cdac5c231bf884}\label{class_joint_a1b8102e0e9521b7c29cdac5c231bf884}} 
+\index{Joint@{Joint}!disable@{disable}}
+\index{disable@{disable}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{disable()}{disable()}}
+{\footnotesize\ttfamily void Joint\+::disable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a962cfbf2e7da893d4a3cf51de8d545b2}\label{class_joint_a962cfbf2e7da893d4a3cf51de8d545b2}} 
+\index{Joint@{Joint}!enable@{enable}}
+\index{enable@{enable}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{enable()}{enable()}}
+{\footnotesize\ttfamily void Joint\+::enable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_ae45b5b5ae9b7200201f8e61c85c3934d}\label{class_joint_ae45b5b5ae9b7200201f8e61c85c3934d}} 
+\index{Joint@{Joint}!getActualTorque@{getActualTorque}}
+\index{getActualTorque@{getActualTorque}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{getActualTorque()}{getActualTorque()}}
+{\footnotesize\ttfamily int Joint\+::get\+Actual\+Torque (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_ab5d645f6bd68f5ff4d1978b584cf7609}\label{class_joint_ab5d645f6bd68f5ff4d1978b584cf7609}} 
+\index{Joint@{Joint}!getBitFlipState@{getBitFlipState}}
+\index{getBitFlipState@{getBitFlipState}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{getBitFlipState()}{getBitFlipState()}}
+{\footnotesize\ttfamily int Joint\+::get\+Bit\+Flip\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_aa9bd0339443b61a25fd495e13a4cf5c6}\label{class_joint_aa9bd0339443b61a25fd495e13a4cf5c6}} 
+\index{Joint@{Joint}!getDesPosDeg@{getDesPosDeg}}
+\index{getDesPosDeg@{getDesPosDeg}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{getDesPosDeg()}{getDesPosDeg()}}
+{\footnotesize\ttfamily double Joint\+::get\+Des\+Pos\+Deg (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_af137ef4cbae04591b2c8d1a194df8482}\label{class_joint_af137ef4cbae04591b2c8d1a194df8482}} 
+\index{Joint@{Joint}!getId@{getId}}
+\index{getId@{getId}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily int Joint\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a5c94a17c718887d82759202ba79368b4}\label{class_joint_a5c94a17c718887d82759202ba79368b4}} 
+\index{Joint@{Joint}!getPos@{getPos}}
+\index{getPos@{getPos}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{getPos()}{getPos()}}
+{\footnotesize\ttfamily int Joint\+::get\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a5a1eb001fd651a0fae31355fafb53d61}\label{class_joint_a5a1eb001fd651a0fae31355fafb53d61}} 
+\index{Joint@{Joint}!getPosDeg@{getPosDeg}}
+\index{getPosDeg@{getPosDeg}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{getPosDeg()}{getPosDeg()}}
+{\footnotesize\ttfamily double Joint\+::get\+Pos\+Deg (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a4d4fa86dd4dfa65b681ecc82b6dfe3c8}\label{class_joint_a4d4fa86dd4dfa65b681ecc82b6dfe3c8}} 
+\index{Joint@{Joint}!getStatus@{getStatus}}
+\index{getStatus@{getStatus}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{getStatus()}{getStatus()}}
+{\footnotesize\ttfamily int Joint\+::get\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a103b546f6762db8de402c5ef8ebb730f}\label{class_joint_a103b546f6762db8de402c5ef8ebb730f}} 
+\index{Joint@{Joint}!motorPosConverter@{motorPosConverter}}
+\index{motorPosConverter@{motorPosConverter}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{motorPosConverter()}{motorPosConverter()}}
+{\footnotesize\ttfamily void Joint\+::motor\+Pos\+Converter (\begin{DoxyParamCaption}\item[{double}]{orig\+Deg,  }\item[{long $\ast$}]{new\+Motor\+Cmnd,  }\item[{int}]{nodeid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_a7bb032772128a5627d0d82e3a66e65a8}\label{class_joint_a7bb032772128a5627d0d82e3a66e65a8}} 
+\index{Joint@{Joint}!motorPosToDegConverter@{motorPosToDegConverter}}
+\index{motorPosToDegConverter@{motorPosToDegConverter}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{motorPosToDegConverter()}{motorPosToDegConverter()}}
+{\footnotesize\ttfamily double Joint\+::motor\+Pos\+To\+Deg\+Converter (\begin{DoxyParamCaption}\item[{long}]{motor\+Cmd\+Angle,  }\item[{int}]{nodeid }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_aa81356c3eb3d4e9b86f61416b872b400}\label{class_joint_aa81356c3eb3d4e9b86f61416b872b400}} 
+\index{Joint@{Joint}!printInfo@{printInfo}}
+\index{printInfo@{printInfo}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{printInfo()}{printInfo()}}
+{\footnotesize\ttfamily void Joint\+::print\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_abc321d78916ca3c41f818b0ac1f87495}\label{class_joint_abc321d78916ca3c41f818b0ac1f87495}} 
+\index{Joint@{Joint}!readyToSwitchOn@{readyToSwitchOn}}
+\index{readyToSwitchOn@{readyToSwitchOn}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{readyToSwitchOn()}{readyToSwitchOn()}}
+{\footnotesize\ttfamily void Joint\+::ready\+To\+Switch\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_ac2fda20853c90cf8bfff87f92ef8a4ab}\label{class_joint_ac2fda20853c90cf8bfff87f92ef8a4ab}} 
+\index{Joint@{Joint}!setBitFlipState@{setBitFlipState}}
+\index{setBitFlipState@{setBitFlipState}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{setBitFlipState()}{setBitFlipState()}}
+{\footnotesize\ttfamily void Joint\+::set\+Bit\+Flip\+State (\begin{DoxyParamCaption}\item[{int}]{bit }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a0cddea9a5fd3d5544ad3971cfa78c179}\label{class_joint_a0cddea9a5fd3d5544ad3971cfa78c179}} 
+\index{Joint@{Joint}!setId@{setId}}
+\index{setId@{setId}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{setId()}{setId()}}
+{\footnotesize\ttfamily void Joint\+::set\+Id (\begin{DoxyParamCaption}\item[{int}]{ID }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a0cfc33c1db79938c982fa4887e9fa998}\label{class_joint_a0cfc33c1db79938c982fa4887e9fa998}} 
+\index{Joint@{Joint}!setPos@{setPos}}
+\index{setPos@{setPos}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{setPos()}{setPos()}}
+{\footnotesize\ttfamily void Joint\+::set\+Pos (\begin{DoxyParamCaption}\item[{long}]{qd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_acd47e886291094ddbf7fa3f15a9a4f2c}\label{class_joint_acd47e886291094ddbf7fa3f15a9a4f2c}} 
+\index{Joint@{Joint}!setVel@{setVel}}
+\index{setVel@{setVel}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{setVel()}{setVel()}}
+{\footnotesize\ttfamily void Joint\+::set\+Vel (\begin{DoxyParamCaption}\item[{long}]{dqd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_a10bdcb5424bcb0fdfcc5fe36fc64a100}\label{class_joint_a10bdcb5424bcb0fdfcc5fe36fc64a100}} 
+\index{Joint@{Joint}!testWrite@{testWrite}}
+\index{testWrite@{testWrite}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{testWrite()}{testWrite()}}
+{\footnotesize\ttfamily void Joint\+::test\+Write (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_joint_a3934df0bcbe2da490c4011f613790043}\label{class_joint_a3934df0bcbe2da490c4011f613790043}} 
+\index{Joint@{Joint}!updateJoint@{updateJoint}}
+\index{updateJoint@{updateJoint}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{updateJoint()}{updateJoint()}}
+{\footnotesize\ttfamily void Joint\+::update\+Joint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Update current joint position from object dictionary This should be internally mapped from object dictionary
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_joint_a8ccbd16f7084e493d02b86da5691306e}\label{class_joint_a8ccbd16f7084e493d02b86da5691306e}} 
+\index{Joint@{Joint}!bitFlipState@{bitFlipState}}
+\index{bitFlipState@{bitFlipState}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{bitFlipState}{bitFlipState}}
+{\footnotesize\ttfamily int Joint\+::bit\+Flip\+State\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_ad726422b8cda124ed3e1a22f4d490989}\label{class_joint_ad726422b8cda124ed3e1a22f4d490989}} 
+\index{Joint@{Joint}!converterA@{converterA}}
+\index{converterA@{converterA}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{converterA}{converterA}}
+{\footnotesize\ttfamily double Joint\+::converterA\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_adf3d633e0186484bd60e4736efd0b13a}\label{class_joint_adf3d633e0186484bd60e4736efd0b13a}} 
+\index{Joint@{Joint}!converterB@{converterB}}
+\index{converterB@{converterB}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{converterB}{converterB}}
+{\footnotesize\ttfamily double Joint\+::converterB\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_ae69e656935b6abbb13eeafe13fc9eb9f}\label{class_joint_ae69e656935b6abbb13eeafe13fc9eb9f}} 
+\index{Joint@{Joint}!id@{id}}
+\index{id@{id}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily int Joint\+::id\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_ad44b0fab57aca0a1d0c8d1a64f034198}\label{class_joint_ad44b0fab57aca0a1d0c8d1a64f034198}} 
+\index{Joint@{Joint}!maxdq@{maxdq}}
+\index{maxdq@{maxdq}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{maxdq}{maxdq}}
+{\footnotesize\ttfamily long Joint\+::maxdq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_a641f8ab270de1a108d2c282be73f6c63}\label{class_joint_a641f8ab270de1a108d2c282be73f6c63}} 
+\index{Joint@{Joint}!maxq@{maxq}}
+\index{maxq@{maxq}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{maxq}{maxq}}
+{\footnotesize\ttfamily long Joint\+::maxq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_ac41cc24526fa98359f121584bd629b49}\label{class_joint_ac41cc24526fa98359f121584bd629b49}} 
+\index{Joint@{Joint}!mindq@{mindq}}
+\index{mindq@{mindq}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{mindq}{mindq}}
+{\footnotesize\ttfamily long Joint\+::mindq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_a7a09dfc8f4de580942cef4abeeca2c0f}\label{class_joint_a7a09dfc8f4de580942cef4abeeca2c0f}} 
+\index{Joint@{Joint}!minq@{minq}}
+\index{minq@{minq}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{minq}{minq}}
+{\footnotesize\ttfamily long Joint\+::minq\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_a7753e7d9fc7e167eae3b36d280f33c04}\label{class_joint_a7753e7d9fc7e167eae3b36d280f33c04}} 
+\index{Joint@{Joint}!q@{q}}
+\index{q@{q}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{q}{q}}
+{\footnotesize\ttfamily double Joint\+::q\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_a221b44871ed16cf640c77a2c945ee236}\label{class_joint_a221b44871ed16cf640c77a2c945ee236}} 
+\index{Joint@{Joint}!qd@{qd}}
+\index{qd@{qd}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{qd}{qd}}
+{\footnotesize\ttfamily double Joint\+::qd\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_joint_a809eac7bc99b85edb16329ca5cd15d06}\label{class_joint_a809eac7bc99b85edb16329ca5cd15d06}} 
+\index{Joint@{Joint}!trajectories@{trajectories}}
+\index{trajectories@{trajectories}!Joint@{Joint}}
+\doxysubsubsection{\texorpdfstring{trajectories}{trajectories}}
+{\footnotesize\ttfamily long Joint\+::trajectories\mbox{[}4\mbox{]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/robot/\mbox{\hyperlink{_joint_8h}{Joint.\+h}}\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/robot/\mbox{\hyperlink{_joint_8cpp}{Joint.\+cpp}}\end{DoxyCompactItemize}

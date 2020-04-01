@@ -1,0 +1,99 @@
+\hypertarget{_c_o__command_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+O\+\_\+command.h File Reference}
+\label{_c_o__command_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CO\_command.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CO\_command.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_c_o__command_8h_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}} (char $\ast$msg)
+\item 
+void \mbox{\hyperlink{_c_o__command_8h_a9cd63cee5c593a28f28039df39d98d76}{C\+O\+\_\+error}} (const uint32\+\_\+t info)
+\item 
+int \mbox{\hyperlink{_c_o__command_8h_a2b0f8a8674ff9743cb8cbc2d5416cfba}{C\+O\+\_\+command\+\_\+init}} (void)
+\item 
+int \mbox{\hyperlink{_c_o__command_8h_a88a06cd99e058822e86d50adb16a7ec0}{C\+O\+\_\+command\+\_\+clear}} (void)
+\item 
+void \mbox{\hyperlink{_c_o__command_8h_a15cb78e8fd966264e7055daa65b9e6f2}{cancomm\+\_\+socket\+Free}} (char $\ast$command, char $\ast$\mbox{\hyperlink{application_8cpp_adcefcdf2709214f58a40ed80e1b7f80a}{ret}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{_c_o__command_8h_a47675069c3b188d1913063843c2f1b07}{C\+O\+\_\+command\+\_\+socket\+Path}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Command interface for C\+A\+Nopen\+Socket.
+
+\begin{DoxyAuthor}{Author}
+Janez Paternoster 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+2015 Janez Paternoster
+\end{DoxyCopyright}
+This file is part of C\+A\+Nopen\+Socket, a Linux implementation of C\+A\+Nopen stack with master functionality. Project home page is \href{https://github.com/CANopenNode/CANopenSocket}{\texttt{ https\+://github.\+com/\+C\+A\+Nopen\+Node/\+C\+A\+Nopen\+Socket}}. C\+A\+Nopen\+Socket is based on C\+A\+Nopen\+Node\+: \href{https://github.com/CANopenNode/CANopenNode}{\texttt{ https\+://github.\+com/\+C\+A\+Nopen\+Node/\+C\+A\+Nopen\+Node}}.
+
+C\+A\+Nopen\+Socket is free and open source software\+: you can redistribute it and/or modify it under the terms of the G\+NU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but W\+I\+T\+H\+O\+UT A\+NY W\+A\+R\+R\+A\+N\+TY; without even the implied warranty of M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY or F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE. See the G\+NU General Public License for more details.
+
+You should have received a copy of the G\+NU General Public License along with this program. If not, see \href{http://www.gnu.org/licenses/}{\texttt{ http\+://www.\+gnu.\+org/licenses/}}. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_o__command_8h_a15cb78e8fd966264e7055daa65b9e6f2}\label{_c_o__command_8h_a15cb78e8fd966264e7055daa65b9e6f2}} 
+\index{CO\_command.h@{CO\_command.h}!cancomm\_socketFree@{cancomm\_socketFree}}
+\index{cancomm\_socketFree@{cancomm\_socketFree}!CO\_command.h@{CO\_command.h}}
+\doxysubsubsection{\texorpdfstring{cancomm\_socketFree()}{cancomm\_socketFree()}}
+{\footnotesize\ttfamily void cancomm\+\_\+socket\+Free (\begin{DoxyParamCaption}\item[{char $\ast$}]{command,  }\item[{char $\ast$}]{ret }\end{DoxyParamCaption})}
+
+Allow main thread to send S\+DO messages to nodes
+
+\begin{DoxyReturn}{Returns}
+message recieved on success 
+
+error on failure 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__command_8h_a88a06cd99e058822e86d50adb16a7ec0}\label{_c_o__command_8h_a88a06cd99e058822e86d50adb16a7ec0}} 
+\index{CO\_command.h@{CO\_command.h}!CO\_command\_clear@{CO\_command\_clear}}
+\index{CO\_command\_clear@{CO\_command\_clear}!CO\_command.h@{CO\_command.h}}
+\doxysubsubsection{\texorpdfstring{CO\_command\_clear()}{CO\_command\_clear()}}
+{\footnotesize\ttfamily int C\+O\+\_\+command\+\_\+clear (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Terminate thread and remove socket.
+
+\begin{DoxyReturn}{Returns}
+0 on success. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__command_8h_a2b0f8a8674ff9743cb8cbc2d5416cfba}\label{_c_o__command_8h_a2b0f8a8674ff9743cb8cbc2d5416cfba}} 
+\index{CO\_command.h@{CO\_command.h}!CO\_command\_init@{CO\_command\_init}}
+\index{CO\_command\_init@{CO\_command\_init}!CO\_command.h@{CO\_command.h}}
+\doxysubsubsection{\texorpdfstring{CO\_command\_init()}{CO\_command\_init()}}
+{\footnotesize\ttfamily int C\+O\+\_\+command\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Initialize thread and create socket for command interface.
+
+Make sure, that global variable CO was properly initialized before this call.
+
+\begin{DoxyReturn}{Returns}
+0 on success. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__command_8h_ad845fb3ac65c2f2604b99e7ad4e919e9}\label{_c_o__command_8h_ad845fb3ac65c2f2604b99e7ad4e919e9}} 
+\index{CO\_command.h@{CO\_command.h}!CO\_errExit@{CO\_errExit}}
+\index{CO\_errExit@{CO\_errExit}!CO\_command.h@{CO\_command.h}}
+\doxysubsubsection{\texorpdfstring{CO\_errExit()}{CO\_errExit()}}
+{\footnotesize\ttfamily void C\+O\+\_\+err\+Exit (\begin{DoxyParamCaption}\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__command_8h_a9cd63cee5c593a28f28039df39d98d76}\label{_c_o__command_8h_a9cd63cee5c593a28f28039df39d98d76}} 
+\index{CO\_command.h@{CO\_command.h}!CO\_error@{CO\_error}}
+\index{CO\_error@{CO\_error}!CO\_command.h@{CO\_command.h}}
+\doxysubsubsection{\texorpdfstring{CO\_error()}{CO\_error()}}
+{\footnotesize\ttfamily void C\+O\+\_\+error (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t}]{info }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_c_o__command_8h_a47675069c3b188d1913063843c2f1b07}\label{_c_o__command_8h_a47675069c3b188d1913063843c2f1b07}} 
+\index{CO\_command.h@{CO\_command.h}!CO\_command\_socketPath@{CO\_command\_socketPath}}
+\index{CO\_command\_socketPath@{CO\_command\_socketPath}!CO\_command.h@{CO\_command.h}}
+\doxysubsubsection{\texorpdfstring{CO\_command\_socketPath}{CO\_command\_socketPath}}
+{\footnotesize\ttfamily char$\ast$ C\+O\+\_\+command\+\_\+socket\+Path}
+
+Path for local type socket. External process can access command interface over this socket. By default its path is \char`\"{}/tmp/\+C\+O\+\_\+command\+\_\+socket\char`\"{}. 

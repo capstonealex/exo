@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['seconds_7060',['seconds',['../structinternal_1_1chrono__formatter.html#ad45e80d4cf0805176cc980f93f99e95e',1,'internal::chrono_formatter']]],
+  ['sign_5ft_7061',['sign_t',['../format_8h.html#ad65908bd5d03f057bd2009ce3f40f9f3',1,'format.h']]],
+  ['significand_5ftype_7062',['significand_type',['../classinternal_1_1fp.html#a7964446f290bef425a928f9586ee54c9',1,'internal::fp']]],
+  ['sink_5fptr_7063',['sink_ptr',['../namespacespdlog.html#a422c57d3088160b517e5a74e5f318253',1,'spdlog']]],
+  ['sinks_5finit_5flist_7064',['sinks_init_list',['../namespacespdlog.html#aa9b5c2298bf713fbe02b7e538d797ecd',1,'spdlog']]],
+  ['size_5ftype_7065',['size_type',['../classbasic__format__args.html#a7569a8c7f913b1f906619701ab3150e6',1,'basic_format_args']]],
+  ['stderr_5fcolor_5fsink_5fmt_7066',['stderr_color_sink_mt',['../namespacespdlog_1_1sinks.html#a58091bb55dd96f7e29ccc044338c054c',1,'spdlog::sinks']]],
+  ['stderr_5fcolor_5fsink_5fst_7067',['stderr_color_sink_st',['../namespacespdlog_1_1sinks.html#adf8d38fe4201bc8f4b5255c4fbea7aae',1,'spdlog::sinks']]],
+  ['stderr_5fsink_5fmt_7068',['stderr_sink_mt',['../namespacespdlog_1_1sinks.html#a877d0ce947ec8a9b9caf999f8e4fc776',1,'spdlog::sinks']]],
+  ['stderr_5fsink_5fst_7069',['stderr_sink_st',['../namespacespdlog_1_1sinks.html#ab75c756c0986b87c03fbad5d41ec9a23',1,'spdlog::sinks']]],
+  ['stdout_5fcolor_5fsink_5fmt_7070',['stdout_color_sink_mt',['../namespacespdlog_1_1sinks.html#af5b53d274a7f3e3528ef994035cc7204',1,'spdlog::sinks']]],
+  ['stdout_5fcolor_5fsink_5fst_7071',['stdout_color_sink_st',['../namespacespdlog_1_1sinks.html#ae3eb6549df72c3c46dea34fd35fee93e',1,'spdlog::sinks']]],
+  ['stdout_5fsink_5fmt_7072',['stdout_sink_mt',['../namespacespdlog_1_1sinks.html#aa1cf652892af5db437ae8017cb31c168',1,'spdlog::sinks']]],
+  ['stdout_5fsink_5fst_7073',['stdout_sink_st',['../namespacespdlog_1_1sinks.html#a25195a7e51591950acf5c5e20c2ce83b',1,'spdlog::sinks']]],
+  ['string_5fview_7074',['string_view',['../core_8h.html#a204ca715c2febee035464fa53dfc50c4',1,'core.h']]],
+  ['string_5fview_5ft_7075',['string_view_t',['../namespacespdlog.html#ab1e9c8f66f23b10ea93694f7d0780f5f',1,'spdlog']]],
+  ['syslog_5fsink_5fmt_7076',['syslog_sink_mt',['../namespacespdlog_1_1sinks.html#a6674644a4ab8a7579e45bd79dc107a70',1,'spdlog::sinks']]],
+  ['syslog_5fsink_5fst_7077',['syslog_sink_st',['../namespacespdlog_1_1sinks.html#a83f4d6616a2fbf3473a6a979647b5139',1,'spdlog::sinks']]],
+  ['systemd_5fsink_5fmt_7078',['systemd_sink_mt',['../namespacespdlog_1_1sinks.html#a2bd4ab62ede4f5fec7645cc63632445b',1,'spdlog::sinks']]],
+  ['systemd_5fsink_5fst_7079',['systemd_sink_st',['../namespacespdlog_1_1sinks.html#ac3a93bee5bbbe109213edd326dd9ed8c',1,'spdlog::sinks']]]
+];

@@ -1,0 +1,35 @@
+\hypertarget{rotating__file__sink_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/sinks/rotating\+\_\+file\+\_\+sink.h File Reference}
+\label{rotating__file__sink_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/sinks/rotating\_file\_sink.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/sinks/rotating\_file\_sink.h}}
+{\ttfamily \#include $<$spdlog/sinks/base\+\_\+sink.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/details/file\+\_\+helper.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/details/null\+\_\+mutex.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/details/synchronous\+\_\+factory.\+h$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classspdlog_1_1sinks_1_1rotating__file__sink}{spdlog\+::sinks\+::rotating\+\_\+file\+\_\+sink$<$ Mutex $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacespdlog}{spdlog}}
+\item 
+ \mbox{\hyperlink{namespacespdlog_1_1sinks}{spdlog\+::sinks}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacespdlog_1_1sinks_a70b4fab83ca180ef19c4124f4823aeaa}{spdlog\+::sinks\+::rotating\+\_\+file\+\_\+sink\+\_\+mt}} = rotating\+\_\+file\+\_\+sink$<$ std\+::mutex $>$
+\item 
+using \mbox{\hyperlink{namespacespdlog_1_1sinks_a694eff66a11012e2fbe3fa3a1c963c96}{spdlog\+::sinks\+::rotating\+\_\+file\+\_\+sink\+\_\+st}} = rotating\+\_\+file\+\_\+sink$<$ details\+::null\+\_\+mutex $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Factory  = spdlog\+::synchronous\+\_\+factory$>$ }\\std\+::shared\+\_\+ptr$<$ logger $>$ \mbox{\hyperlink{namespacespdlog_a22f7ba52bed824030a97583cf1628af9}{spdlog\+::rotating\+\_\+logger\+\_\+mt}} (const std\+::string \&logger\+\_\+name, const filename\+\_\+t \&\mbox{\hyperlink{exo_state_machine_8cpp_a11857302833e0a6b1964845abd62d0ad}{filename}}, size\+\_\+t max\+\_\+file\+\_\+size, size\+\_\+t max\+\_\+files, bool rotate\+\_\+on\+\_\+open=false)
+\item 
+{\footnotesize template$<$typename Factory  = spdlog\+::synchronous\+\_\+factory$>$ }\\std\+::shared\+\_\+ptr$<$ logger $>$ \mbox{\hyperlink{namespacespdlog_a8f8f238ddac5a799696cf25e98b382e7}{spdlog\+::rotating\+\_\+logger\+\_\+st}} (const std\+::string \&logger\+\_\+name, const filename\+\_\+t \&\mbox{\hyperlink{exo_state_machine_8cpp_a11857302833e0a6b1964845abd62d0ad}{filename}}, size\+\_\+t max\+\_\+file\+\_\+size, size\+\_\+t max\+\_\+files, bool rotate\+\_\+on\+\_\+open=false)
+\end{DoxyCompactItemize}

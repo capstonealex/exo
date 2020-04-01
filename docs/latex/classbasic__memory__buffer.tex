@@ -1,0 +1,169 @@
+\hypertarget{classbasic__memory__buffer}{}\doxysection{basic\+\_\+memory\+\_\+buffer$<$ T, S\+I\+ZE, Allocator $>$ Class Template Reference}
+\label{classbasic__memory__buffer}\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+
+
+{\ttfamily \#include $<$format.\+h$>$}
+
+Inheritance diagram for basic\+\_\+memory\+\_\+buffer$<$ T, S\+I\+ZE, Allocator $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classbasic__memory__buffer}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classbasic__memory__buffer_aecbaa41beff571b3ff5d79a91a787524}{value\+\_\+type}} = T
+\item 
+using \mbox{\hyperlink{classbasic__memory__buffer_a13f688782e6165086485913789b1396f}{const\+\_\+reference}} = const T \&
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbasic__memory__buffer_af6f3373ae1ecc2104f3074fadccb3c28}{basic\+\_\+memory\+\_\+buffer}} (const Allocator \&alloc=Allocator())
+\item 
+\mbox{\hyperlink{classbasic__memory__buffer_ac04c670008de993cbc2545305d8f8d4c}{$\sim$basic\+\_\+memory\+\_\+buffer}} () \mbox{\hyperlink{core_8h_a023c6c178e254d81d578b90921804b1c}{F\+M\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE}}
+\item 
+\mbox{\hyperlink{classbasic__memory__buffer_ae3e8292ba2764ec68bb113cdc6c45b63}{basic\+\_\+memory\+\_\+buffer}} (\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}} \&\&other) \mbox{\hyperlink{core_8h_aef128913e8400683b1cbd1a3a2e11df3}{F\+M\+T\+\_\+\+N\+O\+E\+X\+C\+E\+PT}}
+\item 
+\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}} \& \mbox{\hyperlink{classbasic__memory__buffer_a89e2e5da9bee8af9c487b4493c4d6327}{operator=}} (\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}} \&\&other) \mbox{\hyperlink{core_8h_aef128913e8400683b1cbd1a3a2e11df3}{F\+M\+T\+\_\+\+N\+O\+E\+X\+C\+E\+PT}}
+\item 
+Allocator \mbox{\hyperlink{classbasic__memory__buffer_aad7b7f524c4c1301f5a88e54cc68e352}{get\+\_\+allocator}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classbasic__memory__buffer_a2f01489b9805a99cdc93ab0aee6730eb}{grow}} (std\+::size\+\_\+t \mbox{\hyperlink{classinternal_1_1buffer_abac844b364cd93450a9c311807d15f80}{size}}) \mbox{\hyperlink{core_8h_a023c6c178e254d81d578b90921804b1c}{F\+M\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classbasic__memory__buffer_a5e19a1f5aa79dadc6ff0b702a6d44d66}{deallocate}} ()
+\item 
+void \mbox{\hyperlink{classbasic__memory__buffer_a448c07c5a891036329a8d866155c3549}{move}} (\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}} \&other)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+T \mbox{\hyperlink{classbasic__memory__buffer_a98def281d4ce2cad0c3dea4c664bbb0d}{store\+\_\+}} \mbox{[}S\+I\+ZE\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T, std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator = std\+::allocator$<$\+T$>$$>$\newline
+class basic\+\_\+memory\+\_\+buffer$<$ T, S\+I\+Z\+E, Allocator $>$}
+
+\textbackslash{}rst A dynamically growing memory buffer for trivially copyable/constructible types with the first {\ttfamily S\+I\+ZE} elements stored in the object itself.
+
+You can use one of the following type aliases for common character types\+:
+
++-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ Type $\vert$ Definition $\vert$ +================+==============================+ $\vert$ memory\+\_\+buffer $\vert$ basic\+\_\+memory\+\_\+buffer$<$char$>$ $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ wmemory\+\_\+buffer $\vert$ basic\+\_\+memory\+\_\+buffer$<$wchar\+\_\+t$>$ $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+
+
+Example$\ast$$\ast$\+::
+
+fmt\+::memory\+\_\+buffer out; format\+\_\+to(out, \char`\"{}\+The answer is \{\}.\char`\"{}, 42);
+
+This will append the following output to the {\ttfamily out} object\+:
+
+.. code-\/block\+:: none
+
+The answer is 42.
+
+The output can be converted to an {\ttfamily std\+::string} with {\ttfamily to\+\_\+string(out)}. \textbackslash{}endrst 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classbasic__memory__buffer_a13f688782e6165086485913789b1396f}\label{classbasic__memory__buffer_a13f688782e6165086485913789b1396f}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!const\_reference@{const\_reference}}
+\index{const\_reference@{const\_reference}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{const\_reference}{const\_reference}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+using \mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::\mbox{\hyperlink{classinternal_1_1buffer_ab8967b7a8af5084a270cbcef93088705}{const\+\_\+reference}} =  const T\&}
+
+\mbox{\Hypertarget{classbasic__memory__buffer_aecbaa41beff571b3ff5d79a91a787524}\label{classbasic__memory__buffer_aecbaa41beff571b3ff5d79a91a787524}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!value\_type@{value\_type}}
+\index{value\_type@{value\_type}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{value\_type}{value\_type}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+using \mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::\mbox{\hyperlink{classinternal_1_1buffer_aef7ea32fdf476a2cf2284b5b831723f3}{value\+\_\+type}} =  T}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classbasic__memory__buffer_af6f3373ae1ecc2104f3074fadccb3c28}\label{classbasic__memory__buffer_af6f3373ae1ecc2104f3074fadccb3c28}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!basic\_memory\_buffer@{basic\_memory\_buffer}}
+\index{basic\_memory\_buffer@{basic\_memory\_buffer}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{basic\_memory\_buffer()}{basic\_memory\_buffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}} (\begin{DoxyParamCaption}\item[{const Allocator \&}]{alloc = {\ttfamily Allocator()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classbasic__memory__buffer_ac04c670008de993cbc2545305d8f8d4c}\label{classbasic__memory__buffer_ac04c670008de993cbc2545305d8f8d4c}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!````~basic\_memory\_buffer@{$\sim$basic\_memory\_buffer}}
+\index{````~basic\_memory\_buffer@{$\sim$basic\_memory\_buffer}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$basic\_memory\_buffer()}{~basic\_memory\_buffer()}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::$\sim$\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbasic__memory__buffer_ae3e8292ba2764ec68bb113cdc6c45b63}\label{classbasic__memory__buffer_ae3e8292ba2764ec68bb113cdc6c45b63}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!basic\_memory\_buffer@{basic\_memory\_buffer}}
+\index{basic\_memory\_buffer@{basic\_memory\_buffer}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{basic\_memory\_buffer()}{basic\_memory\_buffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}rst Constructs a \+:class\+:{\ttfamily fmt\+::basic\+\_\+memory\+\_\+buffer} object moving the content of the other object to it. \textbackslash{}endrst 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classbasic__memory__buffer_a5e19a1f5aa79dadc6ff0b702a6d44d66}\label{classbasic__memory__buffer_a5e19a1f5aa79dadc6ff0b702a6d44d66}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!deallocate@{deallocate}}
+\index{deallocate@{deallocate}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{deallocate()}{deallocate()}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::deallocate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classbasic__memory__buffer_aad7b7f524c4c1301f5a88e54cc68e352}\label{classbasic__memory__buffer_aad7b7f524c4c1301f5a88e54cc68e352}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!get\_allocator@{get\_allocator}}
+\index{get\_allocator@{get\_allocator}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{get\_allocator()}{get\_allocator()}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+Allocator \mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::get\+\_\+allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbasic__memory__buffer_a2f01489b9805a99cdc93ab0aee6730eb}\label{classbasic__memory__buffer_a2f01489b9805a99cdc93ab0aee6730eb}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!grow@{grow}}
+\index{grow@{grow}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{grow()}{grow()}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE, typename Allocator $>$ \\
+void \mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::grow (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{capacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Increases the buffer capacity to hold at least {\itshape capacity} elements. 
+
+Implements \mbox{\hyperlink{classinternal_1_1buffer_a38f53be20945474be4f60b58b9b4cc54}{internal\+::buffer$<$ T $>$}}.
+
+\mbox{\Hypertarget{classbasic__memory__buffer_a448c07c5a891036329a8d866155c3549}\label{classbasic__memory__buffer_a448c07c5a891036329a8d866155c3549}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!move@{move}}
+\index{move@{move}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classbasic__memory__buffer_a89e2e5da9bee8af9c487b4493c4d6327}\label{classbasic__memory__buffer_a89e2e5da9bee8af9c487b4493c4d6327}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}\& \mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\textbackslash{}rst Moves the content of the other {\ttfamily \mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}} object to this one. \textbackslash{}endrst 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classbasic__memory__buffer_a98def281d4ce2cad0c3dea4c664bbb0d}\label{classbasic__memory__buffer_a98def281d4ce2cad0c3dea4c664bbb0d}} 
+\index{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}!store\_@{store\_}}
+\index{store\_@{store\_}!basic\_memory\_buffer$<$ T, SIZE, Allocator $>$@{basic\_memory\_buffer$<$ T, SIZE, Allocator $>$}}
+\doxysubsubsection{\texorpdfstring{store\_}{store\_}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t S\+I\+ZE = inline\+\_\+buffer\+\_\+size, typename Allocator  = std\+::allocator$<$\+T$>$$>$ \\
+T \mbox{\hyperlink{classbasic__memory__buffer}{basic\+\_\+memory\+\_\+buffer}}$<$ T, S\+I\+ZE, Allocator $>$\+::store\+\_\+\mbox{[}S\+I\+ZE\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{format_8h}{format.\+h}}\end{DoxyCompactItemize}

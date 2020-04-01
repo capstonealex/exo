@@ -1,0 +1,34 @@
+\hypertarget{basic__file__sink_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/sinks/basic\+\_\+file\+\_\+sink.h File Reference}
+\label{basic__file__sink_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/sinks/basic\_file\_sink.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/sinks/basic\_file\_sink.h}}
+{\ttfamily \#include $<$spdlog/details/file\+\_\+helper.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/details/null\+\_\+mutex.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/sinks/base\+\_\+sink.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/details/synchronous\+\_\+factory.\+h$>$}\newline
+{\ttfamily \#include $<$mutex$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classspdlog_1_1sinks_1_1basic__file__sink}{spdlog\+::sinks\+::basic\+\_\+file\+\_\+sink$<$ Mutex $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacespdlog}{spdlog}}
+\item 
+ \mbox{\hyperlink{namespacespdlog_1_1sinks}{spdlog\+::sinks}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacespdlog_1_1sinks_a3c2170781ef0f706f8cea55f8d6b0609}{spdlog\+::sinks\+::basic\+\_\+file\+\_\+sink\+\_\+mt}} = basic\+\_\+file\+\_\+sink$<$ std\+::mutex $>$
+\item 
+using \mbox{\hyperlink{namespacespdlog_1_1sinks_ab6d38313481cd7fedfb8aeb68c2c61d1}{spdlog\+::sinks\+::basic\+\_\+file\+\_\+sink\+\_\+st}} = basic\+\_\+file\+\_\+sink$<$ details\+::null\+\_\+mutex $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Factory  = spdlog\+::synchronous\+\_\+factory$>$ }\\std\+::shared\+\_\+ptr$<$ logger $>$ \mbox{\hyperlink{namespacespdlog_abd73a6177edaccb77048bf47e3f8ad23}{spdlog\+::basic\+\_\+logger\+\_\+mt}} (const std\+::string \&logger\+\_\+name, const filename\+\_\+t \&\mbox{\hyperlink{exo_state_machine_8cpp_a11857302833e0a6b1964845abd62d0ad}{filename}}, bool truncate=false)
+\item 
+{\footnotesize template$<$typename Factory  = spdlog\+::synchronous\+\_\+factory$>$ }\\std\+::shared\+\_\+ptr$<$ logger $>$ \mbox{\hyperlink{namespacespdlog_abc9cd0646191cc0b295b6e50367b22b7}{spdlog\+::basic\+\_\+logger\+\_\+st}} (const std\+::string \&logger\+\_\+name, const filename\+\_\+t \&\mbox{\hyperlink{exo_state_machine_8cpp_a11857302833e0a6b1964845abd62d0ad}{filename}}, bool truncate=false)
+\end{DoxyCompactItemize}

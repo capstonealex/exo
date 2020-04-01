@@ -1,0 +1,70 @@
+\hypertarget{struct_c_o___o_d__storage__t}{}\doxysection{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t Struct Reference}
+\label{struct_c_o___o_d__storage__t}\index{CO\_OD\_storage\_t@{CO\_OD\_storage\_t}}
+
+
+{\ttfamily \#include $<$C\+O\+\_\+\+O\+D\+\_\+storage.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o___o_d__storage__t_ac434d6480330c026761fe8a82e32839b}{od\+Address}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_c_o___o_d__storage__t_aefd1cb33fa031c1592b20643bb38bfbb}{od\+Size}}
+\item 
+char $\ast$ \mbox{\hyperlink{struct_c_o___o_d__storage__t_afb3dd08b01bf20f251754c32b116d8fe}{filename}}
+\item 
+F\+I\+LE $\ast$ \mbox{\hyperlink{struct_c_o___o_d__storage__t_a8976cb73fd4a2baadc4689fdb8b876a1}{fp}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_c_o___o_d__storage__t_aff4ca9631f7212a0e72eaa388372d6f2}{tmr1ms\+Prev}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_c_o___o_d__storage__t_a972b32924b1d755dcfdb80c084000873}{last\+Saved\+Ms}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Object Dictionary storage object.
+
+Object is used with C\+A\+Nopen OD objects at index 1010 and 1011. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_c_o___o_d__storage__t_afb3dd08b01bf20f251754c32b116d8fe}\label{struct_c_o___o_d__storage__t_afb3dd08b01bf20f251754c32b116d8fe}} 
+\index{CO\_OD\_storage\_t@{CO\_OD\_storage\_t}!filename@{filename}}
+\index{filename@{filename}!CO\_OD\_storage\_t@{CO\_OD\_storage\_t}}
+\doxysubsubsection{\texorpdfstring{filename}{filename}}
+{\footnotesize\ttfamily char$\ast$ C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t\+::filename}
+
+From \mbox{\hyperlink{_c_o___o_d__storage_8c_a5a26b63e7222b058c6024e54c6e0d5cd}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___o_d__storage__t_a8976cb73fd4a2baadc4689fdb8b876a1}\label{struct_c_o___o_d__storage__t_a8976cb73fd4a2baadc4689fdb8b876a1}} 
+\index{CO\_OD\_storage\_t@{CO\_OD\_storage\_t}!fp@{fp}}
+\index{fp@{fp}!CO\_OD\_storage\_t@{CO\_OD\_storage\_t}}
+\doxysubsubsection{\texorpdfstring{fp}{fp}}
+{\footnotesize\ttfamily F\+I\+LE$\ast$ C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t\+::fp}
+
+If \mbox{\hyperlink{_c_o___o_d__storage_8c_a4fb76cadb746535d24361c270cf61ff3}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+auto\+Save()}} is used, file stays opened and fp is stored here. \mbox{\Hypertarget{struct_c_o___o_d__storage__t_a972b32924b1d755dcfdb80c084000873}\label{struct_c_o___o_d__storage__t_a972b32924b1d755dcfdb80c084000873}} 
+\index{CO\_OD\_storage\_t@{CO\_OD\_storage\_t}!lastSavedMs@{lastSavedMs}}
+\index{lastSavedMs@{lastSavedMs}!CO\_OD\_storage\_t@{CO\_OD\_storage\_t}}
+\doxysubsubsection{\texorpdfstring{lastSavedMs}{lastSavedMs}}
+{\footnotesize\ttfamily uint32\+\_\+t C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t\+::last\+Saved\+Ms}
+
+used with C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+auto\+Save. \mbox{\Hypertarget{struct_c_o___o_d__storage__t_ac434d6480330c026761fe8a82e32839b}\label{struct_c_o___o_d__storage__t_ac434d6480330c026761fe8a82e32839b}} 
+\index{CO\_OD\_storage\_t@{CO\_OD\_storage\_t}!odAddress@{odAddress}}
+\index{odAddress@{odAddress}!CO\_OD\_storage\_t@{CO\_OD\_storage\_t}}
+\doxysubsubsection{\texorpdfstring{odAddress}{odAddress}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t\+::od\+Address}
+
+From \mbox{\hyperlink{_c_o___o_d__storage_8c_a5a26b63e7222b058c6024e54c6e0d5cd}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___o_d__storage__t_aefd1cb33fa031c1592b20643bb38bfbb}\label{struct_c_o___o_d__storage__t_aefd1cb33fa031c1592b20643bb38bfbb}} 
+\index{CO\_OD\_storage\_t@{CO\_OD\_storage\_t}!odSize@{odSize}}
+\index{odSize@{odSize}!CO\_OD\_storage\_t@{CO\_OD\_storage\_t}}
+\doxysubsubsection{\texorpdfstring{odSize}{odSize}}
+{\footnotesize\ttfamily uint32\+\_\+t C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t\+::od\+Size}
+
+From \mbox{\hyperlink{_c_o___o_d__storage_8c_a5a26b63e7222b058c6024e54c6e0d5cd}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___o_d__storage__t_aff4ca9631f7212a0e72eaa388372d6f2}\label{struct_c_o___o_d__storage__t_aff4ca9631f7212a0e72eaa388372d6f2}} 
+\index{CO\_OD\_storage\_t@{CO\_OD\_storage\_t}!tmr1msPrev@{tmr1msPrev}}
+\index{tmr1msPrev@{tmr1msPrev}!CO\_OD\_storage\_t@{CO\_OD\_storage\_t}}
+\doxysubsubsection{\texorpdfstring{tmr1msPrev}{tmr1msPrev}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t\+::tmr1ms\+Prev}
+
+used with C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+auto\+Save. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+A\+Nopen\+Node/stack/socket\+C\+A\+N/\mbox{\hyperlink{_c_o___o_d__storage_8h}{C\+O\+\_\+\+O\+D\+\_\+storage.\+h}}\end{DoxyCompactItemize}

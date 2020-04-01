@@ -1,0 +1,164 @@
+\hypertarget{struct_c_o___s_y_n_c__t}{}\doxysection{C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t Struct Reference}
+\label{struct_c_o___s_y_n_c__t}\index{CO\_SYNC\_t@{CO\_SYNC\_t}}
+
+
+{\ttfamily \#include $<$C\+O\+\_\+\+S\+Y\+N\+C.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_c_o___e_m__t}{C\+O\+\_\+\+E\+M\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o___s_y_n_c__t_acf987cc40eb5f005a92f10210353ea1f}{em}}
+\item 
+\mbox{\hyperlink{group___c_o___n_m_t___heartbeat_ga1e8c2a6c0fd4a33183503d25a7c6d744}{C\+O\+\_\+\+N\+M\+T\+\_\+internal\+State\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a70fea8996ebfbe7d163bae11201dac6e}{operating\+State}}
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{struct_c_o___s_y_n_c__t_af37a656db91d31a8187e0350f472ea36}{is\+Producer}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_c_o___s_y_n_c__t_af528cdc487bdaee3dfc0a3baa3f7c7cc}{C\+O\+B\+\_\+\+ID}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a15337541e9b3defa2dbae2df3dd01e72}{period\+Time}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a9f612a7f9d691edeef11d8df9cf166a7}{period\+Timeout\+Time}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{struct_c_o___s_y_n_c__t_aee5eb3e245e54e509d2f2cc05cf4a664}{counter\+Overflow\+Value}}
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{struct_c_o___s_y_n_c__t_adbc85ba8f5f4cbca0caa645216204a88}{curent\+Sync\+Time\+Is\+Inside\+Window}}
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a1794594d93fef0f2597adb231e269364}{C\+A\+Nrx\+New}}
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a25aeadeddcae8209b6b18034036a0aaf}{C\+A\+Nrx\+Toggle}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a0977c2f09f69755e4b53df68bb1fee0b}{counter}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a491f176a5fb70400647474555628bf6f}{timer}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_c_o___s_y_n_c__t_ae108ac75f1fb7c797393646cc6c494af}{receive\+Error}}
+\item 
+\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o___s_y_n_c__t_ae799680e430d4d6b05d7a3da216f06be}{C\+A\+Ndev\+Rx}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a1a489d5fd447a8b5e16fb82d957d0667}{C\+A\+Ndev\+Rx\+Idx}}
+\item 
+\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a3b89fbc55cce155f500bbda463b61d8a}{C\+A\+Ndev\+Tx}}
+\item 
+\mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o___s_y_n_c__t_a79d41eeaf724741d0ed281ab3b6a95ef}{C\+A\+Ntx\+Buff}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_c_o___s_y_n_c__t_ad07d96af0baa18907d4865ecf244d420}{C\+A\+Ndev\+Tx\+Idx}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+S\+Y\+NC producer and consumer object. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_c_o___s_y_n_c__t_ae799680e430d4d6b05d7a3da216f06be}\label{struct_c_o___s_y_n_c__t_ae799680e430d4d6b05d7a3da216f06be}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!CANdevRx@{CANdevRx}}
+\index{CANdevRx@{CANdevRx}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{CANdevRx}{CANdevRx}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}}$\ast$ C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::\+C\+A\+Ndev\+Rx}
+
+From \mbox{\hyperlink{group___c_o___s_y_n_c_ga3047b679d5e3261eedf1980ea87b5135}{C\+O\+\_\+\+S\+Y\+N\+C\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a1a489d5fd447a8b5e16fb82d957d0667}\label{struct_c_o___s_y_n_c__t_a1a489d5fd447a8b5e16fb82d957d0667}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!CANdevRxIdx@{CANdevRxIdx}}
+\index{CANdevRxIdx@{CANdevRxIdx}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{CANdevRxIdx}{CANdevRxIdx}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::\+C\+A\+Ndev\+Rx\+Idx}
+
+From \mbox{\hyperlink{group___c_o___s_y_n_c_ga3047b679d5e3261eedf1980ea87b5135}{C\+O\+\_\+\+S\+Y\+N\+C\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a3b89fbc55cce155f500bbda463b61d8a}\label{struct_c_o___s_y_n_c__t_a3b89fbc55cce155f500bbda463b61d8a}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!CANdevTx@{CANdevTx}}
+\index{CANdevTx@{CANdevTx}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{CANdevTx}{CANdevTx}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}}$\ast$ C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::\+C\+A\+Ndev\+Tx}
+
+From \mbox{\hyperlink{group___c_o___s_y_n_c_ga3047b679d5e3261eedf1980ea87b5135}{C\+O\+\_\+\+S\+Y\+N\+C\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_ad07d96af0baa18907d4865ecf244d420}\label{struct_c_o___s_y_n_c__t_ad07d96af0baa18907d4865ecf244d420}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!CANdevTxIdx@{CANdevTxIdx}}
+\index{CANdevTxIdx@{CANdevTxIdx}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{CANdevTxIdx}{CANdevTxIdx}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::\+C\+A\+Ndev\+Tx\+Idx}
+
+From \mbox{\hyperlink{group___c_o___s_y_n_c_ga3047b679d5e3261eedf1980ea87b5135}{C\+O\+\_\+\+S\+Y\+N\+C\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a1794594d93fef0f2597adb231e269364}\label{struct_c_o___s_y_n_c__t_a1794594d93fef0f2597adb231e269364}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!CANrxNew@{CANrxNew}}
+\index{CANrxNew@{CANrxNew}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{CANrxNew}{CANrxNew}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::\+C\+A\+Nrx\+New}
+
+Variable indicates, if new S\+Y\+NC message received from C\+AN bus \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a25aeadeddcae8209b6b18034036a0aaf}\label{struct_c_o___s_y_n_c__t_a25aeadeddcae8209b6b18034036a0aaf}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!CANrxToggle@{CANrxToggle}}
+\index{CANrxToggle@{CANrxToggle}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{CANrxToggle}{CANrxToggle}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::\+C\+A\+Nrx\+Toggle}
+
+Variable toggles, if new S\+Y\+NC message received from C\+AN bus \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a79d41eeaf724741d0ed281ab3b6a95ef}\label{struct_c_o___s_y_n_c__t_a79d41eeaf724741d0ed281ab3b6a95ef}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!CANtxBuff@{CANtxBuff}}
+\index{CANtxBuff@{CANtxBuff}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{CANtxBuff}{CANtxBuff}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}}$\ast$ C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::\+C\+A\+Ntx\+Buff}
+
+C\+AN transmit buffer inside C\+A\+Ndev\+Tx \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_af528cdc487bdaee3dfc0a3baa3f7c7cc}\label{struct_c_o___s_y_n_c__t_af528cdc487bdaee3dfc0a3baa3f7c7cc}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!COB\_ID@{COB\_ID}}
+\index{COB\_ID@{COB\_ID}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{COB\_ID}{COB\_ID}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::\+C\+O\+B\+\_\+\+ID}
+
+C\+O\+B\+\_\+\+ID of S\+Y\+NC message. Calculated from {\itshape C\+OB ID S\+Y\+NC Message} variable from Object dictionary (index 0x1005). \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a0977c2f09f69755e4b53df68bb1fee0b}\label{struct_c_o___s_y_n_c__t_a0977c2f09f69755e4b53df68bb1fee0b}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!counter@{counter}}
+\index{counter@{counter}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{counter}{counter}}
+{\footnotesize\ttfamily uint8\+\_\+t C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::counter}
+
+Counter of the S\+Y\+NC message if counter\+Overflow\+Value is different than zero \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_aee5eb3e245e54e509d2f2cc05cf4a664}\label{struct_c_o___s_y_n_c__t_aee5eb3e245e54e509d2f2cc05cf4a664}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!counterOverflowValue@{counterOverflowValue}}
+\index{counterOverflowValue@{counterOverflowValue}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{counterOverflowValue}{counterOverflowValue}}
+{\footnotesize\ttfamily uint8\+\_\+t C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::counter\+Overflow\+Value}
+
+Value from {\itshape Synchronous counter overflow value} variable from Object dictionary (index 0x1019) \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_adbc85ba8f5f4cbca0caa645216204a88}\label{struct_c_o___s_y_n_c__t_adbc85ba8f5f4cbca0caa645216204a88}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!curentSyncTimeIsInsideWindow@{curentSyncTimeIsInsideWindow}}
+\index{curentSyncTimeIsInsideWindow@{curentSyncTimeIsInsideWindow}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{curentSyncTimeIsInsideWindow}{curentSyncTimeIsInsideWindow}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::curent\+Sync\+Time\+Is\+Inside\+Window}
+
+True, if current time is inside synchronous window. In this case synchronous P\+DO may be sent. \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_acf987cc40eb5f005a92f10210353ea1f}\label{struct_c_o___s_y_n_c__t_acf987cc40eb5f005a92f10210353ea1f}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!em@{em}}
+\index{em@{em}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{em}{em}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___e_m__t}{C\+O\+\_\+\+E\+M\+\_\+t}}$\ast$ C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::em}
+
+From \mbox{\hyperlink{group___c_o___s_y_n_c_ga3047b679d5e3261eedf1980ea87b5135}{C\+O\+\_\+\+S\+Y\+N\+C\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_af37a656db91d31a8187e0350f472ea36}\label{struct_c_o___s_y_n_c__t_af37a656db91d31a8187e0350f472ea36}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!isProducer@{isProducer}}
+\index{isProducer@{isProducer}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{isProducer}{isProducer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::is\+Producer}
+
+True, if device is S\+Y\+NC producer. Calculated from {\itshape C\+OB ID S\+Y\+NC Message} variable from Object dictionary (index 0x1005). \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a70fea8996ebfbe7d163bae11201dac6e}\label{struct_c_o___s_y_n_c__t_a70fea8996ebfbe7d163bae11201dac6e}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!operatingState@{operatingState}}
+\index{operatingState@{operatingState}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{operatingState}{operatingState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group___c_o___n_m_t___heartbeat_ga1e8c2a6c0fd4a33183503d25a7c6d744}{C\+O\+\_\+\+N\+M\+T\+\_\+internal\+State\+\_\+t}}$\ast$ C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::operating\+State}
+
+From \mbox{\hyperlink{group___c_o___s_y_n_c_ga3047b679d5e3261eedf1980ea87b5135}{C\+O\+\_\+\+S\+Y\+N\+C\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a15337541e9b3defa2dbae2df3dd01e72}\label{struct_c_o___s_y_n_c__t_a15337541e9b3defa2dbae2df3dd01e72}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!periodTime@{periodTime}}
+\index{periodTime@{periodTime}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{periodTime}{periodTime}}
+{\footnotesize\ttfamily uint32\+\_\+t C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::period\+Time}
+
+Sync period time in \mbox{[}microseconds\mbox{]}. Calculated from {\itshape Communication cycle period} variable from Object dictionary (index 0x1006). \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a9f612a7f9d691edeef11d8df9cf166a7}\label{struct_c_o___s_y_n_c__t_a9f612a7f9d691edeef11d8df9cf166a7}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!periodTimeoutTime@{periodTimeoutTime}}
+\index{periodTimeoutTime@{periodTimeoutTime}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{periodTimeoutTime}{periodTimeoutTime}}
+{\footnotesize\ttfamily uint32\+\_\+t C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::period\+Timeout\+Time}
+
+Sync period timeout time in \mbox{[}microseconds\mbox{]}. (period\+Timeout\+Time = period\+Time $\ast$ 1,5) \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_ae108ac75f1fb7c797393646cc6c494af}\label{struct_c_o___s_y_n_c__t_ae108ac75f1fb7c797393646cc6c494af}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!receiveError@{receiveError}}
+\index{receiveError@{receiveError}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{receiveError}{receiveError}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::receive\+Error}
+
+Set to nonzero value, if S\+Y\+NC with wrong data length is received from C\+AN \mbox{\Hypertarget{struct_c_o___s_y_n_c__t_a491f176a5fb70400647474555628bf6f}\label{struct_c_o___s_y_n_c__t_a491f176a5fb70400647474555628bf6f}} 
+\index{CO\_SYNC\_t@{CO\_SYNC\_t}!timer@{timer}}
+\index{timer@{timer}!CO\_SYNC\_t@{CO\_SYNC\_t}}
+\doxysubsubsection{\texorpdfstring{timer}{timer}}
+{\footnotesize\ttfamily uint32\+\_\+t C\+O\+\_\+\+S\+Y\+N\+C\+\_\+t\+::timer}
+
+Timer for the S\+Y\+NC message in \mbox{[}microseconds\mbox{]}. Set to zero after received or transmitted S\+Y\+NC message 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+A\+Nopen\+Node/stack/\mbox{\hyperlink{_c_o___s_y_n_c_8h}{C\+O\+\_\+\+S\+Y\+N\+C.\+h}}\end{DoxyCompactItemize}

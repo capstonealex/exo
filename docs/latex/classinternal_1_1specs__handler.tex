@@ -1,0 +1,146 @@
+\hypertarget{classinternal_1_1specs__handler}{}\doxysection{internal\+::specs\+\_\+handler$<$ Parse\+Context, Context $>$ Class Template Reference}
+\label{classinternal_1_1specs__handler}\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+
+
+{\ttfamily \#include $<$format.\+h$>$}
+
+Inheritance diagram for internal\+::specs\+\_\+handler$<$ Parse\+Context, Context $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classinternal_1_1specs__handler}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classinternal_1_1specs__handler_a051a9a1eb82d8cd0937d1cc523898c9a}{char\+\_\+type}} = typename Context\+::char\+\_\+type
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1specs__handler_a118acc19cd6553a0d01e8f7e72e9afeb}{specs\+\_\+handler}} (\mbox{\hyperlink{structbasic__format__specs}{basic\+\_\+format\+\_\+specs}}$<$ \mbox{\hyperlink{classinternal_1_1specs__handler_a051a9a1eb82d8cd0937d1cc523898c9a}{char\+\_\+type}} $>$ \&specs, Parse\+Context \&parse\+\_\+ctx, Context \&ctx)
+\item 
+{\footnotesize template$<$typename Id $>$ }\\\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1specs__handler_a9d62c2106eb7004d19a4fcc9889bb2da}{on\+\_\+dynamic\+\_\+width}} (Id arg\+\_\+id)
+\item 
+{\footnotesize template$<$typename Id $>$ }\\\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1specs__handler_a347c2a44068ccbab671469863a486786}{on\+\_\+dynamic\+\_\+precision}} (Id arg\+\_\+id)
+\item 
+void \mbox{\hyperlink{classinternal_1_1specs__handler_a722dc4a4607a38cddccbf61946108416}{on\+\_\+error}} (const char $\ast$message)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}{format\+\_\+arg}} = typename Context\+::format\+\_\+arg
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}{format\+\_\+arg}} \mbox{\hyperlink{classinternal_1_1specs__handler_a6f005c8d0705aabb784a702cda317f34}{get\+\_\+arg}} (\mbox{\hyperlink{structinternal_1_1auto__id}{auto\+\_\+id}})
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}{format\+\_\+arg}} \mbox{\hyperlink{classinternal_1_1specs__handler_a694e6de5d9ebbb78d82b851d2899e1f9}{get\+\_\+arg}} (int arg\+\_\+id)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}{format\+\_\+arg}} \mbox{\hyperlink{classinternal_1_1specs__handler_a813448c9a6debc641edafd531ce00055}{get\+\_\+arg}} (\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ \mbox{\hyperlink{classinternal_1_1specs__handler_a051a9a1eb82d8cd0937d1cc523898c9a}{char\+\_\+type}} $>$ arg\+\_\+id)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Parse\+Context \& \mbox{\hyperlink{classinternal_1_1specs__handler_aa057fedebdaffc57bc4b4dfbf7b01fd9}{parse\+\_\+context\+\_\+}}
+\item 
+Context \& \mbox{\hyperlink{classinternal_1_1specs__handler_aa3b7e7012c932d6a7caf6ca478606401}{context\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classinternal_1_1specs__handler_a051a9a1eb82d8cd0937d1cc523898c9a}\label{classinternal_1_1specs__handler_a051a9a1eb82d8cd0937d1cc523898c9a}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!char\_type@{char\_type}}
+\index{char\_type@{char\_type}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{char\_type}{char\_type}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+using \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::\mbox{\hyperlink{classinternal_1_1specs__handler_a051a9a1eb82d8cd0937d1cc523898c9a}{char\+\_\+type}} =  typename Context\+::char\+\_\+type}
+
+\mbox{\Hypertarget{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}\label{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!format\_arg@{format\_arg}}
+\index{format\_arg@{format\_arg}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{format\_arg}{format\_arg}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+using \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::\mbox{\hyperlink{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}{format\+\_\+arg}} =  typename Context\+::format\+\_\+arg\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classinternal_1_1specs__handler_a118acc19cd6553a0d01e8f7e72e9afeb}\label{classinternal_1_1specs__handler_a118acc19cd6553a0d01e8f7e72e9afeb}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!specs\_handler@{specs\_handler}}
+\index{specs\_handler@{specs\_handler}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{specs\_handler()}{specs\_handler()}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::\mbox{\hyperlink{classinternal_1_1specs__handler}{specs\+\_\+handler}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbasic__format__specs}{basic\+\_\+format\+\_\+specs}}$<$ \mbox{\hyperlink{classinternal_1_1specs__handler_a051a9a1eb82d8cd0937d1cc523898c9a}{char\+\_\+type}} $>$ \&}]{specs,  }\item[{Parse\+Context \&}]{parse\+\_\+ctx,  }\item[{Context \&}]{ctx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classinternal_1_1specs__handler_a6f005c8d0705aabb784a702cda317f34}\label{classinternal_1_1specs__handler_a6f005c8d0705aabb784a702cda317f34}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!get\_arg@{get\_arg}}
+\index{get\_arg@{get\_arg}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{get\_arg()}{get\_arg()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}{format\+\_\+arg}} \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::get\+\_\+arg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structinternal_1_1auto__id}{auto\+\_\+id}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classinternal_1_1specs__handler_a813448c9a6debc641edafd531ce00055}\label{classinternal_1_1specs__handler_a813448c9a6debc641edafd531ce00055}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!get\_arg@{get\_arg}}
+\index{get\_arg@{get\_arg}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{get\_arg()}{get\_arg()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}{format\+\_\+arg}} \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::get\+\_\+arg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ \mbox{\hyperlink{classinternal_1_1specs__handler_a051a9a1eb82d8cd0937d1cc523898c9a}{char\+\_\+type}} $>$}]{arg\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classinternal_1_1specs__handler_a694e6de5d9ebbb78d82b851d2899e1f9}\label{classinternal_1_1specs__handler_a694e6de5d9ebbb78d82b851d2899e1f9}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!get\_arg@{get\_arg}}
+\index{get\_arg@{get\_arg}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{get\_arg()}{get\_arg()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1specs__handler_af06595acba8997b83e7f4e1b595a5b49}{format\+\_\+arg}} \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::get\+\_\+arg (\begin{DoxyParamCaption}\item[{int}]{arg\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classinternal_1_1specs__handler_a347c2a44068ccbab671469863a486786}\label{classinternal_1_1specs__handler_a347c2a44068ccbab671469863a486786}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!on\_dynamic\_precision@{on\_dynamic\_precision}}
+\index{on\_dynamic\_precision@{on\_dynamic\_precision}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{on\_dynamic\_precision()}{on\_dynamic\_precision()}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+template$<$typename Id $>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::on\+\_\+dynamic\+\_\+precision (\begin{DoxyParamCaption}\item[{Id}]{arg\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classinternal_1_1specs__handler_a9d62c2106eb7004d19a4fcc9889bb2da}\label{classinternal_1_1specs__handler_a9d62c2106eb7004d19a4fcc9889bb2da}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!on\_dynamic\_width@{on\_dynamic\_width}}
+\index{on\_dynamic\_width@{on\_dynamic\_width}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{on\_dynamic\_width()}{on\_dynamic\_width()}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+template$<$typename Id $>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::on\+\_\+dynamic\+\_\+width (\begin{DoxyParamCaption}\item[{Id}]{arg\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classinternal_1_1specs__handler_a722dc4a4607a38cddccbf61946108416}\label{classinternal_1_1specs__handler_a722dc4a4607a38cddccbf61946108416}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!on\_error@{on\_error}}
+\index{on\_error@{on\_error}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+void \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classinternal_1_1specs__handler_aa3b7e7012c932d6a7caf6ca478606401}\label{classinternal_1_1specs__handler_aa3b7e7012c932d6a7caf6ca478606401}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!context\_@{context\_}}
+\index{context\_@{context\_}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{context\_}{context\_}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+Context\& \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::context\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classinternal_1_1specs__handler_aa057fedebdaffc57bc4b4dfbf7b01fd9}\label{classinternal_1_1specs__handler_aa057fedebdaffc57bc4b4dfbf7b01fd9}} 
+\index{internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}!parse\_context\_@{parse\_context\_}}
+\index{parse\_context\_@{parse\_context\_}!internal::specs\_handler$<$ ParseContext, Context $>$@{internal::specs\_handler$<$ ParseContext, Context $>$}}
+\doxysubsubsection{\texorpdfstring{parse\_context\_}{parse\_context\_}}
+{\footnotesize\ttfamily template$<$typename Parse\+Context , typename Context $>$ \\
+Parse\+Context\& \mbox{\hyperlink{classinternal_1_1specs__handler}{internal\+::specs\+\_\+handler}}$<$ Parse\+Context, Context $>$\+::parse\+\_\+context\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{format_8h}{format.\+h}}\end{DoxyCompactItemize}

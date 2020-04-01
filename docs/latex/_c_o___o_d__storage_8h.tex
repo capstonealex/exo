@@ -1,0 +1,164 @@
+\hypertarget{_c_o___o_d__storage_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+A\+Nopen\+Node/stack/socket\+C\+A\+N/\+C\+O\+\_\+\+O\+D\+\_\+storage.h File Reference}
+\label{_c_o___o_d__storage_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CANopenNode/stack/socketCAN/CO\_OD\_storage.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CANopenNode/stack/socketCAN/CO\_OD\_storage.h}}
+{\ttfamily \#include \char`\"{}C\+O\+\_\+driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}C\+O\+\_\+\+S\+D\+O.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_o___o_d__storage__t}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group___c_o___s_d_o_ga7587ddcf798747fe6d97d03bf1bf2979}{C\+O\+\_\+\+S\+D\+O\+\_\+abort\+Code\+\_\+t}} \mbox{\hyperlink{_c_o___o_d__storage_8h_a4a5e807a83eeab172bb3b0aeb6fa92c2}{C\+O\+\_\+\+O\+D\+F\+\_\+1010}} (\mbox{\hyperlink{struct_c_o___o_d_f__arg__t}{C\+O\+\_\+\+O\+D\+F\+\_\+arg\+\_\+t}} $\ast$O\+D\+F\+\_\+arg)
+\item 
+\mbox{\hyperlink{group___c_o___s_d_o_ga7587ddcf798747fe6d97d03bf1bf2979}{C\+O\+\_\+\+S\+D\+O\+\_\+abort\+Code\+\_\+t}} \mbox{\hyperlink{_c_o___o_d__storage_8h_a059fcd46d8b15caf86c57d541a09576a}{C\+O\+\_\+\+O\+D\+F\+\_\+1011}} (\mbox{\hyperlink{struct_c_o___o_d_f__arg__t}{C\+O\+\_\+\+O\+D\+F\+\_\+arg\+\_\+t}} $\ast$O\+D\+F\+\_\+arg)
+\item 
+int \mbox{\hyperlink{_c_o___o_d__storage_8h_a7f6124c9079807bc2f8f3d860571ccec}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+save\+Secure}} (uint8\+\_\+t $\ast$od\+Address, uint32\+\_\+t od\+Size, char $\ast$\mbox{\hyperlink{exo_state_machine_8cpp_a11857302833e0a6b1964845abd62d0ad}{filename}})
+\item 
+int \mbox{\hyperlink{_c_o___o_d__storage_8h_a63b392fa7eb2bdc92ecd2f1ff6f4ced0}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+restore\+Secure}} (char $\ast$\mbox{\hyperlink{exo_state_machine_8cpp_a11857302833e0a6b1964845abd62d0ad}{filename}})
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} \mbox{\hyperlink{_c_o___o_d__storage_8h_a5a26b63e7222b058c6024e54c6e0d5cd}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+init}} (\mbox{\hyperlink{struct_c_o___o_d__storage__t}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t}} $\ast$od\+Stor, uint8\+\_\+t $\ast$od\+Address, uint32\+\_\+t od\+Size, char $\ast$\mbox{\hyperlink{exo_state_machine_8cpp_a11857302833e0a6b1964845abd62d0ad}{filename}})
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} \mbox{\hyperlink{_c_o___o_d__storage_8h_a4fb76cadb746535d24361c270cf61ff3}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+auto\+Save}} (\mbox{\hyperlink{struct_c_o___o_d__storage__t}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t}} $\ast$od\+Stor, uint16\+\_\+t timer1ms, uint16\+\_\+t delay)
+\item 
+void \mbox{\hyperlink{_c_o___o_d__storage_8h_a6c51a86516ff7e128873f6cf1fdef5eb}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+auto\+Save\+Close}} (\mbox{\hyperlink{struct_c_o___o_d__storage__t}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t}} $\ast$od\+Stor)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+C\+A\+Nopen Object Dictionary storage object for Linux Socket\+C\+AN.
+
+\begin{DoxyAuthor}{Author}
+Janez Paternoster 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+2015 Janez Paternoster
+\end{DoxyCopyright}
+This file is part of C\+A\+Nopen\+Node, an opensource C\+A\+Nopen Stack. Project home page is \href{https://github.com/CANopenNode/CANopenNode}{\texttt{ https\+://github.\+com/\+C\+A\+Nopen\+Node/\+C\+A\+Nopen\+Node}}. For more information on C\+A\+Nopen see \href{http://www.can-cia.org/}{\texttt{ http\+://www.\+can-\/cia.\+org/}}.
+
+C\+A\+Nopen\+Node is free and open source software\+: you can redistribute it and/or modify it under the terms of the G\+NU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but W\+I\+T\+H\+O\+UT A\+NY W\+A\+R\+R\+A\+N\+TY; without even the implied warranty of M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY or F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE. See the G\+NU General Public License for more details.
+
+You should have received a copy of the G\+NU General Public License along with this program. If not, see \href{http://www.gnu.org/licenses/}{\texttt{ http\+://www.\+gnu.\+org/licenses/}}. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_o___o_d__storage_8h_a4fb76cadb746535d24361c270cf61ff3}\label{_c_o___o_d__storage_8h_a4fb76cadb746535d24361c270cf61ff3}} 
+\index{CO\_OD\_storage.h@{CO\_OD\_storage.h}!CO\_OD\_storage\_autoSave@{CO\_OD\_storage\_autoSave}}
+\index{CO\_OD\_storage\_autoSave@{CO\_OD\_storage\_autoSave}!CO\_OD\_storage.h@{CO\_OD\_storage.h}}
+\doxysubsubsection{\texorpdfstring{CO\_OD\_storage\_autoSave()}{CO\_OD\_storage\_autoSave()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+auto\+Save (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___o_d__storage__t}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t}} $\ast$}]{od\+Stor,  }\item[{uint16\+\_\+t}]{timer1ms,  }\item[{uint16\+\_\+t}]{delay }\end{DoxyParamCaption})}
+
+Automatically save memory block if differs from file.
+
+Should be called cyclically by program. It first verifies, if memory block differs from file and if it does, it saves it to file with two additional C\+RC bytes. File remains opened.
+
+
+\begin{DoxyParams}{Parameters}
+{\em od\+Stor} & OD storage object. \\
+\hline
+{\em timer1ms} & Variable, which must increment each millisecond. \\
+\hline
+{\em delay} & Delay (inhibit) time between writes to disk in milliseconds (60000 for example).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}}\+: C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+NO, C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+R\+R\+U\+PT (Data in file corrupt), C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+L\+L\+E\+G\+A\+L\+\_\+\+A\+R\+G\+U\+M\+E\+NT or C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+RY (malloc failed). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o___o_d__storage_8h_a6c51a86516ff7e128873f6cf1fdef5eb}\label{_c_o___o_d__storage_8h_a6c51a86516ff7e128873f6cf1fdef5eb}} 
+\index{CO\_OD\_storage.h@{CO\_OD\_storage.h}!CO\_OD\_storage\_autoSaveClose@{CO\_OD\_storage\_autoSaveClose}}
+\index{CO\_OD\_storage\_autoSaveClose@{CO\_OD\_storage\_autoSaveClose}!CO\_OD\_storage.h@{CO\_OD\_storage.h}}
+\doxysubsubsection{\texorpdfstring{CO\_OD\_storage\_autoSaveClose()}{CO\_OD\_storage\_autoSaveClose()}}
+{\footnotesize\ttfamily void C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+auto\+Save\+Close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___o_d__storage__t}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t}} $\ast$}]{od\+Stor }\end{DoxyParamCaption})}
+
+Closes file opened by C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+auto\+Save.
+
+
+\begin{DoxyParams}{Parameters}
+{\em od\+Stor} & OD storage object. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_c_o___o_d__storage_8h_a5a26b63e7222b058c6024e54c6e0d5cd}\label{_c_o___o_d__storage_8h_a5a26b63e7222b058c6024e54c6e0d5cd}} 
+\index{CO\_OD\_storage.h@{CO\_OD\_storage.h}!CO\_OD\_storage\_init@{CO\_OD\_storage\_init}}
+\index{CO\_OD\_storage\_init@{CO\_OD\_storage\_init}!CO\_OD\_storage.h@{CO\_OD\_storage.h}}
+\doxysubsubsection{\texorpdfstring{CO\_OD\_storage\_init()}{CO\_OD\_storage\_init()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___o_d__storage__t}{C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+t}} $\ast$}]{od\+Stor,  }\item[{uint8\+\_\+t $\ast$}]{od\+Address,  }\item[{uint32\+\_\+t}]{od\+Size,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+Initialize OD storage object and load data from file.
+
+Called after program startup. Load storage file and copy data to Object Dictionary variables.
+
+
+\begin{DoxyParams}{Parameters}
+{\em od\+Stor} & This object will be initialized. \\
+\hline
+{\em od\+Address} & Address of the memory block from Object dictionary, where data will be copied. \\
+\hline
+{\em od\+Size} & Size of the above memory block. \\
+\hline
+{\em filename} & Name of the file, where data are stored.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}}\+: C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+NO, C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+R\+R\+U\+PT (Data in file corrupt), C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+RC (C\+RC from M\+BR does not match the C\+RC of O\+D\+\_\+\+R\+OM block in file), C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+L\+L\+E\+G\+A\+L\+\_\+\+A\+R\+G\+U\+M\+E\+NT or C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+RY (malloc failed). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o___o_d__storage_8h_a63b392fa7eb2bdc92ecd2f1ff6f4ced0}\label{_c_o___o_d__storage_8h_a63b392fa7eb2bdc92ecd2f1ff6f4ced0}} 
+\index{CO\_OD\_storage.h@{CO\_OD\_storage.h}!CO\_OD\_storage\_restoreSecure@{CO\_OD\_storage\_restoreSecure}}
+\index{CO\_OD\_storage\_restoreSecure@{CO\_OD\_storage\_restoreSecure}!CO\_OD\_storage.h@{CO\_OD\_storage.h}}
+\doxysubsubsection{\texorpdfstring{CO\_OD\_storage\_restoreSecure()}{CO\_OD\_storage\_restoreSecure()}}
+{\footnotesize\ttfamily int C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+restore\+Secure (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+Remove OD storage file.
+
+Function renames current file to filename.\+old, then creates empty file and writes two bytes \char`\"{}-\/\textbackslash{}n\char`\"{} to it. When program will start next time, default values are used for Object Dictionary. In case of error in renaming to .old it keeps the original file and returns error.
+
+Writing data to file is secured with mutex C\+O\+\_\+\+L\+O\+C\+K\+\_\+\+OD.
+
+Function is used with C\+A\+Nopen OD object at index 1011.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Name of the file.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on error. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o___o_d__storage_8h_a7f6124c9079807bc2f8f3d860571ccec}\label{_c_o___o_d__storage_8h_a7f6124c9079807bc2f8f3d860571ccec}} 
+\index{CO\_OD\_storage.h@{CO\_OD\_storage.h}!CO\_OD\_storage\_saveSecure@{CO\_OD\_storage\_saveSecure}}
+\index{CO\_OD\_storage\_saveSecure@{CO\_OD\_storage\_saveSecure}!CO\_OD\_storage.h@{CO\_OD\_storage.h}}
+\doxysubsubsection{\texorpdfstring{CO\_OD\_storage\_saveSecure()}{CO\_OD\_storage\_saveSecure()}}
+{\footnotesize\ttfamily int C\+O\+\_\+\+O\+D\+\_\+storage\+\_\+save\+Secure (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{od\+Address,  }\item[{uint32\+\_\+t}]{od\+Size,  }\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+Save memory block to a file.
+
+Function renames current file to filename.\+old, copies contents from od\+Address to filename, adds two bytes of C\+RC code. It then verifies the written file and in case of errors sets back the old file and returns error.
+
+Function is used with C\+A\+Nopen OD object at index 1010.
+
+
+\begin{DoxyParams}{Parameters}
+{\em od\+Address} & Address of the memory block, which will be stored. \\
+\hline
+{\em od\+Size} & Size of the above memory block. \\
+\hline
+{\em filename} & Name of the file, where data will be stored.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on error. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o___o_d__storage_8h_a4a5e807a83eeab172bb3b0aeb6fa92c2}\label{_c_o___o_d__storage_8h_a4a5e807a83eeab172bb3b0aeb6fa92c2}} 
+\index{CO\_OD\_storage.h@{CO\_OD\_storage.h}!CO\_ODF\_1010@{CO\_ODF\_1010}}
+\index{CO\_ODF\_1010@{CO\_ODF\_1010}!CO\_OD\_storage.h@{CO\_OD\_storage.h}}
+\doxysubsubsection{\texorpdfstring{CO\_ODF\_1010()}{CO\_ODF\_1010()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group___c_o___s_d_o_ga7587ddcf798747fe6d97d03bf1bf2979}{C\+O\+\_\+\+S\+D\+O\+\_\+abort\+Code\+\_\+t}} C\+O\+\_\+\+O\+D\+F\+\_\+1010 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___o_d_f__arg__t}{C\+O\+\_\+\+O\+D\+F\+\_\+arg\+\_\+t}} $\ast$}]{O\+D\+F\+\_\+arg }\end{DoxyParamCaption})}
+
+Callbacks for using inside \mbox{\hyperlink{group___c_o___s_d_o_gab433430abe125bb16c08e7be3e034985}{C\+O\+\_\+\+O\+D\+\_\+configure()}} function (for OD objects 1010 and 1011). \mbox{\Hypertarget{_c_o___o_d__storage_8h_a059fcd46d8b15caf86c57d541a09576a}\label{_c_o___o_d__storage_8h_a059fcd46d8b15caf86c57d541a09576a}} 
+\index{CO\_OD\_storage.h@{CO\_OD\_storage.h}!CO\_ODF\_1011@{CO\_ODF\_1011}}
+\index{CO\_ODF\_1011@{CO\_ODF\_1011}!CO\_OD\_storage.h@{CO\_OD\_storage.h}}
+\doxysubsubsection{\texorpdfstring{CO\_ODF\_1011()}{CO\_ODF\_1011()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{group___c_o___s_d_o_ga7587ddcf798747fe6d97d03bf1bf2979}{C\+O\+\_\+\+S\+D\+O\+\_\+abort\+Code\+\_\+t}} C\+O\+\_\+\+O\+D\+F\+\_\+1011 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___o_d_f__arg__t}{C\+O\+\_\+\+O\+D\+F\+\_\+arg\+\_\+t}} $\ast$}]{O\+D\+F\+\_\+arg }\end{DoxyParamCaption})}
+

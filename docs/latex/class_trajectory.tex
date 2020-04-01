@@ -1,0 +1,475 @@
+\hypertarget{class_trajectory}{}\doxysection{Trajectory Class Reference}
+\label{class_trajectory}\index{Trajectory@{Trajectory}}
+
+
+{\ttfamily \#include $<$Trajectory.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{cubic\+\_\+polynomial}}
+\item 
+struct \mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{jointspace\+\_\+spline}}
+\item 
+struct \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}}
+\item 
+struct \mbox{\hyperlink{struct_trajectory_1_1jointspace__state__ex}{jointspace\+\_\+state\+\_\+ex}}
+\item 
+struct \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}}
+\item 
+struct \mbox{\hyperlink{struct_trajectory_1_1point}{point}}
+\item 
+struct \mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{taskspace\+\_\+state}}
+\item 
+struct \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_trajectory_a7170fa0f26262d9e4c50ce7749a991be}{Foot}} \{ \mbox{\hyperlink{class_trajectory_a7170fa0f26262d9e4c50ce7749a991bea945d5e233cf7d6240f6b783b36a374ff}{Foot\+::\+Left}}, 
+\mbox{\hyperlink{class_trajectory_a7170fa0f26262d9e4c50ce7749a991bea92b09c7c48c520c3c55e497875da437c}{Foot\+::\+Right}}
+ \}
+\item 
+enum \mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084}{Movement}} \{ \newline
+\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a7a16a854f32231a8df9326136b09ee62}{Movement\+::\+Walk}}, 
+\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a0ba672e3acbda6fa67c1f7b32f139979}{Movement\+::\+Sit}}, 
+\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084af5e531e3638cf8a722a9cd26831e108f}{Movement\+::\+Stand}}, 
+\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a59f9f261e44cff40d862ebcce95be7fc}{Movement\+::\+Stair}}, 
+\newline
+\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a99b4c3afc6aaa3ab4de17c90455a55eb}{Movement\+::\+Ramp}}, 
+\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a0557fa923dcee4d0f86b1409f5c2167f}{Movement\+::\+Back}}, 
+\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084ad23d2ff04211e8f1d629b4b4105d44ab}{Movement\+::\+Sitting}}, 
+\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a5e07b68caff5436235a62c3010f91983}{Movement\+::\+Uneven}}, 
+\newline
+\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a48643d8d34d6ab4aa31eb87628c51836}{Movement\+::\+Down\+Stair}}
+ \}
+\item 
+typedef double \mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}}
+\item 
+typedef enum \mbox{\hyperlink{class_trajectory_a7170fa0f26262d9e4c50ce7749a991be}{Trajectory\+::\+Foot}} \mbox{\hyperlink{class_trajectory_a3b2be6b87136e0a453cf2618ed7c8913}{Foot}}
+\item 
+typedef struct \mbox{\hyperlink{struct_trajectory_1_1point}{Trajectory\+::point}} \mbox{\hyperlink{class_trajectory_a9c08dc1061fdf7fc8e58cdbdc9cecbf7}{point}}
+\item 
+typedef struct \mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{Trajectory\+::taskspace\+\_\+state}} \mbox{\hyperlink{class_trajectory_aec0ef1862e50c13d5603f511e5905e55}{taskspace\+\_\+state}}
+\item 
+typedef struct \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{Trajectory\+::jointspace\+\_\+state}} \mbox{\hyperlink{class_trajectory_ad8b6f97ff0b14798a24a984280422286}{jointspace\+\_\+state}}
+\item 
+typedef struct \mbox{\hyperlink{struct_trajectory_1_1jointspace__state__ex}{Trajectory\+::jointspace\+\_\+state\+\_\+ex}} \mbox{\hyperlink{class_trajectory_a0204675ed9cfb6d8780d85a6b9188a46}{jointspace\+\_\+state\+\_\+ex}}
+\item 
+typedef enum \mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084}{Trajectory\+::\+Movement}} \mbox{\hyperlink{class_trajectory_acdc54ba511b019080b2035f10cbb1c51}{Movement}}
+\item 
+typedef struct \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{Trajectory\+::trajectory\+\_\+parameters}} \mbox{\hyperlink{class_trajectory_a73ee764a1e70c4ac5421646ec11b5e27}{trajectory\+\_\+parameters}}
+\item 
+typedef struct \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{Trajectory\+::pilot\+\_\+parameters}} \mbox{\hyperlink{class_trajectory_a0cca2e36a361e2b6706c5d85f683a295}{pilot\+\_\+parameters}}
+\item 
+typedef struct \mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{Trajectory\+::cubic\+\_\+polynomial}} \mbox{\hyperlink{class_trajectory_a921ded110381bbda68209fa0444f0848}{cubic\+\_\+polynomial}}
+\item 
+typedef struct \mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{Trajectory\+::jointspace\+\_\+spline}} \mbox{\hyperlink{class_trajectory_ab1aadbfd89270578c312ec290ef4f36b}{jointspace\+\_\+spline}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_trajectory_aa340ba80f1f4d1aa39f19f069d5d8089}{Trajectory}} ()
+\item 
+vector$<$ \mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{taskspace\+\_\+state}} $>$ \mbox{\hyperlink{class_trajectory_aea32fa43ae0fa854855d689e279e002c}{generate\+\_\+key\+\_\+taskspace\+\_\+states}} (\mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{taskspace\+\_\+state}} initial\+Taskspace\+State, const \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} \&trajectory\+Parameters, const \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} \&pilot\+Parameters)
+\item 
+void \mbox{\hyperlink{class_trajectory_ae144a9e718fa89e8623d931184447f95}{compute\+\_\+discrete\+\_\+trajectory}} (const \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} \&trajectory\+Parameters, const \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} \&pilot\+Parameters, \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} initial\+Jointspace\+State)
+\item 
+\mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{taskspace\+\_\+state}} \mbox{\hyperlink{class_trajectory_adb01a8406fbbaa77c7e11881d83de57e}{jointspace\+\_\+state\+\_\+to\+\_\+taskspace\+\_\+state}} (\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} jointspace\+State, \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} trajectory\+Parameters, \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} pilot\+Parameters)
+\item 
+\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} \mbox{\hyperlink{class_trajectory_a4bd3c2d46005d9b26306c20cf0ede176}{taskspace\+\_\+state\+\_\+to\+\_\+jointspace\+\_\+state}} (\mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{taskspace\+\_\+state}} taskspace\+State, \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} trajectory\+Parameters, \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} pilot\+Parameters)
+\item 
+vector$<$ \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} $>$ \mbox{\hyperlink{class_trajectory_a876a9af113235e436c746d847c3b6414}{taskspace\+\_\+states\+\_\+to\+\_\+jointspace\+\_\+states}} (\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} initial\+Jointspace\+State, const vector$<$ \mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{taskspace\+\_\+state}} $>$ \&taskspace\+States, \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} trajectory\+Parameters, \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} pilot\+Parameters)
+\item 
+vector$<$ double $>$ \mbox{\hyperlink{class_trajectory_a85008d10c7da4944766264663562915c}{triangle\+\_\+inverse\+\_\+kinematics}} (double x\+Ankle, double z\+Ankle, double x\+Hip, double z\+Hip, double Llower, double Lupper)
+\item 
+vector$<$ \mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{cubic\+\_\+polynomial}} $>$ \mbox{\hyperlink{class_trajectory_af0d8261660447a64b83e4267e683d175}{cubic\+\_\+spline}} (double x\mbox{[}$\,$\mbox{]}, \mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}} t\mbox{[}$\,$\mbox{]}, int num\+Points)
+\item 
+double \mbox{\hyperlink{class_trajectory_acac1b46388aecb2486fab3034877427a}{evaluate\+\_\+cubic\+\_\+polynomial}} (\mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{cubic\+\_\+polynomial}} cubic\+Polynomial, \mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}} time)
+\item 
+double \mbox{\hyperlink{class_trajectory_a80aa945382006fc70d5a8f7b890bb9bf}{evaluate\+\_\+cubic\+\_\+polynomial\+\_\+first\+\_\+derivative}} (\mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{cubic\+\_\+polynomial}} cubic\+Polynomial, \mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}} time)
+\item 
+double \mbox{\hyperlink{class_trajectory_abb80afc5feb6262023bf3059762c0974}{evaluate\+\_\+cubic\+\_\+polynomial\+\_\+second\+\_\+derivative}} (\mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{cubic\+\_\+polynomial}} cubic\+Polynomial, \mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}} time)
+\item 
+\mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{jointspace\+\_\+spline}} \mbox{\hyperlink{class_trajectory_aae4df2dea662a350c08f18054a803ec8}{cubic\+\_\+spline\+\_\+jointspace\+\_\+states}} (vector$<$ \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} $>$ states)
+\item 
+void \mbox{\hyperlink{class_trajectory_a83eeaa85f9235347cb9df1fb185ce879}{generate\+And\+Save\+Spline}} (\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} initial\+Jointspace\+State)
+\item 
+\mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{jointspace\+\_\+spline}} \mbox{\hyperlink{class_trajectory_a505b6066bc0d1dfb6754d150a9606740}{compute\+\_\+trajectory\+\_\+spline}} (const \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} \&trajectory\+Parameters, const \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} \&pilot\+Parameters, \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} initial\+Jointspace\+State)
+\item 
+\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} \mbox{\hyperlink{class_trajectory_a58b3b1a745ae9e42194d947b05e489ce}{compute\+\_\+position\+\_\+trajectory\+\_\+difference}} (\mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{jointspace\+\_\+spline}} jointspace\+Spline, \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} current\+Jointspace\+States)
+\item 
+void \mbox{\hyperlink{class_trajectory_a90e19367a4b2cc45e0819955f8816943}{limit\+\_\+velocity\+\_\+against\+\_\+angle\+\_\+boundary}} (\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} current\+Jointspace\+States, double $\ast$velocity\+Signal)
+\item 
+void \mbox{\hyperlink{class_trajectory_adfdeaceecbb86cb2841cd9696aded6b3}{limit\+\_\+position\+\_\+against\+\_\+angle\+\_\+boundary}} (double position\+Array\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{class_trajectory_a7498837902fbc76e2da02e88790ff26a}{get\+Velocity\+After\+Position\+Correction}} (\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}} time, double $\ast$robot\+Position\+Array, double $\ast$velocity\+Array)
+\item 
+void \mbox{\hyperlink{class_trajectory_a044c2f6d06501025d94053fbc6d29c0a}{calc\+Velocity}} (\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}} time, double $\ast$velocity\+Array)
+\item 
+void \mbox{\hyperlink{class_trajectory_af76abdf618b05446d148bad503442da5}{calc\+Position}} (\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}} time, double $\ast$position\+Array)
+\item 
+void \mbox{\hyperlink{class_trajectory_a1bc14a09d92161a8a4fffaff5d781a1a}{set\+Trajectory\+Parameter}} (\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}} step\+\_\+duration, double step\+\_\+height, double step\+\_\+length, double hip\+\_\+height\+\_\+slack, double torso\+\_\+forward\+\_\+angle, double swing\+\_\+ankle\+\_\+down\+\_\+angle, \mbox{\hyperlink{class_trajectory_a7170fa0f26262d9e4c50ce7749a991be}{Foot}} stance\+\_\+foot, \mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084}{Movement}} movement, double seat\+\_\+height, double step\+\_\+end\+\_\+height, double slope\+\_\+angle, bool left\+\_\+foot\+\_\+on\+\_\+tilt, bool right\+\_\+foot\+\_\+on\+\_\+tilt)
+\item 
+void \mbox{\hyperlink{class_trajectory_a87548c57ffd30387aea4499d96813b93}{set\+Trajectory\+Parameter}} (\mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} \mbox{\hyperlink{class_trajectory_a2f9e05288f2dbb63afa37a1ab096493d}{trajectory\+Parameter}})
+\item 
+void \mbox{\hyperlink{class_trajectory_ad2c6e2f4ad527aa298ef65da5dc36e7f}{set\+Pilot\+Parameter}} (double lowerleg\+\_\+length, double upperleg\+\_\+length, double ankle\+\_\+height, double foot\+\_\+length, double hip\+\_\+width, double torso\+\_\+length, double buttocks\+\_\+height)
+\item 
+void \mbox{\hyperlink{class_trajectory_a622c5a104f35068ce5e5cba39a471c4f}{set\+Pilot\+Parameter}} (\mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} \mbox{\hyperlink{class_trajectory_a13242e405acdf4228e274376d0a4bc10}{pilot\+Parameter}})
+\item 
+double \mbox{\hyperlink{class_trajectory_a3ac7968200e4a808750ee6d919f337c7}{get\+Step\+Duration}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const double \mbox{\hyperlink{class_trajectory_a855701262a26f81c55a36182276de0d7}{Q\+\_\+\+M\+I\+N\+\_\+\+M\+AX}} \mbox{[}12\mbox{]}
+\item 
+\mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{jointspace\+\_\+spline}} \mbox{\hyperlink{class_trajectory_afc8d6ebeb337a4b577a1cc12536f22b8}{trajectory\+Joint\+Spline}}
+\item 
+\mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} \mbox{\hyperlink{class_trajectory_a2f9e05288f2dbb63afa37a1ab096493d}{trajectory\+Parameter}}
+\item 
+\mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} \mbox{\hyperlink{class_trajectory_a13242e405acdf4228e274376d0a4bc10}{pilot\+Parameter}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{class_trajectory_a921ded110381bbda68209fa0444f0848}\label{class_trajectory_a921ded110381bbda68209fa0444f0848}} 
+\index{Trajectory@{Trajectory}!cubic\_polynomial@{cubic\_polynomial}}
+\index{cubic\_polynomial@{cubic\_polynomial}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{cubic\_polynomial}{cubic\_polynomial}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{Trajectory\+::cubic\+\_\+polynomial}} \mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{Trajectory\+::cubic\+\_\+polynomial}}}
+
+\mbox{\Hypertarget{class_trajectory_a3b2be6b87136e0a453cf2618ed7c8913}\label{class_trajectory_a3b2be6b87136e0a453cf2618ed7c8913}} 
+\index{Trajectory@{Trajectory}!Foot@{Foot}}
+\index{Foot@{Foot}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{Foot}{Foot}}
+{\footnotesize\ttfamily typedef enum \mbox{\hyperlink{class_trajectory_a7170fa0f26262d9e4c50ce7749a991be}{Trajectory\+::\+Foot}} \mbox{\hyperlink{class_trajectory_a7170fa0f26262d9e4c50ce7749a991be}{Trajectory\+::\+Foot}}}
+
+\mbox{\Hypertarget{class_trajectory_ab1aadbfd89270578c312ec290ef4f36b}\label{class_trajectory_ab1aadbfd89270578c312ec290ef4f36b}} 
+\index{Trajectory@{Trajectory}!jointspace\_spline@{jointspace\_spline}}
+\index{jointspace\_spline@{jointspace\_spline}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{jointspace\_spline}{jointspace\_spline}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{Trajectory\+::jointspace\+\_\+spline}} \mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{Trajectory\+::jointspace\+\_\+spline}}}
+
+\mbox{\Hypertarget{class_trajectory_ad8b6f97ff0b14798a24a984280422286}\label{class_trajectory_ad8b6f97ff0b14798a24a984280422286}} 
+\index{Trajectory@{Trajectory}!jointspace\_state@{jointspace\_state}}
+\index{jointspace\_state@{jointspace\_state}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{jointspace\_state}{jointspace\_state}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{Trajectory\+::jointspace\+\_\+state}} \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{Trajectory\+::jointspace\+\_\+state}}}
+
+\mbox{\Hypertarget{class_trajectory_a0204675ed9cfb6d8780d85a6b9188a46}\label{class_trajectory_a0204675ed9cfb6d8780d85a6b9188a46}} 
+\index{Trajectory@{Trajectory}!jointspace\_state\_ex@{jointspace\_state\_ex}}
+\index{jointspace\_state\_ex@{jointspace\_state\_ex}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{jointspace\_state\_ex}{jointspace\_state\_ex}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct_trajectory_1_1jointspace__state__ex}{Trajectory\+::jointspace\+\_\+state\+\_\+ex}} \mbox{\hyperlink{struct_trajectory_1_1jointspace__state__ex}{Trajectory\+::jointspace\+\_\+state\+\_\+ex}}}
+
+\mbox{\Hypertarget{class_trajectory_acdc54ba511b019080b2035f10cbb1c51}\label{class_trajectory_acdc54ba511b019080b2035f10cbb1c51}} 
+\index{Trajectory@{Trajectory}!Movement@{Movement}}
+\index{Movement@{Movement}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{Movement}{Movement}}
+{\footnotesize\ttfamily typedef enum \mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084}{Trajectory\+::\+Movement}} \mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084}{Trajectory\+::\+Movement}}}
+
+\mbox{\Hypertarget{class_trajectory_a0cca2e36a361e2b6706c5d85f683a295}\label{class_trajectory_a0cca2e36a361e2b6706c5d85f683a295}} 
+\index{Trajectory@{Trajectory}!pilot\_parameters@{pilot\_parameters}}
+\index{pilot\_parameters@{pilot\_parameters}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{pilot\_parameters}{pilot\_parameters}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{Trajectory\+::pilot\+\_\+parameters}} \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{Trajectory\+::pilot\+\_\+parameters}}}
+
+\mbox{\Hypertarget{class_trajectory_a9c08dc1061fdf7fc8e58cdbdc9cecbf7}\label{class_trajectory_a9c08dc1061fdf7fc8e58cdbdc9cecbf7}} 
+\index{Trajectory@{Trajectory}!point@{point}}
+\index{point@{point}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{point}{point}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct_trajectory_1_1point}{Trajectory\+::point}} \mbox{\hyperlink{struct_trajectory_1_1point}{Trajectory\+::point}}}
+
+\mbox{\Hypertarget{class_trajectory_aec0ef1862e50c13d5603f511e5905e55}\label{class_trajectory_aec0ef1862e50c13d5603f511e5905e55}} 
+\index{Trajectory@{Trajectory}!taskspace\_state@{taskspace\_state}}
+\index{taskspace\_state@{taskspace\_state}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{taskspace\_state}{taskspace\_state}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{Trajectory\+::taskspace\+\_\+state}} \mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{Trajectory\+::taskspace\+\_\+state}}}
+
+\mbox{\Hypertarget{class_trajectory_adabd61526a83773d81c43933c78fbb00}\label{class_trajectory_adabd61526a83773d81c43933c78fbb00}} 
+\index{Trajectory@{Trajectory}!time\_tt@{time\_tt}}
+\index{time\_tt@{time\_tt}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{time\_tt}{time\_tt}}
+{\footnotesize\ttfamily typedef double \mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{Trajectory\+::time\+\_\+tt}}}
+
+\mbox{\Hypertarget{class_trajectory_a73ee764a1e70c4ac5421646ec11b5e27}\label{class_trajectory_a73ee764a1e70c4ac5421646ec11b5e27}} 
+\index{Trajectory@{Trajectory}!trajectory\_parameters@{trajectory\_parameters}}
+\index{trajectory\_parameters@{trajectory\_parameters}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{trajectory\_parameters}{trajectory\_parameters}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{Trajectory\+::trajectory\+\_\+parameters}} \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{Trajectory\+::trajectory\+\_\+parameters}}}
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_trajectory_a7170fa0f26262d9e4c50ce7749a991be}\label{class_trajectory_a7170fa0f26262d9e4c50ce7749a991be}} 
+\index{Trajectory@{Trajectory}!Foot@{Foot}}
+\index{Foot@{Foot}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{Foot}{Foot}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_trajectory_a7170fa0f26262d9e4c50ce7749a991be}{Trajectory\+::\+Foot}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Left@{Left}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Left@{Left}}}\mbox{\Hypertarget{class_trajectory_a7170fa0f26262d9e4c50ce7749a991bea945d5e233cf7d6240f6b783b36a374ff}\label{class_trajectory_a7170fa0f26262d9e4c50ce7749a991bea945d5e233cf7d6240f6b783b36a374ff}} 
+Left&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Right@{Right}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Right@{Right}}}\mbox{\Hypertarget{class_trajectory_a7170fa0f26262d9e4c50ce7749a991bea92b09c7c48c520c3c55e497875da437c}\label{class_trajectory_a7170fa0f26262d9e4c50ce7749a991bea92b09c7c48c520c3c55e497875da437c}} 
+Right&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084}} 
+\index{Trajectory@{Trajectory}!Movement@{Movement}}
+\index{Movement@{Movement}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{Movement}{Movement}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084}{Trajectory\+::\+Movement}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Walk@{Walk}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Walk@{Walk}}}\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a7a16a854f32231a8df9326136b09ee62}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a7a16a854f32231a8df9326136b09ee62}} 
+Walk&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sit@{Sit}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Sit@{Sit}}}\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a0ba672e3acbda6fa67c1f7b32f139979}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a0ba672e3acbda6fa67c1f7b32f139979}} 
+Sit&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Stand@{Stand}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Stand@{Stand}}}\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084af5e531e3638cf8a722a9cd26831e108f}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084af5e531e3638cf8a722a9cd26831e108f}} 
+Stand&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Stair@{Stair}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Stair@{Stair}}}\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a59f9f261e44cff40d862ebcce95be7fc}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a59f9f261e44cff40d862ebcce95be7fc}} 
+Stair&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Ramp@{Ramp}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Ramp@{Ramp}}}\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a99b4c3afc6aaa3ab4de17c90455a55eb}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a99b4c3afc6aaa3ab4de17c90455a55eb}} 
+Ramp&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Back@{Back}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Back@{Back}}}\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a0557fa923dcee4d0f86b1409f5c2167f}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a0557fa923dcee4d0f86b1409f5c2167f}} 
+Back&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Sitting@{Sitting}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Sitting@{Sitting}}}\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084ad23d2ff04211e8f1d629b4b4105d44ab}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084ad23d2ff04211e8f1d629b4b4105d44ab}} 
+Sitting&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Uneven@{Uneven}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!Uneven@{Uneven}}}\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a5e07b68caff5436235a62c3010f91983}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a5e07b68caff5436235a62c3010f91983}} 
+Uneven&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DownStair@{DownStair}!Trajectory@{Trajectory}}\index{Trajectory@{Trajectory}!DownStair@{DownStair}}}\mbox{\Hypertarget{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a48643d8d34d6ab4aa31eb87628c51836}\label{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084a48643d8d34d6ab4aa31eb87628c51836}} 
+Down\+Stair&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_trajectory_aa340ba80f1f4d1aa39f19f069d5d8089}\label{class_trajectory_aa340ba80f1f4d1aa39f19f069d5d8089}} 
+\index{Trajectory@{Trajectory}!Trajectory@{Trajectory}}
+\index{Trajectory@{Trajectory}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{Trajectory()}{Trajectory()}}
+{\footnotesize\ttfamily Trajectory\+::\+Trajectory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_trajectory_af76abdf618b05446d148bad503442da5}\label{class_trajectory_af76abdf618b05446d148bad503442da5}} 
+\index{Trajectory@{Trajectory}!calcPosition@{calcPosition}}
+\index{calcPosition@{calcPosition}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{calcPosition()}{calcPosition()}}
+{\footnotesize\ttfamily void Trajectory\+::calc\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}}}]{time,  }\item[{double $\ast$}]{position\+Array }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a044c2f6d06501025d94053fbc6d29c0a}\label{class_trajectory_a044c2f6d06501025d94053fbc6d29c0a}} 
+\index{Trajectory@{Trajectory}!calcVelocity@{calcVelocity}}
+\index{calcVelocity@{calcVelocity}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{calcVelocity()}{calcVelocity()}}
+{\footnotesize\ttfamily void Trajectory\+::calc\+Velocity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}}}]{time,  }\item[{double $\ast$}]{velocity\+Array }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_ae144a9e718fa89e8623d931184447f95}\label{class_trajectory_ae144a9e718fa89e8623d931184447f95}} 
+\index{Trajectory@{Trajectory}!compute\_discrete\_trajectory@{compute\_discrete\_trajectory}}
+\index{compute\_discrete\_trajectory@{compute\_discrete\_trajectory}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{compute\_discrete\_trajectory()}{compute\_discrete\_trajectory()}}
+{\footnotesize\ttfamily void Trajectory\+::compute\+\_\+discrete\+\_\+trajectory (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} \&}]{trajectory\+Parameters,  }\item[{const \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} \&}]{pilot\+Parameters,  }\item[{\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}}}]{initial\+Jointspace\+State }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a58b3b1a745ae9e42194d947b05e489ce}\label{class_trajectory_a58b3b1a745ae9e42194d947b05e489ce}} 
+\index{Trajectory@{Trajectory}!compute\_position\_trajectory\_difference@{compute\_position\_trajectory\_difference}}
+\index{compute\_position\_trajectory\_difference@{compute\_position\_trajectory\_difference}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{compute\_position\_trajectory\_difference()}{compute\_position\_trajectory\_difference()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{Trajectory\+::jointspace\+\_\+state}} Trajectory\+::compute\+\_\+position\+\_\+trajectory\+\_\+difference (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{jointspace\+\_\+spline}}}]{jointspace\+Spline,  }\item[{\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}}}]{current\+Jointspace\+States }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a505b6066bc0d1dfb6754d150a9606740}\label{class_trajectory_a505b6066bc0d1dfb6754d150a9606740}} 
+\index{Trajectory@{Trajectory}!compute\_trajectory\_spline@{compute\_trajectory\_spline}}
+\index{compute\_trajectory\_spline@{compute\_trajectory\_spline}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{compute\_trajectory\_spline()}{compute\_trajectory\_spline()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{Trajectory\+::jointspace\+\_\+spline}} Trajectory\+::compute\+\_\+trajectory\+\_\+spline (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} \&}]{trajectory\+Parameters,  }\item[{const \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} \&}]{pilot\+Parameters,  }\item[{\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}}}]{initial\+Jointspace\+State }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em initial\+Taskspace\+State} & \\
+\hline
+{\em trajectory\+Parameters} & \\
+\hline
+{\em pilot\+Parameters} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of key taskspace\+\_\+states of the trajectory (excluding initial state) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_trajectory_af0d8261660447a64b83e4267e683d175}\label{class_trajectory_af0d8261660447a64b83e4267e683d175}} 
+\index{Trajectory@{Trajectory}!cubic\_spline@{cubic\_spline}}
+\index{cubic\_spline@{cubic\_spline}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{cubic\_spline()}{cubic\_spline()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{Trajectory\+::cubic\+\_\+polynomial}} $>$ Trajectory\+::cubic\+\_\+spline (\begin{DoxyParamCaption}\item[{double}]{x\mbox{[}$\,$\mbox{]},  }\item[{\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{Trajectory\+::time\+\_\+tt}}}]{t\mbox{[}$\,$\mbox{]},  }\item[{int}]{num\+Points }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_aae4df2dea662a350c08f18054a803ec8}\label{class_trajectory_aae4df2dea662a350c08f18054a803ec8}} 
+\index{Trajectory@{Trajectory}!cubic\_spline\_jointspace\_states@{cubic\_spline\_jointspace\_states}}
+\index{cubic\_spline\_jointspace\_states@{cubic\_spline\_jointspace\_states}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{cubic\_spline\_jointspace\_states()}{cubic\_spline\_jointspace\_states()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{Trajectory\+::jointspace\+\_\+spline}} Trajectory\+::cubic\+\_\+spline\+\_\+jointspace\+\_\+states (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}} $>$}]{states }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_acac1b46388aecb2486fab3034877427a}\label{class_trajectory_acac1b46388aecb2486fab3034877427a}} 
+\index{Trajectory@{Trajectory}!evaluate\_cubic\_polynomial@{evaluate\_cubic\_polynomial}}
+\index{evaluate\_cubic\_polynomial@{evaluate\_cubic\_polynomial}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{evaluate\_cubic\_polynomial()}{evaluate\_cubic\_polynomial()}}
+{\footnotesize\ttfamily double Trajectory\+::evaluate\+\_\+cubic\+\_\+polynomial (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{cubic\+\_\+polynomial}}}]{cubic\+Polynomial,  }\item[{\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}}}]{time }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a80aa945382006fc70d5a8f7b890bb9bf}\label{class_trajectory_a80aa945382006fc70d5a8f7b890bb9bf}} 
+\index{Trajectory@{Trajectory}!evaluate\_cubic\_polynomial\_first\_derivative@{evaluate\_cubic\_polynomial\_first\_derivative}}
+\index{evaluate\_cubic\_polynomial\_first\_derivative@{evaluate\_cubic\_polynomial\_first\_derivative}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{evaluate\_cubic\_polynomial\_first\_derivative()}{evaluate\_cubic\_polynomial\_first\_derivative()}}
+{\footnotesize\ttfamily double Trajectory\+::evaluate\+\_\+cubic\+\_\+polynomial\+\_\+first\+\_\+derivative (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{cubic\+\_\+polynomial}}}]{cubic\+Polynomial,  }\item[{\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}}}]{time }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_abb80afc5feb6262023bf3059762c0974}\label{class_trajectory_abb80afc5feb6262023bf3059762c0974}} 
+\index{Trajectory@{Trajectory}!evaluate\_cubic\_polynomial\_second\_derivative@{evaluate\_cubic\_polynomial\_second\_derivative}}
+\index{evaluate\_cubic\_polynomial\_second\_derivative@{evaluate\_cubic\_polynomial\_second\_derivative}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{evaluate\_cubic\_polynomial\_second\_derivative()}{evaluate\_cubic\_polynomial\_second\_derivative()}}
+{\footnotesize\ttfamily double Trajectory\+::evaluate\+\_\+cubic\+\_\+polynomial\+\_\+second\+\_\+derivative (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1cubic__polynomial}{cubic\+\_\+polynomial}}}]{cubic\+Polynomial,  }\item[{\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}}}]{time }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_aea32fa43ae0fa854855d689e279e002c}\label{class_trajectory_aea32fa43ae0fa854855d689e279e002c}} 
+\index{Trajectory@{Trajectory}!generate\_key\_taskspace\_states@{generate\_key\_taskspace\_states}}
+\index{generate\_key\_taskspace\_states@{generate\_key\_taskspace\_states}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{generate\_key\_taskspace\_states()}{generate\_key\_taskspace\_states()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{Trajectory\+::taskspace\+\_\+state}} $>$ Trajectory\+::generate\+\_\+key\+\_\+taskspace\+\_\+states (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{Trajectory\+::taskspace\+\_\+state}}}]{initial\+Taskspace\+State,  }\item[{const \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} \&}]{trajectory\+Parameters,  }\item[{const \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} \&}]{pilot\+Parameters }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a83eeaa85f9235347cb9df1fb185ce879}\label{class_trajectory_a83eeaa85f9235347cb9df1fb185ce879}} 
+\index{Trajectory@{Trajectory}!generateAndSaveSpline@{generateAndSaveSpline}}
+\index{generateAndSaveSpline@{generateAndSaveSpline}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{generateAndSaveSpline()}{generateAndSaveSpline()}}
+{\footnotesize\ttfamily void Trajectory\+::generate\+And\+Save\+Spline (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}}}]{initial\+Jointspace\+State }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a3ac7968200e4a808750ee6d919f337c7}\label{class_trajectory_a3ac7968200e4a808750ee6d919f337c7}} 
+\index{Trajectory@{Trajectory}!getStepDuration@{getStepDuration}}
+\index{getStepDuration@{getStepDuration}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{getStepDuration()}{getStepDuration()}}
+{\footnotesize\ttfamily double Trajectory\+::get\+Step\+Duration (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a7498837902fbc76e2da02e88790ff26a}\label{class_trajectory_a7498837902fbc76e2da02e88790ff26a}} 
+\index{Trajectory@{Trajectory}!getVelocityAfterPositionCorrection@{getVelocityAfterPositionCorrection}}
+\index{getVelocityAfterPositionCorrection@{getVelocityAfterPositionCorrection}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{getVelocityAfterPositionCorrection()}{getVelocityAfterPositionCorrection()}}
+{\footnotesize\ttfamily void Trajectory\+::get\+Velocity\+After\+Position\+Correction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}}}]{time,  }\item[{double $\ast$}]{robot\+Position\+Array,  }\item[{double $\ast$}]{velocity\+Array }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_adb01a8406fbbaa77c7e11881d83de57e}\label{class_trajectory_adb01a8406fbbaa77c7e11881d83de57e}} 
+\index{Trajectory@{Trajectory}!jointspace\_state\_to\_taskspace\_state@{jointspace\_state\_to\_taskspace\_state}}
+\index{jointspace\_state\_to\_taskspace\_state@{jointspace\_state\_to\_taskspace\_state}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{jointspace\_state\_to\_taskspace\_state()}{jointspace\_state\_to\_taskspace\_state()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{Trajectory\+::taskspace\+\_\+state}} Trajectory\+::jointspace\+\_\+state\+\_\+to\+\_\+taskspace\+\_\+state (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}}}]{jointspace\+State,  }\item[{\mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}}}]{trajectory\+Parameters,  }\item[{\mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}}}]{pilot\+Parameters }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_adfdeaceecbb86cb2841cd9696aded6b3}\label{class_trajectory_adfdeaceecbb86cb2841cd9696aded6b3}} 
+\index{Trajectory@{Trajectory}!limit\_position\_against\_angle\_boundary@{limit\_position\_against\_angle\_boundary}}
+\index{limit\_position\_against\_angle\_boundary@{limit\_position\_against\_angle\_boundary}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{limit\_position\_against\_angle\_boundary()}{limit\_position\_against\_angle\_boundary()}}
+{\footnotesize\ttfamily void Trajectory\+::limit\+\_\+position\+\_\+against\+\_\+angle\+\_\+boundary (\begin{DoxyParamCaption}\item[{double}]{position\+Array\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a90e19367a4b2cc45e0819955f8816943}\label{class_trajectory_a90e19367a4b2cc45e0819955f8816943}} 
+\index{Trajectory@{Trajectory}!limit\_velocity\_against\_angle\_boundary@{limit\_velocity\_against\_angle\_boundary}}
+\index{limit\_velocity\_against\_angle\_boundary@{limit\_velocity\_against\_angle\_boundary}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{limit\_velocity\_against\_angle\_boundary()}{limit\_velocity\_against\_angle\_boundary()}}
+{\footnotesize\ttfamily void Trajectory\+::limit\+\_\+velocity\+\_\+against\+\_\+angle\+\_\+boundary (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}}}]{current\+Jointspace\+States,  }\item[{double $\ast$}]{velocity\+Signal }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_ad2c6e2f4ad527aa298ef65da5dc36e7f}\label{class_trajectory_ad2c6e2f4ad527aa298ef65da5dc36e7f}} 
+\index{Trajectory@{Trajectory}!setPilotParameter@{setPilotParameter}}
+\index{setPilotParameter@{setPilotParameter}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{setPilotParameter()}{setPilotParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Trajectory\+::set\+Pilot\+Parameter (\begin{DoxyParamCaption}\item[{double}]{lowerleg\+\_\+length,  }\item[{double}]{upperleg\+\_\+length,  }\item[{double}]{ankle\+\_\+height,  }\item[{double}]{foot\+\_\+length,  }\item[{double}]{hip\+\_\+width,  }\item[{double}]{torso\+\_\+length,  }\item[{double}]{buttocks\+\_\+height }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a622c5a104f35068ce5e5cba39a471c4f}\label{class_trajectory_a622c5a104f35068ce5e5cba39a471c4f}} 
+\index{Trajectory@{Trajectory}!setPilotParameter@{setPilotParameter}}
+\index{setPilotParameter@{setPilotParameter}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{setPilotParameter()}{setPilotParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Trajectory\+::set\+Pilot\+Parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}}}]{pilot\+Parameter }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a1bc14a09d92161a8a4fffaff5d781a1a}\label{class_trajectory_a1bc14a09d92161a8a4fffaff5d781a1a}} 
+\index{Trajectory@{Trajectory}!setTrajectoryParameter@{setTrajectoryParameter}}
+\index{setTrajectoryParameter@{setTrajectoryParameter}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{setTrajectoryParameter()}{setTrajectoryParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Trajectory\+::set\+Trajectory\+Parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_trajectory_adabd61526a83773d81c43933c78fbb00}{time\+\_\+tt}}}]{step\+\_\+duration,  }\item[{double}]{step\+\_\+height,  }\item[{double}]{step\+\_\+length,  }\item[{double}]{hip\+\_\+height\+\_\+slack,  }\item[{double}]{torso\+\_\+forward\+\_\+angle,  }\item[{double}]{swing\+\_\+ankle\+\_\+down\+\_\+angle,  }\item[{\mbox{\hyperlink{class_trajectory_a7170fa0f26262d9e4c50ce7749a991be}{Foot}}}]{stance\+\_\+foot,  }\item[{\mbox{\hyperlink{class_trajectory_a5f3b0a3b19fde5f6f4439c7d8d9a1084}{Movement}}}]{movement,  }\item[{double}]{seat\+\_\+height,  }\item[{double}]{step\+\_\+end\+\_\+height,  }\item[{double}]{slope\+\_\+angle,  }\item[{bool}]{left\+\_\+foot\+\_\+on\+\_\+tilt,  }\item[{bool}]{right\+\_\+foot\+\_\+on\+\_\+tilt }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a87548c57ffd30387aea4499d96813b93}\label{class_trajectory_a87548c57ffd30387aea4499d96813b93}} 
+\index{Trajectory@{Trajectory}!setTrajectoryParameter@{setTrajectoryParameter}}
+\index{setTrajectoryParameter@{setTrajectoryParameter}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{setTrajectoryParameter()}{setTrajectoryParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Trajectory\+::set\+Trajectory\+Parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}}}]{trajectory\+Parameter }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a4bd3c2d46005d9b26306c20cf0ede176}\label{class_trajectory_a4bd3c2d46005d9b26306c20cf0ede176}} 
+\index{Trajectory@{Trajectory}!taskspace\_state\_to\_jointspace\_state@{taskspace\_state\_to\_jointspace\_state}}
+\index{taskspace\_state\_to\_jointspace\_state@{taskspace\_state\_to\_jointspace\_state}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{taskspace\_state\_to\_jointspace\_state()}{taskspace\_state\_to\_jointspace\_state()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{Trajectory\+::jointspace\+\_\+state}} Trajectory\+::taskspace\+\_\+state\+\_\+to\+\_\+jointspace\+\_\+state (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{taskspace\+\_\+state}}}]{taskspace\+State,  }\item[{\mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}}}]{trajectory\+Parameters,  }\item[{\mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}}}]{pilot\+Parameters }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a876a9af113235e436c746d847c3b6414}\label{class_trajectory_a876a9af113235e436c746d847c3b6414}} 
+\index{Trajectory@{Trajectory}!taskspace\_states\_to\_jointspace\_states@{taskspace\_states\_to\_jointspace\_states}}
+\index{taskspace\_states\_to\_jointspace\_states@{taskspace\_states\_to\_jointspace\_states}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{taskspace\_states\_to\_jointspace\_states()}{taskspace\_states\_to\_jointspace\_states()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{Trajectory\+::jointspace\+\_\+state}} $>$ Trajectory\+::taskspace\+\_\+states\+\_\+to\+\_\+jointspace\+\_\+states (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_trajectory_1_1jointspace__state}{jointspace\+\_\+state}}}]{initial\+Jointspace\+State,  }\item[{const vector$<$ \mbox{\hyperlink{struct_trajectory_1_1taskspace__state}{taskspace\+\_\+state}} $>$ \&}]{taskspace\+States,  }\item[{\mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}}}]{trajectory\+Parameters,  }\item[{\mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}}}]{pilot\+Parameters }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_trajectory_a85008d10c7da4944766264663562915c}\label{class_trajectory_a85008d10c7da4944766264663562915c}} 
+\index{Trajectory@{Trajectory}!triangle\_inverse\_kinematics@{triangle\_inverse\_kinematics}}
+\index{triangle\_inverse\_kinematics@{triangle\_inverse\_kinematics}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{triangle\_inverse\_kinematics()}{triangle\_inverse\_kinematics()}}
+{\footnotesize\ttfamily vector$<$ double $>$ Trajectory\+::triangle\+\_\+inverse\+\_\+kinematics (\begin{DoxyParamCaption}\item[{double}]{x\+Ankle,  }\item[{double}]{z\+Ankle,  }\item[{double}]{x\+Hip,  }\item[{double}]{z\+Hip,  }\item[{double}]{Llower,  }\item[{double}]{Lupper }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_trajectory_a13242e405acdf4228e274376d0a4bc10}\label{class_trajectory_a13242e405acdf4228e274376d0a4bc10}} 
+\index{Trajectory@{Trajectory}!pilotParameter@{pilotParameter}}
+\index{pilotParameter@{pilotParameter}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{pilotParameter}{pilotParameter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_trajectory_1_1pilot__parameters}{pilot\+\_\+parameters}} Trajectory\+::pilot\+Parameter}
+
+\mbox{\Hypertarget{class_trajectory_a855701262a26f81c55a36182276de0d7}\label{class_trajectory_a855701262a26f81c55a36182276de0d7}} 
+\index{Trajectory@{Trajectory}!Q\_MIN\_MAX@{Q\_MIN\_MAX}}
+\index{Q\_MIN\_MAX@{Q\_MIN\_MAX}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{Q\_MIN\_MAX}{Q\_MIN\_MAX}}
+{\footnotesize\ttfamily const double Trajectory\+::\+Q\+\_\+\+M\+I\+N\+\_\+\+M\+AX\mbox{[}12\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{ \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(70), \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(210),}
+\DoxyCodeLine{                               0, \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(120),}
+\DoxyCodeLine{                               \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(70), \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(210),}
+\DoxyCodeLine{                               0, \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(120),}
+\DoxyCodeLine{                               \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(75), \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(105),}
+\DoxyCodeLine{                               \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(75), \mbox{\hyperlink{_trajectory_8h_a894738198a00b6a55e87799c0f8712bb}{deg2rad}}(105) \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_trajectory_afc8d6ebeb337a4b577a1cc12536f22b8}\label{class_trajectory_afc8d6ebeb337a4b577a1cc12536f22b8}} 
+\index{Trajectory@{Trajectory}!trajectoryJointSpline@{trajectoryJointSpline}}
+\index{trajectoryJointSpline@{trajectoryJointSpline}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{trajectoryJointSpline}{trajectoryJointSpline}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_trajectory_1_1jointspace__spline}{jointspace\+\_\+spline}} Trajectory\+::trajectory\+Joint\+Spline}
+
+\mbox{\Hypertarget{class_trajectory_a2f9e05288f2dbb63afa37a1ab096493d}\label{class_trajectory_a2f9e05288f2dbb63afa37a1ab096493d}} 
+\index{Trajectory@{Trajectory}!trajectoryParameter@{trajectoryParameter}}
+\index{trajectoryParameter@{trajectoryParameter}!Trajectory@{Trajectory}}
+\doxysubsubsection{\texorpdfstring{trajectoryParameter}{trajectoryParameter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_trajectory_1_1trajectory__parameters}{trajectory\+\_\+parameters}} Trajectory\+::trajectory\+Parameter}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/robot/\mbox{\hyperlink{_trajectory_8h}{Trajectory.\+h}}\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/robot/\mbox{\hyperlink{_trajectory_8cpp}{Trajectory.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,71 @@
+\hypertarget{structinternal_1_1grisu__shortest__handler}{}\doxysection{internal\+::grisu\+\_\+shortest\+\_\+handler Struct Reference}
+\label{structinternal_1_1grisu__shortest__handler}\index{internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}}
+
+
+{\ttfamily \#include $<$format-\/inl.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceinternal_1_1digits_a7884854f21f10586dd49b0d4b5543b8d}{digits\+::result}} \mbox{\hyperlink{structinternal_1_1grisu__shortest__handler_ab1d1da17b79c29b75a7d0278346d39c1}{on\+\_\+start}} (uint64\+\_\+t, uint64\+\_\+t, uint64\+\_\+t, int \&)
+\item 
+void \mbox{\hyperlink{structinternal_1_1grisu__shortest__handler_a4fc2b91b2a346ce252332c6c71cb8e5a}{round}} (uint64\+\_\+t d, uint64\+\_\+t divisor, uint64\+\_\+t \&remainder, uint64\+\_\+t error)
+\item 
+\mbox{\hyperlink{namespaceinternal_1_1digits_a7884854f21f10586dd49b0d4b5543b8d}{digits\+::result}} \mbox{\hyperlink{structinternal_1_1grisu__shortest__handler_ac57ff9a17b27e8a6f3d8c106911ade4b}{on\+\_\+digit}} (char digit, uint64\+\_\+t divisor, uint64\+\_\+t remainder, uint64\+\_\+t error, int exp, bool integral)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{structinternal_1_1grisu__shortest__handler_a52ae8ea88c54c07f61efc42b79934fc4}{buf}}
+\item 
+int \mbox{\hyperlink{structinternal_1_1grisu__shortest__handler_af9797aba7fe5fa039848205b9f40fec5}{size}}
+\item 
+uint64\+\_\+t \mbox{\hyperlink{structinternal_1_1grisu__shortest__handler_a15d35ed184f6324821959d1576619c66}{diff}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structinternal_1_1grisu__shortest__handler_ac57ff9a17b27e8a6f3d8c106911ade4b}\label{structinternal_1_1grisu__shortest__handler_ac57ff9a17b27e8a6f3d8c106911ade4b}} 
+\index{internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}!on\_digit@{on\_digit}}
+\index{on\_digit@{on\_digit}!internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}}
+\doxysubsubsection{\texorpdfstring{on\_digit()}{on\_digit()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceinternal_1_1digits_a7884854f21f10586dd49b0d4b5543b8d}{digits\+::result}} internal\+::grisu\+\_\+shortest\+\_\+handler\+::on\+\_\+digit (\begin{DoxyParamCaption}\item[{char}]{digit,  }\item[{uint64\+\_\+t}]{divisor,  }\item[{uint64\+\_\+t}]{remainder,  }\item[{uint64\+\_\+t}]{error,  }\item[{int}]{exp,  }\item[{bool}]{integral }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1grisu__shortest__handler_ab1d1da17b79c29b75a7d0278346d39c1}\label{structinternal_1_1grisu__shortest__handler_ab1d1da17b79c29b75a7d0278346d39c1}} 
+\index{internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}!on\_start@{on\_start}}
+\index{on\_start@{on\_start}!internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}}
+\doxysubsubsection{\texorpdfstring{on\_start()}{on\_start()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespaceinternal_1_1digits_a7884854f21f10586dd49b0d4b5543b8d}{digits\+::result}} internal\+::grisu\+\_\+shortest\+\_\+handler\+::on\+\_\+start (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{,  }\item[{uint64\+\_\+t}]{,  }\item[{uint64\+\_\+t}]{,  }\item[{int \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{structinternal_1_1grisu__shortest__handler_a4fc2b91b2a346ce252332c6c71cb8e5a}\label{structinternal_1_1grisu__shortest__handler_a4fc2b91b2a346ce252332c6c71cb8e5a}} 
+\index{internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}!round@{round}}
+\index{round@{round}!internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}}
+\doxysubsubsection{\texorpdfstring{round()}{round()}}
+{\footnotesize\ttfamily void internal\+::grisu\+\_\+shortest\+\_\+handler\+::round (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{d,  }\item[{uint64\+\_\+t}]{divisor,  }\item[{uint64\+\_\+t \&}]{remainder,  }\item[{uint64\+\_\+t}]{error }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structinternal_1_1grisu__shortest__handler_a52ae8ea88c54c07f61efc42b79934fc4}\label{structinternal_1_1grisu__shortest__handler_a52ae8ea88c54c07f61efc42b79934fc4}} 
+\index{internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}!buf@{buf}}
+\index{buf@{buf}!internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}}
+\doxysubsubsection{\texorpdfstring{buf}{buf}}
+{\footnotesize\ttfamily char$\ast$ internal\+::grisu\+\_\+shortest\+\_\+handler\+::buf}
+
+\mbox{\Hypertarget{structinternal_1_1grisu__shortest__handler_a15d35ed184f6324821959d1576619c66}\label{structinternal_1_1grisu__shortest__handler_a15d35ed184f6324821959d1576619c66}} 
+\index{internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}!diff@{diff}}
+\index{diff@{diff}!internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}}
+\doxysubsubsection{\texorpdfstring{diff}{diff}}
+{\footnotesize\ttfamily uint64\+\_\+t internal\+::grisu\+\_\+shortest\+\_\+handler\+::diff}
+
+\mbox{\Hypertarget{structinternal_1_1grisu__shortest__handler_af9797aba7fe5fa039848205b9f40fec5}\label{structinternal_1_1grisu__shortest__handler_af9797aba7fe5fa039848205b9f40fec5}} 
+\index{internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}!size@{size}}
+\index{size@{size}!internal::grisu\_shortest\_handler@{internal::grisu\_shortest\_handler}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily int internal\+::grisu\+\_\+shortest\+\_\+handler\+::size}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{format-inl_8h}{format-\/inl.\+h}}\end{DoxyCompactItemize}

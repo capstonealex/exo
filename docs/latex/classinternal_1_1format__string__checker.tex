@@ -1,0 +1,178 @@
+\hypertarget{classinternal_1_1format__string__checker}{}\doxysection{internal\+::format\+\_\+string\+\_\+checker$<$ Char, Error\+Handler, Args $>$ Class Template Reference}
+\label{classinternal_1_1format__string__checker}\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+
+
+{\ttfamily \#include $<$format.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1format__string__checker_ace9b5d14d17800788cb39fcfe900712d}{format\+\_\+string\+\_\+checker}} (\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$ format\+\_\+str, Error\+Handler eh)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker_a80292d0556871811a821bca796f770c3}{on\+\_\+text}} (const Char $\ast$, const Char $\ast$)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker_aa885efcd3d9786997df78121b82b85a2}{on\+\_\+arg\+\_\+id}} ()
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker_a78c7011208271c7132cdad9986f30652}{on\+\_\+arg\+\_\+id}} (int id)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker_a32971d1bbff2686a400f2edba4473d8a}{on\+\_\+arg\+\_\+id}} (\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker_a0d7bcf166939fea3198891cd0e574997}{on\+\_\+replacement\+\_\+field}} (const Char $\ast$)
+\item 
+const \mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} Char $\ast$ \mbox{\hyperlink{classinternal_1_1format__string__checker_a2bdfdb46f34982ac64d958364608b50f}{on\+\_\+format\+\_\+specs}} (const Char $\ast$begin, const Char $\ast$)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker_a4436018134529c7b630b05bef2342b89}{on\+\_\+error}} (const char $\ast$message)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \mbox{\hyperlink{classinternal_1_1format__string__checker_a2bcde433a0baaf287c5f486ce36a33d0acc694409a8dc532b8d597e26fb2f7e31}{num\+\_\+args}} = sizeof...(Args)
+ \}
+\item 
+using \mbox{\hyperlink{classinternal_1_1format__string__checker_a97e360ab0127721511544a5c4439d250}{parse\+\_\+context\+\_\+type}} = \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$
+\item 
+using \mbox{\hyperlink{classinternal_1_1format__string__checker_a3219a04ee09b8eaf5c9b648e82491b04}{parse\+\_\+func}} = const Char $\ast$($\ast$)(\mbox{\hyperlink{classinternal_1_1format__string__checker_a97e360ab0127721511544a5c4439d250}{parse\+\_\+context\+\_\+type}} \&)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker_a60a46d6bc92a296fa7fb9e2296ac0b43}{check\+\_\+arg\+\_\+id}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classinternal_1_1format__string__checker_ab2aa60594c3beb4f2480013705d73b1c}{arg\+\_\+id\+\_\+}}
+\item 
+\mbox{\hyperlink{classinternal_1_1format__string__checker_a97e360ab0127721511544a5c4439d250}{parse\+\_\+context\+\_\+type}} \mbox{\hyperlink{classinternal_1_1format__string__checker_a539bd0617fff9adc0c783e4c517c851c}{context\+\_\+}}
+\item 
+\mbox{\hyperlink{classinternal_1_1format__string__checker_a3219a04ee09b8eaf5c9b648e82491b04}{parse\+\_\+func}} \mbox{\hyperlink{classinternal_1_1format__string__checker_a93552125d155d81ee0e473af18af9ced}{parse\+\_\+funcs\+\_\+}} \mbox{[}\mbox{\hyperlink{classinternal_1_1format__string__checker_a2bcde433a0baaf287c5f486ce36a33d0acc694409a8dc532b8d597e26fb2f7e31}{num\+\_\+args}} $>$ 0 ? \mbox{\hyperlink{classinternal_1_1format__string__checker_a2bcde433a0baaf287c5f486ce36a33d0acc694409a8dc532b8d597e26fb2f7e31}{num\+\_\+args}} \+:1\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a97e360ab0127721511544a5c4439d250}\label{classinternal_1_1format__string__checker_a97e360ab0127721511544a5c4439d250}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!parse\_context\_type@{parse\_context\_type}}
+\index{parse\_context\_type@{parse\_context\_type}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{parse\_context\_type}{parse\_context\_type}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+using \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::\mbox{\hyperlink{classinternal_1_1format__string__checker_a97e360ab0127721511544a5c4439d250}{parse\+\_\+context\+\_\+type}} =  \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$Char, Error\+Handler$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a3219a04ee09b8eaf5c9b648e82491b04}\label{classinternal_1_1format__string__checker_a3219a04ee09b8eaf5c9b648e82491b04}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!parse\_func@{parse\_func}}
+\index{parse\_func@{parse\_func}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{parse\_func}{parse\_func}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+using \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::\mbox{\hyperlink{classinternal_1_1format__string__checker_a3219a04ee09b8eaf5c9b648e82491b04}{parse\+\_\+func}} =  const Char$\ast$ ($\ast$)(\mbox{\hyperlink{classinternal_1_1format__string__checker_a97e360ab0127721511544a5c4439d250}{parse\+\_\+context\+\_\+type}}\&)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a2bcde433a0baaf287c5f486ce36a33d0}\label{classinternal_1_1format__string__checker_a2bcde433a0baaf287c5f486ce36a33d0}} 
+\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+anonymous enum\hspace{0.3cm}{\ttfamily [private]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{num\_args@{num\_args}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!num\_args@{num\_args}}}\mbox{\Hypertarget{classinternal_1_1format__string__checker_a2bcde433a0baaf287c5f486ce36a33d0acc694409a8dc532b8d597e26fb2f7e31}\label{classinternal_1_1format__string__checker_a2bcde433a0baaf287c5f486ce36a33d0acc694409a8dc532b8d597e26fb2f7e31}} 
+num\+\_\+args&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_ace9b5d14d17800788cb39fcfe900712d}\label{classinternal_1_1format__string__checker_ace9b5d14d17800788cb39fcfe900712d}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!format\_string\_checker@{format\_string\_checker}}
+\index{format\_string\_checker@{format\_string\_checker}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{format\_string\_checker()}{format\_string\_checker()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::\mbox{\hyperlink{classinternal_1_1format__string__checker}{format\+\_\+string\+\_\+checker}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$}]{format\+\_\+str,  }\item[{Error\+Handler}]{eh }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a60a46d6bc92a296fa7fb9e2296ac0b43}\label{classinternal_1_1format__string__checker_a60a46d6bc92a296fa7fb9e2296ac0b43}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!check\_arg\_id@{check\_arg\_id}}
+\index{check\_arg\_id@{check\_arg\_id}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{check\_arg\_id()}{check\_arg\_id()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::check\+\_\+arg\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_aa885efcd3d9786997df78121b82b85a2}\label{classinternal_1_1format__string__checker_aa885efcd3d9786997df78121b82b85a2}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!on\_arg\_id@{on\_arg\_id}}
+\index{on\_arg\_id@{on\_arg\_id}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{on\_arg\_id()}{on\_arg\_id()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::on\+\_\+arg\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a32971d1bbff2686a400f2edba4473d8a}\label{classinternal_1_1format__string__checker_a32971d1bbff2686a400f2edba4473d8a}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!on\_arg\_id@{on\_arg\_id}}
+\index{on\_arg\_id@{on\_arg\_id}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{on\_arg\_id()}{on\_arg\_id()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::on\+\_\+arg\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a78c7011208271c7132cdad9986f30652}\label{classinternal_1_1format__string__checker_a78c7011208271c7132cdad9986f30652}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!on\_arg\_id@{on\_arg\_id}}
+\index{on\_arg\_id@{on\_arg\_id}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{on\_arg\_id()}{on\_arg\_id()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::on\+\_\+arg\+\_\+id (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a4436018134529c7b630b05bef2342b89}\label{classinternal_1_1format__string__checker_a4436018134529c7b630b05bef2342b89}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!on\_error@{on\_error}}
+\index{on\_error@{on\_error}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a2bdfdb46f34982ac64d958364608b50f}\label{classinternal_1_1format__string__checker_a2bdfdb46f34982ac64d958364608b50f}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!on\_format\_specs@{on\_format\_specs}}
+\index{on\_format\_specs@{on\_format\_specs}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{on\_format\_specs()}{on\_format\_specs()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+const \mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} Char$\ast$ \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::on\+\_\+format\+\_\+specs (\begin{DoxyParamCaption}\item[{const Char $\ast$}]{begin,  }\item[{const Char $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a0d7bcf166939fea3198891cd0e574997}\label{classinternal_1_1format__string__checker_a0d7bcf166939fea3198891cd0e574997}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!on\_replacement\_field@{on\_replacement\_field}}
+\index{on\_replacement\_field@{on\_replacement\_field}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{on\_replacement\_field()}{on\_replacement\_field()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::on\+\_\+replacement\+\_\+field (\begin{DoxyParamCaption}\item[{const Char $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a80292d0556871811a821bca796f770c3}\label{classinternal_1_1format__string__checker_a80292d0556871811a821bca796f770c3}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!on\_text@{on\_text}}
+\index{on\_text@{on\_text}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{on\_text()}{on\_text()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::on\+\_\+text (\begin{DoxyParamCaption}\item[{const Char $\ast$}]{,  }\item[{const Char $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_ab2aa60594c3beb4f2480013705d73b1c}\label{classinternal_1_1format__string__checker_ab2aa60594c3beb4f2480013705d73b1c}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!arg\_id\_@{arg\_id\_}}
+\index{arg\_id\_@{arg\_id\_}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{arg\_id\_}{arg\_id\_}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+int \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::arg\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a539bd0617fff9adc0c783e4c517c851c}\label{classinternal_1_1format__string__checker_a539bd0617fff9adc0c783e4c517c851c}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!context\_@{context\_}}
+\index{context\_@{context\_}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{context\_}{context\_}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{classinternal_1_1format__string__checker_a97e360ab0127721511544a5c4439d250}{parse\+\_\+context\+\_\+type}} \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::context\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classinternal_1_1format__string__checker_a93552125d155d81ee0e473af18af9ced}\label{classinternal_1_1format__string__checker_a93552125d155d81ee0e473af18af9ced}} 
+\index{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}!parse\_funcs\_@{parse\_funcs\_}}
+\index{parse\_funcs\_@{parse\_funcs\_}!internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$@{internal::format\_string\_checker$<$ Char, ErrorHandler, Args $>$}}
+\doxysubsubsection{\texorpdfstring{parse\_funcs\_}{parse\_funcs\_}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler , typename... Args$>$ \\
+\mbox{\hyperlink{classinternal_1_1format__string__checker_a3219a04ee09b8eaf5c9b648e82491b04}{parse\+\_\+func}} \mbox{\hyperlink{classinternal_1_1format__string__checker}{internal\+::format\+\_\+string\+\_\+checker}}$<$ Char, Error\+Handler, Args $>$\+::parse\+\_\+funcs\+\_\+\mbox{[}\mbox{\hyperlink{classinternal_1_1format__string__checker_a2bcde433a0baaf287c5f486ce36a33d0acc694409a8dc532b8d597e26fb2f7e31}{num\+\_\+args}} $>$ 0 ? \mbox{\hyperlink{classinternal_1_1format__string__checker_a2bcde433a0baaf287c5f486ce36a33d0acc694409a8dc532b8d597e26fb2f7e31}{num\+\_\+args}} \+:1\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{format_8h}{format.\+h}}\end{DoxyCompactItemize}

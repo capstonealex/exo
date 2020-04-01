@@ -1,0 +1,85 @@
+\hypertarget{group___c_o___h_bconsumer}{}\doxysection{Heartbeat consumer}
+\label{group___c_o___h_bconsumer}\index{Heartbeat consumer@{Heartbeat consumer}}
+\doxysubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{_c_o___h_bconsumer_8h}{C\+O\+\_\+\+H\+Bconsumer.\+h}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_o___h_bcons_node__t}{C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct_c_o___h_bconsumer__t}{C\+O\+\_\+\+H\+Bconsumer\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} \mbox{\hyperlink{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}{C\+O\+\_\+\+H\+Bconsumer\+\_\+init}} (\mbox{\hyperlink{struct_c_o___h_bconsumer__t}{C\+O\+\_\+\+H\+Bconsumer\+\_\+t}} $\ast$H\+Bcons, \mbox{\hyperlink{struct_c_o___e_m__t}{C\+O\+\_\+\+E\+M\+\_\+t}} $\ast$em, \mbox{\hyperlink{struct_c_o___s_d_o__t}{C\+O\+\_\+\+S\+D\+O\+\_\+t}} $\ast$S\+DO, const uint32\+\_\+t H\+Bcons\+Time\mbox{[}$\,$\mbox{]}, \mbox{\hyperlink{struct_c_o___h_bcons_node__t}{C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t}} monitored\+Nodes\mbox{[}$\,$\mbox{]}, uint8\+\_\+t number\+Of\+Monitored\+Nodes, \mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Ndev\+Rx, uint16\+\_\+t C\+A\+Ndev\+Rx\+Idx\+Start)
+\item 
+void \mbox{\hyperlink{group___c_o___h_bconsumer_ga87b4601593551c6cb54cc5f881d72f1d}{C\+O\+\_\+\+H\+Bconsumer\+\_\+process}} (\mbox{\hyperlink{struct_c_o___h_bconsumer__t}{C\+O\+\_\+\+H\+Bconsumer\+\_\+t}} $\ast$H\+Bcons, \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} N\+M\+Tis\+Pre\+Or\+Operational, uint16\+\_\+t time\+Difference\+\_\+ms)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+C\+A\+Nopen Heartbeat consumer protocol.
+
+Heartbeat consumer monitors Heartbeat messages from remote nodes. If any monitored node don\textquotesingle{}t send his Heartbeat in specified time, Heartbeat consumer sends emergency message. If all monitored nodes are operational, then variable {\itshape all\+Monitored\+Operational} inside \mbox{\hyperlink{struct_c_o___h_bconsumer__t}{C\+O\+\_\+\+H\+Bconsumer\+\_\+t}} is set to true. Monitoring starts after the reception of the first Heart\+Beat (not bootup).
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{group___c_o___n_m_t___heartbeat}{N\+MT and Heartbeat}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}\label{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}} 
+\index{Heartbeat consumer@{Heartbeat consumer}!CO\_HBconsumer\_init@{CO\_HBconsumer\_init}}
+\index{CO\_HBconsumer\_init@{CO\_HBconsumer\_init}!Heartbeat consumer@{Heartbeat consumer}}
+\doxysubsubsection{\texorpdfstring{CO\_HBconsumer\_init()}{CO\_HBconsumer\_init()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} C\+O\+\_\+\+H\+Bconsumer\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___h_bconsumer__t}{C\+O\+\_\+\+H\+Bconsumer\+\_\+t}} $\ast$}]{H\+Bcons,  }\item[{\mbox{\hyperlink{struct_c_o___e_m__t}{C\+O\+\_\+\+E\+M\+\_\+t}} $\ast$}]{em,  }\item[{\mbox{\hyperlink{struct_c_o___s_d_o__t}{C\+O\+\_\+\+S\+D\+O\+\_\+t}} $\ast$}]{S\+DO,  }\item[{const uint32\+\_\+t}]{H\+Bcons\+Time\mbox{[}$\,$\mbox{]},  }\item[{\mbox{\hyperlink{struct_c_o___h_bcons_node__t}{C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t}}}]{monitored\+Nodes\mbox{[}$\,$\mbox{]},  }\item[{uint8\+\_\+t}]{number\+Of\+Monitored\+Nodes,  }\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Ndev\+Rx,  }\item[{uint16\+\_\+t}]{C\+A\+Ndev\+Rx\+Idx\+Start }\end{DoxyParamCaption})}
+
+Initialize Heartbeat consumer object.
+
+Function must be called in the communication reset section.
+
+
+\begin{DoxyParams}{Parameters}
+{\em H\+Bcons} & This object will be initialized. \\
+\hline
+{\em em} & Emergency object. \\
+\hline
+{\em S\+DO} & S\+DO server object. \\
+\hline
+{\em H\+Bcons\+Time} & Pointer to {\itshape Consumer Heartbeat Time} array from Object Dictionary (index 0x1016). Size of array is equal to number\+Of\+Monitored\+Nodes. \\
+\hline
+{\em monitored\+Nodes} & Pointer to the externaly defined array of the same size as number\+Of\+Monitored\+Nodes. \\
+\hline
+{\em number\+Of\+Monitored\+Nodes} & Total size of the above arrays. \\
+\hline
+{\em C\+A\+Ndev\+Rx} & C\+AN device for Heartbeat reception. \\
+\hline
+{\em C\+A\+Ndev\+Rx\+Idx\+Start} & Starting index of receive buffer in the above C\+AN device. Number of used indexes is equal to number\+Of\+Monitored\+Nodes.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+NO or C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+L\+L\+E\+G\+A\+L\+\_\+\+A\+R\+G\+U\+M\+E\+NT. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group___c_o___h_bconsumer_ga87b4601593551c6cb54cc5f881d72f1d}\label{group___c_o___h_bconsumer_ga87b4601593551c6cb54cc5f881d72f1d}} 
+\index{Heartbeat consumer@{Heartbeat consumer}!CO\_HBconsumer\_process@{CO\_HBconsumer\_process}}
+\index{CO\_HBconsumer\_process@{CO\_HBconsumer\_process}!Heartbeat consumer@{Heartbeat consumer}}
+\doxysubsubsection{\texorpdfstring{CO\_HBconsumer\_process()}{CO\_HBconsumer\_process()}}
+{\footnotesize\ttfamily void C\+O\+\_\+\+H\+Bconsumer\+\_\+process (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___h_bconsumer__t}{C\+O\+\_\+\+H\+Bconsumer\+\_\+t}} $\ast$}]{H\+Bcons,  }\item[{\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}}}]{N\+M\+Tis\+Pre\+Or\+Operational,  }\item[{uint16\+\_\+t}]{time\+Difference\+\_\+ms }\end{DoxyParamCaption})}
+
+Process Heartbeat consumer object.
+
+Function must be called cyclically.
+
+
+\begin{DoxyParams}{Parameters}
+{\em H\+Bcons} & This object. \\
+\hline
+{\em N\+M\+Tis\+Pre\+Or\+Operational} & True if this node is N\+M\+T\+\_\+\+P\+R\+E\+\_\+\+O\+P\+E\+R\+A\+T\+I\+O\+N\+AL or N\+M\+T\+\_\+\+O\+P\+E\+R\+A\+T\+I\+O\+N\+AL. \\
+\hline
+{\em time\+Difference\+\_\+ms} & Time difference from previous function call in \mbox{[}milliseconds\mbox{]}. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,95 @@
+\hypertarget{classinternal_1_1formatbuf}{}\doxysection{internal\+::formatbuf$<$ Char $>$ Class Template Reference}
+\label{classinternal_1_1formatbuf}\index{internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}}
+
+
+{\ttfamily \#include $<$ostream.\+h$>$}
+
+Inheritance diagram for internal\+::formatbuf$<$ Char $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classinternal_1_1formatbuf}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classinternal_1_1formatbuf_a5e6821ea339c6451694bfe8ac21978b2}{formatbuf}} (\mbox{\hyperlink{classinternal_1_1buffer}{buffer}}$<$ Char $>$ \&\mbox{\hyperlink{application_8cpp_aa600422614c972633e9e2951539ff779}{buf}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}{int\+\_\+type}} \mbox{\hyperlink{classinternal_1_1formatbuf_a8bd06d6e45ceeb2e89956359e47aa9b7}{overflow}} (\mbox{\hyperlink{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}{int\+\_\+type}} ch=traits\+\_\+type\+::eof()) \mbox{\hyperlink{core_8h_a023c6c178e254d81d578b90921804b1c}{F\+M\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE}}
+\item 
+std\+::streamsize \mbox{\hyperlink{classinternal_1_1formatbuf_a59b8ab9a4c9907e4d6bae3861832e687}{xsputn}} (const Char $\ast$s, std\+::streamsize count) \mbox{\hyperlink{core_8h_a023c6c178e254d81d578b90921804b1c}{F\+M\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}{int\+\_\+type}} = typename std\+::basic\+\_\+streambuf$<$ Char $>$\+::\mbox{\hyperlink{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}{int\+\_\+type}}
+\item 
+using \mbox{\hyperlink{classinternal_1_1formatbuf_a3ff1206b8e0c0fa61ba061c17cb7e1c6}{traits\+\_\+type}} = typename std\+::basic\+\_\+streambuf$<$ Char $>$\+::\mbox{\hyperlink{classinternal_1_1formatbuf_a3ff1206b8e0c0fa61ba061c17cb7e1c6}{traits\+\_\+type}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classinternal_1_1buffer}{buffer}}$<$ Char $>$ \& \mbox{\hyperlink{classinternal_1_1formatbuf_ace518a041fbb438b3b646ccc316f7b4b}{buffer\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}\label{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}} 
+\index{internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}!int\_type@{int\_type}}
+\index{int\_type@{int\_type}!internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{int\_type}{int\_type}}
+{\footnotesize\ttfamily template$<$class Char $>$ \\
+using \mbox{\hyperlink{classinternal_1_1formatbuf}{internal\+::formatbuf}}$<$ Char $>$\+::\mbox{\hyperlink{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}{int\+\_\+type}} =  typename std\+::basic\+\_\+streambuf$<$Char$>$\+::\mbox{\hyperlink{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}{int\+\_\+type}}\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classinternal_1_1formatbuf_a3ff1206b8e0c0fa61ba061c17cb7e1c6}\label{classinternal_1_1formatbuf_a3ff1206b8e0c0fa61ba061c17cb7e1c6}} 
+\index{internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}!traits\_type@{traits\_type}}
+\index{traits\_type@{traits\_type}!internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{traits\_type}{traits\_type}}
+{\footnotesize\ttfamily template$<$class Char $>$ \\
+using \mbox{\hyperlink{classinternal_1_1formatbuf}{internal\+::formatbuf}}$<$ Char $>$\+::\mbox{\hyperlink{classinternal_1_1formatbuf_a3ff1206b8e0c0fa61ba061c17cb7e1c6}{traits\+\_\+type}} =  typename std\+::basic\+\_\+streambuf$<$Char$>$\+::\mbox{\hyperlink{classinternal_1_1formatbuf_a3ff1206b8e0c0fa61ba061c17cb7e1c6}{traits\+\_\+type}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classinternal_1_1formatbuf_a5e6821ea339c6451694bfe8ac21978b2}\label{classinternal_1_1formatbuf_a5e6821ea339c6451694bfe8ac21978b2}} 
+\index{internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}!formatbuf@{formatbuf}}
+\index{formatbuf@{formatbuf}!internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{formatbuf()}{formatbuf()}}
+{\footnotesize\ttfamily template$<$class Char $>$ \\
+\mbox{\hyperlink{classinternal_1_1formatbuf}{internal\+::formatbuf}}$<$ Char $>$\+::\mbox{\hyperlink{classinternal_1_1formatbuf}{formatbuf}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classinternal_1_1buffer}{buffer}}$<$ Char $>$ \&}]{buf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classinternal_1_1formatbuf_a8bd06d6e45ceeb2e89956359e47aa9b7}\label{classinternal_1_1formatbuf_a8bd06d6e45ceeb2e89956359e47aa9b7}} 
+\index{internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}!overflow@{overflow}}
+\index{overflow@{overflow}!internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{overflow()}{overflow()}}
+{\footnotesize\ttfamily template$<$class Char $>$ \\
+\mbox{\hyperlink{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}{int\+\_\+type}} \mbox{\hyperlink{classinternal_1_1formatbuf}{internal\+::formatbuf}}$<$ Char $>$\+::overflow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classinternal_1_1formatbuf_a30140b224362857e04c4efebead3d790}{int\+\_\+type}}}]{ch = {\ttfamily traits\+\_\+type\+:\+:eof()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classinternal_1_1formatbuf_a59b8ab9a4c9907e4d6bae3861832e687}\label{classinternal_1_1formatbuf_a59b8ab9a4c9907e4d6bae3861832e687}} 
+\index{internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}!xsputn@{xsputn}}
+\index{xsputn@{xsputn}!internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{xsputn()}{xsputn()}}
+{\footnotesize\ttfamily template$<$class Char $>$ \\
+std\+::streamsize \mbox{\hyperlink{classinternal_1_1formatbuf}{internal\+::formatbuf}}$<$ Char $>$\+::xsputn (\begin{DoxyParamCaption}\item[{const Char $\ast$}]{s,  }\item[{std\+::streamsize}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classinternal_1_1formatbuf_ace518a041fbb438b3b646ccc316f7b4b}\label{classinternal_1_1formatbuf_ace518a041fbb438b3b646ccc316f7b4b}} 
+\index{internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}!buffer\_@{buffer\_}}
+\index{buffer\_@{buffer\_}!internal::formatbuf$<$ Char $>$@{internal::formatbuf$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{buffer\_}{buffer\_}}
+{\footnotesize\ttfamily template$<$class Char $>$ \\
+\mbox{\hyperlink{classinternal_1_1buffer}{buffer}}$<$Char$>$\& \mbox{\hyperlink{classinternal_1_1formatbuf}{internal\+::formatbuf}}$<$ Char $>$\+::buffer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{ostream_8h}{ostream.\+h}}\end{DoxyCompactItemize}

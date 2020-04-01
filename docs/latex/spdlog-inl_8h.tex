@@ -1,0 +1,53 @@
+\hypertarget{spdlog-inl_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/spdlog-\/inl.h File Reference}
+\label{spdlog-inl_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/spdlog-\/inl.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/spdlog/spdlog-\/inl.h}}
+{\ttfamily \#include $<$spdlog/spdlog.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/common.\+h$>$}\newline
+{\ttfamily \#include $<$spdlog/details/pattern\+\_\+formatter.\+h$>$}\newline
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacespdlog}{spdlog}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_abbcf0be04044f9defbc530adc7185291}{spdlog\+::initialize\+\_\+logger}} (std\+::shared\+\_\+ptr$<$ logger $>$ logger)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} std\+::shared\+\_\+ptr$<$ logger $>$ \mbox{\hyperlink{namespacespdlog_ae03bfa2ad2b67b851ed155add1ff80a3}{spdlog\+::get}} (const std\+::string \&name)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_a83007016a4f374c8efcc738eee5b7290}{spdlog\+::set\+\_\+formatter}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1formatter}{spdlog\+::formatter}} $>$ \mbox{\hyperlink{structformatter}{formatter}})
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_a2ee6f50e6ce064cb2fcb0d163b4e4557}{spdlog\+::set\+\_\+pattern}} (std\+::string pattern, pattern\+\_\+time\+\_\+type time\+\_\+type)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_a12c840de1a59fc0b9386d47da37ae909}{spdlog\+::enable\+\_\+backtrace}} (size\+\_\+t n\+\_\+messages)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_ac064656e1f0c3510d6b3d9295dc1dff9}{spdlog\+::disable\+\_\+backtrace}} ()
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_aad741395adadf7e0fea688ed84de0e67}{spdlog\+::dump\+\_\+backtrace}} ()
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_a9f952c6a1e1114b474aff89965261a1b}{spdlog\+::set\+\_\+level}} (level\+::level\+\_\+enum log\+\_\+level)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_afac55b239302064cba773add59b635d1}{spdlog\+::flush\+\_\+on}} (level\+::level\+\_\+enum log\+\_\+level)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_a70d5763d644df282a67999baf4680dde}{spdlog\+::flush\+\_\+every}} (std\+::chrono\+::seconds interval)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_a85b24c6e6281ae8c0db8bb41f06c1e66}{spdlog\+::set\+\_\+error\+\_\+handler}} (void($\ast$handler)(const std\+::string \&msg))
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_a306f1c2ef42ba046620bd84266ee5b24}{spdlog\+::register\+\_\+logger}} (std\+::shared\+\_\+ptr$<$ logger $>$ logger)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_a33b888a87a0fccc7b7dd5b89413ce6b7}{spdlog\+::apply\+\_\+all}} (const std\+::function$<$ void(std\+::shared\+\_\+ptr$<$ logger $>$)$>$ \&fun)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_af2ec5792fb30798cf285da36cb5c9377}{spdlog\+::drop}} (const std\+::string \&name)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_ab1211636fc47637f4dc5ee9a18aa1bce}{spdlog\+::drop\+\_\+all}} ()
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_a38b5c05a859763c5e350e8ec3da9e328}{spdlog\+::shutdown}} ()
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_adb74d91c7182c89832c9c325f6011f4b}{spdlog\+::set\+\_\+automatic\+\_\+registration}} (bool automatic\+\_\+registration)
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1logger}{spdlog\+::logger}} $>$ \mbox{\hyperlink{namespacespdlog_aa51d16b14d7dde815c0e7e3b4d754c3b}{spdlog\+::default\+\_\+logger}} ()
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} \mbox{\hyperlink{classspdlog_1_1logger}{spdlog\+::logger}} $\ast$ \mbox{\hyperlink{namespacespdlog_a7aa30cff6349a555b136a7787e6bfa10}{spdlog\+::default\+\_\+logger\+\_\+raw}} ()
+\item 
+\mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void \mbox{\hyperlink{namespacespdlog_ab8a13bd805e706298e1e396ee5ac93bb}{spdlog\+::set\+\_\+default\+\_\+logger}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1logger}{spdlog\+::logger}} $>$ default\+\_\+logger)
+\end{DoxyCompactItemize}

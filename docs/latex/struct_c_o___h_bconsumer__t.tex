@@ -1,0 +1,78 @@
+\hypertarget{struct_c_o___h_bconsumer__t}{}\doxysection{C\+O\+\_\+\+H\+Bconsumer\+\_\+t Struct Reference}
+\label{struct_c_o___h_bconsumer__t}\index{CO\_HBconsumer\_t@{CO\_HBconsumer\_t}}
+
+
+{\ttfamily \#include $<$C\+O\+\_\+\+H\+Bconsumer.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_c_o___e_m__t}{C\+O\+\_\+\+E\+M\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o___h_bconsumer__t_aae5e363ccc6a6fd3b17a35e0430add2a}{em}}
+\item 
+const uint32\+\_\+t $\ast$ \mbox{\hyperlink{struct_c_o___h_bconsumer__t_a1cd314f387357f2ce13d4093f477fff5}{H\+Bcons\+Time}}
+\item 
+\mbox{\hyperlink{struct_c_o___h_bcons_node__t}{C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o___h_bconsumer__t_a737b37c544a28eff8de0b03b51cbeec8}{monitored\+Nodes}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{struct_c_o___h_bconsumer__t_a5b944043074d42017be3b76320030542}{number\+Of\+Monitored\+Nodes}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{struct_c_o___h_bconsumer__t_a9407103796db857229ec5b266c580b37}{all\+Monitored\+Operational}}
+\item 
+\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$ \mbox{\hyperlink{struct_c_o___h_bconsumer__t_af5d8828478e2b51fe47a63f24dd896b1}{C\+A\+Ndev\+Rx}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_c_o___h_bconsumer__t_a00d176c84d169115399c276031b71722}{C\+A\+Ndev\+Rx\+Idx\+Start}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Heartbeat consumer object.
+
+Object is initilaized by \mbox{\hyperlink{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}{C\+O\+\_\+\+H\+Bconsumer\+\_\+init()}}. It contains an array of \mbox{\hyperlink{struct_c_o___h_bcons_node__t}{C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t}} objects. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_c_o___h_bconsumer__t_a9407103796db857229ec5b266c580b37}\label{struct_c_o___h_bconsumer__t_a9407103796db857229ec5b266c580b37}} 
+\index{CO\_HBconsumer\_t@{CO\_HBconsumer\_t}!allMonitoredOperational@{allMonitoredOperational}}
+\index{allMonitoredOperational@{allMonitoredOperational}!CO\_HBconsumer\_t@{CO\_HBconsumer\_t}}
+\doxysubsubsection{\texorpdfstring{allMonitoredOperational}{allMonitoredOperational}}
+{\footnotesize\ttfamily uint8\+\_\+t C\+O\+\_\+\+H\+Bconsumer\+\_\+t\+::all\+Monitored\+Operational}
+
+True, if all monitored nodes are N\+MT operational or no node is monitored. Can be read by the application \mbox{\Hypertarget{struct_c_o___h_bconsumer__t_af5d8828478e2b51fe47a63f24dd896b1}\label{struct_c_o___h_bconsumer__t_af5d8828478e2b51fe47a63f24dd896b1}} 
+\index{CO\_HBconsumer\_t@{CO\_HBconsumer\_t}!CANdevRx@{CANdevRx}}
+\index{CANdevRx@{CANdevRx}!CO\_HBconsumer\_t@{CO\_HBconsumer\_t}}
+\doxysubsubsection{\texorpdfstring{CANdevRx}{CANdevRx}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}}$\ast$ C\+O\+\_\+\+H\+Bconsumer\+\_\+t\+::\+C\+A\+Ndev\+Rx}
+
+From \mbox{\hyperlink{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}{C\+O\+\_\+\+H\+Bconsumer\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___h_bconsumer__t_a00d176c84d169115399c276031b71722}\label{struct_c_o___h_bconsumer__t_a00d176c84d169115399c276031b71722}} 
+\index{CO\_HBconsumer\_t@{CO\_HBconsumer\_t}!CANdevRxIdxStart@{CANdevRxIdxStart}}
+\index{CANdevRxIdxStart@{CANdevRxIdxStart}!CO\_HBconsumer\_t@{CO\_HBconsumer\_t}}
+\doxysubsubsection{\texorpdfstring{CANdevRxIdxStart}{CANdevRxIdxStart}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+O\+\_\+\+H\+Bconsumer\+\_\+t\+::\+C\+A\+Ndev\+Rx\+Idx\+Start}
+
+From \mbox{\hyperlink{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}{C\+O\+\_\+\+H\+Bconsumer\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___h_bconsumer__t_aae5e363ccc6a6fd3b17a35e0430add2a}\label{struct_c_o___h_bconsumer__t_aae5e363ccc6a6fd3b17a35e0430add2a}} 
+\index{CO\_HBconsumer\_t@{CO\_HBconsumer\_t}!em@{em}}
+\index{em@{em}!CO\_HBconsumer\_t@{CO\_HBconsumer\_t}}
+\doxysubsubsection{\texorpdfstring{em}{em}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___e_m__t}{C\+O\+\_\+\+E\+M\+\_\+t}}$\ast$ C\+O\+\_\+\+H\+Bconsumer\+\_\+t\+::em}
+
+From \mbox{\hyperlink{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}{C\+O\+\_\+\+H\+Bconsumer\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___h_bconsumer__t_a1cd314f387357f2ce13d4093f477fff5}\label{struct_c_o___h_bconsumer__t_a1cd314f387357f2ce13d4093f477fff5}} 
+\index{CO\_HBconsumer\_t@{CO\_HBconsumer\_t}!HBconsTime@{HBconsTime}}
+\index{HBconsTime@{HBconsTime}!CO\_HBconsumer\_t@{CO\_HBconsumer\_t}}
+\doxysubsubsection{\texorpdfstring{HBconsTime}{HBconsTime}}
+{\footnotesize\ttfamily const uint32\+\_\+t$\ast$ C\+O\+\_\+\+H\+Bconsumer\+\_\+t\+::\+H\+Bcons\+Time}
+
+From \mbox{\hyperlink{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}{C\+O\+\_\+\+H\+Bconsumer\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___h_bconsumer__t_a737b37c544a28eff8de0b03b51cbeec8}\label{struct_c_o___h_bconsumer__t_a737b37c544a28eff8de0b03b51cbeec8}} 
+\index{CO\_HBconsumer\_t@{CO\_HBconsumer\_t}!monitoredNodes@{monitoredNodes}}
+\index{monitoredNodes@{monitoredNodes}!CO\_HBconsumer\_t@{CO\_HBconsumer\_t}}
+\doxysubsubsection{\texorpdfstring{monitoredNodes}{monitoredNodes}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___h_bcons_node__t}{C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t}}$\ast$ C\+O\+\_\+\+H\+Bconsumer\+\_\+t\+::monitored\+Nodes}
+
+From \mbox{\hyperlink{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}{C\+O\+\_\+\+H\+Bconsumer\+\_\+init()}} \mbox{\Hypertarget{struct_c_o___h_bconsumer__t_a5b944043074d42017be3b76320030542}\label{struct_c_o___h_bconsumer__t_a5b944043074d42017be3b76320030542}} 
+\index{CO\_HBconsumer\_t@{CO\_HBconsumer\_t}!numberOfMonitoredNodes@{numberOfMonitoredNodes}}
+\index{numberOfMonitoredNodes@{numberOfMonitoredNodes}!CO\_HBconsumer\_t@{CO\_HBconsumer\_t}}
+\doxysubsubsection{\texorpdfstring{numberOfMonitoredNodes}{numberOfMonitoredNodes}}
+{\footnotesize\ttfamily uint8\+\_\+t C\+O\+\_\+\+H\+Bconsumer\+\_\+t\+::number\+Of\+Monitored\+Nodes}
+
+From \mbox{\hyperlink{group___c_o___h_bconsumer_gacc31c4848a14c9c367505b20e4a6a496}{C\+O\+\_\+\+H\+Bconsumer\+\_\+init()}} 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+A\+Nopen\+Node/stack/\mbox{\hyperlink{_c_o___h_bconsumer_8h}{C\+O\+\_\+\+H\+Bconsumer.\+h}}\end{DoxyCompactItemize}

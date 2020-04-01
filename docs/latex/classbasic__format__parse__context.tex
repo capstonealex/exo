@@ -1,0 +1,166 @@
+\hypertarget{classbasic__format__parse__context}{}\doxysection{basic\+\_\+format\+\_\+parse\+\_\+context$<$ Char, Error\+Handler $>$ Class Template Reference}
+\label{classbasic__format__parse__context}\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+
+
+{\ttfamily \#include $<$core.\+h$>$}
+
+Inheritance diagram for basic\+\_\+format\+\_\+parse\+\_\+context$<$ Char, Error\+Handler $>$\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classbasic__format__parse__context}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classbasic__format__parse__context_a7a2176cf6ebe5a6308452674296c26f8}{char\+\_\+type}} = Char
+\item 
+using \mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}} = typename \mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$\+::\mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classbasic__format__parse__context_abc0b6ad2da572bb18c581c454cda322e}{basic\+\_\+format\+\_\+parse\+\_\+context}} (\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$ format\+\_\+str, Error\+Handler eh=Error\+Handler())
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}} \mbox{\hyperlink{classbasic__format__parse__context_a5c45c2385a7aa2a1da7a335f9ac42d9a}{begin}} () const \mbox{\hyperlink{core_8h_aef128913e8400683b1cbd1a3a2e11df3}{F\+M\+T\+\_\+\+N\+O\+E\+X\+C\+E\+PT}}
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}} \mbox{\hyperlink{classbasic__format__parse__context_a02391d628854caf8c3416f21dec43b46}{end}} () const \mbox{\hyperlink{core_8h_aef128913e8400683b1cbd1a3a2e11df3}{F\+M\+T\+\_\+\+N\+O\+E\+X\+C\+E\+PT}}
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classbasic__format__parse__context_ac123ab6c1c6e58db3ab0a917def4add8}{advance\+\_\+to}} (\mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}} it)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} int \mbox{\hyperlink{classbasic__format__parse__context_a75c83556b48d6b5ee7b4866296888727}{next\+\_\+arg\+\_\+id}} ()
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classbasic__format__parse__context_a7a548535000cbd315a9ac35996950eec}{check\+\_\+arg\+\_\+id}} (int)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classbasic__format__parse__context_a2c5adaac8abfa6bac5e65faae644d415}{check\+\_\+arg\+\_\+id}} (\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classbasic__format__parse__context_a57d1f70a909bca84e69ffb8961d91563}{on\+\_\+error}} (const char $\ast$message)
+\item 
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} Error\+Handler \mbox{\hyperlink{classbasic__format__parse__context_a1c8ffcf0edde9301b419281f5d65a803}{error\+\_\+handler}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$ \mbox{\hyperlink{classbasic__format__parse__context_a313f748ea2e43dd8dda5e003fbc9cebb}{format\+\_\+str\+\_\+}}
+\item 
+int \mbox{\hyperlink{classbasic__format__parse__context_a353d50ecfb92b8154d99f3f3a86be945}{next\+\_\+arg\+\_\+id\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Char, typename Error\+Handler = internal\+::error\+\_\+handler$>$\newline
+class basic\+\_\+format\+\_\+parse\+\_\+context$<$ Char, Error\+Handler $>$}
+
+\textbackslash{}rst Parsing context consisting of a format string range being parsed and an argument counter for automatic indexing.
+
+You can use one of the following type aliases for common character types\+:
+
++-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ Type $\vert$ Definition $\vert$ +=======================+=====================================+ $\vert$ format\+\_\+parse\+\_\+context $\vert$ basic\+\_\+format\+\_\+parse\+\_\+context$<$char$>$ $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ $\vert$ wformat\+\_\+parse\+\_\+context $\vert$ basic\+\_\+format\+\_\+parse\+\_\+context$<$wchar\+\_\+t$>$ $\vert$ +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ \textbackslash{}endrst 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classbasic__format__parse__context_a7a2176cf6ebe5a6308452674296c26f8}\label{classbasic__format__parse__context_a7a2176cf6ebe5a6308452674296c26f8}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!char\_type@{char\_type}}
+\index{char\_type@{char\_type}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{char\_type}{char\_type}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+using \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::\mbox{\hyperlink{classbasic__format__parse__context_a7a2176cf6ebe5a6308452674296c26f8}{char\+\_\+type}} =  Char}
+
+\mbox{\Hypertarget{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}\label{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!iterator@{iterator}}
+\index{iterator@{iterator}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{iterator}{iterator}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+using \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::\mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}} =  typename \mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$Char$>$\+::\mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}}}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classbasic__format__parse__context_abc0b6ad2da572bb18c581c454cda322e}\label{classbasic__format__parse__context_abc0b6ad2da572bb18c581c454cda322e}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!basic\_format\_parse\_context@{basic\_format\_parse\_context}}
+\index{basic\_format\_parse\_context@{basic\_format\_parse\_context}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{basic\_format\_parse\_context()}{basic\_format\_parse\_context()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::\mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$}]{format\+\_\+str,  }\item[{Error\+Handler}]{eh = {\ttfamily ErrorHandler()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classbasic__format__parse__context_ac123ab6c1c6e58db3ab0a917def4add8}\label{classbasic__format__parse__context_ac123ab6c1c6e58db3ab0a917def4add8}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!advance\_to@{advance\_to}}
+\index{advance\_to@{advance\_to}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{advance\_to()}{advance\_to()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::advance\+\_\+to (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}}}]{it }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Advances the begin iterator to {\ttfamily it}. \mbox{\Hypertarget{classbasic__format__parse__context_a5c45c2385a7aa2a1da7a335f9ac42d9a}\label{classbasic__format__parse__context_a5c45c2385a7aa2a1da7a335f9ac42d9a}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!begin@{begin}}
+\index{begin@{begin}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}} \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns an iterator to the beginning of the format string range being parsed. \mbox{\Hypertarget{classbasic__format__parse__context_a2c5adaac8abfa6bac5e65faae644d415}\label{classbasic__format__parse__context_a2c5adaac8abfa6bac5e65faae644d415}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!check\_arg\_id@{check\_arg\_id}}
+\index{check\_arg\_id@{check\_arg\_id}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{check\_arg\_id()}{check\_arg\_id()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::check\+\_\+arg\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$ Char $>$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbasic__format__parse__context_a7a548535000cbd315a9ac35996950eec}\label{classbasic__format__parse__context_a7a548535000cbd315a9ac35996950eec}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!check\_arg\_id@{check\_arg\_id}}
+\index{check\_arg\_id@{check\_arg\_id}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{check\_arg\_id()}{check\_arg\_id()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::check\+\_\+arg\+\_\+id (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Reports an error if using the automatic argument indexing; otherwise switches to the manual indexing. \mbox{\Hypertarget{classbasic__format__parse__context_a02391d628854caf8c3416f21dec43b46}\label{classbasic__format__parse__context_a02391d628854caf8c3416f21dec43b46}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!end@{end}}
+\index{end@{end}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} \mbox{\hyperlink{classbasic__format__parse__context_a8467916453eb3312b2954418168c6cde}{iterator}} \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns an iterator past the end of the format string range being parsed. \mbox{\Hypertarget{classbasic__format__parse__context_a1c8ffcf0edde9301b419281f5d65a803}\label{classbasic__format__parse__context_a1c8ffcf0edde9301b419281f5d65a803}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!error\_handler@{error\_handler}}
+\index{error\_handler@{error\_handler}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{error\_handler()}{error\_handler()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} Error\+Handler \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::error\+\_\+handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classbasic__format__parse__context_a75c83556b48d6b5ee7b4866296888727}\label{classbasic__format__parse__context_a75c83556b48d6b5ee7b4866296888727}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!next\_arg\_id@{next\_arg\_id}}
+\index{next\_arg\_id@{next\_arg\_id}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{next\_arg\_id()}{next\_arg\_id()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} int \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::next\+\_\+arg\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Reports an error if using the manual argument indexing; otherwise returns the next argument index and switches to the automatic indexing. \mbox{\Hypertarget{classbasic__format__parse__context_a57d1f70a909bca84e69ffb8961d91563}\label{classbasic__format__parse__context_a57d1f70a909bca84e69ffb8961d91563}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!on\_error@{on\_error}}
+\index{on\_error@{on\_error}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{on\_error()}{on\_error()}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{core_8h_a69201cb276383873487bf68b4ef8b4cd}{F\+M\+T\+\_\+\+C\+O\+N\+S\+T\+E\+X\+PR}} void \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::on\+\_\+error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classbasic__format__parse__context_a313f748ea2e43dd8dda5e003fbc9cebb}\label{classbasic__format__parse__context_a313f748ea2e43dd8dda5e003fbc9cebb}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!format\_str\_@{format\_str\_}}
+\index{format\_str\_@{format\_str\_}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{format\_str\_}{format\_str\_}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+\mbox{\hyperlink{classbasic__string__view}{basic\+\_\+string\+\_\+view}}$<$Char$>$ \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::format\+\_\+str\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classbasic__format__parse__context_a353d50ecfb92b8154d99f3f3a86be945}\label{classbasic__format__parse__context_a353d50ecfb92b8154d99f3f3a86be945}} 
+\index{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}!next\_arg\_id\_@{next\_arg\_id\_}}
+\index{next\_arg\_id\_@{next\_arg\_id\_}!basic\_format\_parse\_context$<$ Char, ErrorHandler $>$@{basic\_format\_parse\_context$<$ Char, ErrorHandler $>$}}
+\doxysubsubsection{\texorpdfstring{next\_arg\_id\_}{next\_arg\_id\_}}
+{\footnotesize\ttfamily template$<$typename Char , typename Error\+Handler  = internal\+::error\+\_\+handler$>$ \\
+int \mbox{\hyperlink{classbasic__format__parse__context}{basic\+\_\+format\+\_\+parse\+\_\+context}}$<$ Char, Error\+Handler $>$\+::next\+\_\+arg\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{core_8h}{core.\+h}}\end{DoxyCompactItemize}

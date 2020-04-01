@@ -1,0 +1,357 @@
+\hypertarget{_c_o__driver_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+A\+Nopen\+Node/stack/socket\+C\+A\+N/\+C\+O\+\_\+driver.h File Reference}
+\label{_c_o__driver_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CANopenNode/stack/socketCAN/CO\_driver.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CANopenNode/stack/socketCAN/CO\_driver.h}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$endian.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$linux/can.\+h$>$}\newline
+{\ttfamily \#include $<$linux/can/raw.\+h$>$}\newline
+{\ttfamily \#include $<$linux/can/error.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_o___c_a_nrx_msg__t}{C\+O\+\_\+\+C\+A\+Nrx\+Msg\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct_c_o___c_a_nrx__t}{C\+O\+\_\+\+C\+A\+Nrx\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_c_o__driver_8h_a93b6bae3c759f44efab5ceeae57d4ac4}{C\+O\+\_\+\+S\+D\+O\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}}~889    /$\ast$ Override default S\+DO buffer size. $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_o__driver_8h_a7566ee901bbf1a0d76d771d72d2f826f}{C\+O\+\_\+\+L\+O\+C\+K\+\_\+\+C\+A\+N\+\_\+\+S\+E\+ND}}()~/$\ast$ not needed $\ast$/
+\item 
+\#define \mbox{\hyperlink{_c_o__driver_8h_a511a5a0bf905c2207d5c9e26d35fe3cc}{C\+O\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+C\+A\+N\+\_\+\+S\+E\+ND}}()
+\item 
+\#define \mbox{\hyperlink{_c_o__driver_8h_a3052a84235f56d535a14705e0cfda799}{C\+O\+\_\+\+L\+O\+C\+K\+\_\+\+E\+M\+CY}}()~\{if(pthread\+\_\+mutex\+\_\+lock(\&\mbox{\hyperlink{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}{C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}}) != 0) \mbox{\hyperlink{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}}(\char`\"{}Mutex lock \mbox{\hyperlink{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}{C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}} failed\char`\"{});\}
+\item 
+\#define \mbox{\hyperlink{_c_o__driver_8h_a720a798f2bf7fe20d9c95a212b4df417}{C\+O\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+E\+M\+CY}}()~\{if(pthread\+\_\+mutex\+\_\+unlock(\&\mbox{\hyperlink{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}{C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}}) != 0) \mbox{\hyperlink{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}}(\char`\"{}Mutex unlock \mbox{\hyperlink{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}{C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}} failed\char`\"{});\}
+\item 
+\#define \mbox{\hyperlink{_c_o__driver_8h_a3850830931ced2bd3d7e15821572bbcc}{C\+O\+\_\+\+L\+O\+C\+K\+\_\+\+OD}}()~\{if(pthread\+\_\+mutex\+\_\+lock(\&\mbox{\hyperlink{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}{C\+O\+\_\+\+O\+D\+\_\+mtx}}) != 0) \mbox{\hyperlink{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}}(\char`\"{}Mutex lock \mbox{\hyperlink{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}{C\+O\+\_\+\+O\+D\+\_\+mtx}} failed\char`\"{});\}
+\item 
+\#define \mbox{\hyperlink{_c_o__driver_8h_a2477f5d24fd31a9f4052cf451b87809f}{C\+O\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+OD}}()~\{if(pthread\+\_\+mutex\+\_\+unlock(\&\mbox{\hyperlink{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}{C\+O\+\_\+\+O\+D\+\_\+mtx}}) != 0) \mbox{\hyperlink{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}}(\char`\"{}Mutex unlock \mbox{\hyperlink{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}{C\+O\+\_\+\+O\+D\+\_\+mtx}} failed\char`\"{});\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \+\_\+\+Bool \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}}
+\item 
+typedef float \mbox{\hyperlink{_c_o__driver_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}}
+\item 
+typedef double \mbox{\hyperlink{_c_o__driver_8h_ac55f3ae81b5bc9053760baacf57e47f4}{float64\+\_\+t}}
+\item 
+typedef char \mbox{\hyperlink{_c_o__driver_8h_a40bb5262bf908c328fbcfbe5d29d0201}{char\+\_\+t}}
+\item 
+typedef unsigned char \mbox{\hyperlink{_c_o__driver_8h_a00f664c467579d7b2839d6926b6f33a6}{o\+Char\+\_\+t}}
+\item 
+typedef unsigned char \mbox{\hyperlink{_c_o__driver_8h_adc433a2a90dacd3b2b3801dd9431c254}{domain\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} \{ \newline
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532aff1c3e9fd4bf65e6757b020f752cdac8}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+NO}} = 0, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a3e78d588c0e21630c9cb7b43bfda3dae}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+L\+L\+E\+G\+A\+L\+\_\+\+A\+R\+G\+U\+M\+E\+NT}} = -\/1, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a2f07295c4c6539c2b390db2d7c351267}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+RY}} = -\/2, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a129c7141c52ae59d37a2fff163fec600}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+T\+I\+M\+E\+O\+UT}} = -\/3, 
+\newline
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a0214308865e83b8c21de7317b3070097}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+L\+L\+E\+G\+A\+L\+\_\+\+B\+A\+U\+D\+R\+A\+TE}} = -\/4, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532ab0746d0801a99639077b325594b347b5}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+X\+\_\+\+O\+V\+E\+R\+F\+L\+OW}} = -\/5, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a7e4cefeb35775754c87cf6a559f1bbd9}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+X\+\_\+\+P\+D\+O\+\_\+\+O\+V\+E\+R\+F\+L\+OW}} = -\/6, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a3e40e8440a8480c413d3ff724b875de4}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+X\+\_\+\+M\+S\+G\+\_\+\+L\+E\+N\+G\+TH}} = -\/7, 
+\newline
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a4829a460cbba557a2ff7f52bd912aa65}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+X\+\_\+\+P\+D\+O\+\_\+\+L\+E\+N\+G\+TH}} = -\/8, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a757b4d226a3e00a9e2543cf21833d46f}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+T\+X\+\_\+\+O\+V\+E\+R\+F\+L\+OW}} = -\/9, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a48993dc18698738d168071b4f4c3d244}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+T\+X\+\_\+\+P\+D\+O\+\_\+\+W\+I\+N\+D\+OW}} = -\/10, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a6f07e7c21acde035b561edc7f55edb89}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+T\+X\+\_\+\+U\+N\+C\+O\+N\+F\+I\+G\+U\+R\+ED}} = -\/11, 
+\newline
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a5a5a999a69584456eb475b7d65eeb01e}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+RS}} = -\/12, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532aa053301213d13670e9af7d31abc1ee48}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+R\+R\+U\+PT}} = -\/13, 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a25eaff6474c6bc2aae67b1e7c7a35109}{C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+RC}} = -\/14
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_c_o__driver_8h_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}} (char $\ast$msg)
+\item 
+void \mbox{\hyperlink{_c_o__driver_8h_a0019d349a05de0a4087422af23c74b3b}{C\+O\+\_\+\+C\+A\+Nset\+Configuration\+Mode}} (int32\+\_\+t \mbox{\hyperlink{_c_o__command_8c_a4c94553aa16b86d407db5b2e7a65e521}{fd\+Socket}})
+\item 
+void \mbox{\hyperlink{_c_o__driver_8h_ad654edfa651bf7b68263913786697200}{C\+O\+\_\+\+C\+A\+Nset\+Normal\+Mode}} (\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Nmodule)
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} \mbox{\hyperlink{_c_o__driver_8h_ae54a7b9213707637fc3a875e26bbb6aa}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+init}} (\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Nmodule, int32\+\_\+t C\+A\+Nbase\+Address, \mbox{\hyperlink{struct_c_o___c_a_nrx__t}{C\+O\+\_\+\+C\+A\+Nrx\+\_\+t}} rx\+Array\mbox{[}$\,$\mbox{]}, uint16\+\_\+t rx\+Size, \mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}} tx\+Array\mbox{[}$\,$\mbox{]}, uint16\+\_\+t tx\+Size, uint16\+\_\+t C\+A\+Nbit\+Rate)
+\item 
+void \mbox{\hyperlink{_c_o__driver_8h_ac6f60f9da27dda0c9b3950c4e96bd687}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+disable}} (\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Nmodule)
+\item 
+uint16\+\_\+t \mbox{\hyperlink{_c_o__driver_8h_aff8768d283f511756924e07f89b76d26}{C\+O\+\_\+\+C\+A\+Nrx\+Msg\+\_\+read\+Ident}} (const \mbox{\hyperlink{struct_c_o___c_a_nrx_msg__t}{C\+O\+\_\+\+C\+A\+Nrx\+Msg\+\_\+t}} $\ast$rx\+Msg)
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} \mbox{\hyperlink{_c_o__driver_8h_a9ead9e6716366d0b1481a9ffe9bbe34d}{C\+O\+\_\+\+C\+A\+Nrx\+Buffer\+Init}} (\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Nmodule, uint16\+\_\+t index, uint16\+\_\+t ident, uint16\+\_\+t mask, \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} rtr, void $\ast$object, void($\ast$p\+Funct)(void $\ast$object, const \mbox{\hyperlink{struct_c_o___c_a_nrx_msg__t}{C\+O\+\_\+\+C\+A\+Nrx\+Msg\+\_\+t}} $\ast$message))
+\item 
+\mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}} $\ast$ \mbox{\hyperlink{_c_o__driver_8h_a01e2ee79e7e3a8b321dac831e7e00976}{C\+O\+\_\+\+C\+A\+Ntx\+Buffer\+Init}} (\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Nmodule, uint16\+\_\+t index, uint16\+\_\+t ident, \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} rtr, uint8\+\_\+t no\+Of\+Bytes, \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} sync\+Flag)
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} \mbox{\hyperlink{_c_o__driver_8h_a4664a9f5d547cb0605a9e929fb079f2e}{C\+O\+\_\+\+C\+A\+Nsend}} (\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Nmodule, \mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}} $\ast$buffer)
+\item 
+void \mbox{\hyperlink{_c_o__driver_8h_abbeac85cbf513162b11fc3d0717b0753}{C\+O\+\_\+\+C\+A\+Nclear\+Pending\+Sync\+P\+D\+Os}} (\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Nmodule)
+\item 
+void \mbox{\hyperlink{_c_o__driver_8h_afa9e96d1772f3d7b37aa12732e9e4cea}{C\+O\+\_\+\+C\+A\+Nverify\+Errors}} (\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Nmodule)
+\item 
+void \mbox{\hyperlink{_c_o__driver_8h_a2cccd5f32cc6da21ed3d0c97ed2f9d94}{C\+O\+\_\+\+C\+A\+Nrx\+Wait}} (\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$C\+A\+Nmodule)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}{C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}}
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}{C\+O\+\_\+\+O\+D\+\_\+mtx}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_c_o__driver_8h_a7566ee901bbf1a0d76d771d72d2f826f}\label{_c_o__driver_8h_a7566ee901bbf1a0d76d771d72d2f826f}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_LOCK\_CAN\_SEND@{CO\_LOCK\_CAN\_SEND}}
+\index{CO\_LOCK\_CAN\_SEND@{CO\_LOCK\_CAN\_SEND}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_LOCK\_CAN\_SEND}{CO\_LOCK\_CAN\_SEND}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+L\+O\+C\+K\+\_\+\+C\+A\+N\+\_\+\+S\+E\+ND(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~/$\ast$ not needed $\ast$/}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a3052a84235f56d535a14705e0cfda799}\label{_c_o__driver_8h_a3052a84235f56d535a14705e0cfda799}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_LOCK\_EMCY@{CO\_LOCK\_EMCY}}
+\index{CO\_LOCK\_EMCY@{CO\_LOCK\_EMCY}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_LOCK\_EMCY}{CO\_LOCK\_EMCY}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+L\+O\+C\+K\+\_\+\+E\+M\+CY(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\{if(pthread\+\_\+mutex\+\_\+lock(\&\mbox{\hyperlink{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}{C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}}) != 0) \mbox{\hyperlink{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}}(\char`\"{}Mutex lock \mbox{\hyperlink{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}{C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}} failed\char`\"{});\}}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a3850830931ced2bd3d7e15821572bbcc}\label{_c_o__driver_8h_a3850830931ced2bd3d7e15821572bbcc}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_LOCK\_OD@{CO\_LOCK\_OD}}
+\index{CO\_LOCK\_OD@{CO\_LOCK\_OD}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_LOCK\_OD}{CO\_LOCK\_OD}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+L\+O\+C\+K\+\_\+\+OD(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\{if(pthread\+\_\+mutex\+\_\+lock(\&\mbox{\hyperlink{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}{C\+O\+\_\+\+O\+D\+\_\+mtx}}) != 0) \mbox{\hyperlink{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}}(\char`\"{}Mutex lock \mbox{\hyperlink{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}{C\+O\+\_\+\+O\+D\+\_\+mtx}} failed\char`\"{});\}}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a93b6bae3c759f44efab5ceeae57d4ac4}\label{_c_o__driver_8h_a93b6bae3c759f44efab5ceeae57d4ac4}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_SDO\_BUFFER\_SIZE@{CO\_SDO\_BUFFER\_SIZE}}
+\index{CO\_SDO\_BUFFER\_SIZE@{CO\_SDO\_BUFFER\_SIZE}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_SDO\_BUFFER\_SIZE}{CO\_SDO\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+S\+D\+O\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE~889    /$\ast$ Override default S\+DO buffer size. $\ast$/}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a511a5a0bf905c2207d5c9e26d35fe3cc}\label{_c_o__driver_8h_a511a5a0bf905c2207d5c9e26d35fe3cc}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_UNLOCK\_CAN\_SEND@{CO\_UNLOCK\_CAN\_SEND}}
+\index{CO\_UNLOCK\_CAN\_SEND@{CO\_UNLOCK\_CAN\_SEND}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_UNLOCK\_CAN\_SEND}{CO\_UNLOCK\_CAN\_SEND}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+C\+A\+N\+\_\+\+S\+E\+ND(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a720a798f2bf7fe20d9c95a212b4df417}\label{_c_o__driver_8h_a720a798f2bf7fe20d9c95a212b4df417}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_UNLOCK\_EMCY@{CO\_UNLOCK\_EMCY}}
+\index{CO\_UNLOCK\_EMCY@{CO\_UNLOCK\_EMCY}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_UNLOCK\_EMCY}{CO\_UNLOCK\_EMCY}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+E\+M\+CY(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\{if(pthread\+\_\+mutex\+\_\+unlock(\&\mbox{\hyperlink{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}{C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}}) != 0) \mbox{\hyperlink{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}}(\char`\"{}Mutex unlock \mbox{\hyperlink{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}{C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}} failed\char`\"{});\}}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a2477f5d24fd31a9f4052cf451b87809f}\label{_c_o__driver_8h_a2477f5d24fd31a9f4052cf451b87809f}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_UNLOCK\_OD@{CO\_UNLOCK\_OD}}
+\index{CO\_UNLOCK\_OD@{CO\_UNLOCK\_OD}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_UNLOCK\_OD}{CO\_UNLOCK\_OD}}
+{\footnotesize\ttfamily \#define C\+O\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+OD(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\{if(pthread\+\_\+mutex\+\_\+unlock(\&\mbox{\hyperlink{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}{C\+O\+\_\+\+O\+D\+\_\+mtx}}) != 0) \mbox{\hyperlink{main_8cpp_ad845fb3ac65c2f2604b99e7ad4e919e9}{C\+O\+\_\+err\+Exit}}(\char`\"{}Mutex unlock \mbox{\hyperlink{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}{C\+O\+\_\+\+O\+D\+\_\+mtx}} failed\char`\"{});\}}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}\label{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}} 
+\index{CO\_driver.h@{CO\_driver.h}!bool\_t@{bool\_t}}
+\index{bool\_t@{bool\_t}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{bool\_t}{bool\_t}}
+{\footnotesize\ttfamily typedef \+\_\+\+Bool \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}}}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a40bb5262bf908c328fbcfbe5d29d0201}\label{_c_o__driver_8h_a40bb5262bf908c328fbcfbe5d29d0201}} 
+\index{CO\_driver.h@{CO\_driver.h}!char\_t@{char\_t}}
+\index{char\_t@{char\_t}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{char\_t}{char\_t}}
+{\footnotesize\ttfamily typedef char \mbox{\hyperlink{_c_o__driver_8h_a40bb5262bf908c328fbcfbe5d29d0201}{char\+\_\+t}}}
+
+\mbox{\Hypertarget{_c_o__driver_8h_adc433a2a90dacd3b2b3801dd9431c254}\label{_c_o__driver_8h_adc433a2a90dacd3b2b3801dd9431c254}} 
+\index{CO\_driver.h@{CO\_driver.h}!domain\_t@{domain\_t}}
+\index{domain\_t@{domain\_t}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{domain\_t}{domain\_t}}
+{\footnotesize\ttfamily typedef unsigned char \mbox{\hyperlink{_c_o__driver_8h_adc433a2a90dacd3b2b3801dd9431c254}{domain\+\_\+t}}}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a4611b605e45ab401f02cab15c5e38715}\label{_c_o__driver_8h_a4611b605e45ab401f02cab15c5e38715}} 
+\index{CO\_driver.h@{CO\_driver.h}!float32\_t@{float32\_t}}
+\index{float32\_t@{float32\_t}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{float32\_t}{float32\_t}}
+{\footnotesize\ttfamily typedef float \mbox{\hyperlink{_c_o__driver_8h_a4611b605e45ab401f02cab15c5e38715}{float32\+\_\+t}}}
+
+\mbox{\Hypertarget{_c_o__driver_8h_ac55f3ae81b5bc9053760baacf57e47f4}\label{_c_o__driver_8h_ac55f3ae81b5bc9053760baacf57e47f4}} 
+\index{CO\_driver.h@{CO\_driver.h}!float64\_t@{float64\_t}}
+\index{float64\_t@{float64\_t}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{float64\_t}{float64\_t}}
+{\footnotesize\ttfamily typedef double \mbox{\hyperlink{_c_o__driver_8h_ac55f3ae81b5bc9053760baacf57e47f4}{float64\+\_\+t}}}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a00f664c467579d7b2839d6926b6f33a6}\label{_c_o__driver_8h_a00f664c467579d7b2839d6926b6f33a6}} 
+\index{CO\_driver.h@{CO\_driver.h}!oChar\_t@{oChar\_t}}
+\index{oChar\_t@{oChar\_t}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{oChar\_t}{oChar\_t}}
+{\footnotesize\ttfamily typedef unsigned char \mbox{\hyperlink{_c_o__driver_8h_a00f664c467579d7b2839d6926b6f33a6}{o\+Char\+\_\+t}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_ReturnError\_t@{CO\_ReturnError\_t}}
+\index{CO\_ReturnError\_t@{CO\_ReturnError\_t}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_ReturnError\_t}{CO\_ReturnError\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_NO@{CO\_ERROR\_NO}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_NO@{CO\_ERROR\_NO}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532aff1c3e9fd4bf65e6757b020f752cdac8}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532aff1c3e9fd4bf65e6757b020f752cdac8}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+NO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_ILLEGAL\_ARGUMENT@{CO\_ERROR\_ILLEGAL\_ARGUMENT}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_ILLEGAL\_ARGUMENT@{CO\_ERROR\_ILLEGAL\_ARGUMENT}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a3e78d588c0e21630c9cb7b43bfda3dae}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a3e78d588c0e21630c9cb7b43bfda3dae}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+L\+L\+E\+G\+A\+L\+\_\+\+A\+R\+G\+U\+M\+E\+NT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_OUT\_OF\_MEMORY@{CO\_ERROR\_OUT\_OF\_MEMORY}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_OUT\_OF\_MEMORY@{CO\_ERROR\_OUT\_OF\_MEMORY}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a2f07295c4c6539c2b390db2d7c351267}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a2f07295c4c6539c2b390db2d7c351267}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+RY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_TIMEOUT@{CO\_ERROR\_TIMEOUT}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_TIMEOUT@{CO\_ERROR\_TIMEOUT}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a129c7141c52ae59d37a2fff163fec600}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a129c7141c52ae59d37a2fff163fec600}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+T\+I\+M\+E\+O\+UT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_ILLEGAL\_BAUDRATE@{CO\_ERROR\_ILLEGAL\_BAUDRATE}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_ILLEGAL\_BAUDRATE@{CO\_ERROR\_ILLEGAL\_BAUDRATE}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a0214308865e83b8c21de7317b3070097}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a0214308865e83b8c21de7317b3070097}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+I\+L\+L\+E\+G\+A\+L\+\_\+\+B\+A\+U\+D\+R\+A\+TE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_RX\_OVERFLOW@{CO\_ERROR\_RX\_OVERFLOW}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_RX\_OVERFLOW@{CO\_ERROR\_RX\_OVERFLOW}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532ab0746d0801a99639077b325594b347b5}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532ab0746d0801a99639077b325594b347b5}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+X\+\_\+\+O\+V\+E\+R\+F\+L\+OW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_RX\_PDO\_OVERFLOW@{CO\_ERROR\_RX\_PDO\_OVERFLOW}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_RX\_PDO\_OVERFLOW@{CO\_ERROR\_RX\_PDO\_OVERFLOW}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a7e4cefeb35775754c87cf6a559f1bbd9}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a7e4cefeb35775754c87cf6a559f1bbd9}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+X\+\_\+\+P\+D\+O\+\_\+\+O\+V\+E\+R\+F\+L\+OW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_RX\_MSG\_LENGTH@{CO\_ERROR\_RX\_MSG\_LENGTH}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_RX\_MSG\_LENGTH@{CO\_ERROR\_RX\_MSG\_LENGTH}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a3e40e8440a8480c413d3ff724b875de4}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a3e40e8440a8480c413d3ff724b875de4}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+X\+\_\+\+M\+S\+G\+\_\+\+L\+E\+N\+G\+TH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_RX\_PDO\_LENGTH@{CO\_ERROR\_RX\_PDO\_LENGTH}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_RX\_PDO\_LENGTH@{CO\_ERROR\_RX\_PDO\_LENGTH}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a4829a460cbba557a2ff7f52bd912aa65}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a4829a460cbba557a2ff7f52bd912aa65}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+X\+\_\+\+P\+D\+O\+\_\+\+L\+E\+N\+G\+TH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_TX\_OVERFLOW@{CO\_ERROR\_TX\_OVERFLOW}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_TX\_OVERFLOW@{CO\_ERROR\_TX\_OVERFLOW}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a757b4d226a3e00a9e2543cf21833d46f}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a757b4d226a3e00a9e2543cf21833d46f}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+T\+X\+\_\+\+O\+V\+E\+R\+F\+L\+OW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_TX\_PDO\_WINDOW@{CO\_ERROR\_TX\_PDO\_WINDOW}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_TX\_PDO\_WINDOW@{CO\_ERROR\_TX\_PDO\_WINDOW}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a48993dc18698738d168071b4f4c3d244}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a48993dc18698738d168071b4f4c3d244}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+T\+X\+\_\+\+P\+D\+O\+\_\+\+W\+I\+N\+D\+OW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_TX\_UNCONFIGURED@{CO\_ERROR\_TX\_UNCONFIGURED}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_TX\_UNCONFIGURED@{CO\_ERROR\_TX\_UNCONFIGURED}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a6f07e7c21acde035b561edc7f55edb89}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a6f07e7c21acde035b561edc7f55edb89}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+T\+X\+\_\+\+U\+N\+C\+O\+N\+F\+I\+G\+U\+R\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_PARAMETERS@{CO\_ERROR\_PARAMETERS}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_PARAMETERS@{CO\_ERROR\_PARAMETERS}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a5a5a999a69584456eb475b7d65eeb01e}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a5a5a999a69584456eb475b7d65eeb01e}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+RS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_DATA\_CORRUPT@{CO\_ERROR\_DATA\_CORRUPT}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_DATA\_CORRUPT@{CO\_ERROR\_DATA\_CORRUPT}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532aa053301213d13670e9af7d31abc1ee48}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532aa053301213d13670e9af7d31abc1ee48}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+D\+A\+T\+A\+\_\+\+C\+O\+R\+R\+U\+PT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CO\_ERROR\_CRC@{CO\_ERROR\_CRC}!CO\_driver.h@{CO\_driver.h}}\index{CO\_driver.h@{CO\_driver.h}!CO\_ERROR\_CRC@{CO\_ERROR\_CRC}}}\mbox{\Hypertarget{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a25eaff6474c6bc2aae67b1e7c7a35109}\label{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532a25eaff6474c6bc2aae67b1e7c7a35109}} 
+C\+O\+\_\+\+E\+R\+R\+O\+R\+\_\+\+C\+RC&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_o__driver_8h_abbeac85cbf513162b11fc3d0717b0753}\label{_c_o__driver_8h_abbeac85cbf513162b11fc3d0717b0753}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANclearPendingSyncPDOs@{CO\_CANclearPendingSyncPDOs}}
+\index{CO\_CANclearPendingSyncPDOs@{CO\_CANclearPendingSyncPDOs}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANclearPendingSyncPDOs()}{CO\_CANclearPendingSyncPDOs()}}
+{\footnotesize\ttfamily void C\+O\+\_\+\+C\+A\+Nclear\+Pending\+Sync\+P\+D\+Os (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Nmodule }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_ac6f60f9da27dda0c9b3950c4e96bd687}\label{_c_o__driver_8h_ac6f60f9da27dda0c9b3950c4e96bd687}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANmodule\_disable@{CO\_CANmodule\_disable}}
+\index{CO\_CANmodule\_disable@{CO\_CANmodule\_disable}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANmodule\_disable()}{CO\_CANmodule\_disable()}}
+{\footnotesize\ttfamily void C\+O\+\_\+\+C\+A\+Nmodule\+\_\+disable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Nmodule }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_ae54a7b9213707637fc3a875e26bbb6aa}\label{_c_o__driver_8h_ae54a7b9213707637fc3a875e26bbb6aa}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANmodule\_init@{CO\_CANmodule\_init}}
+\index{CO\_CANmodule\_init@{CO\_CANmodule\_init}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANmodule\_init()}{CO\_CANmodule\_init()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} C\+O\+\_\+\+C\+A\+Nmodule\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Nmodule,  }\item[{int32\+\_\+t}]{C\+A\+Nbase\+Address,  }\item[{\mbox{\hyperlink{struct_c_o___c_a_nrx__t}{C\+O\+\_\+\+C\+A\+Nrx\+\_\+t}}}]{rx\+Array\mbox{[}$\,$\mbox{]},  }\item[{uint16\+\_\+t}]{rx\+Size,  }\item[{\mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}}}]{tx\+Array\mbox{[}$\,$\mbox{]},  }\item[{uint16\+\_\+t}]{tx\+Size,  }\item[{uint16\+\_\+t}]{C\+A\+Nbit\+Rate }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a9ead9e6716366d0b1481a9ffe9bbe34d}\label{_c_o__driver_8h_a9ead9e6716366d0b1481a9ffe9bbe34d}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANrxBufferInit@{CO\_CANrxBufferInit}}
+\index{CO\_CANrxBufferInit@{CO\_CANrxBufferInit}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANrxBufferInit()}{CO\_CANrxBufferInit()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} C\+O\+\_\+\+C\+A\+Nrx\+Buffer\+Init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Nmodule,  }\item[{uint16\+\_\+t}]{index,  }\item[{uint16\+\_\+t}]{ident,  }\item[{uint16\+\_\+t}]{mask,  }\item[{\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}}}]{rtr,  }\item[{void $\ast$}]{object,  }\item[{void($\ast$)(void $\ast$object, const \mbox{\hyperlink{struct_c_o___c_a_nrx_msg__t}{C\+O\+\_\+\+C\+A\+Nrx\+Msg\+\_\+t}} $\ast$message)}]{p\+Funct }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_aff8768d283f511756924e07f89b76d26}\label{_c_o__driver_8h_aff8768d283f511756924e07f89b76d26}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANrxMsg\_readIdent@{CO\_CANrxMsg\_readIdent}}
+\index{CO\_CANrxMsg\_readIdent@{CO\_CANrxMsg\_readIdent}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANrxMsg\_readIdent()}{CO\_CANrxMsg\_readIdent()}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+O\+\_\+\+C\+A\+Nrx\+Msg\+\_\+read\+Ident (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_c_o___c_a_nrx_msg__t}{C\+O\+\_\+\+C\+A\+Nrx\+Msg\+\_\+t}} $\ast$}]{rx\+Msg }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a2cccd5f32cc6da21ed3d0c97ed2f9d94}\label{_c_o__driver_8h_a2cccd5f32cc6da21ed3d0c97ed2f9d94}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANrxWait@{CO\_CANrxWait}}
+\index{CO\_CANrxWait@{CO\_CANrxWait}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANrxWait()}{CO\_CANrxWait()}}
+{\footnotesize\ttfamily void C\+O\+\_\+\+C\+A\+Nrx\+Wait (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Nmodule }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a4664a9f5d547cb0605a9e929fb079f2e}\label{_c_o__driver_8h_a4664a9f5d547cb0605a9e929fb079f2e}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANsend@{CO\_CANsend}}
+\index{CO\_CANsend@{CO\_CANsend}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANsend()}{CO\_CANsend()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a1cb2d3466eb0c6d267f3b5ff1a0d9532}{C\+O\+\_\+\+Return\+Error\+\_\+t}} C\+O\+\_\+\+C\+A\+Nsend (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Nmodule,  }\item[{\mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a0019d349a05de0a4087422af23c74b3b}\label{_c_o__driver_8h_a0019d349a05de0a4087422af23c74b3b}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANsetConfigurationMode@{CO\_CANsetConfigurationMode}}
+\index{CO\_CANsetConfigurationMode@{CO\_CANsetConfigurationMode}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANsetConfigurationMode()}{CO\_CANsetConfigurationMode()}}
+{\footnotesize\ttfamily void C\+O\+\_\+\+C\+A\+Nset\+Configuration\+Mode (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{fd\+Socket }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_ad654edfa651bf7b68263913786697200}\label{_c_o__driver_8h_ad654edfa651bf7b68263913786697200}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANsetNormalMode@{CO\_CANsetNormalMode}}
+\index{CO\_CANsetNormalMode@{CO\_CANsetNormalMode}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANsetNormalMode()}{CO\_CANsetNormalMode()}}
+{\footnotesize\ttfamily void C\+O\+\_\+\+C\+A\+Nset\+Normal\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Nmodule }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_a01e2ee79e7e3a8b321dac831e7e00976}\label{_c_o__driver_8h_a01e2ee79e7e3a8b321dac831e7e00976}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANtxBufferInit@{CO\_CANtxBufferInit}}
+\index{CO\_CANtxBufferInit@{CO\_CANtxBufferInit}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANtxBufferInit()}{CO\_CANtxBufferInit()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_c_o___c_a_ntx__t}{C\+O\+\_\+\+C\+A\+Ntx\+\_\+t}}$\ast$ C\+O\+\_\+\+C\+A\+Ntx\+Buffer\+Init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Nmodule,  }\item[{uint16\+\_\+t}]{index,  }\item[{uint16\+\_\+t}]{ident,  }\item[{\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}}}]{rtr,  }\item[{uint8\+\_\+t}]{no\+Of\+Bytes,  }\item[{\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}}}]{sync\+Flag }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_afa9e96d1772f3d7b37aa12732e9e4cea}\label{_c_o__driver_8h_afa9e96d1772f3d7b37aa12732e9e4cea}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_CANverifyErrors@{CO\_CANverifyErrors}}
+\index{CO\_CANverifyErrors@{CO\_CANverifyErrors}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_CANverifyErrors()}{CO\_CANverifyErrors()}}
+{\footnotesize\ttfamily void C\+O\+\_\+\+C\+A\+Nverify\+Errors (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_c_o___c_a_nmodule__t}{C\+O\+\_\+\+C\+A\+Nmodule\+\_\+t}} $\ast$}]{C\+A\+Nmodule }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__driver_8h_ad845fb3ac65c2f2604b99e7ad4e919e9}\label{_c_o__driver_8h_ad845fb3ac65c2f2604b99e7ad4e919e9}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_errExit@{CO\_errExit}}
+\index{CO\_errExit@{CO\_errExit}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_errExit()}{CO\_errExit()}}
+{\footnotesize\ttfamily void C\+O\+\_\+err\+Exit (\begin{DoxyParamCaption}\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}\label{_c_o__driver_8h_a59f8dee9887850c1b355a91a96005377}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_EMCY\_mtx@{CO\_EMCY\_mtx}}
+\index{CO\_EMCY\_mtx@{CO\_EMCY\_mtx}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_EMCY\_mtx}{CO\_EMCY\_mtx}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t C\+O\+\_\+\+E\+M\+C\+Y\+\_\+mtx}
+
+\mbox{\Hypertarget{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}\label{_c_o__driver_8h_aa5e94d42d178aecf5d7a3afbefc8a8be}} 
+\index{CO\_driver.h@{CO\_driver.h}!CO\_OD\_mtx@{CO\_OD\_mtx}}
+\index{CO\_OD\_mtx@{CO\_OD\_mtx}!CO\_driver.h@{CO\_driver.h}}
+\doxysubsubsection{\texorpdfstring{CO\_OD\_mtx}{CO\_OD\_mtx}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t C\+O\+\_\+\+O\+D\+\_\+mtx}
+

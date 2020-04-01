@@ -1,0 +1,128 @@
+\hypertarget{_c_o___linux__tasks_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+A\+Nopen\+Node/stack/socket\+C\+A\+N/\+C\+O\+\_\+\+Linux\+\_\+tasks.h File Reference}
+\label{_c_o___linux__tasks_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CANopenNode/stack/socketCAN/CO\_Linux\_tasks.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CANopenNode/stack/socketCAN/CO\_Linux\_tasks.h}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_c_o___linux__tasks_8h_a3fcc21d39338b63a6e67344c57f75ec7}{task\+Main\+\_\+init}} (int fd\+Epoll, uint16\+\_\+t $\ast$\mbox{\hyperlink{_c_o___linux__tasks_8c_ac23667425f53852f06b73af3b480e138}{max\+Time}})
+\item 
+void \mbox{\hyperlink{_c_o___linux__tasks_8h_a1d70d277400050a2e10a0e6ce0e2a15e}{task\+Main\+\_\+close}} (void)
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{_c_o___linux__tasks_8h_a747f27c60b64040104d511f4a18a4ca9}{task\+Main\+\_\+process}} (int fd, \mbox{\hyperlink{group___c_o___n_m_t___heartbeat_gaf42f056a571b8e17a2d74428d1a49674}{C\+O\+\_\+\+N\+M\+T\+\_\+reset\+\_\+cmd\+\_\+t}} $\ast$reset, uint16\+\_\+t timer1ms)
+\item 
+void \mbox{\hyperlink{_c_o___linux__tasks_8h_a898b7262ba5edd4cbab1a7ee26e9e7bc}{task\+Main\+\_\+cb\+Signal}} (void)
+\item 
+void \mbox{\hyperlink{_c_o___linux__tasks_8h_a4d742f322ef46f86e7b6d94fd42d11e4}{C\+A\+Nrx\+\_\+task\+Tmr\+\_\+init}} (int fd\+Epoll, long \mbox{\hyperlink{_c_o___linux__tasks_8c_a08295c99e459c77f070d104b0a57024b}{intervalns}}, uint16\+\_\+t $\ast$\mbox{\hyperlink{_c_o___linux__tasks_8c_ac23667425f53852f06b73af3b480e138}{max\+Time}})
+\item 
+void \mbox{\hyperlink{_c_o___linux__tasks_8h_a6bb847dbce1752067f0ae7a5adb1cc42}{C\+A\+Nrx\+\_\+task\+Tmr\+\_\+close}} (void)
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{_c_o___linux__tasks_8h_a0d48a4cae42267797d7f5dab11859710}{C\+A\+Nrx\+\_\+task\+Tmr\+\_\+process}} (int fd)
+\item 
+void \mbox{\hyperlink{_c_o___linux__tasks_8h_a9b9f1f67d3eb38514a09e902e832af87}{C\+A\+Nrx\+\_\+lock\+Cb\+Sync}} (\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} sync\+Received)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_o___linux__tasks_8h_a9b9f1f67d3eb38514a09e902e832af87}\label{_c_o___linux__tasks_8h_a9b9f1f67d3eb38514a09e902e832af87}} 
+\index{CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}!CANrx\_lockCbSync@{CANrx\_lockCbSync}}
+\index{CANrx\_lockCbSync@{CANrx\_lockCbSync}!CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}}
+\doxysubsubsection{\texorpdfstring{CANrx\_lockCbSync()}{CANrx\_lockCbSync()}}
+{\footnotesize\ttfamily void C\+A\+Nrx\+\_\+lock\+Cb\+Sync (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}}}]{sync\+Received }\end{DoxyParamCaption})}
+
+Disable C\+AN receive thread temporary.
+
+Function is called at S\+Y\+NC message on C\+AN bus. It disables C\+AN receive thread until R\+P\+D\+Os are processed. \mbox{\Hypertarget{_c_o___linux__tasks_8h_a6bb847dbce1752067f0ae7a5adb1cc42}\label{_c_o___linux__tasks_8h_a6bb847dbce1752067f0ae7a5adb1cc42}} 
+\index{CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}!CANrx\_taskTmr\_close@{CANrx\_taskTmr\_close}}
+\index{CANrx\_taskTmr\_close@{CANrx\_taskTmr\_close}!CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}}
+\doxysubsubsection{\texorpdfstring{CANrx\_taskTmr\_close()}{CANrx\_taskTmr\_close()}}
+{\footnotesize\ttfamily void C\+A\+Nrx\+\_\+task\+Tmr\+\_\+close (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Cleanup realtime task. \mbox{\Hypertarget{_c_o___linux__tasks_8h_a4d742f322ef46f86e7b6d94fd42d11e4}\label{_c_o___linux__tasks_8h_a4d742f322ef46f86e7b6d94fd42d11e4}} 
+\index{CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}!CANrx\_taskTmr\_init@{CANrx\_taskTmr\_init}}
+\index{CANrx\_taskTmr\_init@{CANrx\_taskTmr\_init}!CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}}
+\doxysubsubsection{\texorpdfstring{CANrx\_taskTmr\_init()}{CANrx\_taskTmr\_init()}}
+{\footnotesize\ttfamily void C\+A\+Nrx\+\_\+task\+Tmr\+\_\+init (\begin{DoxyParamCaption}\item[{int}]{fd\+Epoll,  }\item[{long}]{intervalns,  }\item[{uint16\+\_\+t $\ast$}]{max\+Time }\end{DoxyParamCaption})}
+
+Initialize realtime task.
+
+C\+A\+Nrx\+\_\+task\+Tmr is realtime task for C\+A\+Nopen\+Node processing. It is nonblocking and is executing on C\+AN message receive or periodically in 1ms (or something) intervals. Inside interval is processed C\+A\+Nopen S\+Y\+NC message, R\+P\+D\+Os(inputs) and T\+P\+D\+Os(outputs). Between inputs and outputs can also be executed some realtime application code. C\+A\+Nrx\+\_\+task\+Tmr uses Linux epoll, C\+AN socket form \mbox{\hyperlink{_c_o__driver_8c}{C\+O\+\_\+driver.\+c}} and timerfd for interval.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd\+Epoll} & File descriptor for Linux epoll A\+PI. \\
+\hline
+{\em intervalns} & Interval of periodic timer in nanoseconds. \\
+\hline
+{\em max\+Time} & Pointer to variable, where longest interval will be written \mbox{[}in milliseconds\mbox{]}. If N\+U\+LL, calculations won\textquotesingle{}t be made. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_c_o___linux__tasks_8h_a0d48a4cae42267797d7f5dab11859710}\label{_c_o___linux__tasks_8h_a0d48a4cae42267797d7f5dab11859710}} 
+\index{CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}!CANrx\_taskTmr\_process@{CANrx\_taskTmr\_process}}
+\index{CANrx\_taskTmr\_process@{CANrx\_taskTmr\_process}!CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}}
+\doxysubsubsection{\texorpdfstring{CANrx\_taskTmr\_process()}{CANrx\_taskTmr\_process()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} C\+A\+Nrx\+\_\+task\+Tmr\+\_\+process (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+Process realtime task.
+
+Function must be called after epoll.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & Available file descriptor from epoll().\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True, if fd was matched. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o___linux__tasks_8h_a898b7262ba5edd4cbab1a7ee26e9e7bc}\label{_c_o___linux__tasks_8h_a898b7262ba5edd4cbab1a7ee26e9e7bc}} 
+\index{CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}!taskMain\_cbSignal@{taskMain\_cbSignal}}
+\index{taskMain\_cbSignal@{taskMain\_cbSignal}!CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}}
+\doxysubsubsection{\texorpdfstring{taskMain\_cbSignal()}{taskMain\_cbSignal()}}
+{\footnotesize\ttfamily void task\+Main\+\_\+cb\+Signal (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Signal function, which triggers mainline task.
+
+It is used from some C\+A\+Nopen\+Node objects as callback. \mbox{\Hypertarget{_c_o___linux__tasks_8h_a1d70d277400050a2e10a0e6ce0e2a15e}\label{_c_o___linux__tasks_8h_a1d70d277400050a2e10a0e6ce0e2a15e}} 
+\index{CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}!taskMain\_close@{taskMain\_close}}
+\index{taskMain\_close@{taskMain\_close}!CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}}
+\doxysubsubsection{\texorpdfstring{taskMain\_close()}{taskMain\_close()}}
+{\footnotesize\ttfamily void task\+Main\+\_\+close (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Cleanup mainline task. \mbox{\Hypertarget{_c_o___linux__tasks_8h_a3fcc21d39338b63a6e67344c57f75ec7}\label{_c_o___linux__tasks_8h_a3fcc21d39338b63a6e67344c57f75ec7}} 
+\index{CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}!taskMain\_init@{taskMain\_init}}
+\index{taskMain\_init@{taskMain\_init}!CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}}
+\doxysubsubsection{\texorpdfstring{taskMain\_init()}{taskMain\_init()}}
+{\footnotesize\ttfamily void task\+Main\+\_\+init (\begin{DoxyParamCaption}\item[{int}]{fd\+Epoll,  }\item[{uint16\+\_\+t $\ast$}]{max\+Time }\end{DoxyParamCaption})}
+
+Initialize mainline task.
+
+task\+Main is non-\/realtime task for C\+A\+Nopen\+Node processing. It is nonblocking and is executing cyclically in 50 ms intervals or less if necessary. It uses Linux epoll, timerfd for interval and pipe for task triggering. This task processes \mbox{\hyperlink{group___c_o___c_a_nopen_gae3628f88850473dc2e51c337d8cbb881}{C\+O\+\_\+process()}} function from \mbox{\hyperlink{_c_a_nopen_8c}{C\+A\+Nopen.\+c}} file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd\+Epoll} & File descriptor for Linux epoll A\+PI. \\
+\hline
+{\em max\+Time} & Pointer to variable, where longest interval will be written \mbox{[}in milliseconds\mbox{]}. If N\+U\+LL, calculations won\textquotesingle{}t be made. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{_c_o___linux__tasks_8h_a747f27c60b64040104d511f4a18a4ca9}\label{_c_o___linux__tasks_8h_a747f27c60b64040104d511f4a18a4ca9}} 
+\index{CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}!taskMain\_process@{taskMain\_process}}
+\index{taskMain\_process@{taskMain\_process}!CO\_Linux\_tasks.h@{CO\_Linux\_tasks.h}}
+\doxysubsubsection{\texorpdfstring{taskMain\_process()}{taskMain\_process()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} task\+Main\+\_\+process (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{\mbox{\hyperlink{group___c_o___n_m_t___heartbeat_gaf42f056a571b8e17a2d74428d1a49674}{C\+O\+\_\+\+N\+M\+T\+\_\+reset\+\_\+cmd\+\_\+t}} $\ast$}]{reset,  }\item[{uint16\+\_\+t}]{timer1ms }\end{DoxyParamCaption})}
+
+Process mainline task.
+
+Function must be called after epoll.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & Available file descriptor from epoll(). \\
+\hline
+{\em reset} & return value from \mbox{\hyperlink{group___c_o___c_a_nopen_gae3628f88850473dc2e51c337d8cbb881}{C\+O\+\_\+process()}} function. \\
+\hline
+{\em timer1ms} & variable, which must increment each millisecond.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True, if fd was matched. 
+\end{DoxyReturn}

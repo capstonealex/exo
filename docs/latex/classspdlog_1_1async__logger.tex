@@ -1,0 +1,144 @@
+\hypertarget{classspdlog_1_1async__logger}{}\doxysection{spdlog\+::async\+\_\+logger Class Reference}
+\label{classspdlog_1_1async__logger}\index{spdlog::async\_logger@{spdlog::async\_logger}}
+
+
+{\ttfamily \#include $<$async\+\_\+logger.\+h$>$}
+
+Inheritance diagram for spdlog\+::async\+\_\+logger\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.964912cm]{classspdlog_1_1async__logger}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename It $>$ }\\\mbox{\hyperlink{classspdlog_1_1async__logger_a2a74bf8d8d850ea760396ba8ae55d552}{async\+\_\+logger}} (std\+::string logger\+\_\+name, It begin, It end, std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1details_1_1thread__pool}{details\+::thread\+\_\+pool}} $>$ tp, \mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852}{async\+\_\+overflow\+\_\+policy}} overflow\+\_\+policy=\mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852a14511f2f5564650d129ca7cabc333278}{async\+\_\+overflow\+\_\+policy\+::block}})
+\item 
+\mbox{\hyperlink{classspdlog_1_1async__logger_a3164595d226473d551d36ae07fdcc11a}{async\+\_\+logger}} (std\+::string logger\+\_\+name, \mbox{\hyperlink{namespacespdlog_aa9b5c2298bf713fbe02b7e538d797ecd}{sinks\+\_\+init\+\_\+list}} sinks\+\_\+list, std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1details_1_1thread__pool}{details\+::thread\+\_\+pool}} $>$ tp, \mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852}{async\+\_\+overflow\+\_\+policy}} overflow\+\_\+policy=\mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852a14511f2f5564650d129ca7cabc333278}{async\+\_\+overflow\+\_\+policy\+::block}})
+\item 
+\mbox{\hyperlink{classspdlog_1_1async__logger_a6f179d745c5618639bc5da8c40659b70}{async\+\_\+logger}} (std\+::string logger\+\_\+name, \mbox{\hyperlink{namespacespdlog_a422c57d3088160b517e5a74e5f318253}{sink\+\_\+ptr}} single\+\_\+sink, std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1details_1_1thread__pool}{details\+::thread\+\_\+pool}} $>$ tp, \mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852}{async\+\_\+overflow\+\_\+policy}} overflow\+\_\+policy=\mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852a14511f2f5564650d129ca7cabc333278}{async\+\_\+overflow\+\_\+policy\+::block}})
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1logger}{logger}} $>$ \mbox{\hyperlink{classspdlog_1_1async__logger_a1ba06033da941175e6c3adf6cab0aeb9}{clone}} (std\+::string new\+\_\+name) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classspdlog_1_1async__logger_ac28dab7d752dc73832bb08c408362cec}{sink\+\_\+it\+\_\+}} (const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{details\+::log\+\_\+msg}} \&msg) override
+\item 
+void \mbox{\hyperlink{classspdlog_1_1async__logger_a945adeb3652f3ffafa4532924a214773}{flush\+\_\+}} () override
+\item 
+void \mbox{\hyperlink{classspdlog_1_1async__logger_ae7342ebd2fab33de3da401966b05a874}{backend\+\_\+sink\+\_\+it\+\_\+}} (const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{details\+::log\+\_\+msg}} \&incoming\+\_\+log\+\_\+msg)
+\item 
+void \mbox{\hyperlink{classspdlog_1_1async__logger_aa99925726af79079783693c51542e413}{backend\+\_\+flush\+\_\+}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1details_1_1thread__pool}{details\+::thread\+\_\+pool}} $>$ \mbox{\hyperlink{classspdlog_1_1async__logger_a5886796bb52a4ec9a76a9229ad514886}{thread\+\_\+pool\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852}{async\+\_\+overflow\+\_\+policy}} \mbox{\hyperlink{classspdlog_1_1async__logger_acda856f17834dbd0295271511c4fd64f}{overflow\+\_\+policy\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classspdlog_1_1async__logger_a67ce2a7de422d11203d66f1f6da4be03}{details\+::thread\+\_\+pool}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classspdlog_1_1async__logger_a2a74bf8d8d850ea760396ba8ae55d552}\label{classspdlog_1_1async__logger_a2a74bf8d8d850ea760396ba8ae55d552}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!async\_logger@{async\_logger}}
+\index{async\_logger@{async\_logger}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{async\_logger()}{async\_logger()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename It $>$ \\
+spdlog\+::async\+\_\+logger\+::async\+\_\+logger (\begin{DoxyParamCaption}\item[{std\+::string}]{logger\+\_\+name,  }\item[{It}]{begin,  }\item[{It}]{end,  }\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1details_1_1thread__pool}{details\+::thread\+\_\+pool}} $>$}]{tp,  }\item[{\mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852}{async\+\_\+overflow\+\_\+policy}}}]{overflow\+\_\+policy = {\ttfamily \mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852a14511f2f5564650d129ca7cabc333278}{async\+\_\+overflow\+\_\+policy\+::block}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classspdlog_1_1async__logger_a3164595d226473d551d36ae07fdcc11a}\label{classspdlog_1_1async__logger_a3164595d226473d551d36ae07fdcc11a}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!async\_logger@{async\_logger}}
+\index{async\_logger@{async\_logger}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{async\_logger()}{async\_logger()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} spdlog\+::async\+\_\+logger\+::async\+\_\+logger (\begin{DoxyParamCaption}\item[{std\+::string}]{logger\+\_\+name,  }\item[{\mbox{\hyperlink{namespacespdlog_aa9b5c2298bf713fbe02b7e538d797ecd}{sinks\+\_\+init\+\_\+list}}}]{sinks\+\_\+list,  }\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1details_1_1thread__pool}{details\+::thread\+\_\+pool}} $>$}]{tp,  }\item[{\mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852}{async\+\_\+overflow\+\_\+policy}}}]{overflow\+\_\+policy = {\ttfamily \mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852a14511f2f5564650d129ca7cabc333278}{async\+\_\+overflow\+\_\+policy\+::block}}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classspdlog_1_1async__logger_a6f179d745c5618639bc5da8c40659b70}\label{classspdlog_1_1async__logger_a6f179d745c5618639bc5da8c40659b70}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!async\_logger@{async\_logger}}
+\index{async\_logger@{async\_logger}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{async\_logger()}{async\_logger()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} spdlog\+::async\+\_\+logger\+::async\+\_\+logger (\begin{DoxyParamCaption}\item[{std\+::string}]{logger\+\_\+name,  }\item[{\mbox{\hyperlink{namespacespdlog_a422c57d3088160b517e5a74e5f318253}{sink\+\_\+ptr}}}]{single\+\_\+sink,  }\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1details_1_1thread__pool}{details\+::thread\+\_\+pool}} $>$}]{tp,  }\item[{\mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852}{async\+\_\+overflow\+\_\+policy}}}]{overflow\+\_\+policy = {\ttfamily \mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852a14511f2f5564650d129ca7cabc333278}{async\+\_\+overflow\+\_\+policy\+::block}}} }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classspdlog_1_1async__logger_aa99925726af79079783693c51542e413}\label{classspdlog_1_1async__logger_aa99925726af79079783693c51542e413}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!backend\_flush\_@{backend\_flush\_}}
+\index{backend\_flush\_@{backend\_flush\_}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{backend\_flush\_()}{backend\_flush\_()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void spdlog\+::async\+\_\+logger\+::backend\+\_\+flush\+\_\+ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classspdlog_1_1async__logger_ae7342ebd2fab33de3da401966b05a874}\label{classspdlog_1_1async__logger_ae7342ebd2fab33de3da401966b05a874}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!backend\_sink\_it\_@{backend\_sink\_it\_}}
+\index{backend\_sink\_it\_@{backend\_sink\_it\_}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{backend\_sink\_it\_()}{backend\_sink\_it\_()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void spdlog\+::async\+\_\+logger\+::backend\+\_\+sink\+\_\+it\+\_\+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{details\+::log\+\_\+msg}} \&}]{incoming\+\_\+log\+\_\+msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classspdlog_1_1async__logger_a1ba06033da941175e6c3adf6cab0aeb9}\label{classspdlog_1_1async__logger_a1ba06033da941175e6c3adf6cab0aeb9}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!clone@{clone}}
+\index{clone@{clone}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classspdlog_1_1logger}{spdlog\+::logger}} $>$ spdlog\+::async\+\_\+logger\+::clone (\begin{DoxyParamCaption}\item[{std\+::string}]{new\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classspdlog_1_1logger_a953200cbe04c2e694d53781c2066a834}{spdlog\+::logger}}.
+
+\mbox{\Hypertarget{classspdlog_1_1async__logger_a945adeb3652f3ffafa4532924a214773}\label{classspdlog_1_1async__logger_a945adeb3652f3ffafa4532924a214773}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!flush\_@{flush\_}}
+\index{flush\_@{flush\_}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{flush\_()}{flush\_()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void spdlog\+::async\+\_\+logger\+::flush\+\_\+ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classspdlog_1_1logger_a4410446ddde8880655f00729521e9718}{spdlog\+::logger}}.
+
+\mbox{\Hypertarget{classspdlog_1_1async__logger_ac28dab7d752dc73832bb08c408362cec}\label{classspdlog_1_1async__logger_ac28dab7d752dc73832bb08c408362cec}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!sink\_it\_@{sink\_it\_}}
+\index{sink\_it\_@{sink\_it\_}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{sink\_it\_()}{sink\_it\_()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void spdlog\+::async\+\_\+logger\+::sink\+\_\+it\+\_\+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{details\+::log\+\_\+msg}} \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classspdlog_1_1logger_a903938d3018e32dedcbd090e624ab5ee}{spdlog\+::logger}}.
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classspdlog_1_1async__logger_a67ce2a7de422d11203d66f1f6da4be03}\label{classspdlog_1_1async__logger_a67ce2a7de422d11203d66f1f6da4be03}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!details::thread\_pool@{details::thread\_pool}}
+\index{details::thread\_pool@{details::thread\_pool}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{details::thread\_pool}{details::thread\_pool}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{classspdlog_1_1details_1_1thread__pool}{details\+::thread\+\_\+pool}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classspdlog_1_1async__logger_acda856f17834dbd0295271511c4fd64f}\label{classspdlog_1_1async__logger_acda856f17834dbd0295271511c4fd64f}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!overflow\_policy\_@{overflow\_policy\_}}
+\index{overflow\_policy\_@{overflow\_policy\_}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{overflow\_policy\_}{overflow\_policy\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacespdlog_a42e109759a11c9514d3f6313a7709852}{async\+\_\+overflow\+\_\+policy}} spdlog\+::async\+\_\+logger\+::overflow\+\_\+policy\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classspdlog_1_1async__logger_a5886796bb52a4ec9a76a9229ad514886}\label{classspdlog_1_1async__logger_a5886796bb52a4ec9a76a9229ad514886}} 
+\index{spdlog::async\_logger@{spdlog::async\_logger}!thread\_pool\_@{thread\_pool\_}}
+\index{thread\_pool\_@{thread\_pool\_}!spdlog::async\_logger@{spdlog::async\_logger}}
+\doxysubsubsection{\texorpdfstring{thread\_pool\_}{thread\_pool\_}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{classspdlog_1_1details_1_1thread__pool}{details\+::thread\+\_\+pool}}$>$ spdlog\+::async\+\_\+logger\+::thread\+\_\+pool\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/\mbox{\hyperlink{async__logger_8h}{async\+\_\+logger.\+h}}\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/\mbox{\hyperlink{async__logger-inl_8h}{async\+\_\+logger-\/inl.\+h}}\end{DoxyCompactItemize}

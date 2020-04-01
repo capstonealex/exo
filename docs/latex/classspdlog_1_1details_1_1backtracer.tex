@@ -1,0 +1,123 @@
+\hypertarget{classspdlog_1_1details_1_1backtracer}{}\doxysection{spdlog\+::details\+::backtracer Class Reference}
+\label{classspdlog_1_1details_1_1backtracer}\index{spdlog::details::backtracer@{spdlog::details::backtracer}}
+
+
+{\ttfamily \#include $<$backtracer.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_a70cbdaa0ebbfd262969d612c3099daac}{backtracer}} ()=default
+\item 
+\mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_a3e37c0ea03980c490602bcd2fcc20e01}{backtracer}} (const \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer}{backtracer}} \&other)
+\item 
+\mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_adfe10df58ca31f02f178e51bed405c64}{backtracer}} (\mbox{\hyperlink{classspdlog_1_1details_1_1backtracer}{backtracer}} \&\&other) \mbox{\hyperlink{common_8h_a15d2dc432e6bb83beb5130be9a4ca8d6}{S\+P\+D\+L\+O\+G\+\_\+\+N\+O\+E\+X\+C\+E\+PT}}
+\item 
+\mbox{\hyperlink{classspdlog_1_1details_1_1backtracer}{backtracer}} \& \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_a49695dceff886eeef9cf4ad179d1a644}{operator=}} (\mbox{\hyperlink{classspdlog_1_1details_1_1backtracer}{backtracer}} other)
+\item 
+void \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_a7cb69ae682f696ea13ea771b90fbc579}{enable}} (size\+\_\+t size)
+\item 
+void \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_a0e3655183f41ef75b568a6571cc67eb6}{disable}} ()
+\item 
+bool \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_a78c514131543b5682d0143e93a7365ba}{enabled}} () const
+\item 
+void \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_a1f3b157c3fcd6b013d6d16302b8e1a10}{push\+\_\+back}} (const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{log\+\_\+msg}} \&msg)
+\item 
+void \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_aa18d7036db805e0af39a967c7cf2f7c8}{foreach\+\_\+pop}} (std\+::function$<$ void(const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{details\+::log\+\_\+msg}} \&)$>$ fun)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::mutex \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_a6baf102755633ee95e7b02e0d5a93c20}{mutex\+\_\+}}
+\item 
+std\+::atomic$<$ bool $>$ \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_a65f1a905f15418efc1dfaf140ea95ef8}{enabled\+\_\+}} \{false\}
+\item 
+\mbox{\hyperlink{classspdlog_1_1details_1_1circular__q}{circular\+\_\+q}}$<$ \mbox{\hyperlink{classspdlog_1_1details_1_1log__msg__buffer}{log\+\_\+msg\+\_\+buffer}} $>$ \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer_aa9deb74dadbe13fb46c05086d1b67d46}{messages\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_a70cbdaa0ebbfd262969d612c3099daac}\label{classspdlog_1_1details_1_1backtracer_a70cbdaa0ebbfd262969d612c3099daac}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!backtracer@{backtracer}}
+\index{backtracer@{backtracer}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{backtracer()}{backtracer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily spdlog\+::details\+::backtracer\+::backtracer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_a3e37c0ea03980c490602bcd2fcc20e01}\label{classspdlog_1_1details_1_1backtracer_a3e37c0ea03980c490602bcd2fcc20e01}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!backtracer@{backtracer}}
+\index{backtracer@{backtracer}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{backtracer()}{backtracer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} spdlog\+::details\+::backtracer\+::backtracer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer}{backtracer}} \&}]{other }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_adfe10df58ca31f02f178e51bed405c64}\label{classspdlog_1_1details_1_1backtracer_adfe10df58ca31f02f178e51bed405c64}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!backtracer@{backtracer}}
+\index{backtracer@{backtracer}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{backtracer()}{backtracer()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} spdlog\+::details\+::backtracer\+::backtracer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classspdlog_1_1details_1_1backtracer}{backtracer}} \&\&}]{other }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_a0e3655183f41ef75b568a6571cc67eb6}\label{classspdlog_1_1details_1_1backtracer_a0e3655183f41ef75b568a6571cc67eb6}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!disable@{disable}}
+\index{disable@{disable}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{disable()}{disable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void spdlog\+::details\+::backtracer\+::disable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_a7cb69ae682f696ea13ea771b90fbc579}\label{classspdlog_1_1details_1_1backtracer_a7cb69ae682f696ea13ea771b90fbc579}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!enable@{enable}}
+\index{enable@{enable}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{enable()}{enable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void spdlog\+::details\+::backtracer\+::enable (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_a78c514131543b5682d0143e93a7365ba}\label{classspdlog_1_1details_1_1backtracer_a78c514131543b5682d0143e93a7365ba}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!enabled@{enabled}}
+\index{enabled@{enabled}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{enabled()}{enabled()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} bool spdlog\+::details\+::backtracer\+::enabled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_aa18d7036db805e0af39a967c7cf2f7c8}\label{classspdlog_1_1details_1_1backtracer_aa18d7036db805e0af39a967c7cf2f7c8}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!foreach\_pop@{foreach\_pop}}
+\index{foreach\_pop@{foreach\_pop}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{foreach\_pop()}{foreach\_pop()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void spdlog\+::details\+::backtracer\+::foreach\+\_\+pop (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{details\+::log\+\_\+msg}} \&)$>$}]{fun }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_a49695dceff886eeef9cf4ad179d1a644}\label{classspdlog_1_1details_1_1backtracer_a49695dceff886eeef9cf4ad179d1a644}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!operator=@{operator=}}
+\index{operator=@{operator=}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} \mbox{\hyperlink{classspdlog_1_1details_1_1backtracer}{backtracer}} \& spdlog\+::details\+::backtracer\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classspdlog_1_1details_1_1backtracer}{backtracer}}}]{other }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_a1f3b157c3fcd6b013d6d16302b8e1a10}\label{classspdlog_1_1details_1_1backtracer_a1f3b157c3fcd6b013d6d16302b8e1a10}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!push\_back@{push\_back}}
+\index{push\_back@{push\_back}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{push\_back()}{push\_back()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a81ecc4703fe6ce0f7820fc3652ee2b21}{S\+P\+D\+L\+O\+G\+\_\+\+I\+N\+L\+I\+NE}} void spdlog\+::details\+::backtracer\+::push\+\_\+back (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structspdlog_1_1details_1_1log__msg}{log\+\_\+msg}} \&}]{msg }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_a65f1a905f15418efc1dfaf140ea95ef8}\label{classspdlog_1_1details_1_1backtracer_a65f1a905f15418efc1dfaf140ea95ef8}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!enabled\_@{enabled\_}}
+\index{enabled\_@{enabled\_}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{enabled\_}{enabled\_}}
+{\footnotesize\ttfamily std\+::atomic$<$bool$>$ spdlog\+::details\+::backtracer\+::enabled\+\_\+ \{false\}\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_aa9deb74dadbe13fb46c05086d1b67d46}\label{classspdlog_1_1details_1_1backtracer_aa9deb74dadbe13fb46c05086d1b67d46}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!messages\_@{messages\_}}
+\index{messages\_@{messages\_}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{messages\_}{messages\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classspdlog_1_1details_1_1circular__q}{circular\+\_\+q}}$<$\mbox{\hyperlink{classspdlog_1_1details_1_1log__msg__buffer}{log\+\_\+msg\+\_\+buffer}}$>$ spdlog\+::details\+::backtracer\+::messages\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classspdlog_1_1details_1_1backtracer_a6baf102755633ee95e7b02e0d5a93c20}\label{classspdlog_1_1details_1_1backtracer_a6baf102755633ee95e7b02e0d5a93c20}} 
+\index{spdlog::details::backtracer@{spdlog::details::backtracer}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!spdlog::details::backtracer@{spdlog::details::backtracer}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily std\+::mutex spdlog\+::details\+::backtracer\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/details/\mbox{\hyperlink{backtracer_8h}{backtracer.\+h}}\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/details/\mbox{\hyperlink{backtracer-inl_8h}{backtracer-\/inl.\+h}}\end{DoxyCompactItemize}

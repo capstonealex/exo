@@ -1,0 +1,79 @@
+\hypertarget{classdynamic__formatter}{}\doxysection{dynamic\+\_\+formatter$<$ Char $>$ Class Template Reference}
+\label{classdynamic__formatter}\index{dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}}
+
+
+{\ttfamily \#include $<$format.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structdynamic__formatter_1_1null__handler}{null\+\_\+handler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Parse\+Context $>$ }\\auto \mbox{\hyperlink{classdynamic__formatter_aa9bc96ae30462d4e5f13d207f957fc0b}{parse}} (Parse\+Context \&ctx) -\/$>$ decltype(ctx.\+begin())
+\item 
+{\footnotesize template$<$typename T , typename Format\+Context $>$ }\\auto \mbox{\hyperlink{classdynamic__formatter_ad409c112b5d8058d65e3b96d20c4a524}{format}} (const T \&val, Format\+Context \&ctx) -\/$>$ decltype(ctx.\+out())
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Context $>$ }\\void \mbox{\hyperlink{classdynamic__formatter_a3473a0919f70f4b9d3e34ee98ba58dc9}{handle\+\_\+specs}} (Context \&ctx)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structinternal_1_1dynamic__format__specs}{internal\+::dynamic\+\_\+format\+\_\+specs}}$<$ Char $>$ \mbox{\hyperlink{classdynamic__formatter_a6c87ca8caa93c4baf6a11dca4c4adb0e}{specs\+\_\+}}
+\item 
+const Char $\ast$ \mbox{\hyperlink{classdynamic__formatter_a4471aa0a10f6977185c00e65aa9d92b7}{format\+\_\+str\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classdynamic__formatter_ad409c112b5d8058d65e3b96d20c4a524}\label{classdynamic__formatter_ad409c112b5d8058d65e3b96d20c4a524}} 
+\index{dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}!format@{format}}
+\index{format@{format}!dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{format()}{format()}}
+{\footnotesize\ttfamily template$<$typename Char  = char$>$ \\
+template$<$typename T , typename Format\+Context $>$ \\
+auto \mbox{\hyperlink{classdynamic__formatter}{dynamic\+\_\+formatter}}$<$ Char $>$\+::format (\begin{DoxyParamCaption}\item[{const T \&}]{val,  }\item[{Format\+Context \&}]{ctx }\end{DoxyParamCaption}) -\/$>$ decltype(ctx.\+out()) \hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classdynamic__formatter_a3473a0919f70f4b9d3e34ee98ba58dc9}\label{classdynamic__formatter_a3473a0919f70f4b9d3e34ee98ba58dc9}} 
+\index{dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}!handle\_specs@{handle\_specs}}
+\index{handle\_specs@{handle\_specs}!dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{handle\_specs()}{handle\_specs()}}
+{\footnotesize\ttfamily template$<$typename Char  = char$>$ \\
+template$<$typename Context $>$ \\
+void \mbox{\hyperlink{classdynamic__formatter}{dynamic\+\_\+formatter}}$<$ Char $>$\+::handle\+\_\+specs (\begin{DoxyParamCaption}\item[{Context \&}]{ctx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdynamic__formatter_aa9bc96ae30462d4e5f13d207f957fc0b}\label{classdynamic__formatter_aa9bc96ae30462d4e5f13d207f957fc0b}} 
+\index{dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}!parse@{parse}}
+\index{parse@{parse}!dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily template$<$typename Char  = char$>$ \\
+template$<$typename Parse\+Context $>$ \\
+auto \mbox{\hyperlink{classdynamic__formatter}{dynamic\+\_\+formatter}}$<$ Char $>$\+::parse (\begin{DoxyParamCaption}\item[{Parse\+Context \&}]{ctx }\end{DoxyParamCaption}) -\/$>$ decltype(ctx.\+begin()) \hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classdynamic__formatter_a4471aa0a10f6977185c00e65aa9d92b7}\label{classdynamic__formatter_a4471aa0a10f6977185c00e65aa9d92b7}} 
+\index{dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}!format\_str\_@{format\_str\_}}
+\index{format\_str\_@{format\_str\_}!dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{format\_str\_}{format\_str\_}}
+{\footnotesize\ttfamily template$<$typename Char  = char$>$ \\
+const Char$\ast$ \mbox{\hyperlink{classdynamic__formatter}{dynamic\+\_\+formatter}}$<$ Char $>$\+::format\+\_\+str\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdynamic__formatter_a6c87ca8caa93c4baf6a11dca4c4adb0e}\label{classdynamic__formatter_a6c87ca8caa93c4baf6a11dca4c4adb0e}} 
+\index{dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}!specs\_@{specs\_}}
+\index{specs\_@{specs\_}!dynamic\_formatter$<$ Char $>$@{dynamic\_formatter$<$ Char $>$}}
+\doxysubsubsection{\texorpdfstring{specs\_}{specs\_}}
+{\footnotesize\ttfamily template$<$typename Char  = char$>$ \\
+\mbox{\hyperlink{structinternal_1_1dynamic__format__specs}{internal\+::dynamic\+\_\+format\+\_\+specs}}$<$Char$>$ \mbox{\hyperlink{classdynamic__formatter}{dynamic\+\_\+formatter}}$<$ Char $>$\+::specs\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/spdlog/fmt/bundled/\mbox{\hyperlink{format_8h}{format.\+h}}\end{DoxyCompactItemize}

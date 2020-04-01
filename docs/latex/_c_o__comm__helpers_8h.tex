@@ -1,0 +1,278 @@
+\hypertarget{_c_o__comm__helpers_8h}{}\doxysection{/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+O\+\_\+comm\+\_\+helpers.h File Reference}
+\label{_c_o__comm__helpers_8h}\index{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CO\_comm\_helpers.h@{/Users/williamcampbell/Documents/GitHub/exo/ALEX/src/CO\_comm\_helpers.h}}
+{\ttfamily \#include \char`\"{}C\+O\+\_\+driver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}C\+O\+\_\+\+S\+D\+O.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structdata_type__t}{data\+Type\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729}{resp\+Error\+Code\+\_\+t}} \{ \newline
+\mbox{\hyperlink{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a4f5f2200be9835c8cee3e29626f51a15}{resp\+Error\+None}} = 0, 
+\mbox{\hyperlink{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729aff28caded6a8123da8a7cd705b65bd40}{resp\+Error\+Req\+Not\+Supported}} = 100, 
+\mbox{\hyperlink{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a45d90dcf49523c101850b8f6034d7394}{resp\+Error\+Syntax}} = 101, 
+\mbox{\hyperlink{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729ae0788a122de17743b37ced3932c72e16}{resp\+Error\+Internal\+State}} = 102, 
+\newline
+\mbox{\hyperlink{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a14fb94cf944258831e6637eb34b7aa9d}{resp\+Error\+No\+Default\+Node\+Set}} = 105, 
+\mbox{\hyperlink{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729afd6f90c1a4d6bb3cf85d1689e8c7630e}{resp\+Error\+Unsupported\+Net}} = 106, 
+\mbox{\hyperlink{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a4363cc5c5399159ab32b1ae6f5e0607a}{resp\+Error\+Unsupported\+Node}} = 107
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_c_o__comm__helpers_8h_a61fac56d1a659c8f3dec27c3889a9a40}{dtp\+Hex}} (char $\ast$strout, int strout\+Size, char $\ast$buf\+Sdo, int buf\+Len)
+\item 
+int \mbox{\hyperlink{_c_o__comm__helpers_8h_a7f9d58aadd080b13c906ded1ba953943}{dts\+Hex}} (char $\ast$buf\+Sdo, int buf\+Sdo\+Size, char $\ast$strin)
+\item 
+char $\ast$ \mbox{\hyperlink{_c_o__comm__helpers_8h_a5f7a1e183d7cbfe40b4ac78de552108c}{get\+Tok}} (char $\ast$init\+Str, const char $\ast$delim, int $\ast$err)
+\item 
+void \mbox{\hyperlink{_c_o__comm__helpers_8h_a3ebc4b4695269eae20196f76bb81efec}{last\+Tok}} (char $\ast$init\+Str, const char $\ast$delim, int $\ast$err)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8h_a46c92bc0fbe7480cbed98ccd65f80f89}{get\+U32}} (char $\ast$token, uint32\+\_\+t min, uint32\+\_\+t max, int $\ast$err)
+\item 
+int32\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8h_a87716fa4efe4f4b931d1d5f1032d09ba}{get\+I32}} (char $\ast$token, int32\+\_\+t min, int32\+\_\+t max, int $\ast$err)
+\item 
+uint64\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8h_a095e6493ecfe9575930d1652f593c65e}{get\+U64}} (char $\ast$token, uint64\+\_\+t min, uint64\+\_\+t max, int $\ast$err)
+\item 
+int64\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8h_ab07d3bf496c1c1769069f4c662725936}{get\+I64}} (char $\ast$token, int64\+\_\+t min, int64\+\_\+t max, int $\ast$err)
+\item 
+float32\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8h_a63f1899dc35cc429bb303dd3028dd19d}{get\+R32}} (char $\ast$token, int $\ast$err)
+\item 
+float64\+\_\+t \mbox{\hyperlink{_c_o__comm__helpers_8h_aa764b0695a3d5ba9809bb5144353d6fd}{get\+R64}} (char $\ast$token, int $\ast$err)
+\item 
+const \mbox{\hyperlink{structdata_type__t}{data\+Type\+\_\+t}} $\ast$ \mbox{\hyperlink{_c_o__comm__helpers_8h_a9497d44b2df4b7b4a8f1f50742a542c3}{get\+Data\+Type}} (char $\ast$token, int $\ast$err)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \mbox{\hyperlink{_c_o__comm__helpers_8h_adc643f3e84ae6a16d0692aaf9d21a171}{space\+Delim}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Command interface for C\+A\+Nopen\+Socket -\/ A\+S\+C\+II helper functions.
+
+\begin{DoxyAuthor}{Author}
+Janez Paternoster 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+2015 Janez Paternoster
+\end{DoxyCopyright}
+This file is part of C\+A\+Nopen\+Socket, a Linux implementation of C\+A\+Nopen stack with master functionality. Project home page is \href{https://github.com/CANopenNode/CANopenSocket}{\texttt{ https\+://github.\+com/\+C\+A\+Nopen\+Node/\+C\+A\+Nopen\+Socket}}. C\+A\+Nopen\+Socket is based on C\+A\+Nopen\+Node\+: \href{https://github.com/CANopenNode/CANopenNode}{\texttt{ https\+://github.\+com/\+C\+A\+Nopen\+Node/\+C\+A\+Nopen\+Node}}.
+
+C\+A\+Nopen\+Socket is free and open source software\+: you can redistribute it and/or modify it under the terms of the G\+NU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but W\+I\+T\+H\+O\+UT A\+NY W\+A\+R\+R\+A\+N\+TY; without even the implied warranty of M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY or F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE. See the G\+NU General Public License for more details.
+
+You should have received a copy of the G\+NU General Public License along with this program. If not, see \href{http://www.gnu.org/licenses/}{\texttt{ http\+://www.\+gnu.\+org/licenses/}}. 
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729}\label{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!respErrorCode\_t@{respErrorCode\_t}}
+\index{respErrorCode\_t@{respErrorCode\_t}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{respErrorCode\_t}{respErrorCode\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729}{resp\+Error\+Code\+\_\+t}}}
+
+Response errors as specified by CiA 309-\/3. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{respErrorNone@{respErrorNone}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!respErrorNone@{respErrorNone}}}\mbox{\Hypertarget{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a4f5f2200be9835c8cee3e29626f51a15}\label{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a4f5f2200be9835c8cee3e29626f51a15}} 
+resp\+Error\+None&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{respErrorReqNotSupported@{respErrorReqNotSupported}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!respErrorReqNotSupported@{respErrorReqNotSupported}}}\mbox{\Hypertarget{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729aff28caded6a8123da8a7cd705b65bd40}\label{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729aff28caded6a8123da8a7cd705b65bd40}} 
+resp\+Error\+Req\+Not\+Supported&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{respErrorSyntax@{respErrorSyntax}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!respErrorSyntax@{respErrorSyntax}}}\mbox{\Hypertarget{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a45d90dcf49523c101850b8f6034d7394}\label{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a45d90dcf49523c101850b8f6034d7394}} 
+resp\+Error\+Syntax&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{respErrorInternalState@{respErrorInternalState}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!respErrorInternalState@{respErrorInternalState}}}\mbox{\Hypertarget{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729ae0788a122de17743b37ced3932c72e16}\label{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729ae0788a122de17743b37ced3932c72e16}} 
+resp\+Error\+Internal\+State&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{respErrorNoDefaultNodeSet@{respErrorNoDefaultNodeSet}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!respErrorNoDefaultNodeSet@{respErrorNoDefaultNodeSet}}}\mbox{\Hypertarget{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a14fb94cf944258831e6637eb34b7aa9d}\label{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a14fb94cf944258831e6637eb34b7aa9d}} 
+resp\+Error\+No\+Default\+Node\+Set&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{respErrorUnsupportedNet@{respErrorUnsupportedNet}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!respErrorUnsupportedNet@{respErrorUnsupportedNet}}}\mbox{\Hypertarget{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729afd6f90c1a4d6bb3cf85d1689e8c7630e}\label{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729afd6f90c1a4d6bb3cf85d1689e8c7630e}} 
+resp\+Error\+Unsupported\+Net&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{respErrorUnsupportedNode@{respErrorUnsupportedNode}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!respErrorUnsupportedNode@{respErrorUnsupportedNode}}}\mbox{\Hypertarget{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a4363cc5c5399159ab32b1ae6f5e0607a}\label{_c_o__comm__helpers_8h_ad52364f872ec8b11428ef5b4bfd84729a4363cc5c5399159ab32b1ae6f5e0607a}} 
+resp\+Error\+Unsupported\+Node&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_a61fac56d1a659c8f3dec27c3889a9a40}\label{_c_o__comm__helpers_8h_a61fac56d1a659c8f3dec27c3889a9a40}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!dtpHex@{dtpHex}}
+\index{dtpHex@{dtpHex}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{dtpHex()}{dtpHex()}}
+{\footnotesize\ttfamily int dtp\+Hex (\begin{DoxyParamCaption}\item[{char $\ast$}]{strout,  }\item[{int}]{strout\+Size,  }\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Len }\end{DoxyParamCaption})}
+
+Data type print function.
+
+Functions writes binary data from buf\+Sdo to strout (with sprintf). dtp\+Hex outputs in hex format (two hex digits, space separated). There are other dtp functions inside data\+Types\mbox{[}\mbox{]} array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em strout} & Output string. \\
+\hline
+{\em buf\+Sdo} & Input binary data. \\
+\hline
+{\em buf\+Len} & Size of input binary data.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes written to strout. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_a7f9d58aadd080b13c906ded1ba953943}\label{_c_o__comm__helpers_8h_a7f9d58aadd080b13c906ded1ba953943}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!dtsHex@{dtsHex}}
+\index{dtsHex@{dtsHex}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{dtsHex()}{dtsHex()}}
+{\footnotesize\ttfamily int dts\+Hex (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf\+Sdo,  }\item[{int}]{buf\+Sdo\+Size,  }\item[{char $\ast$}]{strin }\end{DoxyParamCaption})}
+
+Data type scan function.
+
+Functions scans input string string and writes binary data to buf\+Sdo. dts\+Hex scans from hex format (two hex digits, space separated). There are other dts functions inside data\+Types\mbox{[}\mbox{]} array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf\+Sdo} & Output binary data. \\
+\hline
+{\em strin} & Input string.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes written to buf\+Sdo, 0 on failure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_a9497d44b2df4b7b4a8f1f50742a542c3}\label{_c_o__comm__helpers_8h_a9497d44b2df4b7b4a8f1f50742a542c3}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!getDataType@{getDataType}}
+\index{getDataType@{getDataType}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{getDataType()}{getDataType()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structdata_type__t}{data\+Type\+\_\+t}}$\ast$ get\+Data\+Type (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+Get data type from token.
+
+Token must exactly match one of the \textquotesingle{}syntax\textquotesingle{} from data\+Types\mbox{[}\mbox{]}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & Input string. \\
+\hline
+{\em err} & Input and returning parameter sets to true in case of error. If err is already true, function returns 0 immediately.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_a87716fa4efe4f4b931d1d5f1032d09ba}\label{_c_o__comm__helpers_8h_a87716fa4efe4f4b931d1d5f1032d09ba}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!getI32@{getI32}}
+\index{getI32@{getI32}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{getI32()}{getI32()}}
+{\footnotesize\ttfamily int32\+\_\+t get\+I32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int32\+\_\+t}]{min,  }\item[{int32\+\_\+t}]{max,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_ab07d3bf496c1c1769069f4c662725936}\label{_c_o__comm__helpers_8h_ab07d3bf496c1c1769069f4c662725936}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!getI64@{getI64}}
+\index{getI64@{getI64}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{getI64()}{getI64()}}
+{\footnotesize\ttfamily int64\+\_\+t get\+I64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int64\+\_\+t}]{min,  }\item[{int64\+\_\+t}]{max,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_a63f1899dc35cc429bb303dd3028dd19d}\label{_c_o__comm__helpers_8h_a63f1899dc35cc429bb303dd3028dd19d}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!getR32@{getR32}}
+\index{getR32@{getR32}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{getR32()}{getR32()}}
+{\footnotesize\ttfamily float32\+\_\+t get\+R32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_aa764b0695a3d5ba9809bb5144353d6fd}\label{_c_o__comm__helpers_8h_aa764b0695a3d5ba9809bb5144353d6fd}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!getR64@{getR64}}
+\index{getR64@{getR64}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{getR64()}{getR64()}}
+{\footnotesize\ttfamily float64\+\_\+t get\+R64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_a5f7a1e183d7cbfe40b4ac78de552108c}\label{_c_o__comm__helpers_8h_a5f7a1e183d7cbfe40b4ac78de552108c}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!getTok@{getTok}}
+\index{getTok@{getTok}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{getTok()}{getTok()}}
+{\footnotesize\ttfamily char$\ast$ get\+Tok (\begin{DoxyParamCaption}\item[{char $\ast$}]{init\+Str,  }\item[{const char $\ast$}]{delim,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+Get token from currently parsing string.
+
+Function calls thread safe strtok\+\_\+r function and returns token. get\+Tok itself may be used from one thread only.
+
+
+\begin{DoxyParams}{Parameters}
+{\em init\+Str} & Same as first argument to strtok\+\_\+r. \\
+\hline
+{\em delim} & Same as second argument to strtok\+\_\+r. \\
+\hline
+{\em err} & Input and returning parameter sets to true in case of error. If err is already true, function returns N\+U\+LL immediately.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Next token or N\+U\+LL. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_a46c92bc0fbe7480cbed98ccd65f80f89}\label{_c_o__comm__helpers_8h_a46c92bc0fbe7480cbed98ccd65f80f89}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!getU32@{getU32}}
+\index{getU32@{getU32}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{getU32()}{getU32()}}
+{\footnotesize\ttfamily uint32\+\_\+t get\+U32 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{uint32\+\_\+t}]{min,  }\item[{uint32\+\_\+t}]{max,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+Get number from token.
+
+Token must contain no other characters and number must be inside limits.
+
+
+\begin{DoxyParams}{Parameters}
+{\em token} & Input string. \\
+\hline
+{\em min} & Minimum value for the output number. \\
+\hline
+{\em max} & Maximum value for the output number. \\
+\hline
+{\em err} & Input and returning parameter sets to true in case of error. If err is already true, function returns 0 immediately.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_a095e6493ecfe9575930d1652f593c65e}\label{_c_o__comm__helpers_8h_a095e6493ecfe9575930d1652f593c65e}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!getU64@{getU64}}
+\index{getU64@{getU64}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{getU64()}{getU64()}}
+{\footnotesize\ttfamily uint64\+\_\+t get\+U64 (\begin{DoxyParamCaption}\item[{char $\ast$}]{token,  }\item[{uint64\+\_\+t}]{min,  }\item[{uint64\+\_\+t}]{max,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_a3ebc4b4695269eae20196f76bb81efec}\label{_c_o__comm__helpers_8h_a3ebc4b4695269eae20196f76bb81efec}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!lastTok@{lastTok}}
+\index{lastTok@{lastTok}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{lastTok()}{lastTok()}}
+{\footnotesize\ttfamily void last\+Tok (\begin{DoxyParamCaption}\item[{char $\ast$}]{init\+Str,  }\item[{const char $\ast$}]{delim,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+Verify, if there are no more tokens.
+
+Function calls get\+Tok and if there is another token and that token doesn\textquotesingle{}t start with \textquotesingle{}\#\textquotesingle{}, it sets err to 1. (Comments are ignored.)
+
+
+\begin{DoxyParams}{Parameters}
+{\em init\+Str} & Same as in get\+Tok. \\
+\hline
+{\em delim} & Same as in get\+Tok. \\
+\hline
+{\em err} & Same as in get\+Tok. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{_c_o__comm__helpers_8h_adc643f3e84ae6a16d0692aaf9d21a171}\label{_c_o__comm__helpers_8h_adc643f3e84ae6a16d0692aaf9d21a171}} 
+\index{CO\_comm\_helpers.h@{CO\_comm\_helpers.h}!spaceDelim@{spaceDelim}}
+\index{spaceDelim@{spaceDelim}!CO\_comm\_helpers.h@{CO\_comm\_helpers.h}}
+\doxysubsubsection{\texorpdfstring{spaceDelim}{spaceDelim}}
+{\footnotesize\ttfamily const char space\+Delim\mbox{[}$\,$\mbox{]}}
+

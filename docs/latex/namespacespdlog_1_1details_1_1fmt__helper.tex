@@ -1,0 +1,95 @@
+\hypertarget{namespacespdlog_1_1details_1_1fmt__helper}{}\doxysection{spdlog\+::details\+::fmt\+\_\+helper Namespace Reference}
+\label{namespacespdlog_1_1details_1_1fmt__helper}\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacespdlog_ab1e9c8f66f23b10ea93694f7d0780f5f}{spdlog\+::string\+\_\+view\+\_\+t}} \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_a13b52584a8060bc47edb361db8f58e47}{to\+\_\+string\+\_\+view}} (const \mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&\mbox{\hyperlink{application_8cpp_aa600422614c972633e9e2951539ff779}{buf}}) \mbox{\hyperlink{common_8h_a15d2dc432e6bb83beb5130be9a4ca8d6}{S\+P\+D\+L\+O\+G\+\_\+\+N\+O\+E\+X\+C\+E\+PT}}
+\item 
+void \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_aa88d653712f3bbf2cef2b3c490752955}{append\+\_\+string\+\_\+view}} (\mbox{\hyperlink{namespacespdlog_ab1e9c8f66f23b10ea93694f7d0780f5f}{spdlog\+::string\+\_\+view\+\_\+t}} view, \mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&dest)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_ae6d3ce6a4de130bdd15a9426c3228610}{append\+\_\+int}} (T n, \mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&dest)
+\item 
+{\footnotesize template$<$typename T $>$ }\\unsigned \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_a976eeb3c4a42ccfb05437aa9a0d4d9f7}{count\+\_\+digits}} (T n)
+\item 
+void \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_ad60d022e216b4490b05805a2c04e9560}{pad2}} (int n, \mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&dest)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_a59b9558aefbdc63475ee613af9b81af3}{pad\+\_\+uint}} (T n, unsigned int width, \mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&dest)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_a5f864dacf93567cc8f1e7dee70fdb572}{pad3}} (T n, \mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&dest)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_a199589a356798ed484a331205906a038}{pad6}} (T n, \mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&dest)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_acdbe48d23414f391994242c794748a00}{pad9}} (T n, \mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&dest)
+\item 
+{\footnotesize template$<$typename To\+Duration $>$ }\\To\+Duration \mbox{\hyperlink{namespacespdlog_1_1details_1_1fmt__helper_aafd642d47fa4ed2d426a71aaadcd5316}{time\+\_\+fraction}} (log\+\_\+clock\+::time\+\_\+point tp)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_ae6d3ce6a4de130bdd15a9426c3228610}\label{namespacespdlog_1_1details_1_1fmt__helper_ae6d3ce6a4de130bdd15a9426c3228610}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!append\_int@{append\_int}}
+\index{append\_int@{append\_int}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{append\_int()}{append\_int()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void spdlog\+::details\+::fmt\+\_\+helper\+::append\+\_\+int (\begin{DoxyParamCaption}\item[{T}]{n,  }\item[{\mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&}]{dest }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_aa88d653712f3bbf2cef2b3c490752955}\label{namespacespdlog_1_1details_1_1fmt__helper_aa88d653712f3bbf2cef2b3c490752955}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!append\_string\_view@{append\_string\_view}}
+\index{append\_string\_view@{append\_string\_view}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{append\_string\_view()}{append\_string\_view()}}
+{\footnotesize\ttfamily void spdlog\+::details\+::fmt\+\_\+helper\+::append\+\_\+string\+\_\+view (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacespdlog_ab1e9c8f66f23b10ea93694f7d0780f5f}{spdlog\+::string\+\_\+view\+\_\+t}}}]{view,  }\item[{\mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&}]{dest }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_a976eeb3c4a42ccfb05437aa9a0d4d9f7}\label{namespacespdlog_1_1details_1_1fmt__helper_a976eeb3c4a42ccfb05437aa9a0d4d9f7}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!count\_digits@{count\_digits}}
+\index{count\_digits@{count\_digits}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{count\_digits()}{count\_digits()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+unsigned spdlog\+::details\+::fmt\+\_\+helper\+::count\+\_\+digits (\begin{DoxyParamCaption}\item[{T}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_ad60d022e216b4490b05805a2c04e9560}\label{namespacespdlog_1_1details_1_1fmt__helper_ad60d022e216b4490b05805a2c04e9560}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!pad2@{pad2}}
+\index{pad2@{pad2}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{pad2()}{pad2()}}
+{\footnotesize\ttfamily void spdlog\+::details\+::fmt\+\_\+helper\+::pad2 (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{\mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&}]{dest }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_a5f864dacf93567cc8f1e7dee70fdb572}\label{namespacespdlog_1_1details_1_1fmt__helper_a5f864dacf93567cc8f1e7dee70fdb572}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!pad3@{pad3}}
+\index{pad3@{pad3}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{pad3()}{pad3()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void spdlog\+::details\+::fmt\+\_\+helper\+::pad3 (\begin{DoxyParamCaption}\item[{T}]{n,  }\item[{\mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&}]{dest }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_a199589a356798ed484a331205906a038}\label{namespacespdlog_1_1details_1_1fmt__helper_a199589a356798ed484a331205906a038}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!pad6@{pad6}}
+\index{pad6@{pad6}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{pad6()}{pad6()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void spdlog\+::details\+::fmt\+\_\+helper\+::pad6 (\begin{DoxyParamCaption}\item[{T}]{n,  }\item[{\mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&}]{dest }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_acdbe48d23414f391994242c794748a00}\label{namespacespdlog_1_1details_1_1fmt__helper_acdbe48d23414f391994242c794748a00}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!pad9@{pad9}}
+\index{pad9@{pad9}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{pad9()}{pad9()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void spdlog\+::details\+::fmt\+\_\+helper\+::pad9 (\begin{DoxyParamCaption}\item[{T}]{n,  }\item[{\mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&}]{dest }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_a59b9558aefbdc63475ee613af9b81af3}\label{namespacespdlog_1_1details_1_1fmt__helper_a59b9558aefbdc63475ee613af9b81af3}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!pad\_uint@{pad\_uint}}
+\index{pad\_uint@{pad\_uint}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{pad\_uint()}{pad\_uint()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void spdlog\+::details\+::fmt\+\_\+helper\+::pad\+\_\+uint (\begin{DoxyParamCaption}\item[{T}]{n,  }\item[{unsigned int}]{width,  }\item[{\mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&}]{dest }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_aafd642d47fa4ed2d426a71aaadcd5316}\label{namespacespdlog_1_1details_1_1fmt__helper_aafd642d47fa4ed2d426a71aaadcd5316}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!time\_fraction@{time\_fraction}}
+\index{time\_fraction@{time\_fraction}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{time\_fraction()}{time\_fraction()}}
+{\footnotesize\ttfamily template$<$typename To\+Duration $>$ \\
+To\+Duration spdlog\+::details\+::fmt\+\_\+helper\+::time\+\_\+fraction (\begin{DoxyParamCaption}\item[{log\+\_\+clock\+::time\+\_\+point}]{tp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{namespacespdlog_1_1details_1_1fmt__helper_a13b52584a8060bc47edb361db8f58e47}\label{namespacespdlog_1_1details_1_1fmt__helper_a13b52584a8060bc47edb361db8f58e47}} 
+\index{spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}!to\_string\_view@{to\_string\_view}}
+\index{to\_string\_view@{to\_string\_view}!spdlog::details::fmt\_helper@{spdlog::details::fmt\_helper}}
+\doxysubsubsection{\texorpdfstring{to\_string\_view()}{to\_string\_view()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacespdlog_ab1e9c8f66f23b10ea93694f7d0780f5f}{spdlog\+::string\+\_\+view\+\_\+t}} spdlog\+::details\+::fmt\+\_\+helper\+::to\+\_\+string\+\_\+view (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacespdlog_aea76058cddbce57c4ee8b6a1985de360}{memory\+\_\+buf\+\_\+t}} \&}]{buf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+

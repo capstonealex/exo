@@ -1,0 +1,286 @@
+\hypertarget{class_robot}{}\doxysection{Robot Class Reference}
+\label{class_robot}\index{Robot@{Robot}}
+
+
+{\ttfamily \#include $<$Robot.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_robot_a4fc7c70ae20623f05e06f2ecb388b6c4}{Robot}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_robot}{Robot}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_robot_a4992a97705f7e63034d8193b8f1b9bc8}{print\+Info}} ()
+\item 
+void \mbox{\hyperlink{class_robot_a15f7a4d9fa23cd0b504fc8939e793a32}{update\+Joints}} ()
+\item 
+bool \mbox{\hyperlink{class_robot_ab219d906b66dab30403cefd59c493f93}{init\+Position\+Control}} (void)
+\item 
+bool \mbox{\hyperlink{class_robot_a5af682a806c52109ce6861a00e66be54}{init\+Position\+Control\+Ankles}} (void)
+\item 
+bool \mbox{\hyperlink{class_robot_a5505f132f32a7f33054f923aa4748e28}{sdo\+M\+SG}} (void)
+\item 
+bool \mbox{\hyperlink{class_robot_a672ce38734edf132b87d76a0b0e55d3a}{remap\+P\+DO}} (void)
+\item 
+bool \mbox{\hyperlink{class_robot_a829b51c1a96b547b517b01a9298b53b9}{remap\+P\+D\+O\+Ankles}} (void)
+\item 
+bool \mbox{\hyperlink{class_robot_a3a014b37fe954371bf4cd3e81194318e}{preop}} (void)
+\item 
+bool \mbox{\hyperlink{class_robot_a1d1e83fb1a8930daab891d50b0d16bfd}{reset\+Tracking\+Error}} (void)
+\item 
+void \mbox{\hyperlink{class_robot_aef6965f40ef35946195ba4759d62ee0c}{start\+New\+Traj}} ()
+\item 
+void \mbox{\hyperlink{class_robot_adcd2facbf527bd85558be9fe6360f738}{move\+Through\+Traj}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_trajectory}{Trajectory}} \mbox{\hyperlink{class_robot_a2ec051aebe34cf783010f9e3a6942068}{trajectory\+Obj}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_trajectory}{Trajectory}} Object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_joint}{Joint}} \mbox{\hyperlink{class_robot_a6171facb94f1b0dfeb0b051b690db6c5}{joints}} \mbox{[}\mbox{\hyperlink{_robot_8h_af742980593d698725375a7d12711c24f}{N\+U\+M\+\_\+\+J\+O\+I\+N\+TS}}\mbox{]}
+\item 
+double \mbox{\hyperlink{class_robot_a8a34f7e533cd4e56680214585a774808}{frac\+Traj\+Progress}} = 0
+\item 
+double \mbox{\hyperlink{class_robot_ae18f97813ec34fac4b80a702eebab0de}{traj\+Time}}
+\item 
+\mbox{\hyperlink{class_buttons}{Buttons}} \mbox{\hyperlink{class_robot_aa008e7c9da6ad7e5ad3ee48bab92b76b}{buttons}}
+\item 
+bool \mbox{\hyperlink{class_robot_a64883ba9760360cc8584d7065fb16b54}{position\+Control}}
+\item 
+unsigned int \mbox{\hyperlink{class_robot_a4ea6d68d94fdf17126408bf6ea92d677}{M\+A\+X\+\_\+\+R\+E\+C\+O\+N\+N\+E\+C\+TS}} = 10
+\item 
+unsigned int \mbox{\hyperlink{class_robot_ad5e3fdaaf2fa0fee94d5385e8542d41b}{D\+E\+C\+I\+M\+AL}} = 10
+\item 
+unsigned int \mbox{\hyperlink{class_robot_a1666bf57c738221f191362a07890dda3}{B\+U\+T\+T\+O\+N\+\_\+\+O\+NE}} = 1
+\item 
+unsigned int \mbox{\hyperlink{class_robot_ad0c4e553b00937990286dcb56d4112d1}{B\+U\+T\+T\+O\+N\+\_\+\+T\+WO}} = 2
+\item 
+unsigned int \mbox{\hyperlink{class_robot_a94252d00d3ff3ed3fc6b2565a527c345}{B\+U\+T\+T\+O\+N\+\_\+\+T\+H\+R\+EE}} = 3
+\item 
+unsigned int \mbox{\hyperlink{class_robot_a28c6e927ab7085fb48ea3c427879b7fa}{B\+U\+T\+T\+O\+N\+\_\+\+F\+O\+UR}} = 4
+\item 
+struct timeval \mbox{\hyperlink{class_robot_af4d6e89bd89d1d087350b0766d7150ec}{moving\+\_\+tv}}
+\item 
+struct timeval \mbox{\hyperlink{class_robot_aff3c9f8a27b50031344a54883b1b414f}{stationary\+\_\+tv}}
+\item 
+struct timeval \mbox{\hyperlink{class_robot_a17d940ad56cb469aca205fe0f440b4f4}{start\+\_\+traj}}
+\item 
+struct timeval \mbox{\hyperlink{class_robot_aa92ec8a72fec9e6525ec4e5fa8678820}{last\+\_\+tv}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_robot_afe58a89903d970f11c2d283a54d7bc1f}{position\+Control\+Configured}}
+\item 
+int \mbox{\hyperlink{class_robot_afff4b3d8b69bccf90c6b8004d37d8bb2}{desired\+Index}} = 0
+\item 
+double \mbox{\hyperlink{class_robot_ae089e8887b02aa23e90643dfefdbee54}{steptime}} = \mbox{\hyperlink{_trajectory_8h_a57eeee07cb099c4c82318868006aa38f}{S\+T\+E\+P\+T\+I\+ME}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_robot_a4fc7c70ae20623f05e06f2ecb388b6c4}\label{class_robot_a4fc7c70ae20623f05e06f2ecb388b6c4}} 
+\index{Robot@{Robot}!Robot@{Robot}}
+\index{Robot@{Robot}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{Robot()}{Robot()}}
+{\footnotesize\ttfamily Robot\+::\+Robot (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_robot}{Robot}} object. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_robot_ab219d906b66dab30403cefd59c493f93}\label{class_robot_ab219d906b66dab30403cefd59c493f93}} 
+\index{Robot@{Robot}!initPositionControl@{initPositionControl}}
+\index{initPositionControl@{initPositionControl}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{initPositionControl()}{initPositionControl()}}
+{\footnotesize\ttfamily bool Robot\+::init\+Position\+Control (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_a5af682a806c52109ce6861a00e66be54}\label{class_robot_a5af682a806c52109ce6861a00e66be54}} 
+\index{Robot@{Robot}!initPositionControlAnkles@{initPositionControlAnkles}}
+\index{initPositionControlAnkles@{initPositionControlAnkles}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{initPositionControlAnkles()}{initPositionControlAnkles()}}
+{\footnotesize\ttfamily bool Robot\+::init\+Position\+Control\+Ankles (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_adcd2facbf527bd85558be9fe6360f738}\label{class_robot_adcd2facbf527bd85558be9fe6360f738}} 
+\index{Robot@{Robot}!moveThroughTraj@{moveThroughTraj}}
+\index{moveThroughTraj@{moveThroughTraj}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{moveThroughTraj()}{moveThroughTraj()}}
+{\footnotesize\ttfamily void Robot\+::move\+Through\+Traj (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_a3a014b37fe954371bf4cd3e81194318e}\label{class_robot_a3a014b37fe954371bf4cd3e81194318e}} 
+\index{Robot@{Robot}!preop@{preop}}
+\index{preop@{preop}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{preop()}{preop()}}
+{\footnotesize\ttfamily bool Robot\+::preop (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_a4992a97705f7e63034d8193b8f1b9bc8}\label{class_robot_a4992a97705f7e63034d8193b8f1b9bc8}} 
+\index{Robot@{Robot}!printInfo@{printInfo}}
+\index{printInfo@{printInfo}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{printInfo()}{printInfo()}}
+{\footnotesize\ttfamily void Robot\+::print\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_a672ce38734edf132b87d76a0b0e55d3a}\label{class_robot_a672ce38734edf132b87d76a0b0e55d3a}} 
+\index{Robot@{Robot}!remapPDO@{remapPDO}}
+\index{remapPDO@{remapPDO}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{remapPDO()}{remapPDO()}}
+{\footnotesize\ttfamily bool Robot\+::remap\+P\+DO (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_a829b51c1a96b547b517b01a9298b53b9}\label{class_robot_a829b51c1a96b547b517b01a9298b53b9}} 
+\index{Robot@{Robot}!remapPDOAnkles@{remapPDOAnkles}}
+\index{remapPDOAnkles@{remapPDOAnkles}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{remapPDOAnkles()}{remapPDOAnkles()}}
+{\footnotesize\ttfamily bool Robot\+::remap\+P\+D\+O\+Ankles (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_a1d1e83fb1a8930daab891d50b0d16bfd}\label{class_robot_a1d1e83fb1a8930daab891d50b0d16bfd}} 
+\index{Robot@{Robot}!resetTrackingError@{resetTrackingError}}
+\index{resetTrackingError@{resetTrackingError}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{resetTrackingError()}{resetTrackingError()}}
+{\footnotesize\ttfamily bool Robot\+::reset\+Tracking\+Error (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_a5505f132f32a7f33054f923aa4748e28}\label{class_robot_a5505f132f32a7f33054f923aa4748e28}} 
+\index{Robot@{Robot}!sdoMSG@{sdoMSG}}
+\index{sdoMSG@{sdoMSG}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{sdoMSG()}{sdoMSG()}}
+{\footnotesize\ttfamily bool Robot\+::sdo\+M\+SG (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_aef6965f40ef35946195ba4759d62ee0c}\label{class_robot_aef6965f40ef35946195ba4759d62ee0c}} 
+\index{Robot@{Robot}!startNewTraj@{startNewTraj}}
+\index{startNewTraj@{startNewTraj}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{startNewTraj()}{startNewTraj()}}
+{\footnotesize\ttfamily void Robot\+::start\+New\+Traj (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_robot_a15f7a4d9fa23cd0b504fc8939e793a32}\label{class_robot_a15f7a4d9fa23cd0b504fc8939e793a32}} 
+\index{Robot@{Robot}!updateJoints@{updateJoints}}
+\index{updateJoints@{updateJoints}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{updateJoints()}{updateJoints()}}
+{\footnotesize\ttfamily void Robot\+::update\+Joints (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_robot_a28c6e927ab7085fb48ea3c427879b7fa}\label{class_robot_a28c6e927ab7085fb48ea3c427879b7fa}} 
+\index{Robot@{Robot}!BUTTON\_FOUR@{BUTTON\_FOUR}}
+\index{BUTTON\_FOUR@{BUTTON\_FOUR}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_FOUR}{BUTTON\_FOUR}}
+{\footnotesize\ttfamily unsigned int Robot\+::\+B\+U\+T\+T\+O\+N\+\_\+\+F\+O\+UR = 4}
+
+\mbox{\Hypertarget{class_robot_a1666bf57c738221f191362a07890dda3}\label{class_robot_a1666bf57c738221f191362a07890dda3}} 
+\index{Robot@{Robot}!BUTTON\_ONE@{BUTTON\_ONE}}
+\index{BUTTON\_ONE@{BUTTON\_ONE}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_ONE}{BUTTON\_ONE}}
+{\footnotesize\ttfamily unsigned int Robot\+::\+B\+U\+T\+T\+O\+N\+\_\+\+O\+NE = 1}
+
+\mbox{\Hypertarget{class_robot_a94252d00d3ff3ed3fc6b2565a527c345}\label{class_robot_a94252d00d3ff3ed3fc6b2565a527c345}} 
+\index{Robot@{Robot}!BUTTON\_THREE@{BUTTON\_THREE}}
+\index{BUTTON\_THREE@{BUTTON\_THREE}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_THREE}{BUTTON\_THREE}}
+{\footnotesize\ttfamily unsigned int Robot\+::\+B\+U\+T\+T\+O\+N\+\_\+\+T\+H\+R\+EE = 3}
+
+\mbox{\Hypertarget{class_robot_ad0c4e553b00937990286dcb56d4112d1}\label{class_robot_ad0c4e553b00937990286dcb56d4112d1}} 
+\index{Robot@{Robot}!BUTTON\_TWO@{BUTTON\_TWO}}
+\index{BUTTON\_TWO@{BUTTON\_TWO}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_TWO}{BUTTON\_TWO}}
+{\footnotesize\ttfamily unsigned int Robot\+::\+B\+U\+T\+T\+O\+N\+\_\+\+T\+WO = 2}
+
+\mbox{\Hypertarget{class_robot_aa008e7c9da6ad7e5ad3ee48bab92b76b}\label{class_robot_aa008e7c9da6ad7e5ad3ee48bab92b76b}} 
+\index{Robot@{Robot}!buttons@{buttons}}
+\index{buttons@{buttons}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{buttons}{buttons}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_buttons}{Buttons}} Robot\+::buttons}
+
+\mbox{\Hypertarget{class_robot_ad5e3fdaaf2fa0fee94d5385e8542d41b}\label{class_robot_ad5e3fdaaf2fa0fee94d5385e8542d41b}} 
+\index{Robot@{Robot}!DECIMAL@{DECIMAL}}
+\index{DECIMAL@{DECIMAL}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{DECIMAL}{DECIMAL}}
+{\footnotesize\ttfamily unsigned int Robot\+::\+D\+E\+C\+I\+M\+AL = 10}
+
+\mbox{\Hypertarget{class_robot_afff4b3d8b69bccf90c6b8004d37d8bb2}\label{class_robot_afff4b3d8b69bccf90c6b8004d37d8bb2}} 
+\index{Robot@{Robot}!desiredIndex@{desiredIndex}}
+\index{desiredIndex@{desiredIndex}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{desiredIndex}{desiredIndex}}
+{\footnotesize\ttfamily int Robot\+::desired\+Index = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_robot_a8a34f7e533cd4e56680214585a774808}\label{class_robot_a8a34f7e533cd4e56680214585a774808}} 
+\index{Robot@{Robot}!fracTrajProgress@{fracTrajProgress}}
+\index{fracTrajProgress@{fracTrajProgress}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{fracTrajProgress}{fracTrajProgress}}
+{\footnotesize\ttfamily double Robot\+::frac\+Traj\+Progress = 0}
+
+\mbox{\Hypertarget{class_robot_a6171facb94f1b0dfeb0b051b690db6c5}\label{class_robot_a6171facb94f1b0dfeb0b051b690db6c5}} 
+\index{Robot@{Robot}!joints@{joints}}
+\index{joints@{joints}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{joints}{joints}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_joint}{Joint}} Robot\+::joints\mbox{[}\mbox{\hyperlink{_robot_8h_af742980593d698725375a7d12711c24f}{N\+U\+M\+\_\+\+J\+O\+I\+N\+TS}}\mbox{]}}
+
+\mbox{\Hypertarget{class_robot_aa92ec8a72fec9e6525ec4e5fa8678820}\label{class_robot_aa92ec8a72fec9e6525ec4e5fa8678820}} 
+\index{Robot@{Robot}!last\_tv@{last\_tv}}
+\index{last\_tv@{last\_tv}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{last\_tv}{last\_tv}}
+{\footnotesize\ttfamily struct timeval Robot\+::last\+\_\+tv}
+
+\mbox{\Hypertarget{class_robot_a4ea6d68d94fdf17126408bf6ea92d677}\label{class_robot_a4ea6d68d94fdf17126408bf6ea92d677}} 
+\index{Robot@{Robot}!MAX\_RECONNECTS@{MAX\_RECONNECTS}}
+\index{MAX\_RECONNECTS@{MAX\_RECONNECTS}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{MAX\_RECONNECTS}{MAX\_RECONNECTS}}
+{\footnotesize\ttfamily unsigned int Robot\+::\+M\+A\+X\+\_\+\+R\+E\+C\+O\+N\+N\+E\+C\+TS = 10}
+
+\mbox{\Hypertarget{class_robot_af4d6e89bd89d1d087350b0766d7150ec}\label{class_robot_af4d6e89bd89d1d087350b0766d7150ec}} 
+\index{Robot@{Robot}!moving\_tv@{moving\_tv}}
+\index{moving\_tv@{moving\_tv}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{moving\_tv}{moving\_tv}}
+{\footnotesize\ttfamily struct timeval Robot\+::moving\+\_\+tv}
+
+\mbox{\Hypertarget{class_robot_a64883ba9760360cc8584d7065fb16b54}\label{class_robot_a64883ba9760360cc8584d7065fb16b54}} 
+\index{Robot@{Robot}!positionControl@{positionControl}}
+\index{positionControl@{positionControl}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{positionControl}{positionControl}}
+{\footnotesize\ttfamily bool Robot\+::position\+Control}
+
+\mbox{\Hypertarget{class_robot_afe58a89903d970f11c2d283a54d7bc1f}\label{class_robot_afe58a89903d970f11c2d283a54d7bc1f}} 
+\index{Robot@{Robot}!positionControlConfigured@{positionControlConfigured}}
+\index{positionControlConfigured@{positionControlConfigured}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{positionControlConfigured}{positionControlConfigured}}
+{\footnotesize\ttfamily bool Robot\+::position\+Control\+Configured\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_robot_a17d940ad56cb469aca205fe0f440b4f4}\label{class_robot_a17d940ad56cb469aca205fe0f440b4f4}} 
+\index{Robot@{Robot}!start\_traj@{start\_traj}}
+\index{start\_traj@{start\_traj}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{start\_traj}{start\_traj}}
+{\footnotesize\ttfamily struct timeval Robot\+::start\+\_\+traj}
+
+\mbox{\Hypertarget{class_robot_aff3c9f8a27b50031344a54883b1b414f}\label{class_robot_aff3c9f8a27b50031344a54883b1b414f}} 
+\index{Robot@{Robot}!stationary\_tv@{stationary\_tv}}
+\index{stationary\_tv@{stationary\_tv}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{stationary\_tv}{stationary\_tv}}
+{\footnotesize\ttfamily struct timeval Robot\+::stationary\+\_\+tv}
+
+\mbox{\Hypertarget{class_robot_ae089e8887b02aa23e90643dfefdbee54}\label{class_robot_ae089e8887b02aa23e90643dfefdbee54}} 
+\index{Robot@{Robot}!steptime@{steptime}}
+\index{steptime@{steptime}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{steptime}{steptime}}
+{\footnotesize\ttfamily double Robot\+::steptime = \mbox{\hyperlink{_trajectory_8h_a57eeee07cb099c4c82318868006aa38f}{S\+T\+E\+P\+T\+I\+ME}}\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_robot_a2ec051aebe34cf783010f9e3a6942068}\label{class_robot_a2ec051aebe34cf783010f9e3a6942068}} 
+\index{Robot@{Robot}!trajectoryObj@{trajectoryObj}}
+\index{trajectoryObj@{trajectoryObj}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{trajectoryObj}{trajectoryObj}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_trajectory}{Trajectory}} Robot\+::trajectory\+Obj}
+
+
+
+\mbox{\hyperlink{class_trajectory}{Trajectory}} Object. 
+
+\mbox{\Hypertarget{class_robot_ae18f97813ec34fac4b80a702eebab0de}\label{class_robot_ae18f97813ec34fac4b80a702eebab0de}} 
+\index{Robot@{Robot}!trajTime@{trajTime}}
+\index{trajTime@{trajTime}!Robot@{Robot}}
+\doxysubsubsection{\texorpdfstring{trajTime}{trajTime}}
+{\footnotesize\ttfamily double Robot\+::traj\+Time}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/robot/\mbox{\hyperlink{_robot_8h}{Robot.\+h}}\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/robot/\mbox{\hyperlink{_robot_8cpp}{Robot.\+cpp}}\end{DoxyCompactItemize}

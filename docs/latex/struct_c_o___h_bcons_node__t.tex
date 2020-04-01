@@ -1,0 +1,60 @@
+\hypertarget{struct_c_o___h_bcons_node__t}{}\doxysection{C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t Struct Reference}
+\label{struct_c_o___h_bcons_node__t}\index{CO\_HBconsNode\_t@{CO\_HBconsNode\_t}}
+
+
+{\ttfamily \#include $<$C\+O\+\_\+\+H\+Bconsumer.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{struct_c_o___h_bcons_node__t_af516b11708b86dab351abc8391c49972}{N\+M\+Tstate}}
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{struct_c_o___h_bcons_node__t_a7e784f382d5a4a3f3379f7d76b1c4f97}{mon\+Started}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_c_o___h_bcons_node__t_a9024560daa5ef7f8b8110c1e8406c4e7}{timeout\+Timer}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_c_o___h_bcons_node__t_aed6cf4335f0ffaed71ee1eb58aa6820f}{time}}
+\item 
+\mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} \mbox{\hyperlink{struct_c_o___h_bcons_node__t_a49a1f4a29f05ab939e0b6c246de1c3da}{C\+A\+Nrx\+New}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+One monitored node inside \mbox{\hyperlink{struct_c_o___h_bconsumer__t}{C\+O\+\_\+\+H\+Bconsumer\+\_\+t}}. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_c_o___h_bcons_node__t_a49a1f4a29f05ab939e0b6c246de1c3da}\label{struct_c_o___h_bcons_node__t_a49a1f4a29f05ab939e0b6c246de1c3da}} 
+\index{CO\_HBconsNode\_t@{CO\_HBconsNode\_t}!CANrxNew@{CANrxNew}}
+\index{CANrxNew@{CANrxNew}!CO\_HBconsNode\_t@{CO\_HBconsNode\_t}}
+\doxysubsubsection{\texorpdfstring{CANrxNew}{CANrxNew}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t\+::\+C\+A\+Nrx\+New}
+
+True if new Heartbeat message received from the C\+AN bus \mbox{\Hypertarget{struct_c_o___h_bcons_node__t_a7e784f382d5a4a3f3379f7d76b1c4f97}\label{struct_c_o___h_bcons_node__t_a7e784f382d5a4a3f3379f7d76b1c4f97}} 
+\index{CO\_HBconsNode\_t@{CO\_HBconsNode\_t}!monStarted@{monStarted}}
+\index{monStarted@{monStarted}!CO\_HBconsNode\_t@{CO\_HBconsNode\_t}}
+\doxysubsubsection{\texorpdfstring{monStarted}{monStarted}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_c_o__driver_8h_a9d1c1dc81799d49e2348821d6a8cac63}{bool\+\_\+t}} C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t\+::mon\+Started}
+
+True after reception of the first Heartbeat mesage \mbox{\Hypertarget{struct_c_o___h_bcons_node__t_af516b11708b86dab351abc8391c49972}\label{struct_c_o___h_bcons_node__t_af516b11708b86dab351abc8391c49972}} 
+\index{CO\_HBconsNode\_t@{CO\_HBconsNode\_t}!NMTstate@{NMTstate}}
+\index{NMTstate@{NMTstate}!CO\_HBconsNode\_t@{CO\_HBconsNode\_t}}
+\doxysubsubsection{\texorpdfstring{NMTstate}{NMTstate}}
+{\footnotesize\ttfamily uint8\+\_\+t C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t\+::\+N\+M\+Tstate}
+
+Of the remote node \mbox{\Hypertarget{struct_c_o___h_bcons_node__t_aed6cf4335f0ffaed71ee1eb58aa6820f}\label{struct_c_o___h_bcons_node__t_aed6cf4335f0ffaed71ee1eb58aa6820f}} 
+\index{CO\_HBconsNode\_t@{CO\_HBconsNode\_t}!time@{time}}
+\index{time@{time}!CO\_HBconsNode\_t@{CO\_HBconsNode\_t}}
+\doxysubsubsection{\texorpdfstring{time}{time}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t\+::time}
+
+Consumer heartbeat time from OD \mbox{\Hypertarget{struct_c_o___h_bcons_node__t_a9024560daa5ef7f8b8110c1e8406c4e7}\label{struct_c_o___h_bcons_node__t_a9024560daa5ef7f8b8110c1e8406c4e7}} 
+\index{CO\_HBconsNode\_t@{CO\_HBconsNode\_t}!timeoutTimer@{timeoutTimer}}
+\index{timeoutTimer@{timeoutTimer}!CO\_HBconsNode\_t@{CO\_HBconsNode\_t}}
+\doxysubsubsection{\texorpdfstring{timeoutTimer}{timeoutTimer}}
+{\footnotesize\ttfamily uint16\+\_\+t C\+O\+\_\+\+H\+Bcons\+Node\+\_\+t\+::timeout\+Timer}
+
+Time since last heartbeat received 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/williamcampbell/\+Documents/\+Git\+Hub/exo/\+A\+L\+E\+X/src/\+C\+A\+Nopen\+Node/stack/\mbox{\hyperlink{_c_o___h_bconsumer_8h}{C\+O\+\_\+\+H\+Bconsumer.\+h}}\end{DoxyCompactItemize}
