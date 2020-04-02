@@ -1,5 +1,0 @@
-#!/bin/bash -e
-/usr/bin/X2Init.sh
-sleep 2s
-/usr/bin/X2homeCal.sh
-exit 0
