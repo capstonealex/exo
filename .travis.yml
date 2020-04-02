@@ -11,11 +11,11 @@ addons:
   apt:
     packages:
       - doxygen
+      - graphviz
 
 # Build your code e.g. by calling make
 script:
   - doxygen Doxyfile
-    - graphviz
 
 # Generate and deploy documentation
 deploy:
