@@ -1,7 +1,10 @@
-//hi
 /**
- *
- * Created for ALEX exoskeleton on 2019-10-02.
+ * @file exoStateMachine.h
+ * @author William Campbell
+ * @brief Alex Exoskeleton implementation of the stateMachine 
+ * class for performance of exoskeleton  basic motion.
+ * @version 1.0
+ * @date 2019-10-02.
  *
  * State Machine: Sit Stand task
  *
@@ -12,7 +15,7 @@
  *                                         |                   |
  *                                         standingUp<--+ sitting
  *                                                     isPressed
- * ALL states can also leave to xferror state as well, which holds the current pos
+ * ALL states can also leave to  an error state, which holds the current pos
  * unitl another button is pressed and then goes to uncalibrated (LIMP)
  *
  */
@@ -75,18 +78,18 @@ exoStateMachine::exoStateMachine(void)
     steppingLastRight = new SteppingLastRight(this);
     steppingLastLeft = new SteppingLastLeft(this);
     errorState = new ErrorState(this);
-	//stair states
-	steppingLeftStair = new SteppingLeftStair(this);
-	steppingLeftStairDown = new SteppingLeftStairDown(this);
-	steppingRightStair = new SteppingRightStair(this);
-	steppingRightStairDown = new SteppingRightStairDown(this);
-	stairStanding = new StairStanding(this);
-	stairLeftLegUp = new StairLeftLegUp(this);
-	stairLeftLegUp2 = new StairLeftLegUp2(this);
-	stairStandingTop = new StairStandingTop(this);
-	walkSelect = new WalkSelect(this);
+    //stair states
+    steppingLeftStair = new SteppingLeftStair(this);
+    steppingLeftStairDown = new SteppingLeftStairDown(this);
+    steppingRightStair = new SteppingRightStair(this);
+    steppingRightStairDown = new SteppingRightStairDown(this);
+    stairStanding = new StairStanding(this);
+    stairLeftLegUp = new StairLeftLegUp(this);
+    stairLeftLegUp2 = new StairLeftLegUp2(this);
+    stairStandingTop = new StairStandingTop(this);
+    walkSelect = new WalkSelect(this);
 
-	// Create Trasitions between states and events which trigger them
+    // Create Trasitions between states and events which trigger them
     NewTransition(initState, startButtonsPressed, sitting);
     NewTransition(standing, isYPressed, sittingDwn);
     NewTransition(sittingDwn, endTraj, sitting);
@@ -100,26 +103,25 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingRight, endTraj, rightForward);
     NewTransition(rightForward, isGPressed, steppingLeft);
     NewTransition(rightForward, isBPressed, steppingLeftHigh);
-	NewTransition(steppingLeftHigh, endTraj, leftForward);
-	NewTransition(steppingLeft, endTraj, leftForward);
+    NewTransition(steppingLeftHigh, endTraj, leftForward);
+    NewTransition(steppingLeft, endTraj, leftForward);
     NewTransition(leftForward, isYPressed, steppingLastRight);
     NewTransition(rightForward, isYPressed, steppingLastLeft);
     NewTransition(steppingLastRight, endTraj, standing);
     NewTransition(steppingLastLeft, endTraj, standing);
     NewTransition(errorState, resetButtonsPressed, initState);
 
-	//stairs transitions
-	NewTransition(walkSelect, isGPressed, steppingFirstLeft);
-	NewTransition(walkSelect, isYPressed, stairStanding);
-	NewTransition(stairStanding, isGPressed, steppingLeftStair);
-	NewTransition(steppingLeftStair, endTraj, stairLeftLegUp);
-	NewTransition(stairLeftLegUp, isGPressed, steppingRightStair);
-	NewTransition(steppingRightStair, endTraj, stairStandingTop);
-	NewTransition(stairStandingTop, isGPressed, steppingRightStairDown);
-	NewTransition(steppingRightStairDown, endTraj, stairLeftLegUp2);
-	NewTransition(stairLeftLegUp2, isGPressed, steppingLeftStairDown);
-	NewTransition(steppingLeftStairDown, endTraj, standing);
-
+    //stairs transitions
+    NewTransition(walkSelect, isGPressed, steppingFirstLeft);
+    NewTransition(walkSelect, isYPressed, stairStanding);
+    NewTransition(stairStanding, isGPressed, steppingLeftStair);
+    NewTransition(steppingLeftStair, endTraj, stairLeftLegUp);
+    NewTransition(stairLeftLegUp, isGPressed, steppingRightStair);
+    NewTransition(steppingRightStair, endTraj, stairStandingTop);
+    NewTransition(stairStandingTop, isGPressed, steppingRightStairDown);
+    NewTransition(steppingRightStairDown, endTraj, stairLeftLegUp2);
+    NewTransition(stairLeftLegUp2, isGPressed, steppingLeftStairDown);
+    NewTransition(steppingLeftStairDown, endTraj, standing);
 
     // Transitions to Error State
     NewTransition(sitting, isRPressed, errorState);
@@ -135,15 +137,15 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingLeftHigh, isRPressed, errorState);
     NewTransition(steppingLastRight, isRPressed, errorState);
     NewTransition(steppingLastLeft, isRPressed, errorState);
-	NewTransition(walkSelect, isRPressed, errorState);
-	NewTransition(stairStanding, isRPressed, errorState);
-	NewTransition(steppingLeftStair, isRPressed, errorState);
-	NewTransition(stairLeftLegUp, isRPressed, errorState);
-	NewTransition(steppingRightStair, isRPressed, errorState);
-	NewTransition(stairStandingTop, isRPressed, errorState);
-	NewTransition(steppingRightStairDown, isRPressed, errorState);
-	NewTransition(stairLeftLegUp2, isRPressed, errorState);
-	NewTransition(steppingLeftStairDown, isRPressed, errorState);
+    NewTransition(walkSelect, isRPressed, errorState);
+    NewTransition(stairStanding, isRPressed, errorState);
+    NewTransition(steppingLeftStair, isRPressed, errorState);
+    NewTransition(stairLeftLegUp, isRPressed, errorState);
+    NewTransition(steppingRightStair, isRPressed, errorState);
+    NewTransition(stairStandingTop, isRPressed, errorState);
+    NewTransition(steppingRightStairDown, isRPressed, errorState);
+    NewTransition(stairLeftLegUp2, isRPressed, errorState);
+    NewTransition(steppingLeftStairDown, isRPressed, errorState);
     // Initialize the state machine with first state
     StateMachine::initialize(initState);
     robot = NULL;
@@ -186,19 +188,19 @@ void exoStateMachine::init(void)
     bitFlipState = NOFLIP;
     running = 1;
 
-	// Set up the logging file
-	time_t rawtime;
-	struct tm *timeinfo;
+    // Set up the logging file
+    time_t rawtime;
+    struct tm *timeinfo;
 
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-	
-	strftime(filename, 80, "ALEXLOG_%Y%m%e_%H%M.csv", timeinfo);
-	std::cout << "Type the file name for the log + .csv" << endl;
-	std::cin >> filename;
-	printf("File Created: %s\n", filename);
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
 
-	logfile.open(filename);
+    strftime(filename, 80, "ALEXLOG_%Y%m%e_%H%M.csv", timeinfo);
+    std::cout << "Type the file name for the log + .csv" << endl;
+    std::cin >> filename;
+    printf("File Created: %s\n", filename);
+
+    logfile.open(filename);
 }
 void exoStateMachine::activate(void)
 {
@@ -299,7 +301,7 @@ void exoStateMachine::initRobot(Robot *rb)
 // Update button state, loop counter (mark) and joints
 void exoStateMachine::hwStateUpdate(void)
 {
-	//cout << "looping" << endl;
+    //cout << "looping" << endl;
     robot->buttons.setButtonStates();
     mark = mark + 1;
     robot->updateJoints();

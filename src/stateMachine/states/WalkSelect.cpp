@@ -17,5 +17,5 @@ void WalkSelect::during(void)
 void WalkSelect::exit(void)
 {
     std::cout
-        << "Walk Select State Exited at Time: " << OWNER->mark << endl;
+        << "Walk Select State Exited at Time: " << endl;
 }

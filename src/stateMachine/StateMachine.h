@@ -1,6 +1,12 @@
-//
-// Created by William Campbell on 2019-09-24.
-//
+/**
+ * @file StateMachine.h
+ * @author William Campbell
+ * @brief State Machine base class for a designer to implement an event driven finite state machine.
+ * @version 1.0
+ * @date 2019-07-12
+ * 
+ * 
+ */
 
 #ifndef EXO_STATEMACHINE_H
 #define EXO_STATEMACHINE_H
@@ -13,31 +19,25 @@ class State;
 class StateMachine
 {
 public:
-    /* State machine constructors*/
-    // No input arguments.
     StateMachine(void);
-    // Set initial state to input of constructor
     StateMachine(State *i);
-    // Set the pointer of the initial state
     void initialize(State *i);
     State *getCurState(void);
-    // methods
     void init(void);
     void uninit(void);
     void activate(void);
     void deactivate(void);
     void update(void);
 
-    // Robot interface to be used by states to interact with hardware
+    // Robot interface : used by states to interact with hardware
     Robot *robot;
     int mark;
 
 private:
-    // pointers to the initial state and the current state
     State *currentState;
 };
 
-/*Macros to quickly define states. statemachines, events and transitions*/
+/*Macros to quickly define events and transitions between states*/
 
 // useage: EventObject ( MyEvent ) * myEvent;
 #define EventObject(_name_)             \
