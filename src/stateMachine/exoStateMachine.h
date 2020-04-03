@@ -57,6 +57,14 @@ public:
     SteppingLastRight *steppingLastRight;
     SteppingLastLeft *steppingLastLeft;
     ErrorState *errorState;
+    /*Crutch dictionaries and functions*/
+    std::map<std::string, int> mvmntToIntODMap;
+    std::map<int, std::string> intToMvmntODMap;
+    std::map<std::string, int> stateToIntODMap;
+    std::map<int, std::string> intToStateODMap;
+    void populateDictionary(void);
+    // FOr testing
+    int cm;
 
 private:
     // events
@@ -67,6 +75,12 @@ private:
     EventObject(IsGPressed) * isGPressed;
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(ResetButtonsPressed) * resetButtonsPressed;
+    EventObject(StartWalk) * startWalk;
+    EventObject(StartExo) * startExo;
+    EventObject(FeetTogether) * feetTogether;
+    EventObject(StartSit) * startSit;
+    EventObject(StartStand) * startStand;
+    // EventObject(StartBackStep) * startBackStep;
 
     // data;
     int calibrated;

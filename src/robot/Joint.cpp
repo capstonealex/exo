@@ -1,11 +1,7 @@
 //
 // Created by William Campbell on 2019-07-24.
 //
-#include "CANopen.h"
 #include "Joint.h"
-#include <stdlib.h>
-#include <string>
-#include <math.h>
 
 //Knee motor reading and corresponding angle. Used for mapping between degree and motor values.
 #define KNEE_MOTOR_POS1 (250880)

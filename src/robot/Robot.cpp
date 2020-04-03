@@ -429,7 +429,11 @@ void Robot::startNewTraj()
 
     printf("Start New Traj \n");
 }
-
+//TESTING STATE TRASITIONS
+// void Robot::moveThroughTraj()
+// {
+//     fracTrajProgress = 2;
+// }
 void Robot::moveThroughTraj()
 {
     //long lastTarget = 0;
@@ -447,8 +451,9 @@ void Robot::moveThroughTraj()
     fracTrajProgress = movingMicro / trajTimeUS;
 
     // if Green Button is pressed, move through trajetory. Otherwise stay where you are
-    if (!buttons.getGButtonState())
+    if (buttons.getGButtonState())
     {
+        // std::cout << fracTrajProgress << std::endl;
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
         //array for position and velocity profile

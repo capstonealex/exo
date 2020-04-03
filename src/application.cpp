@@ -112,6 +112,7 @@ void app_programAsync(uint16_t timer1msDiffy)
 /******************************************************************************/
 void app_program1ms(void)
 {
+    // std::cout << "BEAGLE NEXT MOVE:" << CO_OD_RAM.nextMovement << std::endl;
     //auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
     //spdlog::set_default_logger(mainLogger);
 

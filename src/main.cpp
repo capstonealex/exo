@@ -225,7 +225,7 @@ int main(int argc, char *argv[])
             CO_errExit(s);
         }
 
-              /* Configure callback functions for task control */
+        /* Configure callback functions for task control */
         CO_EM_initCallback(CO->em, taskMain_cbSignal);
         CO_SDO_initCallback(CO->SDO[0], taskMain_cbSignal);
         CO_SDOclient_initCallback(CO->SDOclient, taskMain_cbSignal);
@@ -290,24 +290,6 @@ int main(int argc, char *argv[])
                 if (pthread_setschedparam(rt_thread_id, SCHED_FIFO, &paramc) != 0)
                     CO_errExit("Program init - rt_thread set scheduler failed");
             }
-
-            /*Create rthreads w. priority b4 creation*/
-            // pthread_attr_t my_attr;
-            // struct sched_param param, paramcontrol;
-            // /* Initialize thread schedule policies and declare priority value*/
-            // pthread_attr_init(&my_attr);
-            // pthread_attr_setschedpolicy(&my_attr, SCHED_FIFO);
-            // param.sched_priority = rtPriority;
-            // paramcontrol.sched_priority = rtControlPriority;
-            // /*Set priority and create each thread*/
-            // /* Create rt_thread */
-            // pthread_attr_setschedpolicy(&my_attr, param.sched_priority);
-            // if (pthread_create(&rt_thread_id, &my_attr, rt_thread, NULL) != 0)
-            //     CO_errExit("Program init - rt_thread creation failed");
-            // /* Create rt control loop thread*/
-            // pthread_attr_setschedpolicy(&my_attr, paramcontrol.sched_priority);
-            // // if (pthread_create(&rt_control_thread_id, &my_attr, rt_control_thread, NULL) != 0)
-            //     CO_errExit("Program init - rt_control_thread creation failed");
         }
 
         /* start CAN */
@@ -358,8 +340,6 @@ int main(int argc, char *argv[])
 
                 /* Execute optional additional alication code */
                 // Update loop counter -> Can run in Async or RT thread for faster execution.
-				// sitStandMachine.hwStateUpdate();
-                // sitStandMachine.update();
                 // app_programAsync(timer1msDiff);
             }
 
@@ -418,11 +398,11 @@ static void *rt_thread(void *arg)
     /* Endless loop */
     while (CO_endProgram == 0)
     {
+        // CO_UNLOCK_OD();
         // std::cout << "2.PROCESS MESSAGE THREAD\n";
         int ready;
         struct epoll_event ev;
-
-        ready = epoll_wait(rt_thread_epoll_fd, &ev, 1, -1);
+        int ready = epoll_wait(rt_thread_epoll_fd, &ev, 1, -1);
 
         if (ready != 1)
         {
@@ -479,8 +459,9 @@ static void *rt_control_thread(void *arg)
     }
     while (CO_endProgram == 0)
     {
-        // std::cout << "1.RT Control THREAD\n";
+        //CO_LOCK_OD();
         app_program1ms();
+        //CO_UNLOCK_OD();
         wait_rest_of_period(&pinfo);
     }
     return NULL;
