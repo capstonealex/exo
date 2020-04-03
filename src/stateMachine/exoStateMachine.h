@@ -18,21 +18,10 @@
 #include "SteppingLastLeft.h"
 #include "SteppingLastRight.h"
 #include "SteppingLeft.h"
-#include "SteppingLeftHigh.h"
 #include "SteppingRight.h"
-#include "SteppingRightHigh.h"
 #include "LeftForward.h"
 #include "RightForward.h"
 #include "ErrorState.h"
-#include "StairStanding.h"
-#include "StairStandingTop.h"
-#include "StairLeftLegUp.h"
-#include "StairLeftLegUp2.h"
-#include "WalkSelect.h"
-#include "SteppingLeftStair.h"
-#include "SteppingRightStair.h"
-#include "SteppingLeftStairDown.h"
-#include "SteppingRightStairDown.h"
 
 double getDegPos(int jointInd, int desiredIndex, Robot *rob);
 
@@ -63,22 +52,12 @@ public:
     SteppingFirstLeft *steppingFirstLeft;
     LeftForward *leftForward;
     SteppingRight *steppingRight;
-    SteppingRightHigh *steppingRightHigh;
     RightForward *rightForward;
     SteppingLeft *steppingLeft;
-    SteppingLeftHigh *steppingLeftHigh;
     SteppingLastRight *steppingLastRight;
     SteppingLastLeft *steppingLastLeft;
     ErrorState *errorState;
-	SteppingLeftStair *steppingLeftStair;
-	SteppingLeftStairDown *steppingLeftStairDown;
-	SteppingRightStair *steppingRightStair;
-	SteppingRightStairDown *steppingRightStairDown;
-	StairStanding *stairStanding;
-	StairLeftLegUp *stairLeftLegUp;
-	StairLeftLegUp2 *stairLeftLegUp2;
-	StairStandingTop *stairStandingTop;
-	WalkSelect *walkSelect;
+
 private:
     // events
     EventObject(EndTraj) * endTraj;
