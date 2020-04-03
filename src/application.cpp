@@ -1,27 +1,10 @@
 /*
- * Application interface for CANopenSocket.
+ * Application interface for Alex Exoskeleton Software
  *
  * @file        application.c
- * @author      Janez Paternoster
- * @copyright   2016 Janez Paternoster
+ * @author      William Campbell
  *
- * This file is part of CANopenSocket, a Linux implementation of CANopen
- * stack with master functionality. Project home page is
- * <https://github.com/CANopenNode/CANopenSocket>. CANopenSocket is based
- * on CANopenNode: <https://github.com/CANopenNode/CANopenNode>.
- *
- * CANopenSocket is free and open source software: you can redistribute
- * it and/or modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation, either version 2 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+
  */
 #include "CANopen.h"
 #include "CO_command.h"
@@ -72,10 +55,10 @@ exoStateMachine exoMachine;
 /******************************************************************************/
 void app_programStart(void)
 {
-    printf("app_Program Start \n");
-    exoMachine.initRobot(&exo);
-    exoMachine.init();
-    exoMachine.activate();
+	printf("app_Program Start \n");
+	exoMachine.initRobot(&exo);
+	exoMachine.init();
+	exoMachine.activate();
 }
 /******************************************************************************/
 void app_communicationReset(void)
@@ -84,7 +67,7 @@ void app_communicationReset(void)
 /******************************************************************************/
 void app_programEnd(void)
 {
-    printf("app_programEnd \n");
+	printf("app_programEnd \n");
 }
 /******************************************************************************/
 void app_programAsync(uint16_t timer1msDiffy)
@@ -112,23 +95,23 @@ void app_programAsync(uint16_t timer1msDiffy)
 /******************************************************************************/
 void app_program1ms(void)
 {
-    // std::cout << "BEAGLE NEXT MOVE:" << CO_OD_RAM.nextMovement << std::endl;
-    //auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
-    //spdlog::set_default_logger(mainLogger);
+	// std::cout << "BEAGLE NEXT MOVE:" << CO_OD_RAM.nextMovement << std::endl;
+	//auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
+	//spdlog::set_default_logger(mainLogger);
 
-    //fileLoggerBinary(mainLogger);'
-    if (exoMachine.running != 0)
-    {
-        //printf("Before hwstateupdate \n");
-        exoMachine.hwStateUpdate();
-        //printf("Before update \n");
+	//fileLoggerBinary(mainLogger);'
+	if (exoMachine.running != 0)
+	{
+		//printf("Before hwstateupdate \n");
+		exoMachine.hwStateUpdate();
+		//printf("Before update \n");
 
-        exoMachine.update();
-        //printf("After update \n");
-    }
-    //auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
-    //spdlog::set_default_logger(mainLogger);
-    //fileLoggerBinary(mainLogger);
+		exoMachine.update();
+		//printf("After update \n");
+	}
+	//auto mainLogger = createLogger("parent", logFolder + "X2_log.txt");
+	//spdlog::set_default_logger(mainLogger);
+	//fileLoggerBinary(mainLogger);
 }
 /******************************************************************************/
 /*void itoa(int value, char *str, int base)
