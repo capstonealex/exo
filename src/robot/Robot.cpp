@@ -10,7 +10,7 @@
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
-#include <cmath>
+#include <cmath> 
 
 #define CANMESSAGELENGTH (100)
 #define NOFLIP (100)
@@ -37,15 +37,15 @@ Robot::Robot()
         .slope_angle = 0.0,     // tilted path
         .left_foot_on_tilt = false,
         .right_foot_on_tilt = false};
-    Trajectory::pilot_parameters lenny_parameters = {
-        .lowerleg_length = 0.43,
-        .upperleg_length = 0.46,
+    Trajectory::pilot_parameters Brad_parameters = {
+        .lowerleg_length = 0.44,
+        .upperleg_length = 0.44,
         .ankle_height = 0.12,
         .foot_length = 0.30,
         .hip_width = 0.43,
         .torso_length = 0.4,
         .buttocks_height = 0.05};
-    trajectoryObj.setPilotParameter(lenny_parameters);
+    trajectoryObj.setPilotParameter(Brad_parameters);
     trajectoryObj.setTrajectoryParameter(initial_trajectory_parameters);
 }
 void Robot::printInfo()
@@ -63,7 +63,7 @@ void Robot::updateJoints()
 {
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        //joints[i].updateJoint();
+        joints[i].updateJoint();
     }
 }
 bool Robot::sdoMSG(void)
@@ -88,18 +88,18 @@ bool Robot::initPositionControl(void)
         "[1] 1 write 0x6060 0 i8 1",
         "[1] 3 write 0x6060 0 i8 1",
         "[1] 4 write 0x6060 0 i8 1",
-        "[1] 2 write 0x6081 0 i32 2000000",
-        "[1] 1 write 0x6081 0 i32 2000000",
-        "[1] 3 write 0x6081 0 i32 2000000",
-        "[1] 4 write 0x6081 0 i32 2000000",
-        "[1] 2 write 0x6083 0 i32 100000",
-        "[1] 1 write 0x6083 0 i32 100000",
-        "[1] 3 write 0x6083 0 i32 100000",
-        "[1] 4 write 0x6083 0 i32 100000",
-        "[1] 2 write 0x6084 0 i32 100000",
-        "[1] 1 write 0x6084 0 i32 100000",
-        "[1] 3 write 0x6084 0 i32 100000",
-        "[1] 4 write 0x6084 0 i32 100000"};
+		"[1] 2 write 0x6081 0 i32 4000000",
+		"[1] 1 write 0x6081 0 i32 4000000",
+		"[1] 3 write 0x6081 0 i32 4000000",
+		"[1] 4 write 0x6081 0 i32 4000000",
+		"[1] 2 write 0x6083 0 i32 240000",
+		"[1] 1 write 0x6083 0 i32 240000",
+		"[1] 3 write 0x6083 0 i32 240000",
+		"[1] 4 write 0x6083 0 i32 240000",
+		"[1] 2 write 0x6084 0 i32 240000",
+		"[1] 1 write 0x6084 0 i32 240000",
+		"[1] 3 write 0x6084 0 i32 240000",
+		"[1] 4 write 0x6084 0 i32 240000" };
     if (!positionControlConfigured)
     {
         int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
@@ -137,7 +137,8 @@ bool Robot::initPositionControlAnkles(void)
         "[1] 6 write 0x6040 0 i16 15",
     };
     int num_of_Messages = sizeof(SDO_MessageList) / sizeof(SDO_MessageList[0]);
-    for (int i = 0; i < num_of_Messages; ++i)
+    
+	for (int i = 0; i < num_of_Messages; ++i)
     {
         cancomm_socketFree(SDO_MessageList[i], returnMessage);
     }
@@ -408,14 +409,14 @@ void Robot::startNewTraj()
         int j = joints[i].getId();
         robotJointspace[j - 1] = deg2rad(joints[i].getPosDeg());
     }
-    // cout << "joints position at start traj" << endl;
-    // printInfo();
-    startNewTrajJointspace = {.q = {robotJointspace[0],
+    cout << "joints position at start traj" << endl;
+    printInfo();
+    startNewTrajJointspace = { .q = {robotJointspace[0],
                                     robotJointspace[1],
                                     robotJointspace[2],
                                     robotJointspace[3],
-                                    robotJointspace[4],
-                                    robotJointspace[5]},
+                                    deg2rad(85), //robotJointspace[4],
+                                    deg2rad(85)}, //robotJointspace[5]},
                               .time = 0};
 
     trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
@@ -457,20 +458,20 @@ void Robot::moveThroughTraj()
         moving_tv = tv_changed;
         //array for position and velocity profile
         double positionArray[NUM_JOINTS];
-        // printInfo();
+        //printInfo();
 
 #ifndef _NOACTUATION
         // Send a new trajectory point
         // Get Trajectory point for this joint based on current time
         trajectoryObj.calcPosition(fracTrajProgress, positionArray);
-
         for (int i = 0; i < NUM_JOINTS; i++)
         {
             if (joints[i].getBitFlipState() == NOFLIP)
             {
                 int j = joints[i].getId();
-                // cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
-                joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
+                cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
+				joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
+
 
                 // set state machine bitFlip to LOW state.
                 joints[i].bitflipLow();

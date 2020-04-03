@@ -3,3 +3,4 @@
 *.xml
 CANopenSocket/canopend/X2_log.txt
 *.o
+.vs/

@@ -3,6 +3,7 @@
 
 #ifndef TRAJECTORY_H_INCLUDED
 #define TRAJECTORY_H_INCLUDED
+#define _USE_MATH_DEFINES
 
 using namespace std;
 #include <iomanip>
@@ -35,13 +36,14 @@ class Trajectory
 #define LEFT_ANKLE 4
 #define RIGHT_ANKLE 5
 
-//step parameters
-#define STANDTIME 4
+	//step parameters
+#define STANDTIME 3
 #define SITTIME 3
-#define STEPTIME 2
+#define STEPTIME 2.0
+#define STAIRTIME 3
 #define UNEVENSTEPTIME 4
 #define UNEVENTORSO deg2rad(10)
-#define STEPLENGTH 0.3
+#define STEPLENGTH 0.33
 #define HALFSTEPLENGTH STEPLENGTH / 2
 #define LONGSTEPLENGTH STEPLENGTH * 1.5
 #define BACKLENGTH 0.3
@@ -92,7 +94,7 @@ public:
 	typedef struct taskspace_state
 	{
 		point left_ankle_position, hip_position, right_ankle_position;
-		double torso_forward_angle;	// torso angle forward from vertical
+		double torso_forward_angle;	   // torso angle forward from vertical
 		double swing_ankle_down_angle; // swing_ankle angle down from the horizontal; 0 => horizontal swing_foot
 		Foot stance_foot;			   // Foot::Left or Foot::Right
 		time_tt time;
@@ -119,7 +121,8 @@ public:
 		Ramp,
 		Back,
 		Sitting,
-		Uneven
+		Uneven,
+		DownStair
 	} Movement;
 
 	typedef struct trajectory_parameters
@@ -165,9 +168,9 @@ public:
 					  .stance_foot = Trajectory::Foot::Right,
 					  //.movement = Trajectory::Movement::Walk,
 					  .movement = Trajectory::Movement::Uneven,
-					  .seat_height = 0.42,	// sit-stand
+					  .seat_height = 0.42,	  // sit-stand
 					  .step_end_height = 0.0, // stairs
-					  .slope_angle = 0.0,	 // tilted path
+					  .slope_angle = 0.0,	  // tilted path
 					  .left_foot_on_tilt = false,
 					  .right_foot_on_tilt = false}},
 		{UPSTAIR, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = STEPTGTLENGTH,
@@ -176,13 +179,13 @@ public:
 				   .swing_ankle_down_angle = 0,
 				   .stance_foot = Trajectory::Foot::Right,
 				   .movement = Trajectory::Movement::Walk,
-				   .seat_height = 0.42,	// sit-stand
+				   .seat_height = 0.42,	   // sit-stand
 				   .step_end_height = 0.0, // stairs
-				   .slope_angle = 0.0,	 // tilted path
+				   .slope_angle = 0.0,	   // tilted path
 				   .left_foot_on_tilt = false,
 				   .right_foot_on_tilt = false}},
 		{DWNSTAIR, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
-					.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+					.hip_height_slack = LEGSLACK,	   // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 					.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 					.swing_ankle_down_angle = 0,
 					.stance_foot = Trajectory::Foot::Left,
@@ -198,9 +201,9 @@ public:
 				  .swing_ankle_down_angle = 0,
 				  .stance_foot = Trajectory::Foot::Left,
 				  .movement = Trajectory::Movement::Back,
-				  .seat_height = 0.42,	// sit-stand
+				  .seat_height = 0.42,	  // sit-stand
 				  .step_end_height = 0.0, // stairs
-				  .slope_angle = 0.0,	 // tilted path
+				  .slope_angle = 0.0,	  // tilted path
 				  .left_foot_on_tilt = false,
 				  .right_foot_on_tilt = false}},
 		{TILTDWN, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
@@ -209,13 +212,13 @@ public:
 				   .swing_ankle_down_angle = 0,
 				   .stance_foot = Trajectory::Foot::Left,
 				   .movement = Trajectory::Movement::Back,
-				   .seat_height = 0.42,	// sit-stand
+				   .seat_height = 0.42,	   // sit-stand
 				   .step_end_height = 0.0, // stairs
-				   .slope_angle = 0.0,	 // tilted path
+				   .slope_angle = 0.0,	   // tilted path
 				   .left_foot_on_tilt = false,
 				   .right_foot_on_tilt = false}},
 		{FTTG, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
-				.hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+				.hip_height_slack = LEGSLACK,	   // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 				.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 				.swing_ankle_down_angle = 0,
 				.stance_foot = Trajectory::Foot::Left,
@@ -231,9 +234,9 @@ public:
 				  .swing_ankle_down_angle = 0,
 				  .stance_foot = Trajectory::Foot::Left,
 				  .movement = Trajectory::Movement::Back,
-				  .seat_height = 0.42,	// sit-stand
+				  .seat_height = 0.42,	  // sit-stand
 				  .step_end_height = 0.0, // stairs
-				  .slope_angle = 0.0,	 // tilted path
+				  .slope_angle = 0.0,	  // tilted path
 				  .left_foot_on_tilt = false,
 				  .right_foot_on_tilt = false}},
 		{SITDWN, {.step_duration = SITTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
@@ -242,9 +245,9 @@ public:
 				  .swing_ankle_down_angle = 0,
 				  .stance_foot = Trajectory::Foot::Right,
 				  .movement = Trajectory::Movement::Sit,
-				  .seat_height = 0.42,	// sit-stand
+				  .seat_height = 0.42,	  // sit-stand
 				  .step_end_height = 0.0, // stairs
-				  .slope_angle = 0.0,	 // tilted path
+				  .slope_angle = 0.0,	  // tilted path
 				  .left_foot_on_tilt = false,
 				  .right_foot_on_tilt = false}},
 		{STNDUP, {.step_duration = STANDTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
@@ -253,9 +256,9 @@ public:
 				  .swing_ankle_down_angle = 0,
 				  .stance_foot = Trajectory::Foot::Right,
 				  .movement = Trajectory::Movement::Stand,
-				  .seat_height = 0.42,	// sit-stand
+				  .seat_height = 0.42,	  // sit-stand
 				  .step_end_height = 0.0, // stairs
-				  .slope_angle = 0.0,	 // tilted path
+				  .slope_angle = 0.0,	  // tilted path
 				  .left_foot_on_tilt = false,
 				  .right_foot_on_tilt = false}},
 		{UNEVEN, {.step_duration = STANDTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
@@ -264,9 +267,9 @@ public:
 				  .swing_ankle_down_angle = 0,
 				  .stance_foot = Trajectory::Foot::Right,
 				  .movement = Trajectory::Movement::Stand,
-				  .seat_height = 0.42,	// sit-stand
+				  .seat_height = 0.42,	  // sit-stand
 				  .step_end_height = 0.0, // stairs
-				  .slope_angle = 0.0,	 // tilted path
+				  .slope_angle = 0.0,	  // tilted path
 				  .left_foot_on_tilt = false,
 				  .right_foot_on_tilt = false}}};
 

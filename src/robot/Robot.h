@@ -9,10 +9,7 @@
 #include "Trajectory.h"
 #include "Buttons.h"
 #include <array>
-// Trajectory constants
-#define TRAJ_LENGTH 6
-#define SITSTANDTIME 2
-#define STEPTIME 2
+
 //////////////// For testing  ///////////////////////////
 #define _NOANKLES w / o ankles
 
@@ -22,23 +19,6 @@
 #define NUM_JOINTS 4
 #endif
 
-#define STANCE_END_KNEE 8
-#define SWING_END_KNEE 20
-
-#define STANCE_END_HIP 180
-#define SWING_END_HIP 150
-
-#define STANCE_END_ANKLE 80
-#define SWING_END_ANKLE 100
-
-#define SIT_KNEE_ANGLE 80
-#define SIT_HIP_ANGLE 105
-#define SIT_ANKLE_ANGLE 100
-
-#define STAND_KNEE_ANGLE 8
-#define STAND_HIP_ANGLE 170
-#define STAND_ANKLE_ANGLE 95
-
 class Robot
 {
 private:
@@ -47,7 +27,15 @@ private:
     double steptime = STEPTIME;
 
 public:
+    /**
+ * @brief Construct a new Robot object
+ * 
+ */
     Robot();
+    /**
+ * @brief Trajectory Object 
+ * 
+ */
     Trajectory trajectoryObj;
     Joint joints[NUM_JOINTS];
     double fracTrajProgress = 0;

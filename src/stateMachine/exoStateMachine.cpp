@@ -32,7 +32,7 @@ int running = 0;
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
-#define _VIRTUALROBOT
+//#define _VIRTUALROBOT
 /////////////////////////////////////////////////////////
 
 #define OWNER ((exoStateMachine *)owner)
@@ -112,7 +112,6 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingLeft, isRPressed, errorState);
     NewTransition(steppingLastRight, isRPressed, errorState);
     NewTransition(steppingLastLeft, isRPressed, errorState);
-
     // Initialize the state machine with first state
     StateMachine::initialize(initState);
     robot = NULL;
@@ -155,6 +154,20 @@ void exoStateMachine::init(void)
     /// Move to an initial sitting state at the start
     bitFlipState = NOFLIP;
     running = 1;
+
+    // Set up the logging file
+    time_t rawtime;
+    struct tm *timeinfo;
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    strftime(filename, 80, "ALEXLOG_%Y%m%e_%H%M.csv", timeinfo);
+    std::cout << "Type the file name for the log + .csv" << endl;
+    std::cin >> filename;
+    printf("File Created: %s\n", filename);
+
+    logfile.open(filename);
 }
 void exoStateMachine::activate(void)
 {
@@ -174,7 +187,7 @@ void exoStateMachine::update(void)
 ///////////////////////////////////////////////////////////////
 bool exoStateMachine::EndTraj::check(void)
 {
-    if (OWNER->robot->fracTrajProgress > 1.15 && OWNER->robot->buttons.getGButtonState() == 0)
+    if (OWNER->robot->fracTrajProgress > 1.05 && OWNER->robot->buttons.getGButtonState() == 0)
     {
         return true;
     }
@@ -295,20 +308,6 @@ bool exoStateMachine::StartSit::check(void)
     }
     return false;
 }
-// bool exoStateMachine::startBackstep::check(void)
-// {
-//     // OD_NM = CO_OD_RAM.nextMovement;
-//     //TODO: CHANGE getGBUTTON TO LOOK IN OD NOT FOR BUTTON PRESS
-//     if ((OD_NM == 7) && OWNER->robot->buttons.getGButtonState() == 1)
-//     {
-//         // Set trajOBJECT paramaters to selected nexMOVEMENT
-//         OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
-//         // RESET OD_NM for safety
-//         CO_OD_RAM.nextMovement = 0;
-//         return true;
-//     }
-//     return false;
-// }
 
 //////////////////////////////////////////////////////////////////////
 // Robot interface methods ----------------------------------------------------------
@@ -327,6 +326,7 @@ void exoStateMachine::initRobot(Robot *rb)
 // Update button state, loop counter (mark) and joints
 void exoStateMachine::hwStateUpdate(void)
 {
+    //cout << "looping" << endl;
     robot->buttons.setButtonStates();
     // Check for commands from Crutch, when new nm sent send back that cm has been changed
     // Proper event now checks for that cm index and the next gButton press to transition
