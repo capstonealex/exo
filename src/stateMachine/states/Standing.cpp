@@ -7,8 +7,11 @@ void Standing::entry(void)
     std::cout
         << "======================" << endl
         << " YELLOW -> Sit DOWN" << endl
-        << " BLUE   -> WALK SELECT" << endl
+        // << " BLUE   -> WALK SELECT" << endl
+        << " Trigger -> startWalk " << endl
         << "======================" << endl;
+    // CO_OD_RAM.currentState = intToStateODMap[this.getName()];
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Standing"];
 }
 void Standing::during(void)
 {

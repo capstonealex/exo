@@ -10,8 +10,9 @@ void LeftForward::entry(void)
         << "=========================" << endl
         << " GREEN  -> KEEP STEPPING" << endl
         << " YELLOW -> FEET TOGETHER" << endl
-		<< " BLUE -> RIGHT HIGH STEP" << endl
         << "=========================" << endl;
+    // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Left Forward"];
 }
 void LeftForward::during(void)
 {

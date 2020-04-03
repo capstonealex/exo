@@ -1,3 +1,4 @@
+
 //////////////////////////////////////////
 // RIGHT FORWARD
 //////////////////////////////////////////
@@ -5,13 +6,13 @@
 
 void RightForward::entry(void)
 {
-	std::cout
-		<< "RightForward State Entered at Time:: " << OWNER->mark << endl
-		<< "========================" << endl
-		<< " GREEN  -> KEEP STEPPING " << endl
-		<< " YELLOW -> FEET TOGETHER" << endl
-		<< " BLUE -> LEFT HIGH STEP" << endl
-        << "========================\n" << endl;
+    std::cout
+        << "========================" << endl
+        << " GREEN  -> KEEP STEPPING " << endl
+        << " YELLOW -> FEET TOGETHER" << endl
+        << "========================n" << endl;
+    // CO_OD_RAM.currentState = intToStateODMap[this.getName()];
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Right Forward"];
 }
 void RightForward::during(void)
 {

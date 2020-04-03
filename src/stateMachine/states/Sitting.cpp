@@ -27,6 +27,8 @@ void Sitting::entry(void)
         .right_foot_on_tilt = false};
     OWNER->robot->trajectoryObj.setTrajectoryParameter(movement_trajectory_parameters);
     OWNER->robot->startNewTraj();
+    // CO_OD_RAM.currentState = intToStateODMap[this.getName()];
+    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Sitting"];
 }
 void Sitting::during(void)
 {
