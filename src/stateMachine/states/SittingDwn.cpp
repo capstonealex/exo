@@ -23,5 +23,5 @@ void SittingDwn::during(void)
 void SittingDwn::exit(void)
 {
     std::cout
-        << "Sitting Down State Exited at Time: " << OWNER->mark << endl;
+        << "Sitting Down State Exited at Time t: " << OWNER->mark << endl;
 }
