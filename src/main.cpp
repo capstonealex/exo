@@ -1,4 +1,5 @@
 /*
+ * test comment
  * CANopen main program file for Linux SocketCAN.
  *
  * @file        main
