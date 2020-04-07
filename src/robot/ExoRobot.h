@@ -49,4 +49,9 @@ public:
    *@return bool
    */
     bool isTrajFinished();
+    /** 
+   * Getter method for exoSkeleton defined Paramaters
+   *@return Trajectory::pilot_paramaters
+   */
+    bool getExoParamaters();
 }
