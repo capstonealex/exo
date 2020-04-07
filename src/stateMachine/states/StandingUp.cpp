@@ -6,7 +6,7 @@ void StandingUp::entry(void)
               << "===================" << endl
               << " GREEN -> STAND UP" << endl
               << "===================" << endl;
-    OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[9]);
+    OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[9]);
     OWNER->robot->startNewTraj();
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
     CO_OD_RAM.currentState = OWNER->stateToIntODMap["Standing Up"];

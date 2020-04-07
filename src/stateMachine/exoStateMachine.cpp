@@ -32,7 +32,7 @@ int running = 0;
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
-//#define _VIRTUALROBOT
+#define _VIRTUALROBOT
 /////////////////////////////////////////////////////////
 
 #define OWNER ((exoStateMachine *)owner)
@@ -80,6 +80,8 @@ exoStateMachine::exoStateMachine(void)
     steppingLastRight = new SteppingLastRight(this);
     steppingLastLeft = new SteppingLastLeft(this);
     errorState = new ErrorState(this);
+    //TEST STATE
+    testState = new TestState(this);
 
     // Trajectory Transitions
     NewTransition(sittingDwn, endTraj, sitting);
@@ -113,7 +115,9 @@ exoStateMachine::exoStateMachine(void)
     NewTransition(steppingLastRight, isRPressed, errorState);
     NewTransition(steppingLastLeft, isRPressed, errorState);
     // Initialize the state machine with first state
-    StateMachine::initialize(initState);
+    // StateMachine::initialize(initState);
+    // TESTING
+    StateMachine::initialize(testState);
     robot = NULL;
     bitFlipState = NOFLIP;
     running = 0;
@@ -257,7 +261,7 @@ bool exoStateMachine::StartExo::check(void)
     {
         std::cout << "LEAVING INIT and entering Sitting" << endl;
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        // OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[OD_NM]);
+        // OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[OD_NM]);
         // RESET OD_NM for safety
         return true;
     }
@@ -268,7 +272,7 @@ bool exoStateMachine::StartStand::check(void)
     if ((CO_OD_RAM.currentMovement == STNDUP) && OWNER->robot->buttons.getGButtonState() == 1)
     {
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[STNDUP]);
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[STNDUP]);
         // RESET OD_NM for safety
         return true;
     }
@@ -280,7 +284,7 @@ bool exoStateMachine::StartWalk::check(void)
     {
         std::cout << "Motion Type:" << OWNER->intToMvmntODMap[CO_OD_RAM.currentMovement];
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[CO_OD_RAM.currentMovement]);
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[CO_OD_RAM.currentMovement]);
         // RESET OD_NM for safety
         return true;
     }
@@ -291,7 +295,7 @@ bool exoStateMachine::FeetTogether::check(void)
     if (CO_OD_RAM.currentMovement == FTTG && OWNER->robot->buttons.getGButtonState() == 1)
     {
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[FTTG]);
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[FTTG]);
         // RESET OD_NM for safety
         return true;
     }
@@ -302,7 +306,7 @@ bool exoStateMachine::StartSit::check(void)
     if (CO_OD_RAM.currentMovement == SITDWN && OWNER->robot->buttons.getGButtonState() == 1)
     {
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->trajectoryObj.TrajParamMap[SITDWN]);
+        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[SITDWN]);
         // RESET OD_NM for safety
         return true;
     }
@@ -312,7 +316,7 @@ bool exoStateMachine::StartSit::check(void)
 //////////////////////////////////////////////////////////////////////
 // Robot interface methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
-void exoStateMachine::initRobot(Robot *rb)
+void exoStateMachine::initRobot(ExoRobot *rb)
 {
     if (robot != NULL)
     {
