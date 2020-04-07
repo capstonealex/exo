@@ -1,11 +1,10 @@
 /**
- * Application interface for CANopenSocket.
+ * Application interface for ALEX exoskeleton main.
  *
  * @file        application.h
- * @author      Janez Paternoster
- * @copyright   2016 Janez Paternoster
+ * @author      William Campbell
  *
- * This file is part of CANopenSocket, a Linux implementation of CANopen
+ * This file is part of AlexOpen, a Linux implementation of CANopen
  * stack with master functionality. Project home page is
  * <https://github.com/CANopenNode/CANopenSocket>. CANopenSocket is based
  * on CANopenNode: <https://github.com/CANopenNode/CANopenNode>.
@@ -23,6 +22,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef APP_H
+#define APP_H
 #include "CANopen.h"
 #include "CO_command.h"
 #include "stdio.h"
@@ -71,4 +72,4 @@ void app_programAsync(uint16_t timer1msDiff);
  */
 void app_program1ms(void);
 
-#endif
+#endif /*APP_H*/

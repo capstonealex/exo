@@ -1,4 +1,6 @@
 
+#ifndef ROBOT_PARAMS_H
+#define ROBOT_PARAMS_H
 #include <map>
 #include "Robot.h"
 
@@ -167,3 +169,5 @@
 //     .slope_angle = 0.0,     // tilted path
 //     .left_foot_on_tilt = false,
 //     .right_foot_on_tilt = false};
+
+#endif /*ROBOT_PARAMS_H*/

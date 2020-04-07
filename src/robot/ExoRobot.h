@@ -4,11 +4,15 @@
  * is managed in this class.
  *
  */
+/*Header Guard*/
+#ifndef EXOROBOT_H
+#define EXOROBOT_H
 #include "RobotParams.h"
 
 class ExoRobot : public Robot
 {
 private:
+    //TODO: Load in dictionary entries from JSON file.
     Trajectory::trajectory_parameters initial_trajectory_parameters = {
         .step_duration = 1,
         .step_height = 0.2,
@@ -186,3 +190,4 @@ public:
     void setTrajectoryS();
     void printTrajectory();
 };
+#endif /*EXOROBOT_H*/

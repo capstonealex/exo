@@ -1,9 +1,12 @@
-//
-// Created by William Campbell on 2019-07-30.
-//
-
-#ifndef CANOPENBEAGLE_ROBOT_H
-#define CANOPENBEAGLE_ROBOT_H
+/**
+ * The <code>ExoRobot</code> class represents an ExoSkeleton Robot in terms of its 
+ * representation of the Alex exoskeleton hardware whose memory
+ * is managed in this class.
+ *
+ */
+/*Header Guard*/
+#ifndef ROBOT_H
+#define ROBOT_H
 #include "Joint.h"
 #include "spline.h"
 #include "Trajectory.h"
@@ -81,4 +84,4 @@ public:
     void startNewTraj();
 };
 
-#endif //CAPSTONE_ROBOT_H
+#endif //ROBOT_H
