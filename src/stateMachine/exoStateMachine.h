@@ -6,7 +6,7 @@
 #define EXO_SITSTAND_H
 
 #include "StateMachine.h"
-#include "Robot.h"
+#include "ExoRobot.h"
 #define OWNER ((exoStateMachine *)owner)
 // Designed State and event classes
 #include "InitState.h"
@@ -22,6 +22,7 @@
 #include "LeftForward.h"
 #include "RightForward.h"
 #include "ErrorState.h"
+#include "TestState.h"
 
 double getDegPos(int jointInd, int desiredIndex, Robot *rob);
 
@@ -36,10 +37,10 @@ public:
     void hwStateUpdate(void);
     void update(void);
     State *gettCurState(void);
-    void initRobot(Robot *rb);
+    void initRobot(ExoRobot *rb);
     bool initPositionControl();
     void startNewTraj();
-    Robot *robot;
+    ExoRobot *robot;
     int mark;
 
     // State Object pointers
@@ -64,6 +65,7 @@ public:
     std::map<int, std::string> intToStateODMap;
     void populateDictionary(void);
     // FOr testing
+    TestState *testState;
     int cm;
 
 private:

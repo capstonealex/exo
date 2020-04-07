@@ -23,7 +23,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+#include "CANopen.h"
+#include "CO_command.h"
+#include "stdio.h"
+#include <stdint.h>
+#include <sys/time.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <termios.h>
+#include <string.h>
 
+/*Non canopenNode + Socket libraries*/
+#include "exoStateMachine.h"
+
+//header files for the implementing logging using spdlog techniques.
+#include <iostream>
+#include <string.h>
 #ifndef CO_APPLICATION_H
 #define CO_APPLICATION_H
 /**

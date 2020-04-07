@@ -8,11 +8,19 @@
 #include "spline.h"
 #include "Trajectory.h"
 #include "Buttons.h"
+#include "CO_command.h"
 #include <array>
-
+#include <unistd.h>
+#include <sys/un.h>
+#include <sys/socket.h>
+#include <string.h>
+#include <time.h>
+#include <sys/time.h>
+#include <cmath>
 //////////////// For testing  ///////////////////////////
+#define CANMESSAGELENGTH (100)
+#define NOFLIP (100)
 #define _NOANKLES w / o ankles
-
 #ifndef _NOANKLES
 #define NUM_JOINTS 6
 #else
@@ -22,11 +30,11 @@
 class Robot
 {
 private:
-    bool positionControlConfigured;
     int desiredIndex = 0;
     double steptime = STEPTIME;
 
 public:
+    bool positionControlConfigured;
     /**
  * @brief Construct a new Robot object
  * 
@@ -52,6 +60,8 @@ public:
     bool preop(void);
     bool resetTrackingError(void);
     // void printTrajectories();
+    void configurePosControl();
+    void disablePosControl();
 
     //canFeasat constants
     unsigned int MAX_RECONNECTS = 10;
@@ -69,7 +79,6 @@ public:
     struct timeval last_tv;
     // Trajectory functions - should move to trajectory object
     void startNewTraj();
-    void moveThroughTraj();
 };
 
 #endif //CAPSTONE_ROBOT_H

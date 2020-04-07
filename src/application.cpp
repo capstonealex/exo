@@ -6,24 +6,7 @@
  *
 
  */
-#include "CANopen.h"
-#include "CO_command.h"
-#include "stdio.h"
-#include <stdint.h>
-#include <sys/time.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <termios.h>
-#include <string.h>
-
-/*Non canopenNode + Socket libraries*/
-#include "Robot.h"
-#include "exoStateMachine.h"
-
-//header files for the implementing logging using spdlog techniques.
-#include <iostream>
-#include <string.h>
+#include "application.h"
 //#include <spdlog/spdlog.h>
 //#include <spdlog/sinks/basic_file_sink.h>
 
@@ -49,7 +32,7 @@ const std::string logFolder = "\logs\";
 char buf[STRING_BUFFER_SIZE];
 char ret[STRING_BUFFER_SIZE];
 
-Robot exo;
+ExoRobot exo;
 exoStateMachine exoMachine;
 
 /******************************************************************************/
