@@ -13,4 +13,3 @@ public:
     void during(void);
     void exit(void);
     InitState(StateMachine *m, const char *name = NULL) : State(m, name){};
-};

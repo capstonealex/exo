@@ -39,7 +39,7 @@ class Drive{
          * 
          * @return True if successful, False if not
          */ 
-        bool Init();
+        virtual bool Init();
 
         /**
          * Sets the drive to Position control with default parameters (through SDO messages)
@@ -48,7 +48,7 @@ class Drive{
          * 
          * @return True if successful, False if not
          */ 
-        bool initPosControl();
+        virtual bool initPosControl();
 
         /**
          * Sets the drive to Velocity control with default parameters (through SDO messages)
@@ -57,7 +57,7 @@ class Drive{
          * 
          * @return True if successful, False if not
          */
-        bool initVelControl();
+        virtual bool initVelControl();
 
         /**
          * Sets the drive to Torque control with default parameters (through SDO messages)
@@ -66,28 +66,61 @@ class Drive{
          * 
          * @return True if successful, False if not
          */ 
-        bool initTorqControl();
+        virtual bool initTorqControl();
 
         /**
          * Updates the internal representation of the state of the drive 
          * 
          * @return True if successful, False if not
          */ 
-        bool updateDriveStatus();
+        virtual bool updateDriveStatus();
 
-        // Execution
-        bool setPos(int position);
-        bool setVel(int velocity);
-        bool setTorque(int torque);
+        /**
+         * Writes the desired position to the Target Position of the motor drive (0x607A)
+         * 
+         * @return True if successful, False if not
+         */ 
+        virtual bool setPos(int position);
 
-        int getPos();
-        int getVel();
-        int getTorque();
+        /**
+         * Writes the desired velocity to the Target Velocity of the motor drive (0x60FF)
+         * 
+         * @return True if successful, False if not
+         */ 
+        virtual bool setVel(int velocity);
+
+        /**
+         * Writes the desired torque to the Target Torque of the motor drive (0x6071)
+         * 
+         * @return True if successful, False if not
+         */ 
+        virtual bool setTorque(int torque);
+
+        /**
+         * Returns the current position from the motor drive (0x6064)
+         * 
+         * @return Position from the motor drive
+         */ 
+        virtual int getPos();
+
+        /**
+         * Returns the current velocity from the motor drive (0x606C)
+         * 
+         * @return Velocity from the motor drive
+         */ 
+        virtual int getVel();
+
+         /**
+         * Returns the current torque from the motor drive (0x6077)
+         * 
+         * @return Torque from the motor drive
+         */ 
+        virtual int getTorque();
 
         // Drive State Modifiers
-        bool readyToSwitchOn();
-        bool enable();
-        bool disable();
+        virtual bool readyToSwitchOn();
+        virtual bool enable();
+        virtual bool disable();
 
         // CANOpen
         int getNodeID();

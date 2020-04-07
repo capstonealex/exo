@@ -1,51 +1,84 @@
-/**
- * The <code>Joint</code> class is a abstract class which represents a joint in a
- * <code>Robot</code> objec. This class can be used to represent all types of joints,
- * including actuated, non-actuated, revolute, prismatic, etc.
- * 
- *
- * Version 0.1
- * Date: 07/04/2020
- */
+//
+// Created by William Campbell on 2019-07-30.
+//
+
+#ifndef CANOPENBEAGLE_JOINT_H
+#define CANOPENBEAGLE_JOINT_H
+
+//#include <mutex>  // For std::unique_lock
+//#include <shared_mutex>
+//#include <thread>
+#include <iostream>
+#include <unistd.h>
+#include <sys/un.h>
+#include <sys/socket.h>
+#include "CANopen.h"
+#include <stdlib.h>
+#include <string>
+#include <math.h>
+
+//Node ID for the 4 joints
+
+#define LEFT_HIP 1
+#define LEFT_KNEE 2
+#define RIGHT_HIP 3
+#define RIGHT_KNEE 4
+#define LEFT_ANKLE 5
+#define RIGHT_ANKLE 6
+
+using namespace std;
 
 class Joint
 {
-private:
-/**
- * An identifier for this joint. Note that this identifier is designed to be unique, 
- * but this is not managed by the joint class. 
- */
-    const int id;
-/**
- * The current state of the joint (i.e. the value), to be returned in SI units.
- */
+    //Private members
+    int id;
     double q;
-/**
- * The allowable limits of the joint. This should represent the theoretical limits
- * of the joint. Should these be exceeded, an error should be thrown. 
- */
-    const double qMin, qMax;
+    double qd;
+    long maxq, minq;
+    long maxdq, mindq;
+    double converterA, converterB;
+
+    void setPos(long qd);
+    void setVel(long dqd);
+    void motorPosConverter(double origDeg, long *newMotorCmnd, int nodeid);
+    double motorPosToDegConverter(long motorCmdAngle, int nodeid);
+    void calcAB(long y1, long x1, long y2, long x2, double *A, double *B);
+    int bitFlipState;
+    // TODO: Add other vars after initial test implimentation up and running
+    // qd, qdd,T, mode. limts, Transformation, Reduction Ratio(CONST)
 
 public:
-/**
- * Default <code>Joint</code> constructor. Note that it requires an ID, and minimum
- * and maximum joint limits. These limits will be used to check for errors. 
- */
-    Joint(int jointID, double jointMin, double jointMax);
-/**
- * Return the ID of the joint
- */
+    //    CanDevice copley;// pointer to this joints candevice, the motor driver (COPLEY DRIVER)
+    //static const int NUM_TRAJ_POINTS = 11;
+    //static const int NUM_TRAJ_POINTS_STEPPING = 4;
+    Joint();
+    Joint(double q_init, int ID);
+    void setId(int ID);
     int getId();
-/**
- * Returns the value of the joint (e.g. Angle, length, depending on joint type)
- * 
- * NOTE: This returns only a single double value. Implementations of this joint may
- * choose to include other methods to return other states of the joint. 
- */
-    double getQ();
-/**
- * Updates the value of the joint. This will read the value from hardware, and
- * update the software's current representation of the value
- */
-    virtual bool updateValue();
+    void applyPos(long qd);
+    void applyPosDeg(double qd);
+    void applyVel(long dqd);
+
+    void disable();
+    void readyToSwitchOn();
+    void enable();
+
+    int getPos();
+    double getPosDeg();
+    double getDesPosDeg();
+
+    void printInfo();
+    void updateJoint();
+    void testWrite();
+    bool bitflipHigh();
+    bool bitflipLow();
+    int getStatus();
+    int getActualTorque();
+    int getBitFlipState();
+    void setBitFlipState(int bit);
+
+    // Make two arrays for coresponding motor commands for trajectorues
+    long trajectories[4];
 };
+
+#endif //CAPSTONE_JOINT_H
