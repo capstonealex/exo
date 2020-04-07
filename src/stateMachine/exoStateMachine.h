@@ -2,8 +2,8 @@
 // Created by William Campbell on 2019-09-30.
 //
 
-#ifndef EXO_SITSTAND_H
-#define EXO_SITSTAND_H
+#ifndef EXO_SM_H
+#define EXO_SM_H
 
 #include "StateMachine.h"
 #include "ExoRobot.h"
@@ -90,4 +90,4 @@ private:
     int bitFlipState;
 };
 
-#endif //EXO_SITSTAND_H
+#endif /*EXO_SM_H*/
