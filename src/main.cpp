@@ -401,7 +401,6 @@ static void *rt_thread(void *arg)
     {
         // CO_UNLOCK_OD();
         // std::cout << "2.PROCESS MESSAGE THREAD\n";
-        int ready;
         struct epoll_event ev;
         int ready = epoll_wait(rt_thread_epoll_fd, &ev, 1, -1);
 
