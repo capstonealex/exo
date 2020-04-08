@@ -8,9 +8,9 @@ void TestState::entry(void)
 void TestState::during(void)
 {
     OWNER->robot->setTrajectory();
-    OWNER->robot->printTrajectory();
+    OWNER->robot->printTrajectoryParam();
     OWNER->robot->setTrajectory();
-    OWNER->robot->printTrajectory();
+    OWNER->robot->printTrajectoryParam();
 }
 void TestState::exit(void)
 {

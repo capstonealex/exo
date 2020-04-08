@@ -1,9 +1,13 @@
 /**
- * The <code>ExoRobot</code> class represents an ExoSkeleton Robot in terms of its 
- * representation of the Alex exoskeleton hardware whose memory
- * is managed in this class.
- *
+*  The <code>Robot</code> class is a abstract class which represents a Robot
+ * with a flexible representation in terms of number of joints, number of sensors and type of I/O 
+ * the real world or virtual robot has. 
+ * 
+ * Version 0.1
+ * Date: 07/04/2020
+ * 
  */
+
 /*Header Guard*/
 #ifndef ROBOT_H
 #define ROBOT_H
@@ -20,7 +24,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <cmath>
-//////////////// For testing  ///////////////////////////
+
 #define CANMESSAGELENGTH (100)
 #define NOFLIP (100)
 #define _NOANKLES w / o ankles
@@ -33,14 +37,11 @@
 class Robot
 {
 private:
-    int desiredIndex = 0;
-    double steptime = STEPTIME;
-
-public:
     bool positionControlConfigured;
+public:
     /**
- * @brief Construct a new Robot object
- * 
+ * @brief Default <code>Robot</code> constructor.
+ * Initialize memory for the Robot joints + sensors 
  */
     Robot();
     /**
@@ -81,7 +82,7 @@ public:
     struct timeval start_traj;
     struct timeval last_tv;
     // Trajectory functions - should move to trajectory object
-    void startNewTraj();
+    // void startNewTraj();
 };
 
 #endif //ROBOT_H

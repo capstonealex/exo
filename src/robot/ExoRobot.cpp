@@ -2,13 +2,14 @@
 
 ExoRobot::ExoRobot()
 {
-    positionControlConfigured = false;
-    //Initialize Robot Joint positions to zero
-    for (auto i = 0; i < NUM_JOINTS; i++)
-    {
-        joints[i].applyPos(0);
-        joints[i].setId(i + 1);
-    }
+    // positionControlConfigured = false;
+    // //Initialize Robot Joint positions to zero
+    // for (auto i = 0; i < NUM_JOINTS; i++)
+    // {
+    //     joints[i].applyPos(0);
+    //     joints[i].setId(i + 1);
+    // }
+    Robot();
     trajectoryObj.setPilotParameter(exoParamaters);
     trajectoryObj.setTrajectoryParameter(initial_trajectory_parameters);
 }
@@ -19,17 +20,12 @@ void ExoRobot::setTrajectory()
     int currentMotion = SITDWN;
     trajectoryObj.setTrajectoryParameter(TrajParamMap[currentMotion]);
 }
-void ExoRobot::setTrajectoryS()
-{
-    int currentMotion = TILTUP;
-    trajectoryObj.setTrajectoryParameter(TrajParamMap[currentMotion]);
-}
-void ExoRobot::printTrajectory()
+void ExoRobot::printTrajectoryParam()
 {
     std::cout << "Step height:" << trajectoryObj.trajectoryParameter.step_height << std::endl;
     std::cout << "Slop_angle: " << trajectoryObj.trajectoryParameter.slope_angle << std::endl;
 }
-void Robot::startNewTraj()
+void ExoRobot::startNewTraj()
 {
     // Set the bit flip state to zero
     for (auto i = 0; i < NUM_JOINTS; i++)
@@ -38,7 +34,6 @@ void Robot::startNewTraj()
     }
 
     // Index Resetting
-    desiredIndex = 0;
     fracTrajProgress = 0;
     Trajectory::jointspace_state startNewTrajJointspace;
     double robotJointspace[NUM_JOINTS];
