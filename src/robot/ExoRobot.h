@@ -18,24 +18,6 @@ class ExoRobot : public Robot
 private:
     //TODO: Load in paramaters and dictionary entries from JSON file.
     /**
- * Trajectory paramater variables for the initial state of the exoskeleton in sitting position.
- * Note this variable is used by the trajectory generator object.
- */
-    Trajectory::trajectory_parameters initial_trajectory_parameters = {
-        .step_duration = 1,
-        .step_height = 0.2,
-        .step_length = 0.3,
-        .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-        .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
-        .swing_ankle_down_angle = 0,
-        .stance_foot = Trajectory::Foot::Right,
-        .movement = Trajectory::Movement::Sitting,
-        .seat_height = 0.45,    // sit-stand
-        .step_end_height = 0.0, // stairs
-        .slope_angle = 0.0,     // tilted path
-        .left_foot_on_tilt = false,
-        .right_foot_on_tilt = false};
-    /**
  * Trajectory pilot paramaters dictate the specific real world link lengths of the 3 joint exoskeleton robot.
  * These paramaters must be specifically changed for the pilot using the Exoskeleton.
  */
@@ -63,8 +45,11 @@ public:
    */
     void moveThroughTraj();
     /** 
+   *  @brief Begin a new Trajectory with the currently loaded trajectory paramaters
+   *  Using the Robots current configuration (read in from joint objects) and 
+   *  the trajecotry generator object, generate and save a spline to move from current 
+   *  to specified desired position.
    * 
-   *
    */
     void startNewTraj();
     /** 
@@ -72,20 +57,7 @@ public:
    *@return bool
    */
     bool isTrajFinished();
-    /** 
-   * Getter method for exoSkeleton defined Paramaters
-   *@return Trajectory::pilot_paramaters
-   */
-    bool getExoParamaters();
-    /** 
-   * Getter method for currently loaded motion trajectory paramaters
-   *@return Trajectory::trajectory_parameters
-   */
-    bool getTrajParamaters();
-
-    //
-    ////TEST CODE: MOVE TO ROBOT LEVEL ONCE WORKING
-
+    //// TESTING Trajectory functions - should move to trajectory object
     /** 
    * Setter method for exoSkeleton Trajectory Paramaters
    * Set trajectory paramaters to those coresponding to the current Next Motion value from user
@@ -97,12 +69,24 @@ public:
    *
    */
     void printTrajectoryParam();
+
     /**
  * Map between int values for specific trajectory motion paramaters. These paramaters are fed into the
  * Trajectory generator object to create unique trajectories. The map is constructed for ease of loading 
  * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. 
  */
     std::map<int, Trajectory::trajectory_parameters> TrajParamMap = {
+        {INITIAL, {.step_duration = 1, .step_height = 0.2, .step_length = 0.3,
+                   .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+                   .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
+                   .swing_ankle_down_angle = 0,
+                   .stance_foot = Trajectory::Foot::Right,
+                   .movement = Trajectory::Movement::Sitting,
+                   .seat_height = 0.45,    // sit-stand
+                   .step_end_height = 0.0, // stairs
+                   .slope_angle = 0.0,     // tilted path
+                   .left_foot_on_tilt = false,
+                   .right_foot_on_tilt = false}},
         {NORMALWALK, {.step_duration = UNEVENSTEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                       .hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                       //.torso_forward_angle = TORSOANGLE,

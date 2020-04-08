@@ -38,6 +38,7 @@ class Robot
 {
 private:
     bool positionControlConfigured;
+
 public:
     /**
  * @brief Default <code>Robot</code> constructor.
@@ -81,8 +82,6 @@ public:
     struct timeval stationary_tv;
     struct timeval start_traj;
     struct timeval last_tv;
-    // Trajectory functions - should move to trajectory object
-    // void startNewTraj();
 };
 
 #endif //ROBOT_H

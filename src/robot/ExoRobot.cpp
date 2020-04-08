@@ -11,20 +11,9 @@ ExoRobot::ExoRobot()
     // }
     Robot();
     trajectoryObj.setPilotParameter(exoParamaters);
-    trajectoryObj.setTrajectoryParameter(initial_trajectory_parameters);
+    trajectoryObj.setTrajectoryParameter(TrajParamMap[INITIAL]);
 }
 
-void ExoRobot::setTrajectory()
-{
-    //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
-    int currentMotion = SITDWN;
-    trajectoryObj.setTrajectoryParameter(TrajParamMap[currentMotion]);
-}
-void ExoRobot::printTrajectoryParam()
-{
-    std::cout << "Step height:" << trajectoryObj.trajectoryParameter.step_height << std::endl;
-    std::cout << "Slop_angle: " << trajectoryObj.trajectoryParameter.slope_angle << std::endl;
-}
 void ExoRobot::startNewTraj()
 {
     // Set the bit flip state to zero
@@ -63,11 +52,6 @@ void ExoRobot::startNewTraj()
 
     printf("Start New Traj \n");
 }
-//TESTING STATE TRASITIONS
-// void Robot::moveThroughTraj()
-// {
-//     fracTrajProgress = 2;
-// }
 void ExoRobot::moveThroughTraj()
 {
     //long lastTarget = 0;
@@ -121,4 +105,17 @@ void ExoRobot::moveThroughTraj()
         timeradd(&stationary_tv, &tv_diff, &tv_changed);
         stationary_tv = tv_changed;
     }
+}
+
+///Trajectory methods
+void ExoRobot::setTrajectory()
+{
+    //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
+    int currentMotion = SITDWN;
+    trajectoryObj.setTrajectoryParameter(TrajParamMap[currentMotion]);
+}
+void ExoRobot::printTrajectoryParam()
+{
+    std::cout << "Step height:" << trajectoryObj.trajectoryParameter.step_height << std::endl;
+    std::cout << "Slop_angle: " << trajectoryObj.trajectoryParameter.slope_angle << std::endl;
 }

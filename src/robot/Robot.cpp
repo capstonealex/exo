@@ -39,6 +39,11 @@ void Robot::updateJoints()
         joints[i].updateJoint();
     }
 }
+
+/****************************************************************/
+/****************************************************************/
+// sdo Messaging functions
+// TODO: change to INDIVIDUAL MOTOR DRIVE
 bool Robot::sdoMSG(void)
 {
     char *returnMessage;

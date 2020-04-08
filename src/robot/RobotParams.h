@@ -5,6 +5,7 @@
 #include "Robot.h"
 
 // Next MOTION Map values
+#define INITIAL 0
 #define NORMALWALK 1
 #define UPSTAIR 2
 #define DWNSTAIR 3
