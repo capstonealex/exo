@@ -4,7 +4,7 @@ sudo: false
 # Blacklist
 branches:
   only:
-    - master
+    - Refactor
 
 # Install dependencies
 addons:

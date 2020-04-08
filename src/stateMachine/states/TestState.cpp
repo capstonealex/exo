@@ -11,6 +11,7 @@ void TestState::during(void)
     OWNER->robot->printTrajectoryParam();
     OWNER->robot->setTrajectory();
     OWNER->robot->printTrajectoryParam();
+    // Test comment
 }
 void TestState::exit(void)
 {
