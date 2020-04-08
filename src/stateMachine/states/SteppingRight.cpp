@@ -9,8 +9,8 @@ void SteppingRight::entry(void)
         << "==================" << endl
         << " Stepping Right" << endl
         << "==================" << endl;
-    OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[2]);
-    OWNER->robot->trajectoryObj.setTrajectoryStanceLeft();
+    OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->TrajParamMap[2]);
+    OWNER->robot->trajectoryGenerator.setTrajectoryStanceLeft();
     OWNER->robot->startNewTraj();
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
     CO_OD_RAM.currentState = OWNER->stateToIntODMap["Step R"];

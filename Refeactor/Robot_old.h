@@ -36,7 +36,7 @@ public:
  * @brief Trajectory Object 
  * 
  */
-    Trajectory trajectoryObj;
+    Trajectory trajectoryGenerator;
     Joint joints[NUM_JOINTS];
     double fracTrajProgress = 0;
     double trajTime;

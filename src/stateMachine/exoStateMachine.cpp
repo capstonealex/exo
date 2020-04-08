@@ -261,7 +261,7 @@ bool exoStateMachine::StartExo::check(void)
     {
         std::cout << "LEAVING INIT and entering Sitting" << endl;
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        // OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[OD_NM]);
+        // OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->TrajParamMap[OD_NM]);
         // RESET OD_NM for safety
         return true;
     }
@@ -272,7 +272,7 @@ bool exoStateMachine::StartStand::check(void)
     if ((CO_OD_RAM.currentMovement == STNDUP) && OWNER->robot->buttons.getGButtonState() == 1)
     {
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[STNDUP]);
+        OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->TrajParamMap[STNDUP]);
         // RESET OD_NM for safety
         return true;
     }
@@ -284,7 +284,7 @@ bool exoStateMachine::StartWalk::check(void)
     {
         std::cout << "Motion Type:" << OWNER->intToMvmntODMap[CO_OD_RAM.currentMovement];
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[CO_OD_RAM.currentMovement]);
+        OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->TrajParamMap[CO_OD_RAM.currentMovement]);
         // RESET OD_NM for safety
         return true;
     }
@@ -295,7 +295,7 @@ bool exoStateMachine::FeetTogether::check(void)
     if (CO_OD_RAM.currentMovement == FTTG && OWNER->robot->buttons.getGButtonState() == 1)
     {
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[FTTG]);
+        OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->TrajParamMap[FTTG]);
         // RESET OD_NM for safety
         return true;
     }
@@ -306,7 +306,7 @@ bool exoStateMachine::StartSit::check(void)
     if (CO_OD_RAM.currentMovement == SITDWN && OWNER->robot->buttons.getGButtonState() == 1)
     {
         // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[SITDWN]);
+        OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->TrajParamMap[SITDWN]);
         // RESET OD_NM for safety
         return true;
     }

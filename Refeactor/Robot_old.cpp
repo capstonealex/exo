@@ -395,7 +395,7 @@ void Robot::startNewTraj()
                                     deg2rad(85)}, //robotJointspace[5]},
                               .time = 0};
 
-    trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
+    trajectoryGenerator.generateAndSaveSpline(startNewTrajJointspace);
 
     // Reset the time
     timerclear(&moving_tv);
@@ -423,7 +423,7 @@ void Robot::moveThroughTraj()
     //uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
     long movingMicro = moving_tv.tv_sec * 1000000 + moving_tv.tv_usec;
 
-    double trajTimeUS = trajectoryObj.trajectoryParameter.step_duration * 1000000;
+    double trajTimeUS = trajectoryGenerator.trajectoryParameter.step_duration * 1000000;
     fracTrajProgress = movingMicro / trajTimeUS;
 
     // if Green Button is pressed, move through trajetory. Otherwise stay where you are
@@ -439,7 +439,7 @@ void Robot::moveThroughTraj()
 #ifndef _NOACTUATION
         // Send a new trajectory point
         // Get Trajectory point for this joint based on current time
-        trajectoryObj.calcPosition(fracTrajProgress, positionArray);
+        trajectoryGenerator.calcPosition(fracTrajProgress, positionArray);
         for (int i = 0; i < NUM_JOINTS; i++)
         {
             if (joints[i].getBitFlipState() == NOFLIP)

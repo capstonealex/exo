@@ -11,7 +11,7 @@ using namespace std;
 #include <cmath>
 #include <vector>
 #include <map>
-class Trajectory
+class TrajectoryGenerator
 {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * Macros                                                                                                            *
@@ -155,19 +155,19 @@ public:
 		vector<time_tt> times;							 // Start/end times of the polynomials (#times = #polynomials+1)
 	} jointspace_spline;
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Trajectory Param map: 
+ * TrajectoryGenerator Param map: 
  * 						maping OD.next motion dictionary values to trajectory paramater structs defined for each motion
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	// todo:: ADD IN CORRECT PARAMS FOR 4-7
-	// std::map<int, Trajectory::trajectory_parameters> TrajParamMap = {
+	// std::map<int, TrajectoryGenerator::trajectory_parameters> TrajParamMap = {
 	// 	{NORMALWALK, {.step_duration = UNEVENSTEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
 	// 				  .hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 				  //.torso_forward_angle = TORSOANGLE,
 	// 				  .torso_forward_angle = UNEVENTORSO,
 	// 				  .swing_ankle_down_angle = 0,
-	// 				  .stance_foot = Trajectory::Foot::Right,
-	// 				  //.movement = Trajectory::Movement::Walk,
-	// 				  .movement = Trajectory::Movement::Uneven,
+	// 				  .stance_foot = TrajectoryGenerator::Foot::Right,
+	// 				  //.movement = TrajectoryGenerator::Movement::Walk,
+	// 				  .movement = TrajectoryGenerator::Movement::Uneven,
 	// 				  .seat_height = 0.42,	  // sit-stand
 	// 				  .step_end_height = 0.0, // stairs
 	// 				  .slope_angle = 0.0,	  // tilted path
@@ -177,8 +177,8 @@ public:
 	// 			   .hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 			   .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 	// 			   .swing_ankle_down_angle = 0,
-	// 			   .stance_foot = Trajectory::Foot::Right,
-	// 			   .movement = Trajectory::Movement::Walk,
+	// 			   .stance_foot = TrajectoryGenerator::Foot::Right,
+	// 			   .movement = TrajectoryGenerator::Movement::Walk,
 	// 			   .seat_height = 0.42,	   // sit-stand
 	// 			   .step_end_height = 0.0, // stairs
 	// 			   .slope_angle = 0.0,	   // tilted path
@@ -188,8 +188,8 @@ public:
 	// 				.hip_height_slack = LEGSLACK,	   // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 				.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 	// 				.swing_ankle_down_angle = 0,
-	// 				.stance_foot = Trajectory::Foot::Left,
-	// 				.movement = Trajectory::Movement::Back,
+	// 				.stance_foot = TrajectoryGenerator::Foot::Left,
+	// 				.movement = TrajectoryGenerator::Movement::Back,
 	// 				.seat_height = 0.42,	// sit-stand
 	// 				.step_end_height = 0.0, // stairs
 	// 				.slope_angle = 0.0,		// tilted path
@@ -199,8 +199,8 @@ public:
 	// 			  .hip_height_slack = LEGSLACK,		 // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 			  .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 	// 			  .swing_ankle_down_angle = 0,
-	// 			  .stance_foot = Trajectory::Foot::Left,
-	// 			  .movement = Trajectory::Movement::Back,
+	// 			  .stance_foot = TrajectoryGenerator::Foot::Left,
+	// 			  .movement = TrajectoryGenerator::Movement::Back,
 	// 			  .seat_height = 0.42,	  // sit-stand
 	// 			  .step_end_height = 0.0, // stairs
 	// 			  .slope_angle = 0.0,	  // tilted path
@@ -210,8 +210,8 @@ public:
 	// 			   .hip_height_slack = LEGSLACK,	  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 			   .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 	// 			   .swing_ankle_down_angle = 0,
-	// 			   .stance_foot = Trajectory::Foot::Left,
-	// 			   .movement = Trajectory::Movement::Back,
+	// 			   .stance_foot = TrajectoryGenerator::Foot::Left,
+	// 			   .movement = TrajectoryGenerator::Movement::Back,
 	// 			   .seat_height = 0.42,	   // sit-stand
 	// 			   .step_end_height = 0.0, // stairs
 	// 			   .slope_angle = 0.0,	   // tilted path
@@ -221,8 +221,8 @@ public:
 	// 			.hip_height_slack = LEGSLACK,	   // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 			.torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 	// 			.swing_ankle_down_angle = 0,
-	// 			.stance_foot = Trajectory::Foot::Left,
-	// 			.movement = Trajectory::Movement::Back,
+	// 			.stance_foot = TrajectoryGenerator::Foot::Left,
+	// 			.movement = TrajectoryGenerator::Movement::Back,
 	// 			.seat_height = 0.42,	// sit-stand
 	// 			.step_end_height = 0.0, // stairs
 	// 			.slope_angle = 0.0,		// tilted path
@@ -232,8 +232,8 @@ public:
 	// 			  .hip_height_slack = LEGSLACK,		 // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 			  .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 	// 			  .swing_ankle_down_angle = 0,
-	// 			  .stance_foot = Trajectory::Foot::Left,
-	// 			  .movement = Trajectory::Movement::Back,
+	// 			  .stance_foot = TrajectoryGenerator::Foot::Left,
+	// 			  .movement = TrajectoryGenerator::Movement::Back,
 	// 			  .seat_height = 0.42,	  // sit-stand
 	// 			  .step_end_height = 0.0, // stairs
 	// 			  .slope_angle = 0.0,	  // tilted path
@@ -243,8 +243,8 @@ public:
 	// 			  .hip_height_slack = LEGSLACK,		 // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 			  .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 	// 			  .swing_ankle_down_angle = 0,
-	// 			  .stance_foot = Trajectory::Foot::Right,
-	// 			  .movement = Trajectory::Movement::Sit,
+	// 			  .stance_foot = TrajectoryGenerator::Foot::Right,
+	// 			  .movement = TrajectoryGenerator::Movement::Sit,
 	// 			  .seat_height = 0.42,	  // sit-stand
 	// 			  .step_end_height = 0.0, // stairs
 	// 			  .slope_angle = 0.0,	  // tilted path
@@ -254,8 +254,8 @@ public:
 	// 			  .hip_height_slack = LEGSLACK,		 // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 			  .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 	// 			  .swing_ankle_down_angle = 0,
-	// 			  .stance_foot = Trajectory::Foot::Right,
-	// 			  .movement = Trajectory::Movement::Stand,
+	// 			  .stance_foot = TrajectoryGenerator::Foot::Right,
+	// 			  .movement = TrajectoryGenerator::Movement::Stand,
 	// 			  .seat_height = 0.42,	  // sit-stand
 	// 			  .step_end_height = 0.0, // stairs
 	// 			  .slope_angle = 0.0,	  // tilted path
@@ -265,8 +265,8 @@ public:
 	// 			  .hip_height_slack = LEGSLACK,		 // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 			  .torso_forward_angle = TORSOANGLE, // TODO: make this a vector/array?
 	// 			  .swing_ankle_down_angle = 0,
-	// 			  .stance_foot = Trajectory::Foot::Right,
-	// 			  .movement = Trajectory::Movement::Stand,
+	// 			  .stance_foot = TrajectoryGenerator::Foot::Right,
+	// 			  .movement = TrajectoryGenerator::Movement::Stand,
 	// 			  .seat_height = 0.42,	  // sit-stand
 	// 			  .step_end_height = 0.0, // stairs
 	// 			  .slope_angle = 0.0,	  // tilted path
@@ -287,7 +287,7 @@ public:
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 public:
 	//Initializer
-	Trajectory();
+	TrajectoryGenerator();
 
 	/**********************************************************************
 
@@ -379,7 +379,7 @@ public:
 								Foot stance_foot, Movement movement, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
 	void setTrajectoryParameter(trajectory_parameters trajectoryParameter);
 	void setTrajectoryStanceRight();
-	void setTrajectoryStanceLeft();
+	void setTrajectorytanceLeft();
 
 	void setPilotParameter(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
 						   double hip_width, double torso_length, double buttocks_height);

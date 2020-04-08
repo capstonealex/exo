@@ -9,7 +9,7 @@ void SittingDwn::entry(void)
               << " GREEN -> SIT DOWN " << endl
               << "===================" << endl;
 
-    OWNER->robot->trajectoryObj.setTrajectoryParameter(OWNER->robot->TrajParamMap[8]);
+    OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->TrajParamMap[8]);
     OWNER->robot->startNewTraj();
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()];
     CO_OD_RAM.currentState = OWNER->stateToIntODMap["Sitting Down"];

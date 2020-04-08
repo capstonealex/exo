@@ -10,8 +10,8 @@ ExoRobot::ExoRobot()
     //     joints[i].setId(i + 1);
     // }
     Robot();
-    trajectoryObj.setPilotParameter(exoParamaters);
-    trajectoryObj.setTrajectoryParameter(TrajParamMap[INITIAL]);
+    trajectoryGenerator.setPilotParameter(exoParamaters);
+    trajectoryGenerator.setTrajectoryParameter(TrajParamMap[INITIAL]);
 }
 
 void ExoRobot::startNewTraj()
@@ -24,7 +24,7 @@ void ExoRobot::startNewTraj()
 
     // Index Resetting
     fracTrajProgress = 0;
-    Trajectory::jointspace_state startNewTrajJointspace;
+    TrajectoryGenerator::jointspace_state startNewTrajJointspace;
     double robotJointspace[NUM_JOINTS];
     int i;
     for (i = 0; i < NUM_JOINTS; i++)
@@ -42,7 +42,7 @@ void ExoRobot::startNewTraj()
                                     deg2rad(85)}, //robotJointspace[5]},
                               .time = 0};
 
-    trajectoryObj.generateAndSaveSpline(startNewTrajJointspace);
+    trajectoryGenerator.generateAndSaveSpline(startNewTrajJointspace);
 
     // Reset the time
     timerclear(&moving_tv);
@@ -65,7 +65,7 @@ void ExoRobot::moveThroughTraj()
     //uint32_t difftime =  tv_diff.tv_sec*1000000+tv_diff.tv_usec;
     long movingMicro = moving_tv.tv_sec * 1000000 + moving_tv.tv_usec;
 
-    double trajTimeUS = trajectoryObj.trajectoryParameter.step_duration * 1000000;
+    double trajTimeUS = trajectoryGenerator.trajectoryParameter.step_duration * 1000000;
     fracTrajProgress = movingMicro / trajTimeUS;
 
     // if Green Button is pressed, move through trajetory. Otherwise stay where you are
@@ -81,7 +81,7 @@ void ExoRobot::moveThroughTraj()
 #ifndef _NOACTUATION
         // Send a new trajectory point
         // Get Trajectory point for this joint based on current time
-        trajectoryObj.calcPosition(fracTrajProgress, positionArray);
+        trajectoryGenerator.calcPosition(fracTrajProgress, positionArray);
         for (int i = 0; i < NUM_JOINTS; i++)
         {
             if (joints[i].getBitFlipState() == NOFLIP)
@@ -112,10 +112,10 @@ void ExoRobot::setTrajectory()
 {
     //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
     int currentMotion = SITDWN;
-    trajectoryObj.setTrajectoryParameter(TrajParamMap[currentMotion]);
+    trajectoryGenerator.setTrajectoryParameter(TrajParamMap[currentMotion]);
 }
 void ExoRobot::printTrajectoryParam()
 {
-    std::cout << "Step height:" << trajectoryObj.trajectoryParameter.step_height << std::endl;
-    std::cout << "Slop_angle: " << trajectoryObj.trajectoryParameter.slope_angle << std::endl;
+    std::cout << "Step height:" << trajectoryGenerator.trajectoryParameter.step_height << std::endl;
+    std::cout << "Slop_angle: " << trajectoryGenerator.trajectoryParameter.slope_angle << std::endl;
 }
