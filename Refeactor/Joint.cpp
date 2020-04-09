@@ -10,27 +10,22 @@
  */
 #include "Joint.h"
 
-/**
- * Default <code>Joint</code> constructor. Note that it requires an ID, and minimum
- * and maximum joint limits. These limits will be used to check for errors. 
- */
 Joint::Joint(int jointID, double jointMin, double jointMax) :
 id(jointID), qMin(jointMin), qMax(jointMax)
 {
     q = 0;
 }
 
-/**
- * Return the ID of the joint
- */
+Joint::Joint(int jointID, double jointMin, double jointMax, double q0) :
+id(jointID), qMin(jointMin), qMax(jointMax)
+{
+    q = q0;
+}
+
 int Joint::getId(){
     return id;
 }
 
-/**
- * Default method to return the value of the joint. Note that this may be
- * overwritten to check.
- */
 double Joint::getQ(){
     return q;
 }

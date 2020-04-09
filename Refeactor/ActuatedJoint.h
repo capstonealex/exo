@@ -9,11 +9,16 @@
  * Date: 07/04/2020
  */
 
+#ifndef ACTUATEDJOINT_H_DEFINED
+#define ACTUATEDJOINT_H_DEFINED
 #include "Joint.h"
 #include "Drive.h"
 
-// Return values the execute movements of the drive
-const enum setMovementReturnCode_t{
+/**
+ * The <code>setMovementReturnCode_t<code> is used to determine whether the movement was a
+ * success, or whether an error occurred in its application. 
+ */ 
+enum setMovementReturnCode_t{
     SUCCESS = 1, 
     OUTSIDE_LIMITS = -1,
     INCORRECT_MODE = -2,
@@ -24,13 +29,14 @@ class ActuatedJoint: public Joint
 {
     private:
         /**
-         * Contains a Drive object, which is a CANOpen device which is used to control the
+         * @brief Contains a Drive object, which is a CANOpen device which is used to control the
          * physical hardware. 
+         * 
          */
-        const Drive drive;
+        Drive drive;
 
         /**
-         * Converts from the joint value to the equivalent value for the drive
+         * @brief Converts from the joint value to the equivalent value for the drive
          * 
          * Notes:
          * - The drive value is always an integer (due to the CANOpen specification)
@@ -39,13 +45,14 @@ class ActuatedJoint: public Joint
          *      complicated one (e.g. linear actuator position to degrees) depending on the 
          *      structure of the device and system.
          * 
+         * 
          * @param jointValue The joint value to be converted
-         * @return The equivalent drive value for the given joint value
+         * @return int The equivalent drive value for the given joint value
          */
-        virtual int toDriveUnits(double jointValue);
+        virtual int toDriveUnits(double jointValue)=0;
 
          /**
-         * Converts from the drive value to the equivalent value for the joint
+         * @brief Converts from the drive value to the equivalent value for the joint
          * 
          * Notes:
          * - The drive value is always an integer (due to the CANOpen specification)
@@ -57,44 +64,50 @@ class ActuatedJoint: public Joint
          * @param driveValue The drive value to be converted
          * @return The equivalent joint value for the given drive value
          */
-        virtual double fromDriveUnits(int driveValue);
+        virtual double fromDriveUnits(int driveValue)=0;
 
     public:
         /**
-         * Default <code>Joint</code> constructor. Note that it requires an ID, and minimum
-         * and maximum joint limits. These limits will be used to check for errors. 
+         * @brief Construct a new Actuated Joint object
+         * 
+         * @param jointID Unique ID representing the joint (not checked in this class)
+         * @param jointMin Minimum allowable value for the joint
+         * @param jointMax Maximum allowable value for the joint
          */
-        ActuatedJoint(int jointID, double jointMin, double jointMax);
+        ActuatedJoint(int jointID, double jointMin, double jointMax, Drive drive);
+        
         /**
-         * Set Mode - sets the mode of the device (nominally, position, velocity or torque control)
+         * @brief Set the mode of the device (nominally, position, velocity or torque control)
          * 
          * @param driveMode The mode to be used if possible
-         * @return Configured Drive Mode, -1 if unsuccessful
-         */ 
+         * @return ControlMode Configured Drive Mode, -1 if unsuccessful
+         */
         ControlMode setMode(ControlMode driveMode);
 
-        /** 
-         * Sets a position set point (in joint units)  
+        /**
+         * @brief Set the Position object
          * 
-         * @param pos The desired set position
-         * @return The result of the setting
+         * @param desQ The desired set position
+         * @return setMovementReturnCode_t The result of the setting
          */
         setMovementReturnCode_t setPosition(double desQ);
 
-        /** 
-         * Sets a velocity set point (in joint units)
+        /**
+         * @brief Sets a velocity set point (in joint units)
          * 
          * @param velocity The desired set position
-         * @return The result of the setting
+         * @return setMovementReturnCode_t The result of the setting
          */
-        setMovementReturnCode_t SetVelocity(double velocity);
+        setMovementReturnCode_t setVelocity(double velocity);
 
-        /** 
-         * Sets a torque set point
+        /**
+         * @brief Set the torque set point
          * 
          * @param torque The desired set position
-         * @return The result of the setting
+         * @return setMovementReturnCode_t The result of the setting
          */
-        setMovementReturnCode_t SetTorque(double torque);
+        setMovementReturnCode_t setTorque(double torque);
 
 };
+
+#endif

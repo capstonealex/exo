@@ -1,7 +1,7 @@
 //
 // Created by William Campbell on 2019-07-24.
 //
-#include "Joint.h"
+#include "ExoJoint.h"
 
 //Knee motor reading and corresponding angle. Used for mapping between degree and motor values.
 #define KNEE_MOTOR_POS1 (250880)
@@ -25,7 +25,7 @@ const int STRING_LENGTH = 50;
 #define BITHIGH (1)
 #define BITLOW (0)
 
-Joint::Joint()
+ExoJoint::ExoJoint()
 {
     //Default constructor - SHOULD THROW AN ERROR
     q = 0;
