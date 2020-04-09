@@ -77,9 +77,12 @@ public:
     void printTrajectoryParam();
 
     /**
- * Map between int values for specific trajectory motion paramaters. These paramaters are fed into the
- * TrajectoryGenerator generator object to create unique trajectories. The map is constructed for ease of loading 
- * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. 
+ * @brief Map between int values for specific trajectory motion paramaters. These paramaters are fed into the
+ * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading 
+ * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. The paramater
+ * map is constructed at runtime from trajectoryParam.JSON
+ * @input int Movement type
+ * @return trajectory_parameters for that Movement type
  */
     std::map<int, TrajectoryGenerator::trajectory_parameters> TrajParamMap = {
         {INITIAL, {.step_duration = 1, .step_height = 0.2, .step_length = 0.3,
