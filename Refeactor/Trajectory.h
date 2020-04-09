@@ -159,7 +159,7 @@ public:
  * 						maping OD.next motion dictionary values to trajectory paramater structs defined for each motion
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	// todo:: ADD IN CORRECT PARAMS FOR 4-7
-	// std::map<int, TrajectoryGenerator::trajectory_parameters> TrajParamMap = {
+	// std::map<int, TrajectoryGenerator::trajectory_parameters> movementTrajMap = {
 	// 	{NORMALWALK, {.step_duration = UNEVENSTEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
 	// 				  .hip_height_slack = LEGSLACK, // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
 	// 				  //.torso_forward_angle = TORSOANGLE,

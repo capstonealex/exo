@@ -21,7 +21,7 @@ private:
  * TrajectoryGenerator pilot paramaters dictate the specific real world link lengths of the 3 joint exoskeleton robot.
  * These paramaters must be specifically changed for the pilot using the Exoskeleton.
  */
-    TrajectoryGenerator::pilot_parameters exoParamaters = {
+    TrajectoryGenerator::pilot_parameters exoParams = {
         .lowerleg_length = 0.44,
         .upperleg_length = 0.44,
         .ankle_height = 0.12,
@@ -29,7 +29,7 @@ private:
         .hip_width = 0.43,
         .torso_length = 0.4,
         .buttocks_height = 0.05};
-    // TrajectoryGenerator::pilot_parameters exoParamaters;
+    // TrajectoryGenerator::pilot_parameters exoParams;
 
 public:
     /**
@@ -39,17 +39,11 @@ public:
    */
     ExoRobot();
 
-    /**
-     * @brief Timer Variables for moving through trajectories
-     * 
-     */
+    // /**
+    //  * @brief Timer Variables for moving through trajectories
+    //  *
+    //  */
     struct timeval tv, tv_diff, moving_tv, tv_changed, stationary_tv, start_traj, last_tv;
-    // struct timeval stationary_tv;
-    // struct timeval start_traj;
-    // struct timeval last_tv;
-    //  struct timeval tv;
-    // struct timeval tv_diff;
-    // struct timeval tv_changed;
     /** 
    * @brief For each joint, move through(send appropriate commands to joints) the Currently 
    * generated trajectory of the TrajectoryGenerator object. 
@@ -83,7 +77,7 @@ public:
  * @param int Movement type
  * @return TrajectoryGenerator::trajectory_parameters 
  */
-    std::map<int, TrajectoryGenerator::trajectory_parameters> TrajParamMap = {
+    std::map<int, TrajectoryGenerator::trajectory_parameters> movementTrajMap = {
         {INITIAL, {.step_duration = 1, .step_height = 0.2, .step_length = 0.3,
                    .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                    .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?

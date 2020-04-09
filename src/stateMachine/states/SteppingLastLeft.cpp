@@ -8,7 +8,7 @@ void SteppingLastLeft::entry(void)
         << "==================" << endl
         << " Stepping Last Left" << endl
         << "==================" << endl;
-    OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->TrajParamMap[2]);
+    OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->movementTrajMap[2]);
     OWNER->robot->trajectoryGenerator.setTrajectoryStanceRight();
     OWNER->robot->startNewTraj();
     /// CO_OD_RAM.currentState = intToStateODMap[this.getName()]
