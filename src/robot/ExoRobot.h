@@ -34,18 +34,21 @@ private:
 public:
     /**
    * @brief Default <code>ExoRobot</code> constructor.
-   * Initialize memory for the Exoskelton joints + sensors 
-   * and load in exoskeleton paramaters to trajectory generator.
+   * Initialize memory for the Exoskelton <code>Joint<code> + sensors 
+   * and load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
    */
     ExoRobot();
 
-    // Timer Variable for moving through trajectories
+    /**
+     * @brief Timer Variable for moving through trajectories
+     * 
+     */
     struct timeval moving_tv;
     struct timeval stationary_tv;
     struct timeval start_traj;
     struct timeval last_tv;
     /** 
-   * For each joint, move through(send appropriate commands to joints) the Currently 
+   * @brief For each joint, move through(send appropriate commands to joints) the Currently 
    * generated trajectory of the TrajectoryGenerator object. 
    *
    */
@@ -81,8 +84,8 @@ public:
  * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading 
  * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. The paramater
  * map is constructed at runtime from trajectoryParam.JSON
- * @params int Movement type
- * @return trajectory_parameters for that Movement type
+ * @param int Movement type
+ * @return trajectory_parameters 
  */
     std::map<int, TrajectoryGenerator::trajectory_parameters> TrajParamMap = {
         {INITIAL, {.step_duration = 1, .step_height = 0.2, .step_length = 0.3,
