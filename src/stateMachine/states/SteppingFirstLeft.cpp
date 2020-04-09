@@ -10,7 +10,7 @@ void SteppingFirstLeft::entry(void)
         << " Stepping 1st Left" << endl
         << "==================" << endl;
 
-    OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->TrajParamMap[1]);
+    OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->movementTrajMap[1]);
     OWNER->robot->trajectoryGenerator.setTrajectoryStanceRight();
     OWNER->robot->startNewTraj();
     // CO_OD_RAM.currentState = intToStateODMap[this.getName()]

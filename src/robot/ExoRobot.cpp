@@ -10,8 +10,8 @@ ExoRobot::ExoRobot()
     //     joints[i].setId(i + 1);
     // }
     Robot();
-    trajectoryGenerator.setPilotParameter(exoParamaters);
-    trajectoryGenerator.setTrajectoryParameter(TrajParamMap[INITIAL]);
+    trajectoryGenerator.setPilotParameter(exoParams);
+    trajectoryGenerator.setTrajectoryParameter(movementTrajMap[INITIAL]);
 }
 
 void ExoRobot::startNewTraj()
@@ -112,10 +112,17 @@ void ExoRobot::setTrajectory()
 {
     //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
     int currentMotion = SITDWN;
-    trajectoryGenerator.setTrajectoryParameter(TrajParamMap[currentMotion]);
+    trajectoryGenerator.setTrajectoryParameter(movementTrajMap[currentMotion]);
 }
 void ExoRobot::printTrajectoryParam()
 {
     std::cout << "Step height:" << trajectoryGenerator.trajectoryParameter.step_height << std::endl;
     std::cout << "Slop_angle: " << trajectoryGenerator.trajectoryParameter.slope_angle << std::endl;
+}
+void ExoRobot::initialiseJoints()
+{
+    for (int id = 0; id < NUM_JOINTS; id++)
+    {
+        joints.push_back(new ActuatedJoint(id, jointMinMap(id), jointMaxMap(id)));
+    }
 }

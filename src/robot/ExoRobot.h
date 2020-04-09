@@ -21,7 +21,7 @@ private:
  * TrajectoryGenerator pilot paramaters dictate the specific real world link lengths of the 3 joint exoskeleton robot.
  * These paramaters must be specifically changed for the pilot using the Exoskeleton.
  */
-    TrajectoryGenerator::pilot_parameters exoParamaters = {
+    TrajectoryGenerator::pilot_parameters exoParams = {
         .lowerleg_length = 0.44,
         .upperleg_length = 0.44,
         .ankle_height = 0.12,
@@ -29,30 +29,30 @@ private:
         .hip_width = 0.43,
         .torso_length = 0.4,
         .buttocks_height = 0.05};
-    // TrajectoryGenerator::pilot_parameters exoParamaters;
+    // TrajectoryGenerator::pilot_parameters exoParams;
 
 public:
     /**
    * @brief Default <code>ExoRobot</code> constructor.
-   * Initialize memory for the Exoskelton joints + sensors 
-   * and load in exoskeleton paramaters to trajectory generator.
+   * Initialize memory for the Exoskelton <code>Joint<code> + sensors 
+   * and load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
    */
     ExoRobot();
 
-    // Timer Variable for moving through trajectories
-    struct timeval moving_tv;
-    struct timeval stationary_tv;
-    struct timeval start_traj;
-    struct timeval last_tv;
+    // /**
+    //  * @brief Timer Variables for moving through trajectories
+    //  *
+    //  */
+    struct timeval tv, tv_diff, moving_tv, tv_changed, stationary_tv, start_traj, last_tv;
     /** 
-   * For each joint, move through(send appropriate commands to joints) the Currently 
+   * @brief For each joint, move through(send appropriate commands to joints) the Currently 
    * generated trajectory of the TrajectoryGenerator object. 
    *
    */
     void moveThroughTraj();
     /** 
    *  @brief Begin a new TrajectoryGenerator with the currently loaded trajectory paramaters
-   *  Using the Robots current configuration (read in from joint objects) and 
+   *  Using the <code>ExoRobot<code> current configuration (read in from joint objects) and 
    *  the trajecotry generator object, generate and save a spline to move from current 
    *  to specified desired position.
    * 
@@ -64,24 +64,20 @@ public:
    */
     bool isTrajFinished();
     //// TESTING TrajectoryGenerator functions - should move to trajectory object
-    /** 
-   * Setter method for exoSkeleton TrajectoryGenerator Paramaters
-   * Set trajectory paramaters to those coresponding to the current Next Motion value from user
-   *
-   */
+
     void setTrajectory();
-    /** 
-   * Print out the currently loaded trajectory paramater values stored in the ExoRobots trajectory object.
-   *
-   */
+
     void printTrajectoryParam();
 
     /**
- * Map between int values for specific trajectory motion paramaters. These paramaters are fed into the
- * TrajectoryGenerator generator object to create unique trajectories. The map is constructed for ease of loading 
- * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. 
+ * @brief Map between int values for specific trajectory motion paramaters. These paramaters are fed into the
+ * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading 
+ * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. The paramater
+ * map is constructed at runtime from trajectoryParam.JSON
+ * @param int Movement type
+ * @return TrajectoryGenerator::trajectory_parameters 
  */
-    std::map<int, TrajectoryGenerator::trajectory_parameters> TrajParamMap = {
+    std::map<int, TrajectoryGenerator::trajectory_parameters> movementTrajMap = {
         {INITIAL, {.step_duration = 1, .step_height = 0.2, .step_length = 0.3,
                    .hip_height_slack = 0.0001,        // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                    .torso_forward_angle = deg2rad(5), // TODO: make this a vector/array?
@@ -206,4 +202,28 @@ public:
                   .left_foot_on_tilt = false,
                   .right_foot_on_tilt = false}}};
 };
+/**
+ * @brief Joint Limit Map between Joint value and min Degrees possible
+ * @param int Joint value
+ * @return double minDeg 
+ */
+//TODO CHANGE FROM MOTOR COMMANDS TO DEGREES
+std::map<int, double> jointMinMap = {{LEFT_HIP, 0.0},
+                                     {RIGHT_HIP, 0.0},
+                                     {LEFT_KNEE, 0.0},
+                                     {RIGHT_KNEE, 0.0},
+                                     {LEFT_ANKLE, -800000},
+                                     {RIGHT_ANKLE, -800000}};
+/**
+ * @brief Joint Limit Map between Joint value and max Degrees possible
+ * @param int Joint value
+ * @return int maxDeg 
+ */
+std::map<int, double> jointMaxMap = {{LEFT_HIP, (HIP_MOTOR_POS1 * 1.5)},
+                                     {RIGHT_HIP, (HIP_MOTOR_POS1 * 1.5)},
+                                     {LEFT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
+                                     {RIGHT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
+                                     {LEFT_ANKLE, -800000},
+                                     {RIGHT_ANKLE, -800000}};
+
 #endif /*EXOROBOT_H*/

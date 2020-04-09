@@ -1,17 +1,5 @@
-//
-// Created by William Campbell on 2019-07-23.
-//
-
 #include "Robot.h"
 
-void Robot::configurePosControl()
-{
-    this->positionControlConfigured = true;
-}
-void Robot::disablePosControl()
-{
-    this->positionControlConfigured = false;
-}
 Robot::Robot()
 {
     disablePosControl();
@@ -21,23 +9,33 @@ Robot::Robot()
         joints[i].setId(i + 1);
     }
 }
+bool Robot::initialise()
+{
+}
 void Robot::printInfo()
 {
     cout << "This is an X2 robot with: \n";
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
-        // std::cout << "Joint address:" << &joints[i] << endl;
+        // cout << "Joint address:" << &joints[i] << endl;
         this->joints[i].printInfo();
     }
 }
 
-// Update all of this robots software joint positions from object dictionary
-void Robot::updateJoints()
+void Robot::updateRobot()
 {
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
         joints[i].updateJoint();
     }
+}
+void Robot::configurePosControl()
+{
+    this->positionControlConfigured = true;
+}
+void Robot::disablePosControl()
+{
+    this->positionControlConfigured = false;
 }
 
 /****************************************************************/
