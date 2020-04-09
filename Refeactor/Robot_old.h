@@ -42,7 +42,7 @@ public:
     double trajTime;
     void printInfo();
     Buttons buttons;
-    void updateJoints();
+    void updateRobot();
     bool positionControl;
     bool initPositionControl(void);
     bool initPositionControlAnkles(void);

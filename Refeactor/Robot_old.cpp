@@ -35,7 +35,7 @@ void Robot::printInfo()
 }
 
 // Update all of this robots software joint positions from object dictionary
-void Robot::updateJoints()
+void Robot::updateRobot()
 {
     for (auto i = 0; i < NUM_JOINTS; i++)
     {

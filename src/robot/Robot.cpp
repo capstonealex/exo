@@ -1,17 +1,5 @@
-//
-// Created by William Campbell on 2019-07-23.
-//
-
 #include "Robot.h"
 
-void Robot::configurePosControl()
-{
-    this->positionControlConfigured = true;
-}
-void Robot::disablePosControl()
-{
-    this->positionControlConfigured = false;
-}
 Robot::Robot()
 {
     disablePosControl();
@@ -31,13 +19,20 @@ void Robot::printInfo()
     }
 }
 
-// Update all of this robots software joint positions from object dictionary
-void Robot::updateJoints()
+void Robot::updateRobot()
 {
     for (auto i = 0; i < NUM_JOINTS; i++)
     {
         joints[i].updateJoint();
     }
+}
+void Robot::configurePosControl()
+{
+    this->positionControlConfigured = true;
+}
+void Robot::disablePosControl()
+{
+    this->positionControlConfigured = false;
 }
 
 /****************************************************************/

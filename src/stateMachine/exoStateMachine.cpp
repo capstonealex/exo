@@ -341,7 +341,7 @@ void exoStateMachine::hwStateUpdate(void)
         std::cout << "NEXT MOTION: " << cm << std::endl;
     }
     mark = mark + 1;
-    robot->updateJoints();
+    robot->updateRobot();
     // LOG TO FILE
     if (mark % 10 == 1)
     {
