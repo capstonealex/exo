@@ -24,6 +24,8 @@
 #include <time.h>
 #include <sys/time.h>
 #include <cmath>
+#include <vector>
+using namespace std;
 
 #define CANMESSAGELENGTH (100)
 #define NOFLIP (100)
@@ -47,7 +49,7 @@ public:
     Robot();
     /**
      * @brief Initialize memory for the designed <code>Robot<code> classes specific
-     * <class>Joint<class> objects + sensors (if available) using the pure virtual initialiseJoints()
+     * <code>Joint<code> objects + sensors (if available) using the pure virtual initialiseJoints()
      * implemented by the robot designer. Based on the given Joints, initNetwork() will configure 
      * these joints for CAN PDO messaging and Load the specififed Controller, by default set to Positio.
      * 
@@ -63,7 +65,7 @@ public:
      * @return true 
      * @return false 
      */
-    bool initialiseJoints();
+    virtual void initialiseJoints() = 0;
     /**
      * @brief Fore the given designed robot layout, initialise CANopen network messaging.
      * 
@@ -81,11 +83,15 @@ public:
 
     //Robot objects
     /**
- * @brief Vector of Abstract <class>Joint<class> Objects, number and type must be specified by 
- * Software design in <class>Robot<class> Implementation
+ * @brief Vector of pointers to Abstract <class>Joint<class> Objects, number and type must be specified by 
+ * Software design in <class>Robot<class> Implementation.
+ * Note: Use pointers to the joint objects here, so that the derived objects are not cast to Joint, truncating
+ * any of their explicit implementations.
  * 
  */
-    Joint joints[NUM_JOINTS];
+    // Joint joints[NUM_JOINTS];
+
+    vector<Joint *> joints;
     /**
  * @brief Trajectory Object 
  * 

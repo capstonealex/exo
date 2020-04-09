@@ -17,7 +17,7 @@
 #include <string>
 #include <math.h>
 
-//Node ID for the 4 joints
+//Node ID for the 6 joints
 
 #define LEFT_HIP 1
 #define LEFT_KNEE 2

@@ -28,7 +28,7 @@ class TrajectoryGenerator
 	{                                               \
 		M_PI_2, M_PI_2, -M_PI_2, M_PI_2, -M_PI_2, 0 \
 	}
-//Node ID for the 4 joints
+//Node ID for the 6 joints
 #define LEFT_HIP 0
 #define LEFT_KNEE 1
 #define RIGHT_HIP 2

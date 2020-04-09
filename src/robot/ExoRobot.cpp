@@ -119,3 +119,10 @@ void ExoRobot::printTrajectoryParam()
     std::cout << "Step height:" << trajectoryGenerator.trajectoryParameter.step_height << std::endl;
     std::cout << "Slop_angle: " << trajectoryGenerator.trajectoryParameter.slope_angle << std::endl;
 }
+void ExoRobot::initialiseJoints()
+{
+    for (int id = 0; id < NUM_JOINTS; id++)
+    {
+        joints.push_back(new ActuatedJoint(id, jointMinMap(id), jointMaxMap(id)));
+    }
+}
