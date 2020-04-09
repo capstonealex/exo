@@ -40,13 +40,16 @@ public:
     ExoRobot();
 
     /**
-     * @brief Timer Variable for moving through trajectories
+     * @brief Timer Variables for moving through trajectories
      * 
      */
-    struct timeval moving_tv;
-    struct timeval stationary_tv;
-    struct timeval start_traj;
-    struct timeval last_tv;
+    struct timeval tv, tv_diff, moving_tv, tv_changed, stationary_tv, start_traj, last_tv;
+    // struct timeval stationary_tv;
+    // struct timeval start_traj;
+    // struct timeval last_tv;
+    //  struct timeval tv;
+    // struct timeval tv_diff;
+    // struct timeval tv_changed;
     /** 
    * @brief For each joint, move through(send appropriate commands to joints) the Currently 
    * generated trajectory of the TrajectoryGenerator object. 
@@ -55,7 +58,7 @@ public:
     void moveThroughTraj();
     /** 
    *  @brief Begin a new TrajectoryGenerator with the currently loaded trajectory paramaters
-   *  Using the Robots current configuration (read in from joint objects) and 
+   *  Using the <code>ExoRobot<code> current configuration (read in from joint objects) and 
    *  the trajecotry generator object, generate and save a spline to move from current 
    *  to specified desired position.
    * 
@@ -67,16 +70,9 @@ public:
    */
     bool isTrajFinished();
     //// TESTING TrajectoryGenerator functions - should move to trajectory object
-    /** 
-   * Setter method for exoSkeleton TrajectoryGenerator Paramaters
-   * Set trajectory paramaters to those coresponding to the current Next Motion value from user
-   *
-   */
+
     void setTrajectory();
-    /** 
-   * Print out the currently loaded trajectory paramater values stored in the ExoRobots trajectory object.
-   *
-   */
+
     void printTrajectoryParam();
 
     /**
@@ -85,7 +81,7 @@ public:
  * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. The paramater
  * map is constructed at runtime from trajectoryParam.JSON
  * @param int Movement type
- * @return trajectory_parameters 
+ * @return TrajectoryGenerator::trajectory_parameters 
  */
     std::map<int, TrajectoryGenerator::trajectory_parameters> TrajParamMap = {
         {INITIAL, {.step_duration = 1, .step_height = 0.2, .step_length = 0.3,
