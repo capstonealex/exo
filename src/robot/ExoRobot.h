@@ -81,7 +81,7 @@ public:
  * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading 
  * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. The paramater
  * map is constructed at runtime from trajectoryParam.JSON
- * @input int Movement type
+ * @params int Movement type
  * @return trajectory_parameters for that Movement type
  */
     std::map<int, TrajectoryGenerator::trajectory_parameters> TrajParamMap = {
