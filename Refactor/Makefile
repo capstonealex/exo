@@ -4,12 +4,14 @@
 CXX = arm-linux-gnueabihf-g++
 
 # List of Objects to be defined for the testing
-OBJ = testJoints.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o TestActJoint.o
-
+OBJOINT = testJoints.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o TestActJoint.o
+OBROBOT = 
 %.o: %.cpp 
 	$(CXX) -c -o $@ $< 
 
-testJoints: $(OBJ)
+testJoints: $(OBJOINT)
+	$(CXX) -o $@ $^ 
+testJoints: $(OBROBOT)
 	$(CXX) -o $@ $^ 
 	
 .PHONY: clean all
