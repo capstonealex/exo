@@ -2,13 +2,6 @@
 
 ExoRobot::ExoRobot()
 {
-    // positionControlConfigured = false;
-    // //Initialize Robot Joint positions to zero
-    // for (auto i = 0; i < NUM_JOINTS; i++)
-    // {
-    //     joints[i].applyPos(0);
-    //     joints[i].setId(i + 1);
-    // }
     initialiseJoints();
     Robot();
     trajectoryGenerator.setPilotParameter(exoParams);

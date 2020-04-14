@@ -1,3 +1,5 @@
+
+
 # Doxyfile 1.8.15
 
 # This file describes the settings to be used by the documentation system
@@ -905,10 +907,8 @@ EXCLUDE_SYMLINKS       = NO
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories for example use the pattern */test/*
 
-EXCLUDE_PATTERNS       = */exo/src/CANopenNode/*
-EXCLUDE_PATTERNS       += */src/spdlog/*
-EXCLUDE_PATTERNS       += */src/robot/Eigen/*
-EXCLUDE_PATTERNS       += */src/objDict/*
+EXCLUDE_PATTERNS       = */exo/src/*
+
 
 
 
