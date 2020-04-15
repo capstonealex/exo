@@ -5,8 +5,4 @@
 int main(void)
 {
     ExoRobot exo;
-    exo.setTrajectory();
-    exo.printTrajectory();
-    exo.setTrajectoryS();
-    exo.printTrajectory();
 }

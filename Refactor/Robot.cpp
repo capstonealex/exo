@@ -2,12 +2,17 @@
 
 Robot::Robot()
 {
-    int i = 0;
-    for (auto joint : joints)
-    {
-        joint.applyPos(0);
-        i++;
-    }
+    std::cout << "Robot object created" << std::endl;
+    // int i = 0;
+    // for (auto joint : joints)
+    // {
+    //     joint->testSet(0);
+    //     i++;
+    // }
+}
+Robot::~Robot()
+{
+    std::cout << "Robot object deleted" << std::endl;
 }
 bool Robot::initialise()
 {
@@ -25,12 +30,12 @@ bool Robot::initialiseNetwork()
 void Robot::updateRobot()
 {
     for (auto joint : joints)
-        joint.updateJoint();
+        joint->updateValue();
 }
 void Robot::getStatus()
 {
     for (auto joint : joints)
-        joint.Joint::getStatus();
+        joint->Joint::getStatus();
 }
 void Robot::getJointStatus(Joint J_i)
 {

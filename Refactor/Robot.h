@@ -24,8 +24,7 @@
 /*Header Guard*/
 #ifndef ROBOT_H
 #define ROBOT_H
-#include "testActJoint.h"
-// #include "ActuatedJoint.h"
+#include "Joint.h"
 #include "spline.h"
 #include "TrajectoryGenerator.h"
 #include "Buttons.h"
@@ -41,6 +40,7 @@ public:
  * @brief Default <code>Robot</code> constructor.
  */
    Robot();
+   ~Robot();
    /**
      * @brief Initialize memory for the designed <code>Robot<code> classes specific
      * <code>Joint<code> objects + sensors (if available) using the pure virtual initialiseJoints()
@@ -101,7 +101,13 @@ public:
    void getJointStatus(Joint J_i);
 
    ////Movement
-   void setTrajectories(); //TODO: Make this an abstract function call - currently in exoROBOT
+   /**
+ * @brief pur virtual function, must be designed by the robot developer to load correct 
+ * trajectory paramaters for given desired movement. Implement for taking commands
+ * from given I/O device used.
+ */
+
+   virtual void setTrajectory() = 0; //TODO: Make this an abstract function call - currently in exoROBOT
 
    ////Logging
    /**

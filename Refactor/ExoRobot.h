@@ -63,8 +63,12 @@ public:
    *@return bool
    */
     bool isTrajFinished();
-    //// TESTING TrajectoryGenerator functions - should move to trajectory object
-
+    /** 
+   * @brief Implementation of <code>Robot<code> class setTrajectory function, takes the currently selected
+   * motion from the user (via the robots I/O crutch object) and using the exoskeletons 
+   * movementTrajMap loads in the correct trajectory paramaters into the <code>trajectoryGenerator<code> object.
+   *
+   */
     void setTrajectory();
 
     void printTrajectoryParam();

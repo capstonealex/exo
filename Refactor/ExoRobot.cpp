@@ -3,7 +3,6 @@
 ExoRobot::ExoRobot()
 {
     initialiseJoints();
-    Robot();
     trajectoryGenerator.setPilotParameter(exoParams);
     trajectoryGenerator.setTrajectoryParameter(movementTrajMap[INITIAL]);
 }
@@ -105,7 +104,7 @@ void ExoRobot::moveThroughTraj()
 void ExoRobot::setTrajectory()
 {
     //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
-    int currentMotion = SITDWN;
+    int currentMotion = NORMALWALK;
     trajectoryGenerator.setTrajectoryParameter(movementTrajMap[currentMotion]);
 }
 void ExoRobot::printTrajectoryParam()

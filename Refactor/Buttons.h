@@ -1,6 +1,5 @@
 #include "GPIO/GPIOManager.h"
 #include "GPIO/GPIOConst.h"
-#include "CANopen.h"
 #include <iostream>
 class Buttons
 {
