@@ -2,6 +2,8 @@
 #ifndef ROBOT_PARAMS_H
 #define ROBOT_PARAMS_H
 #include <map>
+#include <time.h>
+#include <sys/time.h>
 #include "Robot.h"
 //Node ID for the 6 joints
 #define LEFT_HIP 0

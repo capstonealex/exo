@@ -70,10 +70,10 @@ public:
     void printTrajectoryParam();
 
     /**
-     * @brief Implementation of Pure Virtual function
+     * @brief Implementation of Pure Virtual function from <code>Robot<code> Base class
 
      */
-    void initialiseJoints();
+    bool initialiseJoints();
     /**
  * @brief Map between int values for specific trajectory motion paramaters. These paramaters are fed into the
  * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading 

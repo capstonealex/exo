@@ -10,6 +10,7 @@
 
 #ifndef JOINT_H_INCLUDED
 #define JOINT_H_INCLUDED
+#include <iostream>
 
 class Joint
 {
@@ -76,7 +77,11 @@ public:
      * @return double The current internal representation of the value of the joint
      */
     double getQ();
-
+    /**
+     * @brief prints out the status of the joints current position in degrees
+     * 
+     */
+    void getStatus();
     /**
      * @brief  Updates the value of the joint. This will read the value from hardware, and
      * update the software's current representation of the value
