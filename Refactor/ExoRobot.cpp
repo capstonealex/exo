@@ -66,8 +66,8 @@ bool ExoRobot::initialiseJoints()
 {
     for (int id = 0; id < NUM_JOINTS; id++)
     {
-        CopleyDrive *testDrive = new CopleyDrive(id + 1);
-        joints.push_back(new TestActJoint(id, jointMinMap[id], jointMaxMap[id], *testDrive));
+        copleyDrive.push_back(new CopleyDrive(id + 1));
+        joints.push_back(new TestActJoint(id, jointMinMap[id], jointMaxMap[id], *copleyDrive[id]));
     }
     return true;
 }

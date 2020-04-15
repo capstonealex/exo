@@ -38,6 +38,9 @@ public:
    * and load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
    */
     ExoRobot();
+    ~ExoRobot();
+
+    std::vector<CopleyDrive *> copleyDrive;
 
     // /**
     //  * @brief Timer Variables for moving through trajectories
