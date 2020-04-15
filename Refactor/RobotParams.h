@@ -1,10 +1,21 @@
 
 #ifndef ROBOT_PARAMS_H
 #define ROBOT_PARAMS_H
+// Libraries
 #include <map>
 #include <time.h>
 #include <sys/time.h>
 #include "Robot.h"
+#include "TestActJoint.h"
+#include "CopleyDrive.h"
+// NUM JOINTS
+#define _NOANKLES w / o ankles
+#ifndef _NOANKLES
+#define NUM_JOINTS 6
+#else
+#define NUM_JOINTS 4
+#endif
+
 //Node ID for the 6 joints
 #define LEFT_HIP 0
 #define LEFT_KNEE 1
@@ -41,6 +52,7 @@
 #define SITDWN 8
 #define STNDUP 9
 #define UNEVEN 10
+
 /**
    * Map between OD.nextmotion dictionary values to trajectory paramater 
    * structs defined for use in designed trajectory generation.
