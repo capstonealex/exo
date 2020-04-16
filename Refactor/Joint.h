@@ -54,7 +54,7 @@ public:
      * @brief Destroy the Joint object
      * 
      */
-    ~Joint(){};
+    ~Joint();
 
     /**
      * @brief Get the Id object

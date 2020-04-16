@@ -3,6 +3,9 @@
 #define ROBOT_PARAMS_H
 #include <map>
 #include "Robot.h"
+// Macros
+#define deg2rad(deg) ((deg)*M_PI / 180.0)
+#define rad2deg(rad) ((rad)*180.0 / M_PI)
 //Node ID for the 6 joints
 #define LEFT_HIP 0
 #define LEFT_KNEE 1
@@ -26,7 +29,6 @@
 #define ANKLE_MOTOR_DEG1 (90)
 #define ANKLE_MOTOR_POS2 (-800000)
 #define ANKLE_MOTOR_DEG2 (115)
-
 // Next MOTION Map values
 #define INITIAL 0
 #define NORMALWALK 1
@@ -39,35 +41,21 @@
 #define SITDWN 8
 #define STNDUP 9
 #define UNEVEN 10
-/**
-   * Map between OD.nextmotion dictionary values to trajectory paramater 
-   * structs defined for use in designed trajectory generation.
-   *
-   * @param[in] int OD.nextmotion entry
-   * @return trajectory paramater object
-   */
+//step parameters
+#define STANDTIME 3
+#define SITTIME 3
+#define STEPTIME 2.0
+#define STAIRTIME 3
+#define UNEVENSTEPTIME 4
+#define UNEVENTORSO deg2rad(10)
+#define STEPLENGTH 0.33
+#define HALFSTEPLENGTH STEPLENGTH / 2
+#define LONGSTEPLENGTH STEPLENGTH * 1.5
+#define BACKLENGTH 0.3
+#define STEPHEIGHT 0.4
+#define STEPHIGH 0.7
+#define STEPTGTLENGTH 0.0
+#define LEGSLACK 0.0001
+#define TORSOANGLE deg2rad(5)
 
-/**
- * @brief Joint Limit Map between Joint value and min Degrees possible
- * @param int Joint value
- * @return double minDeg 
-//  */
-// //TODO CHANGE FROM MOTOR COMMANDS TO DEGREES
-// std::map<int, double> jointMinMap = {{LEFT_HIP, 0.0},
-//                                      {RIGHT_HIP, 0.0},
-//                                      {LEFT_KNEE, 0.0},
-//                                      {RIGHT_KNEE, 0.0},
-//                                      {LEFT_ANKLE, -800000},
-//                                      {RIGHT_ANKLE, -800000}};
-// /**
-//  * @brief Joint Limit Map between Joint value and max Degrees possible
-//  * @param int Joint value
-//  * @return int maxDeg
-//  */
-// std::map<int, double> jointMaxMap = {{LEFT_HIP, (HIP_MOTOR_POS1 * 1.5)},
-//                                      {RIGHT_HIP, (HIP_MOTOR_POS1 * 1.5)},
-//                                      {LEFT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
-//                                      {RIGHT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
-//                                      {LEFT_ANKLE, -800000},
-//                                      {RIGHT_ANKLE, -800000}};
 #endif /*ROBOT_PARAMS_H*/

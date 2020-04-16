@@ -2,11 +2,36 @@
 
 ExoRobot::ExoRobot()
 {
-    initialise();
-    trajectoryGenerator.setPilotParameter(exoParams);
-    trajectoryGenerator.setTrajectoryParameter(movementTrajMap[INITIAL]);
+    if (initialise())
+    {
+        cout << "exoRobot object created" << endl;
+        trajectoryGenerator.setPilotParameter(exoParams);
+        trajectoryGenerator.setTrajectoryParameter(movementTrajMap[INITIAL]);
+    }
+    else
+    {
+        cout << "exoRobot failed to initialise" << endl;
+    }
 }
-
+ExoRobot::~ExoRobot()
+{
+    std::cout << "delete exoRobot object begins" << std::endl;
+    for (auto p : joints)
+    {
+        std::cout << "delete joint pointer...";
+        delete p;
+        std::cout << "deleted " << std::endl;
+    }
+    joints.clear();
+    for (auto p : copleyDrive)
+    {
+        std::cout << "delete driver pointer...";
+        delete p;
+        std::cout << "deleted " << std::endl;
+    }
+    copleyDrive.clear();
+    cout << "exoRobot deleted" << endl;
+};
 void ExoRobot::startNewTraj()
 {
     printf("Start New Traj \n");
@@ -37,3 +62,8 @@ bool ExoRobot::initialiseJoints()
     }
     return true;
 }
+
+// void ExoRobot::delete_pointed_to(T *const ptr)
+// {
+//     delete ptr;
+// }

@@ -18,7 +18,10 @@ Joint::Joint(int jointID, double jointMin, double jointMax, double q0) : id(join
 {
     q = q0;
 }
-
+Joint::~Joint()
+{
+    std::cout << "Joint object deleted" << std::cout;
+}
 int Joint::getId()
 {
     return id;

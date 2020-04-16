@@ -5,76 +5,26 @@ Buttons::Buttons()
     std::cout << "Button object created";
 }
 //set up buttons using GPIO manager
-void Buttons::initButtons(void)
-{
-    gp = GPIO::GPIOManager::getInstance();
-    redPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONRED);
-    bluePin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONBLUE);
-    greenPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONGREEN);
-    yellowPin = GPIO::GPIOConst::getInstance()->getGpioByKey(BUTTONYELLOW);
-    gp->setDirection(redPin, GPIO::INPUT);
-    gp->setDirection(bluePin, GPIO::INPUT);
-    gp->setDirection(greenPin, GPIO::INPUT);
-    gp->setDirection(yellowPin, GPIO::INPUT);
-}
 
-int Buttons::getYButtonState()
+// get functions for each individual button and all buttons as an array
+
+button_states Buttons::getStates()
 {
-    return yButton;
-}
-int Buttons::getGButtonState()
+    button_states current_state = {this->state.gButton, this->state.yButton, this->state.bButton, this->state.rButton};
+    return current_state;
+};
+void Buttons::setStates()
 {
-    return gButton;
-}
-int Buttons::getBButtonState()
-{
-    return bButton;
-}
-int Buttons::getRButtonState()
-{
-    return rButton;
-}
-// int getButtonStates(){
-//     return
-// }
-void Buttons::setButtonStates()
-{
-    //Read all 4 BUTTONs  and print to screen
-    int redbtn = gp->getValue(redPin);
-    int bluebtn = gp->getValue(bluePin);
-    int greenbtn = gp->getValue(greenPin);
-    int yellowbtn = gp->getValue(yellowPin);
+    //Read all 4 BUTTONs  from i/o device
+    int redbtn = 0;
+    int bluebtn = 0;
+    int greenbtn = 0;
+    int yellowbtn = 0;
 
     // Send buttons to variables
-    this->yButton = yellowbtn;
+    this->state.yButton = yellowbtn;
     // this->gButton = greenbtn;
-    this->bButton = bluebtn;
-    this->rButton = redbtn;
-    this->gButton = CO_OD_RAM.goButton;
-}
-void Buttons::printButtonStates()
-{
-    std::cout << "Red Button: " << rButton << "\n";
-    std::cout << "Green Button: " << gButton << "\n";
-    std::cout << "Blue Button: " << bButton << "\n";
-    std::cout << "Yellow Button: " << yButton << "\n";
-}
-void Buttons::printPressedButtons()
-{
-    if (!yButton)
-    {
-        printf("Yellow \n");
-    }
-    if (gButton)
-    {
-        printf("Green \n");
-    }
-    if (!bButton)
-    {
-        printf("Blue \n");
-    }
-    if (!rButton)
-    {
-        printf("Red \n");
-    }
+    this->state.bButton = bluebtn;
+    this->state.rButton = redbtn;
+    this->state.gButton = greenbtn;
 }
