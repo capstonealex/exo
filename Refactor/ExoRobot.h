@@ -40,19 +40,27 @@ public:
     ExoRobot();
     ~ExoRobot();
 
-    std::vector<CopleyDrive *> copleyDrive;
+    vector<CopleyDrive *> copleyDrives;
 
     // /**
     //  * @brief Timer Variables for moving through trajectories
     //  *
     //  */
     struct timeval tv, tv_diff, moving_tv, tv_changed, stationary_tv, start_traj, last_tv;
-    /** 
+   
+   /**
+    * @brief Initialises all joints to position control mode. 
+    * 
+    * @return true If all joints are successfully configured
+    * @return false  If some or all joints fail the configuration
+    */
+   bool initPositionControl();
+   /** 
    * @brief For each joint, move through(send appropriate commands to joints) the Currently 
    * generated trajectory of the TrajectoryGenerator object. 
    *
    */
-    void moveThroughTraj();
+   bool moveThroughTraj();
     /** 
    *  @brief Begin a new trajectory with the currently loaded trajectory paramaters. 
    * Using the <code>ExoRobot</code> current configuration (read in from joint objects) 
@@ -74,6 +82,10 @@ public:
    */
     void setTrajectory();
 
+   /**
+    * @brief Prints the parameters for the defined trajectory
+    * 
+    */
     void printTrajectoryParam();
 
     /**

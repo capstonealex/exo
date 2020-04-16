@@ -30,10 +30,10 @@ setMovementReturnCode_t ActuatedJoint::setPosition(double desQ){
     if (driveMode == POSITION_CONTROL){
         drive->setPos(toDriveUnits(desQ));
         return SUCCESS;
+    } else {
+        // Replace once complete
+        return INCORRECT_MODE;
     }
-
-    // Replace once complete
-    return UNKNOWN_ERROR;
 }
 
 setMovementReturnCode_t ActuatedJoint::setVelocity(double velocity){

@@ -3,11 +3,14 @@
  * 
  */
 #include "CopleyDrive.h"
+#include <iostream>
 
 CopleyDrive::CopleyDrive(int NodeID): Drive::Drive(NodeID){
     this->NodeID = NodeID;
 }
-CopleyDrive::~CopleyDrive(){}
+CopleyDrive::~CopleyDrive(){
+    std::cout << " CopleyDrive Deleted " << std::endl;
+}
 
 bool CopleyDrive::Init(){
     return false;
@@ -15,6 +18,7 @@ bool CopleyDrive::Init(){
 
 bool CopleyDrive::initPosControl(){
     // TODO: Complete 
+    std::cout << "NodeID " << NodeID << " Initialising Position Control" << std::endl; 
     return true;
 }
 

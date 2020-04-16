@@ -4,7 +4,7 @@
 #include <map>
 #include "Robot.h"
 #include "CopleyDrive.h"
-#include "TestActJoint.h"
+#include "DummyActJoint.h"
 
 #define _NOANKLES //w / o ankles
 #ifndef _NOANKLES
@@ -38,6 +38,8 @@
 #define ANKLE_MOTOR_DEG1 (90)
 #define ANKLE_MOTOR_POS2 (-800000)
 #define ANKLE_MOTOR_DEG2 (115)
+
+
 // Next MOTION Map values
 #define INITIAL 0
 #define NORMALWALK 1
@@ -50,6 +52,7 @@
 #define SITDWN 8
 #define STNDUP 9
 #define UNEVEN 10
+
 //step parameters
 #define STANDTIME 3
 #define SITTIME 3

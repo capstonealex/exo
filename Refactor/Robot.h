@@ -41,8 +41,8 @@ public:
   Robot();
   ~Robot();
   /**
-     * @brief Initialize memory for the designed <code>Robot<code> classes specific
-     * <code>Joint<code> objects + sensors (if available) using the pure virtual initialiseJoints()
+     * @brief Initialize memory for the designed <code>Robot</code> classes specific
+     * <code>Joint</code> objects + sensors (if available) using the pure virtual initialiseJoints()
      * implemented by the robot designer. Based on the given Joints, initNetwork() will configure 
      * these joints for CAN PDO messaging and Load the specififed Controller, by default set to Positio.
      * 
@@ -67,8 +67,8 @@ public:
 
   //Robot objects
   /**
- * @brief Vector of pointers to Abstract <class>Joint<class> Objects, number and type must be specified by 
- * Software design in <class>Robot<class> Implementation.
+ * @brief Vector of pointers to Abstract <class>Joint</class> Objects, number and type must be specified by 
+ * Software design in <class>Robot</class> Implementation.
  * Note: Use pointers to the joint objects here, so that the derived objects are not cast to Joint, truncating
  * any of their explicit implementations.
  * 
@@ -97,7 +97,7 @@ public:
  * @brief print out status of <code>Joint<code> J_i
  * 
  */
-  void getJointStatus(Joint J_i);
+  void getJointStatus(Joint* J_i);
 
   ////Movement
   /**
