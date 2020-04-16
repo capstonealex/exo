@@ -9,6 +9,12 @@
  * 
  */
 #include "TestActJoint.h"
-TestActJoint::TestActJoint(int jointID, double jointMin, double jointMax, Drive drive) : ActuatedJoint(jointID, jointMin, jointMax, drive){
+TestActJoint::TestActJoint(int jointID, double jointMin, double jointMax, Drive drive) : ActuatedJoint(jointID, jointMin, jointMax, drive)
+{
+    std::cout << "TestAct Joint created" << std::endl;
     // Do nothing else
+}
+TestActJoint::~TestActJoint()
+{
+    std::cout << "TestAct Joint deleted" << std::endl;
 }

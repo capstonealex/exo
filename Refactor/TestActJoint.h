@@ -12,12 +12,15 @@
 #define TESTACTJOINT_H_DEFINED
 
 #include "ActuatedJoint.h"
-class TestActJoint : public ActuatedJoint {
-    private:
-        double fromDriveUnits(int driveValue){return driveValue;};
-        int toDriveUnits(double jointValue){return jointValue;};
-    public:
-        TestActJoint(int jointID, double jointMin, double jointMax, Drive drive);
+class TestActJoint : public ActuatedJoint
+{
+private:
+    double fromDriveUnits(int driveValue) { return driveValue; };
+    int toDriveUnits(double jointValue) { return jointValue; };
+
+public:
+    TestActJoint(int jointID, double jointMin, double jointMax, Drive drive);
+    ~TestActJoint();
 };
 
 #endif
