@@ -1,17 +1,5 @@
 #include "Buttons.h"
 
-// Crutch button BBB pins GPIO object and value holders
-static char *BUTTONRED = "P8_9";
-static char *BUTTONBLUE = "P8_7";
-static char *BUTTONGREEN = "P8_8";
-static char *BUTTONYELLOW = "P8_10";
-
-GPIO::GPIOManager *gp;
-int redPin;
-int yellowPin;
-int greenPin;
-int bluePin;
-
 Buttons::Buttons()
 {
     std::cout << "Button object created";
@@ -28,10 +16,7 @@ void Buttons::initButtons(void)
     gp->setDirection(bluePin, GPIO::INPUT);
     gp->setDirection(greenPin, GPIO::INPUT);
     gp->setDirection(yellowPin, GPIO::INPUT);
-    //for testing
-    // std::cout << "buttons initialized\n";
 }
-// get functions for each individual button and all buttons as an array
 
 int Buttons::getYButtonState()
 {

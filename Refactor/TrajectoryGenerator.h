@@ -3,7 +3,6 @@
 
 #ifndef TRAJECTORY_H_INCLUDED
 #define TRAJECTORY_H_INCLUDED
-#define _USE_MATH_DEFINES
 
 using namespace std;
 #include <iomanip>

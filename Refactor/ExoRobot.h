@@ -34,7 +34,7 @@ private:
 public:
     /**
    * @brief Default <code>ExoRobot</code> constructor.
-   * Initialize memory for the Exoskelton <code>Joint<code> + sensors 
+   * Initialize memory for the Exoskelton <code>Joint</code> + sensors 
    * and load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
    */
     ExoRobot();
@@ -54,10 +54,10 @@ public:
    */
     void moveThroughTraj();
     /** 
-   *  @brief Begin a new TrajectoryGenerator with the currently loaded trajectory paramaters
-   *  Using the <code>ExoRobot<code> current configuration (read in from joint objects) and 
-   *  the trajecotry generator object, generate and save a spline to move from current 
-   *  to specified desired position.
+   *  @brief Begin a new trajectory with the currently loaded trajectory paramaters. 
+   * Using the <code>ExoRobot</code> current configuration (read in from joint objects) 
+   * and the trajecotry generator object, generate and save a spline to move from current 
+   * to desired position.
    * 
    */
     void startNewTraj();
@@ -67,9 +67,9 @@ public:
    */
     bool isTrajFinished();
     /** 
-   * @brief Implementation of <code>Robot<code> class setTrajectory function, takes the currently selected
+   * @brief Implementation of <code>Robot</code> class setTrajectory function, takes the currently selected
    * motion from the user (via the robots I/O crutch object) and using the exoskeletons 
-   * movementTrajMap loads in the correct trajectory paramaters into the <code>trajectoryGenerator<code> object.
+   * movementTrajMap loads in the correct trajectory paramaters into the <code>trajectoryGenerator</code> object.
    *
    */
     void setTrajectory();
@@ -77,7 +77,7 @@ public:
     void printTrajectoryParam();
 
     /**
-     * @brief Implementation of Pure Virtual function from <code>Robot<code> Base class
+     * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class
 
      */
     bool initialiseJoints();
