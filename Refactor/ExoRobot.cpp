@@ -2,11 +2,18 @@
 
 ExoRobot::ExoRobot()
 {
-    initialise();
-    trajectoryGenerator.setPilotParameter(exoParams);
-    trajectoryGenerator.setTrajectoryParameter(movementTrajMap[INITIAL]);
+    if (initialise())
+    {
+        cout << "exoRobot object created" << endl;
+        trajectoryGenerator.setPilotParameter(exoParams);
+        trajectoryGenerator.setTrajectoryParameter(movementTrajMap[INITIAL]);
+    }
+    else
+    {
+        cout << "exoRobot failed to initialise" << endl;
+    }
 }
-
+ExoRobot::~ExoRobot(){};
 void ExoRobot::startNewTraj()
 {
     printf("Start New Traj \n");

@@ -1,29 +1,31 @@
-#include "GPIO/GPIOManager.h"
-#include "GPIO/GPIOConst.h"
+/**
+ * The <code>Button</code> class represents an array of I/O buttons
+ * This class can be implemented to any I/O hardware needed.
+ * 
+ * 
+ * Version 0.1
+ * Date: 07/04/2020
+ *
+ */
+#ifndef BUTTONS_H
+#define BUTTONS_H
 #include <iostream>
-class Buttons
+
+typedef struct button_states
 {
-private:
     int gButton;
     int yButton;
     int bButton;
     int rButton;
-    // button
+} button_states;
+class Buttons
+{
+private:
+    button_states state;
 
 public:
-    GPIO::GPIOManager *gp;
-    int redPin, yellowPin, greenPin, bluePin;
-    static char *BUTTONRED = "P8_9";
-    static char *BUTTONBLUE = "P8_7";
-    static char *BUTTONGREEN = "P8_8";
-    static char *BUTTONYELLOW = "P8_10";
     Buttons();
-    void initButtons(void);
-    int getYButtonState();
-    int getGButtonState();
-    int getBButtonState();
-    int getRButtonState();
-    void setButtonStates();
-    void printButtonStates();
-    void printPressedButtons();
+    button_states getStates();
+    void setStates();
 };
+#endif

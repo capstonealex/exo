@@ -213,22 +213,22 @@ public:
  * @return double minDeg 
  */
 //TODO CHANGE FROM MOTOR COMMANDS TO DEGREES
-std::map<int, double> jointMinMap = {{LEFT_HIP, 0.0},
-                                     {RIGHT_HIP, 0.0},
-                                     {LEFT_KNEE, 0.0},
-                                     {RIGHT_KNEE, 0.0},
-                                     {LEFT_ANKLE, -800000},
-                                     {RIGHT_ANKLE, -800000}};
-/**
- * @brief Joint Limit Map between Joint value and max Degrees possible
- * @param int Joint value
- * @return int maxDeg 
- */
-std::map<int, double> jointMaxMap = {{LEFT_HIP, (HIP_MOTOR_POS1 * 1.5)},
-                                     {RIGHT_HIP, (HIP_MOTOR_POS1 * 1.5)},
-                                     {LEFT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
-                                     {RIGHT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
-                                     {LEFT_ANKLE, -800000},
-                                     {RIGHT_ANKLE, -800000}};
+// std::map<int, double> jointMinMap = {{LEFT_HIP, 0.0},
+//                                      {RIGHT_HIP, 0.0},
+//                                      {LEFT_KNEE, 0.0},
+//                                      {RIGHT_KNEE, 0.0},
+//                                      {LEFT_ANKLE, -800000},
+//                                      {RIGHT_ANKLE, -800000}};
+// /**
+//  * @brief Joint Limit Map between Joint value and max Degrees possible
+//  * @param int Joint value
+//  * @return int maxDeg
+//  */
+// std::map<int, double> jointMaxMap = {{LEFT_HIP, (HIP_MOTOR_POS1 * 1.5)},
+//                                      {RIGHT_HIP, (HIP_MOTOR_POS1 * 1.5)},
+//                                      {LEFT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
+//                                      {RIGHT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
+//                                      {LEFT_ANKLE, -800000},
+//                                      {RIGHT_ANKLE, -800000}};
 
 #endif /*EXOROBOT_H*/
