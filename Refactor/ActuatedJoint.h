@@ -27,13 +27,19 @@ enum setMovementReturnCode_t{
 
 class ActuatedJoint: public Joint
 {
-    private:
+    protected:
         /**
          * @brief Contains a Drive object, which is a CANOpen device which is used to control the
          * physical hardware. 
          * 
          */
-        Drive drive;
+        Drive *drive;
+
+        /**
+         * @brief The current mode of the drive
+         * 
+         */
+        ControlMode driveMode = UNCONFIGURED;
 
         /**
          * @brief Converts from the joint value to the equivalent value for the drive
@@ -74,7 +80,7 @@ class ActuatedJoint: public Joint
          * @param jointMin Minimum allowable value for the joint
          * @param jointMax Maximum allowable value for the joint
          */
-        ActuatedJoint(int jointID, double jointMin, double jointMax, Drive drive);
+        ActuatedJoint(int jointID, double jointMin, double jointMax, Drive *drive);
         
         /**
          * @brief Set the mode of the device (nominally, position, velocity or torque control)
@@ -82,7 +88,7 @@ class ActuatedJoint: public Joint
          * @param driveMode The mode to be used if possible
          * @return ControlMode Configured Drive Mode, -1 if unsuccessful
          */
-        ControlMode setMode(ControlMode driveMode);
+        virtual ControlMode setMode(ControlMode driveMode);
 
         /**
          * @brief Set the Position object
@@ -90,7 +96,7 @@ class ActuatedJoint: public Joint
          * @param desQ The desired set position
          * @return setMovementReturnCode_t The result of the setting
          */
-        setMovementReturnCode_t setPosition(double desQ);
+        virtual setMovementReturnCode_t setPosition(double desQ);
 
         /**
          * @brief Sets a velocity set point (in joint units)
@@ -98,7 +104,7 @@ class ActuatedJoint: public Joint
          * @param velocity The desired set position
          * @return setMovementReturnCode_t The result of the setting
          */
-        setMovementReturnCode_t setVelocity(double velocity);
+        virtual setMovementReturnCode_t setVelocity(double velocity);
 
         /**
          * @brief Set the torque set point
@@ -106,7 +112,7 @@ class ActuatedJoint: public Joint
          * @param torque The desired set position
          * @return setMovementReturnCode_t The result of the setting
          */
-        setMovementReturnCode_t setTorque(double torque);
+        virtual setMovementReturnCode_t setTorque(double torque);
 
 };
 

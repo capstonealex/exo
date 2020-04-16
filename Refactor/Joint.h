@@ -14,7 +14,7 @@
 
 class Joint
 {
-private:
+protected:
     /**
      * An identifier for this joint. Note that this identifier is designed to be unique, 
      * but this is not managed by the joint class. 
@@ -89,7 +89,7 @@ public:
      * @return true if successful
      * @return false if unsuccessful
      */
-    bool updateValue(){};
+    virtual bool updateValue() = 0;
 };
 
 #endif
