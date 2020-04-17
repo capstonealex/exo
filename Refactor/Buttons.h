@@ -11,19 +11,17 @@
 #define BUTTONS_H
 #include <iostream>
 
-typedef struct button_states
-{
+typedef struct button_states {
     int gButton;
     int yButton;
     int bButton;
     int rButton;
 } button_states;
-class Buttons
-{
-private:
+class Buttons {
+   private:
     button_states state;
 
-public:
+   public:
     Buttons();
     button_states getStates();
     void setStates();

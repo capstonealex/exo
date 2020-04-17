@@ -12,9 +12,8 @@
 #define JOINT_H_INCLUDED
 #include <iostream>
 
-class Joint
-{
-protected:
+class Joint {
+   protected:
     /**
      * An identifier for this joint. Note that this identifier is designed to be unique, 
      * but this is not managed by the joint class. 
@@ -30,7 +29,7 @@ protected:
      */
     const double qMin, qMax;
 
-public:
+   public:
     /**
      * @brief Construct a new Joint object
      * 
@@ -89,7 +88,15 @@ public:
      * @return true if successful
      * @return false if unsuccessful
      */
-    virtual bool updateValue() = 0;
+    bool updateValue(){};
+    /**
+     * @brief Pure virtual function for initialising the underlying CANopen Network
+     * to send and recieve PDO messages for this joint. 
+     * 
+     * @return true if successful
+     * @return false if unsuccessful
+     */
+    virtual bool initNetwork() = 0;
 };
 
 #endif

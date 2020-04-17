@@ -1,7 +1,6 @@
 #include "Robot.h"
 
-Robot::Robot()
-{
+Robot::Robot() {
     std::cout << "Robot object created" << std::endl;
     // int i = 0;
     // for (auto joint : joints)
@@ -10,34 +9,26 @@ Robot::Robot()
     //     i++;
     // }
 }
-Robot::~Robot()
-{
+Robot::~Robot() {
     std::cout << "Robot object deleted" << std::endl;
 }
-bool Robot::initialise()
-{
-    if (initialiseJoints() && initialiseNetwork())
-    {
-        return true;
-    }
-    else
+bool Robot::initialise() {
+    if (initialiseJoints()) {
+        if (initialiseNetwork()) {
+            return true;
+        }
+    } else
         return false;
 }
-bool Robot::initialiseNetwork()
-{
-    return true;
-}
-void Robot::updateRobot()
-{
+
+void Robot::updateRobot() {
     for (auto joint : joints)
         joint->updateValue();
 }
-void Robot::getStatus()
-{
+void Robot::getStatus() {
     for (auto joint : joints)
         joint->Joint::getStatus();
 }
-void Robot::getJointStatus(Joint* J_i)
-{
-    J_i->getStatus();
+void Robot::getJointStatus(int J_i) {
+    joints[J_i]->getStatus();
 }
