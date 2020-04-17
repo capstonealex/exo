@@ -27,19 +27,19 @@ class TrajectoryGenerator {
 #define LEGSLACK 0.0001
 #define TORSOANGLE deg2rad(5)
     // Next MOTION Map values
-    enum movemtnMap {
-        INITIAL = 0,
-        NORMALWALK = 1,
-        UPSTAIR = 2,
-        DWNSTAIR = 3,
-        TILTUP = 4,
-        TILTDWN = 5,
-        FTTG = 6,
-        BKSTEP = 7,
-        SITDWN = 8,
-        STNDUP = 9,
-        UNEVEN = 10
-    };
+    // enum movemtnMap {
+    //     INITIAL = 0,
+    //     NORMALWALK = 1,
+    //     UPSTAIR = 2,
+    //     DWNSTAIR = 3,
+    //     TILTUP = 4,
+    //     TILTDWN = 5,
+    //     FTTG = 6,
+    //     BKSTEP = 7,
+    //     SITDWN = 8,
+    //     STNDUP = 9,
+    //     UNEVEN = 10
+    // };
 
    public:
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

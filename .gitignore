@@ -4,3 +4,5 @@
 CANopenSocket/canopend/X2_log.txt
 *.o
 .vs/
+Refactor/.devcontainer/Dockerfile
+Refactor/.devcontainer/devcontainer.json

@@ -12,15 +12,8 @@ ExoRobot::ExoRobot() {
 }
 ExoRobot::~ExoRobot() {
     std::cout << "Delete exoRobot object begins" << std::endl;
-    for (auto p : joints) {
-        std::cout << "Delete Joint ID: " << p->getId();
-        delete p;
-    }
+    freeMemory();
     joints.clear();
-    for (auto p : copleyDrives) {
-        std::cout << "Delete Drive Node: " << p->getNodeID();
-        delete p;
-    }
     copleyDrives.clear();
     cout << "ExoRobot deleted" << endl;
 };
@@ -81,4 +74,16 @@ bool ExoRobot::initialiseNetwork() {
             return false;
     }
     return true;
+}
+void ExoRobot::freeMemory() {
+    for (vector<Joint *>::iterator pObj = joints.begin();
+         pObj != joints.end(); ++pObj) {
+        delete *pObj;  // Note that this is deleting what pObj points to,
+                       // which is a pointer
+    }
+    for (vector<CopleyDrive *>::iterator pObj = copleyDrives.begin();
+         pObj != copleyDrives.end(); ++pObj) {
+        delete *pObj;  // Note that this is deleting what pObj points to,
+                       // which is a pointer
+    }
 }

@@ -13,21 +13,21 @@ int main(void) {
     exo.setTrajectory();
 
     // Try to move through trajectory without being in correct mode
-    std::cout << "Moving Through Trajectory (Expected Result: False): " << exo.moveThroughTraj() << std::endl;
+    // std::cout << "Moving Through Trajectory (Expected Result: False): " << exo.moveThroughTraj() << std::endl;
 
-    // Initialise Position Control
-    std::cout << "Initialsing Position Control: " << exo.initPositionControl() << std::endl;
+    // // Initialise Position Control
+    // std::cout << "Initialsing Position Control: " << exo.initPositionControl() << std::endl;
 
-    std::cout << "Moving Through Trajectory  (Expected Result: True): " << exo.moveThroughTraj() << std::endl;
+    // std::cout << "Moving Through Trajectory  (Expected Result: True): " << exo.moveThroughTraj() << std::endl;
 
-    std::cout << "Current Robot Position (expected value: all joints 0)" << std::endl;
-    exo.getStatus();
+    // std::cout << "Current Robot Position (expected value: all joints 0)" << std::endl;
+    // exo.getStatus();
 
-    std::cout << "Update all Joint Values " << std::endl;
-    exo.updateRobot();
+    // std::cout << "Update all Joint Values " << std::endl;
+    // exo.updateRobot();
 
-    std::cout << "Current Robot Position (expected value: all joints 100)" << std::endl;
-    exo.getStatus();
+    // std::cout << "Current Robot Position (expected value: all joints 100)" << std::endl;
+    // exo.getStatus();
 
     exo.printTrajectoryParam();
 }

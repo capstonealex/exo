@@ -20,6 +20,20 @@ enum robotJoints {
     LEFT_ANKLE = 4,
     RIGHT_ANKLE = 5
 };
+enum movemtnMap {
+    INITIAL = 0,
+    NORMALWALK = 1,
+    UPSTAIR = 2,
+    DWNSTAIR = 3,
+    TILTUP = 4,
+    TILTDWN = 5,
+    FTTG = 6,
+    BKSTEP = 7,
+    SITDWN = 8,
+    STNDUP = 9,
+    UNEVEN = 10
+};
+
 //Params for specific robt
 //Knee motor reading and corresponding angle. Used for mapping between degree and motor values.
 #define KNEE_MOTOR_POS1 (250880)
