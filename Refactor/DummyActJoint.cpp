@@ -9,15 +9,16 @@
  * 
  */
 #include "DummyActJoint.h"
-
 #include <iostream>
+#include "DebugMacro.h"
+
 DummyActJoint::DummyActJoint(int jointID, double jointMin, double jointMax, Drive *drive) : ActuatedJoint(jointID, jointMin, jointMax, drive) {
-    std::cout << "MY JOINT ID: " << this->id << std::endl;
+    DEBUG_OUT( "MY JOINT ID: " << this->id )
     // Do nothing else
 }
 
 bool DummyActJoint::updateValue() {
-    std::cout << "DummyActJoin::UpdateValue() \n";
+    DEBUG_OUT("DummyActJoint::UpdateValue()")
     drive->getPos();
     q = lastQCommand;
     return true;

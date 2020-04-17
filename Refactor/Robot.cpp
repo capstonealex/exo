@@ -1,16 +1,22 @@
+/**
+ * @file Robot.cpp
+ * @author Justin Fong
+ * @brief Generic Abstract Robot class, which includes joints and a trajectory generator, to be used
+ *          with a CAN-based robot device
+ * @version 0.1
+ * @date 2020-04-17
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
 #include "Robot.h"
+#include "DebugMacro.h"
 
 Robot::Robot() {
-    std::cout << "Robot object created" << std::endl;
-    // int i = 0;
-    // for (auto joint : joints)
-    // {
-    //     joint->testSet(0);
-    //     i++;
-    // }
+    DEBUG_OUT("Robot object created")
 }
 Robot::~Robot() {
-    std::cout << "Robot object deleted" << std::endl;
+    DEBUG_OUT("Robot object deleted")
 }
 bool Robot::initialise() {
     if (initialiseJoints()) {
@@ -25,10 +31,12 @@ void Robot::updateRobot() {
     for (auto joint : joints)
         joint->updateValue();
 }
+
 void Robot::getStatus() {
     for (auto joint : joints)
         joint->getStatus();
 }
+
 void Robot::getJointStatus(int J_i) {
     joints[J_i]->getStatus();
 }

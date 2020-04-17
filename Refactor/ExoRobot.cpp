@@ -1,9 +1,11 @@
 #include "ExoRobot.h"
+#include "DebugMacro.h"
+
 
 ExoRobot::ExoRobot() {
     // Creates all the joints based
     if (initialise()) {
-        cout << "ExoRobot object created" << endl;
+        DEBUG_OUT("ExoRobot object created")
         trajectoryGenerator.setPilotParameter(exoParams);
         trajectoryGenerator.setTrajectoryParameter(movementTrajMap[INITIAL]);
     } else {
@@ -11,18 +13,17 @@ ExoRobot::ExoRobot() {
     }
 }
 ExoRobot::~ExoRobot() {
-    std::cout << "Delete exoRobot object begins" << std::endl;
+    DEBUG_OUT("Delete ExoRobot object begins")
     freeMemory();
     joints.clear();
     copleyDrives.clear();
-    cout << "ExoRobot deleted" << endl;
+    DEBUG_OUT("ExoRobot deleted")
 };
 
 bool ExoRobot::initPositionControl() {
-    std::cout << "Initialising Position Control on all joints " << std::endl;
+    DEBUG_OUT( "Initialising Position Control on all joints " )
     bool returnValue = true;
     for (auto p : joints) {
-        std::cout << "Initialising one" << std::endl;
         if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL) != POSITION_CONTROL) {
             // Something bad happened
             returnValue = false;
@@ -32,14 +33,16 @@ bool ExoRobot::initPositionControl() {
 }
 
 void ExoRobot::startNewTraj() {
-    printf("Start New Traj \n");
+    DEBUG_OUT("Start New Traj");
 }
 bool ExoRobot::moveThroughTraj() {
     bool returnValue = true;
     for (auto p : joints) {
-        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(100);
+        // Calculate the position for each of these joints
+        double jointPos = 100 + p->getId(); 
+        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(jointPos);
         if (setPosCode == INCORRECT_MODE) {
-            std::cout << "Joint " << p->getId() << ": is not in Position Control " << std::endl;
+            std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
             returnValue = false;
         } else if (setPosCode != SUCCESS) {
             // Something bad happened
@@ -51,14 +54,14 @@ bool ExoRobot::moveThroughTraj() {
 }
 
 void ExoRobot::setTrajectory() {
-    std::cout << ">>>> Set Trajectory" << std::endl;
+    DEBUG_OUT("Set Trajectory")
     //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
     int currentMotion = NORMALWALK;
     trajectoryGenerator.setTrajectoryParameter(movementTrajMap[currentMotion]);
 }
 void ExoRobot::printTrajectoryParam() {
     std::cout << "Step height:" << trajectoryGenerator.trajectoryParameter.step_height << std::endl;
-    std::cout << "Slop_angle: " << trajectoryGenerator.trajectoryParameter.slope_angle << std::endl;
+    std::cout << "Slope angle: " << trajectoryGenerator.trajectoryParameter.slope_angle << std::endl;
 }
 bool ExoRobot::initialiseJoints() {
     for (int id = 0; id < NUM_JOINTS; id++) {
@@ -90,11 +93,11 @@ void ExoRobot::freeMemory() {
     }*/
 
     for (auto p : joints) {
-        std::cout << "Delete Joint ID: " << p->getId();
+        DEBUG_OUT("Delete Joint ID: " << p->getId())
         delete p;
     }
     for (auto p : copleyDrives) {
-        std::cout << "Delete Drive Node: " << p->getNodeID();
+        DEBUG_OUT("Delete Drive Node: " << p->getNodeID())
         delete p;
     }
 }

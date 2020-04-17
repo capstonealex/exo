@@ -1,7 +1,19 @@
+/**
+ * @file Buttons.cpp
+ * @author William Campbell
+ * @brief Represents the buttons used on the ALEX exoskeleton. Interfaces with the CAN device on the crutch
+ * @version 0.1
+ * @date 2020-04-17
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
+
 #include "Buttons.h"
+#include "DebugMacro.h"
 
 Buttons::Buttons() {
-    std::cout << "Button object created";
+    DEBUG_OUT("Button object created")
 }
 //set up buttons using GPIO manager
 

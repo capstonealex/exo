@@ -9,6 +9,7 @@
  * 
  */
 #include "Joint.h"
+#include "DebugMacro.h"
 
 #include <iostream>
 Joint::Joint(int jointID, double jointMin, double jointMax) : id(jointID), qMin(jointMin), qMax(jointMax) {
@@ -19,7 +20,7 @@ Joint::Joint(int jointID, double jointMin, double jointMax, double q0) : id(join
     q = q0;
 }
 Joint::~Joint() {
-    std::cout << " Joint object deleted" << std::endl;
+    DEBUG_OUT(" Joint object deleted")
 }
 int Joint::getId() {
     return id;
@@ -30,5 +31,5 @@ double Joint::getQ() {
 }
 
 void Joint::getStatus() {
-    std::cout << "Joint id number " << id << " @ pos " << getQ() << "deg" << std::endl;
+    std::cout << "Joint ID " << id << " @ pos " << getQ() << " deg" << std::endl;
 }
