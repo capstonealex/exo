@@ -37,10 +37,13 @@ setMovementReturnCode_t ActuatedJoint::setPosition(double desQ){
 }
 
 setMovementReturnCode_t ActuatedJoint::setVelocity(double velocity){
-    drive->setVel(toDriveUnits(velocity));
-   
-    // Replace once complete
-    return UNKNOWN_ERROR;
+    if (driveMode == VELOCITY_CONTROL){
+        drive->setVel(toDriveUnits(velocity));
+        return SUCCESS;
+    } else {
+        // Replace once complete
+        return INCORRECT_MODE;
+    }
 }
 
 setMovementReturnCode_t ActuatedJoint::setTorque(double torque){
