@@ -12,6 +12,7 @@
 
 #include <iostream>
 DummyActJoint::DummyActJoint(int jointID, double jointMin, double jointMax, Drive *drive) : ActuatedJoint(jointID, jointMin, jointMax, drive) {
+    std::cout << "MY JOINT ID: " << this->id << std::endl;
     // Do nothing else
 }
 

@@ -22,6 +22,7 @@ bool ExoRobot::initPositionControl() {
     std::cout << "Initialising Position Control on all joints " << std::endl;
     bool returnValue = true;
     for (auto p : joints) {
+        std::cout << "Initialising one" << std::endl;
         if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL) != POSITION_CONTROL) {
             // Something bad happened
             returnValue = false;
