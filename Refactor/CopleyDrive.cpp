@@ -3,11 +3,14 @@
  * 
  */
 #include "CopleyDrive.h"
+#include <iostream>
 
 CopleyDrive::CopleyDrive(int NodeID): Drive::Drive(NodeID){
     this->NodeID = NodeID;
 }
-CopleyDrive::~CopleyDrive(){}
+CopleyDrive::~CopleyDrive(){
+    std::cout << " CopleyDrive Deleted " << std::endl;
+}
 
 bool CopleyDrive::Init(){
     return false;
@@ -15,31 +18,32 @@ bool CopleyDrive::Init(){
 
 bool CopleyDrive::initPosControl(){
     // TODO: Complete 
-    return false;
+    std::cout << "NodeID " << NodeID << " Initialising Position Control" << std::endl; 
+    return true;
 }
 
 bool CopleyDrive::initVelControl(){
-    return false;
+    return true;
 }
 
 bool CopleyDrive::initTorqControl(){
-    return false;
+    return true;
 }
 
 bool CopleyDrive::updateDriveStatus(){
-    return false;
+    return true;
 }
 
 bool CopleyDrive::setPos(int position){
-    return false;
+    return true;
 }
 
 bool CopleyDrive::setVel(int velocity){
-    return false;
+    return true;
 }
 
 bool CopleyDrive::setTorque(int torque){
-    return false;
+    return true;
 }
 
 int CopleyDrive::getPos(){
@@ -56,13 +60,13 @@ int CopleyDrive::getTorque(){
 
 // Drive State Modifiers
 bool CopleyDrive::readyToSwitchOn(){
-    return false;
+    return true;
 }
 
 bool CopleyDrive::enable(){
-    return false;
+    return true;
 }
 
 bool CopleyDrive::disable(){
-    return false;
+    return true;
 }

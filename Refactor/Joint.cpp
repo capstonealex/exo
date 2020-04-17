@@ -9,6 +9,7 @@
  * 
  */
 #include "Joint.h"
+#include <iostream>
 Joint::Joint(int jointID, double jointMin, double jointMax) : id(jointID), qMin(jointMin), qMax(jointMax)
 {
     q = 0;
@@ -20,7 +21,7 @@ Joint::Joint(int jointID, double jointMin, double jointMax, double q0) : id(join
 }
 Joint::~Joint()
 {
-    std::cout << "Joint object deleted" << std::cout;
+    std::cout << " Joint object deleted"<< std::endl;
 }
 int Joint::getId()
 {

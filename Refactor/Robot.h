@@ -41,8 +41,8 @@ public:
    Robot();
    ~Robot();
    /**
-     * @brief Initialize memory for the designed <code>Robot<code> classes specific
-     * <code>Joint<code> objects + sensors (if available) using the pure virtual initialiseJoints()
+     * @brief Initialize memory for the designed <code>Robot</code> classes specific
+     * <code>Joint</code> objects + sensors (if available) using the pure virtual initialiseJoints()
      * implemented by the robot designer. Based on the given Joints, initNetwork() will configure 
      * these joints for CAN PDO messaging and Load the specififed Controller, by default set to Positio.
      * 

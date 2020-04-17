@@ -41,7 +41,7 @@ void Robot::getStatus()
     for (auto joint : joints)
         joint->Joint::getStatus();
 }
-void Robot::getJointStatus(Joint J_i)
+void Robot::getJointStatus(Joint* J_i)
 {
-    J_i.getStatus();
+    J_i->getStatus();
 }

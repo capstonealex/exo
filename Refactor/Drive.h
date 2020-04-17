@@ -56,7 +56,7 @@ class Drive{
          * 
          * @return True if successful, False if not
          */ 
-        virtual bool Init(){};
+        virtual bool Init()= 0;
 
         /**
          * Sets the drive to Position control with default parameters (through SDO messages)
@@ -66,7 +66,7 @@ class Drive{
          * @return true if successful
          * @return false if not
          */ 
-        virtual bool initPosControl(){};
+        virtual bool initPosControl() = 0;
 
         /**
          * Sets the drive to Velocity control with default parameters (through SDO messages)
@@ -76,7 +76,7 @@ class Drive{
          * @return true if successful
          * @return false if not
          */
-        virtual bool initVelControl(){};
+        virtual bool initVelControl()= 0;
 
         /**
          * Sets the drive to Torque control with default parameters (through SDO messages)
@@ -86,7 +86,7 @@ class Drive{
          * @return true if successful
          * @return false if not
          */ 
-        virtual bool initTorqControl(){};
+        virtual bool initTorqControl()= 0;
 
         /**
          * Updates the internal representation of the state of the drive 
@@ -94,7 +94,7 @@ class Drive{
          * @return true if successful
          * @return false if not
          */ 
-        virtual bool updateDriveStatus(){};
+        virtual bool updateDriveStatus()= 0;
 
         /**
          * Writes the desired position to the Target Position of the motor drive (0x607A)
@@ -102,7 +102,7 @@ class Drive{
          * @return true if successful
          * @return false if not
          */ 
-        virtual bool setPos(int position){};
+        virtual bool setPos(int position) = 0;
 
         /**
          * Writes the desired velocity to the Target Velocity of the motor drive (0x60FF)
@@ -110,7 +110,7 @@ class Drive{
          * @return true if successful
          * @return false if not
          */ 
-        virtual bool setVel(int velocity){};
+        virtual bool setVel(int velocity)= 0;
 
         /**
          * Writes the desired torque to the Target Torque of the motor drive (0x6071)
@@ -118,28 +118,28 @@ class Drive{
          * @return true if successful
          * @return false if not
          */ 
-        virtual bool setTorque(int torque){};
+        virtual bool setTorque(int torque)= 0;
 
         /**
          * Returns the current position from the motor drive (0x6064)
          * 
          * @return Position from the motor drive
          */ 
-        virtual int getPos(){};
+        virtual int getPos()= 0;
 
         /**
          * Returns the current velocity from the motor drive (0x606C)
          * 
          * @return Velocity from the motor drive
          */ 
-        virtual int getVel(){};
+        virtual int getVel()= 0;
 
          /**
          * Returns the current torque from the motor drive (0x6077)
          * 
          * @return Torque from the motor drive
          */ 
-        virtual int getTorque(){};
+        virtual int getTorque()= 0;
 
         // Drive State Modifiers
         /**
@@ -151,7 +151,7 @@ class Drive{
          * @return true if operation successful
          * @return false if operation unsuccessful
          */
-        virtual bool readyToSwitchOn(){};
+        virtual bool readyToSwitchOn()= 0;
 
         /**
          * @brief Sets the state of the drive to "enabled"
@@ -162,7 +162,7 @@ class Drive{
          * @return true if operation successful
          * @return false if operation unsuccessful
          */
-        virtual bool enable(){};
+        virtual bool enable()= 0;
 
         /**
          * @brief sets the state of the drive to "disabled"
@@ -173,7 +173,7 @@ class Drive{
          * @return true if operation successful
          * @return false if operation unsuccessful
          */
-        virtual bool disable(){};
+        virtual bool disable()= 0;
 
         // CANOpen
         /**
