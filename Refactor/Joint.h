@@ -90,6 +90,14 @@ public:
      * @return false if unsuccessful
      */
     bool updateValue(){};
+    /**
+     * @brief Pure virtual function for initialising the underlying CANopen Network
+     * to send and recieve PDO messages for this joint. 
+     * 
+     * @return true if successful
+     * @return false if unsuccessful
+     */
+    virtual bool initNetwork() = 0;
 };
 
 #endif

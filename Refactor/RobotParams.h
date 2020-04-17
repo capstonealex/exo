@@ -1,10 +1,6 @@
 
 #ifndef ROBOT_PARAMS_H
 #define ROBOT_PARAMS_H
-#include <map>
-#include "Robot.h"
-#include "CopleyDrive.h"
-#include "TestActJoint.h"
 
 #define _NOANKLES //w / o ankles
 #ifndef _NOANKLES

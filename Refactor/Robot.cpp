@@ -16,16 +16,20 @@ Robot::~Robot()
 }
 bool Robot::initialise()
 {
-    if (initialiseJoints() && initialiseNetwork())
+    if (initialiseJoints())
     {
-        return true;
+        if (initialiseNetwork())
+        {
+            return true;
+        }
     }
     else
         return false;
 }
 bool Robot::initialiseNetwork()
 {
-    return true;
+    for (auto joint : joints)
+        joint->initNetwork();
 }
 void Robot::updateRobot()
 {

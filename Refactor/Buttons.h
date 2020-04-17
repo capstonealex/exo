@@ -10,6 +10,10 @@
 #ifndef BUTTONS_H
 #define BUTTONS_H
 #include <iostream>
+#include <map>
+#include "Robot.h"
+#include "CopleyDrive.h"
+#include "TestActJoint.h"
 
 typedef struct button_states
 {
