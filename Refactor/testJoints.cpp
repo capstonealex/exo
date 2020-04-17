@@ -10,15 +10,16 @@
  */
 
 #include <iostream>
-#include "Joint.h"
+
 #include "ActuatedJoint.h"
-#include "Drive.h"
 #include "CopleyDrive.h"
+#include "Drive.h"
 #include "DummyActJoint.h"
+#include "Joint.h"
 
 int main() {
     std::cout << "This is a script to test the implementation of the Joints, ActuatedJoints and Drive Classes! \n";
-    
+
     std::cout << "1. Construct a CopleyDrive Object (which implements Drive Class) \n";
     // Construct different types of joints
     Drive *testDrive = new CopleyDrive(100);
@@ -33,7 +34,7 @@ int main() {
 
     std::cout << "Set the Joint into Position Control Mode: " << normalJoint->setMode(POSITION_CONTROL) << "\n";
 
-    std::cout << "Set the position of the Joint to 1 (expected result: true): "  << normalJoint->setPosition(1) << "\n";
+    std::cout << "Set the position of the Joint to 1 (expected result: true): " << normalJoint->setPosition(1) << "\n";
 
     std::cout << "Read Value of the Joint (Expected Value 0): " << normalJoint->getQ() << "\n";
 

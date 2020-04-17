@@ -5,14 +5,12 @@
 #define TRAJECTORY_H_INCLUDED
 
 using namespace std;
+#include <cmath>
 #include <iomanip>
 #include <iostream>
-#include <cmath>
 #include <vector>
-class TrajectoryGenerator
-{
-
-	//step parameters
+class TrajectoryGenerator {
+    //step parameters
 #define STANDTIME 3
 #define SITTIME 3
 #define STEPTIME 2.0
@@ -40,65 +38,61 @@ class TrajectoryGenerator
 #define STNDUP 9
 #define UNEVEN 10
 
-public:
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+   public:
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Structs                                                                                                           *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	typedef double time_tt; // time_t is already used
-	typedef enum class Foot
-	{
-		Left,
-		Right
-	} Foot;
-	typedef enum class Movement
-	{
-		Walk,
-		Sit,
-		Stand,
-		Stair,
-		Ramp,
-		Back,
-		Sitting,
-		Uneven,
-		DownStair
-	} Movement;
+    typedef double time_tt;  // time_t is already used
+    typedef enum class Foot {
+        Left,
+        Right
+    } Foot;
+    typedef enum class Movement {
+        Walk,
+        Sit,
+        Stand,
+        Stair,
+        Ramp,
+        Back,
+        Sitting,
+        Uneven,
+        DownStair
+    } Movement;
 
-	typedef struct trajectory_parameters
-	{
-		time_tt step_duration;
-		double step_height, step_length, hip_height_slack;
-		double torso_forward_angle, swing_ankle_down_angle;
-		Foot stance_foot;
-		Movement movement;							//type of movement
-		double seat_height;							// sit-stand
-		double step_end_height;						// stairs and uneven ground
-		double slope_angle;							// tilted path
-		bool left_foot_on_tilt, right_foot_on_tilt; // whether the foot is on tilted ground
-	} trajectory_parameters;
+    typedef struct trajectory_parameters {
+        time_tt step_duration;
+        double step_height, step_length, hip_height_slack;
+        double torso_forward_angle, swing_ankle_down_angle;
+        Foot stance_foot;
+        Movement movement;                           //type of movement
+        double seat_height;                          // sit-stand
+        double step_end_height;                      // stairs and uneven ground
+        double slope_angle;                          // tilted path
+        bool left_foot_on_tilt, right_foot_on_tilt;  // whether the foot is on tilted ground
+    } trajectory_parameters;
 
-	typedef struct pilot_parameters
-	{
-		double lowerleg_length, upperleg_length, ankle_height, foot_length, hip_width, torso_length;
-		double buttocks_height; // sit-stand
-	} pilot_parameters;
-	trajectory_parameters trajectoryParameter;
-	pilot_parameters pilotParameter;
-	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    typedef struct pilot_parameters {
+        double lowerleg_length, upperleg_length, ankle_height, foot_length, hip_width, torso_length;
+        double buttocks_height;  // sit-stand
+    } pilot_parameters;
+    trajectory_parameters trajectoryParameter;
+    pilot_parameters pilotParameter;
+    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Function Declarations                                                                                             *
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	TrajectoryGenerator();
+    TrajectoryGenerator();
 
-	/**********************************************************************
+    /**********************************************************************
 
 	Getter and setter
 
 	**********************************************************************/
-	//setter for the parameters
-	void setTrajectoryParameter(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
-								Foot stance_foot, Movement movement, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
-	void setTrajectoryParameter(trajectory_parameters trajectoryParameter);
-	void setPilotParameter(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
-						   double hip_width, double torso_length, double buttocks_height);
-	void setPilotParameter(pilot_parameters pilotParameter);
+    //setter for the parameters
+    void setTrajectoryParameter(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
+                                Foot stance_foot, Movement movement, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
+    void setTrajectoryParameter(trajectory_parameters trajectoryParameter);
+    void setPilotParameter(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
+                           double hip_width, double torso_length, double buttocks_height);
+    void setPilotParameter(pilot_parameters pilotParameter);
 };
 #endif

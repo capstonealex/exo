@@ -11,14 +11,13 @@
 
 #include "ActuatedJoint.h"
 
-ActuatedJoint::ActuatedJoint(int jointID, double jointMin, double jointMax, Drive *drive) : Joint(jointID, jointMin, jointMax){
+ActuatedJoint::ActuatedJoint(int jointID, double jointMin, double jointMax, Drive *drive) : Joint(jointID, jointMin, jointMax) {
     this->drive = drive;
 }
 
-ControlMode ActuatedJoint::setMode(ControlMode driveMode_){
-
-    if (driveMode_ == POSITION_CONTROL){
-        if(drive->initPosControl()){
+ControlMode ActuatedJoint::setMode(ControlMode driveMode_) {
+    if (driveMode_ == POSITION_CONTROL) {
+        if (drive->initPosControl()) {
             driveMode = driveMode_;
             return POSITION_CONTROL;
         }
@@ -26,8 +25,8 @@ ControlMode ActuatedJoint::setMode(ControlMode driveMode_){
     return ERROR;
 }
 
-setMovementReturnCode_t ActuatedJoint::setPosition(double desQ){
-    if (driveMode == POSITION_CONTROL){
+setMovementReturnCode_t ActuatedJoint::setPosition(double desQ) {
+    if (driveMode == POSITION_CONTROL) {
         drive->setPos(toDriveUnits(desQ));
         return SUCCESS;
     } else {
@@ -36,15 +35,14 @@ setMovementReturnCode_t ActuatedJoint::setPosition(double desQ){
     }
 }
 
-setMovementReturnCode_t ActuatedJoint::setVelocity(double velocity){
+setMovementReturnCode_t ActuatedJoint::setVelocity(double velocity) {
     drive->setVel(toDriveUnits(velocity));
-   
+
     // Replace once complete
     return UNKNOWN_ERROR;
 }
 
-setMovementReturnCode_t ActuatedJoint::setTorque(double torque){
-
+setMovementReturnCode_t ActuatedJoint::setTorque(double torque) {
     // Replace once complete
     return UNKNOWN_ERROR;
 }

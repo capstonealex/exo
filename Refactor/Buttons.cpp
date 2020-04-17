@@ -1,20 +1,17 @@
 #include "Buttons.h"
 
-Buttons::Buttons()
-{
+Buttons::Buttons() {
     std::cout << "Button object created";
 }
 //set up buttons using GPIO manager
 
 // get functions for each individual button and all buttons as an array
 
-button_states Buttons::getStates()
-{
+button_states Buttons::getStates() {
     button_states current_state = {this->state.gButton, this->state.yButton, this->state.bButton, this->state.rButton};
     return current_state;
 };
-void Buttons::setStates()
-{
+void Buttons::setStates() {
     //Read all 4 BUTTONs  from i/o device
     int redbtn = 0;
     int bluebtn = 0;

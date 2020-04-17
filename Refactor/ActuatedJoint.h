@@ -11,37 +11,36 @@
 
 #ifndef ACTUATEDJOINT_H_DEFINED
 #define ACTUATEDJOINT_H_DEFINED
-#include "Joint.h"
 #include "Drive.h"
+#include "Joint.h"
 
 /**
  * The <code>setMovementReturnCode_t<code> is used to determine whether the movement was a
  * success, or whether an error occurred in its application. 
- */ 
-enum setMovementReturnCode_t{
-    SUCCESS = 1, 
+ */
+enum setMovementReturnCode_t {
+    SUCCESS = 1,
     OUTSIDE_LIMITS = -1,
     INCORRECT_MODE = -2,
     UNKNOWN_ERROR = -100
 };
 
-class ActuatedJoint: public Joint
-{
-    protected:
-        /**
+class ActuatedJoint : public Joint {
+   protected:
+    /**
          * @brief Contains a Drive object, which is a CANOpen device which is used to control the
          * physical hardware. 
          * 
          */
-        Drive *drive;
+    Drive *drive;
 
-        /**
+    /**
          * @brief The current mode of the drive
          * 
          */
-        ControlMode driveMode = UNCONFIGURED;
+    ControlMode driveMode = UNCONFIGURED;
 
-        /**
+    /**
          * @brief Converts from the joint value to the equivalent value for the drive
          * 
          * Notes:
@@ -55,9 +54,9 @@ class ActuatedJoint: public Joint
          * @param jointValue The joint value to be converted
          * @return int The equivalent drive value for the given joint value
          */
-        virtual int toDriveUnits(double jointValue)=0;
+    virtual int toDriveUnits(double jointValue) = 0;
 
-         /**
+    /**
          * @brief Converts from the drive value to the equivalent value for the joint
          * 
          * Notes:
@@ -70,50 +69,49 @@ class ActuatedJoint: public Joint
          * @param driveValue The drive value to be converted
          * @return The equivalent joint value for the given drive value
          */
-        virtual double fromDriveUnits(int driveValue)=0;
+    virtual double fromDriveUnits(int driveValue) = 0;
 
-    public:
-        /**
+   public:
+    /**
          * @brief Construct a new Actuated Joint object
          * 
          * @param jointID Unique ID representing the joint (not checked in this class)
          * @param jointMin Minimum allowable value for the joint
          * @param jointMax Maximum allowable value for the joint
          */
-        ActuatedJoint(int jointID, double jointMin, double jointMax, Drive *drive);
-        
-        /**
+    ActuatedJoint(int jointID, double jointMin, double jointMax, Drive *drive);
+
+    /**
          * @brief Set the mode of the device (nominally, position, velocity or torque control)
          * 
          * @param driveMode The mode to be used if possible
          * @return ControlMode Configured Drive Mode, -1 if unsuccessful
          */
-        virtual ControlMode setMode(ControlMode driveMode);
+    virtual ControlMode setMode(ControlMode driveMode);
 
-        /**
+    /**
          * @brief Set the Position object
          * 
          * @param desQ The desired set position
          * @return setMovementReturnCode_t The result of the setting
          */
-        virtual setMovementReturnCode_t setPosition(double desQ);
+    virtual setMovementReturnCode_t setPosition(double desQ);
 
-        /**
+    /**
          * @brief Sets a velocity set point (in joint units)
          * 
          * @param velocity The desired set position
          * @return setMovementReturnCode_t The result of the setting
          */
-        virtual setMovementReturnCode_t setVelocity(double velocity);
+    virtual setMovementReturnCode_t setVelocity(double velocity);
 
-        /**
+    /**
          * @brief Set the torque set point
          * 
          * @param torque The desired set position
          * @return setMovementReturnCode_t The result of the setting
          */
-        virtual setMovementReturnCode_t setTorque(double torque);
-
+    virtual setMovementReturnCode_t setTorque(double torque);
 };
 
 #endif

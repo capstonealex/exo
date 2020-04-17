@@ -7,8 +7,7 @@
  * Date: 09/04/2020
  */
 
-class ExoJoint : public ActuatedJoint
-{
-private:
-public:
+class ExoJoint : public ActuatedJoint {
+   private:
+   public:
 };

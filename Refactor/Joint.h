@@ -12,9 +12,8 @@
 #define JOINT_H_INCLUDED
 #include <iostream>
 
-class Joint
-{
-protected:
+class Joint {
+   protected:
     /**
      * An identifier for this joint. Note that this identifier is designed to be unique, 
      * but this is not managed by the joint class. 
@@ -30,7 +29,7 @@ protected:
      */
     const double qMin, qMax;
 
-public:
+   public:
     /**
      * @brief Construct a new Joint object
      * 
