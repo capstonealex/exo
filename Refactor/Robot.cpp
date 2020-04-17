@@ -27,7 +27,7 @@ void Robot::updateRobot() {
 }
 void Robot::getStatus() {
     for (auto joint : joints)
-        joint->Joint::getStatus();
+        joint->getStatus();
 }
 void Robot::getJointStatus(int J_i) {
     joints[J_i]->getStatus();

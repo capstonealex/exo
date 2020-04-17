@@ -17,6 +17,7 @@ DummyActJoint::DummyActJoint(int jointID, double jointMin, double jointMax, Driv
 }
 
 bool DummyActJoint::updateValue() {
+    std::cout << "DummyActJoin::UpdateValue() \n";
     drive->getPos();
     q = lastQCommand;
     return true;
@@ -26,6 +27,7 @@ setMovementReturnCode_t DummyActJoint::setPosition(double desQ) {
     lastQCommand = desQ;
     return ActuatedJoint::setPosition(desQ);
 }
+
 bool DummyActJoint::initNetwork() {
     return true;
 }

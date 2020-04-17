@@ -88,7 +88,7 @@ class Joint {
      * @return true if successful
      * @return false if unsuccessful
      */
-    bool updateValue(){};
+    virtual bool updateValue() =0;
     /**
      * @brief Pure virtual function for initialising the underlying CANopen Network
      * to send and recieve PDO messages for this joint. 

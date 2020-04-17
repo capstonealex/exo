@@ -78,7 +78,7 @@ bool ExoRobot::initialiseNetwork() {
     return true;
 }
 void ExoRobot::freeMemory() {
-    for (vector<Joint *>::iterator pObj = joints.begin();
+    /*for (vector<Joint *>::iterator pObj = joints.begin();
          pObj != joints.end(); ++pObj) {
         delete *pObj;  // Note that this is deleting what pObj points to,
                        // which is a pointer
@@ -87,5 +87,14 @@ void ExoRobot::freeMemory() {
          pObj != copleyDrives.end(); ++pObj) {
         delete *pObj;  // Note that this is deleting what pObj points to,
                        // which is a pointer
+    }*/
+
+    for (auto p : joints) {
+        std::cout << "Delete Joint ID: " << p->getId();
+        delete p;
+    }
+    for (auto p : copleyDrives) {
+        std::cout << "Delete Drive Node: " << p->getNodeID();
+        delete p;
     }
 }
