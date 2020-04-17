@@ -26,17 +26,20 @@ class TrajectoryGenerator {
 #define STEPTGTLENGTH 0.0
 #define LEGSLACK 0.0001
 #define TORSOANGLE deg2rad(5)
-// Next MOTION Map values
-#define NORMALWALK 1
-#define UPSTAIR 2
-#define DWNSTAIR 3
-#define TILTUP 4
-#define TILTDWN 5
-#define FTTG 6
-#define BKSTEP 7
-#define SITDWN 8
-#define STNDUP 9
-#define UNEVEN 10
+    // Next MOTION Map values
+    enum movemtnMap {
+        INITIAL = 0,
+        NORMALWALK = 1,
+        UPSTAIR = 2,
+        DWNSTAIR = 3,
+        TILTUP = 4,
+        TILTDWN = 5,
+        FTTG = 6,
+        BKSTEP = 7,
+        SITDWN = 8,
+        STNDUP = 9,
+        UNEVEN = 10
+    };
 
    public:
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

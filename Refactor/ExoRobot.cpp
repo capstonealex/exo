@@ -73,3 +73,12 @@ bool ExoRobot::initialiseJoints() {
     }
     return true;
 }
+bool ExoRobot::initialiseNetwork() {
+    bool status;
+    for (auto joint : joints) {
+        status = joint->initNetwork();
+        if (!status)
+            return false;
+    }
+    return true;
+}

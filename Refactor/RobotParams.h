@@ -35,19 +35,6 @@
 #define ANKLE_MOTOR_POS2 (-800000)
 #define ANKLE_MOTOR_DEG2 (115)
 
-// Next MOTION Map values
-#define INITIAL 0
-#define NORMALWALK 1
-#define UPSTAIR 2
-#define DWNSTAIR 3
-#define TILTUP 4
-#define TILTDWN 5
-#define FTTG 6
-#define BKSTEP 7
-#define SITDWN 8
-#define STNDUP 9
-#define UNEVEN 10
-
 //step parameters
 #define STANDTIME 3
 #define SITTIME 3

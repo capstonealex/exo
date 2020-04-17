@@ -14,9 +14,9 @@
 #include <map>
 
 #include "CopleyDrive.h"
+#include "DummyActJoint.h"
 #include "Robot.h"
 #include "RobotParams.h"
-#include "TestActJoint.h"
 
 class ExoRobot : public Robot {
    private:
@@ -33,7 +33,6 @@ class ExoRobot : public Robot {
         .hip_width = 0.43,
         .torso_length = 0.4,
         .buttocks_height = 0.05};
-    // TrajectoryGenerator::pilot_parameters exoParams;
 
    public:
     /**
@@ -99,6 +98,13 @@ class ExoRobot : public Robot {
 
      */
     bool initialiseJoints();
+    /**
+     * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
+     * Create designed <code>Joint</Joint> and <code>Driver</code> objects and load into 
+     * Robot joint vector.
+
+     */
+    bool initialiseNetwork();
 
     /**
  * @brief Joint Limit Map between Joint value and min Degrees possible

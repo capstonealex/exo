@@ -24,6 +24,7 @@ class DummyActJoint : public ActuatedJoint {
     DummyActJoint(int jointID, double jointMin, double jointMax, Drive *drive);
     bool updateValue();
     setMovementReturnCode_t setPosition(double desQ);
+    bool initNetwork();
 };
 
 #endif
