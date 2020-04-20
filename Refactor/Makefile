@@ -3,7 +3,7 @@
 
 #Define Compiler (could be modified to run on Windows PC if desired)
 CXX = arm-linux-gnueabihf-g++
-CXXFLAGS = -std=c++11 -O3 
+CXXFLAGS = -std=c++11 
 
 # List of Objects to be defined for the testing
 OBJOINT = testJoints.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o
