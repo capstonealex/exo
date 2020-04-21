@@ -72,9 +72,25 @@ class Drive {
            */
           int NodeID;
 
-          std::string generateTPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_NUM, int SyncRate);
+          /**
+           * @brief Generates the list of commands required to configure TPDOs on the drives
+           * 
+           * @param items A list of OD_Entry_t items which are to be configured with this TPDO
+           * @param PDO_Num The number/index of this PDO
+           * @param SyncRate The rate at which this PDO transmits (e.g. number of Sync Messages. 0xFF represents internal trigger event)
+           * @return std::string 
+           */
+          std::string generateTPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int SyncRate);
 
-          std::string generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_NUM, int UpdateTiming);
+          /**
+           * @brief Generates the list of commands required to configure RPDOs on the drives
+           * 
+           * @param items A list of OD_Entry_t items which are to be configured with this RPDO
+           * @param PDO_Num The number/index of this PDO
+           * @param UpdateTiming 0-240 represents hold until next sync message, 0xFF represents immediate update
+           * @return std::string 
+           */
+          std::string generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int UpdateTiming);
 
      private:
           int status;
