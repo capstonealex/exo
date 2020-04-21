@@ -32,3 +32,5 @@ setMovementReturnCode_t DummyActJoint::setPosition(double desQ) {
 bool DummyActJoint::initNetwork() {
     return true;
 }
+
+

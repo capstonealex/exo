@@ -3,6 +3,7 @@
  * 
  */
 #define DEBUG
+#include <iostream>
 
 #ifdef DEBUG
     #define DEBUG_OUT(x) (std::cout << x << std::endl);
