@@ -15,6 +15,7 @@
 
 #include "CopleyDrive.h"
 #include "DummyActJoint.h"
+#include "Input/Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
 
@@ -42,7 +43,7 @@ class ExoRobot : public Robot {
    */
     ExoRobot();
     ~ExoRobot();
-
+    Keyboard keyboard;
     vector<CopleyDrive *> copleyDrives;
 
     // /**

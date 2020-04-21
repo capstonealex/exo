@@ -1,38 +1,61 @@
 /// Testing ExoRobot new classes
 
 #include "ExoRobot.h"
+using namespace std;
 
 int main(void) {
+    //TODO add curser initializer to initiRobot.
+    /*Initialize curses*/
+    initscr();
+    /*read one character at a time to into getch*/
+    cbreak();
+    /*prevents keyboard input echo*/
+    noecho();
+    /*nonblocking getChar*/
+    nodelay(stdscr, TRUE)
+        clear();
     // Create Exo object + initialise derived Joints + trajectory Generator
-    std::cout << ">>> Creating ExoRobot" << std::endl;
+    cout << ">>> Creating ExoRobot" << endl;
     ExoRobot exo;
     // print joint positions
-    std::cout << ">>> Current Robot Position (expected value: all joints 0) >>>" << std::endl;
+    cout << ">>> Current Robot Position (expected value: all joints 0) >>>" << endl;
     exo.getStatus();
     //print trajectoryGenerator params
 
-    std::cout << ">>> Print Trajectory Parameters (Expected Value 0.2, 0)>>>" << std::endl;
+    cout << ">>> Print Trajectory Parameters (Expected Value 0.2, 0)>>>" << endl;
     exo.printTrajectoryParam();
     //Load new trajParams and print out
-    std::cout << ">>> Load new Trajectory Parameters >>>" << std::endl;
+    cout << ">>> Load new Trajectory Parameters >>>" << endl;
     exo.setTrajectory();
-    std::cout << ">>> Print Trajectory Parameters (Expected Value ???? ) >>>" << std::endl;
+    cout << ">>> Print Trajectory Parameters (Expected Value ???? ) >>>" << endl;
     exo.printTrajectoryParam();
 
     //Try to move through trajectory without being in correct mode
-    std::cout << ">>> Moving Through Trajectory (Expected Result: False) >>>" << std::endl << exo.moveThroughTraj() << std::endl;
+    cout << ">>> Moving Through Trajectory (Expected Result: False) >>>" << endl
+         << exo.moveThroughTraj() << endl;
 
     // Initialise Position Control
-    std::cout << ">>> Initialsing Position Control >>> \n" << exo.initPositionControl() << std::endl;
+    cout << ">>> Initialsing Position Control >>> \n"
+         << exo.initPositionControl() << endl;
 
-    std::cout << ">>> Moving Through Trajectory  (Expected Result: True) >>>"  << std::endl << exo.moveThroughTraj() << std::endl;
+    cout << ">>> Moving Through Trajectory  (Expected Result: True) >>>" << endl
+         << exo.moveThroughTraj() << endl;
 
-    std::cout << ">>> Current Robot Position (expected value: all joints 0) >>>" << std::endl;
+    cout << ">>> Current Robot Position (expected value: all joints 0) >>>" << endl;
     exo.getStatus();
 
-    std::cout << ">>> Updating all Joint Values >>>" << std::endl;
+    cout << ">>> Updating all Joint Values >>>" << endl;
     exo.updateRobot();
 
-    std::cout << ">>> Current Robot Position (expected value: all joints 100 + Joint ID) >>>" << std::endl;
+    cout << ">>> Current Robot Position (expected value: all joints 100 + Joint ID) >>>" << endl;
     exo.getStatus();
+
+    ///Testing keyboard input
+    do {
+        cout << "get keyboard input until q is typed" << endl;
+        exo.keyboard.setStates();
+        exo.keyboard.printPressed();
+    } while (!exo.keyboard.getQ());
+    endwin();
+    exit(0);
 }
