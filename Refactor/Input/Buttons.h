@@ -23,6 +23,9 @@ class Buttons {
 
    public:
     Buttons();
+    bool isKeyPressed(int state);
+    bool isKeyDown(int state);
+    bool isKeyUp(int state);
     button_states getStates();
     void setStates();
 };

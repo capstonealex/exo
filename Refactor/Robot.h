@@ -26,7 +26,6 @@
 #define ROBOT_H
 #include <vector>
 
-#include "Buttons.h"
 #include "Joint.h"
 #include "TrajectoryGenerator.h"
 using namespace std;
