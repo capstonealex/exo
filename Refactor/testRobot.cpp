@@ -41,12 +41,11 @@ int main(void) {
 
     cout << ">>> Current Robot Position (expected value: all joints 100 + Joint ID) >>>" << endl;
     exo.getStatus();
+    // NON BLOCKING KEYBOARD INPUT - quits when q is pressed
+    cout << "Test keyboard input w/ w,a,s,d,x. Type q to exit keyboard test" << endl;
+    while (!exo.keyboard.getKeyboardActive()) {
+        exo.updateInput();
+    }
 
-    ///Testing keyboard input
-    do {
-        cout << "get keyboard input until q is typed" << endl;
-        exo.keyboard.setStates();
-        exo.keyboard.printPressed();
-    } while (!exo.keyboard.getQ());
     exit(0);
 }

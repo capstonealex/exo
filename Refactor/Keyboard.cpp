@@ -3,14 +3,15 @@
 
 Keyboard::Keyboard() {
     std::cout << "Keyboard object created" << std::endl;
+    keyboardActive = NB_DISABLE;
+    nonblock(NB_ENABLE);
 }
 void Keyboard::setStates() {
     /// set last Key states
     /// Clear current states
-    std::cout << "Keyboard input: " << std::endl;
     clearCurrentStates();
-    char ch = getchar();
-    printf("Char: %c\n", ch);
+    ///char ch = getchar();
+    char ch = fgetc(stdin);
 
     /* Set States, limited to one key Press at a time*/
 
@@ -21,28 +22,39 @@ void Keyboard::setStates() {
         //     printf("No input from keyboard\n");
         case 'a':
         case 'A':
+            keyboardActive = 0;
             currentKeyStates.a = true;
             break;
         case 's':
         case 'S':
+            keyboardActive = 0;
             currentKeyStates.s = true;
             break;
         case 'd':
         case 'D':
+            keyboardActive = 0;
             currentKeyStates.d = true;
             break;
         case 'w':
         case 'W':
             currentKeyStates.w = true;
+            keyboardActive = 0;
+
             break;
         case 'x':
         case 'X':
             currentKeyStates.x = true;
+            keyboardActive = 0;
             break;
         case 'q':
         case 'Q':
             currentKeyStates.q = true;
+            std::cout << std::endl
+                      << "Q PRESSED, EXITING PROGRAM ";
+            keyboardActive = 1;
             break;
+        default:
+            keyboardActive = 0;
     }
 }
 key_states Keyboard::getStates() {
@@ -52,21 +64,25 @@ key_states Keyboard::getStates() {
 };
 void Keyboard::printPressed() {
     if (getA()) {
-        std::cout << "A ";
+        std::cout
+            << "PRESSED A " << std::endl;
     }
     if (getS()) {
-        std::cout << "S ";
+        std::cout
+            << "PRESSED S " << std::endl;
     }
     if (getD()) {
-        std::cout << "D ";
+        std::cout
+            << "PRESSED D " << std::endl;
     }
     if (getW()) {
-        std::cout << "W ";
+        std::cout
+            << "PRESSED W " << std::endl;
     }
     if (getX()) {
-        std::cout << "X ";
+        std::cout
+            << "PRESSED X " << std::endl;
     }
-    std::cout << std::endl;
 }
 void Keyboard::clearCurrentStates() {
     currentKeyStates.a = false;
@@ -122,3 +138,9 @@ void Keyboard::nonblock(int state) {
     //set the terminal attributes.
     tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);
 }
+int Keyboard::getKeyboardActive() {
+    return keyboardActive;
+};
+void Keyboard::setKeyboardActive(int value) {
+    keyboardActive = value;
+};

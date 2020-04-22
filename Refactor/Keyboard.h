@@ -30,6 +30,7 @@ class Keyboard : public Input {
    private:
     key_states lastKeyStates;
     key_states currentKeyStates;
+    int keyboardActive;
 
    public:
     Keyboard();
@@ -39,7 +40,9 @@ class Keyboard : public Input {
     // Check if keyboard has been hit - is stdin active
     int kbhit();
     // variable for storing output of kbhit
-    int keyboardActive;
+    // int keyboardActive;
+    int getKeyboardActive();
+    void setKeyboardActive(int value);
     // Turn on or off terminal canonical mode
     // Canonical mode (default): user must hit enter to confirm input.
     void nonblock(int state);

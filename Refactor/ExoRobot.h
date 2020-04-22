@@ -110,6 +110,11 @@ class ExoRobot : public Robot {
      */
     void freeMemory();
     /**
+     * @brief update current states of input device
+     * Example. for a keyboard input this would poll the keyboard for any button presses @ this moment in time.
+     */
+    void updateInput();
+    /**
  * @brief Joint Limit Map between Joint value and min Degrees possible
  * @param int Joint value
  * @return double minDeg 

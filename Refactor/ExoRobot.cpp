@@ -1,6 +1,6 @@
 #include "ExoRobot.h"
-#include "DebugMacro.h"
 
+#include "DebugMacro.h"
 
 ExoRobot::ExoRobot() {
     // Creates all the joints based
@@ -21,7 +21,7 @@ ExoRobot::~ExoRobot() {
 };
 
 bool ExoRobot::initPositionControl() {
-    DEBUG_OUT( "Initialising Position Control on all joints " )
+    DEBUG_OUT("Initialising Position Control on all joints ")
     bool returnValue = true;
     for (auto p : joints) {
         if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL) != POSITION_CONTROL) {
@@ -39,7 +39,7 @@ bool ExoRobot::moveThroughTraj() {
     bool returnValue = true;
     for (auto p : joints) {
         // Calculate the position for each of these joints
-        double jointPos = 100 + p->getId(); 
+        double jointPos = 100 + p->getId();
         setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(jointPos);
         if (setPosCode == INCORRECT_MODE) {
             std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
@@ -67,7 +67,6 @@ bool ExoRobot::initialiseJoints() {
     for (int id = 0; id < NUM_JOINTS; id++) {
         copleyDrives.push_back(new CopleyDrive(id + 1));
         joints.push_back(new DummyActJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id]));
-
     }
     return true;
 }
@@ -99,5 +98,13 @@ void ExoRobot::freeMemory() {
     for (auto p : copleyDrives) {
         DEBUG_OUT("Delete Drive Node: " << p->getNodeID())
         delete p;
+    }
+}
+void ExoRobot::updateInput() {
+    usleep(1);
+    keyboard.setKeyboardActive(keyboard.kbhit());
+    if (keyboard.getKeyboardActive() != 0) {
+        keyboard.setStates();
+        keyboard.printPressed();
     }
 }
