@@ -10,9 +10,7 @@
 
 #ifndef INPUT_H_INCLUDED
 #define INPUT_DEVICE
-
-#include "DebugMacro.h"
-
+#include <iostream>
 class Input {
    private:
    public:

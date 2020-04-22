@@ -15,7 +15,7 @@
 
 #include "CopleyDrive.h"
 #include "DummyActJoint.h"
-#include "Input/Keyboard.h"
+#include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
 

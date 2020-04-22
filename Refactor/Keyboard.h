@@ -11,11 +11,13 @@
 #ifndef INPUT_H_INCLUDED
 #define INPUT_DEVICE
 
-#include <curses.h>
+#include <unistd.h>
 
 #include "Bitmask.h"
-#include "DebugMacro.h"
 #include "Input.h"
+#include "termios.h"
+#define NB_DISABLE 0
+#define NB_ENABLE 1
 typedef struct keys {
     bool a;
     bool s;
@@ -33,7 +35,14 @@ class Keyboard : public Input {
     Keyboard();
     key_states getStates();
     // storing current keyboard input
-    int ch;
+    char ch;
+    // Check if keyboard has been hit - is stdin active
+    int kbhit();
+    // variable for storing output of kbhit
+    int keyboardActive;
+    // Turn on or off terminal canonical mode
+    // Canonical mode (default): user must hit enter to confirm input.
+    void nonblock(int state);
     void setStates();
     void clearCurrentStates();
     void printPressed();

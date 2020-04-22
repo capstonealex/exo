@@ -5,6 +5,6 @@ Input::Input() {
     //empty
 }
 void Input::Update() {
-    DEBUG_OUT("Setting input states");
+    std::cout << "Setting input states" << std::endl;
     setStates();
 }

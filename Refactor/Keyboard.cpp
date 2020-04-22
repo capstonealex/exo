@@ -1,18 +1,24 @@
 
 #include "Keyboard.h"
 
+Keyboard::Keyboard() {
+    std::cout << "Keyboard object created" << std::endl;
+}
 void Keyboard::setStates() {
     /// set last Key states
     /// Clear current states
+    std::cout << "Keyboard input: " << std::endl;
     clearCurrentStates();
-    ch = getch();
+    char ch = getchar();
+    printf("Char: %c\n", ch);
 
     /* Set States, limited to one key Press at a time*/
 
     switch (ch) {
-        case ERR:
-            //do nothing, just capture and keep runnin
-            printf("No input from keyboard\n");
+        // TO do add this case when timeout of read occurs
+        //case ERR:
+        //     //do nothing, just capture and keep runnin
+        //     printf("No input from keyboard\n");
         case 'a':
         case 'A':
             currentKeyStates.a = true;
@@ -88,3 +94,31 @@ bool Keyboard::getX() {
 bool Keyboard::getQ() {
     return currentKeyStates.q;
 };
+int Keyboard::kbhit() {
+    struct timeval tv;
+    fd_set fds;
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds);  //STDIN_FILENO is 0
+    select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+    return FD_ISSET(STDIN_FILENO, &fds);
+}
+void Keyboard::nonblock(int state) {
+    struct termios ttystate;
+
+    //get the terminal state
+    tcgetattr(STDIN_FILENO, &ttystate);
+
+    if (state == NB_ENABLE) {
+        //turn off canonical mode
+        ttystate.c_lflag &= ~ICANON;
+        //minimum of number input read.
+        ttystate.c_cc[VMIN] = 1;
+    } else if (state == NB_DISABLE) {
+        //turn on canonical mode
+        ttystate.c_lflag |= ICANON;
+    }
+    //set the terminal attributes.
+    tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);
+}
