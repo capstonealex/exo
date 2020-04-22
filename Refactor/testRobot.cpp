@@ -4,16 +4,8 @@
 using namespace std;
 
 int main(void) {
-    //TODO add curser initializer to initiRobot.
-    /*Initialize curses*/
-    initscr();
-    /*read one character at a time to into getch*/
-    cbreak();
-    /*prevents keyboard input echo*/
-    noecho();
-    /*nonblocking getChar*/
-    nodelay(stdscr, TRUE)
-        clear();
+    //TODO add keyboard initializer to initiRobot.
+    //INITINPUT
     // Create Exo object + initialise derived Joints + trajectory Generator
     cout << ">>> Creating ExoRobot" << endl;
     ExoRobot exo;
@@ -49,13 +41,11 @@ int main(void) {
 
     cout << ">>> Current Robot Position (expected value: all joints 100 + Joint ID) >>>" << endl;
     exo.getStatus();
+    // NON BLOCKING KEYBOARD INPUT - quits when q is pressed
+    cout << "Test keyboard input w/ w,a,s,d,x. Type q to exit keyboard test" << endl;
+    while (!exo.keyboard.getKeyboardActive()) {
+        exo.updateInput();
+    }
 
-    ///Testing keyboard input
-    do {
-        cout << "get keyboard input until q is typed" << endl;
-        exo.keyboard.setStates();
-        exo.keyboard.printPressed();
-    } while (!exo.keyboard.getQ());
-    endwin();
-    exit(0);
+    // exit(0);
 }

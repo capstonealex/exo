@@ -15,7 +15,7 @@
 
 #include "CopleyDrive.h"
 #include "DummyActJoint.h"
-#include "Input/Keyboard.h"
+#include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
 
@@ -109,6 +109,11 @@ class ExoRobot : public Robot {
      * @Free robot objects vector pointer memory.
      */
     void freeMemory();
+    /**
+     * @brief update current states of input device
+     * Example. for a keyboard input this would poll the keyboard for any button presses @ this moment in time.
+     */
+    void updateInput();
     /**
  * @brief Joint Limit Map between Joint value and min Degrees possible
  * @param int Joint value

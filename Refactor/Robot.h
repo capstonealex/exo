@@ -81,7 +81,6 @@ class Robot {
  * 
  */
     TrajectoryGenerator trajectoryGenerator;
-    Buttons buttons;
 
     //Core  functions
     /**
