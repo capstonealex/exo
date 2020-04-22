@@ -34,7 +34,10 @@ class Keyboard : public Input {
 
    public:
     Keyboard();
+    ~Keyboard();
     key_states getStates();
+    //termios structs for turning on and off terminal echo
+    struct termios original, noecho;
     // storing current keyboard input
     char ch;
     // Check if keyboard has been hit - is stdin active

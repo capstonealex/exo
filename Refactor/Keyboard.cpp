@@ -2,10 +2,24 @@
 #include "Keyboard.h"
 
 Keyboard::Keyboard() {
-    std::cout << "Keyboard object created" << std::endl;
+    std::cout << "Keyboard object created, echo disabled" << std::endl;
     keyboardActive = NB_DISABLE;
     nonblock(NB_ENABLE);
+    // turn off keyboard echo
+    /* obtain the current terminal configuration */
+    tcgetattr(STDIN_FILENO, &original);
+    /* duplicate it */
+    noecho = original;
+    /* turn off full duplex */
+    noecho.c_lflag = noecho.c_lflag ^ ECHO;
+    /* set the terminal */
+    tcsetattr(STDIN_FILENO, TCSANOW, &noecho);
 }
+Keyboard::~Keyboard() {
+    /* restore the terminal settings */
+    std::cout << "Keyboard object deleted, echo enabled" << std::endl;
+    tcsetattr(STDIN_FILENO, TCSANOW, &original);
+};
 void Keyboard::setStates() {
     /// set last Key states
     /// Clear current states
@@ -50,7 +64,8 @@ void Keyboard::setStates() {
         case 'Q':
             currentKeyStates.q = true;
             std::cout << std::endl
-                      << "Q PRESSED, EXITING PROGRAM ";
+                      << "Q PRESSED, EXITING PROGRAM "
+                      << std::endl;
             keyboardActive = 1;
             break;
         default:

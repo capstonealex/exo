@@ -47,5 +47,5 @@ int main(void) {
         exo.updateInput();
     }
 
-    exit(0);
+    // exit(0);
 }
