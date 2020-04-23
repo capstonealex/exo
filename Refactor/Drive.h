@@ -197,7 +197,7 @@ class Drive {
            * @return true if successful
            * @return false if not
            */
-    virtual bool setPos(int position) = 0;
+    virtual bool setPos(int position);
 
     /**
            * Writes the desired velocity to the Target Velocity of the motor drive (0x60FF)
@@ -205,7 +205,7 @@ class Drive {
            * @return true if successful
            * @return false if not
            */
-    virtual bool setVel(int velocity) = 0;
+    virtual bool setVel(int velocity);
 
     /**
            * Writes the desired torque to the Target Torque of the motor drive (0x6071)
@@ -213,28 +213,28 @@ class Drive {
            * @return true if successful
            * @return false if not
            */
-    virtual bool setTorque(int torque) = 0;
+    virtual bool setTorque(int torque);
 
     /**
            * Returns the current position from the motor drive (0x6064)
            * 
            * @return Position from the motor drive
            */
-    virtual int getPos() = 0;
+    virtual int getPos();
 
     /**
            * Returns the current velocity from the motor drive (0x606C)
            * 
            * @return Velocity from the motor drive
            */
-    virtual int getVel() = 0;
+    virtual int getVel();
 
     /**
            * Returns the current torque from the motor drive (0x6077)
            * 
            * @return Torque from the motor drive
            */
-    virtual int getTorque() = 0;
+    virtual int getTorque();
 
     // Drive State Modifiers
     /**

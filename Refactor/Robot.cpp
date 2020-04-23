@@ -10,39 +10,34 @@
  * 
  */
 #include "Robot.h"
+
 #include "DebugMacro.h"
 
 Robot::Robot(){
-    DEBUG_OUT("Robot object created")} Robot::~Robot()
-{
+    DEBUG_OUT("Robot object created")} Robot::~Robot() {
     DEBUG_OUT("Robot object deleted")
 }
-bool Robot::initialise()
-{
-    if (initialiseJoints())
-    {
-        if (initialiseNetwork())
-        {
+bool Robot::initialise() {
+    if (initialiseJoints()) {
+        if (initialiseNetwork()) {
             return true;
         }
-    }
-    else
+    } else
         return false;
 }
 
-void Robot::updateRobot()
-{
+void Robot::updateRobot() {
     for (auto joint : joints)
         joint->updateValue();
 }
 
-void Robot::getStatus()
-{
+void Robot::printStatus() {
+    std::cout << "Robot Joint Angles: ";
     for (auto joint : joints)
-        joint->getStatus();
+        std::cout << joint->getQ() << " ";
+    std::cout << std::endl;
 }
 
-void Robot::getJointStatus(int J_i)
-{
+void Robot::getJointStatus(int J_i) {
     joints[J_i]->getStatus();
 }

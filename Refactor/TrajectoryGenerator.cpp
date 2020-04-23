@@ -16,12 +16,12 @@ using namespace std;
 
 TrajectoryGenerator::TrajectoryGenerator(void) {
 }
+
 /***********************************************************************
 
 Getter and setter
 
 ***********************************************************************/
-
 void TrajectoryGenerator::setTrajectoryParameter(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
                                                  Foot stance_foot, Movement movement, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt) {
     trajectoryParameter.step_duration = step_duration;

@@ -11,7 +11,7 @@ int main(void) {
     ExoRobot exo;
     // print joint positions
     cout << ">>> Current Robot Position (expected value: all joints 0) >>>" << endl;
-    exo.getStatus();
+    exo.printStatus();
     //print trajectoryGenerator params
 
     cout << ">>> Print Trajectory Parameters (Expected Value 0.2, 0)>>>" << endl;
@@ -34,17 +34,25 @@ int main(void) {
          << exo.moveThroughTraj() << endl;
 
     cout << ">>> Current Robot Position (expected value: all joints 0) >>>" << endl;
-    exo.getStatus();
+    exo.printStatus();
 
     cout << ">>> Updating all Joint Values >>>" << endl;
     exo.updateRobot();
 
     cout << ">>> Current Robot Position (expected value: all joints 100 + Joint ID) >>>" << endl;
-    exo.getStatus();
+    exo.printStatus();
+
     // NON BLOCKING KEYBOARD INPUT - quits when q is pressed
     cout << "Test keyboard input w/ w,a,s,d,x. Type q to exit keyboard test" << endl;
     while (!exo.keyboard.getKeyboardActive()) {
-        exo.updateInput();
+        usleep(500000);
+        exo.updateRobot();
+        if (exo.keyboard.getA()) {
+            exo.moveThroughTraj();
+        }
+
+        exo.keyboard.clearCurrentStates();
+        exo.printStatus();
     }
 
     // exit(0);

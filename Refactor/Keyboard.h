@@ -27,8 +27,8 @@ typedef struct keys {
 } key_states;
 class Keyboard : public InputDevice {
    private:
-    key_states lastKeyStates;
-    key_states currentKeyStates;
+    key_states lastKeyStates = {false, false, false, false, false, false};
+    key_states currentKeyStates = {false, false, false, false, false, false};
     int keyboardActive;
 
    public:

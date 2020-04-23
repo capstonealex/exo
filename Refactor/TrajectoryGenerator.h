@@ -78,6 +78,7 @@ class TrajectoryGenerator {
         double lowerleg_length, upperleg_length, ankle_height, foot_length, hip_width, torso_length;
         double buttocks_height;  // sit-stand
     } pilot_parameters;
+
     trajectory_parameters trajectoryParameter;
     pilot_parameters pilotParameter;
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -89,11 +90,17 @@ class TrajectoryGenerator {
 
 	Getter and setter
 
+
+
 	**********************************************************************/
+
+    void initialiseTrajectory();
+
     //setter for the parameters
     void setTrajectoryParameter(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
                                 Foot stance_foot, Movement movement, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
     void setTrajectoryParameter(trajectory_parameters trajectoryParameter);
+
     void setPilotParameter(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
                            double hip_width, double torso_length, double buttocks_height);
     void setPilotParameter(pilot_parameters pilotParameter);

@@ -1,7 +1,6 @@
 #include "ExoRobot.h"
 
-ExoRobot::ExoRobot()
-{
+ExoRobot::ExoRobot() {
     // positionControlConfigured = false;
     // //Initialize Robot Joint positions to zero
     // for (auto i = 0; i < NUM_JOINTS; i++)
@@ -15,11 +14,9 @@ ExoRobot::ExoRobot()
     trajectoryGenerator.setTrajectoryParameter(movementTrajMap[INITIAL]);
 }
 
-void ExoRobot::startNewTraj()
-{
+void ExoRobot::startNewTraj() {
     // Set the bit flip state to zero
-    for (auto i = 0; i < NUM_JOINTS; i++)
-    {
+    for (auto i = 0; i < NUM_JOINTS; i++) {
         joints[i].setBitFlipState(NOFLIP);
     }
 
@@ -28,8 +25,7 @@ void ExoRobot::startNewTraj()
     TrajectoryGenerator::jointspace_state startNewTrajJointspace;
     double robotJointspace[NUM_JOINTS];
     int i;
-    for (i = 0; i < NUM_JOINTS; i++)
-    {
+    for (i = 0; i < NUM_JOINTS; i++) {
         int j = joints[i].getId();
         robotJointspace[j - 1] = deg2rad(joints[i].getPosDeg());
     }
@@ -39,8 +35,8 @@ void ExoRobot::startNewTraj()
                                     robotJointspace[1],
                                     robotJointspace[2],
                                     robotJointspace[3],
-                                    deg2rad(85),  //robotJointspace[4],
-                                    deg2rad(85)}, //robotJointspace[5]},
+                                    deg2rad(85),   //robotJointspace[4],
+                                    deg2rad(85)},  //robotJointspace[5]},
                               .time = 0};
 
     trajectoryGenerator.generateAndSaveSpline(startNewTrajJointspace);
@@ -53,8 +49,7 @@ void ExoRobot::startNewTraj()
 
     printf("Start New Traj \n");
 }
-void ExoRobot::moveThroughTraj()
-{
+void ExoRobot::moveThroughTraj() {
     //long lastTarget = 0;
     struct timeval tv;
     struct timeval tv_diff;
@@ -70,8 +65,7 @@ void ExoRobot::moveThroughTraj()
     fracTrajProgress = movingMicro / trajTimeUS;
 
     // if Green Button is pressed, move through trajetory. Otherwise stay where you are
-    if (buttons.getGButtonState())
-    {
+    if (buttons.getGButtonState()) {
         // std::cout << fracTrajProgress << std::endl;
         timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
@@ -83,47 +77,37 @@ void ExoRobot::moveThroughTraj()
         // Send a new trajectory point
         // Get Trajectory point for this joint based on current time
         trajectoryGenerator.calcPosition(fracTrajProgress, positionArray);
-        for (int i = 0; i < NUM_JOINTS; i++)
-        {
-            if (joints[i].getBitFlipState() == NOFLIP)
-            {
+        for (int i = 0; i < NUM_JOINTS; i++) {
+            if (joints[i].getBitFlipState() == NOFLIP) {
                 int j = joints[i].getId();
                 cout << " applied position on joint " << joints[i].getId() << " is " << rad2deg(positionArray[j - 1]) << endl;
                 joints[i].applyPosDeg(rad2deg(positionArray[j - 1]));
 
                 // set state machine bitFlip to LOW state.
                 joints[i].bitflipLow();
-            }
-            else
-            {
+            } else {
                 joints[i].bitflipHigh();
             }
         }
 #endif
-    }
-    else
-    {
+    } else {
         timeradd(&stationary_tv, &tv_diff, &tv_changed);
         stationary_tv = tv_changed;
     }
 }
 
 ///Trajectory methods
-void ExoRobot::setTrajectory()
-{
+void ExoRobot::setTrajectory() {
     //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
     int currentMotion = SITDWN;
     trajectoryGenerator.setTrajectoryParameter(movementTrajMap[currentMotion]);
 }
-void ExoRobot::printTrajectoryParam()
-{
+void ExoRobot::printTrajectoryParam() {
     std::cout << "Step height:" << trajectoryGenerator.trajectoryParameter.step_height << std::endl;
     std::cout << "Slop_angle: " << trajectoryGenerator.trajectoryParameter.slope_angle << std::endl;
 }
-void ExoRobot::initialiseJoints()
-{
-    for (int id = 0; id < NUM_JOINTS; id++)
-    {
+void ExoRobot::initialiseJoints() {
+    for (int id = 0; id < NUM_JOINTS; id++) {
         joints.push_back(new ActuatedJoint(id, jointMinMap(id), jointMaxMap(id)));
     }
 }

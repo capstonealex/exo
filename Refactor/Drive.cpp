@@ -18,6 +18,33 @@ int Drive::getNodeID() {
     return NodeID;
 }
 
+bool Drive::setPos(int position) {
+    DEBUG_OUT("Drive " << this->NodeID << " Writing " << position << " to 0x607A");
+    return true;
+}
+
+bool Drive::setVel(int velocity) {
+    DEBUG_OUT("Drive " << NodeID << " Writing " << velocity << " to 0x60FF");
+    return true;
+}
+
+bool Drive::setTorque(int torque) {
+    DEBUG_OUT("Drive " << NodeID << " Writing " << torque << " to 0x6071");
+    return true;
+}
+
+int Drive::getPos() {
+    return 0;
+}
+
+int Drive::getVel() {
+    return 0;
+}
+
+int Drive::getTorque() {
+    return 0;
+}
+
 bool Drive::initPDOs() {
     DEBUG_OUT("Set up STATUS_WORD TPDO")
     sendSDOMessages(generateTPDOConfigSDO({STATUS_WORD}, 1, 0xFF));

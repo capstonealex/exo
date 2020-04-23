@@ -3,7 +3,9 @@
  * 
  */
 #include "CopleyDrive.h"
+
 #include <iostream>
+
 #include "DebugMacro.h"
 
 CopleyDrive::CopleyDrive(int NodeID) : Drive::Drive(NodeID) {
@@ -19,7 +21,8 @@ bool CopleyDrive::Init() {
 
 bool CopleyDrive::initPosControl() {
     // TODO: Complete
-    DEBUG_OUT("NodeID " << NodeID << " Initialising Position Control")
+    //DEBUG_OUT("NodeID " << NodeID << " Initialising Position Control")
+
     return true;
 }
 
@@ -33,30 +36,6 @@ bool CopleyDrive::initTorqControl() {
 
 bool CopleyDrive::updateDriveStatus() {
     return true;
-}
-
-bool CopleyDrive::setPos(int position) {
-    return true;
-}
-
-bool CopleyDrive::setVel(int velocity) {
-    return true;
-}
-
-bool CopleyDrive::setTorque(int torque) {
-    return true;
-}
-
-int CopleyDrive::getPos() {
-    return 0;
-}
-
-int CopleyDrive::getVel() {
-    return 0;
-}
-
-int CopleyDrive::getTorque() {
-    return 0;
 }
 
 // Drive State Modifiers

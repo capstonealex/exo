@@ -34,12 +34,39 @@ bool ExoRobot::initPositionControl() {
 
 void ExoRobot::startNewTraj() {
     DEBUG_OUT("Start New Traj");
+    setTrajectory();
+    /*
+    // Index Resetting
+    fracTrajProgress = 0;
+    TrajectoryGenerator::jointspace_state startNewTrajJointspace;
+
+    double robotJointspace[NUM_JOINTS];
+    int j = 0;
+    for (auto joint : joints) {
+        robotJointspace[j] = deg2rad(joint.getQ);
+        j++;
+    }
+
+    cout << "joints position at start traj" << endl;
+    printInfo();
+    startNewTrajJointspace = {.q = {robotJointspace[0],
+                                    robotJointspace[1],
+                                    robotJointspace[2],
+                                    robotJointspace[3],
+                                    deg2rad(85),   //robotJointspace[4],
+                                    deg2rad(85)},  //robotJointspace[5]},
+                              .time = 0};
+
+    trajectoryGenerator.generateAndSaveSpline(startNewTrajJointspace);
+
+    trajectoryGenerator.startTrajectory();*/
 }
+
 bool ExoRobot::moveThroughTraj() {
     bool returnValue = true;
     for (auto p : joints) {
         // Calculate the position for each of these joints
-        double jointPos = 100 + p->getId();
+        double jointPos = rand() % 100;
         setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(jointPos);
         if (setPosCode == INCORRECT_MODE) {
             std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
@@ -56,13 +83,14 @@ bool ExoRobot::moveThroughTraj() {
 void ExoRobot::setTrajectory() {
     DEBUG_OUT("Set Trajectory")
     //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
-    int currentMotion = NORMALWALK;
-    trajectoryGenerator.setTrajectoryParameter(movementTrajMap[currentMotion]);
+    trajectoryGenerator.setTrajectoryParameter(movementTrajMap[STNDUP]);
 }
+
 void ExoRobot::printTrajectoryParam() {
     std::cout << "Step height:" << trajectoryGenerator.trajectoryParameter.step_height << std::endl;
     std::cout << "Slope angle: " << trajectoryGenerator.trajectoryParameter.slope_angle << std::endl;
 }
+
 bool ExoRobot::initialiseJoints() {
     for (int id = 0; id < NUM_JOINTS; id++) {
         copleyDrives.push_back(new CopleyDrive(id + 1));
@@ -70,7 +98,9 @@ bool ExoRobot::initialiseJoints() {
     }
     return true;
 }
+
 bool ExoRobot::initialiseNetwork() {
+    DEBUG_OUT("ExoRobot::initialiseNetwork()")
     bool status;
     for (auto joint : joints) {
         status = joint->initNetwork();
@@ -90,6 +120,7 @@ void ExoRobot::freeMemory() {
         delete p;
     }
 }
-void ExoRobot::updateInput() {
+void ExoRobot::updateRobot() {
+    Robot::updateRobot();
     keyboard.Update();
 }

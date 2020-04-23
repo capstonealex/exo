@@ -68,51 +68,6 @@ class CopleyDrive : public Drive {
          */
     bool updateDriveStatus();
 
-    /**
-         * Writes the desired position to the Target Position of the motor drive (0x607A)
-         * 
-         * @return true if successful
-         * @return false if not
-         */
-    bool setPos(int position);
-
-    /**
-         * Writes the desired velocity to the Target Velocity of the motor drive (0x60FF)
-         * 
-         * @return true if successful
-         * @return false if not
-         */
-    bool setVel(int velocity);
-
-    /**
-         * Writes the desired torque to the Target Torque of the motor drive (0x6071)
-         * 
-         * @return true if successful
-         * @return false if not
-         */
-    bool setTorque(int torque);
-
-    /**
-         * Returns the current position from the motor drive (0x6064)
-         * 
-         * @return Position from the motor drive
-         */
-    int getPos();
-
-    /**
-         * Returns the current velocity from the motor drive (0x606C)
-         * 
-         * @return Velocity from the motor drive
-         */
-    int getVel();
-
-    /**
-         * Returns the current torque from the motor drive (0x6077)
-         * 
-         * @return Torque from the motor drive
-         */
-    int getTorque();
-
     // Drive State Modifiers
     /**
          * @brief Changes the state of the drive to "ready to switch on". 

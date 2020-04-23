@@ -10,14 +10,14 @@
  */
 #include <iostream>
 
-#include "Drive.h"
 #include "CopleyDrive.h"
+#include "Drive.h"
 
-int main(){
+int main() {
     // Create a Drive Object
     std::cout << "1. Construct a CopleyDrive Object (which implements Drive Class), with NODE ID = 100 \n";
     Drive *testDrive = new CopleyDrive(1);
 
-    std::cout << "2. Try to run the InitPDO() Function \n" << testDrive->initPDOs();
-
+    std::cout << "2. Try to run the InitPDO() Function \n"
+              << testDrive->initPDOs();
 }

@@ -78,12 +78,12 @@ class Robot {
  * from object dictionary entries.
  * 
  */
-    void updateRobot();
+    virtual void updateRobot();
     /**
  * @brief print out status of robot and all of its joints
  * 
  */
-    void getStatus();
+    void printStatus();
     /**
  * @brief print out status of <code>Joint<code> J_i
  * 

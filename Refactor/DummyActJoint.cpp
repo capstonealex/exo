@@ -9,16 +9,17 @@
  * 
  */
 #include "DummyActJoint.h"
+
 #include <iostream>
+
 #include "DebugMacro.h"
 
 DummyActJoint::DummyActJoint(int jointID, double jointMin, double jointMax, Drive *drive) : ActuatedJoint(jointID, jointMin, jointMax, drive) {
-    DEBUG_OUT( "MY JOINT ID: " << this->id )
+    DEBUG_OUT("MY JOINT ID: " << this->id)
     // Do nothing else
 }
 
 bool DummyActJoint::updateValue() {
-    DEBUG_OUT("DummyActJoint::UpdateValue()")
     drive->getPos();
     q = lastQCommand;
     return true;
@@ -30,7 +31,6 @@ setMovementReturnCode_t DummyActJoint::setPosition(double desQ) {
 }
 
 bool DummyActJoint::initNetwork() {
+    DEBUG_OUT("Joint::initNetwork()")
     return true;
 }
-
-

@@ -59,12 +59,14 @@ class ExoRobot : public Robot {
     * @return false  If some or all joints fail the configuration
     */
     bool initPositionControl();
+
     /** 
    * @brief For each joint, move through(send appropriate commands to joints) the Currently 
    * generated trajectory of the TrajectoryGenerator object. 
    *
    */
     bool moveThroughTraj();
+
     /** 
    *  @brief Begin a new trajectory with the currently loaded trajectory paramaters. 
    * Using the <code>ExoRobot</code> current configuration (read in from joint objects) 
@@ -73,17 +75,19 @@ class ExoRobot : public Robot {
    * 
    */
     void startNewTraj();
+
     /** 
-   * Determine if the currently generated trajectory is complete.
-   *@return bool
-   */
+      * Determine if the currently generated trajectory is complete.
+      *@return bool
+      */
     bool isTrajFinished();
+
     /** 
-   * @brief Implementation of <code>Robot</code> class setTrajectory function, takes the currently selected
-   * motion from the user (via the robots I/O crutch object) and using the exoskeletons 
-   * movementTrajMap loads in the correct trajectory paramaters into the <code>TrajectoryGenerator</code> object.
-   *
-   */
+      * @brief Implementation of <code>Robot</code> class setTrajectory function, takes the currently selected
+      * motion from the user (via the robots I/O crutch object) and using the exoskeletons 
+      * movementTrajMap loads in the correct trajectory paramaters into the <code>TrajectoryGenerator</code> object.
+      *
+      */
     void setTrajectory();
 
     /**
@@ -96,29 +100,33 @@ class ExoRobot : public Robot {
      * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
      * Create designed <code>Joint</Joint> and <code>Driver</code> objects and load into 
      * Robot joint vector.
-
      */
     bool initialiseJoints();
+
     /**
      * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
      * Initialize each <code>Drive</Joint> Objects underlying CANOpen Networking.
 
      */
     bool initialiseNetwork();
+
     /**
      * @Free robot objects vector pointer memory.
      */
     void freeMemory();
+
     /**
-     * @brief update current states of input device
-     * Example. for a keyboard input this would poll the keyboard for any button presses @ this moment in time.
+     * @brief update current state of the robot, including input and output devices. 
+     * Overloaded Method from the Robot Class. 
+     * Example. for a keyboard input this would poll the keyboard for any button presses at this moment in time.
      */
-    void updateInput();
+    void updateRobot();
+
     /**
- * @brief Joint Limit Map between Joint value and min Degrees possible
- * @param int Joint value
- * @return double minDeg 
- */
+    * @brief Joint Limit Map between Joint value and min Degrees possible
+    * @param int Joint value
+    * @return double minDeg 
+    */
     //TODO CHANGE FROM MOTOR COMMANDS TO DEGREES
     std::map<int, double>
         jointMinMap = {{LEFT_HIP, 0.0},
