@@ -12,6 +12,7 @@
 
 #include <map>
 #include <vector>
+#include <sstream>
 
 // Constants representing the control mode of the drive
 enum ControlMode
@@ -82,7 +83,7 @@ protected:
            * @param SyncRate The rate at which this PDO transmits (e.g. number of Sync Messages. 0xFF represents internal trigger event)
            * @return std::string 
            */
-     std::string generateTPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int SyncRate);
+     std::vector<std::string> generateTPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int SyncRate);
 
      /**
            * @brief Generates the list of commands required to configure RPDOs on the drives

@@ -1,14 +1,27 @@
 # Makefile for Tests
-#Define header directories
-SRC_DIR =  Refactor
-INPUT_DIR = Refactor/Input
-INCLUDE_DIRS = 	-I$(SRC_DIR) \
-				-I$(INPUT_DIR)
-#Define Compiler (could be modified to run on Windows PC if desired)
-CXX = arm-linux-gnueabihf-g++ 
-CXXFLAGS = -std=c++11 -lncurses $(INCLUDE_DIRS) 
 
-# List of Objects to be defined for the testing
+
+
+#Define header directories - removed for now
+#SRC_DIR =  Refactor
+#INPUT_DIR = Refactor/Input
+#INCLUDE_DIRS = 	-I$(SRC_DIR) \
+				-I$(INPUT_DIR)
+
+# CXX - defines the compiler. 
+# Currently uses the cross-compiler for the BBB (could be modified to run on Windows PC if desired)
+CXX = arm-linux-gnueabihf-g++
+ 
+# CXXFLAGS - flags for the compilation 
+# -std=c++11 - uses C++11 standard (>>>>>>>WHY?>>>>>>>)
+# -lncurses - used for keyboard input
+CXXFLAGS = -lncurses #$(INCLUDE_DIRS) 
+
+# LINKFLAGS - flags for linking the objects
+# Used to include the libraries in the executable (originally added for GLIBCXX strings)
+LINKFLAGS = -static
+
+# List of Objects required in each testing program
 OBJOINT = testJoints.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o
 OBROBOT = testRobot.o Robot.o ExoRobot.o TrajectoryGenerator.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o Buttons.o DummyActJoint.o Input.o Keyboard.o
 OBDRIVE = testDrives.o Drive.o CopleyDrive.o
@@ -17,12 +30,14 @@ OBDRIVE = testDrives.o Drive.o CopleyDrive.o
 %.o: %.cpp 
 	$(CXX) $(CXXFLAGS) -c -o $@ $< 
 
+all : testJoints testRobot testDrives
+
 testJoints: $(OBJOINT)
-	$(CXX) -o $@ $^ 
+	$(CXX)  $(LINKFLAGS)  -o $@ $^ 
 testRobot: $(OBROBOT)
-	$(CXX) -o $@ $^ 
+	$(CXX) $(LINKFLAGS)  -o $@ $^ 
 testDrives: $(OBDRIVE)
-	$(CXX) -o $@ $^ 
+	$(CXX) $(LINKFLAGS)  -o $@ $^ 
 
 	
 .PHONY: clean all
