@@ -20,7 +20,15 @@ Keyboard::~Keyboard() {
     std::cout << "Keyboard object deleted, echo enabled" << std::endl;
     tcsetattr(STDIN_FILENO, TCSANOW, &original);
 };
-void Keyboard::setStates() {
+void Keyboard::Update() {
+    usleep(1);
+    setKeyboardActive(kbhit());
+    if (getKeyboardActive() != 0) {
+        setKeys();
+        printPressed();
+    }
+}
+void Keyboard::setKeys() {
     /// set last Key states
     /// Clear current states
     clearCurrentStates();

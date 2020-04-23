@@ -11,7 +11,7 @@ CXXFLAGS = -std=c++11
 
 # List of Objects to be defined for the testing
 OBJOINT = testJoints.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o
-OBROBOT = testRobot.o Robot.o ExoRobot.o TrajectoryGenerator.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o Input.o Keyboard.o
+OBROBOT = testRobot.o Robot.o ExoRobot.o TrajectoryGenerator.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o InputDevice.o Keyboard.o
 OBDRIVE = testDrives.o Drive.o CopleyDrive.o
 
 

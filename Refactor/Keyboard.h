@@ -13,7 +13,7 @@
 
 #include <unistd.h>
 
-#include "Input.h"
+#include "InputDevice.h"
 #include "termios.h"
 #define NB_DISABLE 0
 #define NB_ENABLE 1
@@ -25,7 +25,7 @@ typedef struct keys {
     bool x;
     bool q;
 } key_states;
-class Keyboard : public Input {
+class Keyboard : public InputDevice {
    private:
     key_states lastKeyStates;
     key_states currentKeyStates;
@@ -45,10 +45,12 @@ class Keyboard : public Input {
     // int keyboardActive;
     int getKeyboardActive();
     void setKeyboardActive(int value);
+    void setKeys();
+    void Update();
     // Turn on or off terminal canonical mode
     // Canonical mode (default): user must hit enter to confirm input.
     void nonblock(int state);
-    void setStates();
+
     void clearCurrentStates();
     void printPressed();
     // Returns true if the key is pressed.

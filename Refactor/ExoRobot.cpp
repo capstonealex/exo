@@ -91,10 +91,5 @@ void ExoRobot::freeMemory() {
     }
 }
 void ExoRobot::updateInput() {
-    usleep(1);
-    keyboard.setKeyboardActive(keyboard.kbhit());
-    if (keyboard.getKeyboardActive() != 0) {
-        keyboard.setStates();
-        keyboard.printPressed();
-    }
+    keyboard.Update();
 }
