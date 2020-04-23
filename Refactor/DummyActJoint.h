@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2020
  * 
  */
-#ifndef DUMMYACTJOINT_H_DEFINED
-#define DUMMYACTJOINT_H_DEFINED
+#ifndef DUMMYACTJOINT_H_INCLUDED
+#define DUMMYACTJOINT_H_INCLUDED
 
 #include "ActuatedJoint.h"
 class DummyActJoint : public ActuatedJoint {

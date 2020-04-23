@@ -10,20 +10,10 @@
  * Date: 07/04/2020
  * 
  */
-/**
- * The <code>Robot</code> class is a abstract class which represents a joint in a
- * <code>Robot</code> objec. This class implements the Joint class, and specifically 
- * represents a joint which is actuated. This therefore requires a Drive object
- * which will be used to interact with the physical hardware.  
- * 
- *
- * Version 0.1
- * Date: 07/04/2020
- */
 
 /*Header Guard*/
-#ifndef ROBOT_H
-#define ROBOT_H
+#ifndef ROBOT_H_INCLUDED
+#define ROBOT_H_INCLUDED
 #include <vector>
 
 #include "Joint.h"

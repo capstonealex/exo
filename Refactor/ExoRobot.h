@@ -9,8 +9,8 @@
  *
  */
 /*Header Guard*/
-#ifndef EXOROBOT_H
-#define EXOROBOT_H
+#ifndef EXOROBOT_H_INCLUDED
+#define EXOROBOT_H_INCLUDED
 #include <map>
 
 #include "CopleyDrive.h"

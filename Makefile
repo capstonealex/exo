@@ -49,7 +49,7 @@ OBJS = $(SOURCES:%.c=%.o) $(CPPSOURCES:%.cpp=%.o)
 #O3 is optimization v3 flag -> for EIGEN calculations
 CC = arm-linux-gnueabihf-gcc
 CXX = arm-linux-gnueabihf-g++
-CXXFLAGS = -std=c++11 -O3 $(INCLUDE_DIRS)
+CXXFLAGS = $(INCLUDE_DIRS)
 LDFLAGS = -lpthread 
 
 $(LINK_TARGET): $(OBJS)
@@ -70,5 +70,3 @@ clean:
 	
 upload: $(LINK_TARGET)
 	scp $(LINK_TARGET) $(SSH_USER)@$(SSH_IP_ADDR):~/$(LINK_TARGET)
-
-	

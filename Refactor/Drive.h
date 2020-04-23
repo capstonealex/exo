@@ -7,8 +7,8 @@
  * Version 0.1
  * Date: 07/04/2020
  */
-#ifndef DRIVE_H
-#define DRIVE_H
+#ifndef DRIVE_H_INCLUDED
+#define DRIVE_H_INCLUDED
 
 #include <map>
 #include <vector>
