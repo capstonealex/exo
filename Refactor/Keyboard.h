@@ -8,12 +8,11 @@
  * Date: 07/04/2020
  */
 
-#ifndef INPUT_H_INCLUDED
-#define INPUT_DEVICE
+#ifndef KEYBOARD_H_INCLUDED
+#define KEYBOARD_H_INCLUDED
 
 #include <unistd.h>
 
-#include "Bitmask.h"
 #include "Input.h"
 #include "termios.h"
 #define NB_DISABLE 0

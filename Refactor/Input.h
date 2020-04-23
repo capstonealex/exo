@@ -9,7 +9,7 @@
  */
 
 #ifndef INPUT_H_INCLUDED
-#define INPUT_DEVICE
+#define INPUT_H_INCLUDED
 #include <iostream>
 class Input {
    private:

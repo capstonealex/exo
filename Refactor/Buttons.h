@@ -7,8 +7,8 @@
  * Date: 07/04/2020
  *
  */
-#ifndef BUTTONS_H
-#define BUTTONS_H
+#ifndef BUTTONS_H_INCLUDED
+#define BUTTONS_H_INCLUDED
 #include <iostream>
 
 typedef struct button_states {

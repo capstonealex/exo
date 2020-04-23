@@ -9,8 +9,8 @@
  * Date: 07/04/2020
  */
 
-#ifndef ACTUATEDJOINT_H_DEFINED
-#define ACTUATEDJOINT_H_DEFINED
+#ifndef ACTUATEDJOINT_H_INCLUDED
+#define ACTUATEDJOINT_H_INCLUDED
 #include "Drive.h"
 #include "Joint.h"
 
