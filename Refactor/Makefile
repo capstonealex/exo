@@ -58,9 +58,6 @@ $(foreach test,$(TESTS),$(eval $(call make-tests,$(test))))
 
 all: checkdirs $(TESTS)
 
-test:
-	echo '$(BUILD_DIR)'
-
 checkdirs: $(BUILD_DIR)
 
 # On Windows - Substitute with command at end of file for UNIX-based systems
