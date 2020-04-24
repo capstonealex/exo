@@ -23,7 +23,7 @@ LINKFLAGS = -static
 
 # List of Objects required in each testing program
 OBJOINT = testJoints.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o
-OBROBOT = testRobot.o Robot.o ExoRobot.o TrajectoryGenerator.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o InputDevice.o Keyboard.o
+OBROBOT = testRobot.o Robot.o ExoRobot.o TrajectoryGenerator.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o InputDevice.o Keyboard.o ALEXTrajectoryGenerator.o
 OBDRIVE = testDrives.o Drive.o CopleyDrive.o
 
 

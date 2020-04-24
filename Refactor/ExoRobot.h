@@ -13,6 +13,7 @@
 #define EXOROBOT_H_INCLUDED
 #include <map>
 
+#include "ALEXTrajectoryGenerator.h"
 #include "CopleyDrive.h"
 #include "DummyActJoint.h"
 #include "Keyboard.h"
@@ -26,7 +27,7 @@ class ExoRobot : public Robot {
  * TrajectoryGenerator pilot paramaters dictate the specific real world link lengths of the 3 joint exoskeleton robot.
  * These paramaters must be specifically changed for the pilot using the Exoskeleton.
  */
-    TrajectoryGenerator::pilot_parameters exoParams = {
+    ALEXTrajectoryGenerator::pilot_parameters exoParams = {
         .lowerleg_length = 0.44,
         .upperleg_length = 0.44,
         .ankle_height = 0.12,
@@ -37,10 +38,10 @@ class ExoRobot : public Robot {
 
    public:
     /**
-   * @brief Default <code>ExoRobot</code> constructor.
-   * Initialize memory for the Exoskelton <code>Joint</code> + sensors. 
-   * Load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
-   */
+      * @brief Default <code>ExoRobot</code> constructor.
+      * Initialize memory for the Exoskelton <code>Joint</code> + sensors. 
+      * Load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
+      */
     ExoRobot();
     ~ExoRobot();
     Keyboard keyboard;
@@ -53,80 +54,80 @@ class ExoRobot : public Robot {
     struct timeval tv, tv_diff, moving_tv, tv_changed, stationary_tv, start_traj, last_tv;
 
     /**
-    * @brief Initialises all joints to position control mode. 
-    * 
-    * @return true If all joints are successfully configured
-    * @return false  If some or all joints fail the configuration
-    */
+       * @brief Initialises all joints to position control mode. 
+       * 
+       * @return true If all joints are successfully configured
+       * @return false  If some or all joints fail the configuration
+       */
     bool initPositionControl();
 
     /** 
-   * @brief For each joint, move through(send appropriate commands to joints) the Currently 
-   * generated trajectory of the TrajectoryGenerator object. 
-   *
-   */
+      * @brief For each joint, move through(send appropriate commands to joints) the Currently 
+      * generated trajectory of the TrajectoryGenerator object. 
+      *
+      */
     bool moveThroughTraj();
 
     /** 
-   *  @brief Begin a new trajectory with the currently loaded trajectory paramaters. 
-   * Using the <code>ExoRobot</code> current configuration (read in from joint objects) 
-   * and the trajecotry generator object, generate and save a spline to move from current 
-   * to desired position.
-   * 
-   */
+      *  @brief Begin a new trajectory with the currently loaded trajectory paramaters. 
+      * Using the <code>ExoRobot</code> current configuration (read in from joint objects) 
+      * and the trajecotry generator object, generate and save a spline to move from current 
+      * to desired position.
+      * 
+      */
     void startNewTraj();
 
     /** 
-      * Determine if the currently generated trajectory is complete.
-      *@return bool
-      */
+         * Determine if the currently generated trajectory is complete.
+         *@return bool
+         */
     bool isTrajFinished();
 
     /** 
-      * @brief Implementation of <code>Robot</code> class setTrajectory function, takes the currently selected
-      * motion from the user (via the robots I/O crutch object) and using the exoskeletons 
-      * movementTrajMap loads in the correct trajectory paramaters into the <code>TrajectoryGenerator</code> object.
-      *
-      */
+         * @brief Implementation of <code>Robot</code> class setTrajectory function, takes the currently selected
+         * motion from the user (via the robots I/O crutch object) and using the exoskeletons 
+         * movementTrajMap loads in the correct trajectory paramaters into the <code>TrajectoryGenerator</code> object.
+         *
+         */
     void setTrajectory();
 
     /**
-    * @brief Prints the parameters for the defined trajectory
-    * 
-    */
+       * @brief Prints the parameters for the defined trajectory
+       * 
+       */
     void printTrajectoryParam();
 
     /**
-     * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
-     * Create designed <code>Joint</Joint> and <code>Driver</code> objects and load into 
-     * Robot joint vector.
-     */
+       * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
+       * Create designed <code>Joint</Joint> and <code>Driver</code> objects and load into 
+       * Robot joint vector.
+       */
     bool initialiseJoints();
 
     /**
-     * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
-     * Initialize each <code>Drive</Joint> Objects underlying CANOpen Networking.
+       * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
+       * Initialize each <code>Drive</Joint> Objects underlying CANOpen Networking.
 
-     */
+      */
     bool initialiseNetwork();
 
     /**
-     * @Free robot objects vector pointer memory.
-     */
+       * @Free robot objects vector pointer memory.
+       */
     void freeMemory();
 
     /**
-     * @brief update current state of the robot, including input and output devices. 
-     * Overloaded Method from the Robot Class. 
-     * Example. for a keyboard input this would poll the keyboard for any button presses at this moment in time.
-     */
+       * @brief update current state of the robot, including input and output devices. 
+       * Overloaded Method from the Robot Class. 
+       * Example. for a keyboard input this would poll the keyboard for any button presses at this moment in time.
+       */
     void updateRobot();
 
     /**
-    * @brief Joint Limit Map between Joint value and min Degrees possible
-    * @param int Joint value
-    * @return double minDeg 
-    */
+       * @brief Joint Limit Map between Joint value and min Degrees possible
+       * @param int Joint value
+       * @return double minDeg 
+       */
     //TODO CHANGE FROM MOTOR COMMANDS TO DEGREES
     std::map<int, double>
         jointMinMap = {{LEFT_HIP, 0.0},
@@ -136,10 +137,10 @@ class ExoRobot : public Robot {
                        {LEFT_ANKLE, -800000},
                        {RIGHT_ANKLE, -800000}};
     /**
- * @brief Joint Limit Map between Joint value and max Degrees possible
- * @param int Joint value
- * @return int maxDeg 
- */
+       * @brief Joint Limit Map between Joint value and max Degrees possible
+       * @param int Joint value
+       * @return int maxDeg 
+       */
     std::map<int, double> jointMaxMap = {{LEFT_HIP, (HIP_MOTOR_POS1 * 1.5)},
                                          {RIGHT_HIP, (HIP_MOTOR_POS1 * 1.5)},
                                          {LEFT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
@@ -147,21 +148,21 @@ class ExoRobot : public Robot {
                                          {LEFT_ANKLE, -800000},
                                          {RIGHT_ANKLE, -800000}};
     /**
- * @brief Map between int values for specific trajectory motion paramaters. These paramaters are fed into the
- * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading 
- * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. The paramater
- * map is constructed at runtime from trajectoryParam.JSON
- * @param int Movement type
- * @return TrajectoryGenerator::trajectory_parameters 
- */
-    std::map<int, TrajectoryGenerator::trajectory_parameters>
+       * @brief Map between int values for specific trajectory motion paramaters. These paramaters are fed into the
+       * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading 
+       * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. The paramater
+       * map is constructed at runtime from trajectoryParam.JSON
+       * @param int Movement type
+       * @return TrajectoryGenerator::trajectory_parameters 
+       */
+    std::map<int, ALEXTrajectoryGenerator::trajectory_parameters>
         movementTrajMap = {
             {INITIAL, {.step_duration = 1, .step_height = 0.2, .step_length = 0.3,
                        .hip_height_slack = 0.0001,         // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                        .torso_forward_angle = deg2rad(5),  // TODO: make this a vector/array?
                        .swing_ankle_down_angle = 0,
-                       .stance_foot = TrajectoryGenerator::Foot::Right,
-                       .movement = TrajectoryGenerator::Movement::Sitting,
+                       .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
+                       .movement = ALEXTrajectoryGenerator::Movement::Sitting,
                        .seat_height = 0.45,     // sit-stand
                        .step_end_height = 0.0,  // stairs
                        .slope_angle = 0.0,      // tilted path
@@ -172,9 +173,9 @@ class ExoRobot : public Robot {
                           //.torso_forward_angle = TORSOANGLE,
                           .torso_forward_angle = UNEVENTORSO,
                           .swing_ankle_down_angle = 0,
-                          .stance_foot = TrajectoryGenerator::Foot::Right,
+                          .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
                           //.movement = TrajectoryGenerator::Movement::Walk,
-                          .movement = TrajectoryGenerator::Movement::Uneven,
+                          .movement = ALEXTrajectoryGenerator::Movement::Uneven,
                           .seat_height = 0.42,     // sit-stand
                           .step_end_height = 0.0,  // stairs
                           .slope_angle = 0.0,      // tilted path
@@ -184,8 +185,8 @@ class ExoRobot : public Robot {
                        .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                        .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                        .swing_ankle_down_angle = 0,
-                       .stance_foot = TrajectoryGenerator::Foot::Right,
-                       .movement = TrajectoryGenerator::Movement::Walk,
+                       .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
+                       .movement = ALEXTrajectoryGenerator::Movement::Walk,
                        .seat_height = 0.42,     // sit-stand
                        .step_end_height = 0.0,  // stairs
                        .slope_angle = 0.0,      // tilted path
@@ -195,8 +196,8 @@ class ExoRobot : public Robot {
                         .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                         .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                         .swing_ankle_down_angle = 0,
-                        .stance_foot = TrajectoryGenerator::Foot::Left,
-                        .movement = TrajectoryGenerator::Movement::Back,
+                        .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
+                        .movement = ALEXTrajectoryGenerator::Movement::Back,
                         .seat_height = 0.42,     // sit-stand
                         .step_end_height = 0.0,  // stairs
                         .slope_angle = 0.0,      // tilted path
@@ -206,8 +207,8 @@ class ExoRobot : public Robot {
                       .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                       .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                       .swing_ankle_down_angle = 0,
-                      .stance_foot = TrajectoryGenerator::Foot::Left,
-                      .movement = TrajectoryGenerator::Movement::Back,
+                      .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
+                      .movement = ALEXTrajectoryGenerator::Movement::Back,
                       .seat_height = 0.42,     // sit-stand
                       .step_end_height = 0.0,  // stairs
                       .slope_angle = 5.0,      // tilted path
@@ -217,8 +218,8 @@ class ExoRobot : public Robot {
                        .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                        .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                        .swing_ankle_down_angle = 0,
-                       .stance_foot = TrajectoryGenerator::Foot::Left,
-                       .movement = TrajectoryGenerator::Movement::Back,
+                       .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
+                       .movement = ALEXTrajectoryGenerator::Movement::Back,
                        .seat_height = 0.42,     // sit-stand
                        .step_end_height = 0.0,  // stairs
                        .slope_angle = 0.0,      // tilted path
@@ -228,8 +229,8 @@ class ExoRobot : public Robot {
                     .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                     .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                     .swing_ankle_down_angle = 0,
-                    .stance_foot = TrajectoryGenerator::Foot::Left,
-                    .movement = TrajectoryGenerator::Movement::Back,
+                    .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
+                    .movement = ALEXTrajectoryGenerator::Movement::Back,
                     .seat_height = 0.42,     // sit-stand
                     .step_end_height = 0.0,  // stairs
                     .slope_angle = 0.0,      // tilted path
@@ -239,8 +240,8 @@ class ExoRobot : public Robot {
                       .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                       .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                       .swing_ankle_down_angle = 0,
-                      .stance_foot = TrajectoryGenerator::Foot::Left,
-                      .movement = TrajectoryGenerator::Movement::Back,
+                      .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
+                      .movement = ALEXTrajectoryGenerator::Movement::Back,
                       .seat_height = 0.42,     // sit-stand
                       .step_end_height = 0.0,  // stairs
                       .slope_angle = 0.0,      // tilted path
@@ -250,8 +251,8 @@ class ExoRobot : public Robot {
                       .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                       .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                       .swing_ankle_down_angle = 0,
-                      .stance_foot = TrajectoryGenerator::Foot::Right,
-                      .movement = TrajectoryGenerator::Movement::Sit,
+                      .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
+                      .movement = ALEXTrajectoryGenerator::Movement::Sit,
                       .seat_height = 0.42,     // sit-stand
                       .step_end_height = 0.0,  // stairs
                       .slope_angle = 0.0,      // tilted path
@@ -261,8 +262,8 @@ class ExoRobot : public Robot {
                       .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                       .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                       .swing_ankle_down_angle = 0,
-                      .stance_foot = TrajectoryGenerator::Foot::Right,
-                      .movement = TrajectoryGenerator::Movement::Stand,
+                      .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
+                      .movement = ALEXTrajectoryGenerator::Movement::Stand,
                       .seat_height = 0.42,     // sit-stand
                       .step_end_height = 0.0,  // stairs
                       .slope_angle = 0.0,      // tilted path
@@ -272,8 +273,8 @@ class ExoRobot : public Robot {
                       .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                       .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                       .swing_ankle_down_angle = 0,
-                      .stance_foot = TrajectoryGenerator::Foot::Right,
-                      .movement = TrajectoryGenerator::Movement::Stand,
+                      .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
+                      .movement = ALEXTrajectoryGenerator::Movement::Stand,
                       .seat_height = 0.42,     // sit-stand
                       .step_end_height = 0.0,  // stairs
                       .slope_angle = 0.0,      // tilted path

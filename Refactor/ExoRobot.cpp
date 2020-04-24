@@ -3,11 +3,14 @@
 #include "DebugMacro.h"
 
 ExoRobot::ExoRobot() {
-    // Creates all the joints based
+    // Constructs the Trajectory Generator
+    trajectoryGenerator = new ALEXTrajectoryGenerator();
+
+    // Creates all the joints
     if (initialise()) {
         DEBUG_OUT("ExoRobot object created")
-        trajectoryGenerator.setPilotParameter(exoParams);
-        trajectoryGenerator.setTrajectoryParameter(movementTrajMap[INITIAL]);
+        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setPilotParameter(exoParams);
+        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameter(movementTrajMap[INITIAL]);
     } else {
         cout << "ExoRobot failed to initialise" << endl;
     }
@@ -83,12 +86,12 @@ bool ExoRobot::moveThroughTraj() {
 void ExoRobot::setTrajectory() {
     DEBUG_OUT("Set Trajectory")
     //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
-    trajectoryGenerator.setTrajectoryParameter(movementTrajMap[STNDUP]);
+    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameter(movementTrajMap[STNDUP]);
 }
 
 void ExoRobot::printTrajectoryParam() {
-    std::cout << "Step height:" << trajectoryGenerator.trajectoryParameter.step_height << std::endl;
-    std::cout << "Slope angle: " << trajectoryGenerator.trajectoryParameter.slope_angle << std::endl;
+    std::cout << "Step height:" << ((ALEXTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.step_height << std::endl;
+    std::cout << "Slope angle: " << ((ALEXTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.slope_angle << std::endl;
 }
 
 bool ExoRobot::initialiseJoints() {

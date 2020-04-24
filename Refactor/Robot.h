@@ -70,7 +70,7 @@ class Robot {
  * @brief Trajectory Object 
  * 
  */
-    TrajectoryGenerator trajectoryGenerator;
+    TrajectoryGenerator *trajectoryGenerator;
 
     //Core  functions
     /**
