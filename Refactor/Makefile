@@ -13,7 +13,7 @@ CXXFLAGS := -std=c++11
 LINKFLAGS := -static
 
 #Define header directories 
-MODULES   := apps apps/stateMachine apps/stateMachine/states libs libs/inputDevice libs/robot libs/robot/joint
+MODULES   := apps apps/stateMachine apps/stateMachine/states libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
 
 # automatically create list of module file paths NOT including executables
 SRC_DIR	  := $(addprefix src/,$(MODULES))
@@ -28,7 +28,7 @@ SRC		  := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
 OBJ       := $(patsubst src/%.cpp,build/%.o,$(SRC))
 
 # List of Test Programs (Executables)
-TESTS	:= testDrives testJoints testRobot
+TESTS	:= testDrives testJoints testRobot testSM
 
 # Test Program Objects and executables
 TESTOBJS := $(addsuffix .o, $(addprefix build/tests/,$(TESTS))) 
@@ -56,7 +56,10 @@ $(foreach test,$(TESTS),$(eval $(call make-tests,$(test))))
 
 .PHONY: all checkdirs clean
 
-all: checkdirs testJoints testRobot testDrives
+all: checkdirs $(TESTS)
+
+test:
+	echo '$(BUILD_DIR)'
 
 checkdirs: $(BUILD_DIR)
 
