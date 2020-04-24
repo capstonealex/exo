@@ -1,46 +1,73 @@
 # Makefile for Tests
-
-
-
-#Define header directories - removed for now
-#SRC_DIR =  Refactor
-#INPUT_DIR = Refactor/Input
-#INCLUDE_DIRS = 	-I$(SRC_DIR) \
-				-I$(INPUT_DIR)
-
 # CXX - defines the compiler. 
 # Currently uses the cross-compiler for the BBB (could be modified to run on Windows PC if desired)
-CXX = arm-linux-gnueabihf-g++
- 
+CXX := arm-linux-gnueabihf-g++
+LD  := arm-linux-gnueabihf-g++
+
 # CXXFLAGS - flags for the compilation 
 # -std=c++11 - uses C++11 standard (>>>>>>>WHY?>>>>>>>)
 # -lncurses - used for keyboard input
-CXXFLAGS = -lncurses #$(INCLUDE_DIRS) 
-
+# CXXFLAGS = $(INCLUDES) 
+CXXFLAGS := -std=c++11 -O3 $(INCLUDE_DIRS)
 # LINKFLAGS - flags for linking the objects
 # Used to include the libraries in the executable (originally added for GLIBCXX strings)
-LINKFLAGS = -static
+LINKFLAGS := -static
 
+#Define header directories 
+# note: we use variable := imediate expansion.
+MODULES   := apps tests libs libs/inputDevice libs/robot libs/robot/joint
+# automatically create list of module file paths
+SRC_DIR	  := $(addprefix src/,$(MODULES))
+BUILD_DIR := $(addprefix build/,$(MODULES))
+# Expand all SRC files from SRC_DIR
+SRC		  := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
+# Create list of all desired .o files from SRC files in listed MODULES
+OBJ       := $(patsubst src/%.cpp,build/%.o,$(SRC))
+# Tell compiler where to find all source files
+INCLUDES  := $(addprefix -I,$(SRC_DIR))
+TARGET   := program
+VPATH = $(SRC_DIR)
+# Provide search path to make for targets or prerequisites.
 # List of Objects required in each testing program
-OBJOINT = testJoints.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o
-OBROBOT = testRobot.o Robot.o ExoRobot.o TrajectoryGenerator.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o InputDevice.o Keyboard.o ALEXTrajectoryGenerator.o
-OBDRIVE = testDrives.o Drive.o CopleyDrive.o
+# OBJOINT = testJoints.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o
+# OBROBOT = testRobot.o Robot.o ExoRobot.o TrajectoryGenerator.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o InputDevice.o Keyboard.o
+# OBDRIVE = testDrives.o Drive.o CopleyDrive.o
+# how to make any filestem
+define make-goal
+$1/%.o: %.cpp
+	$(CXX) $(INCLUDES) -c $$< -o $$@
+endef
+
+.PHONY: all checkdirs clean
+
+all: checkdirs build/test.exe
+
+build/test.exe: $(OBJ)
+	$(LD) $^ -o $@
 
 
-%.o: %.cpp 
-	$(CXX) $(CXXFLAGS) -c -o $@ $< 
+checkdirs: $(BUILD_DIR)
 
-all : testJoints testRobot testDrives
-
-testJoints: $(OBJOINT)
-	$(CXX)  $(LINKFLAGS)  -o $@ $^ 
-testRobot: $(OBROBOT)
-	$(CXX) $(LINKFLAGS)  -o $@ $^ 
-testDrives: $(OBDRIVE)
-	$(CXX) $(LINKFLAGS)  -o $@ $^ 
-
-	
-.PHONY: clean all
+$(BUILD_DIR):
+	@mkdir -p $@
 
 clean:
-	rm -f $(OBJOINT) $(OBROBOT) $(OBDRIVE)
+	@rm -rf $(BUILD_DIR)
+
+# 
+$(foreach bdir,$(BUILD_DIR),$(eval $(call make-goal,$(bdir))))
+
+# all : testJoints testRobot testDrives
+
+# testJoints: $(OBJ)
+# 	$(CXX)  $(LINKFLAGS)  -o $@ $^ 
+# testRobot: $(OBJ)
+# 	$(CXX) $(LINKFLAGS)  -o $@ $^ 
+# testDrives: $(OBJ)
+# 	$(CXX) $(LINKFLAGS)  -o $@ $^ 
+
+	
+# .PHONY: clean all
+
+# clean:
+# 	rm -f $(OBJ) 

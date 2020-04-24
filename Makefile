@@ -32,15 +32,6 @@ INCLUDE_DIRS = 	-I$(SRC_DIR) \
 SOURCES =   $(wildcard src/*.c) $(wildcard src/*/*.c) $(wildcard src/*/*/*.c) $(wildcard src/*/*/*/*.c)
 CPPSOURCES =  $(wildcard src/*.cpp) $(wildcard src/*/*.cpp) $(wildcard src/*/*/*.cpp)
 
-# canopend is three-threaded application: nonblocking mainline, nonblocking
-# rt-thread and blocking command interface thread.
-# If there is a need to compile canopend as a single-threaded application, then:
-#   - Command interface is not possible, so remove CO_command.c,
-#     CO_comm_helpers.c, CO_master.c (and CO_SDOmaster.c) from SOURCES.
-#   - Add flag -DCO_SINGLE_THREAD to the CFLAGS.
-#   - Remove flag -pthread from LDFLAGS.
-# Flag -lrt in LDFLAGS is necessary only with older kernels.
-
 OBJS = $(SOURCES:%.c=%.o) $(CPPSOURCES:%.cpp=%.o)
 
 #CC = g++
