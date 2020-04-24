@@ -8,7 +8,7 @@ LD  := arm-linux-gnueabihf-g++
 # -std=c++11 - uses C++11 standard (>>>>>>>WHY?>>>>>>>)
 # -lncurses - used for keyboard input
 # CXXFLAGS = $(INCLUDES) 
-CXXFLAGS := -std=c++11 -O3 $(INCLUDE_DIRS)
+CXXFLAGS := -std=c++11 
 # LINKFLAGS - flags for linking the objects
 # Used to include the libraries in the executable (originally added for GLIBCXX strings)
 LINKFLAGS := -static
@@ -35,16 +35,15 @@ VPATH = $(SRC_DIR)
 # how to make any filestem
 define make-goal
 $1/%.o: %.cpp
-	$(CXX) $(INCLUDES) -c $$< -o $$@
+	$(CXX) $(CXXFLAGS)$(INCLUDES) -c $$< -o $$@
 endef
 
 .PHONY: all checkdirs clean
 
-all: checkdirs build/test.exe
+all: checkdirs build/test
 
-build/test.exe: $(OBJ)
+build/test: $(OBJ)
 	$(LD) $^ -o $@
-
 
 checkdirs: $(BUILD_DIR)
 
