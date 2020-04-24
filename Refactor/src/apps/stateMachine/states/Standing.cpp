@@ -1,24 +1,18 @@
-#include "exoStateMachine.h"
+#include "TestMachine.h"
 ////////// STATE ////////////////////
 //-------  Standing ------------/////
 ////////////////////////////////////
-void Standing::entry(void)
-{
+void Standing::entry(void) {
     std::cout
         << "======================" << endl
-        << " YELLOW -> Sit DOWN" << endl
-        // << " BLUE   -> WALK SELECT" << endl
-        << " Trigger -> startWalk " << endl
+        << " HIT W -> Sit DOWN" << endl
+
         << "======================" << endl;
-    // CO_OD_RAM.currentState = intToStateODMap[this.getName()];
-    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Standing"];
 }
-void Standing::during(void)
-{
-    // Press yellow button to leave state
+void Standing::during(void) {
+    cout << "Standing state" << endl;
 }
-void Standing::exit(void)
-{
+void Standing::exit(void) {
     std::cout
         << "Standing State Exited at Time: " << OWNER->mark << endl;
 }

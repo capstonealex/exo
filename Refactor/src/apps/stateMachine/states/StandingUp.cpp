@@ -1,24 +1,20 @@
-#include "exoStateMachine.h"
+#include "TestMachine.h"
 // Negative bending control machine
-void StandingUp::entry(void)
-{
-    std::cout << "Standing Up State Entered at Time:" << OWNER->mark << endl
+void StandingUp::entry(void) {
+    std::cout << "Standing Up State Entered at Time:" << endl
               << "===================" << endl
               << " GREEN -> STAND UP" << endl
               << "===================" << endl;
-    OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->movementTrajMap[9]);
-    OWNER->robot->startNewTraj();
-    // CO_OD_RAM.currentState = intToStateODMap[this.getName()]
-    CO_OD_RAM.currentState = OWNER->stateToIntODMap["Standing Up"];
+    // OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->movementTrajMap[9]);
+    // OWNER->robot->startNewTraj();
 }
 
-void StandingUp::during(void)
-{
+void StandingUp::during(void) {
     // if the green button is pressed move. Or do nothing
-    OWNER->robot->moveThroughTraj();
+    std::cout << "STADING UP" << endl;
+    // OWNER->robot->moveThroughTraj();
 }
-void StandingUp::exit(void)
-{
+void StandingUp::exit(void) {
     std::cout
-        << "Standing up motion State Exited at Time: " << OWNER->mark << endl;
+        << "Standing up motion State Exited";
 }

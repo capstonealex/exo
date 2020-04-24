@@ -17,6 +17,6 @@ class InputDevice {
    private:
    public:
     InputDevice();
-    virtual void Update() = 0;
+    virtual void updateInput() = 0;
 };
 #endif

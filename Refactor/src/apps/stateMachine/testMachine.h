@@ -15,17 +15,18 @@
 
 #include "ExoRobot.h"
 #include "StateMachine.h"
-#define OWNER ((exoStateMachine *)owner)
+#define OWNER ((TestMachine *)owner)
 // Designed State and event classes
+#include "InitState.h"
 #include "Sitting.h"
 #include "SittingDwn.h"
 #include "Standing.h"
 #include "StandingUp.h"
 
-class exoStateMachine : public StateMachine {
+class TestMachine : public StateMachine {
    public:
     int running = 0;
-    exoStateMachine(void);
+    TestMachine(void);
     void init(void);
     void activate(void);
     void deactivate(void);
@@ -46,7 +47,7 @@ class exoStateMachine : public StateMachine {
    private:
     // events
     EventObject(EndTraj) * endTraj;
-    EventObject(IsGPressed) * isGPressed;
+    EventObject(IsAPressed) * isAPressed;
     EventObject(StartButtonsPressed) * startButtonsPressed;
     EventObject(StartExo) * startExo;
     EventObject(StartSit) * startSit;

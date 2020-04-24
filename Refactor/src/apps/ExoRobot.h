@@ -99,18 +99,23 @@ class ExoRobot : public Robot {
 
     /**
        * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
-       * Create designed <code>Joint</Joint> and <code>Driver</code> objects and load into 
+       * Create designed <code>Joint</code> and <code>Driver</code> objects and load into 
        * Robot joint vector.
        */
     bool initialiseJoints();
 
     /**
        * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
-       * Initialize each <code>Drive</Joint> Objects underlying CANOpen Networking.
+       * Initialize each <code>Drive</code> Objects underlying CANOpen Networking.
 
       */
     bool initialiseNetwork();
+    /**
+       * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
+       * Initialize each <code>Input</code> Object.
 
+      */
+    bool initialiseInputs();
     /**
        * @Free robot objects vector pointer memory.
        */

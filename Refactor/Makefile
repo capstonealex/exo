@@ -13,7 +13,7 @@ CXXFLAGS := -std=c++11
 LINKFLAGS := -static
 
 #Define header directories 
-MODULES   := apps libs libs/inputDevice libs/robot libs/robot/joint
+MODULES   := apps apps/stateMachine apps/stateMachine/states libs libs/inputDevice libs/robot libs/robot/joint
 
 # automatically create list of module file paths NOT including executables
 SRC_DIR	  := $(addprefix src/,$(MODULES))

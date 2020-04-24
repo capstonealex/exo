@@ -112,6 +112,10 @@ bool ExoRobot::initialiseNetwork() {
     }
     return true;
 }
+bool ExoRobot::initialiseInputs() {
+    inputs.push_back(new Keyboard());
+    return true;
+}
 void ExoRobot::freeMemory() {
     keyboard.~Keyboard();
     for (auto p : joints) {
@@ -125,5 +129,4 @@ void ExoRobot::freeMemory() {
 }
 void ExoRobot::updateRobot() {
     Robot::updateRobot();
-    keyboard.Update();
 }
