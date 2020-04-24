@@ -15,7 +15,7 @@ LINKFLAGS := -static
 
 #Define header directories 
 # note: we use variable := imediate expansion.
-MODULES   := apps tests libs libs/inputDevice libs/robot libs/robot/joint
+MODULES   := apps apps/stateMachine apps/stateMachine/states tests libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
 # automatically create list of module file paths
 SRC_DIR	  := $(addprefix src/,$(MODULES))
 BUILD_DIR := $(addprefix build/,$(MODULES))
@@ -26,7 +26,7 @@ OBJ       := $(patsubst src/%.cpp,build/%.o,$(SRC))
 # Tell compiler where to find all source files
 INCLUDES  := $(addprefix -I,$(SRC_DIR))
 TARGET   := program
-VPATH = $(SRC_DIR)
+VPATH =
 # Provide search path to make for targets or prerequisites.
 # List of Objects required in each testing program
 # OBJOINT = testJoints.o Drive.o Joint.o ActuatedJoint.o CopleyDrive.o DummyActJoint.o
@@ -34,7 +34,7 @@ VPATH = $(SRC_DIR)
 # OBDRIVE = testDrives.o Drive.o CopleyDrive.o
 # how to make any filestem
 define make-goal
-$1/%.o: %.cpp
+$1/%.o: $(subst build,src,$1)/%.cpp
 	$(CXX) $(CXXFLAGS)$(INCLUDES) -c $$< -o $$@
 endef
 

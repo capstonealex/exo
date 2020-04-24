@@ -46,7 +46,7 @@ class Keyboard : public InputDevice {
     int getKeyboardActive();
     void setKeyboardActive(int value);
     void setKeys();
-    void Update();
+    void updateInput();
     // Turn on or off terminal canonical mode
     // Canonical mode (default): user must hit enter to confirm input.
     void nonblock(int state);

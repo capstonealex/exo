@@ -20,7 +20,11 @@ Robot::Robot(){
 bool Robot::initialise() {
     if (initialiseJoints()) {
         if (initialiseNetwork()) {
-            return true;
+            if (initialiseInputs()) {
+                return true;
+            } else {
+                return false;
+            }
         }
     } else
         return false;
@@ -29,6 +33,8 @@ bool Robot::initialise() {
 void Robot::updateRobot() {
     for (auto joint : joints)
         joint->updateValue();
+    for (auto input : inputs)
+        input->updateInput();
 }
 
 void Robot::printStatus() {

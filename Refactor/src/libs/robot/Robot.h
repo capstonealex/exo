@@ -16,6 +16,7 @@
 #define ROBOT_H_INCLUDED
 #include <vector>
 
+#include "InputDevice.h"
 #include "Joint.h"
 #include "TrajectoryGenerator.h"
 using namespace std;
@@ -47,6 +48,12 @@ class Robot {
      */
     virtual bool initialiseJoints() = 0;
     /**
+     * @brief Pure Virtual function, implemeted by robot designer with specified number of each concrete input classes
+     * for the robot hardware desired.
+     * 
+     */
+    virtual bool initialiseInputs() = 0;
+    /**
      * @brief For each <class>Joint</class> in the robots joints Vector.
      * Individually set up the underlying CANopen PDO messaging to and from 
      * the hardware attached.
@@ -66,6 +73,8 @@ class Robot {
  * 
  */
     vector<Joint *> joints;
+
+    vector<InputDevice *> inputs;
     /**
  * @brief Trajectory Object 
  * 

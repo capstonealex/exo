@@ -16,27 +16,28 @@
  * unitl another button is pressed and then goes to uncalibrated (LIMP)
  *
  */
-#include "testMachine.h"
+#include "TestMachine.h"
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
 /////////////////////////////////////////////////////////
 
-#define OWNER ((exoStateMachine *)owner)
+#define OWNER ((TestMachine *)owner)
 
 /////////////////////////////////////////////////////////
-// State Machine exoStateMachine methods ----------------------------------------------------------
+// State Machine TestMachine methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////
 
-exoStateMachine::exoStateMachine(void) {
+TestMachine::TestMachine(void) {
     // Create PRE-DESIGNED State Machine events, states and transitions
     // StateMachine events
-    isGPressed = new IsGPressed(this);
+    isAPressed = new IsAPressed(this);
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     startExo = new StartExo(this);
     startSit = new StartSit(this);
     startStand = new StartStand(this);
+    initState = new InitState(this);
     standing = new Standing(this);
     sitting = new Sitting(this);
     standingUp = new StandingUp(this);
@@ -53,37 +54,36 @@ exoStateMachine::exoStateMachine(void) {
     robot = NULL;
 }
 
-void exoStateMachine::init(void) {
+void TestMachine::init(void) {
     StateMachine::init();
 }
-void exoStateMachine::activate(void) {
+void TestMachine::activate(void) {
     StateMachine::activate();
 }
-void exoStateMachine::deactivate(void) {
+void TestMachine::deactivate(void) {
     StateMachine::deactivate();
 }
-void exoStateMachine::update(void) {
+void TestMachine::update(void) {
     StateMachine::update();
 }
 
 ////////////////////////////////////////////////////////////////
 // Events ------------------------------------------------------------
 ///////////////////////////////////////////////////////////////
-bool exoStateMachine::EndTraj::check(void) {
+bool TestMachine::EndTraj::check(void) {
     //implement with movethroughztraj
     return true;
 }
 ///KEYBOARD AS BUTTON///
-////TODO: IMPLEMENT once compilining
 //////////// BUTTON PRESS CHECKS //////////////
-bool exoStateMachine::IsGPressed::check(void) {
-    if (OWNER->robot->buttons.getGButtonState() == 0) {
+bool TestMachine::IsAPressed::check(void) {
+    if (OWNER->robot->keyboard.getA() == true) {
         return true;
     }
     return false;
 }
-bool exoStateMachine::StartButtonsPressed::check(void) {
-    if (OWNER->robot->buttons.getBButtonState() == 0 && OWNER->robot->buttons.getRButtonState() != 0 && OWNER->robot->buttons.getYButtonState() == 0 && OWNER->robot->buttons.getGButtonState() != 0) {
+bool TestMachine::StartButtonsPressed::check(void) {
+    if (OWNER->robot->keyboard.getW() == true) {
         return true;
     }
     return false;
@@ -92,28 +92,22 @@ bool exoStateMachine::StartButtonsPressed::check(void) {
 //Crutch new Motion Paramater Events ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
 /// TODO: CHANGE TO KEYBOARD INPUT
-bool exoStateMachine::StartExo::check(void) {
-    if ((CO_OD_RAM.currentMovement == 11) && OWNER->robot->buttons.getGButtonState() == 0) {
+bool TestMachine::StartExo::check(void) {
+    if (OWNER->robot->keyboard.getS() == true) {
         std::cout << "LEAVING INIT and entering Sitting" << endl;
         return true;
     }
     return false;
 }
-bool exoStateMachine::StartStand::check(void) {
-    if ((CO_OD_RAM.currentMovement == STNDUP) && OWNER->robot->buttons.getGButtonState() == 1) {
-        // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->movementTrajMap[STNDUP]);
-        // RESET OD_NM for safety
+bool TestMachine::StartStand::check(void) {
+    if (OWNER->robot->keyboard.getW() == true) {
         return true;
     }
     return false;
 }
 
-bool exoStateMachine::StartSit::check(void) {
-    if (CO_OD_RAM.currentMovement == SITDWN && OWNER->robot->buttons.getGButtonState() == 1) {
-        // Set trajOBJECT paramaters to selected nexMOVEMENT
-        OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->movementTrajMap[SITDWN]);
-        // RESET OD_NM for safety
+bool TestMachine::StartSit::check(void) {
+    if (OWNER->robot->keyboard.getW()) {
         return true;
     }
     return false;
@@ -122,26 +116,16 @@ bool exoStateMachine::StartSit::check(void) {
 //////////////////////////////////////////////////////////////////////
 // Robot interface methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
-void exoStateMachine::initRobot(ExoRobot *rb) {
+void TestMachine::initRobot(ExoRobot *rb) {
     if (robot != NULL) {
         printf("Robot object already selected");
     }
     robot = rb;
-    robot->buttons.initButtons();
-    // robot->printInfo();
+    // TODOany init of input runs here
+    // robot->buttons.initButtons();
 };
 
 // Update button state, loop counter (mark) and joints
-void exoStateMachine::hwStateUpdate(void) {
-    //cout << "looping" << endl;
-    robot->buttons.setButtonStates();
-    // Check for commands from Crutch, when new nm sent send back that cm has been changed
-    // Proper event now checks for that cm index and the next gButton press to transition
-    CO_OD_RAM.currentMovement = CO_OD_RAM.nextMovement;
-    if (cm != CO_OD_RAM.currentMovement) {
-        cm = CO_OD_RAM.currentMovement;
-        std::cout << "NEXT MOTION: " << cm << std::endl;
-    }
-    mark = mark + 1;
+void TestMachine::hwStateUpdate(void) {
     robot->updateRobot();
 }
