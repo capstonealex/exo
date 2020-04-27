@@ -59,15 +59,14 @@ $(foreach test,$(TESTS),$(eval $(call make-tests,$(test))))
 all: checkdirs $(TESTS)
 
 checkdirs: $(BUILD_DIR)
-
-# On Windows - Substitute with command at end of file for UNIX-based systems
+#On UNIX
 $(BUILD_DIR):
-	@mkdir $(subst /,\\,$@)
+	@mkdir -p $@
 
+# 
 clean:
 	@rm -rf $(OBJ) $(TESTOBJS) $(TESTEXE) $(BUILD_DIR)
 
-
-# On Linux
+# On Windows - Substitute with command at end of file for UNIX-based systems
 # $(BUILD_DIR):
-	# @mkdir -p $@
+# 	@mkdir $(subst /,\\,$@)

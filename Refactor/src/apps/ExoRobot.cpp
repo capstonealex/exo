@@ -129,4 +129,5 @@ void ExoRobot::freeMemory() {
 }
 void ExoRobot::updateRobot() {
     Robot::updateRobot();
+    keyboard.updateInput();
 }

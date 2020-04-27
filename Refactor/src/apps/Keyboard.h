@@ -53,6 +53,8 @@ class Keyboard : public InputDevice {
 
     void clearCurrentStates();
     void printPressed();
+    //testing
+    void printStates();
     // Returns true if the key is pressed.
     bool getA();
     bool getS();
@@ -60,5 +62,6 @@ class Keyboard : public InputDevice {
     bool getW();
     bool getX();
     bool getQ();
+    int getSINT();
 };
 #endif

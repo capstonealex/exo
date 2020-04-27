@@ -26,7 +26,7 @@ int main(void) {
     testMachine.activate();
 
     // while !exit -> while q has not been pressed
-    while (!exo.keyboard.getKeyboardActive()) {
+    while (true) {
         usleep(500000);
         testMachine.hwStateUpdate();
         testMachine.update();

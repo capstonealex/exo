@@ -33,8 +33,8 @@ bool Robot::initialise() {
 void Robot::updateRobot() {
     for (auto joint : joints)
         joint->updateValue();
-    for (auto input : inputs)
-        input->updateInput();
+    // for (auto input : inputs)
+    //     input->updateInput();
 }
 
 void Robot::printStatus() {

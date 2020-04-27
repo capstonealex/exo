@@ -22,6 +22,7 @@ Keyboard::~Keyboard() {
 };
 void Keyboard::updateInput() {
     usleep(1);
+    clearCurrentStates();
     setKeyboardActive(kbhit());
     if (getKeyboardActive() != 0) {
         setKeys();
@@ -30,9 +31,6 @@ void Keyboard::updateInput() {
 }
 void Keyboard::setKeys() {
     /// set last Key states
-    /// Clear current states
-    clearCurrentStates();
-    ///char ch = getchar();
     char ch = fgetc(stdin);
 
     /* Set States, limited to one key Press at a time*/
@@ -44,29 +42,23 @@ void Keyboard::setKeys() {
         //     printf("No input from keyboard\n");
         case 'a':
         case 'A':
-            keyboardActive = 0;
             currentKeyStates.a = true;
             break;
         case 's':
         case 'S':
-            keyboardActive = 0;
             currentKeyStates.s = true;
             break;
         case 'd':
         case 'D':
-            keyboardActive = 0;
             currentKeyStates.d = true;
             break;
         case 'w':
         case 'W':
             currentKeyStates.w = true;
-            keyboardActive = 0;
-
             break;
         case 'x':
         case 'X':
             currentKeyStates.x = true;
-            keyboardActive = 0;
             break;
         case 'q':
         case 'Q':
@@ -74,7 +66,6 @@ void Keyboard::setKeys() {
             std::cout << std::endl
                       << "Q PRESSED, EXITING PROGRAM "
                       << std::endl;
-            keyboardActive = 1;
             break;
         default:
             keyboardActive = 0;
@@ -106,6 +97,14 @@ void Keyboard::printPressed() {
         std::cout
             << "PRESSED X " << std::endl;
     }
+}
+void Keyboard::printStates() {
+    std::cout << "a,s,d,w,x" << currentKeyStates.a
+              << currentKeyStates.s
+              << currentKeyStates.d
+              << currentKeyStates.w
+              << currentKeyStates.x
+              << std::endl;
 }
 void Keyboard::clearCurrentStates() {
     currentKeyStates.a = false;
