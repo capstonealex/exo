@@ -1,8 +1,6 @@
 /**
- * The <code>Input</code> class is a abstract class which represents an input device.
- * The device has generic states which maintain the current values of the input device. 
- * For example if a button us being pressed or not.
- * 
+ * The <code>Keyboard</code> class is an implementation of the abstract <class>Input</class>class for a computer keyboard.
+ * The device has key states which maintain the current values for a given programs update frame or refresh rate. 
  *
  * Version 0.1
  * Date: 07/04/2020
@@ -25,6 +23,7 @@ typedef struct keys {
     bool x;
     bool q;
 } key_states;
+
 class Keyboard : public InputDevice {
    private:
     key_states lastKeyStates = {false, false, false, false, false, false};
@@ -32,36 +31,97 @@ class Keyboard : public InputDevice {
     int keyboardActive;
 
    public:
+    /**
+         * @brief Construct a new keyboard object
+         * 
+         * * Note: Designer must implement specifc keyboard keys they wish to use.
+         *      Add an entry to key_states struct, last and current key State object and edit
+         *       set Keys and creat a getter method.
+         */
     Keyboard();
     ~Keyboard();
+    /**
+ * @brief getter method for key_states.
+ * 
+ */
     key_states getStates();
-    //termios structs for turning on and off terminal echo
-    struct termios original, noecho;
-    // storing current keyboard input
-    char ch;
-    // Check if keyboard has been hit - is stdin active
-    int kbhit();
-    // variable for storing output of kbhit
-    // int keyboardActive;
-    int getKeyboardActive();
-    void setKeyboardActive(int value);
+    /**
+ * @brief reads one character from stdin and updates coresponding key state (if one occured)
+ * 
+ */
     void setKeys();
+    /**
+ * @brief defintion of <class>Input</class> pure virtual function. Updates the keyboard input devices
+ * memory states from implemented keyboard input from user. E.g. A key has been pressed or not.
+ * 
+ */
     void updateInput();
-    // Turn on or off terminal canonical mode
-    // Canonical mode (default): user must hit enter to confirm input.
-    void nonblock(int state);
-
+    /**
+ * @brief clear the current key state variables
+ * 
+ */
     void clearCurrentStates();
+    /**
+ * @brief Helper method, prints current keys registered as pressed
+ * 
+ */
     void printPressed();
-    //testing
-    void printStates();
     // Returns true if the key is pressed.
+    /**
+ * @brief Getter method for private A key state
+ * 
+ */
     bool getA();
+    /**
+ * @brief Getter method for private S key state
+ * 
+ */
     bool getS();
+    /**
+ * @brief Getter method for private D key state
+ * 
+ */
     bool getD();
+    /**
+ * @brief Getter method for private W key state
+ * 
+ */
     bool getW();
+    /**
+ * @brief Getter method for private X key state
+ * 
+ */
     bool getX();
+    /**
+ * @brief Getter method for private Q key state
+ * 
+ */
     bool getQ();
-    int getSINT();
+    /**
+ * @brief Termios structs for turning on and off terminal echo
+ * 
+ */
+    struct termios original, noecho;
+    char ch;
+    /**
+ * @brief Check if keyboard has been hit - is stdin active.
+ * 
+ */
+    int kbhit();
+    /**
+ * @brief Configure stdin to be nonblocking to rest of program
+ * 
+ */
+    void nonblock(int state);
+    /**
+ * @brief getter method for keyboard active flag, set by kbhit function.
+ * 
+ */
+    int getKeyboardActive();
+    /**
+ * @brief setter method for keyboard active flag, set by kbhit function.
+ * 
+ */
+    void setKeyboardActive(int value);
 };
 #endif

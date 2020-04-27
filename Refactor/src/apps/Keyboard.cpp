@@ -5,7 +5,6 @@ Keyboard::Keyboard() {
     std::cout << "Keyboard object created, echo disabled" << std::endl;
     keyboardActive = NB_DISABLE;
     nonblock(NB_ENABLE);
-    // turn off keyboard echo
     /* obtain the current terminal configuration */
     tcgetattr(STDIN_FILENO, &original);
     /* duplicate it */
@@ -32,7 +31,6 @@ void Keyboard::updateInput() {
 void Keyboard::setKeys() {
     /// set last Key states
     char ch = fgetc(stdin);
-
     /* Set States, limited to one key Press at a time*/
 
     switch (ch) {
@@ -97,14 +95,6 @@ void Keyboard::printPressed() {
         std::cout
             << "PRESSED X " << std::endl;
     }
-}
-void Keyboard::printStates() {
-    std::cout << "a,s,d,w,x" << currentKeyStates.a
-              << currentKeyStates.s
-              << currentKeyStates.d
-              << currentKeyStates.w
-              << currentKeyStates.x
-              << std::endl;
 }
 void Keyboard::clearCurrentStates() {
     currentKeyStates.a = false;

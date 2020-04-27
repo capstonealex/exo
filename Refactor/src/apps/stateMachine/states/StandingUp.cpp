@@ -16,5 +16,6 @@ void StandingUp::during(void) {
 }
 void StandingUp::exit(void) {
     std::cout
-        << "Standing up motion State Exited";
+        << "Standing up motion State Exited"
+        << endl;
 }

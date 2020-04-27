@@ -13,8 +13,6 @@
 using namespace std;
 
 int main(void) {
-    //TODO add keyboard initializer to initiRobot.
-    //INITINPUT
     // Create Exo object + initialise derived Joints + trajectory Generator
     bool exit = false;
     cout << ">>> Creating Test state machine" << endl;
@@ -24,9 +22,7 @@ int main(void) {
     testMachine.initRobot(&exo);
     testMachine.init();
     testMachine.activate();
-
-    // while !exit -> while q has not been pressed
-    while (true) {
+    while (!exo.keyboard.getQ()) {
         usleep(500000);
         testMachine.hwStateUpdate();
         testMachine.update();
