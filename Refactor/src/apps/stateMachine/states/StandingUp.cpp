@@ -5,14 +5,15 @@ void StandingUp::entry(void) {
               << "===================" << endl
               << " GREEN -> STAND UP" << endl
               << "===================" << endl;
-    // OWNER->robot->trajectoryGenerator.setTrajectoryParameter(OWNER->robot->movementTrajMap[9]);
-    // OWNER->robot->startNewTraj();
+    OWNER->robot->initPositionControl();
+    OWNER->robot->setTrajectory();
+    OWNER->trajComplete = false;
 }
 
 void StandingUp::during(void) {
     // if the green button is pressed move. Or do nothing
-    std::cout << "STADING UP" << endl;
-    // OWNER->robot->moveThroughTraj();
+    std::cout << "STANDING UP" << endl;
+    OWNER->trajComplete = OWNER->robot->moveThroughTraj();
 }
 void StandingUp::exit(void) {
     std::cout

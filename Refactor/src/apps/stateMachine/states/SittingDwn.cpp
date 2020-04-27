@@ -7,10 +7,13 @@ void SittingDwn::entry(void) {
               << "===================" << endl
               << " GREEN -> SIT DOWN " << endl
               << "===================" << endl;
+    OWNER->robot->initPositionControl();
+    OWNER->robot->setSpecificTrajectory(SITDWN);
+    OWNER->trajComplete = false;
 }
 void SittingDwn::during(void) {
     std::cout << "sitting down state" << endl;
-    // OWNER->robot->moveThroughTraj();
+    OWNER->trajComplete = OWNER->robot->moveThroughTraj();
 }
 void SittingDwn::exit(void) {
     std::cout

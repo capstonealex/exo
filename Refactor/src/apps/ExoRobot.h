@@ -90,12 +90,14 @@ class ExoRobot : public Robot {
          *
          */
     void setTrajectory();
-
+    // set trajectory from input int traj value -> must have coresponding map entry
+    void setSpecificTrajectory(int traj);
     /**
        * @brief Prints the parameters for the defined trajectory
        * 
        */
-    void printTrajectoryParam();
+    void
+    printTrajectoryParam();
 
     /**
        * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.

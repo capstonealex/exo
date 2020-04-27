@@ -35,7 +35,7 @@ class TestMachine : public StateMachine {
     State *gettCurState(void);
     void initRobot(ExoRobot *rb);
     ExoRobot *robot;
-    int mark;
+    bool trajComplete;
 
     // State Object pointers
     InitState *initState;

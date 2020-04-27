@@ -71,8 +71,10 @@ void TestMachine::update(void) {
 // Events ------------------------------------------------------------
 ///////////////////////////////////////////////////////////////
 bool TestMachine::EndTraj::check(void) {
-    //implement with movethroughztraj
-    return true;
+    if (OWNER->trajComplete) {
+        return true;
+    } else
+        return false;
 }
 ///KEYBOARD AS BUTTON///
 //////////// BUTTON PRESS CHECKS //////////////

@@ -88,7 +88,9 @@ void ExoRobot::setTrajectory() {
     //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
     ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameter(movementTrajMap[STNDUP]);
 }
-
+void ExoRobot::setSpecificTrajectory(int traj) {
+    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameter(movementTrajMap[traj]);
+}
 void ExoRobot::printTrajectoryParam() {
     std::cout << "Step height:" << ((ALEXTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.step_height << std::endl;
     std::cout << "Slope angle: " << ((ALEXTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.slope_angle << std::endl;
