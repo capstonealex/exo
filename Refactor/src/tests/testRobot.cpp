@@ -1,7 +1,7 @@
 /// Testing ExoRobot new classes
 
 #include "ExoRobot.h"
-using namespace std;
+//using namespace std;
 
 int main(void) {
     //TODO add keyboard initializer to initiRobot.
@@ -23,15 +23,15 @@ int main(void) {
     exo.printTrajectoryParam();
 
     //Try to move through trajectory without being in correct mode
-    cout << ">>> Moving Through Trajectory (Expected Result: False) >>>" << endl
-         << exo.moveThroughTraj() << endl;
+    /* cout << ">>> Moving Through Trajectory (Expected Result: False) >>>" << endl
+         << exo.moveThroughTraj() << endl;*/
 
     // Initialise Position Control
     cout << ">>> Initialsing Position Control >>> \n"
          << exo.initPositionControl() << endl;
 
-    cout << ">>> Moving Through Trajectory  (Expected Result: True) >>>" << endl
-         << exo.moveThroughTraj() << endl;
+    /* cout << ">>> Moving Through Trajectory  (Expected Result: True) >>>" << endl
+         << exo.moveThroughTraj() << endl;*/
 
     cout << ">>> Current Robot Position (expected value: all joints 0) >>>" << endl;
     exo.printStatus();
@@ -44,14 +44,21 @@ int main(void) {
 
     // NON BLOCKING KEYBOARD INPUT - quits when q is pressed
     cout << "Test keyboard input w/ w,a,s,d,x. Type q to exit keyboard test" << endl;
-    while (!exo.keyboard.getKeyboardActive()) {
+    while (!exo.keyboard.getQ()) {
         usleep(500000);
         exo.updateRobot();
         if (exo.keyboard.getA()) {
             exo.moveThroughTraj();
         }
-
-        exo.keyboard.clearCurrentStates();
+        if (exo.keyboard.getS()) {
+            exo.startNewTraj();
+            exo.setSpecificTrajectory(RobotMode::SITDWN);
+        }
+        if (exo.keyboard.getW()) {
+            exo.setSpecificTrajectory(RobotMode::NORMALWALK);
+        }
+        exo.printTrajectoryParam();
+        //exo.keyboard.clearCurrentStates();
         exo.printStatus();
     }
 

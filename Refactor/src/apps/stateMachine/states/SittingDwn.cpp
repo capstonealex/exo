@@ -8,7 +8,7 @@ void SittingDwn::entry(void) {
               << " GREEN -> SIT DOWN " << endl
               << "===================" << endl;
     OWNER->robot->initPositionControl();
-    OWNER->robot->setSpecificTrajectory(SITDWN);
+    OWNER->robot->setSpecificTrajectory(RobotMode::SITDWN);
     OWNER->trajComplete = false;
 }
 void SittingDwn::during(void) {

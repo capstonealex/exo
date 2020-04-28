@@ -9,8 +9,8 @@ ExoRobot::ExoRobot() {
     // Creates all the joints
     if (initialise()) {
         DEBUG_OUT("ExoRobot object created")
-        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setPilotParameter(exoParams);
-        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameter(movementTrajMap[INITIAL]);
+        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setPilotParameters(exoParams);
+        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameters(movementTrajMap[RobotMode::INITIAL]);
     } else {
         cout << "ExoRobot failed to initialise" << endl;
     }
@@ -37,39 +37,41 @@ bool ExoRobot::initPositionControl() {
 
 void ExoRobot::startNewTraj() {
     DEBUG_OUT("Start New Traj");
-    setTrajectory();
-    /*
+
+    jointspace_state initialPose;
+    for (int i = 0; i < NUM_JOINTS; i++)
+        initialPose.q[i] = 0;
+    initialPose.time = 0;
+
+    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->initialiseTrajectory(RobotMode::STNDUP, initialPose);
+
     // Index Resetting
-    fracTrajProgress = 0;
-    TrajectoryGenerator::jointspace_state startNewTrajJointspace;
-
-    double robotJointspace[NUM_JOINTS];
-    int j = 0;
-    for (auto joint : joints) {
-        robotJointspace[j] = deg2rad(joint.getQ);
-        j++;
-    }
-
-    cout << "joints position at start traj" << endl;
-    printInfo();
-    startNewTrajJointspace = {.q = {robotJointspace[0],
-                                    robotJointspace[1],
-                                    robotJointspace[2],
-                                    robotJointspace[3],
-                                    deg2rad(85),   //robotJointspace[4],
-                                    deg2rad(85)},  //robotJointspace[5]},
-                              .time = 0};
-
-    trajectoryGenerator.generateAndSaveSpline(startNewTrajJointspace);
-
-    trajectoryGenerator.startTrajectory();*/
+    currTrajProgress = 0;
+    clock_gettime(CLOCK_MONOTONIC, &prevTime);
 }
 
 bool ExoRobot::moveThroughTraj() {
     bool returnValue = true;
+    timespec currTime;
+    clock_gettime(CLOCK_MONOTONIC, &currTime);
+    long elapsedns = (currTime.tv_sec - prevTime.tv_sec) * 1000000000 + currTime.tv_nsec - prevTime.tv_nsec;
+    prevTime = currTime;
+
+    // Pretend trajectories take 10 seconds
+    time_tt fracProgress = elapsedns / (double)10000000000;
+    currTrajProgress += fracProgress;
+    DEBUG_OUT("Elapsed Time: " << currTrajProgress)
+
+    double positions[NUM_JOINTS];
+    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->calcPosition(currTrajProgress, positions);
+
+    DEBUG_OUT("After function call")
+
     for (auto p : joints) {
         // Calculate the position for each of these joints
-        double jointPos = rand() % 100;
+
+        double jointPos = positions[p->getId()];
+
         setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(jointPos);
         if (setPosCode == INCORRECT_MODE) {
             std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
@@ -86,14 +88,14 @@ bool ExoRobot::moveThroughTraj() {
 void ExoRobot::setTrajectory() {
     DEBUG_OUT("Set Trajectory")
     //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
-    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameter(movementTrajMap[STNDUP]);
+    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameters(movementTrajMap[RobotMode::STNDUP]);
 }
-void ExoRobot::setSpecificTrajectory(int traj) {
-    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameter(movementTrajMap[traj]);
+
+void ExoRobot::setSpecificTrajectory(RobotMode mode) {
+    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameters(movementTrajMap[mode]);
 }
 void ExoRobot::printTrajectoryParam() {
-    std::cout << "Step height:" << ((ALEXTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.step_height << std::endl;
-    std::cout << "Slope angle: " << ((ALEXTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.slope_angle << std::endl;
+    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->printTrajectoryParameters();
 }
 
 bool ExoRobot::initialiseJoints() {

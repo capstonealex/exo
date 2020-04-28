@@ -11,6 +11,9 @@
 /*Header Guard*/
 #ifndef EXOROBOT_H_INCLUDED
 #define EXOROBOT_H_INCLUDED
+
+#include <time.h>
+
 #include <map>
 
 #include "ALEXTrajectoryGenerator.h"
@@ -24,10 +27,10 @@ class ExoRobot : public Robot {
    private:
     //TODO: Load in paramaters and dictionary entries from JSON file.
     /**
- * TrajectoryGenerator pilot paramaters dictate the specific real world link lengths of the 3 joint exoskeleton robot.
- * These paramaters must be specifically changed for the pilot using the Exoskeleton.
- */
-    ALEXTrajectoryGenerator::pilot_parameters exoParams = {
+    * TrajectoryGenerator pilot paramaters dictate the specific real world link lengths of the 3 joint exoskeleton robot.
+    * These paramaters must be specifically changed for the pilot using the Exoskeleton.
+    */
+    PilotParameters exoParams = {
         .lowerleg_length = 0.44,
         .upperleg_length = 0.44,
         .ankle_height = 0.12,
@@ -35,6 +38,10 @@ class ExoRobot : public Robot {
         .hip_width = 0.43,
         .torso_length = 0.4,
         .buttocks_height = 0.05};
+
+    /** Parameters associated with Trajectory Progression */
+    time_tt currTrajProgress = 0;
+    timespec prevTime;
 
    public:
     /**
@@ -91,7 +98,7 @@ class ExoRobot : public Robot {
          */
     void setTrajectory();
     // set trajectory from input int traj value -> must have coresponding map entry
-    void setSpecificTrajectory(int traj);
+    void setSpecificTrajectory(RobotMode mode);
     /**
        * @brief Prints the parameters for the defined trajectory
        * 
@@ -154,139 +161,5 @@ class ExoRobot : public Robot {
                                          {RIGHT_KNEE, (KNEE_MOTOR_POS1 * 1.5)},
                                          {LEFT_ANKLE, -800000},
                                          {RIGHT_ANKLE, -800000}};
-    /**
-       * @brief Map between int values for specific trajectory motion paramaters. These paramaters are fed into the
-       * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading 
-       * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. The paramater
-       * map is constructed at runtime from trajectoryParam.JSON
-       * @param int Movement type
-       * @return TrajectoryGenerator::trajectory_parameters 
-       */
-    std::map<int, ALEXTrajectoryGenerator::trajectory_parameters>
-        movementTrajMap = {
-            {INITIAL, {.step_duration = 1, .step_height = 0.2, .step_length = 0.3,
-                       .hip_height_slack = 0.0001,         // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                       .torso_forward_angle = deg2rad(5),  // TODO: make this a vector/array?
-                       .swing_ankle_down_angle = 0,
-                       .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
-                       .movement = ALEXTrajectoryGenerator::Movement::Sitting,
-                       .seat_height = 0.45,     // sit-stand
-                       .step_end_height = 0.0,  // stairs
-                       .slope_angle = 0.0,      // tilted path
-                       .left_foot_on_tilt = false,
-                       .right_foot_on_tilt = false}},
-            {NORMALWALK, {.step_duration = UNEVENSTEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
-                          .hip_height_slack = LEGSLACK,  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                          //.torso_forward_angle = TORSOANGLE,
-                          .torso_forward_angle = UNEVENTORSO,
-                          .swing_ankle_down_angle = 0,
-                          .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
-                          //.movement = TrajectoryGenerator::Movement::Walk,
-                          .movement = ALEXTrajectoryGenerator::Movement::Uneven,
-                          .seat_height = 0.42,     // sit-stand
-                          .step_end_height = 0.0,  // stairs
-                          .slope_angle = 0.0,      // tilted path
-                          .left_foot_on_tilt = false,
-                          .right_foot_on_tilt = false}},
-            {UPSTAIR, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = STEPTGTLENGTH,
-                       .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                       .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                       .swing_ankle_down_angle = 0,
-                       .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
-                       .movement = ALEXTrajectoryGenerator::Movement::Walk,
-                       .seat_height = 0.42,     // sit-stand
-                       .step_end_height = 0.0,  // stairs
-                       .slope_angle = 0.0,      // tilted path
-                       .left_foot_on_tilt = false,
-                       .right_foot_on_tilt = false}},
-            {DWNSTAIR, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
-                        .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                        .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                        .swing_ankle_down_angle = 0,
-                        .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
-                        .movement = ALEXTrajectoryGenerator::Movement::Back,
-                        .seat_height = 0.42,     // sit-stand
-                        .step_end_height = 0.0,  // stairs
-                        .slope_angle = 0.0,      // tilted path
-                        .left_foot_on_tilt = false,
-                        .right_foot_on_tilt = false}},
-            {TILTUP, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
-                      .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                      .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                      .swing_ankle_down_angle = 0,
-                      .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
-                      .movement = ALEXTrajectoryGenerator::Movement::Back,
-                      .seat_height = 0.42,     // sit-stand
-                      .step_end_height = 0.0,  // stairs
-                      .slope_angle = 5.0,      // tilted path
-                      .left_foot_on_tilt = false,
-                      .right_foot_on_tilt = false}},
-            {TILTDWN, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
-                       .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                       .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                       .swing_ankle_down_angle = 0,
-                       .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
-                       .movement = ALEXTrajectoryGenerator::Movement::Back,
-                       .seat_height = 0.42,     // sit-stand
-                       .step_end_height = 0.0,  // stairs
-                       .slope_angle = 0.0,      // tilted path
-                       .left_foot_on_tilt = false,
-                       .right_foot_on_tilt = false}},
-            {FTTG, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
-                    .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                    .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                    .swing_ankle_down_angle = 0,
-                    .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
-                    .movement = ALEXTrajectoryGenerator::Movement::Back,
-                    .seat_height = 0.42,     // sit-stand
-                    .step_end_height = 0.0,  // stairs
-                    .slope_angle = 0.0,      // tilted path
-                    .left_foot_on_tilt = false,
-                    .right_foot_on_tilt = false}},
-            {BKSTEP, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
-                      .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                      .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                      .swing_ankle_down_angle = 0,
-                      .stance_foot = ALEXTrajectoryGenerator::Foot::Left,
-                      .movement = ALEXTrajectoryGenerator::Movement::Back,
-                      .seat_height = 0.42,     // sit-stand
-                      .step_end_height = 0.0,  // stairs
-                      .slope_angle = 0.0,      // tilted path
-                      .left_foot_on_tilt = false,
-                      .right_foot_on_tilt = false}},
-            {SITDWN, {.step_duration = SITTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
-                      .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                      .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                      .swing_ankle_down_angle = 0,
-                      .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
-                      .movement = ALEXTrajectoryGenerator::Movement::Sit,
-                      .seat_height = 0.42,     // sit-stand
-                      .step_end_height = 0.0,  // stairs
-                      .slope_angle = 0.0,      // tilted path
-                      .left_foot_on_tilt = false,
-                      .right_foot_on_tilt = false}},
-            {STNDUP, {.step_duration = STANDTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
-                      .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                      .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                      .swing_ankle_down_angle = 0,
-                      .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
-                      .movement = ALEXTrajectoryGenerator::Movement::Stand,
-                      .seat_height = 0.42,     // sit-stand
-                      .step_end_height = 0.0,  // stairs
-                      .slope_angle = 0.0,      // tilted path
-                      .left_foot_on_tilt = false,
-                      .right_foot_on_tilt = false}},
-            {UNEVEN, {.step_duration = STANDTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
-                      .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                      .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                      .swing_ankle_down_angle = 0,
-                      .stance_foot = ALEXTrajectoryGenerator::Foot::Right,
-                      .movement = ALEXTrajectoryGenerator::Movement::Stand,
-                      .seat_height = 0.42,     // sit-stand
-                      .step_end_height = 0.0,  // stairs
-                      .slope_angle = 0.0,      // tilted path
-                      .left_foot_on_tilt = false,
-                      .right_foot_on_tilt = false}}};
 };
-
 #endif /*EXOROBOT_H*/

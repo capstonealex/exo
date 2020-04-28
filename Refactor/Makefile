@@ -6,14 +6,15 @@ LD  := arm-linux-gnueabihf-g++
 
 # CXXFLAGS - flags for the compilation 
 # -std=c++11 - uses C++11 standard
-CXXFLAGS := -std=c++11 
+# -Wno-psabi - does not print the warnings associated with use of the MAP class. 
+CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen 
 
 # LINKFLAGS - flags for linking the objects
 # -static used to include the libraries in the executable (originally added for GLIBCXX strings)
 LINKFLAGS := -static
 
 #Define header directories 
-MODULES   := apps apps/stateMachine apps/stateMachine/states libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
+MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
 
 # automatically create list of module file paths NOT including executables
 SRC_DIR	  := $(addprefix src/,$(MODULES))
@@ -60,13 +61,13 @@ all: checkdirs $(TESTS)
 
 checkdirs: $(BUILD_DIR)
 #On UNIX
-$(BUILD_DIR):
-	@mkdir -p $@
+#$(BUILD_DIR):
+#	@mkdir -p $@ 
 
-# 
+#On Windows - Substitute with command at end of file for UNIX-based systems
+$(BUILD_DIR):
+	@mkdir $(subst /,\\,$@)
+
+#
 clean:
 	@rm -rf $(OBJ) $(TESTOBJS) $(TESTEXE) $(BUILD_DIR)
-
-# On Windows - Substitute with command at end of file for UNIX-based systems
-# $(BUILD_DIR):
-# 	@mkdir $(subst /,\\,$@)
