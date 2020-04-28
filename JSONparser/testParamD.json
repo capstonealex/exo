@@ -1,0 +1,36 @@
+{
+  "movements": [
+    {
+      "name": "first",
+      "step_duration": 3.141,
+      "step_height": 2,
+      "step_length": 5,
+      "hip_height_slack": 4,
+      "torso_forward_angle": 5,
+      "swing_ankle_down_angle": 5,
+      "stance_foot": 0,
+      "movement": 5,
+      "seat_height": 3,
+      "step_end_height": 10,
+      "slope_angle": 57,
+      "left_foot_on_tilt": true,
+      "right_foot_on_tilt": false
+    },
+    {
+      "name": "second",
+      "step_duration": 3.141,
+      "step_height": 2,
+      "step_length": 5,
+      "hip_height_slack": 4,
+      "torso_forward_angle": 5,
+      "swing_ankle_down_angle": 5,
+      "stance_foot": 0,
+      "movement": 5,
+      "seat_height": 3,
+      "step_end_height": 10,
+      "slope_angle": 57,
+      "left_foot_on_tilt": true,
+      "right_foot_on_tilt": false
+    }
+  ]
+}
