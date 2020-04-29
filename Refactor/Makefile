@@ -11,10 +11,11 @@ CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen
 
 # LINKFLAGS - flags for linking the objects
 # -static used to include the libraries in the executable (originally added for GLIBCXX strings)
-LINKFLAGS := -static
+LINKFLAGS := -static 
 
 #Define header directories 
-MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
+#MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict
+MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
 
 # automatically create list of module file paths NOT including executables
 SRC_DIR	  := $(addprefix src/,$(MODULES))
@@ -61,12 +62,12 @@ all: checkdirs $(TESTS)
 
 checkdirs: $(BUILD_DIR)
 #On UNIX
-#$(BUILD_DIR):
-#	@mkdir -p $@ 
+$(BUILD_DIR):
+	@mkdir -p $@ 
 
 #On Windows - Substitute with command at end of file for UNIX-based systems
-$(BUILD_DIR):
-	@mkdir $(subst /,\\,$@)
+# $(BUILD_DIR):
+# 	@mkdir $(subst /,\\,$@)
 
 #
 clean:

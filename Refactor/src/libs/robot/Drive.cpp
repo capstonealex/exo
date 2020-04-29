@@ -20,6 +20,8 @@ int Drive::getNodeID() {
 
 bool Drive::setPos(int position) {
     DEBUG_OUT("Drive " << this->NodeID << " Writing " << position << " to 0x607A");
+    //FOR testing OD.
+    // OD_record6064[2] = position;
     return true;
 }
 
@@ -34,7 +36,9 @@ bool Drive::setTorque(int torque) {
 }
 
 int Drive::getPos() {
-    return 0;
+    int q = 12;
+    // int q = OD_record6064[2];
+    return q;
 }
 
 int Drive::getVel() {
