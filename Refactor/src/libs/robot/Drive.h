@@ -17,6 +17,7 @@
 #include <sstream>
 #include <vector>
 
+#include "CANopen.h"
 // Constant for a CAN Message
 #define CANMESSAGELENGTH 100
 

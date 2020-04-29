@@ -14,8 +14,8 @@ CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen
 LINKFLAGS := -static 
 
 #Define header directories 
-#MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict
-MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
+MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict
+#MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
 
 # automatically create list of module file paths NOT including executables
 SRC_DIR	  := $(addprefix src/,$(MODULES))
@@ -30,7 +30,7 @@ SRC		  := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
 OBJ       := $(patsubst src/%.cpp,build/%.o,$(SRC))
 
 # List of Test Programs (Executables)
-TESTS	:= testDrives testJoints testRobot testSM
+TESTS	:= testDrives testJoints testRobot testSM testOD
 
 # Test Program Objects and executables
 TESTOBJS := $(addsuffix .o, $(addprefix build/tests/,$(TESTS))) 
