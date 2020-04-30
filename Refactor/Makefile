@@ -1,6 +1,7 @@
 # Makefile for Tests
 # CXX - defines the compiler. 
 # Currently uses the cross-compiler for the BBB (could be modified to run on Windows PC if desired)
+C	:=arm-linux-gnueabihf-gcc
 CXX := arm-linux-gnueabihf-g++
 LD  := arm-linux-gnueabihf-g++
 
@@ -11,8 +12,8 @@ CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen
 
 # LINKFLAGS - flags for linking the objects
 # -static used to include the libraries in the executable (originally added for GLIBCXX strings)
-LINKFLAGS := -static 
-
+# LINKFLAGS := -static 
+LINKFLAGS:=
 #Define header directories 
 MODULES   := libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
 #MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
@@ -20,14 +21,19 @@ MODULES   := libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/sock
 # automatically create list of module file paths NOT including executables
 SRC_DIR	  := $(addprefix src/,$(MODULES))
 
-# Objects from the sources, plus the executables
+# Crete build folders for Objects from the sources, plus the executables
 BUILD_DIR := $(addprefix build/,$(MODULES)) build/tests
 
 # Expand all SRC files from SRC_DIR
-SRC		  := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
+# SRC		  := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp)$(wildcard $(sdir)/*.c))
+SRC_C		:= $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.c))
+SRC_CPP		:= $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
+
 
 # Create list of all desired .o files from SRC files in listed MODULES (NOT including Executables)
-OBJ       := $(patsubst src/%.cpp,build/%.o,$(SRC))
+OBJ_C       := $(patsubst src/%.c,build/%.o,$(SRC_C))
+OBJ_CPP       := $(patsubst src/%.cpp,build/%.o,$(SRC_CPP))
+
 
 # List of Test Programs (Executables)
 TESTS	:= testDrives testJoints testRobot testSM testOD
@@ -45,6 +51,11 @@ define make-goal
 $1/%.o: $(subst build,src,$1)/%.cpp
 	$(CXX) $(CXXFLAGS)$(INCLUDES) -c $$< -o $$@	
 endef
+# Define a macro which defines a Make Rule for all .c files in all Source Directories 
+define make-goalc
+$1/%.o: $(subst build,src,$1)/%.c
+	$(C) $(INCLUDES) -c $$< -o $$@	
+endef
 
 # Define a macro which defines a Make Rule to link tests together
 define make-tests
@@ -53,12 +64,15 @@ $1: build/tests/$1.o $(OBJ)
 endef
 
 # Call the previously defined macros
-$(foreach bdir,$(BUILD_DIR),$(eval $(call make-goal,$(bdir))))
+$(foreach bdir,$(OBJ_CPP),$(eval $(call make-goal,$(bdir))))
+$(foreach bdir,$(OBJ_C),$(eval $(call make-goalc,$(bdir))))
 $(foreach test,$(TESTS),$(eval $(call make-tests,$(test))))
 
 .PHONY: all checkdirs clean
 
 all: checkdirs $(TESTS)
+test:
+	echo'$(OBJ)'
 
 checkdirs: $(BUILD_DIR)
 #On UNIX
