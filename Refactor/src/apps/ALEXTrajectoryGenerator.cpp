@@ -960,6 +960,7 @@ jointspace_state ALEXTrajectoryGenerator::taskspace_state_to_jointspace_state(
     } else {
         jointspaceState.q[RIGHT_ANKLE] = M_PI_2 + RightTempAngles.at(2);
     }
+
     return jointspaceState;
 }
 
@@ -1018,9 +1019,9 @@ std::vector<CubicPolynomial> ALEXTrajectoryGenerator::cubic_spline(
     int numPoints) {
     std::vector<CubicPolynomial> cubicSplinePolynomials;
 
-    //cout << "[cubic_spline]: x's: ";
-    //for (int i=0; i<numPoints; i++) std::cout << x[i] << "\t";
-    //cout << std::endl;
+    std::cout << "[cubic_spline]: x's: ";
+    for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
+    std::cout << std::endl;
 
     // Cubic spline
     // Assume boundary vel and acc are zero.
@@ -1210,6 +1211,7 @@ void ALEXTrajectoryGenerator::calcPosition(time_tt time, double *positionArray) 
     //if the time point is inside range
     for (int polynomial_index = 0; polynomial_index < numPolynomials; polynomial_index++) {
         //cout << "[discretise_spline]: pt " << polynomial_index << ":" << endl;
+
         //if the jointspaceState time is bounded by the section of spline
         if (time >= trajectoryJointSpline.times.at(polynomial_index) &&
             time <= trajectoryJointSpline.times.at(polynomial_index + 1)) {

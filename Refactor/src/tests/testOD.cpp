@@ -21,11 +21,17 @@ void CO_error(const uint32_t info) {
 using namespace std;
 int main() {
     // Create a Drive Object
-    std::cout << "1. Construct a CopleyDrive Object (which implements Drive Class), with NODE ID = 100 \n";
-    Drive *testDrive = new CopleyDrive(2);
+    std::cout << "1. Construct a CopleyDrive Object (which implements Drive Class), with NODE ID = 1 \n";
+    Drive *testDrive = new CopleyDrive(3);
 
     std::cout << "2. Read form OD and change OD\n";
-    cout << "currnet OD position : " << testDrive->getPos();
+    cout << "current OD position : " << testDrive->getPos() << std::endl;
     testDrive->setPos(10);
-    cout << "currnet OD position : " << testDrive->getPos();
+    cout << "current OD position : " << testDrive->getPos() << std::endl;
+    cout << "Read Specifically from CO_OD_RAM.targetMotorPositions.motor1: " << CO_OD_RAM.targetMotorPositions.motor1 << std::endl;
+    cout << "Read Specifically from CO_OD_RAM.targetMotorPositions.motor2: " << CO_OD_RAM.targetMotorPositions.motor2 << std::endl;
+    cout << "Read Specifically from CO_OD_RAM.targetMotorPositions.motor3: " << CO_OD_RAM.targetMotorPositions.motor3 << std::endl;
+    cout << "Read Specifically from CO_OD_RAM.targetMotorPositions.motor4: " << CO_OD_RAM.targetMotorPositions.motor4 << std::endl;
+    cout << "Read Specifically from CO_OD_RAM.targetMotorPositions.motor5: " << CO_OD_RAM.targetMotorPositions.motor5 << std::endl;
+    cout << "Read Specifically from CO_OD_RAM.targetMotorPositions.motor6: " << CO_OD_RAM.targetMotorPositions.motor6 << std::endl;
 }

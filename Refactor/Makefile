@@ -8,12 +8,13 @@ LD  := arm-linux-gnueabihf-g++
 # CXXFLAGS - flags for the compilation 
 # -std=c++11 - uses C++11 standard
 # -Wno-psabi - does not print the warnings associated with use of the MAP class. 
-CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen 
+# -Wwrite-strings - removes warnings re conversion of string constants to char*
+CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen  -Wwrite-strings 
 
 # LINKFLAGS - flags for linking the objects
 # -static used to include the libraries in the executable (originally added for GLIBCXX strings)
-# LINKFLAGS := -static 
-LINKFLAGS:=
+LINKFLAGS := -static 
+
 #Define header directories 
 MODULES   := libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
 #MODULES   :=  apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
@@ -33,7 +34,7 @@ OBJ_C       := $(patsubst src/%.c,build/%.o,$(SRC_C))
 BUILD_DIR := $(addprefix build/,$(MODULES)) build/tests
 
 # List of Test Programs (Executables)
-TESTS	:= testDrives testJoints testRobot testSM testOD
+TESTS	:= testDrives testJoints testRobot testSM testOD testTraj
 
 # Test Program Objects and executables
 TESTOBJS := $(addsuffix .o, $(addprefix build/tests/,$(TESTS))) 
