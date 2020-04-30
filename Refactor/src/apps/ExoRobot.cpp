@@ -54,19 +54,17 @@ bool ExoRobot::moveThroughTraj() {
     bool returnValue = true;
     timespec currTime;
     clock_gettime(CLOCK_MONOTONIC, &currTime);
-    long elapsedns = (currTime.tv_sec - prevTime.tv_sec) * 1000000000 + currTime.tv_nsec - prevTime.tv_nsec;
+
+    double elapsedSec = currTime.tv_sec - prevTime.tv_sec + (currTime.tv_nsec - prevTime.tv_nsec) / 1e9;
     prevTime = currTime;
 
     // Pretend trajectories take 10 seconds
-    time_tt fracProgress = elapsedns / (double)10000000000;
+    time_tt fracProgress = elapsedSec / 10;
     currTrajProgress += fracProgress;
     DEBUG_OUT("Elapsed Time: " << currTrajProgress)
 
     double positions[NUM_JOINTS];
     ((ALEXTrajectoryGenerator *)trajectoryGenerator)->calcPosition(currTrajProgress, positions);
-
-    DEBUG_OUT("After function call")
-
     for (auto p : joints) {
         // Calculate the position for each of these joints
 

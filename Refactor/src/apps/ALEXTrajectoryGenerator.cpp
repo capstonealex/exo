@@ -1200,7 +1200,6 @@ void ALEXTrajectoryGenerator::calcPosition(time_tt time, double *positionArray) 
     // Discretise/Sample the spline
 
     time_tt startTime = trajectoryJointSpline.times.front();
-    DEBUG_OUT("calcPosition()")
     time_tt endTime = trajectoryJointSpline.times.back();
 
     // Every sample time, compute the value of q1 to q6 based on the time segment / set of NUM_JOINTS polynomials

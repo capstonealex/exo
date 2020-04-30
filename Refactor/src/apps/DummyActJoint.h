@@ -17,8 +17,8 @@ class DummyActJoint : public ActuatedJoint {
     double lastQCommand = 0;
 
     // These functions are defined here to do essentially nothing - it's a straight 1:1 relation between drive and motor units
-    double fromDriveUnits(int driveValue) { return driveValue; };
-    int toDriveUnits(double jointValue) { return jointValue; };
+    double fromDriveUnits(int driveValue) { return driveValue / 10000; };
+    int toDriveUnits(double jointValue) { return jointValue * 10000; };
 
    public:
     DummyActJoint(int jointID, double jointMin, double jointMax, Drive *drive);

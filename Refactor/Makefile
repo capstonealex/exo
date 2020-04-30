@@ -14,20 +14,22 @@ CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen
 LINKFLAGS := -static 
 
 #Define header directories 
-MODULES   := libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
-#MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
+MODULES   := libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
+#MODULES   :=  apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
 
 # automatically create list of module file paths NOT including executables
-SRC_DIR	  := $(addprefix src/,$(MODULES))
+SRC_DIR	  := $(addprefix src/,$(MODULES)) 
+
+# Expand all SRC files from SRC_DIR
+SRC_CPP		:= $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp)) 
+SRC_C		:= $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.c))
+
+# Create list of all desired .o files from SRC files in listed MODULES (NOT including Executables)
+OBJ_CPP       := $(patsubst src/%.cpp,build/%.o,$(SRC_CPP)) 
+OBJ_C       := $(patsubst src/%.c,build/%.o,$(SRC_C)) 
 
 # Objects from the sources, plus the executables
 BUILD_DIR := $(addprefix build/,$(MODULES)) build/tests
-
-# Expand all SRC files from SRC_DIR
-SRC		  := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
-
-# Create list of all desired .o files from SRC files in listed MODULES (NOT including Executables)
-OBJ       := $(patsubst src/%.cpp,build/%.o,$(SRC))
 
 # List of Test Programs (Executables)
 TESTS	:= testDrives testJoints testRobot testSM testOD
@@ -41,34 +43,46 @@ INCLUDES  := $(addprefix -I,$(SRC_DIR))
 VPATH = 
 
 # Define a macro which defines a Make Rule for all files in all Source Directories 
-define make-goal
-$1/%.o: $(subst build,src,$1)/%.cpp
+define make-goal-cpp
+$1: $(subst .o,.cpp,$(subst build,src,$1))
 	$(CXX) $(CXXFLAGS)$(INCLUDES) -c $$< -o $$@	
 endef
+$(foreach obj,$(OBJ_CPP),$(eval $(call make-goal-cpp,$(obj))))
+$(foreach obj,$(TESTOBJS),$(eval $(call make-goal-cpp,$(obj))))
+
+define make-goal-c
+$1: $(subst .o,.c,$(subst build,src,$1))
+	$(CXX) $(CXXFLAGS)$(INCLUDES) -c $$< -o $$@	
+endef
+$(foreach obj,$(OBJ_C),$(eval $(call make-goal-c,$(obj))))
+
 
 # Define a macro which defines a Make Rule to link tests together
+# -lpthread used for to allow pthread_mutex stuff.... (ASK WILL)
 define make-tests
-$1: build/tests/$1.o $(OBJ)
-	$(LD) $(LINKFLAGS) $$^  -o build/$$@
+$1: build/tests/$1.o $(OBJ_CPP) $(OBJ_C)
+	$(LD) $(LINKFLAGS) $$^  -o build/$$@ -lpthread 
 endef
-
-# Call the previously defined macros
-$(foreach bdir,$(BUILD_DIR),$(eval $(call make-goal,$(bdir))))
 $(foreach test,$(TESTS),$(eval $(call make-tests,$(test))))
+
 
 .PHONY: all checkdirs clean
 
 all: checkdirs $(TESTS)
 
+
 checkdirs: $(BUILD_DIR)
-#On UNIX
-$(BUILD_DIR):
-	@mkdir -p $@ 
 
 #On Windows - Substitute with command at end of file for UNIX-based systems
-# $(BUILD_DIR):
-# 	@mkdir $(subst /,\\,$@)
+$(BUILD_DIR):
+	@mkdir $(subst /,\\,$@)
 
 #
 clean:
-	@rm -rf $(OBJ) $(TESTOBJS) $(TESTEXE) $(BUILD_DIR)
+	@rm -rf $(OBJ_CPP) $(OBJ_C) $(TESTOBJS) $(TESTEXE) $(BUILD_DIR)
+
+#On UNIX
+#$(BUILD_DIR):
+#	@mkdir -p $@ 
+
+#

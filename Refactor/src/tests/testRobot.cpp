@@ -57,7 +57,7 @@ int main(void) {
         if (exo.keyboard.getW()) {
             exo.setSpecificTrajectory(RobotMode::NORMALWALK);
         }
-        exo.printTrajectoryParam();
+        //exo.printTrajectoryParam();
         //exo.keyboard.clearCurrentStates();
         exo.printStatus();
     }
