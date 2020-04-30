@@ -1,6 +1,7 @@
 # Makefile for Tests
 # CXX - defines the compiler. 
 # Currently uses the cross-compiler for the BBB (could be modified to run on Windows PC if desired)
+C	:=arm-linux-gnueabihf-gcc
 CXX := arm-linux-gnueabihf-g++
 LD  := arm-linux-gnueabihf-g++
 
@@ -11,8 +12,8 @@ CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen
 
 # LINKFLAGS - flags for linking the objects
 # -static used to include the libraries in the executable (originally added for GLIBCXX strings)
-LINKFLAGS := -static 
-
+# LINKFLAGS := -static 
+LINKFLAGS:=
 #Define header directories 
 MODULES   := libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
 #MODULES   :=  apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
@@ -69,6 +70,8 @@ $(foreach test,$(TESTS),$(eval $(call make-tests,$(test))))
 .PHONY: all checkdirs clean
 
 all: checkdirs $(TESTS)
+test:
+	echo'$(OBJ)'
 
 
 checkdirs: $(BUILD_DIR)

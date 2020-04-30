@@ -51,10 +51,13 @@
    Dictionary Editor v0.6-xdd-alpha-81-gb562769
    DON'T EDIT THIS FILE MANUALLY !!!!
 *******************************************************************************/
+
 #pragma once
-#include <CO_driver.h>
+
 /*******************************************************************************
    CANopen DATA DYPES
+
+   OTE: USER EDITED DOMAIN to CO_DOMAIN to prevent conflict in math.h namespace when using the library.
 *******************************************************************************/
 typedef bool_t BOOLEAN;
 typedef uint8_t UNSIGNED8;
@@ -69,7 +72,7 @@ typedef float32_t REAL32;
 typedef float64_t REAL64;
 typedef char_t VISIBLE_STRING;
 typedef oChar_t OCTET_STRING;
-typedef domain_t DOMAIN;
+typedef domain_t CO_DOMAIN;
 
 /*******************************************************************************
    FILE INFO:
@@ -177,7 +180,7 @@ typedef domain_t DOMAIN;
     UNSIGNED64 U64;
     REAL32 R32;
     REAL64 R64;
-    DOMAIN domain;
+    CO_DOMAIN domain;
 } OD_testVar_t;
 /*2130    */ typedef struct
 {
@@ -215,7 +218,7 @@ typedef domain_t DOMAIN;
     INTEGER32 value;
     INTEGER32 min;
     INTEGER32 max;
-    DOMAIN plot;
+    CO_DOMAIN plot;
     UNSIGNED32 triggerTime;
 } OD_trace_t;
 /*6040    */ typedef struct
