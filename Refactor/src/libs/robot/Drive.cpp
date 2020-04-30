@@ -21,8 +21,8 @@ int Drive::getNodeID() {
 bool Drive::setPos(int position) {
     DEBUG_OUT("Drive " << this->NodeID << " Writing " << position << " to 0x607A");
     //FOR testing OD.
-    //CO_OD_RAM.actualMotorPositions.motor1 + (this->NodeID * 4) = position;
-    CO_OD_RAM.actualMotorPositions.motor1 = position;
+    CO_OD_RAM.actualMotorPositions.motor1 + (this->NodeID * 4) = position;
+    C / O_OD_RAM.actualMotorPositions.motor1 = position;
     return true;
 }
 
@@ -37,8 +37,8 @@ bool Drive::setTorque(int torque) {
 }
 
 int Drive::getPos() {
-    //int q = CO_OD_RAM.actualMotorPositions.motor1 + (this->NodeID * 4);
-    int q = CO_OD_RAM.actualMotorPositions.motor1;
+    int q = CO_OD_RAM.actualMotorPositions.motor1 + (this->NodeID * 4);
+    //int q = CO_OD_RAM.actualMotorPositions.motor1;
     return q;
 }
 

@@ -14,7 +14,7 @@ CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen
 LINKFLAGS := -static 
 
 #Define header directories 
-MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict
+MODULES   := libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
 #MODULES   := apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine 
 
 # automatically create list of module file paths NOT including executables
