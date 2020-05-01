@@ -79,6 +79,7 @@
         "memory_resource": "cpp",
         "cinttypes": "cpp",
         "forward_list": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "co_master.h": "c"
     }
 }

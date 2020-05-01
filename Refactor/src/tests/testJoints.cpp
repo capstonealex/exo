@@ -18,6 +18,9 @@
 #include "DummyActJoint.h"
 #include "Joint.h"
 
+pthread_mutex_t CO_CAN_VALID_mtx = PTHREAD_MUTEX_INITIALIZER;
+volatile uint32_t CO_timer1ms = 0U;
+
 /* Helper functions ***********************************************************/
 void CO_errExit(char *msg) {
     perror(msg);
