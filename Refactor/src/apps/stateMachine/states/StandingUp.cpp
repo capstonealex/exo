@@ -13,7 +13,8 @@ void StandingUp::entry(void) {
 void StandingUp::during(void) {
     // if the green button is pressed move. Or do nothing
     std::cout << "STANDING UP" << endl;
-    OWNER->trajComplete = OWNER->robot->moveThroughTraj();
+    // OWNER->trajComplete = OWNER->robot->moveThroughTraj();
+    OWNER->trajComplete = true;
 }
 void StandingUp::exit(void) {
     std::cout

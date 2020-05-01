@@ -13,7 +13,8 @@ void SittingDwn::entry(void) {
 }
 void SittingDwn::during(void) {
     std::cout << "sitting down state" << endl;
-    OWNER->trajComplete = OWNER->robot->moveThroughTraj();
+    // OWNER->trajComplete = OWNER->robot->moveThroughTraj();
+    OWNER->trajComplete = true;
 }
 void SittingDwn::exit(void) {
     std::cout
