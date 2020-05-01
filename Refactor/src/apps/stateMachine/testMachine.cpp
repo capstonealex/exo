@@ -56,6 +56,7 @@ TestMachine::TestMachine(void) {
 
 void TestMachine::init(void) {
     StateMachine::init();
+    running = 1;
 }
 void TestMachine::activate(void) {
     StateMachine::activate();
@@ -123,6 +124,7 @@ void TestMachine::initRobot(ExoRobot *rb) {
         printf("Robot object already selected");
     }
     robot = rb;
+    robot->start();
     // TODOany init of input runs here
     // robot->buttons.initButtons();
 };

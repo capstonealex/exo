@@ -3,19 +3,21 @@
  * CANopen main program file for Linux SocketCAN.
  *
  * @file        main
- * @author      Janez Paternoster
- * @copyright   2015 Janez Paternoster
+ * @author      William Campbell
+ * @version 0.1
+ * @date 2020-04-09
+ * 
+ * @copyright Copyright (c) 2020
+ * 
  *
- * This file is part of CANopenSocket, a Linux implementation of CANopen
+ * This file is an adaptation of CANopenSocket, a Linux implementation of CANopen
  * stack with master functionality. Project home page is
  * <https://github.com/CANopenNode/CANopenSocket>. CANopenSocket is based
  * on CANopenNode: <https://github.com/CANopenNode/CANopenNode>.
  *
- * CANopenSocket is free and open source software: you can redistribute
- * it and/or modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation, either version 2 of the
- * License, or (at your option) any later version.
- *
+ * The adaptation is specifically designed for use with the Alex exoskeleton.
+ * It can be addapted for use with other CAN enabled linux based robotic projects.
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
@@ -45,10 +47,6 @@
 #include "CO_command.h"
 #include "CO_time.h"
 #include "application.h"
-
-/*Non canopenNode + Socket libraries*/
-#include "Robot.h"
-#include "exoStateMachine.h"
 
 /*For master-> code SDO direct messaging*/
 // #define CO_COMMAND_SDO_BUFFER_SIZE 100000
@@ -102,7 +100,8 @@ static void sigHandler(int sig) {
     CO_endProgram = 1;
 }
 
-/* Helper functions ***********************************************************/
+/* CAN messageHelper functions ***********************************************************/
+/*TODO: WHAT IS THERE ROLL*/
 void CO_errExit(char *msg) {
     perror(msg);
     exit(EXIT_FAILURE);
@@ -118,6 +117,7 @@ void CO_error(const uint32_t info) {
 /** Mainline and RT thread                                                   **/
 /******************************************************************************/
 int main(int argc, char *argv[]) {
+    std::cout << "MADE IT HERE" << std::endl;
     CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
     int CANdevice0Index = 0;
     int opt;
@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
     int nodeId = -1;              /* Use value from Object Dictionary or set to 1..127 by arguments */
     bool_t rebootEnable = false;  /* Configurable by arguments */
     /*set up command line arguments as variables*/
-    char CANdevice[10] = "can1"; /* change to can1 for bbb vcan0 for virtual can*/
+    char CANdevice[10] = "vcan0"; /* change to can1 for bbb vcan0 for virtual can*/
     nodeId = NODEID;
     CANdevice0Index = if_nametoindex(CANdevice);
     bool_t commandEnable = false; /* Configurable by arguments */
@@ -362,7 +362,7 @@ int main(int argc, char *argv[]) {
     exit(EXIT_SUCCESS);
 }
 
-/* Realtime thread for CAN receive and taskTmr ********************************/
+/* Function for Realtime thread for CAN receive and taskTmr ********************************/
 static void *rt_thread(void *arg) {
     /* Endless loop */
     while (CO_endProgram == 0) {
@@ -407,7 +407,8 @@ static void *rt_thread(void *arg) {
 
     return NULL;
 }
-/*Control thread*/
+/******************************************************************************/
+/*Control thread functio*/
 static void *rt_control_thread(void *arg) {
     struct period_info pinfo;
     periodic_task_init(&pinfo);
@@ -416,16 +417,12 @@ static void *rt_control_thread(void *arg) {
         wait_rest_of_period(&pinfo);
     }
     while (CO_endProgram == 0) {
-        //CO_LOCK_OD();
         app_program1ms();
-        //CO_UNLOCK_OD();
         wait_rest_of_period(&pinfo);
     }
     return NULL;
 }
-// RT Tast timer
-// Make sure RT control loop runs slow enough for bit flip messages to be sent and changed in each drive.
-
+/* RT Control thread time*/
 static void inc_period(struct period_info *pinfo) {
     pinfo->next_period.tv_nsec += pinfo->period_ns;
 

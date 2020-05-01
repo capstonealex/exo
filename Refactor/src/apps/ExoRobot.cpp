@@ -7,13 +7,13 @@ ExoRobot::ExoRobot() {
     trajectoryGenerator = new ALEXTrajectoryGenerator();
 
     // Creates all the joints
-    if (initialise()) {
-        DEBUG_OUT("ExoRobot object created")
-        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setPilotParameters(exoParams);
-        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameters(movementTrajMap[RobotMode::INITIAL]);
-    } else {
-        cout << "ExoRobot failed to initialise" << endl;
-    }
+    // if (initialise()) {
+    //     DEBUG_OUT("ExoRobot object created")
+    //     ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setPilotParameters(exoParams);
+    //     ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameters(movementTrajMap[RobotMode::INITIAL]);
+    // } else {
+    //     cout << "ExoRobot failed to initialise" << endl;
+    // }
 }
 ExoRobot::~ExoRobot() {
     DEBUG_OUT("Delete ExoRobot object begins")
@@ -23,6 +23,15 @@ ExoRobot::~ExoRobot() {
     DEBUG_OUT("ExoRobot deleted")
 };
 
+void ExoRobot::start() {
+    if (initialise()) {
+        DEBUG_OUT("ExoRobot object created")
+        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setPilotParameters(exoParams);
+        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameters(movementTrajMap[RobotMode::INITIAL]);
+    } else {
+        cout << "ExoRobot failed to initialise" << endl;
+    }
+};
 bool ExoRobot::initPositionControl() {
     DEBUG_OUT("Initialising Position Control on all joints ")
     bool returnValue = true;
@@ -95,7 +104,6 @@ void ExoRobot::setSpecificTrajectory(RobotMode mode) {
 void ExoRobot::printTrajectoryParam() {
     ((ALEXTrajectoryGenerator *)trajectoryGenerator)->printTrajectoryParameters();
 }
-
 bool ExoRobot::initialiseJoints() {
     for (int id = 0; id < NUM_JOINTS; id++) {
         copleyDrives.push_back(new CopleyDrive(id + 1));

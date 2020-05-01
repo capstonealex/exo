@@ -33,7 +33,7 @@ OBJ_C       := $(patsubst src/%.c,build/%.o,$(SRC_C))
 BUILD_DIR := $(addprefix build/,$(MODULES)) build/tests
 
 # List of Test Programs (Executables)
-TESTS	:= testDrives testJoints testRobot testSM testOD testTraj
+TESTS	:= main 
 
 # Test Program Objects and executables
 TESTOBJS := $(addsuffix .o, $(addprefix build/tests/,$(TESTS))) 
@@ -46,14 +46,14 @@ VPATH =
 # Define a macro which defines a Make Rule for all files in all Source Directories 
 define make-goal-cpp
 $1: $(subst .o,.cpp,$(subst build,src,$1))
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $$< -o $$@	
+	$(CXX) $(CXXFLAGS)$(INCLUDES) -c $$< -o $$@	
 endef
 $(foreach obj,$(OBJ_CPP),$(eval $(call make-goal-cpp,$(obj))))
 $(foreach obj,$(TESTOBJS),$(eval $(call make-goal-cpp,$(obj))))
 
 define make-goal-c
 $1: $(subst .o,.c,$(subst build,src,$1))
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $$< -o $$@	
+	$(CXX) $(CXXFLAGS)$(INCLUDES) -c $$< -o $$@	
 endef
 $(foreach obj,$(OBJ_C),$(eval $(call make-goal-c,$(obj))))
 
@@ -66,22 +66,24 @@ $1: build/tests/$1.o $(OBJ_CPP) $(OBJ_C)
 endef
 $(foreach test,$(TESTS),$(eval $(call make-tests,$(test))))
 
+
 .PHONY: all checkdirs clean
 
 all: checkdirs $(TESTS)
+test:
+	echo'$(OBJ)'
+
 
 checkdirs: $(BUILD_DIR)
 
 #On Windows - Substitute with command at end of file for UNIX-based systems
-$(BUILD_DIR):
-	@mkdir $(subst /,\\,$@)
+# $(BUILD_DIR):
+# 	@mkdir $(subst /,\\,$@)
 
-#
+# #
 clean:
 	@rm -rf $(OBJ_CPP) $(OBJ_C) $(TESTOBJS) $(TESTEXE) $(BUILD_DIR)
 
 #On UNIX
-#$(BUILD_DIR):
-#	@mkdir -p $@ 
-
-#
+$(BUILD_DIR):
+	@mkdir -p $@ 

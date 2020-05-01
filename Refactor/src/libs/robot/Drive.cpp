@@ -20,7 +20,6 @@ int Drive::getNodeID() {
 
 bool Drive::setPos(int position) {
     DEBUG_OUT("Drive " << this->NodeID << " Writing " << position << " to 0x607A");
-    //FOR testing OD.
     *(&CO_OD_RAM.targetMotorPositions.motor1 + ((this->NodeID - 1))) = position;
     return true;
 }

@@ -126,10 +126,13 @@ class ExoRobot : public Robot {
       */
     bool initialiseInputs();
     /**
-       * @Free robot objects vector pointer memory.
+       * @brief Free robot objects vector pointer memory.
        */
     void freeMemory();
-
+    /**
+       * @brief run intialise after construction, inherited from robot class 
+       */
+    void start();
     /**
        * @brief update current state of the robot, including input and output devices. 
        * Overloaded Method from the Robot Class. 
