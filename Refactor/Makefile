@@ -1,7 +1,6 @@
 # Makefile for Tests
 # CXX - defines the compiler. 
 # Currently uses the cross-compiler for the BBB (could be modified to run on Windows PC if desired)
-C	:=arm-linux-gnueabihf-gcc
 CXX := arm-linux-gnueabihf-g++
 LD  := arm-linux-gnueabihf-g++
 
@@ -47,14 +46,14 @@ VPATH =
 # Define a macro which defines a Make Rule for all files in all Source Directories 
 define make-goal-cpp
 $1: $(subst .o,.cpp,$(subst build,src,$1))
-	$(CXX) $(CXXFLAGS)$(INCLUDES) -c $$< -o $$@	
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $$< -o $$@	
 endef
 $(foreach obj,$(OBJ_CPP),$(eval $(call make-goal-cpp,$(obj))))
 $(foreach obj,$(TESTOBJS),$(eval $(call make-goal-cpp,$(obj))))
 
 define make-goal-c
 $1: $(subst .o,.c,$(subst build,src,$1))
-	$(CXX) $(CXXFLAGS)$(INCLUDES) -c $$< -o $$@	
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $$< -o $$@	
 endef
 $(foreach obj,$(OBJ_C),$(eval $(call make-goal-c,$(obj))))
 
@@ -67,13 +66,9 @@ $1: build/tests/$1.o $(OBJ_CPP) $(OBJ_C)
 endef
 $(foreach test,$(TESTS),$(eval $(call make-tests,$(test))))
 
-
 .PHONY: all checkdirs clean
 
 all: checkdirs $(TESTS)
-test:
-	echo'$(OBJ)'
-
 
 checkdirs: $(BUILD_DIR)
 
