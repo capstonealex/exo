@@ -20,7 +20,7 @@ Keyboard::~Keyboard() {
     tcsetattr(STDIN_FILENO, TCSANOW, &original);
 };
 void Keyboard::updateInput() {
-    usleep(1);
+    // usleep(1);
     clearCurrentStates();
     setKeyboardActive(kbhit());
     if (getKeyboardActive() != 0) {
