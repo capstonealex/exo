@@ -87,7 +87,7 @@ exe: checkdirs main
 
 # #
 clean:
-	@rm -rf $(OBJ_CPP) $(OBJ_C) $(TESTOBJS) $(TESTEXE) $(BUILD_DIR)
+	@rm -rf $(OBJ_CPP) $(OBJ_C) $(TESTOBJS)$(MAIN) $(MAINEXE) $(BUILD_DIR)
 
 #On UNIX
 $(BUILD_DIR):

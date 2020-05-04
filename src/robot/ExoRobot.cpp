@@ -66,8 +66,9 @@ void ExoRobot::moveThroughTraj() {
 
     // if Green Button is pressed, move through trajetory. Otherwise stay where you are
     if (buttons.getGButtonState()) {
-        // std::cout << fracTrajProgress << std::endl;
-        timeradd(&moving_tv, &tv_diff, &tv_changed);
+        a
+            // std::cout << fracTrajProgress << std::endl;
+            timeradd(&moving_tv, &tv_diff, &tv_changed);
         moving_tv = tv_changed;
         //array for position and velocity profile
         double positionArray[NUM_JOINTS];

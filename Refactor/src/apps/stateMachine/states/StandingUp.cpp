@@ -6,6 +6,7 @@ void StandingUp::entry(void) {
               << " GREEN -> STAND UP" << endl
               << "===================" << endl;
     OWNER->robot->initPositionControl();
+    OWNER->robot->startNewTraj();
     OWNER->robot->setTrajectory();
     OWNER->trajComplete = false;
 }

@@ -34,3 +34,6 @@ bool DummyActJoint::initNetwork() {
     DEBUG_OUT("Joint::initNetwork()")
     return true;
 }
+double DummyActJoint::getQ() {
+    return q;
+}

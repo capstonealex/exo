@@ -5,15 +5,6 @@
 ExoRobot::ExoRobot() {
     // Constructs the Trajectory Generator
     trajectoryGenerator = new ALEXTrajectoryGenerator();
-
-    // Creates all the joints
-    // if (initialise()) {
-    //     DEBUG_OUT("ExoRobot object created")
-    //     ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setPilotParameters(exoParams);
-    //     ((ALEXTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameters(movementTrajMap[RobotMode::INITIAL]);
-    // } else {
-    //     cout << "ExoRobot failed to initialise" << endl;
-    // }
 }
 ExoRobot::~ExoRobot() {
     DEBUG_OUT("Delete ExoRobot object begins")
@@ -51,16 +42,17 @@ void ExoRobot::startNewTraj() {
     for (int i = 0; i < NUM_JOINTS; i++)
         initialPose.q[i] = 0;
     initialPose.time = 0;
-
+#ifndef NOROBOT
     ((ALEXTrajectoryGenerator *)trajectoryGenerator)->initialiseTrajectory(RobotMode::STNDUP, initialPose);
-
+#endif
     // Index Resetting
     currTrajProgress = 0;
     clock_gettime(CLOCK_MONOTONIC, &prevTime);
 }
 
 bool ExoRobot::moveThroughTraj() {
-    bool returnValue = true;
+    bool returnValue = false;
+    // Only progress through trajectory if user presses A
     timespec currTime;
     clock_gettime(CLOCK_MONOTONIC, &currTime);
 
@@ -68,25 +60,38 @@ bool ExoRobot::moveThroughTraj() {
     prevTime = currTime;
 
     // Pretend trajectories take 10 seconds
-    time_tt fracProgress = elapsedSec / 10;
+    time_tt fracProgress = elapsedSec / 4;
     currTrajProgress += fracProgress;
-    DEBUG_OUT("Elapsed Time: " << currTrajProgress)
+    if (keyboard.getA()) {
+        DEBUG_OUT("Elapsed Time: " << currTrajProgress)
+#ifdef NOROBOT
+        // testing w/o robot and use of calcPosition to create test virtual positions
+        // positions @ any point in time = elapsedSec*10
+        double testPos = elapsedSec;
+        double positions[NUM_JOINTS];
+        for (int i = 0; i < NUM_JOINTS; i++) {
+            positions[i] = testPos + i;
+        }
+        if (currTrajProgress >= 4)
+            returnValue = true;
+#endif
+#ifndef NOROBOT
+        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->calcPosition(currTrajProgress, positions);
+#endif
+        for (auto p : joints) {
+            // Calculate the position for each of these joints
 
-    double positions[NUM_JOINTS];
-    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->calcPosition(currTrajProgress, positions);
-    for (auto p : joints) {
-        // Calculate the position for each of these joints
+            double jointPos = positions[p->getId()];
 
-        double jointPos = positions[p->getId()];
-
-        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(jointPos);
-        if (setPosCode == INCORRECT_MODE) {
-            std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
-            returnValue = false;
-        } else if (setPosCode != SUCCESS) {
-            // Something bad happened
-            std::cout << "Joint " << p->getId() << ": Unknown Error " << std::endl;
-            returnValue = false;
+            setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(jointPos);
+            if (setPosCode == INCORRECT_MODE) {
+                std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
+                returnValue = false;
+            } else if (setPosCode != SUCCESS) {
+                // Something bad happened
+                std::cout << "Joint " << p->getId() << ": Unknown Error " << std::endl;
+                returnValue = false;
+            }
         }
     }
     return returnValue;

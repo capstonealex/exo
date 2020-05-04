@@ -9,12 +9,13 @@ void SittingDwn::entry(void) {
               << "===================" << endl;
     OWNER->robot->initPositionControl();
     OWNER->robot->setSpecificTrajectory(RobotMode::SITDWN);
+    OWNER->robot->startNewTraj();
     OWNER->trajComplete = false;
 }
 void SittingDwn::during(void) {
     std::cout << "sitting down state" << endl;
-    // OWNER->trajComplete = OWNER->robot->moveThroughTraj();
-    OWNER->trajComplete = true;
+    OWNER->trajComplete = OWNER->robot->moveThroughTraj();
+    // OWNER->trajComplete = true;
 }
 void SittingDwn::exit(void) {
     std::cout

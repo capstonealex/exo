@@ -26,8 +26,10 @@ int main(void) {
     // Create Exo object + initialise derived Joints + trajectory Generator
     cout << ">>> Creating ExoRobot" << endl;
     ExoRobot exo;
+    exo.start();
     // print joint positions
-    cout << ">>> Current Robot Position (expected value: all joints 0) >>>" << endl;
+    cout
+        << ">>> Current Robot Position (expected value: all joints 0) >>>" << endl;
     exo.printStatus();
     //print trajectoryGenerator params
 
@@ -64,8 +66,10 @@ int main(void) {
     while (!exo.keyboard.getQ()) {
         usleep(500000);
         exo.updateRobot();
-        if (exo.keyboard.getA()) {
-            exo.moveThroughTraj();
+        if (!exo.moveThroughTraj()) {
+            std::cout << "PRESS A to move through traj" << std::endl;
+        } else {
+            std::cout << "Trajectory complete" << std::endl;
         }
         if (exo.keyboard.getS()) {
             exo.startNewTraj();

@@ -22,7 +22,7 @@
 #include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
-
+#define NOROBOT
 class ExoRobot : public Robot {
    private:
     //TODO: Load in paramaters and dictionary entries from JSON file.
