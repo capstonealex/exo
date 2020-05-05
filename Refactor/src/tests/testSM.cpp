@@ -8,10 +8,6 @@
  * @copyright Copyright (c) 2020
  * 
  */
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "CANopen.h"
 #include "ExoRobot.h"
 #include "TestMachine.h"
@@ -50,6 +46,3 @@ int main(void) {
 
     // exit(0);
 }
-#ifdef __cplusplus
-}
-#endif

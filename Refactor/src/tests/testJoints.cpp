@@ -8,9 +8,7 @@
  * @copyright Copyright (c) 2020
  * 
  */
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 #include <iostream>
 
 #include "ActuatedJoint.h"
@@ -62,6 +60,3 @@ int main() {
 
     return 0;
 }
-#ifdef __cplusplus
-}
-#endif
