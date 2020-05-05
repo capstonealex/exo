@@ -26,7 +26,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <errno.h>
 #include <linux/reboot.h>
 #include <net/if.h>
@@ -443,3 +445,7 @@ static void wait_rest_of_period(struct period_info *pinfo) {
     /* for simplicity, ignoring possibilities of signal wakes */
     clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &pinfo->next_period, NULL);
 }
+
+#ifdef __cplusplus
+}
+#endif

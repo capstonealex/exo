@@ -1,5 +1,7 @@
 /// Testing ExoRobot new classes
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include "ExoRobot.h"
 //using namespace std;
 
@@ -69,3 +71,6 @@ int main(void) {
 
     // exit(0);
 }
+#ifdef __cplusplus
+}
+#endif

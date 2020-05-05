@@ -1,5 +1,7 @@
 
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <iostream>
 
 #include "CANopen.h"
@@ -38,3 +40,6 @@ int main() {
     cout << "Read Specifically from CO_OD_RAM.targetMotorPositions.motor5: " << CO_OD_RAM.targetMotorPositions.motor5 << std::endl;
     cout << "Read Specifically from CO_OD_RAM.targetMotorPositions.motor6: " << CO_OD_RAM.targetMotorPositions.motor6 << std::endl;
 }
+#ifdef __cplusplus
+}
+#endif

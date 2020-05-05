@@ -8,6 +8,10 @@
  * @copyright Copyright (c) 2020
  * 
  */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <iostream>
 
 #include "CANopen.h"
@@ -37,3 +41,6 @@ int main() {
     std::cout << "2. Try to run the InitPDO() Function \n"
               << testDrive->initPDOs();
 }
+#ifdef __cplusplus
+}
+#endif
