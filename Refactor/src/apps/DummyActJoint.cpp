@@ -32,7 +32,11 @@ setMovementReturnCode_t DummyActJoint::setPosition(double desQ) {
 
 bool DummyActJoint::initNetwork() {
     DEBUG_OUT("Joint::initNetwork()")
-    return true;
+    if (drive->initPDOs()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 double DummyActJoint::getQ() {
     return q;

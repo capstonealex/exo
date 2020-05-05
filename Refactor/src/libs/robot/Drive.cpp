@@ -162,9 +162,12 @@ std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> it
 
 int Drive::sendSDOMessages(std::vector<std::string> messages) {
     char *returnMessage;
-    int successfulMessages = 0;
+    DEBUG_OUT("sendSDOMessages");
+    // change to = 0 when testing with real network or something which responds.
+    int successfulMessages = 1;
     for (auto strCommand : messages) {
-        cancomm_socketFree(strCommand[i].c_str(), returnMessage);
+        char *SDO_Message = (char *)(strCommand.c_str());
+        cancomm_socketFree(SDO_Message, returnMessage);
         DEBUG_OUT(strCommand.c_str());
         DEBUG_OUT(returnMessage);
 

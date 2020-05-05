@@ -44,7 +44,6 @@
 #include "CANopen.h"
 #include "CO_Linux_tasks.h"
 #include "CO_OD_storage.h"
-#include "CO_command.h"
 #include "CO_time.h"
 #include "application.h"
 

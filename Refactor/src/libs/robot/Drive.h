@@ -11,6 +11,7 @@
 #define DRIVE_H_INCLUDED
 
 #include <CANopen.h>
+#include <CO_command.h>
 #include <string.h>
 
 #include <map>
