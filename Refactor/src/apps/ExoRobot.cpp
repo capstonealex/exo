@@ -62,36 +62,34 @@ bool ExoRobot::moveThroughTraj() {
     // Pretend trajectories take 10 seconds
     time_tt fracProgress = elapsedSec / 4;
     currTrajProgress += fracProgress;
-    if (keyboard.getA()) {
-        DEBUG_OUT("Elapsed Time: " << currTrajProgress)
+    DEBUG_OUT("Elapsed Time: " << currTrajProgress)
 #ifdef NOROBOT
-        // testing w/o robot and use of calcPosition to create test virtual positions
-        // positions @ any point in time = elapsedSec*10
-        double testPos = elapsedSec;
-        double positions[NUM_JOINTS];
-        for (int i = 0; i < NUM_JOINTS; i++) {
-            positions[i] = testPos + i;
-        }
-        if (currTrajProgress >= 4)
-            returnValue = true;
+    // testing w/o robot and use of calcPosition to create test virtual positions
+    // positions @ any point in time = elapsedSec*10
+    double testPos = elapsedSec;
+    double positions[NUM_JOINTS];
+    for (int i = 0; i < NUM_JOINTS; i++) {
+        positions[i] = testPos + i;
+    }
+    if (currTrajProgress >= 4)
+        returnValue = true;
 #endif
 #ifndef NOROBOT
-        ((ALEXTrajectoryGenerator *)trajectoryGenerator)->calcPosition(currTrajProgress, positions);
+    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->calcPosition(currTrajProgress, positions);
 #endif
-        for (auto p : joints) {
-            // Calculate the position for each of these joints
+    for (auto p : joints) {
+        // Calculate the position for each of these joints
 
-            double jointPos = positions[p->getId()];
+        double jointPos = positions[p->getId()];
 
-            setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(jointPos);
-            if (setPosCode == INCORRECT_MODE) {
-                std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
-                returnValue = false;
-            } else if (setPosCode != SUCCESS) {
-                // Something bad happened
-                std::cout << "Joint " << p->getId() << ": Unknown Error " << std::endl;
-                returnValue = false;
-            }
+        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(jointPos);
+        if (setPosCode == INCORRECT_MODE) {
+            std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
+            returnValue = false;
+        } else if (setPosCode != SUCCESS) {
+            // Something bad happened
+            std::cout << "Joint " << p->getId() << ": Unknown Error " << std::endl;
+            returnValue = false;
         }
     }
     return returnValue;
