@@ -10,7 +10,6 @@ void Standing::entry(void) {
         << "======================" << endl;
 }
 void Standing::during(void) {
-    cout << "Standing state" << endl;
 }
 void Standing::exit(void) {
     std::cout

@@ -11,7 +11,6 @@ void InitState::entry(void) {
         << "========================" << endl;
 }
 void InitState::during(void) {
-    std::cout << "INITI STATE" << endl;
 }
 void InitState::exit(void) {
     std::cout << "Initialise State Exited at Time: " << OWNER->mark << endl;

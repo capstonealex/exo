@@ -26,10 +26,24 @@
 
 #ifndef CO_COMMAND_H
 #define CO_COMMAND_H
+#ifndef _UINT32_T
+#define _UINT32_T
+typedef unsigned int uint32_t;
+#endif /* _UINT32_T */
+#ifndef _UINT16_T
+#define _UINT16_T
+typedef unsigned short uint16_t;
+#endif /* _UINT16_T */
+#ifndef _UINT8_T
+#define _UINT8_T
+typedef unsigned char uint8_t;
+#endif /* _UINT8_T */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Functions from external */
-void CO_errExit(char *msg);
-void CO_error(const uint32_t info);
+void CO_errorR(const uint32_t info);
 
 /**
  * Path for local type  socket. External process can access command interface
@@ -66,5 +80,9 @@ void cancomm_socketFree(char *command, char *ret);
  * @return 0 on success
  * @return error on failure
  */
+#ifdef __cplusplus
+}
+#endif /*__cplusplus*/
 
+/** @} */
 #endif

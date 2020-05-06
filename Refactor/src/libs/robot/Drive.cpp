@@ -163,15 +163,17 @@ std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> it
 int Drive::sendSDOMessages(std::vector<std::string> messages) {
     char *returnMessage;
     DEBUG_OUT("sendSDOMessages");
-    // change to = 0 when testing with real network or something which responds.
+    // change to = 0 when testing with real network or something which responds. and uncomment
+    // return message check
     int successfulMessages = 1;
     for (auto strCommand : messages) {
+        // explicitly cast c++ string to from const char* to char* for use by cancomm function
         char *SDO_Message = (char *)(strCommand.c_str());
+        DEBUG_OUT(SDO_Message);
         cancomm_socketFree(SDO_Message, returnMessage);
-        DEBUG_OUT(strCommand.c_str());
-        DEBUG_OUT(returnMessage);
-
-        //TEST THIS - SEG FAULT OCCURS
+        // TODO: in cancomm_socketFree -> return message correctly.
+        // std::string retMsg = returnMessage;
+        // DEBUG_OUT(retMsg);
         /*if (strcmp(returnMessage, "OK") == 0)
         {
             successfulMessages++;

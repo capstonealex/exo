@@ -21,7 +21,7 @@ bool CopleyDrive::Init() {
 
 bool CopleyDrive::initPosControl() {
     // TODO: Complete
-    //DEBUG_OUT("NodeID " << NodeID << " Initialising Position Control")
+    DEBUG_OUT("NodeID " << NodeID << " Initialising Position Control")
 
     return true;
 }

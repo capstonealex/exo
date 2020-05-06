@@ -57,24 +57,32 @@ static void *command_thread(void *arg);
 static pthread_t command_thread_id;
 static void command_process(int fd, char *command, size_t commandLength);
 static int fdSocket;
-static uint16_t comm_net = 1;            /* default CAN net number */
+static unsigned short comm_net = 1;      /* default CAN net number */
 static uint8_t comm_node_default = 0xFF; /* CANopen Node ID number is undefined at startup. */
 static uint16_t SDOtimeoutTime = 500;    /* Timeout time for SDO transfer in milliseconds, if no response */
 static uint8_t blockTransferEnable = 0;  /* SDO block transfer enabled? */
 static volatile int endProgram = 0;
+/***/
+/* send CANopen generic emergency message */
+void CO_errorR(const uint32_t info) {
+    //CO_errorReport(CO->em, CO_EM_GENERIC_SOFTWARE_ERROR, CO_EMC_SOFTWARE_INTERNAL, info);
+    fprintf(stderr, "canopend generic error: 0x%X\n", info);
+}
 
 /******************************************************************************/
 int CO_command_init(void) {
     struct sockaddr_un addr;
 
     if (CO == NULL || CO->SDOclient == NULL) {
-        CO_errExit("CO_command_init - Wrong arguments");
+        perror("CO_command_init - Wrong arguments");
+        exit(EXIT_FAILURE);
     }
 
     /* Create, bind and listen socket */
     fdSocket = socket(AF_UNIX, SOCK_STREAM, 0);
     if (fdSocket == -1) {
-        CO_errExit("CO_command_init - socket failed");
+        perror("CO_command_init - socket failed");
+        exit(EXIT_FAILURE);
     }
 
     memset(&addr, 0, sizeof(struct sockaddr_un));
@@ -83,17 +91,20 @@ int CO_command_init(void) {
 
     if (bind(fdSocket, (struct sockaddr *)&addr, sizeof(struct sockaddr_un)) == -1) {
         fprintf(stderr, "Can't bind Socket to path '%s'\n", CO_command_socketPath);
-        CO_errExit("CO_command_init");
+        perror("CO_command_init");
+        exit(EXIT_FAILURE);
     }
 
     if (listen(fdSocket, LISTEN_BACKLOG) == -1) {
-        CO_errExit("CO_command_init - listen failed");
+        perror("CO_command_init - listen failed");
+        exit(EXIT_FAILURE);
     }
 
     /* Create thread */
     endProgram = 0;
     if (pthread_create(&command_thread_id, NULL, command_thread, NULL) != 0) {
-        CO_errExit("CO_command_init - thread creation failed");
+        perror("CO_command_init - thread creation failed");
+        exit(EXIT_FAILURE);
     }
 
     return 0;
@@ -148,7 +159,7 @@ static void *command_thread(void *arg) {
         /* wait for new command */
         fd = accept(fdSocket, NULL, NULL);
         if (fd == -1) {
-            CO_error(0x15100000L);
+            CO_errorR(0x15100000L);
         }
 
         /* Read command and send answer. */
@@ -158,12 +169,12 @@ static void *command_thread(void *arg) {
         }
 
         if (n == -1) {
-            CO_error(0x15800000L + errno);
+            CO_errorR(0x15800000L + errno);
         }
 
         /* close current communication */
         if (close(fd) == -1) {
-            CO_error(0x15900000L);
+            CO_errorR(0x15900000L);
         }
     }
 
@@ -541,7 +552,7 @@ static void command_process(int fd, char *command, size_t commandLength) {
     resp[respLen++] = '\0';
 
     if (write(fd, resp, respLen) != respLen) {
-        CO_error(0x15200000L);
+        CO_errorR(0x15200000L);
     }
 }
 /******************************************************************************/
@@ -914,6 +925,6 @@ void cancomm_socketFree(char *command, char *ret) {
     resp[respLen++] = '\r';
     resp[respLen++] = '\n';
     resp[respLen++] = '\0';
-    // Bug testing
-    //printf("RESPONSE: %s\n", resp);
+    // print SDO response to terminal.
+    printf("RESPONSE: %s\n", resp);
 }

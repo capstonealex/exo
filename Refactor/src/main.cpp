@@ -108,7 +108,7 @@ void CO_errExit(char *msg) {
 
 /* send CANopen generic emergency message */
 void CO_error(const uint32_t info) {
-    CO_errorReport(CO->em, CO_EM_GENERIC_SOFTWARE_ERROR, CO_EMC_SOFTWARE_INTERNAL, info);
+    //CO_errorReport(CO->em, CO_EM_GENERIC_SOFTWARE_ERROR, CO_EMC_SOFTWARE_INTERNAL, info);
     fprintf(stderr, "canopend generic error: 0x%X\n", info);
 }
 

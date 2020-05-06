@@ -12,7 +12,6 @@ void Sitting::entry(void) {
 }
 void Sitting::during(void) {
     // OWNER->robot->moveThroughTraj();
-    std::cout << "Sitting State durring" << endl;
 }
 void Sitting::exit(void) {
     std::cout

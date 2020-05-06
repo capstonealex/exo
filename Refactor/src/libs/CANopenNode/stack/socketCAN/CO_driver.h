@@ -83,7 +83,7 @@ extern pthread_mutex_t CO_OD_mtx;
 
 /* Data types */
 /* int8_t to uint64_t are defined in stdint.h */
-typedef _Bool bool_t;
+typedef bool bool_t;
 typedef float float32_t;
 typedef double float64_t;
 typedef char char_t;
