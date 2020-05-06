@@ -139,7 +139,6 @@ class ExoRobot : public Robot {
        * Example. for a keyboard input this would poll the keyboard for any button presses at this moment in time.
        */
     void updateRobot();
-
     /**
        * @brief Joint Limit Map between Joint value and min Degrees possible
        * @param int Joint value

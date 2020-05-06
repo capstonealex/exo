@@ -160,6 +160,8 @@ std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> it
     return CANCommands;
 }
 
+//
+
 int Drive::sendSDOMessages(std::vector<std::string> messages) {
     char *returnMessage;
     DEBUG_OUT("sendSDOMessages");

@@ -98,13 +98,11 @@ class Drive {
            * @return std::string 
            */
     std::vector<std::string> generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int UpdateTiming);
-
-    /**
-       * @brief Sends messages across the CAN bus using CANComm_socketFree
-       * 
-       * @param messages Properly formatted SDO Messages
-       * @return int number of messages successfully processed (return OK)
-       */
+    /**                                                                                                             
+     * @brief messages Properly formatted SDO Messages
+     * 
+     * @ return int number of messages successfully processed(return OK) 
+*/
     int sendSDOMessages(std::vector<std::string> messages);
 
    private:
