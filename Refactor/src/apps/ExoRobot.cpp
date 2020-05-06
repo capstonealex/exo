@@ -116,13 +116,15 @@ bool ExoRobot::initialiseJoints() {
 }
 
 bool ExoRobot::initialiseNetwork() {
-    DEBUG_OUT("ExoRobot::initialiseNetwork()")
+    DEBUG_OUT("ExoRobot::initialiseNetwork()");
+#ifndef NOROBOT
     bool status;
     for (auto joint : joints) {
         status = joint->initNetwork();
         if (!status)
             return false;
     }
+#endif
     return true;
 }
 bool ExoRobot::initialiseInputs() {
