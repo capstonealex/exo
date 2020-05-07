@@ -60,7 +60,7 @@ bool ExoRobot::moveThroughTraj() {
     prevTime = currTime;
 
     // Pretend trajectories take 10 seconds
-    time_tt fracProgress = elapsedSec / 10;
+    time_tt fracProgress = elapsedSec;
     currTrajProgress += fracProgress;
     DEBUG_OUT("Elapsed Time: " << currTrajProgress)
 #ifdef NOROBOT
