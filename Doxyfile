@@ -908,6 +908,14 @@ EXCLUDE_SYMLINKS       = NO
 # exclude all test directories for example use the pattern */test/*
 
 EXCLUDE_PATTERNS       = */exo/src/*
+EXCLUDE_PATTERNS       += */Refactor/src/libs/CANopenNode*
+EXCLUDE_PATTERNS       += */Refactor/src/libs/CANopenNode*
+EXCLUDE_PATTERNS       += */Refactor/src/libs/objDict*
+EXCLUDE_PATTERNS       += */Refactor/src/apps/Eigen*
+
+
+
+
 
 
 
