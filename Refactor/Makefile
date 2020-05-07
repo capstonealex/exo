@@ -60,11 +60,13 @@ $1: $(subst .o,.c,$(subst build,src,$1))
 endef
 $(foreach obj,$(OBJ_C),$(eval $(call make-goal-c,$(obj))))
 
+# To make the main object
 $(MAIN): $(subst .o,.cpp,$(subst build,src,$(MAIN)))
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@	
 
-main:
-	$(LD) $(LINKFLAGS) $(MAIN) $(OBJ_CPP) $(OBJ_C)  -o $(MAINEXE) -lpthread 
+# To make the main executable
+main: $(MAIN) $(OBJ_CPP) $(OBJ_C) 
+	$(LD) $(LINKFLAGS) $^ -o $(MAINEXE) -lpthread 
 
 # Define a macro which defines a Make Rule to link tests together
 # -lpthread used for to allow pthread_mutex stuff.... (ASK WILL)
@@ -83,13 +85,13 @@ checkdirs: $(BUILD_DIR)
 exe: checkdirs main
 
 #On Windows - Substitute with command at end of file for UNIX-based systems
-# $(BUILD_DIR):
-# 	@mkdir $(subst /,\\,$@)
+$(BUILD_DIR):
+	@mkdir $(subst /,\\,$@)
 
 # #
 clean:
 	@rm -rf $(OBJ_CPP) $(OBJ_C) $(TESTOBJS)$(MAIN) $(MAINEXE) $(BUILD_DIR)
 
 #On UNIX
-$(BUILD_DIR):
-	@mkdir -p $@ 
+#$(BUILD_DIR):
+#	@mkdir -p $@ 
