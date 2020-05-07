@@ -16,19 +16,23 @@
  * unitl another button is pressed and then goes to uncalibrated (LIMP)
  *
  */
-#include "TestMachine.h"
+#include "ExoTestMachine.h"
 
 /**********ALSO HAVE TO SET NUMJOINTS to 6 *************/
 //#define _TESTMODE
 /////////////////////////////////////////////////////////
 
-#define OWNER ((TestMachine *)owner)
+#define OWNER ((ExoTestMachine *)owner)
 
 /////////////////////////////////////////////////////////
 // State Machine TestMachine methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////
 
-TestMachine::TestMachine(void) {
+ExoTestMachine::ExoTestMachine() {
+    // All the Robot Initialisation Stuff Happens here
+    trajectoryGenerator = new DummyTrajectoryGenerator(4);  // Pilot Parameters would be set in constructor here
+    robot = new ExoRobot(trajectoryGenerator);
+
     // Create PRE-DESIGNED State Machine events, states and transitions
     // StateMachine events
     isAPressed = new IsAPressed(this);
@@ -37,11 +41,13 @@ TestMachine::TestMachine(void) {
     startExo = new StartExo(this);
     startSit = new StartSit(this);
     startStand = new StartStand(this);
-    initState = new InitState(this);
-    standing = new Standing(this);
-    sitting = new Sitting(this);
-    standingUp = new StandingUp(this);
-    sittingDwn = new SittingDwn(this);
+
+    // State Machine States
+    initState = new InitState(this, robot, trajectoryGenerator);
+    standing = new Standing(this, robot, trajectoryGenerator);
+    sitting = new Sitting(this, robot, trajectoryGenerator);
+    standingUp = new StandingUp(this, robot, trajectoryGenerator);
+    sittingDwn = new SittingDwn(this, robot, trajectoryGenerator);
 
     // Trajectory Transitions
     NewTransition(initState, startExo, sitting);
@@ -49,29 +55,22 @@ TestMachine::TestMachine(void) {
     NewTransition(standingUp, endTraj, standing);
     NewTransition(standing, startSit, sittingDwn);
     NewTransition(sittingDwn, endTraj, sitting);
+
     // Initialize the state machine with first state
     StateMachine::initialize(initState);
-    robot = NULL;
+
+    //robot.start();
 }
 
-void TestMachine::init(void) {
+void ExoTestMachine::init() {
     StateMachine::init();
     running = 1;
-}
-void TestMachine::activate(void) {
-    StateMachine::activate();
-}
-void TestMachine::deactivate(void) {
-    StateMachine::deactivate();
-}
-void TestMachine::update(void) {
-    StateMachine::update();
 }
 
 ////////////////////////////////////////////////////////////////
 // Events ------------------------------------------------------------
 ///////////////////////////////////////////////////////////////
-bool TestMachine::EndTraj::check(void) {
+bool ExoTestMachine::EndTraj::check() {
     if (OWNER->trajComplete) {
         return true;
     } else
@@ -79,13 +78,13 @@ bool TestMachine::EndTraj::check(void) {
 }
 ///KEYBOARD AS BUTTON///
 //////////// BUTTON PRESS CHECKS //////////////
-bool TestMachine::IsAPressed::check(void) {
+bool ExoTestMachine::IsAPressed::check(void) {
     if (OWNER->robot->keyboard.getA() == true) {
         return true;
     }
     return false;
 }
-bool TestMachine::StartButtonsPressed::check(void) {
+bool ExoTestMachine::StartButtonsPressed::check(void) {
     if (OWNER->robot->keyboard.getW() == true) {
         return true;
     }
@@ -95,21 +94,21 @@ bool TestMachine::StartButtonsPressed::check(void) {
 //Crutch new Motion Paramater Events ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
 /// TODO: CHANGE TO KEYBOARD INPUT
-bool TestMachine::StartExo::check(void) {
+bool ExoTestMachine::StartExo::check(void) {
     if (OWNER->robot->keyboard.getS() == true) {
         std::cout << "LEAVING INIT and entering Sitting" << endl;
         return true;
     }
     return false;
 }
-bool TestMachine::StartStand::check(void) {
+bool ExoTestMachine::StartStand::check(void) {
     if (OWNER->robot->keyboard.getW() == true) {
         return true;
     }
     return false;
 }
 
-bool TestMachine::StartSit::check(void) {
+bool ExoTestMachine::StartSit::check(void) {
     if (OWNER->robot->keyboard.getW()) {
         return true;
     }
@@ -119,17 +118,8 @@ bool TestMachine::StartSit::check(void) {
 //////////////////////////////////////////////////////////////////////
 // Robot interface methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
-void TestMachine::initRobot(ExoRobot *rb) {
-    if (robot != NULL) {
-        printf("Robot object already selected");
-    }
-    robot = rb;
-    robot->start();
-    // TODOany init of input runs here
-    // robot->buttons.initButtons();
-};
 
 // Update button state, loop counter (mark) and joints
-void TestMachine::hwStateUpdate(void) {
+void ExoTestMachine::hwStateUpdate(void) {
     robot->updateRobot();
 }

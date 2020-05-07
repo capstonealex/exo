@@ -1,4 +1,4 @@
-#include "TestMachine.h"
+#include "InitState.h"
 
 void InitState::entry(void) {
     std::cout
@@ -13,5 +13,6 @@ void InitState::entry(void) {
 void InitState::during(void) {
 }
 void InitState::exit(void) {
-    std::cout << "Initialise State Exited at Time: " << OWNER->mark << endl;
+    robot->initPositionControl();
+    std::cout << "Initialise State Exited" << endl;
 }

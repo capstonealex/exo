@@ -4,28 +4,26 @@
 
 #ifndef EXO_EVENT_H
 #define EXO_EVENT_H
-#include "StateMachine.h"
 #include <cstddef>
-/* Forward declarations*/
-class StateMachine;
 
+#include "StateMachine.h"
+/* Forward declarations*/
+//class StateMachine;
 
 class Event {
-
-public:
-    StateMachine * owner;  // Pointer to the owner state machine for this event
+   public:
+    StateMachine *owner;  // Pointer to the owner state machine for this event
     /* constructor */
-    Event ( StateMachine * p, const char n[] = NULL ){
+    Event(StateMachine *p, const char n[] = NULL) {
         owner = p;
         name = n;
     };
     /*Virtual check function Must be implemented for each event.*/
-    virtual bool check ( void ) = 0;
-    const char * getName( void );
-private:
+    virtual bool check(void) = 0;
+    const char *getName(void);
 
-    const char *name;      // Pointer to the name of this event
+   private:
+    const char *name;  // Pointer to the name of this event
 };
 
-
-#endif //EXO_EVENT_H
+#endif  //EXO_EVENT_H

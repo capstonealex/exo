@@ -1,7 +1,8 @@
-#include "TestMachine.h"
 ////////// STATE ////////////////////
 //-------  Standing ------------/////
 ////////////////////////////////////
+#include "Standing.h"
+
 void Standing::entry(void) {
     std::cout
         << "======================" << endl
@@ -9,9 +10,11 @@ void Standing::entry(void) {
 
         << "======================" << endl;
 }
+
 void Standing::during(void) {
 }
+
 void Standing::exit(void) {
     std::cout
-        << "Standing State Exited at Time: " << OWNER->mark << endl;
+        << "Standing State Exited" << endl;
 }

@@ -1,19 +1,18 @@
-#include "TestMachine.h"
+#include "StandingUp.h"
+
 // Negative bending control machine
 void StandingUp::entry(void) {
-    std::cout << "Standing Up State Entered at Time:" << endl
-              << "===================" << endl
+    std::cout << "===================" << endl
               << " GREEN -> STAND UP" << endl
               << "===================" << endl;
-    OWNER->robot->initPositionControl();
-    OWNER->robot->startNewTraj();
-    OWNER->robot->setTrajectory();
-    OWNER->trajComplete = false;
+    trajectoryGenerator->initialiseTrajectory(STAND, 2);
+    robot->startNewTraj();
+    robot->setTrajectory();
 }
 
 void StandingUp::during(void) {
     // if the green button is pressed move. Or do nothing
-    OWNER->trajComplete = OWNER->robot->moveThroughTraj();
+    robot->moveThroughTraj();
 }
 void StandingUp::exit(void) {
     std::cout

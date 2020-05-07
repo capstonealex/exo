@@ -22,13 +22,29 @@
 using namespace std;
 
 class Robot {
-   private:
+   protected:
+    /**
+ * @brief Vector of pointers to Abstract <class>Joint<class> Objects, number and type must be specified by 
+ * Software design in <class>Robot<class> Implementation.
+ * Note: Use pointers to the joint objects here, so that the derived objects are not cast to Joint, truncating
+ * any of their explicit implementations.
+ * 
+ */
+    vector<Joint *> joints;
+
+    vector<InputDevice *> inputs;
+    /**
+ * @brief Trajectory Generator  
+ * 
+ */
+    TrajectoryGenerator *trajectoryGenerator;
+
    public:
     //Setup
     /**
  * @brief Default <code>Robot</code> constructor.
  */
-    Robot();
+    Robot(TrajectoryGenerator *tj);
     ~Robot();
     /**
      * @brief Initialize memory for the designed <code>Robot</code> classes specific
@@ -65,28 +81,13 @@ class Robot {
     virtual bool initialiseNetwork() = 0;
 
     //Robot objects
-    /**
- * @brief Vector of pointers to Abstract <class>Joint<class> Objects, number and type must be specified by 
- * Software design in <class>Robot<class> Implementation.
- * Note: Use pointers to the joint objects here, so that the derived objects are not cast to Joint, truncating
- * any of their explicit implementations.
- * 
- */
-    vector<Joint *> joints;
-
-    vector<InputDevice *> inputs;
-    /**
- * @brief Trajectory Object 
- * 
- */
-    TrajectoryGenerator *trajectoryGenerator;
 
     //Core  functions
     /**
- * @brief Update all of this <code>Robot<code> software joint positions 
- * from object dictionary entries.
- * 
- */
+    * @brief Update all of this <code>Robot<code> software joint positions 
+    * from object dictionary entries.
+    * 
+    */
     virtual void updateRobot();
     /**
  * @brief print out status of robot and all of its joints

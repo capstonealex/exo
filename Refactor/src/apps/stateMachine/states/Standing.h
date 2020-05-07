@@ -1,16 +1,15 @@
-#include "State.h"
-#include "StateMachine.h"
-#include <time.h>
-#include "Robot.h"
-// forward declaration
-class sitStand;
-class Standing : public State
-{
-    friend class sitStand;
+#ifndef STANDING_H_INCLUDED
+#define STANDING_H_INCLUDED
 
-public:
+#include "ExoTestState.h"
+
+// forward declaration
+class Standing : public ExoTestState {
+   public:
     void entry(void);
     void during(void);
     void exit(void);
-    Standing(StateMachine *m, const char *name = NULL) : State(m, name){};
+    Standing(StateMachine *m, ExoRobot *exo, DummyTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
 };
+
+#endif

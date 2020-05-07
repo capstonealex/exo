@@ -13,14 +13,13 @@
 #define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
 char buf[STRING_BUFFER_SIZE];
 char ret[STRING_BUFFER_SIZE];
-TestMachine testMachine;
-ExoRobot exo;
+ExoTestMachine testMachine;
+// ExoRobot exo;
 /******************************************************************************/
 void app_programStart(void) {
     printf("app_Program Start \n");
-    testMachine.initRobot(&exo);
     testMachine.init();
-    testMachine.activate();
+    ((StateMachine)testMachine).activate();
 }
 /******************************************************************************/
 void app_communicationReset(void) {
@@ -36,6 +35,6 @@ void app_programAsync(uint16_t timer1msDiffy) {
 void app_program1ms(void) {
     if (testMachine.running != 0) {
         testMachine.hwStateUpdate();
-        testMachine.update();
+        ((StateMachine)testMachine).update();
     }
 }

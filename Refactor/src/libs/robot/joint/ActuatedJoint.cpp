@@ -11,11 +11,14 @@
 
 #include "ActuatedJoint.h"
 
+#include "DebugMacro.h"
+
 ActuatedJoint::ActuatedJoint(int jointID, double jointMin, double jointMax, Drive *drive) : Joint(jointID, jointMin, jointMax) {
     this->drive = drive;
 }
 //TODO: add in check
 ControlMode ActuatedJoint::setMode(ControlMode driveMode_, motorProfile profile) {
+    DEBUG_OUT("ACTUATEDJOINT::SETMODE()")
     if (driveMode_ == POSITION_CONTROL) {
         if (drive->initPosControl(profile)) {
             driveMode = driveMode_;

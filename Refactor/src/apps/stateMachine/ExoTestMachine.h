@@ -14,8 +14,11 @@
 #include <string>
 
 #include "ExoRobot.h"
+#include "ExoTestState.h"
 #include "StateMachine.h"
-#define OWNER ((TestMachine *)owner)
+
+//#define OWNER ((ExoTestMachine *)owner)
+
 // Designed State and event classes
 #include "InitState.h"
 #include "Sitting.h"
@@ -23,19 +26,20 @@
 #include "Standing.h"
 #include "StandingUp.h"
 
-class TestMachine : public StateMachine {
+class ExoTestMachine : public StateMachine {
    public:
     int running = 0;
-    TestMachine(void);
-    void init(void);
-    void activate(void);
-    void deactivate(void);
-    void hwStateUpdate(void);
-    void update(void);
-    State *gettCurState(void);
+    ExoTestMachine();
+    void init();
+    void activate();
+    void deactivate();
+
+    void hwStateUpdate();
+    void update();
+    State *gettCurState();
     void initRobot(ExoRobot *rb);
-    ExoRobot *robot;
     bool trajComplete;
+    DummyTrajectoryGenerator *trajectoryGenerator;
 
     // State Object pointers
     InitState *initState;
@@ -43,6 +47,9 @@ class TestMachine : public StateMachine {
     StandingUp *standingUp;
     Sitting *sitting;
     Standing *standing;
+
+   protected:
+    ExoRobot *robot;
 
    private:
     // events

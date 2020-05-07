@@ -1,19 +1,19 @@
-#include "TestMachine.h"
 ////////// STATE ////////////////////
 //-------  Sitting ------------/////
 ////////////////////////////////////
-void Sitting::entry(void) {
+#include "Sitting.h"
+void Sitting::entry() {
     //READ TIME OF MAIN
-    std::cout << "Sitting State Entered at Time:" << endl
-              << "=======================" << endl
-              << " HIT W to begin standing up" << endl
-              << "=======================" << endl
-              << endl;
+    std::cout << "Sitting State Entered at Time:" << std::endl
+              << "=======================" << std::endl
+              << " HIT W to begin standing up" << std::endl
+              << "=======================" << std::endl
+              << std::endl;
 }
-void Sitting::during(void) {
+void Sitting::during() {
     // OWNER->robot->moveThroughTraj();
 }
-void Sitting::exit(void) {
+void Sitting::exit() {
     std::cout
         << "Sitting State Exited" << endl;
 }

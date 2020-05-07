@@ -16,9 +16,9 @@
 
 #include <map>
 
-#include "ALEXTrajectoryGenerator.h"
 #include "CopleyDrive.h"
 #include "DummyActJoint.h"
+#include "DummyTrajectoryGenerator.h"
 #include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
@@ -26,21 +26,9 @@
 class ExoRobot : public Robot {
    private:
     //TODO: Load in paramaters and dictionary entries from JSON file.
-    /**
-    * TrajectoryGenerator pilot paramaters dictate the specific real world link lengths of the 3 joint exoskeleton robot.
-    * These paramaters must be specifically changed for the pilot using the Exoskeleton.
-    */
-    PilotParameters exoParams = {
-        .lowerleg_length = 0.44,
-        .upperleg_length = 0.44,
-        .ankle_height = 0.12,
-        .foot_length = 0.30,
-        .hip_width = 0.43,
-        .torso_length = 0.4,
-        .buttocks_height = 0.05};
 
     /** Parameters associated with Trajectory Progression */
-    time_tt currTrajProgress = 0;
+    double currTrajProgress = 0;
     timespec prevTime;
     /**
      * @brief motor drive position control profile paramaters
@@ -54,7 +42,7 @@ class ExoRobot : public Robot {
       * Initialize memory for the Exoskelton <code>Joint</code> + sensors. 
       * Load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
       */
-    ExoRobot();
+    ExoRobot(TrajectoryGenerator *tj);
     ~ExoRobot();
     Keyboard keyboard;
     vector<CopleyDrive *> copleyDrives;
@@ -134,10 +122,6 @@ class ExoRobot : public Robot {
        * @brief Free robot objects vector pointer memory.
        */
     void freeMemory();
-    /**
-       * @brief run intialise after construction, inherited from robot class 
-       */
-    void start();
     /**
        * @brief update current state of the robot, including input and output devices. 
        * Overloaded Method from the Robot Class. 

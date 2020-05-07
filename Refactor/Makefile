@@ -41,7 +41,7 @@ TESTEXE := $(addprefix build/,$(TESTS))
 
 # For main program
 MAIN 	:= build/main.o
-MAINEXE := build/EXO_APP
+MAINEXE := build/EXO_APP_2020
 
 # Tell compiler where to find all source files
 INCLUDES  := $(addprefix -I,$(SRC_DIR))

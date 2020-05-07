@@ -4,15 +4,16 @@
 
 #ifndef EXO_STATEMACHINE_H
 #define EXO_STATEMACHINE_H
-#include "State.h"
-#include "Robot.h"
-#include <cstddef>
-/* Forward declarations*/
+//#include <cstddef>
+
 class State;
 
-class StateMachine
-{
-public:
+#include "Robot.h"
+#include "State.h"
+/* Forward declarations*/
+
+class StateMachine {
+   public:
     /* State machine constructors*/
     // No input arguments.
     StateMachine(void);
@@ -23,7 +24,6 @@ public:
     State *getCurState(void);
     // methods
     void init(void);
-    void uninit(void);
     void activate(void);
     void deactivate(void);
     void update(void);
@@ -32,7 +32,7 @@ public:
     Robot *robot;
     int mark;
 
-private:
+   private:
     // pointers to the initial state and the current state
     State *currentState;
 };
@@ -43,10 +43,8 @@ private:
 #define EventObject(_name_)             \
     class _name_;                       \
     friend class _name_;                \
-    class _name_ : public Event         \
-    {                                   \
-                                        \
-    public:                             \
+    class _name_ : public Event {       \
+       public:                          \
         _name_(StateMachine *m,         \
                const char *name = NULL) \
             : Event(m, name){};         \
@@ -56,4 +54,4 @@ private:
 #define NewTransition(_from_, _event_, _to_) \
     _from_->addArc(new Transition(_to_, _event_))
 
-#endif //EXO_STATEMACHINE_H
+#endif  //EXO_STATEMACHINE_H

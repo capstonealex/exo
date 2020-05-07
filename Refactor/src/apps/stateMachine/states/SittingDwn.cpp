@@ -1,20 +1,17 @@
-#include "TestMachine.h"
 ////////// STATE ////////////////////
 //-------  Sitting Down ------------/////
 ////////////////////////////////////
+#include "SittingDwn.h"
 void SittingDwn::entry(void) {
     std::cout << "Sitting Down State Entered " << endl
               << "===================" << endl
               << " GREEN -> SIT DOWN " << endl
               << "===================" << endl;
-    OWNER->robot->initPositionControl();
-    OWNER->robot->setSpecificTrajectory(RobotMode::SITDWN);
-    OWNER->robot->startNewTraj();
-    OWNER->trajComplete = false;
+    trajectoryGenerator->initialiseTrajectory(SIT, 2);
+    robot->startNewTraj();
 }
 void SittingDwn::during(void) {
-    OWNER->trajComplete = OWNER->robot->moveThroughTraj();
-    // OWNER->trajComplete = true;
+    robot->moveThroughTraj();
 }
 void SittingDwn::exit(void) {
     std::cout

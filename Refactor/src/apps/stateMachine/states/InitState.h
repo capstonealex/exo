@@ -1,16 +1,15 @@
 // Init State Class publically inheriting State
+#ifndef INITSTATE_H_INCLUDED
+#define INITSTATE_H_INCLUDED
 
-#include "State.h"
-#include "Robot.h"
-#include <time.h>
+#include "ExoTestState.h"
 
-class InitState : public State
-{
-    friend class sitStand;
-
-public:
+class InitState : public ExoTestState {
+   public:
     void entry(void);
     void during(void);
     void exit(void);
-    InitState(StateMachine *m, const char *name = NULL) : State(m, name){};
+    InitState(StateMachine *m, ExoRobot *exo, DummyTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
 };
+
+#endif
