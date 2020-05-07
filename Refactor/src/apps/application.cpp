@@ -35,7 +35,6 @@ void app_programAsync(uint16_t timer1msDiffy) {
 
 void app_program1ms(void) {
     if (testMachine.running != 0) {
-        usleep(500000);
         testMachine.hwStateUpdate();
         testMachine.update();
     }

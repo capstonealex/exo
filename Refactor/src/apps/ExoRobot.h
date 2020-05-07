@@ -42,6 +42,11 @@ class ExoRobot : public Robot {
     /** Parameters associated with Trajectory Progression */
     time_tt currTrajProgress = 0;
     timespec prevTime;
+    /**
+     * @brief motor drive position control profile paramaters
+     * 
+     */
+    motorProfile posControlMotorProfile{4000000, 240000, 240000};
 
    public:
     /**

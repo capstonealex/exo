@@ -14,10 +14,10 @@
 ActuatedJoint::ActuatedJoint(int jointID, double jointMin, double jointMax, Drive *drive) : Joint(jointID, jointMin, jointMax) {
     this->drive = drive;
 }
-
-ControlMode ActuatedJoint::setMode(ControlMode driveMode_) {
+//TODO: add in check
+ControlMode ActuatedJoint::setMode(ControlMode driveMode_, motorProfile profile) {
     if (driveMode_ == POSITION_CONTROL) {
-        if (drive->initPosControl()) {
+        if (drive->initPosControl(profile)) {
             driveMode = driveMode_;
             return POSITION_CONTROL;
         }
@@ -35,8 +35,8 @@ setMovementReturnCode_t ActuatedJoint::setPosition(double desQ) {
     }
 }
 
-setMovementReturnCode_t ActuatedJoint::setVelocity(double velocity){
-    if (driveMode == VELOCITY_CONTROL){
+setMovementReturnCode_t ActuatedJoint::setVelocity(double velocity) {
+    if (driveMode == VELOCITY_CONTROL) {
         drive->setVel(toDriveUnits(velocity));
         return SUCCESS;
     } else {

@@ -70,7 +70,15 @@ static std::map<OD_Entry_t, int> OD_Data_Size = {
     {TARGET_POS, 0x0020},
     {TARGET_VEL, 0x0020},
 };
-
+/**
+ * @brief struct to hold desired velocity, acceleration and deceleration values for a 
+ *     drives motor controller profile.
+ */
+struct motorProfile {
+    int profileVelocity;
+    int profileAccelration;
+    int profileDeceleration;
+};
 class Drive {
    protected:
     /**
@@ -103,6 +111,25 @@ class Drive {
      * 
      * @ return int number of messages successfully processed(return OK) 
 */
+    /**
+       *     @brief  Generates the list of commands required to configure Position control in CANopen motor drive
+       * 
+       *     @param Profile Velocity, value used by position mode motor trajectory generator.
+       *            Units: 0.1 counts/sec
+       *            Range:0 - 500,000,000
+       *      @param Profile Acceleration, value position mode motor trajectory generator will attempt to achieve.
+       *            Units: 10 counts/sec^2
+       *            Range:0 - 200,000,000
+       *      @param Profile Deceleration, value position mode motor trajectory generator will use at end of trapezoidal profile.
+       *             see programmers manual for other profile types use.
+       *            Units: 10 counts/sec^2
+       *            Range:0 - 200,000,000
+       * 
+       *     NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
+       *           https://www.can-cia.org/can-knowledge/canopen/cia402/
+       */
+    std::vector<std::string> generatePosControlConfigSDO(motorProfile positionProfile);
+
     int sendSDOMessages(std::vector<std::string> messages);
 
    private:
@@ -161,7 +188,7 @@ class Drive {
            * @return true if successful
            * @return false if not
            */
-    virtual bool initPosControl() = 0;
+    virtual bool initPosControl(motorProfile posControlMotorProfile) = 0;
 
     /**
            * Sets the drive to Velocity control with default parameters (through SDO messages)

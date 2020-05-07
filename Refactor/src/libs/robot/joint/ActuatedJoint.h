@@ -85,9 +85,10 @@ class ActuatedJoint : public Joint {
          * @brief Set the mode of the device (nominally, position, velocity or torque control)
          * 
          * @param driveMode The mode to be used if possible
+         * @param motorProfile variables for desired mode, e.g. postion: v,a and deceleration.
          * @return ControlMode Configured Drive Mode, -1 if unsuccessful
          */
-    virtual ControlMode setMode(ControlMode driveMode);
+    virtual ControlMode setMode(ControlMode driveMode_, motorProfile profile);
 
     /**
          * @brief Set the Position object

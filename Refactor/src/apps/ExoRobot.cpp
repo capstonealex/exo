@@ -27,7 +27,7 @@ bool ExoRobot::initPositionControl() {
     DEBUG_OUT("Initialising Position Control on all joints ")
     bool returnValue = true;
     for (auto p : joints) {
-        if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL) != POSITION_CONTROL) {
+        if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL, posControlMotorProfile) != POSITION_CONTROL) {
             // Something bad happened
             returnValue = false;
         }
@@ -60,7 +60,7 @@ bool ExoRobot::moveThroughTraj() {
     prevTime = currTime;
 
     // Pretend trajectories take 10 seconds
-    time_tt fracProgress = elapsedSec / 4;
+    time_tt fracProgress = elapsedSec / 10;
     currTrajProgress += fracProgress;
     DEBUG_OUT("Elapsed Time: " << currTrajProgress)
 #ifdef NOROBOT
@@ -71,7 +71,7 @@ bool ExoRobot::moveThroughTraj() {
     for (int i = 0; i < NUM_JOINTS; i++) {
         positions[i] = testPos + i;
     }
-    if (currTrajProgress >= 4)
+    if (currTrajProgress >= 10)
         returnValue = true;
 #endif
 #ifndef NOROBOT
