@@ -17,7 +17,6 @@ bool ExoRobot::initPositionControl() {
     DEBUG_OUT("Initialising Position Control on all joints ")
     bool returnValue = true;
     for (auto p : joints) {
-        DEBUG_OUT("Each Joint Initialising")
         if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL, posControlMotorProfile) != POSITION_CONTROL) {
             // Something back happened if were are here
             DEBUG_OUT("Something bad happened")
@@ -29,16 +28,6 @@ bool ExoRobot::initPositionControl() {
 
 void ExoRobot::startNewTraj() {
     DEBUG_OUT("Start New Traj");
-
-#ifndef NOROBOT
-    jointspace_state initialPose;
-
-    for (int i = 0; i < NUM_JOINTS; i++)
-        initialPose.q[i] = 0;
-    initialPose.time = 0;
-
-    ((ALEXTrajectoryGenerator *)trajectoryGenerator)->initialiseTrajectory(RobotMode::STNDUP, initialPose);
-#endif
 
     // Index Resetting
     currTrajProgress = 0;
@@ -99,14 +88,14 @@ bool ExoRobot::initialiseJoints() {
 
 bool ExoRobot::initialiseNetwork() {
     DEBUG_OUT("ExoRobot::initialiseNetwork()");
-#ifndef NOROBOT
+
     bool status;
     for (auto joint : joints) {
         status = joint->initNetwork();
         if (!status)
             return false;
     }
-#endif
+
     return true;
 }
 bool ExoRobot::initialiseInputs() {

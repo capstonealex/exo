@@ -50,6 +50,7 @@
 /*Non canopenNode + Socket libraries*/
 #include "ExoRobot.h"
 #include "ExoTestMachine.h"
+
 #ifndef CO_APPLICATION_H
 #define CO_APPLICATION_H
 

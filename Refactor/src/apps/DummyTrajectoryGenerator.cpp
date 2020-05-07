@@ -47,7 +47,7 @@ std::vector<double> DummyTrajectoryGenerator::getSetPoint(double time) {
     if (currTraj == SIT) {
         for (int i = 0; i < numJoints; i++) {
             if (progress > 1) {
-                angles.push_back(standing[i]);
+                angles.push_back(sitting[i]);
             } else {
                 angles.push_back(standing[i] + progress * (sitting[i] - standing[i]));
             }
@@ -55,11 +55,20 @@ std::vector<double> DummyTrajectoryGenerator::getSetPoint(double time) {
     } else {
         for (int i = 0; i < numJoints; i++) {
             if (progress > 1) {
-                angles.push_back(sitting[i]);
+                angles.push_back(standing[i]);
             } else {
                 angles.push_back(sitting[i] + progress * (standing[i] - sitting[i]));
             }
         }
     }
+    lastProgress = progress;
     return angles;
+}
+
+bool DummyTrajectoryGenerator::isTrajectoryFinished() {
+    if (lastProgress > 1) {
+        return true;
+    } else {
+        return false;
+    }
 }

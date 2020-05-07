@@ -30,7 +30,7 @@
 
 ExoTestMachine::ExoTestMachine() {
     // All the Robot Initialisation Stuff Happens here
-    trajectoryGenerator = new DummyTrajectoryGenerator(4);  // Pilot Parameters would be set in constructor here
+    trajectoryGenerator = new DummyTrajectoryGenerator(6);  // Pilot Parameters would be set in constructor here
     robot = new ExoRobot(trajectoryGenerator);
 
     // Create PRE-DESIGNED State Machine events, states and transitions
@@ -58,12 +58,12 @@ ExoTestMachine::ExoTestMachine() {
 
     // Initialize the state machine with first state
     StateMachine::initialize(initState);
-
-    //robot.start();
 }
 
 void ExoTestMachine::init() {
+    DEBUG_OUT("ExoTestMachine::init()")
     StateMachine::init();
+    robot->initialise();
     running = 1;
 }
 
@@ -71,10 +71,7 @@ void ExoTestMachine::init() {
 // Events ------------------------------------------------------------
 ///////////////////////////////////////////////////////////////
 bool ExoTestMachine::EndTraj::check() {
-    if (OWNER->trajComplete) {
-        return true;
-    } else
-        return false;
+    return OWNER->trajectoryGenerator->isTrajectoryFinished();
 }
 ///KEYBOARD AS BUTTON///
 //////////// BUTTON PRESS CHECKS //////////////
@@ -118,6 +115,11 @@ bool ExoTestMachine::StartSit::check(void) {
 //////////////////////////////////////////////////////////////////////
 // Robot interface methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
+
+// Update button state, loop counter (mark) and joints
+void ExoTestMachine::update(void) {
+    StateMachine::update();
+}
 
 // Update button state, loop counter (mark) and joints
 void ExoTestMachine::hwStateUpdate(void) {

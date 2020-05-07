@@ -16,6 +16,7 @@
 
 #include <iostream>
 
+#include "DebugMacro.h"
 #include "DummyTrajectoryGenerator.h"
 #include "ExoRobot.h"
 #include "State.h"

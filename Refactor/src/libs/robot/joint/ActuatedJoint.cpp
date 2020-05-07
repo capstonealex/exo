@@ -18,7 +18,6 @@ ActuatedJoint::ActuatedJoint(int jointID, double jointMin, double jointMax, Driv
 }
 //TODO: add in check
 ControlMode ActuatedJoint::setMode(ControlMode driveMode_, motorProfile profile) {
-    DEBUG_OUT("ACTUATEDJOINT::SETMODE()")
     if (driveMode_ == POSITION_CONTROL) {
         if (drive->initPosControl(profile)) {
             driveMode = driveMode_;

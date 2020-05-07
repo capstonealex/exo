@@ -30,6 +30,7 @@ class DummyTrajectoryGenerator : public TrajectoryGenerator {
     Trajectory currTraj = SIT;
     double trajTime = 2;
     int numJoints = 6;
+    double lastProgress = 0;
 
    public:
     DummyTrajectoryGenerator(int NumOfJoints);
@@ -54,6 +55,13 @@ class DummyTrajectoryGenerator : public TrajectoryGenerator {
      * @return vector<double> 
      */
     std::vector<double> getSetPoint(double time);
-};
 
+    /**
+     * @brief Check if the trajectory has been completed based on last elapsed time
+     * 
+     * @return true if trajectory has been completed
+     * @return false if trajectory has not been completed
+     */
+    bool isTrajectoryFinished();
+};
 #endif

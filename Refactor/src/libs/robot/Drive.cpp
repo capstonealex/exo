@@ -48,19 +48,20 @@ int Drive::getTorque() {
 }
 
 bool Drive::initPDOs() {
-    DEBUG_OUT("Set up STATUS_WORD TPDO")
+    DEBUG_OUT("Drive::initPDOs")
+    //DEBUG_OUT("Set up STATUS_WORD TPDO")
     sendSDOMessages(generateTPDOConfigSDO({STATUS_WORD}, 1, 0xFF));
 
-    DEBUG_OUT("Set up ACTUAL_POS and ACTUAL_VEL TPDO")
+    //DEBUG_OUT("Set up ACTUAL_POS and ACTUAL_VEL TPDO")
     sendSDOMessages(generateTPDOConfigSDO({ACTUAL_POS, ACTUAL_VEL}, 2, 1));
 
-    DEBUG_OUT("Set up ACTUAL_TOR TPDO")
+    //DEBUG_OUT("Set up ACTUAL_TOR TPDO")
     sendSDOMessages(generateTPDOConfigSDO({ACTUAL_TOR}, 3, 1));
 
-    DEBUG_OUT("Set up TARGET_POS RPDO")
+    //DEBUG_OUT("Set up TARGET_POS RPDO")
     sendSDOMessages(generateRPDOConfigSDO({TARGET_POS}, 1, 0xff));
 
-    DEBUG_OUT("Set up TARGET_VEL RPDO")
+    //DEBUG_OUT("Set up TARGET_VEL RPDO")
     sendSDOMessages(generateRPDOConfigSDO({TARGET_VEL}, 2, 0xff));
 
     return true;
@@ -201,8 +202,12 @@ int Drive::sendSDOMessages(std::vector<std::string> messages) {
     for (auto strCommand : messages) {
         // explicitly cast c++ string to from const char* to char* for use by cancomm function
         char *SDO_Message = (char *)(strCommand.c_str());
-        DEBUG_OUT(SDO_Message);
+        // DEBUG_OUT(SDO_Message);
+
+#ifndef NOROBOT
         cancomm_socketFree(SDO_Message, returnMessage);
+#endif
+
         // TODO: in cancomm_socketFree -> return message correctly.
         // std::string retMsg = returnMessage;
         // DEBUG_OUT(retMsg);
