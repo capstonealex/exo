@@ -89,7 +89,6 @@ int main(int argc, char *argv[]) {
     int nodeId = NODEID;                                           /*!< CAN Network NODEID */
     /*map linux CAN interface to corresponding int index return zero if no interface exists.*/
     int CANdevice0Index = if_nametoindex(CANdevice);
-    bool_t commandEnable = true; /* Configurable by arguments */
     configureCANopen(nodeId, rtPriority, CANdevice0Index, CANdevice);
 
     /* Set up catch of linux signals SIGINT(ctrl+c) and SIGTERM (terminate program - shell kill command) 
@@ -158,13 +157,6 @@ int main(int argc, char *argv[]) {
 
             OD_performance[ODA_performance_timerCycleTime] = TMR_TASK_INTERVAL_NS / 1000; /* informative */
 
-            /* Initialize socket command interface */
-            if (commandEnable) {
-                if (CO_command_init() != 0) {
-                    CO_errExit("Socket command interface initialization failed");
-                }
-                printf("Canopend - Command interface on socket '%s' started ...\n", CO_command_socketPath);
-            }
             /* Create rt_thread */
             if (pthread_create(&rt_thread_id, NULL, rt_thread, NULL) != 0)
                 CO_errExit("Program init - rt_thread creation failed");
@@ -245,12 +237,6 @@ int main(int argc, char *argv[]) {
     }
 
     /* program exit ***************************************************************/
-    /* join threads */
-    if (commandEnable) {
-        if (CO_command_clear() != 0) {
-            CO_errExit("Socket command interface removal failed");
-        }
-    }
 
     CO_endProgram = 1;
     if (pthread_join(rt_thread_id, NULL) != 0) {
