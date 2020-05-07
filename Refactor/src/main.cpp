@@ -1,6 +1,4 @@
 /*
- * test comment
- * CANopen main program file for Linux SocketCAN.
  *
  * @file        main
  * @author      William Campbell
@@ -16,7 +14,7 @@
  * on CANopenNode: <https://github.com/CANopenNode/CANopenNode>.
  *
  * The adaptation is specifically designed for use with the Alex exoskeleton.
- * It can be addapted for use with other CAN enabled linux based robotic projects.
+ * It can be addapted for use with other CANopen enabled linux based robotic projects.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -27,69 +25,37 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <errno.h>
-#include <linux/reboot.h>
-#include <net/if.h>
-#include <pthread.h>
-#include <sched.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/epoll.h>
-#include <sys/reboot.h>
-#include <sys/time.h>
-#include <unistd.h>
-
-#include "CANopen.h"
-#include "CO_Linux_tasks.h"
-#include "CO_OD_storage.h"
-#include "CO_time.h"
 #include "application.h"
 
-/*For master-> code SDO direct messaging*/
-// #define CO_COMMAND_SDO_BUFFER_SIZE 100000
-// #define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
-
-#define NSEC_PER_SEC (1000000000)      /* The number of nanoseconds per second. */
-#define NSEC_PER_MSEC (1000000)        /* The number of nanoseconds per millisecond. */
-#define TMR_TASK_INTERVAL_NS (1000000) /* Interval of taskTmr in nanoseconds */
-#define TMR_TASK_OVERFLOW_US (5000)    /* Overflow detect limit for taskTmr in microseconds */
-#define INCREMENT_1MS(var) (var++)     /* Increment 1ms variable in taskTmr */
-#define NODEID (100)
-#define CANMESSAGELENGTH (100)
-
-/* Global variable increments each millisecond. */
-volatile uint32_t CO_timer1ms = 0U;
-
-/* Mutex is locked, when CAN is not valid (configuration state). May be used
- *  from other threads. RT threads may use CO->CANmodule[0]->CANnormal instead. */
+volatile uint32_t CO_timer1ms = 0U; /*!< Global variable increments each millisecond */
+/**
+ * Mutex is locked, when CAN is not valid (configuration state). 
+ * May be used from other threads. RT threads may use CO->CANmodule[0]->CANnormal instead. 
+*/
 pthread_mutex_t CO_CAN_VALID_mtx = PTHREAD_MUTEX_INITIALIZER;
 
-/* Other variables and objects */
-static int rtPriority = 2; /* Real time priority, configurable by arguments. (-1=RT disabled) */
+static int rtPriority = 2; /*!< Real time priority, configurable by arguments. (-1=RT disabled) */
 static int rtControlPriority = 80;
-static int mainline_epoll_fd; /* epoll file descriptor for mainline */
-static CO_time_t CO_time;     /* Object for current time */
+static int mainline_epoll_fd; /*!< epoll file descriptor for mainline */
+static CO_time_t CO_time;     /*!< Object for current time */
 int commCount = 0;
 bool readyToStart = false;
-
 uint32_t tmr1msPrev = 0;
 
-// RT Tast timer
+/* Control loop Task timer*/
 struct period_info {
     struct timespec next_period;
     long period_ns;
 };
-// Forward declartion of timer functions
+// Forward declartion of thread timer functions
 static void inc_period(struct period_info *pinfo);
 static void periodic_task_init(struct period_info *pinfo);
 static void wait_rest_of_period(struct period_info *pinfo);
-/* Realtime thread */
+/* CAN msg processing thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
 static int rt_thread_epoll_fd;
-/* Realtime control thread */
+/* Program Control loop thread */
 static void *rt_control_thread(void *arg);
 static pthread_t rt_control_thread_id;
 static int rt_control_thread_epoll_fd;
@@ -100,12 +66,11 @@ static void sigHandler(int sig) {
 }
 
 /* CAN messageHelper functions ***********************************************************/
-/*TODO: WHAT IS THERE ROLL*/
+/*TODO: Move outside of main definition*/
 void CO_errExit(char *msg) {
     perror(msg);
     exit(EXIT_FAILURE);
 }
-
 /* send CANopen generic emergency message */
 void CO_error(const uint32_t info) {
     //CO_errorReport(CO->em, CO_EM_GENERIC_SOFTWARE_ERROR, CO_EMC_SOFTWARE_INTERNAL, info);
@@ -113,79 +78,37 @@ void CO_error(const uint32_t info) {
 }
 
 /******************************************************************************/
-/** Mainline and RT thread                                                   **/
+/** Mainline and threads                                                   **/
 /******************************************************************************/
 int main(int argc, char *argv[]) {
-    std::cout << "MADE IT HERE" << std::endl;
+    /* TODO : MOVE bellow definitionsTO SOME KIND OF CANobject, struct or the like*/
     CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
-    int CANdevice0Index = 0;
-    int opt;
     bool_t firstRun = true;
-    bool_t nodeIdFromArgs = true; /* True, if program arguments are used for CANopen Node Id */
-    int nodeId = -1;              /* Use value from Object Dictionary or set to 1..127 by arguments */
-    bool_t rebootEnable = false;  /* Configurable by arguments */
-    /*set up command line arguments as variables*/
-    char CANdevice[10] = "vcan0"; /* change to can1 for bbb vcan0 for virtual can*/
-    nodeId = NODEID;
-    CANdevice0Index = if_nametoindex(CANdevice);
-    bool_t commandEnable = false; /* Configurable by arguments */
-    opt = 'c';
-    /* Get program options */
-    switch (opt) {
-        case 'p':
-            rtPriority = strtol(optarg, NULL, 0);
-            break;
+    bool_t rebootEnable = false; /*!< Configurable by use case */  // TODO: DO WE EVER RESET? OR NEED TO?
+    char CANdevice[10] = "vcan0";                                  /*!< linux CAN device interface for app to bind to: change to can1 for bbb vcan0 for virtual can*/
+    int nodeId = NODEID;                                           /*!< CAN Network NODEID */
+    /*map linux CAN interface to corresponding int index return zero if no interface exists.*/
+    int CANdevice0Index = if_nametoindex(CANdevice);
+    bool_t commandEnable = true; /* Configurable by arguments */
+    configureCANopen(nodeId, rtPriority, CANdevice0Index, CANdevice);
 
-        case 'c':
-            /* In case of empty string keep default name, just enable interface. */
-            if (strlen(optarg) != 0) {
-                // CO_command_socketPath = "/tmp/CO_command_socket";
-            }
-            commandEnable = true;
-            break;
-    }
-
-    if (nodeId < 1 || nodeId > 127) {
-        fprintf(stderr, "Wrong node ID (%d)\n", nodeId);
-        exit(EXIT_FAILURE);
-    }
-
-    if (rtPriority != -1 && (rtPriority < sched_get_priority_min(SCHED_FIFO) || rtPriority > sched_get_priority_max(SCHED_FIFO))) {
-        fprintf(stderr, "Wrong RT priority (%d)\n", rtPriority);
-        exit(EXIT_FAILURE);
-    }
-
-    if (CANdevice0Index == 0) {
-        char s[120];
-        snprintf(s, 120, "Can't find CAN device \"%s\"", CANdevice);
-        CO_errExit(s);
-    }
-
-    printf("starting CANopen device with Node ID %d(0x%02X)", nodeId, nodeId);
-
-    /* Verify, if OD structures have proper alignment of initial values */
-    if (CO_OD_RAM.FirstWord != CO_OD_RAM.LastWord) {
-        fprintf(stderr, "Program init - Canopend- Error in CO_OD_RAM.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    /* Catch signals SIGINT and SIGTERM */
+    /* Set up catch of linux signals SIGINT(ctrl+c) and SIGTERM (terminate program - shell kill command) 
+        bind to sigHandler -> raise CO_endProgram flag and safely close application threads*/
     if (signal(SIGINT, sigHandler) == SIG_ERR)
         CO_errExit("Program init - SIGINIT handler creation failed");
     if (signal(SIGTERM, sigHandler) == SIG_ERR)
         CO_errExit("Program init - SIGTERM handler creation failed");
 
-    /* increase variable each startup. Variable is automatically stored in non-volatile memory. */
-    printf(", count=%u ...\n", ++OD_powerOnCounter);
-
+    printf("starting CANopen device with Node ID %d(0x%02X)", nodeId, nodeId);
     while (reset != CO_RESET_APP && reset != CO_RESET_QUIT && CO_endProgram == 0) {
         /* CANopen communication reset - initialize CANopen objects *******************/
         CO_ReturnError_t err;
 
         printf("Canopend- communication reset ...\n");
-
+        // TODO: What's happening here
         /* Wait other threads (command interface). */
         pthread_mutex_lock(&CO_CAN_VALID_mtx);
+        // TODO: What's happening here
 
         /* Wait rt_thread. */
         if (!firstRun) {
@@ -194,16 +117,12 @@ int main(int argc, char *argv[]) {
             CO_UNLOCK_OD();
         }
 
-        /* Enter CAN configuration. */
+        /* Set CAN interfaceconfiguration. */
+        // THIS FUNCTION DOES NOTHING
         CO_CANsetConfigurationMode(CANdevice0Index);
 
         /* initialize CANopen */
-        if (!nodeIdFromArgs) {
-            /* use value from Object dictionary, if not set by program arguments */
-            nodeId = OD_CANNodeID;
-        }
-        err = CO_init(CANdevice0Index, nodeId, 0);
-        if (err != CO_ERROR_NO) {
+        if (CO_init(CANdevice0Index, nodeId, 0) != CO_ERROR_NO) {
             char s[120];
             snprintf(s, 120, "Communication reset - CANopen initialization failed, err=%d", err);
             CO_errExit(s);
@@ -246,7 +165,6 @@ int main(int argc, char *argv[]) {
                 }
                 printf("Canopend - Command interface on socket '%s' started ...\n", CO_command_socketPath);
             }
-            /*OLD THREAD CREATION*/
             /* Create rt_thread */
             if (pthread_create(&rt_thread_id, NULL, rt_thread, NULL) != 0)
                 CO_errExit("Program init - rt_thread creation failed");
