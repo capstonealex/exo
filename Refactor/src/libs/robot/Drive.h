@@ -85,6 +85,11 @@ struct motorProfile {
     int profileAccelration;
     int profileDeceleration;
 };
+
+/**
+ * @brief Abstract class describing a Drive used to communicate with a CAN Drive. Note that many functions are inbuilt according to the CiA 402 Standard.
+ * 
+ */
 class Drive {
    protected:
     /**

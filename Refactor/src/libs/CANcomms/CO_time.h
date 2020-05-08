@@ -24,23 +24,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef CO_TIME_H
 #define CO_TIME_H
 
-
-#include "CO_driver.h"
 #include "CO_SDO.h"
-
+#include "CO_driver.h"
 
 /**
- * Time object, usable for timestamping.
+ * @brief Time object, usable for timestamping - Defined in CANOpen code
  */
 typedef struct {
-    uint64_t           *epochTimeBaseMs;    /**< From CO_time_init(). */
-    uint32_t           *epochTimeOffsetMs;  /**< From CO_time_init(). */
+    uint64_t *epochTimeBaseMs;   /**< From CO_time_init(). */
+    uint32_t *epochTimeOffsetMs; /**< From CO_time_init(). */
 } CO_time_t;
-
 
 /**
  * Initialize time object.
@@ -54,12 +50,11 @@ typedef struct {
  * @param idx_OD_time Index in Object Dictionary.
  */
 void CO_time_init(
-        CO_time_t              *tm,
-        CO_SDO_t               *SDO,
-        uint64_t               *epochTimeBaseMs,
-        uint32_t               *epochTimeOffsetMs,
-        uint16_t                idx_OD_time);
-
+    CO_time_t *tm,
+    CO_SDO_t *SDO,
+    uint64_t *epochTimeBaseMs,
+    uint32_t *epochTimeOffsetMs,
+    uint16_t idx_OD_time);
 
 /**
  * Process time object.
@@ -69,6 +64,5 @@ void CO_time_init(
  * @param tm This object.
  */
 void CO_time_process(CO_time_t *tm);
-
 
 #endif

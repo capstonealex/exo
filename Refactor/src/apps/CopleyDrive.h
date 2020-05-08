@@ -9,6 +9,10 @@
 #define COPLEYDRIVE_H_INCLUDED
 #include "Drive.h"
 
+/**
+ * @brief An implementation of the Drive Object, specifically for the Copley Drive (currently used on the X2 Exoskeleton)
+ * 
+ */
 class CopleyDrive : public Drive {
    public:
     /**

@@ -25,6 +25,10 @@ enum setMovementReturnCode_t {
     UNKNOWN_ERROR = -100
 };
 
+/**
+ * @brief Abstract class representing an Actuated Joint in a Robot Class (extending joint). Requires a Drive Object through which commands are sent.
+ * 
+ */
 class ActuatedJoint : public Joint {
    protected:
     /**
