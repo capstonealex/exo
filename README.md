@@ -1,16 +1,14 @@
-# Robot CANControl Project
+# RobotCANControl Project
 
-Robot CANcontrol is a free and open source robotic development software stack. The project has been under development at the University of Melbourne in partnership with Fourier Intelligence for use with their X2 exoskeleton. The software has been designed to be extensible to any embeeded linux and CANopen enabled Robotic platform.
+RobotCANcontrol is a free and open source robotic development software stack. The project has been under development at the University of Melbourne in partnership with Fourier Intelligence for use with their X2 exoskeleton. The software has been designed to be extensible to any embeeded linux and CANopen enabled Robotic platform.
 
 ## The Robot CANcontrol project is made up of:
 
-- Abstract robot framework to flexibly represent most multi body robotic systems.
+- Extensible Framework to flexibly represent most multi body robotic systems.
 - Event driven State machine to develop custom applications for your Robot.
 - Implementation of [Canopen Socket](https://github.com/CANopenNode/CANopenSocket) to provide an interface between CAN enabled embedded linux system and Canopen configured motor drivers/sensors.
 - Documentation
 - Fully functional application examples.
-
-## How to Get It
 
 ### Linux
 
@@ -18,7 +16,40 @@ Robot CANcontrol is a free and open source robotic development software stack. T
 - [Build it](https://exoembedded.readthedocs.io/en/latest/#alex-embedded-system-documentation)
   <!-- TODO: ADD section on dev website for the specifics. -->
 
-<!-- ## How to Use It -->
+## Getting started with RobotCANControl
+
+We will be running through building and testing a simple test statemachine (ExoTestMachine.cpp), the source code can be found in the apps folder of the root directory.
+
+The current recommened and tested environemnt is Debian jesse 9.5 on a Beagle Bone black [Firmware](http://beagleboard.org/latest-images). Theoretically, we can build on other distros and linux platforms as well, but they have not been testd.
+
+We currently have two options for building RobotCANControl. Building (slowly) on the target platform or building on your host machine (depending on your platform).
+
+- macOSx, linux or Windows: Docker - [docker cross tools](https://hub.docker.com/r/alejandro4siana/cross-bbb-debian/)
+- Windows only: [ GNU cross tools](https://gnutoolchains.com/download/)
+
+### How to get the Project
+
+Clone the project and CANopenSocket from git repository(CANopenSocket used in robot homing sequence):
+
+    $ git clone https://github.com/capstonealex/exo.git
+    $ git clone https://github.com/CANopenNode/CANopenSocket.git
+    $ cd CANopenSocket
+    $ git submodule init
+    $ git submodule update
+
+### Build ExoTestMachine
+
+    $ cd /GitHub/exo/Refactor/
+    $ make exe
+
+ssh the file to embedded linux platform.
+
+## Run Virtual ExoTestMachine
+
+## Run ExoTestMachine on X2
+
+<!-- ### Event Driven State machine
+explain me -->
 
 ### Documentation
 
@@ -26,13 +57,10 @@ View our [detailed documentation](https://exoembedded.readthedocs.io/en/latest/#
 
 View our source code documenrtation [doxygen](https://capstonealex.github.io/exo/index.html)
 
-<!-- ### Event Driven State machine
-explain me -->
-
 ## Developer Information
 
 - Documentation: https://exoembedded.readthedocs.io/en/latest/
-- Project Repository:https://github.com/capstonealex/exo
+- Project Repository: https://github.com/capstonealex/exo
 - CanOpen Socket: https://github.com/CANopenNode/CANopenSocket
 
 ## License
