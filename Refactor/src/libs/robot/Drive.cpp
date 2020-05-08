@@ -47,6 +47,33 @@ int Drive::getTorque() {
     return 0;
 }
 
+bool Drive::readyToSwitchOn() {
+    *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1))) = 0x06;
+}
+
+bool Drive::enable() {
+    *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1))) = 0x0F;
+}
+
+bool Drive::disable() {
+    *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1))) = 0x00;
+}
+
+int Drive::updateDriveStatus() {
+    status = *(&CO_OD_RAM.statusWords.motor1 + ((this->NodeID - 1)));
+    return status;
+}
+
+bool Drive::posControlConfirmSP() {
+    int controlWord = *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1)));
+    *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1))) = controlWord ^ 0x10;
+    if ((controlWord & 0x10) > 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 bool Drive::initPDOs() {
     DEBUG_OUT("Drive::initPDOs")
     //DEBUG_OUT("Set up STATUS_WORD TPDO")

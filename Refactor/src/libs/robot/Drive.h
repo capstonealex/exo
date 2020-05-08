@@ -44,7 +44,7 @@ enum OD_Entry_t {
 };
 
 /**
- * @brief Map between the Commonly-used OD entries and their addresses
+ * @brief Map between the Commonly-used OD entries and their addresses - used to generate PDO Configurations
  *        NOTE: These are written in hexadecimal
  * 
  */
@@ -58,7 +58,7 @@ static std::map<OD_Entry_t, int> OD_Addresses = {
 };
 
 /**
- * @brief Map between the Commonly-used OD entries and their data lengths
+ * @brief Map between the Commonly-used OD entries and their data lengths - used to generate PDO Configurations
  *        NOTE: These are written in hexadecimal
  * 
  */
@@ -82,35 +82,31 @@ struct motorProfile {
 class Drive {
    protected:
     /**
-           * @brief The CAN Node ID used to address this particular drive on the CAN bus
-           * 
-           */
+        * @brief The CAN Node ID used to address this particular drive on the CAN bus
+        * 
+        */
     int NodeID;
 
     /**
-           * @brief Generates the list of commands required to configure TPDOs on the drives
-           * 
-           * @param items A list of OD_Entry_t items which are to be configured with this TPDO
-           * @param PDO_Num The number/index of this PDO
-           * @param SyncRate The rate at which this PDO transmits (e.g. number of Sync Messages. 0xFF represents internal trigger event)
-           * @return std::string 
-           */
+        * @brief Generates the list of commands required to configure TPDOs on the drives
+        * 
+        * @param items A list of OD_Entry_t items which are to be configured with this TPDO
+        * @param PDO_Num The number/index of this PDO
+        * @param SyncRate The rate at which this PDO transmits (e.g. number of Sync Messages. 0xFF represents internal trigger event)
+        * @return std::string 
+        */
     std::vector<std::string> generateTPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int SyncRate);
 
     /**
-           * @brief Generates the list of commands required to configure RPDOs on the drives
-           * 
-           * @param items A list of OD_Entry_t items which are to be configured with this RPDO
-           * @param PDO_Num The number/index of this PDO
-           * @param UpdateTiming 0-240 represents hold until next sync message, 0xFF represents immediate update
-           * @return std::string 
-           */
+        * @brief Generates the list of commands required to configure RPDOs on the drives
+        * 
+        * @param items A list of OD_Entry_t items which are to be configured with this RPDO
+        * @param PDO_Num The number/index of this PDO
+        * @param UpdateTiming 0-240 represents hold until next sync message, 0xFF represents immediate update
+        * @return std::string 
+        */
     std::vector<std::string> generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int UpdateTiming);
-    /**                                                                                                             
-     * @brief messages Properly formatted SDO Messages
-     * 
-     * @ return int number of messages successfully processed(return OK) 
-*/
+
     /**
        *     @brief  Generates the list of commands required to configure Position control in CANopen motor drive
        * 
@@ -130,19 +126,37 @@ class Drive {
        */
     std::vector<std::string> generatePosControlConfigSDO(motorProfile positionProfile);
 
+    /**                                                                                                             
+        * @brief messages Properly formatted SDO Messages
+        * 
+        * @ return int number of messages successfully processed(return OK) 
+              */
     int sendSDOMessages(std::vector<std::string> messages);
 
    private:
+    /**
+        * @brief Current status word of the drive
+        * 
+        */
     int status;
+
+    /**
+     * @brief Current error state of the drive 
+     * 
+     */
     int error;
 
+    /**
+        * @brief The mode in which the drive is currently configured
+        * 
+        */
     ControlMode controlMode = UNCONFIGURED;
 
    public:
     /**
-           * @brief Construct a new Drive object
-           * 
-           */
+        * @brief Construct a new Drive object
+        * 
+        */
     Drive();
 
     /**
@@ -181,9 +195,11 @@ class Drive {
     virtual bool initPDOs();
 
     /**
-           * Sets the drive to Position control with default parameters (through SDO messages)
+           * Sets the drive to Position control with set parameters (through SDO messages)
            * 
            * Note: Should be overloaded to allow parameters to be set
+           * 
+           * @param motorProfile The position control motor profile to be used
            * 
            * @return true if successful
            * @return false if not
@@ -213,10 +229,9 @@ class Drive {
     /**
            * Updates the internal representation of the state of the drive 
            * 
-           * @return true if successful
-           * @return false if not
+           * @return The current value of the status word (0x6041)
            */
-    virtual bool updateDriveStatus() = 0;
+    virtual int updateDriveStatus();
 
     /**
            * Writes the desired position to the Target Position of the motor drive (0x607A)
@@ -273,7 +288,7 @@ class Drive {
            * @return true if operation successful
            * @return false if operation unsuccessful
            */
-    virtual bool readyToSwitchOn() = 0;
+    virtual bool readyToSwitchOn();
 
     /**
            * @brief Sets the state of the drive to "enabled"
@@ -284,7 +299,7 @@ class Drive {
            * @return true if operation successful
            * @return false if operation unsuccessful
            */
-    virtual bool enable() = 0;
+    virtual bool enable();
 
     /**
            * @brief sets the state of the drive to "disabled"
@@ -295,7 +310,15 @@ class Drive {
            * @return true if operation successful
            * @return false if operation unsuccessful
            */
-    virtual bool disable() = 0;
+    virtual bool disable();
+
+    /**
+        * @brief Flips Bit 4 of Control Word (0x6041) - A new set point is only confirmed if the transition is from 0 to 1
+        * 
+        * @return true The control word was previously 0 (i.e. successful set point confirm)
+        * @return false The control word was previously 1 (i.e. unsuccessful set point confirm)
+        */
+    virtual bool posControlConfirmSP();
 
     // CANOpen
     /**

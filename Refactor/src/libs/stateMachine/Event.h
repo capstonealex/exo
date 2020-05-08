@@ -4,11 +4,9 @@
 
 #ifndef EXO_EVENT_H
 #define EXO_EVENT_H
-#include <cstddef>
+//#include <cstddef>
 
 #include "StateMachine.h"
-/* Forward declarations*/
-//class StateMachine;
 
 class Event {
    public:

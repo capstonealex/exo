@@ -7,7 +7,6 @@ void StandingUp::entry(void) {
               << "===================" << endl;
     trajectoryGenerator->initialiseTrajectory(STAND, 1);
     robot->startNewTraj();
-    robot->setTrajectory();
 }
 
 void StandingUp::during(void) {

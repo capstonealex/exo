@@ -8,32 +8,49 @@
 
 class State;
 
-#include "Robot.h"
 #include "State.h"
 /* Forward declarations*/
 
 class StateMachine {
    public:
-    /* State machine constructors*/
-    // No input arguments.
+    /**
+     * @brief Construct a new State Machine object
+     * 
+     */
     StateMachine(void);
-    // Set initial state to input of constructor
-    StateMachine(State *i);
-    // Set the pointer of the initial state
+    /**
+     * @brief Sets the current state. Note: No check made
+     * 
+     * @param i Pointer to the desired current state. 
+     */
     void initialize(State *i);
-    State *getCurState(void);
-    // methods
-    void init(void);
-    void activate(void);
-    void deactivate(void);
-    void update(void);
 
-    // Robot interface to be used by states to interact with hardware
-    Robot *robot;
-    int mark;
+    /**
+     * @brief Returns a pointer to the current state
+     * 
+     * @return State* Pointer to the current state 
+     */
+    State *getCurState(void);
+
+    /**
+     * @brief Calls the entry method of the current state
+     * 
+     */
+    void activate(void);
+
+    /**
+     * @brief Processes the state machine. For each possible transition, checks if that transition should be made
+     *  If no, calls during() on the current state
+     *  If yes, calls exit() on the current state, entry() and then during() on the new state. 
+     * 
+     */
+    virtual void update(void);
 
    private:
-    // pointers to the initial state and the current state
+    /**
+     * @brief Pointer to the current state
+     * 
+     */
     State *currentState;
 };
 

@@ -66,7 +66,7 @@ std::vector<double> DummyTrajectoryGenerator::getSetPoint(double time) {
 }
 
 bool DummyTrajectoryGenerator::isTrajectoryFinished() {
-    if (lastProgress > 1) {
+    if (lastProgress > 1.0) {
         return true;
     } else {
         return false;

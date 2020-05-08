@@ -59,48 +59,6 @@ class CopleyDrive : public Drive {
          * @return false if not
          */
     bool initTorqControl();
-
-    /**
-         * Updates the internal representation of the state of the drive 
-         * 
-         * @return true if successful
-         * @return false if not
-         */
-    bool updateDriveStatus();
-
-    // Drive State Modifiers
-    /**
-         * @brief Changes the state of the drive to "ready to switch on". 
-         * 
-         * This is equivalent to setting bits 2 and 3 of Control Word (0x6064) to 1.
-         * See also the CANopen Programmer's Manual (from Copley Controls)
-         * 
-         * @return true if operation successful
-         * @return false if operation unsuccessful
-         */
-    bool readyToSwitchOn();
-
-    /**
-         * @brief Sets the state of the drive to "enabled"
-         * 
-         * This is equivalent to setting bits 0, 1, 2, 3 of the control word (0x06064) to 1
-         * See also the CANopen Programmer's Manual (from Copley Controls)
-         * 
-         * @return true if operation successful
-         * @return false if operation unsuccessful
-         */
-    bool enable();
-
-    /**
-         * @brief sets the state of the drive to "disabled"
-         * 
-         * This is equivalent to setting the control word (0x06064) to 0
-         * See also the CANopen Programmer's Manual (from Copley Controls)
-         * 
-         * @return true if operation successful
-         * @return false if operation unsuccessful
-         */
-    bool disable();
 };
 
 #endif

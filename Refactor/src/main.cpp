@@ -278,7 +278,7 @@ static void inc_period(struct period_info *pinfo) {
 }
 static void periodic_task_init(struct period_info *pinfo) {
     /* for simplicity, hardcoding a 1ms period */
-    pinfo->period_ns = 1000000;
+    pinfo->period_ns = 5000000;
 
     clock_gettime(CLOCK_MONOTONIC, &(pinfo->next_period));
 }

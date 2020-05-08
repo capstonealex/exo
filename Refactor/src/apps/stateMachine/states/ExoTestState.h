@@ -23,6 +23,7 @@
 
 class ExoTestState : public State {
    protected:
+    // \Todo Might be good to make these Const
     ExoRobot *robot;
     DummyTrajectoryGenerator *trajectoryGenerator;
 

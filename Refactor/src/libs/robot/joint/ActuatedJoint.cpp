@@ -30,6 +30,7 @@ ControlMode ActuatedJoint::setMode(ControlMode driveMode_, motorProfile profile)
 setMovementReturnCode_t ActuatedJoint::setPosition(double desQ) {
     if (driveMode == POSITION_CONTROL) {
         drive->setPos(toDriveUnits(desQ));
+        drive->posControlConfirmSP();
         return SUCCESS;
     } else {
         // Replace once complete
