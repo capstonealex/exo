@@ -30,8 +30,7 @@
  */
 
 #include "application.h"
-
-volatile uint32_t CO_timer1ms = 0U; /*!< Global variable increments each millisecond */
+/* Threads and thread safety variables***********************************************************/
 /**
  * Mutex is locked, when CAN is not valid (configuration state). 
  * May be used from other threads. RT threads may use CO->CANmodule[0]->CANnormal instead. 
@@ -43,7 +42,7 @@ static CO_time_t CO_time;     /*!< Object for current time */
 bool readyToStart = false;    /*!< Flag used by control thread to indicate CAN stack functional */
 uint32_t tmr1msPrev = 0;
 
-/* RT CAN msg processing thread variables*/
+/*CAN msg processing thread variables*/
 static int rtPriority = 2; /*!< priority of rt CANmsg thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
@@ -58,25 +57,18 @@ struct period_info {
     struct timespec next_period;
     long period_ns;
 };
-// Forward declartion of control loop thread timer functions
+/* Forward declartion of control loop thread timer functions*/
 static void inc_period(struct period_info *pinfo);
 static void periodic_task_init(struct period_info *pinfo);
 static void wait_rest_of_period(struct period_info *pinfo);
-/* Signal handler */
-volatile sig_atomic_t CO_endProgram = 0;
+/* Forward declartion of CAN helper functions*/
+void configureCANopen(int nodeId, int rtPriority, int CANdevice0Index, char *CANdevice);
+void CO_errExit(char *msg);              /*!< CAN object error code and exit program*/
+void CO_error(const uint32_t info);      /*!< send CANopen generic emergency message */
+volatile uint32_t CO_timer1ms = 0U;      /*!< Global variable increments each millisecond */
+volatile sig_atomic_t CO_endProgram = 0; /*!< Signal handler */
 static void sigHandler(int sig) {
     CO_endProgram = 1;
-}
-/* CAN messageHelper functions ***********************************************************/
-/*TODO: Move outside of main definition*/
-void CO_errExit(char *msg) {
-    perror(msg);
-    exit(EXIT_FAILURE);
-}
-/* send CANopen generic emergency message */
-void CO_error(const uint32_t info) {
-    //CO_errorReport(CO->em, CO_EM_GENERIC_SOFTWARE_ERROR, CO_EMC_SOFTWARE_INTERNAL, info);
-    fprintf(stderr, "canopend generic error: 0x%X\n", info);
 }
 
 /******************************************************************************/
@@ -255,8 +247,7 @@ static void *rt_thread(void *arg) {
 
     return NULL;
 }
-/******************************************************************************/
-/*Control thread functio*/
+/* Control thread function ********************************/
 static void *rt_control_thread(void *arg) {
     struct period_info pinfo;
     periodic_task_init(&pinfo);
@@ -270,7 +261,7 @@ static void *rt_control_thread(void *arg) {
     }
     return NULL;
 }
-/* Control thread time functions*/
+/* Control thread time functions ********************************/
 static void inc_period(struct period_info *pinfo) {
     pinfo->next_period.tv_nsec += pinfo->period_ns;
 
@@ -291,4 +282,37 @@ static void wait_rest_of_period(struct period_info *pinfo) {
 
     /* for simplicity, ignoring possibilities of signal wakes */
     clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &pinfo->next_period, NULL);
+}
+/* CAN messaging helper functions ********************************/
+
+void configureCANopen(int nodeId, int rtPriority, int CANdevice0Index, char *CANdevice) {
+    if (nodeId < 1 || nodeId > 127) {
+        fprintf(stderr, "NODE ID outside range (%d)\n", nodeId);
+        exit(EXIT_FAILURE);
+    }
+    // rt Thread priority sanity check
+    if (rtPriority != -1 && (rtPriority < sched_get_priority_min(SCHED_FIFO) || rtPriority > sched_get_priority_max(SCHED_FIFO))) {
+        fprintf(stderr, "Wrong RT priority (%d)\n", rtPriority);
+        exit(EXIT_FAILURE);
+    }
+
+    if (CANdevice0Index == 0) {
+        char s[120];
+        snprintf(s, 120, "Can't find CAN device \"%s\"", CANdevice);
+        CO_errExit(s);
+    }
+
+    /* Verify, if OD structures have proper alignment of initial values */
+    if (CO_OD_RAM.FirstWord != CO_OD_RAM.LastWord) {
+        fprintf(stderr, "Program init - Canopend- Error in CO_OD_RAM.\n");
+        exit(EXIT_FAILURE);
+    }
+};
+void CO_errExit(char *msg) {
+    perror(msg);
+    exit(EXIT_FAILURE);
+}
+void CO_error(const uint32_t info) {
+    CO_errorReport(CO->em, CO_EM_GENERIC_SOFTWARE_ERROR, CO_EMC_SOFTWARE_INTERNAL, info);
+    fprintf(stderr, "canopend generic error: 0x%X\n", info);
 }

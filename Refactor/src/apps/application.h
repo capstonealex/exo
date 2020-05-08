@@ -90,6 +90,4 @@ void app_programAsync(uint16_t timer1msDiff);
  */
 void app_program1ms(void);
 
-void configureCANopen(int nodeId, int rtPriority, int CANdevice0Index, char* CANdevice);
-
 #endif /*APP_H*/
