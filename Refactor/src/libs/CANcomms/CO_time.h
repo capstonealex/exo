@@ -27,8 +27,9 @@
 #ifndef CO_TIME_H
 #define CO_TIME_H
 
+#include <CO_driver.h>  // Must be included by CO_SDO.h due to typedefs being here.
+
 #include "CO_SDO.h"
-#include "CO_driver.h"
 
 /**
  * @brief Time object, usable for timestamping - Defined in CANOpen code

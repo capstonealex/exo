@@ -19,11 +19,19 @@
 #define deg2rad(deg) ((deg)*M_PI / 180.0)
 #define rad2deg(rad) ((rad)*180.0 / M_PI)
 
+/**
+ * @brief Enum containing possible trajectory types for DummyTrajectoryGenerator
+ * 
+ */
 enum Trajectory {
     SIT = 0,
     STAND = 1,
 };
 
+/**
+ * @brief Example Implementation of TrajectoryGenerator. Includes only two trajectories (Sit-to-Stand and Stand-to-sit) for an Exoskeleton
+ * 
+ */
 class DummyTrajectoryGenerator : public TrajectoryGenerator {
    private:
     std::vector<double[2]> endPoints;

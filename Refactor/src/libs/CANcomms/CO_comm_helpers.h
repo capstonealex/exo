@@ -27,8 +27,9 @@
 #ifndef CO_COMM_HELPERS_H
 #define CO_COMM_HELPERS_H
 
-#include "CO_SDO.h"    /* for CO_memcpySwap */
-#include "CO_driver.h" /* for some typedefs */
+#include <CO_driver.h> /* for some typedefs */
+
+#include "CO_SDO.h" /* for CO_memcpySwap */
 
 /* String with delimiters for blank characters, used in strtok. */
 extern const char spaceDelim[];

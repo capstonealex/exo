@@ -10,7 +10,7 @@
 #include "Drive.h"
 
 /**
- * @brief An implementation of the Drive Object, specifically for the Copley Drive (currently used on the X2 Exoskeleton)
+ * @brief An implementation of the Drive Object, specifically for Copley-branded devices (currently used on the X2 Exoskeleton)
  * 
  */
 class CopleyDrive : public Drive {

@@ -24,6 +24,10 @@
 #include "Standing.h"
 #include "StandingUp.h"
 
+/**
+ * @brief Example implementation of a StateMachine for the ExoRobot class. Uses 
+ * 
+ */
 class ExoTestMachine : public StateMachine {
    public:
     bool running = false;

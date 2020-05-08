@@ -17,7 +17,7 @@
  * \todo Complete implementation
  * 
  */
-typedef struct button_states {
+struct button_states {
     int gButton;
     int yButton;
     int bButton;

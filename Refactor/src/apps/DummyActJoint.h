@@ -12,6 +12,13 @@
 #define DUMMYACTJOINT_H_INCLUDED
 
 #include "ActuatedJoint.h"
+
+/**
+ * @brief Example implementation of the ActuatedJoints class. 
+ * 
+ * Important to note the simple implementation between the driveValue and jointValue
+ * 
+ */
 class DummyActJoint : public ActuatedJoint {
    private:
     double lastQCommand = 0;

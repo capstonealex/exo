@@ -23,9 +23,13 @@
 #include "Robot.h"
 #include "RobotParams.h"
 
+/**
+ * @brief Example implementation of the Robot class, representing an X2 Exoskeleton, using DummyActuatedJoint and DummyTrajectoryGenerator.
+ * 
+ */
 class ExoRobot : public Robot {
    private:
-    //TODO: Load in paramaters and dictionary entries from JSON file.
+    // \todo Load in paramaters and dictionary entries from JSON file.
 
     /** Parameters associated with Trajectory Progression */
     double currTrajProgress = 0;

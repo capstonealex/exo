@@ -8,6 +8,10 @@
 
 #include "StateMachine.h"
 
+/**
+ * @brief Describes events used as StateMachine triggers to transition between states
+ * 
+ */
 class Event {
    public:
     StateMachine *owner;  // Pointer to the owner state machine for this event
