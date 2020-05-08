@@ -1,6 +1,6 @@
-# Robot CAN Control Project
+# Robot CANControl Project
 
-Robot CANcontrol is a free and open source robotic development software stack.The project has been under development at the University of Melbourne in partnership with Fourier Intelligence for use with their X2 exoskeleton Robot. The software has been designed to be extensible to any embeeded linux and CANopen enabled Robotic platform.
+Robot CANcontrol is a free and open source robotic development software stack. The project has been under development at the University of Melbourne in partnership with Fourier Intelligence for use with their X2 exoskeleton. The software has been designed to be extensible to any embeeded linux and CANopen enabled Robotic platform.
 
 ## The Robot CANcontrol project is made up of:
 
@@ -31,9 +31,9 @@ explain me -->
 
 ## Developer Information
 
-Documentation: https://exoembedded.readthedocs.io/en/latest/
-Project Repository:https://github.com/capstonealex/exo
-CanOpen Socket: https://github.com/CANopenNode/CANopenSocket
+- Documentation: https://exoembedded.readthedocs.io/en/latest/
+- Project Repository:https://github.com/capstonealex/exo
+- CanOpen Socket: https://github.com/CANopenNode/CANopenSocket
 
 ## License
 
