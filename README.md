@@ -2,7 +2,7 @@
 
 RobotCANcontrol is a free and open source robotic development software stack. The project has been under development at the University of Melbourne in partnership with Fourier Intelligence for use with their X2 exoskeleton. The software has been designed to be extensible to any embeeded linux and CANopen enabled Robotic platform.
 
-## The Robot CANcontrol project is made up of:
+## The RobotCANcontrol project is made up of:
 
 - Extensible Framework to represent most multi body robotic systems.
 - Event driven State machine to develop custom applications for your Robot.
