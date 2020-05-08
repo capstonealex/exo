@@ -38,27 +38,3 @@ void app_program1ms(void) {
         testMachine.update();
     }
 }
-
-void configureCANopen(int nodeId, int rtPriority, int CANdevice0Index, char* CANdevice) {
-    if (nodeId < 1 || nodeId > 127) {
-        fprintf(stderr, "NODE ID outside range (%d)\n", nodeId);
-        exit(EXIT_FAILURE);
-    }
-    // rt Thread priority sanity check
-    if (rtPriority != -1 && (rtPriority < sched_get_priority_min(SCHED_FIFO) || rtPriority > sched_get_priority_max(SCHED_FIFO))) {
-        fprintf(stderr, "Wrong RT priority (%d)\n", rtPriority);
-        exit(EXIT_FAILURE);
-    }
-
-    if (CANdevice0Index == 0) {
-        char s[120];
-        snprintf(s, 120, "Can't find CAN device \"%s\"", CANdevice);
-        CO_errExit(s);
-    }
-
-    /* Verify, if OD structures have proper alignment of initial values */
-    if (CO_OD_RAM.FirstWord != CO_OD_RAM.LastWord) {
-        fprintf(stderr, "Program init - Canopend- Error in CO_OD_RAM.\n");
-        exit(EXIT_FAILURE);
-    }
-};

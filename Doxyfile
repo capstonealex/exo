@@ -913,6 +913,7 @@ EXCLUDE_PATTERNS       += */Refactor/src/libs/CANopenNode*
 EXCLUDE_PATTERNS       += */Refactor/src/libs/objDict*
 EXCLUDE_PATTERNS       += */Refactor/src/apps/Eigen*
 EXCLUDE_PATTERNS       += */exo/JSONparser*
+EXCLUDE_PATTERNS       += */Refactor/src/apps/AlexTrajectoryGenerator*
 
 
 
