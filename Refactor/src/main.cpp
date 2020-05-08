@@ -13,8 +13,9 @@
  * <https://github.com/CANopenNode/CANopenSocket>. CANopenSocket is based
  * on CANopenNode: <https://github.com/CANopenNode/CANopenNode>.
  *
- * The adaptation is specifically designed for use with an exoskeleton.
+ * The adaptation is specifically designed for use with the Alex exoskeleton.
  * It can be addapted for use with other CANopen enabled linux based robotic projects.
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -27,6 +28,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 #include "application.h"
 
 volatile uint32_t CO_timer1ms = 0U; /*!< Global variable increments each millisecond */
