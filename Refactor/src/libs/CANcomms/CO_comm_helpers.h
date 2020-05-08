@@ -24,39 +24,33 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef CO_COMM_HELPERS_H
 #define CO_COMM_HELPERS_H
 
-
-#include "CO_driver.h"  /* for some typedefs */
-#include "CO_SDO.h"     /* for CO_memcpySwap */
-
+#include "CO_SDO.h"    /* for CO_memcpySwap */
+#include "CO_driver.h" /* for some typedefs */
 
 /* String with delimiters for blank characters, used in strtok. */
 extern const char spaceDelim[];
 
-
 /** Response errors as specified by CiA 309-3. */
 typedef enum {
-     respErrorNone              = 0,
-     respErrorReqNotSupported   = 100,
-     respErrorSyntax            = 101,
-     respErrorInternalState     = 102,
-     respErrorNoDefaultNodeSet  = 105,
-     respErrorUnsupportedNet    = 106,
-     respErrorUnsupportedNode   = 107
+    respErrorNone = 0,
+    respErrorReqNotSupported = 100,
+    respErrorSyntax = 101,
+    respErrorInternalState = 102,
+    respErrorNoDefaultNodeSet = 105,
+    respErrorUnsupportedNet = 106,
+    respErrorUnsupportedNode = 107
 } respErrorCode_t;
 
-
-/** Data types structure */
+/** @brief Data types structure - Defined in CANOpen Code */
 typedef struct {
-    char* syntax;
+    char *syntax;
     int length;
-    int (*dataTypePrint)(char *strout, int stroutSize, char* bufSdo, int bufLen);
-    int (*dataTypeScan)(char* bufSdo, int bufSdoSize, char *strin);
+    int (*dataTypePrint)(char *strout, int stroutSize, char *bufSdo, int bufLen);
+    int (*dataTypeScan)(char *bufSdo, int bufSdoSize, char *strin);
 } dataType_t;
-
 
 /**
  * Data type print function.
@@ -71,8 +65,7 @@ typedef struct {
  *
  * @return Number of bytes written to strout.
  */
-int dtpHex(char *strout, int stroutSize, char* bufSdo, int bufLen);
-
+int dtpHex(char *strout, int stroutSize, char *bufSdo, int bufLen);
 
 /**
  * Data type scan function.
@@ -86,8 +79,7 @@ int dtpHex(char *strout, int stroutSize, char* bufSdo, int bufLen);
  *
  * @return Number of bytes written to bufSdo, 0 on failure.
  */
-int dtsHex (char* bufSdo, int bufSdoSize, char *strin);
-
+int dtsHex(char *bufSdo, int bufSdoSize, char *strin);
 
 /**
  * Get token from currently parsing string.
@@ -102,8 +94,7 @@ int dtsHex (char* bufSdo, int bufSdoSize, char *strin);
  *
  * @return Next token or NULL.
  */
-char *getTok(char* initStr, const char *delim, int *err);
-
+char *getTok(char *initStr, const char *delim, int *err);
 
 /**
  * Verify, if there are no more tokens.
@@ -115,8 +106,7 @@ char *getTok(char* initStr, const char *delim, int *err);
  * @param delim Same as in getTok.
  * @param err Same as in getTok.
  */
-void lastTok(char* initStr, const char *delim, int *err);
-
+void lastTok(char *initStr, const char *delim, int *err);
 
 /**
  * Get number from token.
@@ -131,13 +121,12 @@ void lastTok(char* initStr, const char *delim, int *err);
  *
  * @return Number.
  */
-uint32_t  getU32(char *token, uint32_t min, uint32_t max, int *err);
-int32_t   getI32(char *token, int32_t  min, int32_t  max, int *err);
-uint64_t  getU64(char *token, uint64_t min, uint64_t max, int *err);
-int64_t   getI64(char *token, int64_t  min, int64_t  max, int *err);
+uint32_t getU32(char *token, uint32_t min, uint32_t max, int *err);
+int32_t getI32(char *token, int32_t min, int32_t max, int *err);
+uint64_t getU64(char *token, uint64_t min, uint64_t max, int *err);
+int64_t getI64(char *token, int64_t min, int64_t max, int *err);
 float32_t getR32(char *token, int *err);
 float64_t getR64(char *token, int *err);
-
 
 /**
  * Get data type from token.
@@ -151,6 +140,5 @@ float64_t getR64(char *token, int *err);
  * @return Number.
  */
 const dataType_t *getDataType(char *token, int *err);
-
 
 #endif
