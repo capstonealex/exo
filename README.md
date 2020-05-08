@@ -2,7 +2,10 @@
 
 RobotCANcontrol is a free and open source robotic development software stack. The project has been under development at the University of Melbourne in partnership with Fourier Intelligence for use with their X2 exoskeleton. The software has been designed to be extensible to any embeeded linux and CANopen enabled Robotic platform.
 
-NOTE:
+---
+
+NOTE: This version of the software has only been tested virtually, further hardware testing is required.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ## The RobotCANcontrol project is made up of:
 
@@ -18,10 +21,7 @@ We will be running through building and testing a simple test statemachine (ExoT
 
 The current recommened and tested environemnt is Debian jesse 9.5 on a Beagle Bone black [Firmware](http://beagleboard.org/latest-images). Theoretically, we can build on other distros and linux platforms as well, but they have not been testd.
 
-We currently have two options for building RobotCANControl. Building (slowly) on the target platform or building on your host machine (depending on your platform).
-
-- macOSx, linux or Windows: Docker - [docker cross tools](https://hub.docker.com/r/alejandro4siana/cross-bbb-debian/)
-- Windows only: [ GNU cross tools](https://gnutoolchains.com/download/)
+Workbench build environments for most platforms can be found [here](https://embeded.readthedocs.io/en/latest/workbench/)
 
 ### How to get the Project
 
@@ -115,4 +115,6 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 http://www.apache.org/licenses/LICENSE-2.0
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
-## Maintainers
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+<!-- ## Maintainers -->
