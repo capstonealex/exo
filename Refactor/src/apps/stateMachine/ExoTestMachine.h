@@ -17,9 +17,7 @@
 #include "ExoTestState.h"
 #include "StateMachine.h"
 
-//#define OWNER ((ExoTestMachine *)owner)
-
-// Designed State and event classes
+// State Classes
 #include "InitState.h"
 #include "Sitting.h"
 #include "SittingDwn.h"
@@ -28,20 +26,19 @@
 
 class ExoTestMachine : public StateMachine {
    public:
-    int running = 0;
+    bool running = false;
     ExoTestMachine();
     void init();
     void activate();
     void deactivate();
 
     void hwStateUpdate();
-    void update();
     State *gettCurState();
     void initRobot(ExoRobot *rb);
     bool trajComplete;
     DummyTrajectoryGenerator *trajectoryGenerator;
 
-    // State Object pointers
+    // Pointers to the relevant states - initialised in init
     InitState *initState;
     SittingDwn *sittingDwn;
     StandingUp *standingUp;
@@ -49,10 +46,13 @@ class ExoTestMachine : public StateMachine {
     Standing *standing;
 
    protected:
+    // Pointer to the Robot
     ExoRobot *robot;
 
    private:
-    // events
+    // Event Objects defined using Macro defined in StateMachine.h
+    // Defines the Class itself, as well as initialises an object of that class
+    // Checks are defined in the .cpp file
     EventObject(EndTraj) * endTraj;
     EventObject(IsAPressed) * isAPressed;
     EventObject(StartButtonsPressed) * startButtonsPressed;

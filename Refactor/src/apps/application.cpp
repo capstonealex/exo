@@ -17,7 +17,6 @@ ExoTestMachine testMachine;
 
 /******************************************************************************/
 void app_programStart(void) {
-    //testMachine = ((ExoTestMachine) new ExoTestMachine());
     printf("app_Program Start \n");
     testMachine.init();
     ((StateMachine)testMachine).activate();
@@ -34,7 +33,7 @@ void app_programAsync(uint16_t timer1msDiffy) {
 }
 
 void app_program1ms(void) {
-    if (testMachine.running != 0) {
+    if (testMachine.running) {
         testMachine.hwStateUpdate();
         testMachine.update();
     }

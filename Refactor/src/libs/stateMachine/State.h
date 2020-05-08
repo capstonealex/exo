@@ -8,7 +8,6 @@
 #include <cstddef>
 #include <iostream>
 
-//#include "Robot.h"
 class StateMachine;
 class Transition;
 
@@ -17,33 +16,69 @@ class Transition;
 #define MAXARCS 20
 
 /* Forward declarations*/
-//class Transition;
 
 class State {
     friend class StateMachine;
     // A State machine class can access the private and protected members of a state class  */
    public:
-    StateMachine *owner;  // Pointer to the owner state machine for this State
+    /**
+     * @brief Pointer to the owning state machine
+     * 
+     */
+    StateMachine *owner;
 
+    /**
+     * @brief Construct a new State object
+     * 
+     * @param p Pointer to the owning state machine
+     * @param n Name of the state machine
+     */
     State(StateMachine *p, const char n[] = NULL) {
         owner = p;
         numarcs = 0;
         name = n;  // name of state
-        // std::cout << "State created\n";
     };
     ~State();
     // Arc creating and accessing functions
     bool addArc(Transition *t);
     Transition *getActiveArc(void);
-    // Virtual functions, must be implemented by implented states (inherited classes)
+
+    /**
+     * @brief Called once when the state is entered. Pure virtual function, must be overwritten by each state
+     * 
+     */
     virtual void entry(void) = 0;
+
+    /**
+     * @brief Called continuously whilst in that state. Pure virtual function, must be overwritten by each state
+     * 
+     */
     virtual void during(void) = 0;
+
+    /**
+     * @brief Called once when the state exits. Pure virtual function, must be overwritten by each state
+     * 
+     */
     virtual void exit(void) = 0;
 
+    /**
+     * @brief Returns the name of the state - Note that this 
+     * 
+     * @return const char* The name of the state
+     */
     const char *getName(void);
+
+    /**
+     * @brief Prints the name of the state
+     * 
+     */
     void printName(void);
 
    private:
+    /**
+    * @brief List of possible transitions
+    * 
+    */
     Transition *arclist[MAXARCS];
     const char *name;  // Pointer to the name of this State
     int numarcs;

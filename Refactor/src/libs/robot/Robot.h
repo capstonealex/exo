@@ -100,14 +100,6 @@ class Robot {
  */
     void getJointStatus(int J_i);
 
-    ////Movement
-    /**
- * @brief pure virtual function, must be designed by the robot developer to load correct 
- * trajectory paramaters from some developer determined value. E.g. button value or Object Dictionary entry.
- */
-
-    virtual void setTrajectory() = 0;  //TODO: Make this an abstract function call - currently in exoROBOT
-
     ////Logging
     /**
  * @brief Initialises Logging to specified file

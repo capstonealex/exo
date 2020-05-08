@@ -9,9 +9,10 @@
  * 
  */
 #include "Joint.h"
-#include "DebugMacro.h"
 
 #include <iostream>
+
+#include "DebugMacro.h"
 Joint::Joint(int jointID, double jointMin, double jointMax) : id(jointID), qMin(jointMin), qMax(jointMax) {
     q = 0;
 }

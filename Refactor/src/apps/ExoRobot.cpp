@@ -3,15 +3,15 @@
 #include "DebugMacro.h"
 
 ExoRobot::ExoRobot(TrajectoryGenerator *tj) : Robot(tj) {
-    // Constructs the Trajectory Generator
 }
+
 ExoRobot::~ExoRobot() {
     DEBUG_OUT("Delete ExoRobot object begins")
     freeMemory();
     joints.clear();
     copleyDrives.clear();
     DEBUG_OUT("ExoRobot deleted")
-};
+}
 
 bool ExoRobot::initPositionControl() {
     DEBUG_OUT("Initialising Position Control on all joints ")
@@ -22,6 +22,14 @@ bool ExoRobot::initPositionControl() {
             DEBUG_OUT("Something bad happened")
             returnValue = false;
         }
+        // Put into ReadyToSwitchOn()
+        ((ActuatedJoint *)p)->readyToSwitchOn();
+    }
+
+    // Pause for a bit to let commands go
+    usleep(2000);
+    for (auto p : joints) {
+        ((ActuatedJoint *)p)->enable();
     }
     return returnValue;
 }
@@ -35,49 +43,40 @@ void ExoRobot::startNewTraj() {
 }
 
 bool ExoRobot::moveThroughTraj() {
-    bool returnValue = false;
+    bool returnValue = true;
 
-    // Only progress through trajectory if user presses A
     timespec currTime;
     clock_gettime(CLOCK_MONOTONIC, &currTime);
 
     double elapsedSec = currTime.tv_sec - prevTime.tv_sec + (currTime.tv_nsec - prevTime.tv_nsec) / 1e9;
     prevTime = currTime;
 
-    // Pretend trajectories take 10 seconds
-    double fracProgress = elapsedSec;
-    currTrajProgress += fracProgress;
-    DEBUG_OUT("Elapsed Time: " << currTrajProgress)
+    // This should check to make sure that the "GO" button is pressed.
+    if (true) {
+        currTrajProgress += elapsedSec;
+        DEBUG_OUT("Elapsed Time: " << currTrajProgress)
 
-    std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
-    int i = 0;
-    for (auto p : joints) {
-        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(setPoints[i]);
-        if (setPosCode == INCORRECT_MODE) {
-            std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
-            returnValue = false;
-        } else if (setPosCode != SUCCESS) {
-            // Something bad happened
-            std::cout << "Joint " << p->getId() << ": Unknown Error " << std::endl;
-            returnValue = false;
+        std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
+        int i = 0;
+        for (auto p : joints) {
+            setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(setPoints[i]);
+            if (setPosCode == INCORRECT_MODE) {
+                std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
+                returnValue = false;
+            } else if (setPosCode != SUCCESS) {
+                // Something bad happened
+                std::cout << "Joint " << p->getId() << ": Unknown Error " << std::endl;
+                returnValue = false;
+            }
+            i++;
         }
-        i++;
+    } else {
+        DEBUG_OUT("Not moving")
     }
+
     return returnValue;
 }
 
-void ExoRobot::setTrajectory() {
-    DEBUG_OUT("Set Trajectory")
-    //TODO: LOAD FROM CURRENTMOTION variable or from OD access?
-    // ((DummyTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameters(movementTrajMap[RobotMode::STNDUP]);
-}
-
-void ExoRobot::setSpecificTrajectory(RobotMode mode) {
-    //((DummyTrajectoryGenerator *)trajectoryGenerator)->setTrajectoryParameters(movementTrajMap[mode]);
-}
-void ExoRobot::printTrajectoryParam() {
-    //((DummyTrajectoryGenerator *)trajectoryGenerator)->printTrajectoryParameters();
-}
 bool ExoRobot::initialiseJoints() {
     for (int id = 0; id < NUM_JOINTS; id++) {
         copleyDrives.push_back(new CopleyDrive(id + 1));

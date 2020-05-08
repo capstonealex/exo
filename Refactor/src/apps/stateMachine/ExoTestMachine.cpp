@@ -62,9 +62,8 @@ ExoTestMachine::ExoTestMachine() {
 
 void ExoTestMachine::init() {
     DEBUG_OUT("ExoTestMachine::init()")
-    StateMachine::init();
     robot->initialise();
-    running = 1;
+    running = true;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -115,12 +114,6 @@ bool ExoTestMachine::StartSit::check(void) {
 //////////////////////////////////////////////////////////////////////
 // Robot interface methods ----------------------------------------------------------
 /////////////////////////////////////////////////////////////////////
-
-// Update button state, loop counter (mark) and joints
-void ExoTestMachine::update(void) {
-    StateMachine::update();
-}
-
 // Update button state, loop counter (mark) and joints
 void ExoTestMachine::hwStateUpdate(void) {
     robot->updateRobot();

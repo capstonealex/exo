@@ -83,22 +83,6 @@ class ExoRobot : public Robot {
          */
     bool isTrajFinished();
 
-    /** 
-         * @brief Implementation of <code>Robot</code> class setTrajectory function, takes the currently selected
-         * motion from the user (via the robots I/O crutch object) and using the exoskeletons 
-         * movementTrajMap loads in the correct trajectory paramaters into the <code>TrajectoryGenerator</code> object.
-         *
-         */
-    void setTrajectory();
-    // set trajectory from input int traj value -> must have coresponding map entry
-    void setSpecificTrajectory(RobotMode mode);
-    /**
-       * @brief Prints the parameters for the defined trajectory
-       * 
-       */
-    void
-    printTrajectoryParam();
-
     /**
        * @brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
        * Create designed <code>Joint</code> and <code>Driver</code> objects and load into 

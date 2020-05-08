@@ -24,12 +24,14 @@ ControlMode ActuatedJoint::setMode(ControlMode driveMode_, motorProfile profile)
             return POSITION_CONTROL;
         }
     }
+    // \todo Implement other modes here as well
     return ERROR;
 }
 
 setMovementReturnCode_t ActuatedJoint::setPosition(double desQ) {
     if (driveMode == POSITION_CONTROL) {
         drive->setPos(toDriveUnits(desQ));
+        drive->posControlConfirmSP();
         return SUCCESS;
     } else {
         // Replace once complete
@@ -50,4 +52,16 @@ setMovementReturnCode_t ActuatedJoint::setVelocity(double velocity) {
 setMovementReturnCode_t ActuatedJoint::setTorque(double torque) {
     // Replace once complete
     return UNKNOWN_ERROR;
+}
+
+void ActuatedJoint::readyToSwitchOn() {
+    drive->readyToSwitchOn();
+}
+
+bool ActuatedJoint::enable() {
+    if (drive->getDriveState() == READY_TO_SWITCH_ON) {
+        drive->enable();
+        return true;
+    }
+    return false;
 }
