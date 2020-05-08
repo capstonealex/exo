@@ -4,17 +4,11 @@ RobotCANcontrol is a free and open source robotic development software stack. Th
 
 ## The Robot CANcontrol project is made up of:
 
-- Extensible Framework to flexibly represent most multi body robotic systems.
+- Extensible Framework to represent most multi body robotic systems.
 - Event driven State machine to develop custom applications for your Robot.
 - Implementation of [Canopen Socket](https://github.com/CANopenNode/CANopenSocket) to provide an interface between CAN enabled embedded linux system and Canopen configured motor drivers/sensors.
 - Documentation
 - Fully functional application examples.
-
-### Linux
-
-- [Download binaries](https://github.com/capstonealex/exo)
-- [Build it](https://exoembedded.readthedocs.io/en/latest/#alex-embedded-system-documentation)
-  <!-- TODO: ADD section on dev website for the specifics. -->
 
 ## Getting started with RobotCANControl
 
@@ -42,9 +36,16 @@ Clone the project and CANopenSocket from git repository(CANopenSocket used in ro
     $ cd /GitHub/exo/Refactor/
     $ make exe
 
-ssh the file to embedded linux platform.
+### Transfer files to Linux platform
+
+- Download [FileZilla](https://filezilla-project.org/) and connect to Beagle bone.
+  > Username: debian
+  > Password: temppwd
+  > Transfer executible, CANopenNode folder and initRobot folders.
 
 ## Run Virtual ExoTestMachine
+
+- SSH into Beagle Bone [tutorial](https://elinux.org/Beagleboard:Terminal_Shells) or similar linux board, use same user and pswrd as above.
 
 ## Run ExoTestMachine on X2
 
