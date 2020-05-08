@@ -8,14 +8,16 @@
 //#include <mutex>  // For std::unique_lock
 //#include <shared_mutex>
 //#include <thread>
-#include <iostream>
-#include <unistd.h>
-#include <sys/un.h>
-#include <sys/socket.h>
-#include "CANopen.h"
-#include <stdlib.h>
-#include <string>
 #include <math.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <unistd.h>
+
+#include <iostream>
+#include <string>
+
+#include "CANopen.h"
 
 //Node ID for the 6 joints
 
@@ -28,8 +30,7 @@
 
 using namespace std;
 
-class Joint
-{
+class Joint {
     //Private members
     int id;
     double q;
@@ -44,10 +45,10 @@ class Joint
     double motorPosToDegConverter(long motorCmdAngle, int nodeid);
     void calcAB(long y1, long x1, long y2, long x2, double *A, double *B);
     int bitFlipState;
-    // TODO: Add other vars after initial test implimentation up and running
+    // \todo Add other vars after initial test implimentation up and running
     // qd, qdd,T, mode. limts, Transformation, Reduction Ratio(CONST)
 
-public:
+   public:
     //    CanDevice copley;// pointer to this joints candevice, the motor driver (COPLEY DRIVER)
     //static const int NUM_TRAJ_POINTS = 11;
     //static const int NUM_TRAJ_POINTS_STEPPING = 4;
@@ -81,4 +82,4 @@ public:
     long trajectories[4];
 };
 
-#endif //CAPSTONE_JOINT_H
+#endif  //CAPSTONE_JOINT_H

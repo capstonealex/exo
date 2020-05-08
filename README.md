@@ -96,15 +96,10 @@ Running on the X2 Robot is very similar to the virutal CAN set up, with one adju
 <!-- ### TODO: Event Driven State machine
 explain me -->
 
-### Documentation
-
-View our [detailed documentation](https://exoembedded.readthedocs.io/en/latest/#alex-embedded-system-documentation) on all aspects of Robot CANcontrol.
-
-View our source code documenrtation [doxygen](https://capstonealex.github.io/exo/index.html)
-
 ## Developer Information
 
-- Documentation: https://exoembedded.readthedocs.io/en/latest/
+- Detailed Documentation: https://exoembedded.readthedocs.io/en/latest/
+- Source code documenrtation: https://capstonealex.github.io/exo/index.html
 - Project Repository: https://github.com/capstonealex/exo
 - CanOpen Socket: https://github.com/CANopenNode/CANopenSocket
 
