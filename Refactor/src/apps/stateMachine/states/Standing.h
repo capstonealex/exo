@@ -3,7 +3,11 @@
 
 #include "ExoTestState.h"
 
-// forward declaration
+/**
+ * @brief Standing (stationary) State for the ExoTestMachine (implementing ExoTestState)
+ * 
+ * State machines enters this state when the standing up trajectory is finished, and waits here for input
+ */
 class Standing : public ExoTestState {
    public:
     void entry(void);

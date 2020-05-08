@@ -32,7 +32,7 @@ void app_programEnd(void) {
 void app_programAsync(uint16_t timer1msDiffy) {
 }
 
-void app_program1ms(void) {
+void app_programControlLoop(void) {
     if (testMachine.running) {
         testMachine.hwStateUpdate();
         testMachine.update();

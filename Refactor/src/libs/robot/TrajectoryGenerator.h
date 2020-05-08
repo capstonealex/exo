@@ -15,6 +15,10 @@
 
 #include <vector>
 
+/**
+ * @brief Abstract class which is used to generate trajectorys for a Robot to follow.
+ * 
+ */
 class TrajectoryGenerator {
    public:
     TrajectoryGenerator();

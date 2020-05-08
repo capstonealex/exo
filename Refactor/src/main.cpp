@@ -52,7 +52,8 @@ static int rtControlPriority = 80; /*!< priority of application thread */
 static void *rt_control_thread(void *arg);
 static pthread_t rt_control_thread_id;
 static int rt_control_thread_epoll_fd; /*!< epoll file descriptor for control thread */
-/* Control loop Task timer*/
+
+/** @brief Task Timer used for the Control Loop*/
 struct period_info {
     struct timespec next_period;
     long period_ns;
@@ -256,7 +257,7 @@ static void *rt_control_thread(void *arg) {
         wait_rest_of_period(&pinfo);
     }
     while (CO_endProgram == 0) {
-        app_program1ms();
+        app_programControlLoop();
         wait_rest_of_period(&pinfo);
     }
     return NULL;

@@ -2,7 +2,11 @@
 #define SITTINGDWN_H_INCLUDED
 #include "ExoTestState.h"
 
-// forward declaration
+/**
+ * @brief Sitting down (moving) state for the ExoTestMachine (implementing ExoTestState)
+ * 
+ * Starts the Sitting Down trajectory on entry, executes in during, and exits when trajectory is complete
+ */
 class SittingDwn : public ExoTestState {
    public:
     void entry(void);

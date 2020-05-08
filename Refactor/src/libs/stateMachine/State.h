@@ -17,6 +17,10 @@ class Transition;
 
 /* Forward declarations*/
 
+/**
+ * @brief Abstract class representing a state in a StateMachine
+ * 
+ */
 class State {
     friend class StateMachine;
     // A State machine class can access the private and protected members of a state class  */

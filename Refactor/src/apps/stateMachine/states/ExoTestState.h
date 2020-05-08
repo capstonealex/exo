@@ -21,9 +21,15 @@
 #include "ExoRobot.h"
 #include "State.h"
 
+/**
+ * @brief Example Implementation of State Class. Used with ExoTestMachine
+ * 
+ * Note: This is used to ensure that all states here have an ExoRobot, and a DummyTrajectoryGenerator (as opposed to more generic Robot and TrajectoryGenerator)
+ * 
+ */
 class ExoTestState : public State {
    protected:
-    // \Todo Might be good to make these Const
+    // \todo Might be good to make these Const
     ExoRobot *robot;
     DummyTrajectoryGenerator *trajectoryGenerator;
 

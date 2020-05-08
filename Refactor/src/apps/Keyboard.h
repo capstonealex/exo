@@ -15,6 +15,11 @@
 #include "termios.h"
 #define NB_DISABLE 0
 #define NB_ENABLE 1
+
+/**
+ * @brief Struct listing the Keys which exist on a Keyboard.
+ * 
+ */
 typedef struct keys {
     bool a;
     bool s;
@@ -24,6 +29,10 @@ typedef struct keys {
     bool q;
 } key_states;
 
+/**
+ * @brief Example InputDevice which takes input in from a keyboard. Useful for testing without any other input devices
+ * 
+ */
 class Keyboard : public InputDevice {
    private:
     key_states lastKeyStates = {false, false, false, false, false, false};

@@ -13,6 +13,11 @@
 #ifndef InputDevice_H_INCLUDED
 #define InputDevice_H_INCLUDED
 #include <iostream>
+
+/**
+ * @brief Abstract class representing any input device to be used in a Robot object 
+ * 
+ */
 class InputDevice {
    private:
    public:

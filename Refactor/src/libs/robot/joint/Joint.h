@@ -12,6 +12,10 @@
 #define JOINT_H_INCLUDED
 #include <iostream>
 
+/**
+ * @brief Abstract class representing any joints within a Robot.
+ * 
+ */
 class Joint {
    protected:
     /**
@@ -88,7 +92,7 @@ class Joint {
      * @return true if successful
      * @return false if unsuccessful
      */
-    virtual bool updateValue() =0;
+    virtual bool updateValue() = 0;
     /**
      * @brief Pure virtual function for initialising the underlying CANopen Network
      * to send and recieve PDO messages for this joint. 

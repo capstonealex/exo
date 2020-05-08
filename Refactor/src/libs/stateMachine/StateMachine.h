@@ -11,6 +11,10 @@ class State;
 #include "State.h"
 /* Forward declarations*/
 
+/**
+ * @brief Abstract class representing a state machine. Includes a number of States and Transitions
+ * 
+ */
 class StateMachine {
    public:
     /**

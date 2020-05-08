@@ -3,7 +3,11 @@
 
 #include "ExoTestState.h"
 
-// forward declaration
+/**
+ * @brief Standing up (moving) state for the ExoTestMachine (implementing ExoTestState)
+ * 
+ * Starts the Standing Up trajectory on entry, executes in during, and exits when trajectory is complete
+ */
 class StandingUp : public ExoTestState {
    public:
     void entry(void);

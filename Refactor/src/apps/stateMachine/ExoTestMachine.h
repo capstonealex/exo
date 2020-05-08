@@ -25,7 +25,7 @@
 #include "StandingUp.h"
 
 /**
- * @brief Example implementation of a StateMachine for the ExoRobot class. Uses 
+ * @brief Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestState
  * 
  */
 class ExoTestMachine : public StateMachine {

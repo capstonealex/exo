@@ -4,6 +4,12 @@
 
 #include "ExoTestState.h"
 
+/**
+ * @brief Initialisation State for the ExoTestMachine (implementing ExoTestState)
+ * 
+ * State holds until button is pressed, and runs initPositionControl on exit 
+ * 
+ */
 class InitState : public ExoTestState {
    public:
     void entry(void);

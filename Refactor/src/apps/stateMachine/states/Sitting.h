@@ -6,6 +6,11 @@
 
 #include "ExoTestState.h"
 
+/**
+ * @brief Sitting (stationary) State for the ExoTestMachine (implementing ExoTestState)
+ * 
+ * State machines enters this state when the sitting down trajectory is finished, and waits here for input
+ */
 class Sitting : public ExoTestState {
    public:
     void entry(void);

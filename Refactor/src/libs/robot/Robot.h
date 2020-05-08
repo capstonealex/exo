@@ -21,6 +21,10 @@
 #include "TrajectoryGenerator.h"
 using namespace std;
 
+/**
+ * @brief Abstract Class representing a robot. Includes vectors of Joint and InputDevice. 
+ * 
+ */
 class Robot {
    protected:
     /**

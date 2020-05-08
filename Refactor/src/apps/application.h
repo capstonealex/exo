@@ -88,6 +88,6 @@ void app_programAsync(uint16_t timer1msDiff);
  *
  * Code inside this function must be executed fast. Take care on race conditions.
  */
-void app_program1ms(void);
+void app_programControlLoop(void);
 
 #endif /*APP_H*/
