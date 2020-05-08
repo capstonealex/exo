@@ -39,7 +39,7 @@ static CO_time_t CO_time;     /*!< Object for current time */
 bool readyToStart = false;    /*!< Flag used by control thread to indicate CAN stack functional */
 uint32_t tmr1msPrev = 0;
 
-/* RT CAN msg processing thread */
+/* RT CAN msg processing thread variables*/
 static int rtPriority = 2; /*!< priority of rt CANmsg thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;

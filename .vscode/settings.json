@@ -80,6 +80,8 @@
         "cinttypes": "cpp",
         "forward_list": "cpp",
         "valarray": "cpp",
-        "co_master.h": "c"
+        "co_master.h": "c",
+        "orderingmethods": "cpp",
+        "sparseqr": "cpp"
     }
 }

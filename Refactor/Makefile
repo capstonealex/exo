@@ -8,14 +8,14 @@ LD  := arm-linux-gnueabihf-g++
 # -std=c++11 - uses C++11 standard
 # -Wno-psabi - does not print the warnings associated with use of the MAP class. 
 # -Wwrite-strings - removes warnings re conversion of string constants to char*
-CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen  -Wwrite-strings 
+CXXFLAGS := -std=c++11  -Wno-psabi  -I eigen 
 
 # LINKFLAGS - flags for linking the objects
 # -static used to include the libraries in the executable (originally added for GLIBCXX strings)
 LINKFLAGS := -static 
 
 #Define header directories 
-MODULES   := libs/CANcomms libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict apps apps/stateMachine apps/stateMachine/states apps/Eigen libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
+MODULES   := libs/CANcomms libs/CANopenNode libs/CANopenNode/stack libs/CANopenNode/stack/socketCAN libs/objDict apps apps/stateMachine apps/stateMachine/states apps/Eigen apps/AlexTrajectoryGenerator libs libs/inputDevice libs/robot libs/robot/joint libs/stateMachine
 
 # automatically create list of module file paths NOT including executables
 SRC_DIR	  := $(addprefix src/,$(MODULES))
