@@ -7,7 +7,7 @@
 #include "ExoTestState.h"
 
 /**
- * @brief Sitting (stationary) State for the ExoTestMachine (implementing ExoTestState)
+ * @brief State for the ExoTestMachine (implementing ExoTestState) - representing when the exoskeleton is sitting down (stationary)
  * 
  * State machines enters this state when the sitting down trajectory is finished, and waits here for input
  */

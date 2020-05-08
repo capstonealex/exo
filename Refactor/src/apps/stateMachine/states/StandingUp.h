@@ -4,7 +4,7 @@
 #include "ExoTestState.h"
 
 /**
- * @brief Standing up (moving) state for the ExoTestMachine (implementing ExoTestState)
+ * @brief State for the ExoTestMachine (implementing ExoTestState) - representing when the exo is standing up (moving)
  * 
  * Starts the Standing Up trajectory on entry, executes in during, and exits when trajectory is complete
  */

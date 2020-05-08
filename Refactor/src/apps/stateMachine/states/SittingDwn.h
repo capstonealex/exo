@@ -3,7 +3,7 @@
 #include "ExoTestState.h"
 
 /**
- * @brief Sitting down (moving) state for the ExoTestMachine (implementing ExoTestState)
+ * @brief State for the ExoTestMachine (implementing ExoTestState) - representing when the exo is sitting down (moving)
  * 
  * Starts the Sitting Down trajectory on entry, executes in during, and exits when trajectory is complete
  */

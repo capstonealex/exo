@@ -2,8 +2,8 @@
 // Created by William Campbell on 2019-09-24.
 //
 
-#ifndef EXO_TRANSITION_H
-#define EXO_TRANSITION_H
+#ifndef TRANSITION_H
+#define TRANSITION_H
 
 #include "Event.h"
 #include "State.h"

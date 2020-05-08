@@ -12,7 +12,7 @@ class State;
 /* Forward declarations*/
 
 /**
- * @brief Abstract class representing a state machine. Includes a number of States and Transitions
+ * @brief Abstract class representing a state machine. Includes a number of State and Transition objects
  * 
  */
 class StateMachine {
