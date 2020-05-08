@@ -113,6 +113,20 @@ class ActuatedJoint : public Joint {
          * @return setMovementReturnCode_t The result of the setting
          */
     virtual setMovementReturnCode_t setTorque(double torque);
+
+    /**
+      * @brief Set the joint ready to switch On 
+      * 
+      */
+    virtual void readyToSwitchOn();
+
+    /**
+     * @brief Enable the joint
+     * 
+     * @return true if succesful
+     * @return false if drive is currently not in the correct state to enable
+     */
+    bool enable();
 };
 
 #endif

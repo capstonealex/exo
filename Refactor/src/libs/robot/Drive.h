@@ -30,6 +30,12 @@ enum ControlMode {
     ERROR = -1
 };
 
+enum DriveState {
+    DISABLED = 0,
+    READY_TO_SWITCH_ON = 1,
+    ENABLED = 2,
+};
+
 /**
  * @brief Commonly-used entries defined in the Object Dictionary for CiA402 Drives
  * 
@@ -138,13 +144,19 @@ class Drive {
         * @brief Current status word of the drive
         * 
         */
-    int status;
+    int statusWord;
 
     /**
      * @brief Current error state of the drive 
      * 
      */
     int error;
+
+    /**
+        * @brief State of the drive
+        * 
+        */
+    DriveState driveState = DISABLED;
 
     /**
         * @brief The mode in which the drive is currently configured
@@ -319,6 +331,13 @@ class Drive {
         * @return false The control word was previously 1 (i.e. unsuccessful set point confirm)
         */
     virtual bool posControlConfirmSP();
+
+    /**
+        * @brief Get the current state of the drive
+        * 
+        * @return DriveState 
+        */
+    virtual DriveState getDriveState();
 
     // CANOpen
     /**

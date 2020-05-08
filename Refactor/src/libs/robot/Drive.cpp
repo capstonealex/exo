@@ -3,13 +3,13 @@
 #include "DebugMacro.h"
 
 Drive::Drive() {
-    status = 0;
+    statusWord = 0;
     error = 0;
     this->NodeID = -1;
 }
 
 Drive::Drive(int NodeID) {
-    status = 0;
+    statusWord = 0;
     error = 0;
     this->NodeID = NodeID;
 }
@@ -49,19 +49,26 @@ int Drive::getTorque() {
 
 bool Drive::readyToSwitchOn() {
     *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1))) = 0x06;
+    driveState = READY_TO_SWITCH_ON;
 }
 
 bool Drive::enable() {
     *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1))) = 0x0F;
+    driveState = ENABLED;
 }
 
 bool Drive::disable() {
     *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1))) = 0x00;
+    driveState = DISABLED;
+}
+
+DriveState Drive::getDriveState() {
+    return driveState;
 }
 
 int Drive::updateDriveStatus() {
-    status = *(&CO_OD_RAM.statusWords.motor1 + ((this->NodeID - 1)));
-    return status;
+    statusWord = *(&CO_OD_RAM.statusWords.motor1 + ((this->NodeID - 1)));
+    return statusWord;
 }
 
 bool Drive::posControlConfirmSP() {

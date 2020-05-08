@@ -22,6 +22,14 @@ bool ExoRobot::initPositionControl() {
             DEBUG_OUT("Something bad happened")
             returnValue = false;
         }
+        // Put into ReadyToSwitchOn()
+        ((ActuatedJoint *)p)->readyToSwitchOn();
+    }
+
+    // Pause for a bit to let commands go
+    usleep(2000);
+    for (auto p : joints) {
+        ((ActuatedJoint *)p)->enable();
     }
     return returnValue;
 }
