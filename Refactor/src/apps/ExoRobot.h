@@ -1,14 +1,11 @@
 /**
  * The <code>ExoRobot</code> class represents an ExoSkeleton Robot in terms of its 
- * representation of the Alex exoskeleton hardware whose memory
- * is managed in this class.
- * 
+ * representation of the Alex exoskeleton hardware whose memory is managed in this class.
  * 
  * Version 0.1
  * Date: 07/04/2020
  *
  */
-/*Header Guard*/
 #ifndef EXOROBOT_H_INCLUDED
 #define EXOROBOT_H_INCLUDED
 

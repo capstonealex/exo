@@ -1,9 +1,9 @@
 /**
- * @file ExoTestState.h
- * @author Justin Fong
- * @brief Virtual Class to include all required classes for ExoTestStates
- * @version 0.1
- * @date 2020-05-07
+ * /file ExoTestState.h
+ * /author Justin Fong
+ * /brief Virtual Class to include all required classes for ExoTestStates
+ * /version 0.1
+ * /date 2020-05-07
  * 
  * @copyright Copyright (c) 2020
  * 
