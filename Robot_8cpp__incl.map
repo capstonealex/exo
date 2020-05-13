@@ -1,0 +1,7 @@
+<map id="Refactor/src/libs/robot/Robot.cpp" name="Refactor/src/libs/robot/Robot.cpp">
+<area shape="rect" id="node2" href="$Robot_8h.html" title="Robot.h" alt="" coords="227,95,298,121"/>
+<area shape="rect" id="node8" href="$DebugMacro_8h.html" title="DebugMacro.h" alt="" coords="352,95,467,121"/>
+<area shape="rect" id="node4" href="$InputDevice_8h.html" title="InputDevice.h" alt="" coords="208,169,317,196"/>
+<area shape="rect" id="node6" href="$Joint_8h.html" title="Joint.h" alt="" coords="341,169,403,196"/>
+<area shape="rect" id="node7" href="$TrajectoryGenerator_8h.html" title="Base class of Trajectory Generator. Will always be extended with specific implementations, and is relatively scarce, given the differences expected in the different trajectories. " alt="" coords="25,169,183,196"/>
+</map>

@@ -1,0 +1,29 @@
+<map id="Refactor/src/libs/robot/TrajectoryGenerator.h" name="Refactor/src/libs/robot/TrajectoryGenerator.h">
+<area shape="rect" id="node2" href="$DummyTrajectoryGenerator_8h.html" title="A trajectory generator to be used for testing purposes. " alt="" coords="1067,95,1315,136"/>
+<area shape="rect" id="node26" href="$Robot_8h.html" title="Refactor/src/libs/robot\l/Robot.h" alt="" coords="1339,95,1499,136"/>
+<area shape="rect" id="node28" href="$TrajectoryGenerator_8cpp.html" title="Base class of Trajectory Generator. Will always be extended with specific implementations. " alt="" coords="1523,95,1702,136"/>
+<area shape="rect" id="node3" href="$DummyTrajectoryGenerator_8cpp.html" title="Refactor/src/apps/DummyTrajectory\lGenerator.cpp" alt="" coords="906,184,1154,225"/>
+<area shape="rect" id="node4" href="$ExoRobot_8h.html" title="Refactor/src/apps/ExoRobot.h" alt="" coords="1273,191,1480,218"/>
+<area shape="rect" id="node11" href="$ExoTestState_8h.html" title="Refactor/src/apps/stateMachine\l/states/ExoTestState.h" alt="" coords="827,273,1049,315"/>
+<area shape="rect" id="node5" href="$application_8h.html" title="Refactor/src/apps/application.h" alt="" coords="1327,549,1544,575"/>
+<area shape="rect" id="node8" href="$ExoRobot_8cpp.html" title="Refactor/src/apps/ExoRobot.cpp" alt="" coords="1671,281,1893,307"/>
+<area shape="rect" id="node9" href="$ExoTestMachine_8h.html" title="Refactor/src/apps/stateMachine\l/ExoTestMachine.h" alt="" coords="881,452,1104,493"/>
+<area shape="rect" id="node23" href="$testRobot_8cpp.html" title="Refactor/src/tests\l/testRobot.cpp" alt="" coords="1074,273,1207,315"/>
+<area shape="rect" id="node24" href="$testSM_8cpp.html" title="Test for the statemachine class and associated classes: state, event and transition. " alt="" coords="1231,273,1365,315"/>
+<area shape="rect" id="node25" href="$testTraj_8cpp.html" title="Refactor/src/tests\l/testTraj.cpp" alt="" coords="1389,273,1522,315"/>
+<area shape="rect" id="node6" href="$application_8cpp.html" title="Refactor/src/apps/application.cpp" alt="" coords="1210,631,1442,657"/>
+<area shape="rect" id="node7" href="$main_8cpp.html" title="Refactor/src/main.cpp" alt="" coords="1466,631,1626,657"/>
+<area shape="rect" id="node10" href="$ExoTestMachine_8cpp.html" title="Refactor/src/apps/stateMachine\l/ExoTestMachine.cpp" alt="" coords="881,541,1104,583"/>
+<area shape="rect" id="node12" href="$ExoTestState_8cpp.html" title="Refactor/src/apps/stateMachine\l/states/ExoTestState.cpp" alt="" coords="5,363,228,404"/>
+<area shape="rect" id="node13" href="$InitState_8h.html" title="Refactor/src/apps/stateMachine\l/states/InitState.h" alt="" coords="252,363,475,404"/>
+<area shape="rect" id="node15" href="$Sitting_8h.html" title="Refactor/src/apps/stateMachine\l/states/Sitting.h" alt="" coords="745,363,968,404"/>
+<area shape="rect" id="node17" href="$SittingDwn_8h.html" title="Refactor/src/apps/stateMachine\l/states/SittingDwn.h" alt="" coords="1041,363,1264,404"/>
+<area shape="rect" id="node19" href="$Standing_8h.html" title="Refactor/src/apps/stateMachine\l/states/Standing.h" alt="" coords="1288,363,1511,404"/>
+<area shape="rect" id="node21" href="$StandingUp_8h.html" title="Refactor/src/apps/stateMachine\l/states/StandingUp.h" alt="" coords="499,363,721,404"/>
+<area shape="rect" id="node14" href="$InitState_8cpp.html" title="Refactor/src/apps/stateMachine\l/states/InitState.cpp" alt="" coords="141,452,364,493"/>
+<area shape="rect" id="node16" href="$Sitting_8cpp.html" title="Refactor/src/apps/stateMachine\l/states/Sitting.cpp" alt="" coords="635,452,857,493"/>
+<area shape="rect" id="node18" href="$SittingDwn_8cpp.html" title="Refactor/src/apps/stateMachine\l/states/SittingDwn.cpp" alt="" coords="1128,452,1351,493"/>
+<area shape="rect" id="node20" href="$Standing_8cpp.html" title="Refactor/src/apps/stateMachine\l/states/Standing.cpp" alt="" coords="1375,452,1597,493"/>
+<area shape="rect" id="node22" href="$StandingUp_8cpp.html" title="Refactor/src/apps/stateMachine\l/states/StandingUp.cpp" alt="" coords="388,452,611,493"/>
+<area shape="rect" id="node27" href="$Robot_8cpp.html" title="Generic Abstract Robot class, which includes joints and a trajectory generator, to be used with a CAN..." alt="" coords="1505,184,1665,225"/>
+</map>
