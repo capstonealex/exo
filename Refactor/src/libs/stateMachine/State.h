@@ -1,6 +1,12 @@
-//
-// Created by William Campbell on 2019-09-24.
-//
+/**
+ * \file State.h
+ * \author William Campbell 
+ * \version 0.1
+ * \date 2020-09-24
+ * For more detail on the architecture and mechanics of the state machine class see: https://embeded.readthedocs.io/en/latest/StaeMachines/.
+ * @copyright Copyright (c) 2020
+ * 
+ */
 
 #ifndef EXO_STATE_H
 #define EXO_STATE_H
@@ -18,7 +24,7 @@ class Transition;
 /* Forward declarations*/
 
 /**
- * @brief Abstract class representing a state in a StateMachine
+ * \brief Abstract class representing a state in a StateMachine
  * 
  */
 class State {

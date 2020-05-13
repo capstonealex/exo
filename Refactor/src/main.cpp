@@ -13,8 +13,9 @@
  * <https://github.com/CANopenNode/CANopenSocket>. CANopenSocket is based
  * on CANopenNode: <https://github.com/CANopenNode/CANopenNode>.
  *
- * The adaptation is specifically designed for use with the Alex exoskeleton.
- * It can be addapted for use with other CANopen enabled linux based robotic projects.
+ * The adaptation is specifically designed for use with the RobotCANControl design stack and
+ * a multi limbed robot. It has been tested using a Beagle Bone black and the Fourier Intelligence X2 
+ * exoskelton in a lab testing setting.It can be addapted for use with other CANopen enabled linux based robotic projects.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

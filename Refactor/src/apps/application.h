@@ -1,26 +1,29 @@
 /**
- * Application interface for ALEX exoskeleton main.
+ * Application interface for RobotCANControl main.
  *
- * @file        application.h
- * @author      William Campbell
+ * /file        application.h
+ * /author      William Campbell
  *
- * This file is part of AlexOpen, a Linux implementation of CANopen
+ * This file is an adaptation of CANopenSocket, a Linux implementation of CANopen
  * stack with master functionality. Project home page is
  * <https://github.com/CANopenNode/CANopenSocket>. CANopenSocket is based
  * on CANopenNode: <https://github.com/CANopenNode/CANopenNode>.
  *
- * CANopenSocket is free and open source software: you can redistribute
- * it and/or modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation, either version 2 of the
- * License, or (at your option) any later version.
+ * The adaptation is specifically designed for use with the RobotCANControl design stack and
+ * a multi limbed robot. It has been tested using a Beagle Bone black and the Fourier Intelligence X2 
+ * exoskelton in a lab testing setting.It can be addapted for use with other CANopen enabled linux based robotic projects.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #include <errno.h>
